@@ -60,6 +60,7 @@ correct theme import. (for Vaadin Elements that `/theme/[themeName]` is used)
 
 [source,java]
 ----
+@HtmlImport("frontend://bower_components/vaadin-lumo-styles/color.html")
 public class MyTheme implements AbstractTheme {
     @Override
     public String getBaseUrl() {
@@ -73,8 +74,8 @@ public class MyTheme implements AbstractTheme {
 }
 ----
 
-For more control there is `getHeadInlineContents()` and `getBodyInlineContents()` that returns a collection of html
-that will be inlined to the BootstrapPage head. this could return for instance add a
+For more control there is `getBodyInlineContents()` that returns a collection of html
+that will be inlined to the BootstrapPage head. For instance, it can be used to add a
 custom style to have the correct typography e.g.
 `<custom-style><style include="lumo-typography"></style></custom-style>`
 
@@ -85,22 +86,10 @@ https://github.com/vaadin/vaadin-button/blob/master/theme/lumo/vaadin-button.htm
 The themed files should be stored to
 `${frontend.working.directory}/bower_components/{component}/theme/myTheme` which would by default for vaadin-button be `src/main/webapp/frontend/bower_components/vaadin-button/theme/myTheme/vaadin-button.html`
 
+If you need to import some theme-specific files, use `@HtmlImport` as shown in the example above:
+ `@HtmlImport("frontend://bower_components/vaadin-lumo-styles/color.html")`
 
-If you need in your theme to import some files that are found using for instance the uri scheme `frontend://`
-then AbstractTheme has a method override `getHeadInlineContents(VaadinUriResolver resolver)`
-which makes it possible to resolve the uri scheme.
-
-.Import link for a "frontend://" file
-[source,java]
-----
-@Override
-public List<String> getHeadInlineContents(VaadinUriResolver resolver) {
-    String colorUrl = resolver.resolveVaadinUri("frontend://bower_components/vaadin-lumo-styles/color.html");
-    List<String> contents = new ArrayList<>();
-    contents.add("<link rel=\"import\" href=\"" + colorUrl + "\">");
-    return contents;
-}
-----
+Each of those html imports will be inlined to the BootstrapPage head, same as html from `getBodyInlineContents()`.
 
 [NOTE]
 In the case where an exception navigation chain doesn't get the used `Theme` the
