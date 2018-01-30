@@ -76,8 +76,16 @@ public class MyTheme implements AbstractTheme {
 
 For more control there is `getBodyInlineContents()` that returns a collection of html
 that will be inlined to the BootstrapPage head. For instance, it can be used to add a
-custom style to have the correct typography e.g.
-`<custom-style><style include="lumo-typography"></style></custom-style>`
+custom style to have the correct typography:
+[source,java]
+----
+@Override
+public List<String> getBodyInlineContents() {
+    return Collections.singletonList("<custom-style>\n"
+            + "    <style include=\"lumo-color lumo-typography\"></style>\n"
+            + "</custom-style>");
+}
+----
 
 Then you need to create the themed .html files for the elements for an example see:
 https://github.com/vaadin/vaadin-button/blob/master/theme/lumo/vaadin-button.html[Themed Vaadin Button]

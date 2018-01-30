@@ -15,6 +15,9 @@
  */
 package com.vaadin.flow.tutorial.theme;
 
+import java.util.Collections;
+import java.util.List;
+
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
@@ -56,6 +59,11 @@ public class ComponentTheme {
             return "/theme/myTheme/";
         }
 
+        @Override
+        public List<String> getBodyInlineContents() {
+            return Collections.singletonList("<custom-style>\n"
+                    + "    <style include=\"lumo-color lumo-typography\"></style>\n"
+                    + "</custom-style>");
+        }
     }
-
 }
