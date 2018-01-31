@@ -15,13 +15,13 @@
  */
 package com.vaadin.flow.tutorial.theme;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLayout;
-import com.vaadin.flow.shared.VaadinUriResolver;
 import com.vaadin.flow.theme.AbstractTheme;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
@@ -47,6 +47,7 @@ public class ComponentTheme {
     public class BlogPost extends Div {
     }
 
+    @HtmlImport("frontend://bower_components/vaadin-lumo-styles/color.html")
     public class MyTheme implements AbstractTheme {
         @Override
         public String getBaseUrl() {
@@ -59,12 +60,10 @@ public class ComponentTheme {
         }
 
         @Override
-        public List<String> getHeadInlineContents(VaadinUriResolver resolver) {
-            String colorUrl = resolver.resolveVaadinUri("frontend://bower_components/vaadin-lumo-styles/color.html");
-            List<String> contents = new ArrayList<>();
-            contents.add("<link rel=\"import\" href=\"" + colorUrl + "\">");
-            return contents;
+        public List<String> getBodyInlineContents() {
+            return Collections.singletonList("<custom-style>\n"
+                    + "    <style include=\"lumo-color lumo-typography\"></style>\n"
+                    + "</custom-style>");
         }
     }
-
 }
