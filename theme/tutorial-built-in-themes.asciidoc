@@ -8,15 +8,9 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Component themes
 
-The flow wrapped Vaadin Element components import by default an un-themed version
-of the element.
+By default Flow imports components without any theme. To use themed components add `Theme` annotation to your navigation target with @Route (see below). You can also add `Theme` annotation to your root level RouterLayout.
 
-To get a themed element just add the `Theme` annotation the navigation target with
-@Route or the top most RouterLayout that builds the navigation target chain. This
-will update the imported element on the fly to be the correct import for the themed version.
-
-Each root `RouterLayout` may in principle define its own theme, but it is not recommended
-as any bootstrap addition the later loaded theme would use would not be added nor used.
+Each root `RouterLayout` can define it's own theme. This is not recommended though as any bootstrap addition may lead theme not to be used.
 
 .Sample setup for single view setup to get Lumo themed components
 [source,java]
