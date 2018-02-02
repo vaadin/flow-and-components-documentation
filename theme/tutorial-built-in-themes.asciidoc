@@ -8,15 +8,9 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Component themes
 
-The flow wrapped Vaadin Element components import by default an un-themed version
-of the element.
+By default Flow imports components without any theme. To use themed components add `Theme` annotation to your navigation target with @Route (see below). You can also add `Theme` annotation to your root level RouterLayout.
 
-To get a themed element just add the `Theme` annotation the navigation target with
-@Route or the top most RouterLayout that builds the navigation target chain. This
-will update the imported element on the fly to be the correct import for the themed version.
-
-Each root `RouterLayout` may in principle define its own theme, but it is not recommended
-as any bootstrap addition the later loaded theme would use would not be added nor used.
+Each root `RouterLayout` can define it's own theme. This is not recommended though as any bootstrap addition may lead theme not to be used.
 
 .Sample setup for single view setup to get Lumo themed components
 [source,java]
@@ -60,6 +54,7 @@ correct theme import. (for Vaadin Elements that `/theme/[themeName]` is used)
 
 [source,java]
 ----
+@HtmlImport("frontend://bower_components/vaadin-lumo-styles/color.html")
 public class MyTheme implements AbstractTheme {
     @Override
     public String getBaseUrl() {
@@ -73,10 +68,18 @@ public class MyTheme implements AbstractTheme {
 }
 ----
 
-For more control there is `getHeadInlineContents()` and `getBodyInlineContents()` that returns a collection of html
-that will be inlined to the BootstrapPage head. this could return for instance add a
-custom style to have the correct typography e.g.
-`<custom-style><style include="lumo-typography"></style></custom-style>`
+For more control there is `getBodyInlineContents()` that returns a collection of html
+that will be inlined to the BootstrapPage body. For instance, it can be used to add a
+custom style to have the correct typography:
+[source,java]
+----
+@Override
+public List<String> getBodyInlineContents() {
+    return Collections.singletonList("<custom-style>\n"
+            + "    <style include=\"lumo-color lumo-typography\"></style>\n"
+            + "</custom-style>");
+}
+----
 
 Then you need to create the themed .html files for the elements for an example see:
 https://github.com/vaadin/vaadin-button/blob/master/theme/lumo/vaadin-button.html[Themed Vaadin Button]
@@ -85,19 +88,12 @@ https://github.com/vaadin/vaadin-button/blob/master/theme/lumo/vaadin-button.htm
 The themed files should be stored to
 `${frontend.working.directory}/bower_components/{component}/theme/myTheme` which would by default for vaadin-button be `src/main/webapp/frontend/bower_components/vaadin-button/theme/myTheme/vaadin-button.html`
 
+If you need to import some theme-specific files, use `@HtmlImport` as shown in the example above:
+ `@HtmlImport("frontend://bower_components/vaadin-lumo-styles/color.html")`
 
-If you need in your theme to import some files that are found using for instance the uri scheme `frontend://`
-then AbstractTheme has a method override `getHeadInlineContents(VaadinUriResolver resolver)`
-which makes it possible to resolve the uri scheme.
+Each of those html imports will be added to the BootstrapPage head.
 
-.Import link for a "frontend://" file
-[source,java]
-----
-@Override
-public List<String> getHeadInlineContents(VaadinUriResolver resolver) {
-    String colorUrl = resolver.resolveVaadinUri("frontend://bower_components/vaadin-lumo-styles/color.html");
-    List<String> contents = new ArrayList<>();
-    contents.add("<link rel=\"import\" href=\"" + colorUrl + "\">");
-    return contents;
-}
-----
+[NOTE]
+In the case where an exception navigation chain doesn't get the used `Theme` the
+exception navigation target can be annotated with `@NoTheme` so that
+a warning is not logged for missing theme.

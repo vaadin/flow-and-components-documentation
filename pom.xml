@@ -2,21 +2,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.vaadin</groupId>
-        <artifactId>flow-project</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
+    <groupId>com.vaadin</groupId>
     <artifactId>flow-documentation</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <name>Tutorials' code</name>
     <description>Module containing tutorials' code</description>
     <packaging>jar</packaging>
 
     <properties>
-        <!-- Coding style checks do not make sense for out-of-context chunks 
-            of tutorial code -->
-        <sonar.skip>true</sonar.skip>
-        <maven.deploy.skip>true</maven.deploy.skip>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <repositories>
@@ -26,39 +23,51 @@
         </repository>
     </repositories>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-webjars-bom</artifactId>
+                <type>pom</type>
+                <scope>import</scope>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>flow-server</artifactId>
-            <version>${project.parent.version}</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-lumo-theme</artifactId>
-            <version>${project.parent.version}</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>flow-html-components</artifactId>
-            <version>${project.parent.version}</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>flow-generated-components</artifactId>
-            <version>${project.version}</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>flow-spring-addon</artifactId>
-            <version>${project.parent.version}</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -125,19 +134,15 @@
 
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.25</version>
         </dependency>
 
         <!-- webJars -->
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>paper-styles</artifactId>
+            <version>2.0.0</version>
         </dependency>
 
         <dependency>
@@ -149,6 +154,7 @@
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>paper-input</artifactId>
+            <version>2.0.0</version>
         </dependency>
 
         <dependency>
@@ -166,6 +172,7 @@
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>paper-progress</artifactId>
+            <version>2.0.1</version>
         </dependency>
 
         <dependency>
@@ -214,6 +221,11 @@
             <groupId>org.webjars.bower</groupId>
             <artifactId>iron-icons</artifactId>
             <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
         </dependency>
     </dependencies>
 
