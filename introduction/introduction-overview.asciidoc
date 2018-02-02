@@ -194,7 +194,7 @@ it's also possible to use the `Template` component to define the overall DOM str
 In addition to giving a clearer overview of the structure of a Component, the template functionality does also help improve performance –
 the same template definition is reused for all component instance using the same template file. This means that less memory is used on the server and less data needs to be sent to the browser.
 
-== Building a Hello World with Flow
+== NEXT: Getting Started with Vaadin Flow
 
-<<tutorial-hello-world#,The next page>> shows the simples possible way of building a Hello World application with Flow.
+<<tutorial-get-started#,The next chapter>> shows how to build your first application with Vaadin Flow.
 

@@ -80,8 +80,8 @@ public class BinderLoadSave {
             boolean isValid = event.getBinder().isValid();
             boolean hasChanges = event.getBinder().hasChanges();
 
-            saveButton.setDisabled(!hasChanges || !isValid);
-            resetButton.setDisabled(!hasChanges);
+            saveButton.setEnabled(!hasChanges || !isValid);
+            resetButton.setEnabled(!hasChanges);
         });
     }
 

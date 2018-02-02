@@ -15,11 +15,6 @@
  */
 package com.vaadin.flow.tutorial.components;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.ColumnGroup;
 import com.vaadin.flow.component.grid.Grid;
@@ -34,6 +29,11 @@ import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.renderer.TemplateRenderer;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.databinding.Person;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @CodeFor("components/tutorial-flow-grid.asciidoc")
 public class GridBasic {
@@ -116,7 +116,7 @@ public class GridBasic {
                     event.getRemovedSelection().size()));
 
             // Allow deleting only if there's any selected
-            deleteSelected.setDisabled(event.getNewSelection().isEmpty());
+            deleteSelected.setEnabled(event.getNewSelection().isEmpty());
         });
     }
 

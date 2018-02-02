@@ -176,7 +176,7 @@ selectionModel.addMultiSelectionListener(event -> {
             event.getRemovedSelection().size()));
 
     // Allow deleting only if there's any selected
-    deleteSelected.setDisabled(event.getNewSelection().isEmpty());
+    deleteSelected.setEnabled(event.getNewSelection().isEmpty());
 });
 ----
 

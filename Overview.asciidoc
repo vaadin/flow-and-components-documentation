@@ -23,7 +23,6 @@ This is the documentation for Vaadin Flow. It is divided into the following subs
 
 == Introduction and Getting Started
 ** <<introduction/introduction-overview#,Introduction to Vaadin Flow>>
-** <<introduction/tutorial-hello-world#,Building a Hello World Application>>
 ** <<introduction/tutorial-get-started#,Getting Started>>
 
 == Router and Navigation
