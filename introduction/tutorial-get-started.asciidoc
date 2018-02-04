@@ -1,6 +1,6 @@
 ---
 title: Vaadin Tutorial
-order: 3
+order: 2
 layout: page
 subnav_auto_list_numbers: true
 subnav:
@@ -78,21 +78,21 @@ various packages; be sure to download the *Eclipse IDE for Java EE Developers*
 from http://www.eclipse.org/downloads/[eclipse.org].
 
 [[flow.tutorial.archetype]]
-== Creating a Project from an App Starter
+== Starting a Project with the Skeleton Starter
 
 // The following video shows how to do this step of the tutorial:
 
 // video::Alejandro[youtube, width="640", height="400"]
 
 As the starting point for the application, we use a Vaadin App Starter called
-Skeleton Starter App. App Starters are project stubs that have dependencies set
+Skeleton Starter Flow. Skeleton Starters are project stubs that have dependencies set
 up, and may include some example code.
 
 . Start by pointing your browser at https://vaadin.com/start[Vaadin Start]
 
 . Pick Vaadin 10 as the version
 
-. Select the Skeleton Starter App by clicking it
+. Select the Skeleton Starter Flow by clicking it
 
 . Enter the following values to as application parameters. You may have to
 scroll down a bit to see the fields.
@@ -135,7 +135,7 @@ You can browse your project resources from the tree structure in the
 [guilabel]#Project Explorer#. Maven's [filename]#pom.xml# on top level contains
 settings for building your project and declares the used dependencies. Open
 [guilabel]#Java Resources# and below it [filename]#src/main/java#, the main source
-directory, and [packagename]#com.vaadin.flow.demo.helloworkd#, the main Java
+directory, and [packagename]#com.vaadin.flow.demo.helloworld#, the main Java
 package that will contain your Vaadin UI code.
 
 [TIP]
@@ -149,32 +149,41 @@ The Java code of the application stub main view can be found in the
 
 [source,java]
 ----
-@HtmlImport("styles.html")
+@HtmlImport("styles/shared-styles.html")
 @Route("")
+@Theme(Lumo.class)
+@BodySize(height = "100vh", width = "100vw")
 public class MainView extends VerticalLayout {
+
     public MainView() {
         ExampleTemplate template = new ExampleTemplate();
 
-        Button button = new Button("Click me",
-                event -> template.setValue("Clicked!"));
+        Button button = new Button("Click me", event -> template.setValue("Clicked!"));
 
         add(button, template);
     }
 }
 ----
 
-The [classname]#@HtmlImport("styles.html")# annotation specifies the HTML file which
+The [classname]#@HtmlImport("styles/shared-styles.html")# annotation specifies the HTML file which
 includes the look and feel of the application. You can find this file in the folder
-[filename]#src/main/webapp/frontend#. There is also a second annotation,
-[classname]#@Route("")#, which tells Vaadin Flow to direct all requests to this view.
+[filename]#src/main/webapp/frontend/styles/#. The second annotation,
+[classname]#@Route("")#, tells Vaadin Flow to direct all requests to this view.
 A default Vaadin servlet is registered behind the scenes based on this annotation.
-You can define your own servlet if you need one, but the default one is usually
-sufficient.
 
-The servlet instantiates this class when a user enters your web app. When this
-happens, the constructor initialises the UI structure. In this case, the main view
+You can define your own servlet if you need one, but the default one is usually
+sufficient. In the Skeleton Starter there is an example of servlet definition,
+even though it is not needed. The servlet instantiates this class when a user enters your web app.
+When this happens, the constructor initialises the UI structure. In this case, the main view
 inherits from [classname]#VerticalLayout# which is one of the most used layout
 components. Layouts are used to position and display other components.
+
+The third annotation, [classname]#@Theme("Lumo.class")#, defines the component theme to use.
+Using this annotation on the root level navigation target or root layout will enable the Lumo theme
+for all used Vaadin Elements automatically. You can read more about Web Component themes and Lumo from https://vaadin.com/themes.
+
+Finally, the third annotation [classname]#@BodySize(height = "100vh", width = "100vw")#
+defines the _styles_ that are set to the `<body>` element to make it resize nicely on all devices.
 
 In the main view we have a template (more on it in a bit) that shows
 some text, and a button that, when clicked, modifies the value displayed by the
@@ -192,7 +201,7 @@ Let's take a look at [classname]#ExampleTemplate.java# next.
 [source,java]
 ----
 @Tag("example-template")
-@HtmlImport("ExampleTemplate.html")
+@HtmlImport("src/example-template.html")
 public class ExampleTemplate extends PolymerTemplate<ExampleModel> {
     /**
      * Template model which defines the single "value" property.
@@ -206,7 +215,10 @@ public class ExampleTemplate extends PolymerTemplate<ExampleModel> {
         getModel().setValue("Not clicked");
     }
 
-    public void setValue(String value) {
+    /*
+     * Allow setting the value property from outside of the class.
+     */
+     public void setValue(String value) {
         getModel().setValue(value);
     }
 }
@@ -215,10 +227,14 @@ public class ExampleTemplate extends PolymerTemplate<ExampleModel> {
 This Java class will serve as the server side controller of a Polymer template
 that will live in the browser. We again start with some annotations. The first one,
 [classname]#@Tag("example-template")# specifies the tag name for the custom
-element representing the template. The next one,
-[classname]#@HtmlImport("ExampleTemplate.html")# tells Vaadin Flow where the
-corresponding HTML file can be found from. Again, the file can be found in the
-[filename]#src/main/webapp/frontend# folder.
+element representing the template.
+
+The next one, [classname]#@HtmlImport("src/example-template.html")# specifies where the
+corresponding HTML file can be found from. The file path is in relation to the
+[filename]#src/main/webapp/frontend# folder, and it is recommended that you place your
+templates inside a [filename]#src# and split it further into components, views etc.
+
+Also you should note the recommended way of hyphenizing the template file name compared to the Java class.
 
 The Java template inherits from [classname]#PolymerTemplate#. It needs to be
 parameterised with a [classname]#Model# that describes all properties that are
@@ -345,8 +361,10 @@ likely want to refer to it later. Also, let us get a reference to our
 
 [source, java]
 ----
-@HtmlImport("styles.html")
+@HtmlImport("styles/shared-styles.html")
 @Route("")
+@Theme(Lumo.class)
+@BodySize(height = "100vh", width = "100vw")
 public class MainView extends VerticalLayout {
     // Add the next two lines:
     private CustomerService service = CustomerService.getInstance();
@@ -396,16 +414,6 @@ public void updateList() {
 }
 ----
 
-If you try the application now, you'll see a Grid with a bunch of customers, but
-the look and feel is very drab. Vaadin Flow comes with a powerful theme engine
-called Valo, so let's use its look and feel. Open the style file
-[filename]#src/main/webapp/frontend/styles.html# and add the following line at
-the head of the file:
-
-[source,html]
-----
-<link rel="import" href="bower_components/vaadin-valo-theme/vaadin-grid.html">
-----
 
 At this point the body of the MainView class should look like this:
 
@@ -459,7 +467,7 @@ not important, but add them, for example, at the beginning of the constructor.
 
 [source,java]
 ----
-filterText.setPlaceholder("filter by name...");
+filterText.setPlaceholder("Filter by name...");
 filterText.addValueChangeListener(e -> updateList());
 ----
 
@@ -518,14 +526,6 @@ to add both `filtering` composition and the grid to the main view.
 [source,java]
 ----
 add(filtering, grid);
-----
-
-As the last step, let's give the awesome Valo looks to our text field. Add to the
-following to [filename]#src/main/webapp/frontend/styles.html# as before:
-
-[source,html]
-----
-<link rel="import" href="bower_components/vaadin-valo-theme/vaadin-text-field.html">
 ----
 
 Now it is a good time to save your changes and try them out in your browser!
@@ -784,7 +784,7 @@ https://github.com/hezamuy/flow-tutorial[the final application] from Github.
 == Customizing the look and feel with CSS
 
 Styling Vaadin Flow applications is easy, we can just add whatever CSS directives
-we wish into the style file [filename]#src/main/webapp/frontend/styles.html#. For
+we wish into the style file [filename]#src/main/webapp/frontend/styles/shared-styles.html#. For
 example, to make the UI feel a bit more airy, add the following lines just before
 `</style>` closing tag:
 
