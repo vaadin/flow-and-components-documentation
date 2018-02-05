@@ -8,7 +8,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 = Taking your app into production
 
 As mentioned in <<tutorial-webcomponents-es5#,Serving ES5 Web Components to older browsers with Polymer 2>> 
-tutorial transpilation to to ECMAScript 5 is required to use an application with browsers that don't support ES6.
+tutorial transpilation to ECMAScript 5 is required to use an application with browsers that don't support ES6.
 You may also want to optimize web files (reduce a number of files and optimize their content) via bundling.
 In this case we provide `flow-maven-plugin` which sets up the project for the production mode.
 It simplifies the steps described in <<tutorial-webcomponents-es5#,Serving ES5 Web Components to older browsers with Polymer 2>> 
@@ -25,6 +25,7 @@ mvn jetty:run -Dvaadin.productionMode
 ----
 
 The `flow-maven-plugin` plugin has two goals:
+
 * `copy-production-files` goal. Copies web files to the target directory that is used by Flow in production mode.
 * `package-for-production` goal. Transpile, minify and bundle web files.
 
@@ -75,7 +76,8 @@ The goal parameters are:
     The application's directory to copy files from.
 
 After the goal is complete, the web files required by an application to work properly are copied into the `copyOutputDirectory`.
-Files are copied from: 
+Files are copied from:
+
 * WebJars that are in the project's dependencies: all directories in any WebJar that contain `bower.json` will be copied to the output.
 * regular jars, all files from `META-INF/resources/frontend` directories inside of a jar, if present
 * `frontendWorkingDirectory`
@@ -88,8 +90,10 @@ The intention of the goal is to process application web files in order to optimi
 In order to process the files, special frontend tools are downloaded. The tools are: `node`, `yarn`, `gulp` and a set of libraries required by `gulp` that are installed with `yarn`.
 If any error occurs during the actual processing, it is logged, but the processing does not stop.
 The goal produces two sets of files:
+
 * ES6 set, for modern browsers
 * ES5 set, for old browsers that do not support ES6 (optional, can be turned off if not needed)
+
 Both sets are used by Flow depending on the browser type.
 
 The goal parameters are:
@@ -137,6 +141,7 @@ The goal parameters are:
     
 After the goal is complete, the files from `transpileEs6SourceDirectory` are processed. 
 It results in:
+
 * `transpileOutputDirectory/es6OutputDirectoryName` with all files from `transpileEs6SourceDirectory` copied into it 
 and with all `$$*.css$$`, `$$*.js$$` and `$$*.html$$` additionally optimized for production usage.
 * If not configured to be skipped, `transpileOutputDirectory/es5OutputDirectoryName` with all files from `transpileEs6SourceDirectory` copied into it 
@@ -184,7 +189,7 @@ An example bundle configuration is given below, where three fragments are define
 Fragments are configured by adding `<fragments>` to the configuration of the plugin.
 Each fragment should have its name and at least one file specified.
 
- ```xml
+```xml
 <plugin>
     <groupId>com.vaadin</groupId>
     <artifactId>flow-maven-plugin</artifactId>
