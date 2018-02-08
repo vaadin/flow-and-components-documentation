@@ -85,6 +85,7 @@ and keep the page state intact. The following tutorials explain how to use the R
 * <<web-components/tutorial-flow-webjars#,Webjars in Flow>>
 * <<web-components/tutorial-how-to-use-webjars#,How to use Webjars>>
 * <<web-components/tutorial-flow-maven-plugin#,Taking your app into production>>
+* <<web-components/tutorial-utorial-webcomponents-bower#,Using bower to make available a web component as a web resource>>
 
 == Creating Polymer Templates
 * <<polymer-templates/tutorial-template-basic#,Creating A Simple Component Using the Template API>>
