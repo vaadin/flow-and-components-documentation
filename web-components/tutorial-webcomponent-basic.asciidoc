@@ -53,7 +53,7 @@ Maven example:
 Please see <<tutorial-flow-webjars#,Webjars in Flow>> tutorial explaining all details about webjars.
 
 [NOTE]
-Another (outdated) way to make the web component files available as a web resource is described in <<tutorial-utorial-webcomponents-bower#,Using bower to make available a web component as a web resource>>
+Another (outdated) way to make the web component files available as a web resource is described in <<tutorial-webcomponents-bower#,Using bower to make available a web component as a web resource>>
 
 With this basic integration, you can use add the `PaperSlider` class to a view to see that it works:
 [source,java]

@@ -1,6 +1,6 @@
 ---
 title: WebJars in Flow
-order: 5
+order: 4
 layout: page
 ---
 

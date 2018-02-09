@@ -81,11 +81,11 @@ and keep the page state intact. The following tutorials explain how to use the R
 * <<web-components/tutorial-webcomponent-basic#,Basic Integration of a Polymer Web Component>>
 * <<web-components/tutorial-webcomponent-attributes-and-properties#,Using Attributes and Properties with a Polymer Web Component>>
 * <<web-components/tutorial-webcomponent-events#,Using Events with a Polymer Web Component>>
-* <<web-components/tutorial-webcomponents-es5#,Serving ES5 Web Components to older browsers with Polymer 2>>
 * <<web-components/tutorial-flow-webjars#,Webjars in Flow>>
 * <<web-components/tutorial-how-to-use-webjars#,How to use Webjars>>
 * <<web-components/tutorial-flow-maven-plugin#,Taking your app into production>>
-* <<web-components/tutorial-utorial-webcomponents-bower#,Using bower to make available a web component as a web resource>>
+* <<web-components/tutorial-webcomponents-bower#,Using bower to make available a web component as a web resource>>
+* <<web-components/tutorial-webcomponents-es5#,Serving ES5 Web Components to older browsers with Polymer 2>>
 
 == Creating Polymer Templates
 * <<polymer-templates/tutorial-template-basic#,Creating A Simple Component Using the Template API>>

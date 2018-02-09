@@ -1,6 +1,6 @@
 ---
 title: Using bower to make available a web component as a web resource
-order: 8
+order: 7
 layout: page
 ---
 
