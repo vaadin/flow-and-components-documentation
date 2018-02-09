@@ -1,18 +1,27 @@
 ---
 title: Taking your app into production
-order: 7
+order: 6
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 = Taking your app into production
 
-As mentioned in <<tutorial-webcomponents-es5#,Serving ES5 Web Components to older browsers with Polymer 2>> 
-tutorial transpilation to ECMAScript 5 is required to use an application with browsers that don't support ES6.
+According to the native custom element specification, ECMAScript 6 is required
+to define webcomponents. But when deploying an application to IE11 and Safari 9,
+ you need to transpile the files to ECMAScript 5 (ES5 for short), since those
+browsers don't support ECMAScript 6.
+
+[TIP]
+Transpilation in current context is converting ES6 JavaScript code to ES5 that is performed for older browsers be able to run it.
+
 You may also want to optimize web files (reduce a number of files and optimize their content) via bundling.
 In this case we provide `flow-maven-plugin` which sets up the project for the production mode.
-It simplifies the steps described in <<tutorial-webcomponents-es5#,Serving ES5 Web Components to older browsers with Polymer 2>> 
-tutorial.
+
+[NOTE]
+The plugin simplifies the steps described in <<tutorial-webcomponents-es5#,Serving ES5 Web Components to older browsers with Polymer 2>> 
+tutorial which should be considered as a deprecated way to do the same things. But you may look into this tutorial 
+to understand what's going on under the hood of the plugin.
 
 To be able to build the application for production the web files should be 
 transpiled and copied into the directory that is used by Flow in production mode to serve files from.

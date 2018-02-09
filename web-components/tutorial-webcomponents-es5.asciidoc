@@ -1,43 +1,45 @@
 ---
 title: Serving ECMAScript 5 webcomponents with Polymer 2
-order: 4
+order: 8
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 = Serving ECMAScript 5 webcomponents with Polymer 2
 
-According to the native custom element specification, ECMAScript 6 is required
-to define webcomponents. But when deploying an application to IE11 and Safari 9,
- you need to transpile the files to ECMAScript 5 (ES5 for short), since those
-browsers don't support ECMAScript 6. Luckily there's a library that can transpile
-and optimize the ES6 files to ES5, which is provided by the Polymer project:
-polymer-build.
-
-[TIP]
-Transpilation in current context is converting ES6 JavaScript code to ES5 that is performed for older browsers be able to run it
+As mentioned in the <<tutorial-flow-maven-plugin#,Taking your app into production>>
+tutorial transpilation to ECMAScript 5 is required to use an application with browsers that don’t support ES6.  
+Luckily there's a library that can transpile and optimize the ES6 files to ES5, which is provided by the Polymer project:
+`polymer-build`.
 
 [TIP]
 The same library can also be used to optimize ES6 scripts, by using minification.
 
 == Project structure
 
-After following the steps described in <<tutorial-webcomponent-basic#,Basic Integration of a Polymer Web Component>>
-the project has `bower.json`, `package.json` files and `bower_components` folder with all web components and their dependencies in `${frontend.working.directory}` folder.
-You can also have a separate folder for your static files with other html/css/js files, usually that one is located in `src/main/webapp/` folder of the application.
+You will need `bower.json`, `package.json` files and `bower_components` folder with all web components and their dependencies in `${frontend.working.directory}` folder.
+<<web-components/tutorial-webcomponents-bower#,Using bower to make available a web component as a web resource>> tutorial
+explains the content of those files and the way how to fetch web components into
+`bower_components` via `bower`.
+In this example `src/main/resources/META-INF/resources/` directory will be used for web resources instead of `src/main/webapp`
+to make possible package the project also as JAR (in case of WAR this folder will be set as a web resource). 
+You can also have a separate folder for your static files with other html/css/js files, usually that one is located in 
+web resources folder of the application (which is `src/main/resources/META-INF/resources/` in our case).
 We will consider this folder further, since the code from there would like to use dependencies from `${frontend.working.directory}/bower_components` folder.
 
-If we consider `${frontend.working.directory}` to be located at `src/main/webapp/frontend`, we get the following structure:
+If we consider `${frontend.working.directory}` to be located at `src/main/resources/META-INF/resources/frontend`, we get the following structure:
 
 * project-root/
 ** src/main/
 *** java/ - Your Java code
-*** webapp/ - Static files not associated to webcomponents (such as images, favicon, files for download and so on)
-**** static_file.js – should be able to reference files from `bower_components`
-**** frontend/ - Root path of your webcomponents
-***** bower_components/ - `bower` output directory containing all web components declared in `bower.json`
-***** bower.json - a file with dependencies' declaration
-***** package.json - a file for automatic `bower` downloading
+*** resources/ - Resources root of your Java application
+**** META-INF/ - META-INF folder
+***** resources/ - Resources folder, static files not associated to webcomponents (such as images, favicon, files for download and so on)
+****** static_file.js – should be able to reference files from `bower_components`
+****** frontend/ - Root path of your webcomponents
+******* bower_components/ - `bower` output directory containing all web components declared in `bower.json`
+******* bower.json - a file with dependencies' declaration
+******* package.json - a file for automatic `bower` downloading
 ** src/test/java/ - Your tests
 ** target/ - Your output directory
 ** pom.xml - Your project definition Maven file
@@ -49,7 +51,7 @@ In your `${frontend.working.directory}` directory, you have to update `package.j
 
 ==== package.json
 
-Initial file state is described in <<tutorial-webcomponent-basic#,Basic Integration of a Polymer Web Component>>
+Initial file state is described in <<web-components/tutorial-webcomponents-bower#,Using bower to make available a web component as a web resource>>
 We have added and `polymer-cli` dependencies that will process our web files and have added two tasks: `prodMode` and `devMode`
 Both tasks run `bower install` to install dependencies from `bower.json` and `prodMode` also runs `polymer build` that
 uses installed `polymer-cli` tool to transpile the sources to ES5:.
@@ -190,16 +192,16 @@ After all changes and package being run, the project structure would be the foll
 * project-root/
 ** src/main/
 *** java/ - Your Java code
-*** webapp/ - Static files not associated to webcomponents (such as images, favicon, files for download and so on)
-**** static_file.js – should be able to reference files from `bower_components`
-**** frontend/ - Root path of your webcomponents
-***** bower_components/ - `bower` output directory containing all web components declared in `bower.json`
-***** bower.json - a file with dependencies' declaration
-***** package.json - a file for automatic `bower` downloading
-***** polymer.json - a file that describes how the resources should be processed (minified and/or transpiled)
-***** index.html - a file that contains urls to all dependencies that are needed to be processed
-***** build/frontend-es5/ - transpiled and minified files for older browsers
-***** build/frontend-es6/ - minified files for newer browsers
+*** resources/ - Resources root of your Java application
+**** META-INF/ - META-INF folder
+***** resources/ - Resources folder, static files not associated to webcomponents (such as images, favicon, files for download and so on)
+****** static_file.js – should be able to reference files from `bower_components`
+****** frontend/ - Root path of your webcomponents
+******* bower_components/ - `bower` output directory containing all web components declared in `bower.json`
+******* bower.json - a file with dependencies' declaration
+******* package.json - a file for automatic `bower` downloading
+******* build/frontend-es5/ - transpiled and minified files for older browsers
+******* build/frontend-es6/ - minified files for newer browsers
 ** src/test/java/ - Your tests
 ** target/ - Your output directory
 ** pom.xml - Your project definition Maven file
@@ -220,11 +222,11 @@ Jetty Plugin by using the `mvn jetty:run` command.
 [source,xml]
 ----
 <properties>
-  <frontend.working.directory>${project.basedir}/src/main/webapp/frontend</frontend.working.directory>
+  <frontend.working.directory>${project.basedir}/src/main/resources/META-INF/resources/frontend</frontend.working.directory>
 
-  <jetty.extra.resource.base>${frontend.working.directory}</jetty.extra.resource.base>
+  <jetty.extra.resource.base>${project.basedir}/src/main/resources/META-INF/resources</jetty.extra.resource.base>
   <npm.build.goal>run devMode</npm.build.goal>
-  <war.excludes>**/node_modules/,**/node/,**/build/,**/etc/</war.excludes>
+  <war.excludes>**/node_modules/,**/node/,**/build/,**/etc/,**/package.json,**/bower.json,**/polymer.json</war.excludes>
 </properties>
 
 <build>
@@ -295,7 +297,7 @@ Jetty Plugin by using the `mvn jetty:run` command.
                   <containerIncludeJarPattern>^$</containerIncludeJarPattern>
                   <resourceBases>
                       <resourceBase>${jetty.extra.resource.base}</resourceBase>
-                      <resourceBase>${project.basedir}src/main/webapp</resourceBase>
+                      <resourceBase>${project.basedir}/src/main/resources/META-INF/resources</resourceBase>
                   </resourceBases>
               </webAppConfig>
           </configuration>
@@ -320,6 +322,9 @@ Jetty Plugin by using the `mvn jetty:run` command.
                           <exclude>**/node/</exclude>
                           <exclude>**/node_modules/</exclude>
                           <exclude>**/etc/</exclude>
+                          <exclude>**/package.json</exclude>
+                          <exclude>**/bower.json</exclude>
+                          <exclude>**/polymer.json</exclude>
                       </excludes>
                   </resource>
               </webResources>
@@ -343,7 +348,7 @@ Jetty Plugin by using the `mvn jetty:run` command.
         <!-- Overrides properties that are different for produciton mode -->
         <npm.build.goal>run prodMode</npm.build.goal>
         <jetty.extra.resource.base>${frontend.working.directory}/build</jetty.extra.resource.base>
-        <war.excludes>**/frontend/bower_components/,**/node_modules/,**/node/,**/build/,**/etc/</war.excludes>
+        <war.excludes>**/frontend/bower_components/,**/node_modules/,**/node/,**/build/,**/etc/,**/package.json,**/bower.json,**/polymer.json</war.excludes>
     </properties>
 
     <!-- Makes the package run in production mode when deployed, without the need of setting extra properties on the server -->
@@ -357,6 +362,17 @@ Jetty Plugin by using the `mvn jetty:run` command.
   </profile>
 </profiles>
 ----
+
+The important things in this configuration are:
+
+* Folder `src/main/resources/META-INF/resources` (which is the value of `jetty.extra.resource.base` property) 
+is set as a web resource for Jetty plugin and maven WAR plugin in the default profile
+(so this folder will be used instead of `src/main/webapp`).
+* `jetty.extra.resource.base` property gets value `${frontend.working.directory}/build` in `productionMode` profile.
+
+When application is executed in production mode `frontend-es6` and `frontend-es5` folders 
+in web resources folder (which is `${frontend.working.directory}/build` in this case) 
+will be used to resolve HMTL import URLs. You can find details below.  
 
 [TIP]
 There is <<tutorial-flow-maven-plugin#,Taking your app into production>> tutorial available which shows how 
@@ -455,7 +471,8 @@ That way you can support ES5 browsers without compromising ES6 capable browsers.
 [NOTE]
 The differentiation between ES5 and ES6 paths only occur when `productionMode` is
 `true`. When running in debug (or development) mode, the `frontend://` protocol
-behaves exactly like the `context://` protocol, and the files are served directly
+behaves like the `context://frontend/` protocol (so it resolves URLs to `frontend` 
+folder of the `(context)` location), and the files are served directly
 from `${frontend.working.directory}`.
 
 === Changing the location of frontend files
@@ -472,8 +489,17 @@ More details on parameters can be found in <<../advanced/tutorial-flow-runtime-c
 When you set, for example, your `frontend.url.es6` property to
 `http://mydomain.com/es6/`, the resulting URL for a component annotated with
 `@HTMLImport("components/my-component.html")` or
-`@HTMLImport("frontend://components/my-component.html")` will be
+`@HTMLImport("frontend://components/my-component.html")` will be 
 `http://mydomain.com/es6/components/my-component.html`.
+
+In the example above we have used a different value for `jetty.extra.resource.base` property in production mode.
+Another option would be to keep it's value as is but define properties to run the application
+in production mode (this way may be useful in case when you can't redefine web resources e.g. in Spring Boot application):
+
+ [source,bash]
+----
+mvn jetty:run -Dvaadin.productionMode -Dvaadin.frontend.url.es5=context://frontend/build/frontend-es5/ -Dvaadin.frontend.url.es6=context://frontend/build/frontend-es6/
+----
 
 [WARNING]
 The base path defined by `frontend.url.es6` and `frontend.url.es5` properties
