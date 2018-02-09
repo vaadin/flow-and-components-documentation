@@ -12,14 +12,14 @@ It is part of the Vaadin Platform and a successor for the Vaadin Framework bring
 Flow allows developers to be super productive by creating UIs in Java or
 by using HTML Templates for composing the UI and binding it to any backend using Java.
 
-The Power of Vaadin Flow comes from the following concepts:
+The power of Vaadin Flow comes from the following concepts:
 
 * A set of beautiful UI components build with focus on end-user and developer experience
 * Powerful abstraction layers for easily building your own reusable UI components with either Java or HTML templates
 * Data Binding API for connecting the UI components to any backend using type safe Java
 * Router API for easily creating hierarchical page structures for the user to navigate
 
-This is the documentation for Vaadin Flow. It is divided into the following subsections in recommended reading order:
+This is the documentation for Vaadin Flow. It is divided into the following subsections in recommended reading order.
 
 == Introduction and Getting Started
 ** <<introduction/introduction-overview#,Introduction to Vaadin Flow>>
