@@ -107,6 +107,18 @@ and keep the page state intact. The following tutorials explain how to use the R
 * <<spring/tutorial-spring-configuration#,Vaadin Spring Configuration>>
 * <<spring/tutorial-spring-examples#,Getting Started with Spring and Vaadin>>
 
+== Migrating from Vaadin 8 to Vaadin 10
+* <<migration/1-migrating-v8-v10#,Migrating from Vaadin 8 to Vaadin 10>>
+* <<migration/2-migration-strategies#,Migration Strategies>>
+* <<migration/3-general-differences#,Differences between Vaadin 10 and Vaadin 8 Applications>>
+* <<migration/4-routing-navigation#,Routing and Navigation>>
+* <<migration/5-components#,Components in Vaadin 10>>
+** <<migration/5-components#Component Set,Component Sett>>
+** <<migration/5-components#Basic Component Features,Basic Component Features>>
+** <<migration/5-components#Layouts in Vaadin 10,Layouts in Vaadin 10>>
+* <<migration/6-themes#,Themes and Theming Applications>>
+* <<migration/7-tools-integrations#,Add-ons, Integrations and Tools>>
+
 == Advanced Topics
 * <<advanced/tutorial-application-lifecycle#,Application Lifecycle>>
 * <<advanced/tutorial-i18n-localization#,Application Localization (I18N)>>
