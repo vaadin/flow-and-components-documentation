@@ -1,0 +1,53 @@
+---
+Title: Migrating from V8 to V10
+Order: 1
+Layout: page
+---
+
+= Migrating from Vaadin 8 to Vaadin 10
+
+Vaadin 10 is a continuum from Vaadin 8. While the core concepts, architecture and programming model stay the same, Vaadin 10 is still a big leap forward:
+
+In Vaadin 10 the provided UI components are based on the Web Component standard. The components are written with the Polymer library, instead of GWT. Building a component based on the Web Component standard makes it possible to reuse it with any modern web framework, instead of just limiting it to Vaadin or GWT.
+Vaadin Flow is the Java framework in Vaadin 10, and it is a total rewrite of the Vaadin Framework. It brings all the web components available for server side Java developers. It gives a much better toolset for building any reusable UI components, not just web components, and does not force you to use GWT for that.
+
+Switching from Vaadin 8 to Vaadin 10 could considered as switching from a modern car to a flying car - the use cases are the same, the features are mostly the same, except the new technology brings more capabilities and potential for the future. Some features may have been removed to make way for new things.
+
+== Migration Strategies
+
+There are different migration strategies for Vaadin 8 applications:
+
+Staying with Vaadin Eight - it is Great! And supported at least until 2022
+Using the upcoming Multiplatform Runtime from the Prime subscription to run views or components from a V8 app inside V10 for
+Migrating the application bit by bit
+Extending the application with new parts implemented with V10
+Transform Existing Application To Vaadin 10
+Fresh Start by Redesigning Application for Vaadin 10
+
+These options are described in more detail in the <<2-migration-strategies#,next chapter>>.
+
+== The More Things Change The More They Stay The Same
+
+Most of this documentation covers the features changed or removed in V10. But not everything has changed and at the core it is still the same product. The following concepts are not covered, since they have *stayed the same* between Vaadin 10 and 8:
+
+Using high level APIs to compose UIs with ready-made components in Java on the server side
+Stateful server-side architecture
+Automated client-server communication using request-response or server push
+Minimum server requirements: Java 8 and Servlet 3.0
+Minimum browsers supported: Internet Explorer 11 and evergreen browsers
+Data Binding API with concepts `Binder` and `DataProvider`
+
+A major part of any application, the API for binding data to components was modernized in Vaadin 8 with the introduction of `Binder` and `DataProvider` and making the most of Java 8 features in Component APIs. These same concepts are used in Vaadin 10 and the API is mostly the same.
+
+In Vaadin 10, building UI is still the same by using ready made components to make beautiful apps and it is still super easy by using high level type-safe Java APIs. But now the components have been redesigned to provide better end user experience, but at the same time the initial set of components is smaller than in V8. More components will be added later on. Creating your own components is a lot easier than before.
+
+The following is the list of things that have changed, which does not list all the new features of V10, but the differences with V8:
+
+* <<3-general-differences#,Differences between Vaadin 10 and Vaadin 8 Applications>>
+* <<4-routing-navigation#,Routing and Navigation>>
+* <<5-components#,Components in Vaadin 10>>
+** <<5-components#Component Set,Component Sett>>
+** <<5-components#Basic Component Features,Basic Component Features>>
+** <<5-components#Layouts in Vaadin 10,Layouts in Vaadin 10>>
+* <<6-themes#,Themes and Theming Applications>>
+* <<7-tools-integrations#,Add-ons, Integrations and Tools>>

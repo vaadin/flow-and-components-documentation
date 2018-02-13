@@ -1,0 +1,73 @@
+---
+Title: Add-ons, Integrations and Tools
+Order: 7
+Layout: page
+---
+
+= Add-ons, Integrations and Tools
+
+== Maven Plugin
+
+There is a Maven Plugin available for Vaadin 10, and it is necessary for building a production version of the application, since it handles the transpilation, minification and bundling of the front-end resources. This is only necessary for when you take the application for production, or want to test it with IE11.
+
+There is no custom widgetsets or Sass themes that need compilation for development time in V10. Thus there is no need for this in the plugin.
+
+For more information on using the plugin, see documentation // TODO ADD LINK
+
+== Maven Archetypes
+
+There are no archetypes available for Vaadin 10. Please visit [vaadin.com/start](https://vaadin.com/start) for available starting points. There you can find example applications and project bases available for Vaadin 10.
+
+== Using Vaadin with Spring
+
+Vaadin 10 has an integration for using it with Spring. The concept is mostly the same, but some features like the `@ViewScope` have been removed. Also there are currently no specific Spring Security support, but it can still be used. The Bakery App Starter for Flow and Spring shows and example of this. // TODO LINK
+
+== No CDI Support
+
+Vaadin 8 has a CDI Add-on enabling JEE features. This is currently missing from V10.
+
+We have plans for adding it, but no timeline for this at the moment. To ensure it gets a priority over several other new features and enhancements, you should voice your concern in our [Forum](https://vaadin.com/forum) or [github](https://github.com/vaadin/flow).
+
+== Vaadin Designer
+
+In Vaadin 8, Designer was used to edit declarative files with a `.html` suffix. Despite the file format suffix, the declarative format was a generic XML syntax that mapped directly into a tree of Vaadin components on the server side. The XML was read by the Vaadin at runtime on the server, and was never sent to the client. It's important to note that the syntax only allowed component declarations.
+
+In Vaadin 10 the high level concept is the same. There are still are HTML files that can be edited with Designer to declaratively compose views. But as with Vaadin 10 in general, the underlying technology has completely changed. In Vaadin 10 the HTML files are valid HTML. More specifically, they are [DOM modules](https://www.polymer-project.org/2.0/docs/devguide/feature-overview). The modules define templates and are rendered by the browser, and allow using encapsulated CSS, HTML web components and CSS. Using this new format allows Designer to do a couple of new things. First, any template can be rendered inside one another. And as templates are be web components themselves, custom components are fully supported by the new Designer as well. On the other hand, as a syntax HTML is flexible enough that it's easy to create templates that are difficult to work with within Designer.
+
+=== Migrating from Vaadin 8 Designs
+
+As the underlying technology has been completely changed, Vaadin 8 Designs are not compatible with Flow applications. There are two paths to migration; either use the multi-platform runtime to run a Vaadin 8 application inside a Vaadin 10 application, or migrate the HTML files manually. When migrating manually, the declarative component tree should be copied inside the <template> in a blank Vaadin 10 design, and then modified to fit the new element API's.
+
+=== Version support
+
+The new Designer plugin will support editing both Vaadin 8 and Vaadin 10 designs. Regardless whether you are working with Vaadin 8 or Vaadin 10, you should always update to the latest version of Designer to receive the latest bugfixes and enhancements.
+
+=== Missing features
+
+* Pre-made templates. The wizard currently only allows creating blank designs.
+* Configuring themes or style imports. Lumo & default style module is always loaded.
+* Editing alignment or size via the popup infobar. Alignment and size can be configured through CSS.
+* Custom property editors, for example for date or icon type properties. Only strings and booleans are supported.
+* Replace- and wrap-with.
+
+== Vaadin TestBench
+
+The same features exist in TestBench for Vaadin 10 as in TestBench for Vaadin Framework 8 but the API has been tweaked in many places to be in sync with corresponding changes to the components/elements and the features they offer.
+
+The ElementQuery operation $ no longer has methods such as `caption()` as there is no generic "caption" concept in Vaadin 10. On the other hand, there is instead a generic `attribute(String key, String value)` method which can be used to find elements based on any HTML attribute.
+
+The element classes have been moved to a sub package of the component, e.g. `com.vaadin.flow.component.textfield.testbench.TextFieldElement` instead of `com.vaadin.testbench.elements.TextFieldElement`.
+
+If any API is missing, there are low level helper methods available such as `TestBenchElement.getProperty(String name)` and `TestBenchElement.callFunction(String name)` which makes it easy to interact with any web component with a public JavaScript API.
+
+== Vaadin Charts
+
+Vaadin Charts 6 shares a lot of the Java API from Charts 4 even though the underlying technology has been changed. However, almost all of the styling related Java API has been replaced with an ability to [style charts using CSS](https://vaadin.com/docs/v10/charts/java-api/css-styling.html). See list of [breaking changes from Charts 4 to Charts 6](https://vaadin.com/docs/v10/charts/java-api/charts-breaking-changes-in-version-6.html).
+
+== Vaadin Board
+
+Vaadin Board for Vaadin 10 contains the same API as Vaadin Board for Framework 8 but the API has been adapted to follow Flow/Vaadin 10 conventions, e.g. `Row` contains `add(Component… component)` instead of `addComponent(Component)` and `addComponents(Component…)`.
+
+== Vaadin Spreadsheet
+
+Currently we don’t have a version of Vaadin Spreadsheet for Vaadin 10.
