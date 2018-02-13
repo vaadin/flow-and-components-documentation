@@ -1,0 +1,64 @@
+---
+Title: Differences between V10 and V8 Applications
+Order: 3
+Layout: page
+---
+
+= Differences between V10 and V8 Applications
+
+== The UI Class is Different and it is Optional
+
+A sublcass of  `UI` is not anymore needed in Vaadin 10 applications. It is still there, but it is not _the starting point_ of the application anymore, and you don’t need to define your custom `UI`. As the `UI` is not needed, you don’t need to manually add content inside it. This is handled by the `Router` which is introduced in the next chapter.
+
+Most things you have previously done in the `UI` class, can be achieved in alternative, better ways. These alternatives are covered in this documentation, but if some information is missing, please [create an issue](https://github.com/vaadin/flow-and-components-documentation/issues/new) so we may add the necessary information.
+
+In Vaadin 8 and 7, the `UI` referenced a `<div>` element which was a child of the `<body>` in the DOM. In Vaadin 10, the `UI` is instead directly connected to to the `<body>` element.
+
+The API in the `UI` class in V10 has gone through a clean-up and some API that is not meant for application developers to access has been moved to internal classes. For using API that is still in `UI`, the same `UI.getCurrent()` call can still be used to obtain a reference to the UI for the currently active request.
+
+While migrating, you still might want to create your own `UI`, and you can see an example for that in the next topic.
+
+=== No @PreserveOnRefresh
+
+There is currently no support for the `@PreserveOnRefresh` functionality in V10. Each browser refresh will reload the UI. At the same time, reloading the UI is a smaller problem than before since the user's location will typically be preserved in the URL.
+
+== The Servlet Definition is Optional
+
+Similarly as the `UI`, the servlet definition is optional in V10. And the reason is also the same, the new Routing API, which is introduced in the next chapter. By default the servlet is automatically mapped to the root context path. You can of course still configure the servlet yourself, and it happens the same way as previously:
+
+[source,java]
+----
+@WebServlet(urlPatterns = "/*", name = "myservlet", asyncSupported = true,
+// Example on initialization parameter configuration
+initParams = {
+        @WebInitParam(name = "frontend.url.es6", value = "http://mydomain.com/es6/"),
+        @WebInitParam(name = "frontend.url.es5", value = "http://mydomain.com/es5/") })
+// The UI configuration is optional
+@VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
+public class MyServlet extends VaadinServlet {
+}
+
+// this is not necessary anymore, but might help you get started with migration
+public class MyUI extends UI {
+    protected void init(VaadinRequest request) {
+        // do initial steps here.
+        // previously routing
+    }
+}
+----
+
+== Single Step Bootstrap and No UIProvider
+
+In Vaadin 8 the application bootstrap happened in two phases. The initial page response only contained code to obtain more data related to the browser, data which was not available in the initial request. Based on this, the correct UI would be created. This was a good option back then since mobile devices capabilities required completely own client engine and UI to deliver the best possible end user experience.
+
+This is not necessary anymore, and in Vaadin 10 the UI content is delivered on the first response and the application is bootstrapped immediately. This means that the `UIProvider` has become obsolete.
+
+== Modifying the Bootstrap Page
+
+If you had previously used the `@Viewport` annotation in the `UI` or customed the initial response with `BootstrapListener`, you should look up the new way of customizing the initial page response using `PageConfigurator` TODO LINK or specific annotations TODO LINK on the application's main layout.
+
+`BoostrapListener` is still there and can be registered using a `VaadinServiceInitListener` TODO LINK.
+
+== Similarities and Package Naming
+
+Some of the Java code in Vaadin 10 is directly inherited from Vaadin 8. Even in these cases, the package names are however changed in V10. This is because we want to make it possible to use V8 components and views inside V10 using the multiplatform tool. Thus the package names for V10 contain [classname]#flow# that separates them from the V8 packages.
