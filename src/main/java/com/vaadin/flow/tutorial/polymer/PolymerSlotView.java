@@ -15,16 +15,15 @@
  */
 package com.vaadin.flow.tutorial.polymer;
 
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.dom.ElementFactory;
-import com.vaadin.flow.router.legacy.HasChildView;
-import com.vaadin.flow.router.legacy.RouterConfiguration;
-import com.vaadin.flow.router.legacy.RouterConfigurator;
-import com.vaadin.flow.router.legacy.View;
+import com.vaadin.flow.router.ParentLayout;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
@@ -41,35 +40,16 @@ public class PolymerSlotView {
     }
 
     @Tag("main-layout")
-    @HtmlImport("/com/example/MainLayout.html")
+    @HtmlImport("/com/example/ComponentContainer.html")
     public class MainLayout extends PolymerTemplate<TemplateModel>
-            implements HasChildView {
-
-        private View childView;
-
-        @Override
-        public void setChildView(View childView) {
-            if (this.childView != null) {
-                getElement().removeChild(this.childView.getElement());
-            }
-            getElement().appendChild(childView.getElement());
-            this.childView = childView;
-        }
+            implements RouterLayout {
     }
 
-    public class MyRouterConfigurator implements RouterConfigurator {
-        @Override
-        public void configure(RouterConfiguration configuration) {
-            //@formatter:off - custom line wrapping
-            configuration.setRoute("", HomeView.class, MainLayout.class);
-            configuration.setRoute("company", CompanyView.class, MainLayout.class);
-            //@formatter:on
-        }
+    @Route(value = "editor", layout = MainLayout.class)
+    public class Editor extends Div {
     }
 
-    private class HomeView extends Component implements View {
-    }
-
-    private class CompanyView extends Component implements View {
+    @ParentLayout(MainLayout.class)
+    public class MenuBar extends Div {
     }
 }
