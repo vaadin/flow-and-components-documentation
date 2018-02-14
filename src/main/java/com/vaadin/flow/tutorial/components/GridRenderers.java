@@ -35,13 +35,12 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
-import com.vaadin.flow.renderer.ButtonRenderer;
-import com.vaadin.flow.renderer.ComponentTemplateRenderer;
-import com.vaadin.flow.renderer.LocalDateRenderer;
-import com.vaadin.flow.renderer.LocalDateTimeRenderer;
-import com.vaadin.flow.renderer.NumberRenderer;
-import com.vaadin.flow.renderer.TemplateRenderer;
+import com.vaadin.flow.data.renderer.LocalDateRenderer;
+import com.vaadin.flow.data.renderer.LocalDateTimeRenderer;
+import com.vaadin.flow.data.renderer.NumberRenderer;
+import com.vaadin.flow.data.renderer.TemplateRenderer;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
+import com.vaadin.flow.tutorial.components.GridRenderers.Item;
 import com.vaadin.flow.tutorial.databinding.Person.Gender;
 
 @CodeFor("components/tutorial-flow-grid.asciidoc")

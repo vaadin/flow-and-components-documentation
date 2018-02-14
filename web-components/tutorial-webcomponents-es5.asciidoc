@@ -18,7 +18,7 @@ The same library can also be used to optimize ES6 scripts, by using minification
 == Project structure
 
 You will need `bower.json`, `package.json` files and `bower_components` folder with all web components and their dependencies in `${frontend.working.directory}` folder.
-<<web-components/tutorial-webcomponents-bower#,Using bower to make available a web component as a web resource>> tutorial
+<<tutorial-webcomponents-bower#,Using bower to make available a web component as a web resource>> tutorial
 explains the content of those files and the way how to fetch web components into
 `bower_components` via `bower`.
 In this example `src/main/resources/META-INF/resources/` directory will be used for web resources instead of `src/main/webapp`
@@ -51,7 +51,7 @@ In your `${frontend.working.directory}` directory, you have to update `package.j
 
 ==== package.json
 
-Initial file state is described in <<web-components/tutorial-webcomponents-bower#,Using bower to make available a web component as a web resource>>
+Initial file state is described in <<tutorial-webcomponents-bower#,Using bower to make available a web component as a web resource>>
 We have added and `polymer-cli` dependencies that will process our web files and have added two tasks: `prodMode` and `devMode`
 Both tasks run `bower install` to install dependencies from `bower.json` and `prodMode` also runs `polymer build` that
 uses installed `polymer-cli` tool to transpile the sources to ES5:.

@@ -25,7 +25,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @CodeFor("web-components/tutorial-webcomponent-basic.asciidoc")
 public class WebComponentBasics {
     @Tag("paper-slider")
-    @HtmlImport("bower_components/paper-slider/paper-slider.html")
+    @HtmlImport("frontend://bower_components/paper-slider/paper-slider.html")
     public class PaperSlider extends Component {
         public PaperSlider() {
         }
