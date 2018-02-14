@@ -26,7 +26,6 @@ import com.vaadin.flow.tutorial.getstarted.ExampleTemplate.ExampleModel;
  * Simple template example.
  */
 @SuppressWarnings("serial")
-@HtmlImport("src/example-template.html")
 @CodeFor("introduction/tutorial-get-started.asciidoc")
 @Tag("example-template")
 @HtmlImport("src/example-template.html")
