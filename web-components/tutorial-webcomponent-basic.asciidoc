@@ -57,7 +57,7 @@ Another (outdated) way to make the web component files available as a web resour
 With this basic integration, you can use add the `PaperSlider` class to a view to see that it works:
 [source,java]
 ----
-public class PaperSliderView extends Div implements View {
+public class PaperSliderView extends Div {
     public PaperSliderView() {
         add(new PaperSlider());
     }
