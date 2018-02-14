@@ -149,29 +149,7 @@ public class Servlet extends VaadinServlet {
 @HtmlImport("index.html")
 public class MyUI extends UI{
 
-    private Router router;
-
-    @Override
-    public void doInit(VaadinRequest request, int uiId) {
-        super.doInit(request, uiId);
-        router = new Router();
-        router.reconfigure(new MyRouterConfigurator());
-        router.initializeUI(this, request);
-    }
-
-    @Override
-    public Optional<RouterInterface> getRouterInterface() {
-        return Optional.ofNullable(router);
-    }
 }
-
-public class MyRouterConfigurator implements RouterConfigurator {
-    @Override
-    public void configure(RouterConfiguration configuration) {
-        // You router configuration code
-    }
-}
-
 ----
 
 In the `index.html` file you only add your own dependencies, using HTML imports:
