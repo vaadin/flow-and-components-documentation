@@ -22,16 +22,21 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcons;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.page.BodySize;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 /**
  * The main view contains a button and a template element.
  */
 @SuppressWarnings("serial")
-@HtmlImport("styles.html")
+@HtmlImport("styles/shared-styles.html")
 @Route("")
+@Theme(Lumo.class)
+@BodySize(height = "100vh", width = "100vw")
 @CodeFor("introduction/tutorial-get-started.asciidoc")
 public class MainView extends VerticalLayout {
     private CustomerService service = CustomerService.getInstance();
@@ -40,7 +45,7 @@ public class MainView extends VerticalLayout {
     private CustomerForm form = new CustomerForm(this);
 
     public MainView() {
-        filterText.setPlaceholder("filter by name...");
+        filterText.setPlaceholder("Filter by name...");
         filterText.addValueChangeListener(e -> updateList());
 
         Button clearFilterTextBtn = new Button(

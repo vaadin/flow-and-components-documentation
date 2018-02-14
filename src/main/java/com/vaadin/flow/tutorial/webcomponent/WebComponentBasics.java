@@ -19,19 +19,18 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.router.legacy.View;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("web-components/tutorial-webcomponent-basic.asciidoc")
 public class WebComponentBasics {
     @Tag("paper-slider")
-    @HtmlImport("bower_components/paper-slider/paper-slider.html")
+    @HtmlImport("frontend://bower_components/paper-slider/paper-slider.html")
     public class PaperSlider extends Component {
         public PaperSlider() {
         }
     }
 
-    public class PaperSliderView extends Div implements View {
+    public class PaperSliderView extends Div {
         public PaperSliderView() {
             add(new PaperSlider());
         }

@@ -96,13 +96,13 @@ Named slots can also be used as default by nesting them inside the main slot lik
 This will make the slot show data for light dom `slot="firstName"` `slot="lastName"` elements if no `slot="fullName"` is available and when a `<element slot="fullName">` is
 added it will "override/replace" the `firstName, lastName` data.
 
-=== Using a PolymerTemplate as a Parent View
+=== Using a PolymerTemplate as a Parent Layout
 
 For general info about parent views, see <<../routing/tutorial-router-layout#,Router Layouts and Nested Router Targets>>. For general information about templates, see <<tutorial-template-basic#,Creating A Simple Component Using the Template API>>.
 
-A `PolymerTemplate` class can be used as a parent view by using the `<slot></slot>` in the position where the child view should be displayed.
+A `PolymerTemplate` class can be used as a parent layout by using the `<slot></slot>` in the position where the child view should be displayed.
 
-To define a parent view that shows the actual view below a heading a and a menu, `MainLayout.html` could look like this:
+To define a parent layout that shows the actual view below a heading a and a menu, `MainLayout.html` could look like this:
 [source,html]
 ----
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
@@ -128,42 +128,36 @@ To define a parent view that shows the actual view below a heading a and a menu,
 ----
 
 To use the template file, you also need a basic template component class with an html import for the template file.
-Right now you need to also extend the `HasChildView` interface and implement the `setChildView(View)` for example like this:
+Right now you need to also implement the `RouterLayout` interface:
+
 [source,java]
 ----
 @Tag("main-layout")
 @HtmlImport("/com/example/ComponentContainer.html")
 public class MainLayout extends PolymerTemplate<TemplateModel> 
-        implements HasChildView {
-
-    private View childView;
-
-    @Override
-    public void setChildView(View childView) {
-        if(this.childView != null) {
-            getElement().removeChild(this.childView.getElement());
-        }
-        getElement().appendChild(childView.getElement());
-        this.childView = childView;
-    }
+        implements RouterLayout {
 }
-
 ----
 
 [NOTE]
-The `setChildView(View)` implementation could also be as simple as `getElement().setChild(0, childView.getElement())`, but then
-every time the child view is set it would replace the first child element which could be confusing.
-If you for instance add a Label element in the constructor it would then be replaced with the childView.
+The method `showRouterLayoutContent(HasElement)` in the `RouterLayout` interface 
+has default implementation so you don't need to write anything in addition to that.
+But you may reimplement it as you wish.
 
-You can then register `MainLayout` as the parent view in your `RouterConfiguration`.
+Now you may use `MainLayout` as a parent layout via `@Route` annotation 
+or `@ParentLayout` annotation:
 
 [source,java]
 ----
-public class MyRouterConfigurator implements RouterConfigurator {
-    @Override
-    public void configure(RouterConfiguration configuration) {
-        configuration.setRoute("", HomeView.class, MainLayout.class);
-        configuration.setRoute("company", CompanyView.class, MainLayout.class);
-    }
+@Route(value="editor", layout=MainLayout.class)
+public class Editor extends Div {
+}
+
+@ParentLayout(MainLayout.class)
+public class MenuBar extends Div {
 }
 ----
+
+[NOTE]
+See <<../routing/tutorial-router-layout#,Router Layouts and Nested Router Targets>> for the details
+about using routing and the annotations mentioned here.

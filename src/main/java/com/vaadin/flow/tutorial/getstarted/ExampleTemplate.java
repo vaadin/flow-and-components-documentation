@@ -15,27 +15,25 @@
  */
 package com.vaadin.flow.tutorial.getstarted;
 
-import com.vaadin.flow.tutorial.getstarted.ExampleTemplate.ExampleModel;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
-
+import com.vaadin.flow.tutorial.getstarted.ExampleTemplate.ExampleModel;
 
 /**
  * Simple template example.
  */
 @SuppressWarnings("serial")
-@Tag("example-template")
-@HtmlImport("ExampleTemplate.html")
 @CodeFor("introduction/tutorial-get-started.asciidoc")
+@Tag("example-template")
+@HtmlImport("src/example-template.html")
 public class ExampleTemplate extends PolymerTemplate<ExampleModel> {
     /**
      * Template model which defines the single "value" property.
      */
     public interface ExampleModel extends TemplateModel {
-
         void setValue(String value);
     }
 
@@ -44,6 +42,9 @@ public class ExampleTemplate extends PolymerTemplate<ExampleModel> {
         getModel().setValue("Not clicked");
     }
 
+    /*
+     * Allow setting the value property from outside of the class.
+     */
     public void setValue(String value) {
         getModel().setValue(value);
     }
