@@ -20,8 +20,8 @@ Maven example:
 [source,xml]
 ----
 <dependency>
-    <groupId>org.webjars.bower</groupId>
-    <artifactId>github-com-polymerelements-paper-button</artifactId>
+    <groupId>org.webjars.bowergithub.polymerelements</groupId>
+    <artifactId>paper-button</artifactId>
     <version>2.0.0</version>
 </dependency>
 ----
@@ -46,9 +46,9 @@ The website pages contain package github url, name and package version list.
 After that you can try and add
 ----
 <dependency>
-    <groupId>org.webjars.bower</groupId>
+    <groupId>org.webjars.bowergithub.polymerelements</groupId>
     <!-- replace %BOWER_NAME% with bower name of the package selected -->
-    <artifactId>github-com-polymerelements-%BOWER_NAME%</artifactId>
+    <artifactId>%BOWER_NAME%</artifactId>
     <!-- replace %BOWER_VERSION% with the version of the package selected -->
     <version>%BOWER_VERSION%</version>
 </dependency>
