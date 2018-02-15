@@ -6,7 +6,7 @@ Layout: page
 
 = Themes and Theming Applications
 
-Themes define the look and feel for the Vaadin components. The themes have been the base for the application specific theme.
+Themes define the look and feel of the Vaadin components. The themes have been the base for the application specific theme.
 Vaadin 7 introduced the themes in Sass format and the parameterized Valo theme, which made it possible to customize the UI by tweaking the parameters.
 
 == New CSS Based Themes, - No Sass
@@ -19,7 +19,7 @@ Thus, Vaadin 10 itself isn't using Sass, but you can of course use it for your o
 You’ll have to setup the sass-compiler workflow yourself, but there are Maven Plugins available for this.
 
 None of the old themes are available for V10. By customizing the new V10 themes you can easily achieve the same the look
-and feel for your application you had before. The DOM is, however, different for the new components,
+and feel your application you had before. The DOM is, however, different for the new components,
 so this is not a copy-paste step.
 
 == Theming in Vaadin 10
