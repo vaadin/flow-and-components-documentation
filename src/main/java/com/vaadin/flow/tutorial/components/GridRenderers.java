@@ -35,12 +35,13 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.LocalDateRenderer;
 import com.vaadin.flow.data.renderer.LocalDateTimeRenderer;
+import com.vaadin.flow.data.renderer.NativeButtonRenderer;
 import com.vaadin.flow.data.renderer.NumberRenderer;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
-import com.vaadin.flow.tutorial.components.GridRenderers.Item;
 import com.vaadin.flow.tutorial.databinding.Person.Gender;
 
 @CodeFor("components/tutorial-flow-grid.asciidoc")
@@ -72,12 +73,12 @@ public class GridRenderers {
         grid.addColumn(new NumberRenderer<>(Item::getPrice, "$ %(,.2f",
                 Locale.US, "$ 0.00")).setHeader("Price");
 
-        grid.addColumn(new ButtonRenderer<>("Remove item", clickedItem -> {
+        grid.addColumn(new NativeButtonRenderer<>("Remove item", clickedItem -> {
             // remove the item
         }));
 
         //@formatter:off
-        grid.addColumn(new ButtonRenderer<>(item -> "Remove " + item, clickedItem -> {
+        grid.addColumn(new NativeButtonRenderer<>(item -> "Remove " + item, clickedItem -> {
             // remove the item
         }));
         //@formatter:on
@@ -120,7 +121,7 @@ public class GridRenderers {
         Grid<Person> grid = new Grid<>();
         grid.setItems(people);
 
-        grid.addColumn(new ComponentTemplateRenderer<>(person -> {
+        grid.addColumn(new ComponentRenderer<>(person -> {
             if (person.getGender() == Gender.MALE) {
                 return new Icon(VaadinIcons.MALE);
             } else {
@@ -128,14 +129,14 @@ public class GridRenderers {
             }
         })).setHeader("Gender");
 
-        grid.addColumn(new ComponentTemplateRenderer<>(Div::new,
+        grid.addColumn(new ComponentRenderer<>(Div::new,
                 (div, person) -> div.setText(person.getName())))
                 .setHeader("Name");
 
-        grid.addColumn(new ComponentTemplateRenderer<>(
+        grid.addColumn(new ComponentRenderer<>(
                 () -> new Icon(VaadinIcons.ARROW_LEFT)));
 
-        grid.addColumn(new ComponentTemplateRenderer<>(person -> {
+        grid.addColumn(new ComponentRenderer<>(person -> {
 
             // text field for entering a new name for the person
             TextField name = new TextField("Name");
@@ -164,7 +165,7 @@ public class GridRenderers {
     public void showingItemDetails() {
         Grid<Person> grid = new Grid<>();
 
-        grid.setItemDetailsRenderer(new ComponentTemplateRenderer<>(person -> {
+        grid.setItemDetailsRenderer(new ComponentRenderer<>(person -> {
             VerticalLayout layout = new VerticalLayout();
             layout.add(new Label("Address: " + person.getAddress().getStreet()
                     + " " + person.getAddress().getNumber()));
