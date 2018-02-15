@@ -8,25 +8,33 @@ Layout: page
 
 == Maven Plugin
 
-There is a Maven Plugin available for Vaadin 10, and it is necessary for building a production version of the application, since it handles the transpilation, minification and bundling of the front-end resources. This is only necessary for when you take the application for production, or want to test it with IE11.
+There is a Maven Plugin available for Vaadin 10, and it is necessary for building a production version of the application,
+since it handles the transpilation, minification and bundling of the front-end resources.
+This is only necessary for when you take the application for production, or want to test it with IE11.
 
-There is no custom widgetsets or Sass themes that need compilation for development time in V10. Thus there is no need for this in the plugin.
+There is no custom widgetsets or Sass themes that need compilation for development time in V10.
+Thus there is no need for this in the plugin.
 
-For more information on using the plugin, see documentation // TODO ADD LINK
+For more information on using the plugin, <<web-components/tutorial-flow-maven-plugin#,see documentation>>.
 
 == Maven Archetypes
 
-There are no archetypes available for Vaadin 10. Please visit [vaadin.com/start](https://vaadin.com/start) for available starting points. There you can find example applications and project bases available for Vaadin 10.
+There are no archetypes available for Vaadin 10. Please visit [vaadin.com/start](https://vaadin.com/start) for available starting points.
+There you can find example applications and project bases available for Vaadin 10.
 
 == Using Vaadin with Spring
 
-Vaadin 10 has an integration for using it with Spring. The concept is mostly the same, but some features like the `@ViewScope` have been removed. Also there are currently no specific Spring Security support, but it can still be used. The Bakery App Starter for Flow and Spring shows and example of this. // TODO LINK
+Vaadin 10 has an integration for using it with Spring.
+The concept is mostly the same, but some features like the `@ViewScope` have been removed.
+Also there are currently no specific Spring Security support, but it can still be used.
+The Bakery App Starter for Flow and Spring shows and example of this.
 
 == No CDI Support
 
-Vaadin 8 has a CDI Add-on enabling JEE features. This is currently missing from V10.
+Vaadin 8 has a CDI Add-on enabling JEE features. This is currently missing from Vaadin 10.
 
-We have plans for adding it, but no timeline for this at the moment. To ensure it gets a priority over several other new features and enhancements, you should voice your concern in our [Forum](https://vaadin.com/forum) or [github](https://github.com/vaadin/flow).
+We have plans for adding it, but no timeline for this at the moment. To ensure it gets a priority over several other new features and enhancements,
+you should voice your concern in our [Forum](https://vaadin.com/forum) or [github](https://github.com/vaadin/flow).
 
 == Vaadin Designer
 
