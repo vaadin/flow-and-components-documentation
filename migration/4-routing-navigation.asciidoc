@@ -20,9 +20,8 @@ unlike in V8 where configuration was made for each UI instance separately:
 
 [source,java]
 ----
-@Tag("div")
-@Route(value="company", layout=MainLayout.class)
-public class CompanyComponent extends Component {
+@Route(value = "company", layout = MainLayout.class)
+public class CompanyView extends Composite<Div> {
      // Implementation omitted
 }
 ----
