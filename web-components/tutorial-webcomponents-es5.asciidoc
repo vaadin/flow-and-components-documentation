@@ -1,14 +1,14 @@
 ---
-title: Serving ECMAScript 5 webcomponents with Polymer 2
+title: Serving ES5 Web Components with Polymer 2
 order: 8
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
-= Serving ECMAScript 5 webcomponents with Polymer 2
+= Serving ES5 Web Components with Polymer 2
 
 As mentioned in the <<tutorial-flow-maven-plugin#,Taking your app into production>>
-tutorial transpilation to ECMAScript 5 is required to use an application with browsers that don’t support ES6.  
+tutorial transpilation to ES5 is required to use an application with browsers that don’t support ES6.  
 Luckily there's a library that can transpile and optimize the ES6 files to ES5, which is provided by the Polymer project:
 `polymer-build`.
 
