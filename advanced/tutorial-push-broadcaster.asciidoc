@@ -1,0 +1,10 @@
+---
+title: Creating Collaborative Views
+order: 14
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+[[push.broadcaster]]
+= Creating Collaborative Views
