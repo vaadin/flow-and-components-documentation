@@ -24,6 +24,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.BodySize;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
@@ -45,7 +46,8 @@ public class MainView extends VerticalLayout {
     private CustomerForm form = new CustomerForm(this);
 
     public MainView() {
-        filterText.setPlaceholder("Filter by name...");
+        filterText.setPlaceholder("filter by name...");
+        filterText.setValueChangeMode(ValueChangeMode.EAGER);
         filterText.addValueChangeListener(e -> updateList());
 
         Button clearFilterTextBtn = new Button(

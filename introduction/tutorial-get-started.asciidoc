@@ -469,6 +469,7 @@ not important, but add them, for example, at the beginning of the constructor.
 [source,java]
 ----
 filterText.setPlaceholder("Filter by name...");
+filterText.setValueChangeMode(ValueChangeMode.EAGER);
 filterText.addValueChangeListener(e -> updateList());
 ----
 
@@ -478,8 +479,9 @@ copy paste code snippets. The default keyboard shortcut in Eclipse is
 kbd:[Ctrl+Shift+F] or kbd:[Cmd+Shift+F]
 
 As its name implies, the value change listener allows you to react to changes in
-the value contained in the text field. It is configured so that the event is fired
-lazily while the user is typing, when there is a small pause in the typing.
+the value contained in the text field. When setting the mode as `EAGER` it is
+configured so that the event is fired lazily while the user is typing,
+when there is a small pause in the typing.
 This makes it perfect for this kind of automatic filtering. When the
 user has changed the text, we'll just update the listing calling the `updateList`
 method.
