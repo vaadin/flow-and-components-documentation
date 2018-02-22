@@ -46,7 +46,7 @@ public class MainView extends VerticalLayout {
     private CustomerForm form = new CustomerForm(this);
 
     public MainView() {
-        filterText.setPlaceholder("filter by name...");
+        filterText.setPlaceholder("Filter by name...");
         filterText.setValueChangeMode(ValueChangeMode.EAGER);
         filterText.addValueChangeListener(e -> updateList());
 
