@@ -7,13 +7,11 @@ layout: page
 ifdef::env-github[:outfilesuffix: .asciidoc]
 = Taking your app into production
 
-According to the native custom element specification, ECMAScript 6 is required
-to define webcomponents. But when deploying an application to IE11 and Safari 9,
- you need to transpile the files to ECMAScript 5 (ES5 for short), since those
-browsers don't support ECMAScript 6.
+According to the link:https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements[Custom Elements^] specification, a JavaScript *class* is required
+when defining a custom element. Classes are added to JavaScript in the ECMAScript 2015 standard (a.k.a. ES6). However, some older browsers--most notably IE11 and Safari 9--do not support it. For those browsers you need to transpile the files to ECMAScript 5.1 (a.k.a. ES5).
 
 [TIP]
-Transpilation in current context is converting ES6 JavaScript code to ES5 that is performed for older browsers be able to run it.
+Transpilation in the current context means converting ES6 JavaScript code to its ES5 equivalent. It is done in order to run this code in older browsers.
 
 You may also want to optimize web files (reduce a number of files and optimize their content) via bundling.
 In this case we provide `flow-maven-plugin` which sets up the project for the production mode.
