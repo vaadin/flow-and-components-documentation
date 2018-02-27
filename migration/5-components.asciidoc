@@ -197,23 +197,32 @@ The mixin-interfaces are also the basis for the core layouts and replace a compl
 
 All the core layouts except `FlexLayout` & `Div` are based on web components, but they still give a good example on how to create your own layouts if needed.
 For Element API usage, please see the <<../creating-components/tutorial-component-container#,Creating a Component Which Can Contain Other Components>> tutorial.
+
 === Layout Click Listeners
 
-There is currently no direct API exposed for this in the layouts. But if you want to, you can access the element and add a DOM event listener to it for click events. If this is a much requested API, we could make it a standard feature to the layouts. There is an [enhancement issue](https://github.com/vaadin/flow/issues/2465) for this.
+There is currently no direct API exposed for this in the layouts. But if you want to, you can access the element and add a DOM event listener to it for click events.
+If this is a much requested API, we could make it a standard feature to the layouts.
+There is an [enhancement issue](https://github.com/vaadin/flow/issues/2465) for this.
 
 === Available Layouts in Vaadin 10
 
 ==== HorizontalLayout & VerticalLayout
 
-These layouts have made it really easy to compose UIs. For V10 they are now based on fast native CSS rendering in browsers, instead of custom JavaScript calculations. This means that the API has been changed to match the actual CSS concept instead of a custom name - this is also to highlight that it might not work exactly the same way as before:
+These layouts have made it really easy to compose UIs. For V10 they are now based on fast native CSS rendering in browsers,
+instead of custom JavaScript calculations. This means that the API has been changed to match the actual CSS concept instead of a custom name -
+this is also to highlight that it might not work exactly the same way as before:
 
-*`setComponentAlignment` & `setDefaultComponentAlignement`
+* `setComponentAlignment` & `setDefaultComponentAlignement`
 ** `HorizontalLayout`: `setVerticalComponentAlignment` and `setDefaultVerticalComponentAligment`
 ** `VerticalLayout`: `setHorizontalComponentAlignment` and `setDefaultHorizontalComponentAligment
 ** These map to the `align-self` and `align-items` CSS property values.
 * `setExpandRatio` is now `setFlexGrow`
 * `expand()` sets `flex-grow` to 1
 * Spacing and Padding are only available as on/off for all edges of the layout, instead of separately for top/right/bottom/left.
+* Using `setSizeFull()` for any contained component will not have the same effect as before - *it will cause the component to get the full size of the parent layout, instead of full size of the slot*
+
+For better understanding how to use the `setFlexGrow()` and `expand()` methods and how the _flex_ layouts work,
+please see [the Mozilla Foundation documentation on CSS flex](https://developer.mozilla.org/en-US/docs/Web/CSS/flex).
 
 ==== FormLayout
 
@@ -263,6 +272,6 @@ or doing modifications on existing ones. It also means that existing custom comp
 Only the server side API can be reused, but as the component hierarchy has changed in V10, there is changed needed.
 
 For simple components, it can be very quick to build in V10 by just using existing components and the Element API.
-The <<creating-components/tutorial-component-basic#,creating components tutorials>> have examples on this.
+The <<../creating-components/tutorial-component-basic#,creating components tutorials>> have examples on this.
 For more complex ones, with lots of client side logic or complex DOM structure,
 it makes sense to implement them as Web Components and provide a Java API to those.

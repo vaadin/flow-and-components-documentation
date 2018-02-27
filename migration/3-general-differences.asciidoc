@@ -66,7 +66,7 @@ This is not necessary anymore, and in Vaadin 10 the UI content is delivered on t
 If you had previously used the `@Viewport` annotation in the `UI` or customed the initial response with `BootstrapListener`,
 you should look up from <<../advanced/tutorial-bootstrap#,this tutorial>> the new way of customizing the initial page response using `PageConfigurator` or specific annotations on the application's main layout.
 
-`BoostrapListener` is still there and can be registered using a `VaadinServiceInitListener`, as shown by <<..advanced/tutorial-service-init-listener#,this tutorial>>.
+`BoostrapListener` is still there and can be registered using a `VaadinServiceInitListener`, as shown by <<../advanced/tutorial-service-init-listener#,this tutorial>>.
 
 == Similarities and Package Naming
 
