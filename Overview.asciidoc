@@ -116,7 +116,7 @@ and keep the page state intact. The following tutorials explain how to use the R
 ** <<migration/5-components#Component Set,Component Sett>>
 ** <<migration/5-components#Basic Component Features,Basic Component Features>>
 ** <<migration/5-components#Layouts in Vaadin 10,Layouts in Vaadin 10>>
-* <<migration/6-themes#,Themes and Theming Applications>>
+* <<migration/6-theming#,Themes and Theming Applications>>
 * <<migration/7-tools-integrations#,Add-ons, Integrations and Tools>>
 
 == Advanced Topics

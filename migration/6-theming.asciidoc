@@ -61,7 +61,7 @@ The theme class will handle two things:
 * It specifies a set of shared styles like fonts etc. that will be automatically loaded to the initial page by Flow for the theme.
 
 If you want to create your own reusable theme for Vaadin Components,
-you should read the <<theme/tutorial-built-in-themes#,instructions>> on creating your own themes.
+you should read the <<../theme/tutorial-built-in-themes#,instructions>> on creating your own themes.
 
 === Application Theming
 
