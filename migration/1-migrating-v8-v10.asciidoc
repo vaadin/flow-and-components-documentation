@@ -60,7 +60,7 @@ The following is the list of things that have changed, which does not list all t
 * <<3-general-differences#,Differences between Vaadin 10 and Vaadin 8 Applications>>
 * <<4-routing-navigation#,Routing and Navigation>>
 * <<5-components#,Components in Vaadin 10>>
-** <<5-components#Component Set,Component Sett>>
+** <<5-components#Component Set,Component Set>>
 ** <<5-components#Basic Component Features,Basic Component Features>>
 ** <<5-components#Layouts in Vaadin 10,Layouts in Vaadin 10>>
 * <<6-theming#,Themes and Theming Applications>>
