@@ -19,7 +19,7 @@ For more information on using the plugin, <<../web-components/tutorial-flow-mave
 
 == Maven Archetypes
 
-There are no archetypes available for Vaadin 10. Please visit [vaadin.com/start](https://vaadin.com/start) for available starting points.
+There are no archetypes available for Vaadin 10. Please visit https://vaadin.com/start[vaadin.com/start] for available starting points.
 There you can find example applications and project bases available for Vaadin 10.
 
 == Using Vaadin with Spring
@@ -34,13 +34,18 @@ The Bakery App Starter for Flow and Spring shows and example of this.
 Vaadin 8 has a CDI Add-on enabling JEE features. This is currently missing from Vaadin 10.
 
 We have plans for adding it, but no timeline for this at the moment. To ensure it gets a priority over several other new features and enhancements,
-you should voice your concern in our [Forum](https://vaadin.com/forum) or [github](https://github.com/vaadin/flow).
+you should voice your concern in our https://vaadin.com/forum[Forum] or https://github.com/vaadin/flow[github].
 
 == Vaadin Designer
 
 In Vaadin 8, Designer was used to edit declarative files with a `.html` suffix. Despite the file format suffix, the declarative format was a generic XML syntax that mapped directly into a tree of Vaadin components on the server side. The XML was read by the Vaadin at runtime on the server, and was never sent to the client. It's important to note that the syntax only allowed component declarations.
 
-In Vaadin 10 the high level concept is the same. There are still are HTML files that can be edited with Designer to declaratively compose views. But as with Vaadin 10 in general, the underlying technology has completely changed. In Vaadin 10 the HTML files are valid HTML. More specifically, they are [DOM modules](https://www.polymer-project.org/2.0/docs/devguide/feature-overview). The modules define templates and are rendered by the browser, and allow using encapsulated CSS, HTML web components and CSS. Using this new format allows Designer to do a couple of new things. First, any template can be rendered inside one another. And as templates are be web components themselves, custom components are fully supported by the new Designer as well. On the other hand, as a syntax HTML is flexible enough that it's easy to create templates that are difficult to work with within Designer.
+In Vaadin 10 the high level concept is the same. There are still are HTML files that can be edited with Designer to declaratively compose views.
+But as with Vaadin 10 in general, the underlying technology has completely changed. In Vaadin 10 the HTML files are valid HTML. More specifically,
+they are https://www.polymer-project.org/2.0/docs/devguide/feature-overview[DOM modules]. The modules define templates and are rendered by the browser,
+and allow using encapsulated CSS, HTML web components and CSS. Using this new format allows Designer to do a couple of new things.
+First, any template can be rendered inside one another. And as templates are be web components themselves,
+custom components are fully supported by the new Designer as well. On the other hand, as a syntax HTML is flexible enough that it's easy to create templates that are difficult to work with within Designer.
 
 === Migrating from Vaadin 8 Designs
 
@@ -70,7 +75,9 @@ If any API is missing, there are low level helper methods available such as `Tes
 
 == Vaadin Charts
 
-Vaadin Charts 6 shares a lot of the Java API from Charts 4 even though the underlying technology has been changed. However, almost all of the styling related Java API has been replaced with an ability to [style charts using CSS](https://vaadin.com/docs/v10/charts/java-api/css-styling.html). See list of [breaking changes from Charts 4 to Charts 6](https://vaadin.com/docs/v10/charts/java-api/charts-breaking-changes-in-version-6.html).
+Vaadin Charts 6 shares a lot of the Java API from Charts 4 even though the underlying technology has been changed.
+However, almost all of the styling related Java API has been replaced with an ability to https://vaadin.com/docs/v10/charts/java-api/css-styling.html[style charts using CSS].
+See list of https://vaadin.com/docs/v10/charts/java-api/charts-breaking-changes-in-version-6.html[breaking changes from Charts 4 to Charts 6].
 
 == Vaadin Board
 
