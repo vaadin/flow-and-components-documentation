@@ -12,7 +12,7 @@ Vaadin 7 introduced the themes in Sass format and the parameterized Valo theme, 
 == New CSS Based Themes, - No Sass
 
 Since introducing Sass as a helper to Vaadin Application theming,
-the browsers have started to support [CSS Custom Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*)
+the browsers have started to support https://developer.mozilla.org/en-US/docs/Web/CSS/--*[CSS Custom Properties]
 (IE11 is polyfilled for production mode.), which brings the customizability gains from Sass to basic CSS, without the overhead of needing to compile the Sass to CSS.
 
 Thus, Vaadin 10 itself isn't using Sass, but you can of course use it for your own application theming if you want to.
@@ -75,7 +75,7 @@ frontend://styles/shared-styles.html
 ```
 One reason why you should always use this location is that this style is automatically imported to templates when using Vaadin Designer to design UIs.
 
-The reason for using a HTML file with [`<custom-style>`](https://www.polymer-project.org/2.0/docs/api/elements/Polymer.CustomStyle)
+The reason for using a HTML file with https://www.polymer-project.org/2.0/docs/api/elements/Polymer.CustomStyle[`<custom-style>`]
 element is that you can then theme the Web Components properly by taking advantage of Shady DOM for style encapsulation, custom properties, and custom mixins.
 
 You can also use and import a CSS file with the `@StyleSheet` annotation.

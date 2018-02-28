@@ -14,7 +14,7 @@ and you don’t need to define your custom `UI`. As the `UI` is not needed,
 you don’t need to manually add content inside it.
 This is handled by the `Router` which is introduced in the <<4-routing-navigation#,next chapter>>.
 
-Most things you have previously done in the `UI` class, can be achieved in alternative, better ways. These alternatives are covered in this documentation, but if some information is missing, please [create an issue](https://github.com/vaadin/flow-and-components-documentation/issues/new) so we may add the necessary information.
+Most things you have previously done in the `UI` class, can be achieved in alternative, better ways. These alternatives are covered in this documentation, but if some information is missing, please https://github.com/vaadin/flow-and-components-documentation/issues/new[create an issue] so we may add the necessary information.
 
 In Vaadin 8 and 7, the `UI` referenced a `<div>` element which was a child of the `<body>` in the DOM. In Vaadin 10, the `UI` is instead directly connected to to the `<body>` element.
 
