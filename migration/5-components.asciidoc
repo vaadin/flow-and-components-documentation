@@ -203,7 +203,7 @@ For Element API usage, please see the <<../creating-components/tutorial-componen
 
 There is currently no direct API exposed for this in the layouts. But if you want to, you can access the element and add a DOM event listener to it for click events.
 If this is a much requested API, we could make it a standard feature to the layouts.
-There is an (https://github.com/vaadin/flow/issues/2465)[enhancement issue] for this.
+There is an https://github.com/vaadin/flow/issues/2465[enhancement issue] for this.
 
 === Available Layouts in Vaadin 10
 
