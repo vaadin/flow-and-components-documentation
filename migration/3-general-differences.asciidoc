@@ -68,6 +68,12 @@ you should look up from <<../advanced/tutorial-bootstrap#,this tutorial>> the ne
 
 `BoostrapListener` is still there and can be registered using a `VaadinServiceInitListener`, as shown by <<../advanced/tutorial-service-init-listener#,this tutorial>>.
 
+== Configuring Server Push
+
+As a custom `UI` class is no longer needed, you can configure the used `PushMode` for your app in the main layout of your application.
+Please see the <<../advanced/tutorial-push-configuration#,Server Push Configuration tutorial>> for more info.
+
+
 == Similarities and Package Naming
 
 Some of the Java code in Vaadin 10 is directly inherited from Vaadin 8. Even in these cases, the package names are however changed in V10. This is because we want to make it possible to use V8 components and views inside V10 using the multiplatform tool. Thus the package names for V10 contain [classname]#flow# that separates them from the V8 packages.
