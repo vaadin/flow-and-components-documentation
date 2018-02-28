@@ -112,7 +112,7 @@ delegates navigation to the router) then the text will be the same.
 [source,java]
 ----
 public void edit() {
-    getUI().get().navigateTo("editor");
+    getUI().get().navigate("editor");
 }
 ----
 
