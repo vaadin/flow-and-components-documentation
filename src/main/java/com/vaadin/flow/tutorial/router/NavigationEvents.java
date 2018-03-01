@@ -27,9 +27,9 @@ import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.BeforeLeaveEvent;
+import com.vaadin.flow.router.BeforeLeaveEvent.ContinueNavigationAction;
 import com.vaadin.flow.router.BeforeLeaveObserver;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.internal.ContinueNavigationAction;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
