@@ -15,8 +15,8 @@
  */
 package com.vaadin.flow.tutorial.advanced;
 
-import com.vaadin.flow.component.Push;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.shared.communication.PushMode;
 import com.vaadin.flow.shared.ui.Transport;
