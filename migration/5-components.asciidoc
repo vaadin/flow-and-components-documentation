@@ -1,7 +1,7 @@
 ---
-Title: Components in Vaadin 10
-Order: 5
-Layout: page
+title: Components in Vaadin 10
+order: 5
+layout: page
 ---
 
 = Components in Vaadin 10

@@ -1,7 +1,7 @@
 ---
-Title: Differences between V10 and V8 Applications
-Order: 3
-Layout: page
+title: Differences between V10 and V8 Applications
+order: 3
+layout: page
 ---
 
 = Differences between V10 and V8 Applications
