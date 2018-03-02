@@ -1,7 +1,7 @@
 ---
-Title: Migration Strategies
-Order: 2
-Layout: page
+title: Migration Strategies
+order: 2
+layout: page
 ---
 
 = Migration Strategies

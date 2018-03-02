@@ -1,7 +1,7 @@
 ---
-Title: Migrating from V8 to V10
-Order: 1
-Layout: page
+title: Migrating from V8 to V10
+order: 1
+layout: page
 ---
 
 = Migrating from Vaadin 8 to Vaadin 10

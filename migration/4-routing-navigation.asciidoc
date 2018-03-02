@@ -1,7 +1,7 @@
 ---
-Title: Routing and Navigation
-Order: 4
-Layout: page
+title: Routing and Navigation
+order: 4
+layout: page
 ---
 
 = Routing and Navigation
