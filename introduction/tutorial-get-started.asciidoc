@@ -181,7 +181,7 @@ components. Layouts are used to position and display other components.
 
 The third annotation, [classname]#@Theme("Lumo.class")#, defines the component theme to use.
 Using this annotation on the root level navigation target or root layout will enable the Lumo theme
-for all used Vaadin Elements automatically. You can read more about Web Component themes and Lumo from https://vaadin.com/themes.
+for all used Vaadin components automatically. You can read more about Web Component themes and Lumo from https://vaadin.com/themes.
 
 Finally, the third annotation [classname]#@BodySize(height = "100vh", width = "100vw")#
 defines the _styles_ that are set to the `<body>` element to make it resize nicely on all devices.
