@@ -221,7 +221,7 @@ this is also to highlight that it might not work exactly the same way as before:
 * `expand()` sets `flex-grow` to 1
 * `setMargin` is now `setPadding`
 * Spacing and Padding are only available as on/off for all edges of the layout, instead of separately for top/right/bottom/left.
-* Using `setSizeFull()` for any contained component will not have the same effect as before - *it will cause the component to get the full size of the parent layout, instead of full size of the slot*
+* Using `setSizeFull()`, `setHeight("100%")` or `setWidth("100%")` for any contained component will not have the same effect as before - *it will cause the component to get the full size of the parent layout, instead of full size of the slot*
 
 For better understanding how to use the `setFlexGrow()` and `expand()` methods and how the _flex_ layouts work,
 please see https://developer.mozilla.org/en-US/docs/Web/CSS/flex[the Mozilla Foundation documentation on CSS flex].
