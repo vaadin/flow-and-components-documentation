@@ -31,7 +31,9 @@ Using the upcoming Multiplatform Runtime from the Prime subscription to run view
 * Transform Existing Application To Vaadin 10
 * Fresh Start by Redesigning Application for Vaadin 10
 
-These options are described in more detail in the <<2-migration-strategies#,next chapter>>.
+These options are described in more detail in the <<2-migration-strategies#,next chapter>>. 
+
+The easiest and fastest way to understand what migrating to Vaadin 10 means to you is to use our http://pages.vaadin.com/vaadin-application-assessment-for-migration?utm_campaign=V10%20migration&utm_source=docs[migration assessment service]. What's the best strategy and what's the effort needed, all of these questions get answered by our experts.
 
 == The More Things Change The More They Stay The Same
 
