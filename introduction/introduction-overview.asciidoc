@@ -35,7 +35,7 @@ On top of ready-made components, there are powerful abstraction layers that can 
 
 === Vaadin Components
 
-On the high abstraction layer, you can build UIs, in a highly productive way, by using the Java APIs of Vaadin Components based on the Vaadin Elements Web Components.
+On the high abstraction layer, you can build UIs, in a highly productive way, by using the Java APIs for Vaadin's Web Components.
 This way you don't have to write or understand any JavaScript or HTML, and CSS is only necessary to give your App the look and feel you want to.
 
 [source,java]
