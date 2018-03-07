@@ -391,14 +391,14 @@ replace the [classname]#MainView# constructor with the following:
 [source,java]
 ----
 public MainView() {
-    grid.setHeightByRows(true);
+    grid.setSizeFull();
 
     grid.addColumn(Customer::getFirstName).setHeader("First name");
     grid.addColumn(Customer::getLastName).setHeader("Last name");
     grid.addColumn(Customer::getStatus).setHeader("Status");
 
     add(grid);
-
+    setHeight("100vh");
     updateList();
 }
 ----
@@ -424,14 +424,14 @@ private CustomerService service = CustomerService.getInstance();
 private Grid<Customer> grid = new Grid<>();
 
 public MainView() {
-    grid.setHeightByRows(true);
+    grid.setSizeFull();
 
     grid.addColumn(Customer::getFirstName).setHeader("First name");
     grid.addColumn(Customer::getLastName).setHeader("Last name");
     grid.addColumn(Customer::getStatus).setHeader("Status");
 
     add(grid);
-
+    setHeight("100vh");
     updateList();
 }
 
