@@ -66,7 +66,7 @@ public class MainView extends VerticalLayout {
         HorizontalLayout toolbar = new HorizontalLayout(filtering,
                 addCustomerBtn);
 
-        grid.setSizeFull();
+        grid.setHeightByRows(true);
 
         grid.addColumn(Customer::getFirstName).setHeader("First name");
         grid.addColumn(Customer::getLastName).setHeader("Last name");
