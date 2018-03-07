@@ -46,3 +46,7 @@ You can also get us to do the migration for you.
 Sometimes the best approach is to start from fresh - this way you will be able to focus on using new V10 features to deliver value to your users,
 instead of carrying over legacy code. As mentioned in previous topic, there is still probably some opportunities to reuse
 existing solutions related to integration to your business logic and backend.
+
+== Migration Assessment Service ==
+
+To help you understand what a migration to Vaadin 10 means to you, Vaadin offers an assessment service led by Vaadin experts. During the assessment, our experts will gain an understanding of your organization's objectives and concerns, and analyze your application code. http://pages.vaadin.com/vaadin-application-assessment-for-migration?utm_campaign=V10%20migration&utm_source=docs[Read more about the service].

@@ -23,33 +23,33 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | Audio | - | Not planned. Can directly use the native `<audio>` element.
 
-| Button | Button | https://vaadin.com/elements/vaadin-button/java-examples[Demo]
+| Button | Button | https://vaadin.com/components/vaadin-button/java-examples[Demo]
 
-| Checkbox | Checkbox | https://vaadin.com/elements/vaadin-checkbox/java-examples[Demo]
+| Checkbox | Checkbox | https://vaadin.com/components/vaadin-checkbox/java-examples[Demo]
 
 | CheckBoxGroup | - | Planned, no timeline yet. For now, this can be manually assembled from CheckBoxes on server side
 
 | ColorPicker | - | Not planned. See https://vaadin.com/directory[vaadin.com/directory]. `<input type="color">` is supported in some browsers.
 
-| ComboBox | ComboBox | https://vaadin.com/elements/vaadin-combo-box/java-examples[Demo]. Note that the V10 ComboBox is not lazy-loading between server and client
+| ComboBox | ComboBox | https://vaadin.com/components/vaadin-combo-box/java-examples[Demo]. Note that the V10 ComboBox is not lazy-loading between server and client
 
 | CustomComponent | Composite | <<../creating-components/tutorial-component-composite#,Tutorial>>
 
 | CssLayout | Div & FlexLayout | More details <<#layouts,later in this chapter>>
 
-| DateField | DatePicker | https://vaadin.com/elements/vaadin-date-picker/java-examples[Demo]
+| DateField | DatePicker | https://vaadin.com/components/vaadin-date-picker/java-examples[Demo]
 
 | DateTimeField | - | Planned, but no timeline yet. `<input type="datetime"> is supported in some browsers.
 
-| FormLayout | FormLayout | https://vaadin.com/elements/vaadin-form-layout/java-examples[Demo]
+| FormLayout | FormLayout | https://vaadin.com/components/vaadin-form-layout/java-examples[Demo]
 
-| Grid | Grid | https://vaadin.com/elements/vaadin-grid/java-examples[Demo], <<../components/tutorial-flow-grid#,Tutorial>>
+| Grid | Grid | https://vaadin.com/components/vaadin-grid/java-examples[Demo], <<../components/tutorial-flow-grid#,Tutorial>>
 
 | GridLayout | - | Not planned. FormLayout, FlexLayout and Board can be used as replacements for many of the use cases
 
-| HorizontalLayout | HorizontalLayout | https://vaadin.com/elements/vaadin-ordered-layout/java-examples[Demo], more details <<#layouts,later in this chapter>>
+| HorizontalLayout | HorizontalLayout | https://vaadin.com/components/vaadin-ordered-layout/java-examples[Demo], more details <<#layouts,later in this chapter>>
 
-| HorizontalSplitPanel | SplitLayout | https://vaadin.com/elements/vaadin-split-layout/java-examples[Demo]
+| HorizontalSplitPanel | SplitLayout | https://vaadin.com/components/vaadin-split-layout/java-examples[Demo]
 
 | Image | Image | -
 
@@ -59,7 +59,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | Label | Label | -
 
-| ListSelect | ListBox | https://vaadin.com/elements/vaadin-list-box/java-examples[Demo]
+| ListSelect | ListBox | https://vaadin.com/components/vaadin-list-box/java-examples[Demo]
 
 | MenuBar | - | No plans for replacement.
 
@@ -67,27 +67,27 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | NativeSelect | - | Planned, by new component `DropdownMenu`. Timeline is Q2 2018. If needed, quite easy to integrate the native `<select>` element.
 
-| Notification | Notification | https://vaadin.com/elements/vaadin-notification/java-examples[Demo]
+| Notification | Notification | https://vaadin.com/components/vaadin-notification/java-examples[Demo]
 
 | Panel | - | Planned with `vaadin-card` element. No timeline yet. Also, it's possible to make any component scrollable with `component.getElement().getStyle().set("overflow", "auto")`
 
-| PasswordField | PasswordField | https://vaadin.com/elements/vaadin-text-field/java-examples[Demo]
+| PasswordField | PasswordField | https://vaadin.com/components/vaadin-text-field/java-examples[Demo]
 
 | PopupView | - | Not planned. You can use the `<vaadin-overlay>` element to create your own.
 
-| ProgressBar | ProgressBar | https://vaadin.com/elements/vaadin-progress-bar/java-examples[Demo]
+| ProgressBar | ProgressBar | https://vaadin.com/components/vaadin-progress-bar/java-examples[Demo]
 
-| RadioButtonGroup | RadioButtonGroup | https://vaadin.com/elements/vaadin-radio-button/java-examples[Demo]
+| RadioButtonGroup | RadioButtonGroup | https://vaadin.com/components/vaadin-radio-button/java-examples[Demo]
 
 | RichTextArea | - | Not planned. There are Web Components available, check https://vaadin.com/directory[vaadin.com/directory]
 
 | Slider | - | Not planned. There are Web Components available, check https://vaadin.com/directory[vaadin.com/directory]. If needed, quite easy to integrate the native `<input type=”range”>`
 
-| TabSheet | Tabs | https://vaadin.com/elements/vaadin-tabs/java-examples[Demo]
+| TabSheet | Tabs | https://vaadin.com/components/vaadin-tabs/java-examples[Demo]
 
-| TextArea | TextArea | https://vaadin.com/elements/vaadin-text-field/java-examples[Demo]
+| TextArea | TextArea | https://vaadin.com/components/vaadin-text-field/java-examples[Demo]
 
-| TextField | TextField | https://vaadin.com/elements/vaadin-text-field/java-examples[Demo]
+| TextField | TextField | https://vaadin.com/components/vaadin-text-field/java-examples[Demo]
 
 | Tree | - | Planned for 2018
 
@@ -97,19 +97,19 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | Video | - | Not planned. Can directly use the native `<video>` element.
 
-| VerticalLayout | VerticalLayout | https://vaadin.com/elements/vaadin-ordered-layout/java-examples[Demo], more details <<#layouts,later in this chapter>>
+| VerticalLayout | VerticalLayout | https://vaadin.com/components/vaadin-ordered-layout/java-examples[Demo], more details <<#layouts,later in this chapter>>
 
-| VerticalSplitPanel | SplitLayout | https://vaadin.com/elements/vaadin-split-layout/java-examples[Demo]
+| VerticalSplitPanel | SplitLayout | https://vaadin.com/components/vaadin-split-layout/java-examples[Demo]
 
-| Upload | Upload | https://vaadin.com/elements/vaadin-upload/java-examples[Demo]
+| Upload | Upload | https://vaadin.com/components/vaadin-upload/java-examples[Demo]
 
-| Window | Dialog | https://vaadin.com/elements/vaadin-dialog/java-examples[Demo] Note that there is only limited support due to missing eg. minimize / maximize feature.
+| Window | Dialog | https://vaadin.com/components/vaadin-dialog/java-examples[Demo] Note that there is only limited support due to missing eg. minimize / maximize feature.
 
 |=========================================================
 
 For any missing components, you should first look for alternatives in https://vaadin.com/directory[vaadin.com/directory]. It shows both V10 add-ons with Java API and web components that can be integrated to Java.
 
-For the components that are available in V10, you can browse https://vaadin.com/elements/browse[vaadin.com/elements/browse] for the features and examples.
+For the components that are available in V10, you can browse https://vaadin.com/components/browse[vaadin.com/components/browse] for the features and examples.
 
 == Basic Component Features
 
@@ -221,7 +221,7 @@ this is also to highlight that it might not work exactly the same way as before:
 * `expand()` sets `flex-grow` to 1
 * `setMargin` is now `setPadding`
 * Spacing and Padding are only available as on/off for all edges of the layout, instead of separately for top/right/bottom/left.
-* Using `setSizeFull()` for any contained component will not have the same effect as before - *it will cause the component to get the full size of the parent layout, instead of full size of the slot*
+* Using `setSizeFull()`, `setHeight("100%")` or `setWidth("100%")` for any contained component will not have the same effect as before - *it will cause the component to get the full size of the parent layout, instead of full size of the slot*
 
 For better understanding how to use the `setFlexGrow()` and `expand()` methods and how the _flex_ layouts work,
 please see https://developer.mozilla.org/en-US/docs/Web/CSS/flex[the Mozilla Foundation documentation on CSS flex].
