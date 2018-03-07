@@ -424,7 +424,7 @@ private CustomerService service = CustomerService.getInstance();
 private Grid<Customer> grid = new Grid<>();
 
 public MainView() {
-    grid.setHeightByRows(true);;
+    grid.setHeightByRows(true);
 
     grid.addColumn(Customer::getFirstName).setHeader("First name");
     grid.addColumn(Customer::getLastName).setHeader("Last name");
