@@ -78,21 +78,21 @@ various packages; be sure to download the *Eclipse IDE for Java EE Developers*
 from http://www.eclipse.org/downloads/[eclipse.org].
 
 [[flow.tutorial.archetype]]
-== Starting a Project with the Skeleton Starter
+== Starting a Project with the Project Base
 
 // The following video shows how to do this step of the tutorial:
 
 // video::Alejandro[youtube, width="640", height="400"]
 
 As the starting point for the application, we use a Vaadin App Starter called
-Skeleton Starter Flow. Skeleton Starters are project stubs that have dependencies set
+Project Base for Flow. Project Bases are project stubs that have dependencies set
 up, and may include some example code.
 
 . Start by pointing your browser at https://vaadin.com/start[Vaadin Start]
 
 . Pick Vaadin 10 as the version
 
-. Select the Skeleton Starter Flow by clicking it
+. Select the Project Base by clicking it
 
 . Enter the following values to as application parameters. You may have to
 scroll down a bit to see the fields.
@@ -173,7 +173,7 @@ includes the look and feel of the application. You can find this file in the fol
 A default Vaadin servlet is registered behind the scenes based on this annotation.
 
 You can define your own servlet if you need one, but the default one is usually
-sufficient. In the Skeleton Starter there is an example of servlet definition,
+sufficient. In the Project Base there is an example of servlet definition,
 even though it is not needed. The servlet instantiates this class when a user enters your web app.
 When this happens, the constructor initialises the UI structure. In this case, the main view
 inherits from [classname]#VerticalLayout# which is one of the most used layout
