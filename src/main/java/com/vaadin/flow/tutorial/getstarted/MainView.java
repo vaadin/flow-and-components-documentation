@@ -92,6 +92,7 @@ public class MainView extends VerticalLayout {
         Button button = new Button("Click me",
                 event -> template.setValue("Clicked!"));
         add(button, template);
+        setClassName("main-layout");
         // Add the next two lines:
         // The rest is already there...
         add(grid);
