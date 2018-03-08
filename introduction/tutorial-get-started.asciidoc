@@ -88,7 +88,6 @@ up, and may include some example code.
 
 . Select the Project Base for V10 by clicking it
 
-. Enter the following values to as application parameters.
 +
 [guilabel]#Group ID#::
  Give `com.vaadin`
@@ -168,6 +167,7 @@ A default Vaadin servlet is registered behind the scenes based on this annotatio
 
 You can define your own servlet if you need one, but the default one is usually
 sufficient. In the Project Base starter there is an example of servlet definition,
+
 even though it is not needed. The servlet instantiates this class when a user enters your web app.
 When this happens, the constructor initialises the UI structure. In this case, the main view
 inherits from [classname]#VerticalLayout# which is one of the most used layout
@@ -385,14 +385,14 @@ replace the [classname]#MainView# constructor with the following:
 [source,java]
 ----
 public MainView() {
-    grid.setHeightByRows(true);
+    grid.setSizeFull();
 
     grid.addColumn(Customer::getFirstName).setHeader("First name");
     grid.addColumn(Customer::getLastName).setHeader("Last name");
     grid.addColumn(Customer::getStatus).setHeader("Status");
 
     add(grid);
-
+    setHeight("100vh");
     updateList();
 }
 ----
@@ -418,14 +418,14 @@ private CustomerService service = CustomerService.getInstance();
 private Grid<Customer> grid = new Grid<>();
 
 public MainView() {
-    grid.setHeightByRows(true);
+    grid.setSizeFull();
 
     grid.addColumn(Customer::getFirstName).setHeader("First name");
     grid.addColumn(Customer::getLastName).setHeader("Last name");
     grid.addColumn(Customer::getStatus).setHeader("Status");
 
     add(grid);
-
+    setHeight("100vh");
     updateList();
 }
 
