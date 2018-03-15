@@ -44,13 +44,16 @@ public class ComponentContainer extends PolymerTemplate<TemplateModel> {
 
     public ComponentContainer() {
         Element label = ElementFactory.createLabel("Main layout header");
-        getElement().appendChild(label);
+        Element button = ElementFactory.createButton("Click me");
+
+        getElement().appendChild(label, button);
     }
 }
 
 ----
 
-Without the *slot* tag in the template the added label would not be visible to the user even though it can be located in the DOM.
+Without the *slot* tag in the template the added label and button would not be visible to the user even though it can be located in the DOM.
+As we can see multiple components will show up in the slot when added to the template element that has an open `<slot></slot>`
 
 === Default content slots and named slots in templates
 
@@ -95,6 +98,27 @@ Named slots can also be used as default by nesting them inside the main slot lik
 
 This will make the slot show data for light dom `slot="firstName"` `slot="lastName"` elements if no `slot="fullName"` is available and when a `<element slot="fullName">` is
 added it will "override/replace" the `firstName, lastName` data.
+
+The "default" slot and named slot can contain multiple elements.
+
+[source,java]
+----
+@Tag("name-element")
+@HtmlImport("/com/example/NameElement.html")
+public class NameElement extends PolymerTemplate<TemplateModel> {
+    public NameElement() {
+        Element firstName = ElementFactory.createSpan("Jack");
+        Element middleName = ElementFactory.createSpan(" James");
+        Element surName = ElementFactory.createSpan("Christobald");
+
+        firstName.setAttribute("slot", "firstName");
+        middleName.setAttribute("slot", "firstName");
+        surName.setAttribute("slot", "lastName");
+
+        getElement().appendChild(firstName, middleName, surName);
+    }
+}
+----
 
 === Using a PolymerTemplate as a Parent Layout
 
