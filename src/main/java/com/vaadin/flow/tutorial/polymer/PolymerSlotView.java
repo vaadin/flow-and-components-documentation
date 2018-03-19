@@ -35,7 +35,9 @@ public class PolymerSlotView {
 
         public ComponentContainer() {
             Element label = ElementFactory.createLabel("Main layout header");
-            getElement().appendChild(label);
+            Element button = ElementFactory.createButton("Click me");
+
+            getElement().appendChild(label, button);
         }
     }
 
@@ -51,5 +53,21 @@ public class PolymerSlotView {
 
     @ParentLayout(MainLayout.class)
     public class MenuBar extends Div {
+    }
+
+    @Tag("name-element")
+    @HtmlImport("/com/example/NameElement.html")
+    public class NameElement extends PolymerTemplate<TemplateModel> {
+        public NameElement() {
+            Element firstName = ElementFactory.createSpan("Jack");
+            Element middleName = ElementFactory.createSpan(" James");
+            Element surName = ElementFactory.createSpan("Christobald");
+
+            firstName.setAttribute("slot", "firstName");
+            middleName.setAttribute("slot", "firstName");
+            surName.setAttribute("slot", "lastName");
+
+            getElement().appendChild(firstName, middleName, surName);
+        }
     }
 }
