@@ -134,3 +134,4 @@ and keep the page state intact. The following tutorials explain how to use the R
 * <<advanced/tutorial-push-configuration#,Server Push Configuration>>
 * <<advanced/tutorial-push-access#,Asynchronous Updates>>
 * <<advanced/tutorial-push-broadcaster#,Creating Collaborative Views>>
+* <<advanced/tutorial-ui-init-listener#,UIInitListener>>
