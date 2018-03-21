@@ -53,7 +53,8 @@ public class TestTutorialCodeCoverage {
     private static final String HTML_BLOCK_IDENTIFIER = "[source,html]";
     private static final String CSS_BLOCK_IDENTIFIER = "[source,css]";
 
-    private static Path TUTORIAL_GETTING_STARTED_LOCATION = new File("..").toPath().resolve(Paths.get("tutorial-getting-started", "src","main"));
+    private static Path TUTORIAL_GETTING_STARTED_LOCATION = new File("..").toPath().resolve(Paths.get("tutorial-getting-started", "src", "main"));
+    private static Path TUTORIAL_GETTING_STARTED_HTML_LOCATION = TUTORIAL_GETTING_STARTED_LOCATION.resolve(Paths.get("webapp", "frontend"));
     private static Path TUTORIAL_GETTING_STARTED_JAVA_LOCATION = TUTORIAL_GETTING_STARTED_LOCATION.resolve(Paths.get("java"));
 
     private static final Path[] JAVA_LOCATIONS = new Path[]{JAVA_LOCATION, TUTORIAL_GETTING_STARTED_JAVA_LOCATION};
@@ -66,9 +67,9 @@ public class TestTutorialCodeCoverage {
         List<TutorialLineChecker> lineCheckers = Arrays.asList(
                 new CodeFileChecker(JAVA_BLOCK_IDENTIFIER, gatherJavaCode()),
                 new CodeFileChecker(CSS_BLOCK_IDENTIFIER,
-                        gatherWebFilesCode(CSS_LOCATION, "css")),
+                        gatherWebFilesCode("css", CSS_LOCATION)),
                 new CodeFileChecker(HTML_BLOCK_IDENTIFIER,
-                        gatherWebFilesCode(HTML_LOCATION, "html")),
+                        gatherWebFilesCode("html", HTML_LOCATION, TUTORIAL_GETTING_STARTED_HTML_LOCATION)),
                 new AsciiDocLinkWithDescriptionChecker("image:",
                         Pattern.compile("image:(.*?)\\[(.*?)]")),
                 new AsciiDocLinkWithDescriptionChecker("#,",
@@ -90,7 +91,7 @@ public class TestTutorialCodeCoverage {
     }
 
     private void verifyTutorial(Path tutorialPath,
-            List<TutorialLineChecker> lineCheckers) {
+                                List<TutorialLineChecker> lineCheckers) {
         String tutorialName = DOCS_ROOT.relativize(tutorialPath).toString();
         try {
             AtomicInteger lineCounter = new AtomicInteger();
@@ -118,25 +119,27 @@ public class TestTutorialCodeCoverage {
         for (Path javaLocation : JAVA_LOCATIONS) {
             Files.walk(javaLocation)
                     .filter(path -> path.toString().endsWith(".java"))
-                    .forEach(path -> extractJavaFiles(javaLocation,path, codeFileMap));
+                    .forEach(path -> extractJavaFiles(javaLocation, path, codeFileMap));
         }
 
         return codeFileMap;
     }
 
-    private Map<String, Set<String>> gatherWebFilesCode(Path location,
-            String extension) throws IOException {
+    private Map<String, Set<String>> gatherWebFilesCode(
+            String extension, Path... locations) throws IOException {
         Map<String, Set<String>> codeFileMap = new HashMap<>();
 
-        Files.walk(location)
-                .filter(path -> path.toString().endsWith('.' + extension))
-                .forEach(path -> extractWebFiles(path, codeFileMap));
+        for (Path location : locations) {
+            Files.walk(location)
+                    .filter(path -> path.toString().endsWith('.' + extension))
+                    .forEach(path -> extractWebFiles(path, codeFileMap));
+        }
 
         return codeFileMap;
     }
 
     private void extractJavaFiles(Path rootLocation, Path javaFile,
-            Map<String, Set<String>> allowedLines) {
+                                  Map<String, Set<String>> allowedLines) {
         String className = rootLocation.relativize(javaFile).toString()
                 .replace(File.separatorChar, '.').replaceAll("\\.java$", "");
 
@@ -167,7 +170,7 @@ public class TestTutorialCodeCoverage {
     }
 
     private void extractWebFiles(Path htmlFile,
-            Map<String, Set<String>> allowedLines) {
+                                 Map<String, Set<String>> allowedLines) {
         try {
             List<String> lines = Files.readAllLines(htmlFile);
             String idLine = lines.remove(0);

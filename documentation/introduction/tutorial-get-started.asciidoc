@@ -783,17 +783,8 @@ https://github.com/vaadin/flow-and-components-documentation/tree/master/tutorial
 == Customizing the look and feel with CSS
 
 Styling Vaadin Flow applications is easy, we can just add whatever CSS directives
-we wish into the style file [filename]#src/main/webapp/frontend/styles/shared-styles.html#. For
-example, to make the UI feel a bit more airy, add the following lines just before
-`</style>` closing tag:
-
-[source,css]
-----
-vaadin-vertical-layout, vaadin-form-layout {
-    margin: 7px;
-    padding-right: 7px;
-}
-----
+we wish into the style file [filename]#src/main/webapp/frontend/styles/shared-styles.html#.
+Just add any _CSS_ inside the `<style>` element.
 
 [[framework.tutorial.next]]
 == It works! What next?
