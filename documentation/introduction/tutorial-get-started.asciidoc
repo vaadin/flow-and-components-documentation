@@ -573,6 +573,8 @@ public CustomerForm(MainView view) {
     HorizontalLayout buttons = new HorizontalLayout(save, delete);
 
     add(firstName, lastName, status, buttons);
+
+    setCustomer(null);
 }
 ----
 
@@ -653,6 +655,12 @@ method stub for you. Complete it with the following implementation:
 public void setCustomer(Customer customer) {
     this.customer = customer;
     binder.setBean(customer);
+    boolean enabled = customer != null;
+    save.setEnabled(enabled);
+    delete.setEnabled(enabled);
+    if (enabled) {
+        firstName.focus();
+    }
 }
 ----
 
@@ -662,12 +670,13 @@ form and automatically update the values in the domain objects as the correspond
 field value changes in the user interface.
 
 [TIP]
-If the naming convention based databinding doesn't fit your needs, you can
+If the naming convention based data binding doesn't fit your needs, you can
 use https://www.vaadin.com/api/com/vaadin/annotations/PropertyId.html[PropertyId]
 annotation on fields to explicitly declare the edited property.
 
-We'll also want to ensure the form is visible and that the focus goes to the
-firstName` field to improve the user experience.
+We'll disable the save and cancel buttons to prevent user interaction if there is no customer selected.
+We could also disable the input fields if necessary. For improved user experience,
+well focus the `firstName` field.
 
 The last thing we need to do is to handle `save` and `delete` button clicks. Add
 the following methods to the [classname]#CustomerForm# class:
