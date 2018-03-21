@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2017 Vaadin Ltd.
+ * Copyright 2000-2018 Vaadin Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -13,27 +13,28 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.vaadin.flow.tutorial.getstarted;
+package com.vaadin.flow.demo.helloworld;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
+import com.vaadin.flow.demo.helloworld.ExampleTemplate.ExampleModel;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
-import com.vaadin.flow.tutorial.getstarted.ExampleTemplate.ExampleModel;
 
+@CodeFor("introduction/tutorial-get-started.asciidoc")
 /**
  * Simple template example.
  */
-@SuppressWarnings("serial")
-@CodeFor("introduction/tutorial-get-started.asciidoc")
 @Tag("example-template")
 @HtmlImport("src/example-template.html")
 public class ExampleTemplate extends PolymerTemplate<ExampleModel> {
+
     /**
      * Template model which defines the single "value" property.
      */
     public interface ExampleModel extends TemplateModel {
+
         void setValue(String value);
     }
 

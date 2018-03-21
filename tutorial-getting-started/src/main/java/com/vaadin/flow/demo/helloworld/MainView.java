@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2017 Vaadin Ltd.
+ * Copyright 2000-2018 Vaadin Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.vaadin.flow.tutorial.getstarted;
+package com.vaadin.flow.demo.helloworld;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.HtmlImport;
@@ -30,15 +30,14 @@ import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
+@CodeFor("introduction/tutorial-get-started.asciidoc")
 /**
  * The main view contains a button and a template element.
  */
-@SuppressWarnings("serial")
+@BodySize(height = "100vh", width = "100vw")
 @HtmlImport("styles/shared-styles.html")
 @Route("")
 @Theme(Lumo.class)
-@BodySize(height = "100vh", width = "100vw")
-@CodeFor("introduction/tutorial-get-started.asciidoc")
 public class MainView extends VerticalLayout {
     private CustomerService service = CustomerService.getInstance();
     private Grid<Customer> grid = new Grid<>();
@@ -81,25 +80,8 @@ public class MainView extends VerticalLayout {
         updateList();
 
         grid.asSingleSelect().addValueChangeListener(event -> {
-            if (event.getValue() != null) {
-                form.setCustomer(event.getValue());
-            } else {
-                form.setCustomer(null);
-            }
+            form.setCustomer(event.getValue());
         });
-
-        ExampleTemplate template = new ExampleTemplate();
-        Button button = new Button("Click me",
-                event -> template.setValue("Clicked!"));
-        add(button, template);
-        setClassName("main-layout");
-        // Add the next two lines:
-        // The rest is already there...
-        add(grid);
-        grid.setItems(service.findAll());
-        add(filtering, grid);
-        setSizeUndefined();
-        add(filtering, main);
     }
 
     public void updateList() {

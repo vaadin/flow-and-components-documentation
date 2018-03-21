@@ -167,7 +167,6 @@ A default Vaadin servlet is registered behind the scenes based on this annotatio
 
 You can define your own servlet if you need one, but the default one is usually
 sufficient. In the Project Base starter there is an example of servlet definition,
-
 even though it is not needed. The servlet instantiates this class when a user enters your web app.
 When this happens, the constructor initialises the UI structure. In this case, the main view
 inherits from [classname]#VerticalLayout# which is one of the most used layout
@@ -227,7 +226,7 @@ element representing the template.
 The next one, [classname]#@HtmlImport("src/example-template.html")# specifies where the
 corresponding HTML file can be found from. The file path is in relation to the
 [filename]#src/main/webapp/frontend# folder, and it is recommended that you place your
-templates inside a [filename]#src# and split it further into components, views etc.
+templates inside the [filename]#src# folder and split it further into components, views etc.
 
 Also you should note the recommended way of hyphenizing the template file name compared to the Java class.
 
@@ -325,11 +324,11 @@ clipboard. Select the text content of the whole class from your browser, choose
 Java package in Eclipse's Java Resources view and choose "Edit > Paste". Eclipse
 is smart enough to automatically create a properly named Java file for the class.
 
- * https://raw.githubusercontent.com/hezamu/flow-tutorial/master/src/main/java/com/vaadin/flow/demo/helloworld/CustomerStatus.java[CustomerStatus.java] -
+ * https://raw.githubusercontent.com/vaadin/flow-and-components-documentation/master/tutorial-getting-started/src/main/java/com/vaadin/flow/demo/helloworld/CustomerStatus.java[CustomerStatus.java] -
  this is a simple enum class
- * https://raw.githubusercontent.com/hezamu/flow-tutorial/master/src/main/java/com/vaadin/flow/demo/helloworld/Customer.java[Customer.java] -
+ * https://raw.githubusercontent.comvaadin/flow-and-components-documentation/master/tutorial-getting-started/src/main/java/com/vaadin/flow/demo/helloworld/Customer.java[Customer.java] -
  this is the main domain object, a basic Java bean that we will be using in our example
- * https://raw.githubusercontent.com/hezamu/flow-tutorial/master/src/main/java/com/vaadin/flow/demo/helloworld/CustomerService.java[CustomerService.java] -
+ * https://raw.githubusercontent.com/vaadin/flow-and-components-documentation/master/tutorial-getting-started/src/main/java/com/vaadin/flow/demo/helloworld/CustomerService.java[CustomerService.java] -
  this is a simple facade via which you can request and modify [classname]#Customer#
  instances. You can think of this class as your entry point to your dummy database.
 
@@ -573,8 +572,6 @@ public CustomerForm(MainView view) {
 
     HorizontalLayout buttons = new HorizontalLayout(save, delete);
 
-    setSizeUndefined();
-
     add(firstName, lastName, status, buttons);
 }
 ----
@@ -723,11 +720,7 @@ the end of the [classname]#MainView# constructor:
 [source,java]
 ----
 grid.asSingleSelect().addValueChangeListener(event -> {
-    if (event.getValue() != null) {
-        form.setCustomer(event.getValue());
-    } else {
-        form.setCustomer(null);
-    }
+    form.setCustomer(event.getValue());
 });
 ----
 
