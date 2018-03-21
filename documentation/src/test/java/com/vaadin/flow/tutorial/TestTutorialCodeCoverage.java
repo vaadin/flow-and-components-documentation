@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -51,6 +52,11 @@ public class TestTutorialCodeCoverage {
     private static final String JAVA_BLOCK_IDENTIFIER = "[source,java]";
     private static final String HTML_BLOCK_IDENTIFIER = "[source,html]";
     private static final String CSS_BLOCK_IDENTIFIER = "[source,css]";
+
+    private static Path TUTORIAL_GETTING_STARTED_LOCATION = new File("..").toPath().resolve(Paths.get("tutorial-getting-started", "src","main"));
+    private static Path TUTORIAL_GETTING_STARTED_JAVA_LOCATION = TUTORIAL_GETTING_STARTED_LOCATION.resolve(Paths.get("java"));
+
+    private static final Path[] JAVA_LOCATIONS = new Path[]{JAVA_LOCATION, TUTORIAL_GETTING_STARTED_JAVA_LOCATION};
 
     private final StringBuilder documentationErrors = new StringBuilder();
     private int documentationErrorsCount;
@@ -87,10 +93,12 @@ public class TestTutorialCodeCoverage {
             List<TutorialLineChecker> lineCheckers) {
         String tutorialName = DOCS_ROOT.relativize(tutorialPath).toString();
         try {
+            AtomicInteger lineCounter = new AtomicInteger();
             for (String line : Files.readAllLines(tutorialPath)) {
+                lineCounter.incrementAndGet();
                 lineCheckers.stream()
                         .map(checker -> checker.verifyTutorialLine(tutorialPath,
-                                tutorialName, line))
+                                tutorialName, line, lineCounter.get()))
                         .filter(errorList -> !errorList.isEmpty())
                         .flatMap(Collection::stream)
                         .forEach(this::addDocumentationError);
@@ -107,9 +115,11 @@ public class TestTutorialCodeCoverage {
         Map<String, Set<String>> codeFileMap = new HashMap<>();
 
         // Populate map based on @CodeFor annotations
-        Files.walk(JAVA_LOCATION)
-                .filter(path -> path.toString().endsWith(".java"))
-                .forEach(path -> extractJavaFiles(path, codeFileMap));
+        for (Path javaLocation : JAVA_LOCATIONS) {
+            Files.walk(javaLocation)
+                    .filter(path -> path.toString().endsWith(".java"))
+                    .forEach(path -> extractJavaFiles(javaLocation,path, codeFileMap));
+        }
 
         return codeFileMap;
     }
@@ -125,9 +135,9 @@ public class TestTutorialCodeCoverage {
         return codeFileMap;
     }
 
-    private void extractJavaFiles(Path javaFile,
+    private void extractJavaFiles(Path rootLocation, Path javaFile,
             Map<String, Set<String>> allowedLines) {
-        String className = JAVA_LOCATION.relativize(javaFile).toString()
+        String className = rootLocation.relativize(javaFile).toString()
                 .replace(File.separatorChar, '.').replaceAll("\\.java$", "");
 
         try {

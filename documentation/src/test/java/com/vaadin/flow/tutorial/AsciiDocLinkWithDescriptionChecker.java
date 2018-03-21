@@ -33,7 +33,7 @@ class AsciiDocLinkWithDescriptionChecker implements TutorialLineChecker {
 
     @Override
     public Collection<String> verifyTutorialLine(Path tutorialPath,
-            String tutorialName, String line) {
+            String tutorialName, String line, int lineNumber) {
         if (!line.contains(linkSyntaxFragment)) {
             return Collections.emptyList();
         }
@@ -44,7 +44,7 @@ class AsciiDocLinkWithDescriptionChecker implements TutorialLineChecker {
         while (matcher.find()) {
             if (matchedCorrectValue(matcher)) {
                 validateAsciiDocLink(tutorialPath, tutorialName,
-                        matcher.group(1)).ifPresent(validationErrors::add);
+                        matcher.group(1), lineNumber).ifPresent(validationErrors::add);
             } else {
                 validationErrors.add(String.format(
                         "Received malformed asciidoc link, tutorial = %s, line = %s",
@@ -55,14 +55,14 @@ class AsciiDocLinkWithDescriptionChecker implements TutorialLineChecker {
     }
 
     private Optional<String> validateAsciiDocLink(Path tutorialPath,
-            String tutorialName, String asciiDocLink) {
+            String tutorialName, String asciiDocLink, int lineNumber) {
         Path externalTutorialPath = Paths.get(
                 tutorialPath.getParent().toString(),
                 asciiDocLink + fileExtension);
         if (!Files.isRegularFile(externalTutorialPath)) {
             return Optional.of(String.format(
-                    "Could not locate file '%s' referenced in tutorial %s",
-                    asciiDocLink, tutorialName));
+                    "Could not locate file '%s' referenced in tutorial %s L:%s",
+                    asciiDocLink, tutorialName, lineNumber));
         } else {
             return Optional.empty();
         }
