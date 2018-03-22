@@ -27,4 +27,3 @@ so that the code snippets from the documentation can be verified. This requires 
   - the `<appendClasses>` configuration must be enabled for the `maven-war-plugin`
   - The dependency should be to `documentation` added with `<classifier>classes</classifier>`
 - The `TestTutorialCodeCoverage` class needs to know the source folder location (see static variables)
-

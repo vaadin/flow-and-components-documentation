@@ -96,10 +96,10 @@ public class TestTutorialCodeCoverage {
         try {
             AtomicInteger lineCounter = new AtomicInteger();
             for (String line : Files.readAllLines(tutorialPath)) {
-                lineCounter.incrementAndGet();
+                int lineNumber = lineCounter.incrementAndGet();
                 lineCheckers.stream()
                         .map(checker -> checker.verifyTutorialLine(tutorialPath,
-                                tutorialName, line, lineCounter.get()))
+                                tutorialName, line, lineNumber))
                         .filter(errorList -> !errorList.isEmpty())
                         .flatMap(Collection::stream)
                         .forEach(this::addDocumentationError);
