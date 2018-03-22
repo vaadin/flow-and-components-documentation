@@ -1,11 +1,11 @@
 ---
-title: Using Model Converters with a PolymerTemplate Model
+title: Using Model Encoders with a PolymerTemplate Model
 order: 9
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
-= Using Model Converters with a PolymerTemplate Model
+= Using Model Encoders with a PolymerTemplate Model
 
 Sometimes you may want to use ready made beans in your model which you can't control
 (i.e. they are given to you as binary class files). But their structure may be
@@ -18,10 +18,10 @@ exclude any property with this type (see `@Exclude` in
 <<tutorial-template-model-bean#,Using Beans with a PolymerTemplate Model>>).
 
 But what if you need this property on the client side for some reason (e.g. you
-want this identifier of a bean to be able to reference it)? In this case you can use `@Convert`
-annotation. You can just convert a `Long` value to a `String` value and it
+want this identifier of a bean to be able to reference it)? In this case you can use `@Encode`
+annotation. You can just encode a `Long` value to a `String` value and it
 will be sent to the client-side as a string. Then once the client side sends this value
-back it will be converted back to a `Long`.
+back it will be decoded back to a `Long`.
 
 Here is the `Person` JPA entity class with the model class :
 
@@ -40,26 +40,26 @@ public class Person implements Serializable {
 }
 
 public interface MyModel extends TemplateModel {
-   @Convert(value=LongToStringConverter.class, path="id")
+   @Encode(value=LongToStringEncoder.class, path="id")
    void setPerson(Person person);
    Person getPerson();
 }
 ----
 
-And here is its converter:
+And here is its encoder:
 
 [source,java]
 ----
-public class LongToStringConverter implements ModelConverter<Long, String> {
+public class LongToStringEncoder implements ModelEncoder<Long, String> {
 
     @Override
-    public String toPresentation(Long modelValue) {
+    public String encode(Long modelValue) {
         return Optional.ofNullable(modelValue).map(Object::toString)
                 .orElse(null);
     }
 
     @Override
-    public Long toModel(String presentationValue) {
+    public Long decode(String presentationValue) {
         return Optional.ofNullable(presentationValue).map(Long::valueOf)
                 .orElse(null);
     }
@@ -72,9 +72,9 @@ in the usual way but it will have the `String` type.
 
 [NOTE]
 The annotation parameter `path="id"` is used to address the `id` sub-property of the `person` property.
-By default the `path` value is `""` which means that a converter is applied to the property itself.
+By default the `path` value is `""` which means that an encoder is applied to the property itself.
 
-You can use any type to convert to any supported type. Another usecase for converters may be
+You can use any type to encode to any supported type. Another usecase for encoders may be
 splitting one property value to several sub-properties to use them in different UI controls instead of one.
 E.g. we may want to have 3 input fields for a person birthday instead of one: one for the day, month and year.
 So you have a `Date` property in your model:
@@ -85,7 +85,7 @@ public interface MyModel extends TemplateModel {
 
     Date getBirthDate();
 
-    @Convert(DateToDateBeanConverter.class)
+    @Encode(DateToDateBeanEncoder.class)
     void setBirthDate(Date birthDate);
 }
 ----
@@ -127,14 +127,14 @@ public class DateBean implements Serializable {
 }
 ----
 
-and the converter class:
+and the encoder class:
 
 [source,java]
 ----
-public class DateToDateBeanConverter implements ModelConverter<Date, DateBean> {
+public class DateToDateBeanEncoder implements ModelEncoder<Date, DateBean> {
 
     @Override
-    public DateBean toPresentation(Date modelValue) {
+    public DateBean encode(Date modelValue) {
         if (modelValue == null) {
             return null;
         }
@@ -148,7 +148,7 @@ public class DateToDateBeanConverter implements ModelConverter<Date, DateBean> {
     }
 
     @Override
-    public Date toModel(DateBean presentationValue) {
+    public Date decode(DateBean presentationValue) {
         if (presentationValue == null) {
             return null;
         }
@@ -178,7 +178,7 @@ Now you can use the following HTML template file for your component (here is onl
 </template>
 ----
 
-So here one `Date` property is converted to 3 sub-properties: the day, month and year.
+So here one `Date` property is encoded to 3 sub-properties: the day, month and year.
 Each of them has its own editor but on the server side it's still the same one property `birthDate`.
 
 [NOTE]
