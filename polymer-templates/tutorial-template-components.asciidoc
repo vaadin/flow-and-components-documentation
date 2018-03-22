@@ -77,6 +77,21 @@ MainPage page = new MainPage();
 page.setContent(new Label("Hello!"));
 ----
 
+In the example above the `div` element with `"footer"` identifier may also be 
+mapped via `Div` component and `@Id("footer")` annotation. But neither its hierarchical 
+structure nor attributes/properties are not available on the server side via API.
+The injected `Div` instance doesn't have any server side child even though
+there is the anchor `a` element available on the client side. The injected instance 
+`getChildren()` method returns an empty `Stream`.
+
+Similar to this the `getText()` method of the `Div` instance injected via 
+`@Id("header")` returns an empty string.
+
+So server side `Component`/`Element` read methods are not always in sync 
+with the client-side. But you still may use mutation API methods from the server side
+like `appendChild`/`setProperty`/`setAttribute`. Getter methods returns values
+which have been set from the server side only. 
+
 [NOTE]
 The created `Element` is virtually mapped to be connected to the `ShadowRoot` of the
 `PolymerTemplate` even if it would be deeper in the shadow tree.
