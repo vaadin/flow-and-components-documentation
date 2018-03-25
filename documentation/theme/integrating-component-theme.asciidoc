@@ -1,46 +1,10 @@
 ---
-title: Component themes
-order: 1
+title: Integrating Your Own Component Theme
+order: 5
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
-
-= Component themes
-
-By default Flow imports components without any theme. To use themed components add `Theme` annotation to your navigation target with @Route (see below). You can also add `Theme` annotation to your root level RouterLayout.
-
-Each root `RouterLayout` can define it's own theme. This is not recommended though as any bootstrap addition may lead theme not to be used.
-
-.Sample setup for single view setup to get Lumo themed components
-[source,java]
-----
-@Route(value = "")
-@Theme(Lumo.class)
-public class Application extends Div {
-}
-----
-
-.Sample setup for multi navigation target application to get Lumo themed components
-[source,java]
-----
-@Theme(Lumo.class)
-public class MainLayout extends Div implements RouterLayout {
-}
-
-@Route(value = "", layout = MainLayout.class)
-public class HomeView extends Div {
-}
-
-@Route(value = "blog", layout = MainLayout.class)
-public class BlogPost extends Div {
-}
-----
-
-[NOTE]
-If the Theme annotation is not on a `@Route` Component or a top `RouterLayout` an exception will be thrown on startup.
-
-= Creating your own component theme
+= Integrating Your Own Component Theme
 
 To create your own component theme to be used with the wrapped Vaadin components
 you need to create a theme class that informs flow how to translate the base un-themed
@@ -97,3 +61,9 @@ Each of those html imports will be added to the BootstrapPage head.
 In the case where an exception navigation chain doesn't get the used `Theme` the
 exception navigation target can be annotated with `@NoTheme` so that
 a warning is not logged for missing theme.
+
+== Creating Your Own Component Theme
+
+The theming for the Vaadin components is built using `Vaadin.ThemableMixin`.
+See link:https://github.com/vaadin/vaadin-themable-mixin/wiki[vaadin-themable-mixin wiki] to learn how theming of Vaadin components is done.
+
