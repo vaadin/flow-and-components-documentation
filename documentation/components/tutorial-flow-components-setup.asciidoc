@@ -65,7 +65,7 @@ properly configured to run with Polymer web components. Please refer to
 for more information.
 
 The platform also contains ready made _theming_ for the components that help you tweak and tune the look and feel of the components.
-See the <<../theme/tutorial-built-in-themes#,Component themes>> for more info.
+See the <<../theme/using-component-themes#,Using Component Themes>> for more info.
 
 For more ready-made Java APIs for Web Components, you should check the https://vaadin.com/directory/search?framework=Vaadin%2010[Vaadin Directory.]
 

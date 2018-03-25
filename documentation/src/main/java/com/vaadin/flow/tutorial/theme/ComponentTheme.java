@@ -27,25 +27,8 @@ import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("theme/tutorial-built-in-themes.asciidoc")
+@CodeFor("theme/integrating-component-theme.asciidoc")
 public class ComponentTheme {
-
-    @Route(value = "")
-    @Theme(Lumo.class)
-    public class Application extends Div {
-    }
-
-    @Theme(Lumo.class)
-    public class MainLayout extends Div implements RouterLayout {
-    }
-
-    @Route(value = "", layout = MainLayout.class)
-    public class HomeView extends Div {
-    }
-
-    @Route(value = "blog", layout = MainLayout.class)
-    public class BlogPost extends Div {
-    }
 
     @HtmlImport("frontend://bower_components/vaadin-lumo-styles/color.html")
     public class MyTheme implements AbstractTheme {

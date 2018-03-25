@@ -52,16 +52,16 @@ This should be applied on the root layout of the application.
 It can also be in an abstract class if you have multiple root layouts.
 
 Instead of a magic string, you need to provide a `Class` reference to an theme class that extends `AbstractTheme`.
-There are two premade themes available for V10: *Lumo* and *Material*. You should always use either of these themes,
-since the unthemed versions of the components are only meant as a baseline for creating a new theme from scratch!
+There is one ready-made theme available for V10: *Lumo*. Another theme, _Material_,
+is also in progress, but not yet available in V10. It will be possible to use it with the Vaadin components in 10 once it is released.
+You should always use a theme, since the unthemed versions of the components are only meant as a baseline for creating a new theme from scratch!
 
 The theme class will handle two things:
 
 * It tells Flow what theme it should use for the Vaadin Components and where the files can be found
 * It specifies a set of shared styles like fonts etc. that will be automatically loaded to the initial page by Flow for the theme.
 
-If you want to create your own reusable theme for Vaadin Components,
-you should read the <<../theme/tutorial-built-in-themes#,instructions>> on creating your own themes.
+The Lumo theme can be customized, see <<../theme/using-component-themes#,documentation>> for more information.
 
 === Application Theming
 
