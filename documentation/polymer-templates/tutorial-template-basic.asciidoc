@@ -19,8 +19,8 @@ For tutorials about how to use different template features, see:
 * <<tutorial-template-components-in-slot#,Using <slot> in PolymerTemplates>>
 * <<tutorial-template-event-handlers#,Handling User Events in a Template>>
 
-This tutorial is based on `demo-hello-worlds` demo from https://github.com/vaadin/flow-demo/tree/master/demo-hello-worlds repository.
-That demo shows three ways of achieving the same result: using components, element API and the template approach.
+This tutorial is based on the https://github.com/vaadin/flow-demo/tree/master/demo-hello-worlds[Hello Worlds technical demo].
+The demo shows three ways of achieving the same result: using components, element API and the template approach.
 
 We'll create a demo, that will be asking a user to input a name and will print a greeting on button click, using the input.
 
