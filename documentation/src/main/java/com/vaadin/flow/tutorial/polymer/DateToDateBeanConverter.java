@@ -4,14 +4,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import com.vaadin.flow.templatemodel.ModelConverter;
+import com.vaadin.flow.templatemodel.ModelEncoder;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("polymer-templates/tutorial-template-model-converters.asciidoc")
-public class DateToDateBeanConverter implements ModelConverter<Date, DateBean> {
+public class DateToDateBeanConverter implements ModelEncoder<Date, DateBean> {
 
     @Override
-    public DateBean toPresentation(Date modelValue) {
+    public DateBean encode(Date modelValue) {
         if (modelValue == null) {
             return null;
         }
@@ -25,7 +25,7 @@ public class DateToDateBeanConverter implements ModelConverter<Date, DateBean> {
     }
 
     @Override
-    public Date toModel(DateBean presentationValue) {
+    public Date decode(DateBean presentationValue) {
         if (presentationValue == null) {
             return null;
         }
