@@ -146,7 +146,7 @@ client side changes in the list property are not sent to the server.
 In the example below the update in the `messages` property won't be sent to the server side
 if method `addItem`  is called.
 
-[source,xml]
+[source,javascript]
 ----
 class MyTemplate extends Polymer.Element {
     static get properties() {
