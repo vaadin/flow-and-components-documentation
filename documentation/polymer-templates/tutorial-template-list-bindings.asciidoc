@@ -139,6 +139,31 @@ public class Employee {
 [NOTE]
 Setters are not required here. The template engine will use only the getter to fetch values from employee beans.
 
+The list property updates are propagated only from the server side to the client side.
+The two-way data binding doesn't work with the list property. It means that 
+client side changes in the list property are not sent to the server.
+
+In the example below the update in the `messages` property won't be sent to the server side
+if method `addItem`  is called.
+
+[source,javascript]
+----
+class MyTemplate extends Polymer.Element {
+    static get properties() {
+        return {
+            messages: {
+                type: Array,
+                value: [],
+                notify: true
+            }
+        };
+    }
+    addItem() {
+        this.push('messages', 'foo');
+    }
+}
+----
+
 == Updating the Items
 
 The beans that you add to the model using the `setEmployees()` method are used to populate the model only.
