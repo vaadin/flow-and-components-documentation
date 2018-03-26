@@ -77,8 +77,9 @@ MainPage page = new MainPage();
 page.setContent(new Label("Hello!"));
 ----
 
-In the example above the `div` element with `"footer"` identifier may also be 
-mapped via `Div` component and `@Id("footer")` annotation. But neither its hierarchical 
+In the polymer template class example above the `div` element with 
+`"footer"` identifier could also be mapped via `Div` component and 
+`@Id("footer")` annotation. But neither its hierarchical 
 structure nor attributes/properties are not available on the server side via API.
 The injected `Div` instance doesn't have any server side child even though
 there is the anchor `a` element available on the client side. The injected instance 
