@@ -77,7 +77,7 @@ MainPage page = new MainPage();
 page.setContent(new Label("Hello!"));
 ----
 
-In the polymer template class example above the `div` element with 
+In the polymer template class example above, the `div` element with 
 `"footer"` identifier could also be mapped via `Div` component and 
 `@Id("footer")` annotation. But neither its hierarchical 
 structure nor attributes/properties are not available on the server side via API.
