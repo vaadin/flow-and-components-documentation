@@ -18,7 +18,7 @@ package com.vaadin.flow.tutorial.polymer;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.vaadin.flow.templatemodel.Convert;
+import com.vaadin.flow.templatemodel.Encode;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
@@ -26,14 +26,14 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class Converters {
 
     public interface MyModel extends TemplateModel {
-        @Convert(value = LongToStringConverter.class, path = "id")
+        @Encode(value = LongToStringConverter.class, path = "id")
         void setPerson(Person person);
 
         Person getPerson();
 
         Date getBirthDate();
 
-        @Convert(DateToDateBeanConverter.class)
+        @Encode(DateToDateBeanConverter.class)
         void setBirthDate(Date birthDate);
     }
 

@@ -17,20 +17,20 @@ package com.vaadin.flow.tutorial.polymer;
 
 import java.util.Optional;
 
-import com.vaadin.flow.templatemodel.ModelConverter;
+import com.vaadin.flow.templatemodel.ModelEncoder;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("polymer-templates/tutorial-template-model-converters.asciidoc")
-public class LongToStringConverter implements ModelConverter<Long, String> {
+public class LongToStringConverter implements ModelEncoder<Long, String> {
 
     @Override
-    public String toPresentation(Long modelValue) {
+    public String encode(Long modelValue) {
         return Optional.ofNullable(modelValue).map(Object::toString)
                 .orElse(null);
     }
 
     @Override
-    public Long toModel(String presentationValue) {
+    public Long decode(String presentationValue) {
         return Optional.ofNullable(presentationValue).map(Long::valueOf)
                 .orElse(null);
     }

@@ -40,7 +40,7 @@ public class Person implements Serializable {
 }
 
 public interface MyModel extends TemplateModel {
-   @Convert(value=LongToStringConverter.class, path="id")
+   @Encode(value=LongToStringConverter.class, path="id")
    void setPerson(Person person);
    Person getPerson();
 }
@@ -50,16 +50,16 @@ And here is its converter:
 
 [source,java]
 ----
-public class LongToStringConverter implements ModelConverter<Long, String> {
+public class LongToStringConverter implements ModelEncoder<Long, String> {
 
     @Override
-    public String toPresentation(Long modelValue) {
+    public String encode(Long modelValue) {
         return Optional.ofNullable(modelValue).map(Object::toString)
                 .orElse(null);
     }
 
     @Override
-    public Long toModel(String presentationValue) {
+    public Long decode(String presentationValue) {
         return Optional.ofNullable(presentationValue).map(Long::valueOf)
                 .orElse(null);
     }
@@ -85,7 +85,7 @@ public interface MyModel extends TemplateModel {
 
     Date getBirthDate();
 
-    @Convert(DateToDateBeanConverter.class)
+    @Encode(DateToDateBeanConverter.class)
     void setBirthDate(Date birthDate);
 }
 ----
@@ -131,10 +131,10 @@ and the converter class:
 
 [source,java]
 ----
-public class DateToDateBeanConverter implements ModelConverter<Date, DateBean> {
+public class DateToDateBeanConverter implements ModelEncoder<Date, DateBean> {
 
     @Override
-    public DateBean toPresentation(Date modelValue) {
+    public DateBean encode(Date modelValue) {
         if (modelValue == null) {
             return null;
         }
@@ -148,7 +148,7 @@ public class DateToDateBeanConverter implements ModelConverter<Date, DateBean> {
     }
 
     @Override
-    public Date toModel(DateBean presentationValue) {
+    public Date decode(DateBean presentationValue) {
         if (presentationValue == null) {
             return null;
         }
