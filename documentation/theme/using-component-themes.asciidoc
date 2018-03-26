@@ -1,0 +1,90 @@
+---
+title: Using Component Themes
+order: 2
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= Using Component Themes
+
+By default Flow imports Vaadin's components without any theme,
+but you actually never want to use the components without a theme.
+To use any of the ready-made component themes, just add `Theme` annotation to your root navigation level,
+`RouterLayout` or to the top level @Route (see below).
+
+Each root `RouterLayout` can define it's own theme. This is not recommended though as any bootstrap addition can cause theme not to be used.
+*We don't support nor recommend mixing different themes together* - the UX should be consistent in one application.
+
+.Sample setup for application with navigation hierarchy to get Lumo themed Vaadin components
+[source,java]
+----
+@Theme(Lumo.class)
+public class MainLayout extends Div implements RouterLayout {
+}
+
+@Route(value = "", layout = MainLayout.class)
+public class HomeView extends Div {
+}
+
+@Route(value = "blog", layout = MainLayout.class)
+public class BlogPost extends Div {
+}
+----
+
+.Sample setup for single view setup to get Lumo themed components
+[source,java]
+----
+@Route(value = "")
+@Theme(Lumo.class)
+public class Application extends Div {
+}
+----
+
+The theme class automatically handles two things:
+
+* It tells Flow what theme it should use for the Vaadin Components and where the files can be found
+* It specifies a set of shared styles like fonts etc. that will be automatically loaded to the initial page by Flow for the theme.
+
+[NOTE]
+If the Theme annotation is not on a `@Route` Component or a top `RouterLayout` an exception will be thrown on startup.
+
+== Available Themes and Customizations
+
+In Vaadin 10 there is only one ready-made component theme, _Lumo_, which is the main theme for all Vaadin components.
+It gives you a full set of building blocks to build a modern looking web application that works just as well on desktop and on mobile.
+
+The Flow integration for Lumo is a part of the `vaadin-core` dependency, and as shown in the previous chapter,
+very easily taken into use. When using `@Theme(Lumo.class)`, you don't need to add any resource imports manually.
+
+Lumo provides some customization points for the components, that allow you to very fine tune the look and provide better UX.
+It can be customized by using CSS custom properties, see link:https://vaadin.com/themes/lumo[the Lumo documentation] for more information.
+The theming for the Vaadin components is built using `Vaadin.ThemableMixin`.
+See link:https://github.com/vaadin/vaadin-themable-mixin/wiki[vaadin-themable-mixin wiki] to learn how theming of Vaadin components is done.
+
+[NOTE]
+There is another theme being build, _Material Theme_. Once it is ready enough, a Flow integration will be available.
+Even though it will not be part of Vaadin 10, you should be able to use it with all Vaadin 10 components.
+You can take a look at it and start using it already by manually importing the webjar and the dependencies.
+See the link:https://vaadin.com/themes/material[Material Theme documentation] for more information and tracking progress.
+
+=== Using Lumo variants
+
+Lumo comes with a dark variant. For taking it to use, you need to apply the `theme="dark"` attribute to the DOM.
+Usually you want to do it for the whole UI, thus you should apply it to the `<body>` element.
+
+.Using the dark variant of Lumo
+[source,java]
+----
+public class RootLayout extends Div implements PageConfigurator, RouterLayout {
+
+    @Override
+    public void configurePage(InitialPageSettings settings) {
+        settings.getUi().getElement().setAttribute("theme", "dark");
+    }
+}
+----
+
+Individual components have also variants available.
+Component variants are applied similarly using the element API to set the variant as the `theme` attribute.
+For looking up available component variants, https://vaadin.com/components/browse[see the component HTML examples] and look under the _Lumo Theme_ tab for examples of the variants.
