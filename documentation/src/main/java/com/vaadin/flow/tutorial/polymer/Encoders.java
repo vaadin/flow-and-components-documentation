@@ -18,22 +18,22 @@ package com.vaadin.flow.tutorial.polymer;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.vaadin.flow.templatemodel.Convert;
+import com.vaadin.flow.templatemodel.Encode;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-model-converters.asciidoc")
-public class Converters {
+@CodeFor("polymer-templates/tutorial-template-model-encoders.asciidoc")
+public class Encoders {
 
     public interface MyModel extends TemplateModel {
-        @Convert(value = LongToStringConverter.class, path = "id")
+        @Encode(value = LongToStringEncoder.class, path = "id")
         void setPerson(Person person);
 
         Person getPerson();
 
         Date getBirthDate();
 
-        @Convert(DateToDateBeanConverter.class)
+        @Encode(DateToDateBeanEncoder.class)
         void setBirthDate(Date birthDate);
     }
 

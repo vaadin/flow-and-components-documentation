@@ -59,7 +59,11 @@ and keep the page state intact. The following tutorials explain how to use the R
 * <<importing-dependencies/tutorial-ways-of-importing#,Ways of importing the dependencies>>
 
 == Theming Applications
-* <<theme/tutorial-built-in-themes#,Component themes>>
+* <<theme/theming-overview#,Theming Overview>>
+* <<theme/using-component-themes#,Using Component Themes>>
+* <<theme/application-theming-basics#,Application Theming Basics>>
+* <<theme/theming-crash-course#,Theming Crash Course>>
+* <<theme/integrating-component-theme#,Integrating Your Own Component Theme>>
 
 == Creating Components
 * <<creating-components/tutorial-component-basic#,Creating A Simple Component Using the Element API>>
@@ -97,7 +101,7 @@ and keep the page state intact. The following tutorials explain how to use the R
 ** <<polymer-templates/tutorial-template-bindings#two-way-binding,Two-way data binding>>
 * <<polymer-templates/tutorial-template-list-bindings#,Using List of Items in a PolymerTemplate with template repeater>>
 * <<polymer-templates/tutorial-template-model-bean#,Using Beans with a PolymerTemplate Model>>
-* <<polymer-templates/tutorial-template-model-converters#,Using Model Converters with a PolymerTemplate Model>>
+* <<polymer-templates/tutorial-template-model-encoders#,Using Model Encoders with a PolymerTemplate Model>>
 
 == Using Vaadin with Spring
 * <<spring/tutorial-spring-basic#,Use Vaadin with Spring>>

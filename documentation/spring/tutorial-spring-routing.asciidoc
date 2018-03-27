@@ -55,3 +55,25 @@ public class DataBeanImpl implements DataBean {
     }
 }
 ----
+
+You should be aware of the difference between running the application as a Spring Boot 
+application and a WAR application deployed to a Web server. In the latter case 
+all `@Route` annotations are discovered out of the box due to Servlet 3.0 specification. 
+It doesn't happen automatically in the Spring Boot application case due a design decision  
+(see https://github.com/spring-projects/spring-boot/issues/321).
+Vaadin Spring add-on implements scanning for route classes (and other Vaadin
+types that needs to be discovered and registered at startup) for Spring Boot applications for you.
+But this scanning is done only inside Spring Boot application class package (the package
+where `@SpringBootApplication` class is located). If your application contains 
+route classes in packages that are not scanned by default then you have two options:
+either move them into the `@SpringBootApplication` application class package 
+(or its subpackages) or explicitly specify the packages where the scanning should 
+discover the route classes. `@EnableVaadin` annotation allows you to do this via 
+its `value` parameter.
+
+[NOTE]
+Normally you don't need to use the `@EnableVaadin` annotation at all with Spring Boot.
+The annotation is intended to be used in Spring MVC case where it enables 
+the Vaadin configuration. In Spring Boot case auto-configuration is available
+which makes it work out of the box. So the only reason why you need to use 
+`@EnableVaadin` is specifying the packages to scan.

@@ -72,7 +72,7 @@ class CodeFileChecker implements TutorialLineChecker {
                                                 String line, int lineNumber) {
         if (!CODE_DECLARATION_LINE.equals(line)) {
             return Optional.of(String.format(
-                    "Tutorial %s L: has incorrect code block declaration: code block should be surrounded with '%s', got '%s' instead",
+                    "Tutorial %s L:%s has incorrect code block declaration: code block should be surrounded with '%s', got '%s' instead",
                     tutorialName, lineNumber, CODE_DECLARATION_LINE, line));
         }
         blockStarted = false;
