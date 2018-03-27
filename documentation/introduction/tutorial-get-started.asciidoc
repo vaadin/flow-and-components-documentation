@@ -172,7 +172,7 @@ When this happens, the constructor initialises the UI structure. In this case, t
 inherits from [classname]#VerticalLayout# which is one of the most used layout
 components. Layouts are used to position and display other components.
 
-The third annotation, [classname]#@Theme("Lumo.class")#, defines the component theme to use.
+The third annotation, [classname]#@Theme(Lumo.class)#, defines the component theme to use.
 Using this annotation on the root level navigation target or root layout will enable the Lumo theme
 for all used Vaadin components automatically. You can read more about Web Component themes and Lumo from https://vaadin.com/themes.
 
