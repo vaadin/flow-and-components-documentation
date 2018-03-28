@@ -782,9 +782,11 @@ https://github.com/vaadin/flow-and-components-documentation/tree/master/tutorial
 [[framework.tutorial.margin]]
 == Customizing the look and feel with CSS
 
-Styling Vaadin Flow applications is easy, we can just add whatever CSS directives
+Styling Vaadin applications is easy, by adding CSS directives
 we wish into the style file [filename]#src/main/webapp/frontend/styles/shared-styles.html#.
-Just add any _CSS_ inside the `<style>` element.
+
+For more information about styling and theming, like how you scope and target styles for HTML templates,
+please see the <<../theme/theming-overview#,theming documentation>>.
 
 [[framework.tutorial.next]]
 == It works! What next?
