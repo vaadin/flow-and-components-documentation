@@ -15,7 +15,6 @@ import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("introduction/tutorial-get-started.asciidoc")
-@BodySize(height = "100vh", width = "100vw")
 @HtmlImport("styles/shared-styles.html")
 @Route("")
 @Theme(Lumo.class)
