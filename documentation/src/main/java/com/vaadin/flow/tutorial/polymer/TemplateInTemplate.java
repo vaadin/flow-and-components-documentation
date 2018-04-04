@@ -17,6 +17,7 @@ package com.vaadin.flow.tutorial.polymer;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.templatemodel.TemplateModel;
@@ -27,6 +28,7 @@ public class TemplateInTemplate {
 
     @Tag("parent-template")
     @HtmlImport("/com/example/ParentTemplate.html")
+    @Uses(ChildTemplate.class)
     public class ParentTemplate extends PolymerTemplate<Model> {
     }
 
