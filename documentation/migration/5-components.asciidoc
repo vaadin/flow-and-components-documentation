@@ -6,6 +6,7 @@ layout: page
 
 = Components in Vaadin 10
 
+[#components]
 == Component Set
 
 While all the components have been rebuilt based on Web Components, there are some components that don’t yet have a replacement with server side Java API. The ones that have, might have gone through some changes. Some older features might have been removed.
@@ -111,6 +112,7 @@ For any missing components, you should first look for alternatives in https://va
 
 For the components that are available in V10, you can browse https://vaadin.com/components/browse[vaadin.com/components/browse] for the features and examples.
 
+[#basic-features]
 == Basic Component Features
 
 In Vaadin 10 the way components are structured has been renewed. While the basics stay the same, backwards compatibility has been discarded in favor of optimizing for current and future usage. In V10 the components are much more simpler and light-weight in terms of API.
@@ -142,20 +144,18 @@ but that it is always component specific. Usually that API is `setLabel(String l
 
 Adding icons is possible, it is just HTML5 after all. But as with caption there is no universal support for that.
 
-=== setEnabled(boolean enabled) is Component Specific and Works Differently
+=== setEnabled(boolean enabled)
 
 [NOTE] This chapter describes how the behavior of the API will be.
 Please see https://github.com/vaadin/flow/issues/3538[the corresponding issue in Flow] for current status.
-
-Previously `setEnabled(boolean enabled)` was a feature for all the components and changing it for component containers cascaded to all child components too.
 
 In Vaadin 10, the `setEnabled` method is specific to components marked with the `HasEnabled` mixin interface.
 It only applies to those components that have the `disabled` property in the DOM. When a component is disabled,
 any property changes and DOM events coming from the client side are ignored.
 It is possible to whitelist some properties and events to to be allowed if necessary.
 
-The disabled state is not automatically cascaded to child components, it depends on the component.
-In V10 there is no disabled state for component containers, there is an [enhancement issue]() open for this.
+The disabled state is automatically cascaded to child components, but while the updates are always prevented,
+it is up to the component to change the disabled UX to mark the component as "not-working" when it has been disabled.
 
 === setReadOnly(boolean readOnly) is Component Specific and Works Differently
 
@@ -173,8 +173,8 @@ This property is specified by the `String getClientValuePropertyName()` method i
 In Vaadin 8 the framework made it possible to show a tooltip for any component if the user hovered the mouse on top of the component.
 In Vaadin 10 there is no automatic way for this; it is a component specific feature and possible using CSS.
 
- [#layouts]
- == Layouts in Vaadin 10
+[#layouts]
+== Layouts in Vaadin 10
 
 In Vaadin 8 the layouting of components was managed by a `LayoutManager` on the client engine.
 This was created in a time when the differences between browsers were big,
