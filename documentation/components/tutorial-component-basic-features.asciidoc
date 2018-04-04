@@ -92,7 +92,8 @@ mappedComponent.setVisible(false);
 == Enabled and disabled components
 
 Disabling user interaction of a component means calling `component.setEnabled(false)` on the server
-which then blocks any interaction from the client to the server for the disabled component and its children.
+which then blocks any interaction from the client to the server for the disabled component and its children
+and adds a `disabled` property to the client element(s).
 
 The enabled state of a component cascades to the child components of the element when it is disabled,
 but doesn't override the enabled state of the children.
