@@ -18,10 +18,4 @@ public class ApplicationTheme {
     public class MainLayout extends Div implements RouterLayout {
     }
 
-    private class Foo {
-        @BodySize(height = "100vh", width = "100vw")
-        @Theme(Lumo.class)
-        public class MainLayout extends Div implements RouterLayout {
-        }
-    }
 }
