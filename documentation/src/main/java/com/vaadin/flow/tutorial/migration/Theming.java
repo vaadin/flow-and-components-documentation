@@ -2,7 +2,6 @@ package com.vaadin.flow.tutorial.migration;
 
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.page.BodySize;
 import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
