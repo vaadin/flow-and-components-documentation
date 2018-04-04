@@ -54,3 +54,11 @@ The `@Synchronize` annotation maps events _originated from the root element of t
 
 [TIP]
 For an easier way to address properties and attributes, see <<tutorial-component-property-descriptor#,Using API Helpers for Defining Component Properties>>
+
+== Component Enabled
+
+The setEnabled method will be available for any component implementing the `HasEnabled` interface
+(which comes also with `HasValue`, `HasComponents` and `Focusable`).
+
+By default disabling the component will add a `disabled` property to the client element, but this
+can be modified by overriding `HasElement:enabledStateChanged(boolean)` method.
