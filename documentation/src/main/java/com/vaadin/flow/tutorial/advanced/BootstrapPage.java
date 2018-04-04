@@ -147,7 +147,7 @@ public class BootstrapPage {
 
 
     @Route("")
-    @BodySize(height = "100vh", width = "100vw")
+    @BodySize
     public static class BodySizeAnnotatedRoute extends Div {
     }
 
