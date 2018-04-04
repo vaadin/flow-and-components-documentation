@@ -141,7 +141,6 @@ The Java code of the application stub main view can be found in the
 
 [source,java]
 ----
-@BodySize(height = "100vh", width = "100vw")
 @HtmlImport("styles/shared-styles.html")
 @Route("")
 @Theme(Lumo.class)
@@ -175,9 +174,6 @@ components. Layouts are used to position and display other components.
 The third annotation, [classname]#@Theme(Lumo.class)#, defines the component theme to use.
 Using this annotation on the root level navigation target or root layout will enable the Lumo theme
 for all used Vaadin components automatically. You can read more about Web Component themes and Lumo from https://vaadin.com/themes.
-
-Finally, the third annotation [classname]#@BodySize(height = "100vh", width = "100vw")#
-defines the _styles_ that are set to the `<body>` element to make it resize nicely on all devices.
 
 In the main view we have a template (more on it in a bit) that shows
 some text, and a button that, when clicked, modifies the value displayed by the
@@ -358,7 +354,6 @@ likely want to refer to it later. Also, let us get a reference to our
 @HtmlImport("styles/shared-styles.html")
 @Route("")
 @Theme(Lumo.class)
-@BodySize(height = "100vh", width = "100vw")
 public class MainView extends VerticalLayout {
     // Add the next two lines:
     private CustomerService service = CustomerService.getInstance();
