@@ -173,9 +173,7 @@ a `PREPEND` then the `@BodySize` will be the deciding one.
 If the `BodySize` annotation is not on a `@Route` Component or a top `RouterLayout` an exception will be thrown on startup.
 
 [NOTE]
-It is recommended to use the default body size. If you don't apply any sizing to the `UI` / `body`,
-*you will not be able to use relative sizing* (% as unit) for any component,
-*unless the component has a parent that has defined size* using anything else than % as the unit.
+When using an empty `@BodySize` annotation (which doesn't apply any sizing for the UI / body), you will not be able to use relative sizing (% as unit) for any component, unless the component has a parent that has defined size using anything else than % as the unit. For that reason, it is recommended to use the default settings for the body size, by omitting the `@BodySize` annotation, or to declare a specific size for it.
 
 == BootstrapListener
 
