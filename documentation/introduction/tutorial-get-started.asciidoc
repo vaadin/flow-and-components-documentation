@@ -171,8 +171,9 @@ inherits from [classname]#VerticalLayout# which is one of the most used layout
 components. Layouts are used to position and display other components.
 
 [NOTE]
-A theme called Lumo will be applied to the application by default, providing nice look and feel.
-If we would use another theme, we would define it with `@Theme` annotation on top of our `MainView`.
+The Lumo theme is applied by default in your application, which provides world-class look and feel
+to the components out of the box. You can change the theme used by the application by using the `@Theme`
+annotation on top of your `MainView`.
 You can read more about Web Component themes and Lumo from https://vaadin.com/themes.
 
 In the main view we have a template (more on it in a bit) that shows
