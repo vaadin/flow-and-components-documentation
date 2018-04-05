@@ -70,3 +70,32 @@ public void remove(Component child) {
 You should not assume that a component is always removed using the remove method. A child element can be detached either manually through `Element` API, e.g. `Element.removeFromParent()` or by adding it to another component (`Element.appendChild` moves the element from the old parent if it is attached).
 [TIP]
 If you need to know when a child component is removed, add a detach listener to it using `Component.addDetachListener()`.
+
+== Enabled/Disabled state
+
+When your container is set as disabled, all children are also set as disabled, which blocks all updates from the client to the server. Components that implement
+`HasEnabled` are updated accordingly to reflect the disabled state in the UI (which usually translates to setting the `disabled` attribute).
+
+But if your container contains Elements or Components that don't implement `HasEnabled` and you still want to visually update then to reflect the disabled state
+in the UI, you can override the `onEnabledStateChanged` method:
+
+[source,java]
+----
+@Override
+public void onEnabledStateChanged(boolean enabled) {
+    if (enabled) {
+      childElement.removeAttribute("disabled");
+    } else {
+      childElement.setAttribute("disabled", true);
+    }
+}
+----
+
+[NOTE]
+You only need to override the `onEnabledStateChanged` to update the visual aspect of the Elements (by setting the `disabled` attribute, for instance).
+When the container is disabled, the communication from the client to the server is blocked regardless of the method being overridden or not.
+[TIP]
+You don't need to call `super.onEnabledStateChanged(enabled)` when overriding it from the `Component` class, since the default implementation is empty.
+
+The `onEnabledStateChanged` method is called by the framework every time the enabled state change, either by direct calls to `setEnabled`, by calling `setEnabled`
+on a parent container, or by attaching or detaching the component to a disabled container.
