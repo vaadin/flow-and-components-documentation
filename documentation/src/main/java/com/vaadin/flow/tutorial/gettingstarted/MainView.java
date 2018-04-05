@@ -18,7 +18,6 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @BodySize(height = "100vh", width = "100vw")
 @HtmlImport("styles/shared-styles.html")
 @Route("")
-@Theme(Lumo.class)
 public class MainView extends VerticalLayout {
 
     public MainView() {

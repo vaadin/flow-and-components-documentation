@@ -15,7 +15,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("migration/6-theming.asciidoc")
 public class Theming {
-    @Theme(Lumo.class) // the theme for Vaadin Components
+    @Theme(Lumo.class) // the theme for Vaadin Components. You can omit it for Lumo
     @HtmlImport("frontend://styles/shared-styles.html") // the application specific theme
     @BodySize(height = "100vh", width = "100vw") // styles the <body> for 100 % available viewport
 // viewport definition
