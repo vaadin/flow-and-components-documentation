@@ -42,20 +42,3 @@ This is because of the ease of development when you have just one HTML file when
 And it also allows you to more easily make that template a stand-alone component that you can reuse and distribute to others,
 since the styling is already coupled to the component HTML and you don't have to look for it from elsewhere.
 There is an example on this in the crash course chapter too.
-
-== Styling the Body Element
-
-The `UI` component maps to the `body` element in DOM. By default, it does not have any theming applied to it.
-You can however easily customize from Java the sizing for it with the `BodySize` annotation.
-
-.The recommended UI sizing for most Flow applications to take full viewport available size
-[source,java]
-----
-@BodySize(height = "100vh", width = "100vw")
-public class MainLayout extends Div implements RouterLayout {
-}
-----
-
-[NOTE]
-If you don't apply some sizing to the `UI` / `body`, *you will not be able to use relative sizing* (% as unit) for any component,
-*unless the component has a parent that has defined size* using anything else than % as the unit.

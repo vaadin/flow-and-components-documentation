@@ -132,20 +132,22 @@ If the PageConfigurator implementation is not on a `@Route` Component or a `Rout
 
 == Setting the body size styles
 
-To set the body size style you can either use the `@BodySize` annotation or the `PageConfigurator`.
+By default, the body element in a Flow application has size properties `height = "100vh", width = "100vw"`,
+which makes the page fill the entire viewport.
+To change the width and height properties of the body you can either use the `@BodySize` annotation or the `PageConfigurator`.
 
 For `@BodySize` you just add it to the the navigation target with `@Route` or
 the top most `RouterLayout` that builds the navigation target chain.
+You can pass custom height and width properties for the annotation, or leave them out
+to just prevent the default size to be applied for the body:
 
 [source,java]
 ----
 @Route("")
-@BodySize(height = "100vh", width = "100vw")
+@BodySize
 public static class BodySizeAnnotatedRoute extends Div {
 }
 ----
-
-You can define height and width or just one of them as wanted.
 
 With the `PageConfigurator` you can just addInlineContent like:
 
@@ -171,7 +173,7 @@ a `PREPEND` then the `@BodySize` will be the deciding one.
 If the `BodySize` annotation is not on a `@Route` Component or a top `RouterLayout` an exception will be thrown on startup.
 
 [NOTE]
-It is recommended that the body sizes be set to `height = 100vh, width = 100vw`
+When using an empty `@BodySize` annotation (which doesn't apply any sizing for the UI / body), you will not be able to use relative sizing (% as unit) for any component, unless the component has a parent that has defined size using anything else than % as the unit. For that reason, it is recommended to use the default settings for the body size, by omitting the `@BodySize` annotation, or to declare a specific size for it.
 
 == BootstrapListener
 
