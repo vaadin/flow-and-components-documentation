@@ -19,9 +19,11 @@ import java.util.stream.Collectors;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.polymertemplate.Id;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("components/tutorial-component-basic-features.asciidoc")
@@ -60,6 +62,42 @@ public class ComponentBasicFeatures {
     public void id() {
         Label component = new Label();
         component.setId("my-component");
+    }
+
+    public void enabledState_component() {
+        FormLayout form = new FormLayout();
+
+        TextField name = new TextField("Name");
+        TextField email = new TextField("E-mail");
+        Button submit = new Button("Submit");
+        submit.setEnabled(false); // the submit button is disabled
+
+        form.add(name, email, submit);
+    }
+
+    public void enabledState_layout() {
+        //@formatter:off
+        FormLayout form = new FormLayout();
+        form.setEnabled(false); // the entire form is disabled
+
+        TextField name = new TextField("Name");
+        System.out.println(name.isEnabled()); // prints true, since it is not attached yet
+
+        Button submit = new Button("Submit");
+        submit.setEnabled(false); // the submit button is disabled
+        System.out.println(submit.isEnabled()); // prints false
+
+        form.add(name, submit); // attaches children
+
+        System.out.println(name.isEnabled()); // prints false
+        System.out.println(submit.isEnabled()); // prints false
+
+        form.remove(name); // the name field gets detached
+        System.out.println(name.isEnabled()); // prints true
+
+        form.remove(submit); // the submit button gets detached
+        System.out.println(submit.isEnabled()); // prints false, since it was disabled directly
+        //@formatter:on
     }
 
 }
