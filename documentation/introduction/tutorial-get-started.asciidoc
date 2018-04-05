@@ -492,7 +492,7 @@ Before adding the text field to the UI, let's improve the usability a bit
 and make a short exercise to compose better components from lower level UI
 components. The search field can naturally be cleared with the keyboard, but let's
 add a clear button next to the text field. Start by adding the following lines
-to the init method, for example right after your `filterText` configuration:
+to the constructor, for example right after your `filterText` configuration:
 
 [source,java]
 ----
@@ -507,7 +507,7 @@ to clear a value. In the click listener, we simply clear the text from the field
 
 Vaadin Flow contains lots of different kinds of layouts. The simplest way to align
 the text field and the button next to each other is to use a
-[classname]#HorizontalLayout#. Add this line to the init method right after you
+[classname]#HorizontalLayout#. Add this line to the constructor right after you
 configured the `clearFilterTextBtn`:
 
 [source,java]
@@ -516,7 +516,7 @@ HorizontalLayout filtering = new HorizontalLayout(filterText,
     clearFilterTextBtn);
 ----
 
-Finally, *change* the line in the init method that currently adds only the grid,
+Finally, *change* the line in the constructor method that currently adds only the grid,
 to add both `filtering` composition and the grid to the main view.
 
 [source,java]
