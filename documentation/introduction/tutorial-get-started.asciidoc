@@ -516,7 +516,7 @@ HorizontalLayout filtering = new HorizontalLayout(filterText,
     clearFilterTextBtn);
 ----
 
-Finally, *change* the line in the constructor method that currently adds only the grid,
+Finally, *change* the line in the constructor that currently adds only the grid,
 to add both `filtering` composition and the grid to the main view.
 
 [source,java]
