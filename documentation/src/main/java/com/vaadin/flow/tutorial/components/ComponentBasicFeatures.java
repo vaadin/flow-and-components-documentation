@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
@@ -31,7 +31,7 @@ public class ComponentBasicFeatures {
     private Component mappedComponent;
 
     public void visibility() {
-        Label label = new Label("My label");
+        Span label = new Span("My label");
         label.setVisible(false);
         // this is not transmitted to the client side
         label.setText("Changed my label");
@@ -58,7 +58,7 @@ public class ComponentBasicFeatures {
     }
 
     public void id() {
-        Label component = new Label();
+        Span component = new Span();
         component.setId("my-component");
     }
 
