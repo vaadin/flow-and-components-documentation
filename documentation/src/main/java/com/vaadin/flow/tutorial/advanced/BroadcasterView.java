@@ -34,7 +34,6 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @CodeFor("advanced/tutorial-push-broadcaster.asciidoc")
 @Push
 @Route("broadcaster")
-@Theme(Lumo.class)
 public class BroadcasterView extends Div {
     VerticalLayout messages = new VerticalLayout();
     Registration broadcasterRegistration;

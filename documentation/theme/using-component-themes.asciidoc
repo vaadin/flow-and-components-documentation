@@ -8,18 +8,24 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Using Component Themes
 
-By default Flow imports Vaadin's components without any theme,
-but you actually never want to use the components without a theme.
-To use any of the ready-made component themes, just add `Theme` annotation to your root navigation level,
-`RouterLayout` or to the top level @Route (see below).
+Flow uses the following logic to determine which theme to use for the application:
+
+1. If a `@Theme` annotation is found at the root navigation level, the theme defined by it is used;
+2. If a `@NoTheme` annotation is found at the root navigation level, theming is disabled;
+3. If the `com.vaadin.flow.theme.lumo.Lumo` class is available in the classpath (which comes from the `vaadin-lumo-theme` project), then it is used as the default theme;
+4. If all the previous conditions are not met, no theme is used.
+
+In summary - if your project uses the `vaadin-core` dependency, and doesn't declare any `@Theme` or `@NoTheme`, the Lumo theme will be used by default.
+
+To use any custom themes, just add `Theme` annotation to your root navigation level, `RouterLayout` or to the top level @Route (see below).
 
 Each root `RouterLayout` can define it's own theme. This is not recommended though as any bootstrap addition can cause theme not to be used.
 *We don't support nor recommend mixing different themes together* - the UX should be consistent in one application.
 
-.Sample setup for application with navigation hierarchy to get Lumo themed Vaadin components
+.Sample setup for application with navigation hierarchy to get a custom theme
 [source,java]
 ----
-@Theme(Lumo.class)
+@Theme(MyTheme.class)
 public class MainLayout extends Div implements RouterLayout {
 }
 
@@ -36,8 +42,17 @@ public class BlogPost extends Div {
 [source,java]
 ----
 @Route(value = "")
-@Theme(Lumo.class)
+@Theme(Lumo.class) // can be omitted for Lumo
 public class Application extends Div {
+}
+----
+
+.Sample setup for disabling theming
+[source,java]
+----
+@Route(value = "")
+@NoTheme
+public class UnThemedApplication extends Div {
 }
 ----
 
@@ -55,7 +70,7 @@ In Vaadin 10 there is only one ready-made component theme, _Lumo_, which is the 
 It gives you a full set of building blocks to build a modern looking web application that works just as well on desktop and on mobile.
 
 The Flow integration for Lumo is a part of the `vaadin-core` dependency, and as shown in the previous chapter,
-very easily taken into use. When using `@Theme(Lumo.class)`, you don't need to add any resource imports manually.
+very easily taken into use. You can explicitly declare `@Theme(Lumo.class)` or omit it completely, since the default behavior is to use Lumo if available in the classpath.
 
 Lumo provides some customization points for the components, that allow you to very fine tune the look and provide better UX.
 It can be customized by using CSS custom properties, see link:https://vaadin.com/themes/lumo[the Lumo documentation] for more information.
