@@ -175,7 +175,8 @@ Finally, the third annotation [classname]#@BodySize(height = "100vh", width = "1
 defines the _styles_ that are set to the `<body>` element to make it resize nicely on all devices.
 
 [NOTE]
-When not defining a theme by using `@Theme`, the Lumo theme is used by default (if present in the classpath).
+A theme called Lumo will be applied to the application by default, providing nice look and feel.
+If we would use another theme, we would define it with `@Theme` annotation on top of our `MainView`.
 You can read more about Web Component themes and Lumo from https://vaadin.com/themes.
 
 In the main view we have a template (more on it in a bit) that shows
