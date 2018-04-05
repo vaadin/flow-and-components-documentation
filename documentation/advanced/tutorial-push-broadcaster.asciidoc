@@ -62,7 +62,6 @@ When updating the UI in a receiver, it should be done safely by executing the up
 ----
 @Push
 @Route("broadcaster")
-@Theme(Lumo.class)
 public class BroadcasterView extends Div {
     VerticalLayout messages = new VerticalLayout();
     Registration broadcasterRegistration;

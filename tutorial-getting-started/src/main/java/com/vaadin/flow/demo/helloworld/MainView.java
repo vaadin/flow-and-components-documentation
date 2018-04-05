@@ -35,7 +35,6 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
  */
 @HtmlImport("styles/shared-styles.html")
 @Route("")
-@Theme(Lumo.class)
 public class MainView extends VerticalLayout {
     private CustomerService service = CustomerService.getInstance();
     private Grid<Customer> grid = new Grid<>();

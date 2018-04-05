@@ -16,7 +16,6 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @CodeFor("introduction/tutorial-get-started.asciidoc")
 @HtmlImport("styles/shared-styles.html")
 @Route("")
-@Theme(Lumo.class)
 public class MainView extends VerticalLayout {
 
     public MainView() {
