@@ -36,7 +36,7 @@ Example:
 
 [source,java]
 ----
-Label label = new Label("My label");
+Span label = new Span("My label");
 label.setVisible(false);
 // this is not transmitted to the client side
 label.setText("Changed my label");
@@ -61,7 +61,7 @@ Example:
 
 [source,java]
 ----
-Label label = new Label("My label");
+Span label = new Span("My label");
 label.setVisible(false);
 
 Div container = new Div();
