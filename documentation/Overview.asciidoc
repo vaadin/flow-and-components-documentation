@@ -45,6 +45,7 @@ and keep the page state intact. The following tutorials explain how to use the R
 * <<components/tutorial-component-basic-features#,Component Basic Features>>
 * <<components/tutorial-flow-grid#,Grid>>
 * <<components/tutorial-flow-icon#,Using Icons>>
+* <<components/tutorial-disabled-components#, Disabled Components>>
 
 == Binding Data to Components
 * <<binding-data/tutorial-flow-components-binder#,Binder overview>>

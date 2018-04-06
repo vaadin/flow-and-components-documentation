@@ -1,0 +1,21 @@
+---
+title: Disabled Components
+order: 5
+layout: page
+---
+
+= Disabled Components
+
+It's possible to disable/enable a `Component` using its `setEnabled` method. This is
+a basic feature described in <<tutorial-component-basic-features#,Component Basic Features>> tutorial.
+This tutorial is about various aspects of using it.
+
+== Disabled Container
+
+Normally we want to disable every descendant component in the disabled container.
+That what happens with the container by default.
+
+== Override default disabled behavior
+
+By default disabled components doesn't allow any user interaction from the client side.
+Complicated (composite) components sometimes should stay partly functional even in disabled state. 
