@@ -39,7 +39,7 @@ You can use server push in two modes: `automatic` and
 automatically after `access()` finishes. With the manual mode, you can do the push
 explicitly with `push()`, which allows more flexibility.
 
-Sever push can use several transports: WebSockets, long polling, or combined WebSockets+XHR.
+Server push can use several transports: WebSockets, long polling, or combined WebSockets+XHR.
 WebSockets is the default transport.
 
 [[push.configuration.annotation]]
