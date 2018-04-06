@@ -29,7 +29,7 @@ public class RountingGettingRoutes {
 
     public void getRoutes() {
         //@formatter:off
-        Router router = UI.getCurrent().getRouter().get();
+        Router router = UI.getCurrent().getRouter();
         List<RouteData> routes = router.getRoutes();
 
         Map<Class<? extends RouterLayout>, List<RouteData>> routesByParent = router.getRoutesByParent();
