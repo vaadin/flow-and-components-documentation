@@ -1,0 +1,70 @@
+---
+title: Component Enabled State
+order: 3
+layout: page
+---
+
+= Component Enabled State
+
+A component that allows user interaction (such as an TextField or a Button) can have three different enabled states:
+
+* enabled: this is the default. An enabled component allows the user to interact with it;
+* explicitly disabled: a component is explicitly disabled when the `setEnabled(false)` is called directly on it.
+Any communication from the client to the server is blocked, and the user can't interact with the component in any way;
+* implicitly disabled: a component is implicitly disabled when it is a child of a explicitly disabled container.
+The component behaves exactly like a explicitly disabled one, but when it gets detached from the disabled container, it gets
+enabled again.
+
+Any component that implements the `HasEnabled` interface can be explicitly enabled/disabled. For example:
+
+[source,java]
+----
+TextField name = new TextField("Name");
+name.setEnabled(false);
+----
+
+The `name` field on this example is disabled, so the user can't interact with it, and any events from the client to server
+are blocked. The server doesn't handle any status updates from the component, even if the component is changed manually on
+the browser.
+
+When you have a container, you can disable all components inside it by using the same API:
+
+[source,java]
+----
+FormLayout form = new FormLayout();
+
+TextField name = new TextField("Name");
+TextField email = new TextField("E-mail");
+Button submit = new Button("Submit");
+
+form.add(name, email, submit);
+form.setEnabled(false); // all children are implicitly disabled
+System.out.println(name.isEnabled()); // prints false
+----
+
+When a implicitly disabled component is detached from a disabled container, it gets enabled again. Likewise, if an enabled
+component is attached to a disabled container, the component gets implicitly disabled. For example:
+
+[source,java]
+----
+FormLayout form = new FormLayout();
+form.setEnabled(false); // the entire form is disabled
+
+TextField name = new TextField("Name");
+System.out.println(name.isEnabled()); // prints true, since it is not attached yet
+
+Button submit = new Button("Submit");
+submit.setEnabled(false); // the submit button is explicitly disabled
+System.out.println(submit.isEnabled()); // prints false
+
+form.add(name, submit); // attaches children
+
+System.out.println(name.isEnabled()); // prints false
+System.out.println(submit.isEnabled()); // prints false
+
+form.remove(name); // the name field gets detached
+System.out.println(name.isEnabled()); // prints true
+
+form.remove(submit); // the submit button gets detached
+System.out.println(submit.isEnabled()); // prints false, since it was explicitly disabled
+----
