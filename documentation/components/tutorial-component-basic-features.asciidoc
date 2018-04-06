@@ -93,48 +93,4 @@ mappedComponent.setVisible(false);
 
 (this should be included after Mikael's patch)
 
-Example:
-
-Suppose you have a form with some input fields and a disabled submit button:
-
-[source,java]
-----
-FormLayout form = new FormLayout();
-
-TextField name = new TextField("Name");
-TextField email = new TextField("E-mail");
-Button submit = new Button("Submit");
-submit.setEnabled(false); // the submit button is disabled
-
-form.add(name, email, submit);
-----
-
-When calling `form.setEnabled(false)`, all fields get disabled, preventing user input. When calling `form.setEnabled(true)`, the fields are re-enabled,
-but the submit button stays disabled, since it was disabled directly. The button can only be re-enabled by calling `submit.setEnabled(true)`.
-
-When a component is detached from a disabled container, it gets enabled again. Likewise, if an enabled component is attached to a disabled container, the
-component gets disabled. For example:
-
-[source,java]
-----
-FormLayout form = new FormLayout();
-form.setEnabled(false); // the entire form is disabled
-
-TextField name = new TextField("Name");
-System.out.println(name.isEnabled()); //prints true, since it is not attached yet
-
-Button submit = new Button("Submit");
-submit.setEnabled(false); //the submit button is disabled
-System.out.println(submit.isEnabled()); //prints false
-
-form.add(name, submit); // attaches children
-
-System.out.println(name.isEnabled()); //prints false
-System.out.println(submit.isEnabled()); //prints false
-
-form.remove(name); //the name field gets detached
-System.out.println(name.isEnabled()); //prints true
-
-form.remove(submit); //the submit button gets detached
-System.out.println(submit.isEnabled()); //prints false, since it was disabled directly
-----
+Read the <<tutorial-enabled-state#,Component Enabled State>> tutorial for more details.
