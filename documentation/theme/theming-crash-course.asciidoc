@@ -5,7 +5,7 @@ layout: page
 ---
 = Theming Web Components
 
-This chapter gives an overview of everything you need to understand to master to be productive in theming modern web applications build with web components.
+This chapter gives an overview of everything you need to understand in order to master and be productive in theming modern web applications which are built with web components.
 
 First, it is important to draw the line between global styles and scoped styles:
 
