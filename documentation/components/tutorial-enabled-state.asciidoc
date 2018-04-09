@@ -25,7 +25,7 @@ name.setEnabled(false);
 
 The `name` field on this example is disabled, so the user can't interact with it, and any events from the client to server
 are blocked. The server doesn't handle any status updates from the component, even if the component is changed manually on
-the browser.
+the browser (by a client-side script or via developer console, for example).
 
 When you have a container, you can disable all components inside it by using the same API:
 
@@ -42,7 +42,7 @@ form.setEnabled(false); // all children are implicitly disabled
 System.out.println(name.isEnabled()); // prints false
 ----
 
-When a implicitly disabled component is detached from a disabled container, it gets enabled again. Likewise, if an enabled
+When an implicitly disabled component is detached from a disabled container, it gets enabled again. Likewise, if an enabled
 component is attached to a disabled container, the component gets implicitly disabled. For example:
 
 [source,java]
