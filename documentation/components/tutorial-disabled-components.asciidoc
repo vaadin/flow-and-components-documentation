@@ -22,16 +22,17 @@ Complicated (composite) components sometimes should stay partly functional even 
 In this case it should be possible to enable some RPC client side calls which
 are blocked for disabled component.
 
-In the following example the Polymer template component controls its visibility
+In the following example the Polymer template component controls its enabled state
 by itself via the checkbox. E.g. it may be a registration form which becomes
 enabled only when user accepts a license agreement. The checkbox should 
-not be ever disabled and it should enable/disable the component.
+not ever be disabled and it should enable/disable the component.
 
 [source, java]
 ----
 @Tag("registration-form")
 @HtmlImport("src/registration-form.html")
-public class RegistrationForm extends PolymerTemplate<TemplateModel> {
+public class RegistrationForm extends PolymerTemplate<TemplateModel>
+            implements HasEnabled {
 
     @Id
     private TextField name;
@@ -47,15 +48,15 @@ public class RegistrationForm extends PolymerTemplate<TemplateModel> {
 
     public RegistrationForm() {
         enable.synchronizeProperty("checked", "checked-changed",
-                AllowUpdates.ALWAYS);
-        enable.addPropertyChangeListener(this::handleEnabled);
+                DisabledUpdateMode.ALWAYS);
+        enable.addPropertyChangeListener("checked", this::handleEnabled);
     }
 
     @Override
-    public void onEnabledStateChanged(boolean enabled) {
-        name.setAttribute('disabled', !enabled);
-        email.setAttribute('disabled', !enabled);
-        submit.setAttribute('disabled', !enabled);
+    public void onEnabledStateChange(boolean enabled) {
+        name.getElement().setAttribute("disabled", !enabled);
+        email.getElement().setAttribute("disabled", !enabled);
+        submit.getElement().setAttribute("disabled", !enabled);
     }
 
     private void handleEnabled(PropertyChangeEvent event) {
@@ -66,8 +67,8 @@ public class RegistrationForm extends PolymerTemplate<TemplateModel> {
     private void register() {
         String userName = name.getValue();
         String userEmail = name.getValue();
-        System.out.println("Register user with name='" + name
-                + "' and email='" + email + "'");
+        System.out.println("Register user with name='" + userName
+                    + "' and email='" + userEmail + "'");
     }
 }
 ----
@@ -95,10 +96,10 @@ Here is its template file:
 In this example the checkbox is implicitly disabled if the template (which is its parent) 
 is disabled. As a result no RPC will be allowed for the checkbox. The method 
 `synchronizeProperty` with extra argument is used to synchronize `checked` 
-property. The argument value is `AllowUpdates.ALWAYS`  enum value which 
+property. The argument value is `DisabledUpdateMode.ALWAYS`  enum value which 
 instructs to allow updates for this property even if the element is disabled.
 
-Here is the list of RPC communicataions which are blocked for the disabled element:
+Here is the list of RPC communications which are blocked for the disabled element:
 - Property changes
 - DOM events
 - Event handler methods (methods annotated with `@EventHandler`) 
@@ -110,13 +111,13 @@ is disabled.
 === Enable property changes
 
 Similarly to the `synchronizeProperty` API method which allows to receive property updates
-for disabled components if it's called with `AllowUpdates.ALWAYS` argument value you may
+for disabled components if it's called with `DisabledUpdateMode.ALWAYS` argument value you may
 use declarative way to do the same via `@Synchronize` annotation for the property getter 
 in your component:
 
 [source, java]
 ----
-@Synchronize(property = "prop", value = "prop-changed", allowUpdates = AllowUpdates.ALWAYS)
+@Synchronize(property = "prop", value = "prop-changed", allowUpdates = DisabledUpdateMode.ALWAYS)
 public String getProp(){
     return getElement().getProperty("prop");
 }
@@ -128,15 +129,15 @@ You may use two ways to receive DOM events: `Element` API method `addEventListen
 `@DomEvent` annotation.
 
 To unblock DOM event for a disabled element using API method you may use 
-`addEventListener` overload which accepts extra parameter with value `AllowUpdates.ALWAYS`.
+`addEventListener` overload which accepts extra parameter with value `DisabledUpdateMode.ALWAYS`.
 
 To unblock DOM event for a disabled component via `@DomEvent` annotation you may 
-use the extra parameter value `AllowUpdates.ALWAYS` : 
-`@DomEvent(value="input", allowUpdates = AllowUpdates.ALWAYS )`.
+use the extra parameter value `DisabledUpdateMode.ALWAYS` : 
+`@DomEvent(value="input", allowUpdates = DisabledUpdateMode.ALWAYS )`.
 
 === Enable server handler methods
 
 If you have server handler methods annotation with `@ClientDelegate` or 
 `@EventHandler` then you may unblock them for the disabled component specifying
- `AllowUpdates.ALWAYS` as a value: `@EventHandler(AllowUpdates.ALWAYS)`. 
+ `DisabledUpdateMode.ALWAYS` as a value: `@EventHandler(DisabledUpdateMode.ALWAYS)`. 
 
