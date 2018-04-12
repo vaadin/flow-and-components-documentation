@@ -65,6 +65,7 @@ public class ComponentContainer {
 
         @Override
         public void onEnabledStateChanged(boolean enabled) {
+            super.onEnabledStateChanged(enabled);
             if (enabled) {
                 childElement.removeAttribute("disabled");
             } else {
