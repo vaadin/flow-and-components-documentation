@@ -76,7 +76,7 @@ If you need to know when a child component is removed, add a detach listener to 
 When your container is set as disabled, all children are also set as disabled, which blocks all updates from the client to the server. Components that implement
 `HasEnabled` are updated accordingly to reflect the disabled state in the UI (which usually translates to setting the `disabled` attribute).
 
-But if your container contains Elements or Components that don't implement `HasEnabled` and you still want to visually update then to reflect the disabled state
+But if your container contains Elements or Components that don't implement `HasEnabled` and you still want to visually update them to reflect the disabled state
 in the UI, you can override the `onEnabledStateChanged` method:
 
 [source,java]
@@ -98,7 +98,7 @@ When the container is disabled, the communication from the client to the server 
 [WARNING]
 Don't forget to call `super.onEnabledStateChanged(enabled)` when overriding it, since it handles common logic relevant to all components regarding to the enabled state.
 
-The `onEnabledStateChanged` method is called by the framework every time the enabled state change, either by direct calls to `setEnabled`, by calling `setEnabled`
+The `onEnabledStateChanged` method is called by the framework every time the enabled state changes, either by direct calls to `setEnabled`, by calling `setEnabled`
 on a parent container, or by attaching or detaching the component to a disabled container.
 
 Read the <<../components/tutorial-enabled-state#,Component Enabled State>> tutorial for more details and examples about the enabled state.
