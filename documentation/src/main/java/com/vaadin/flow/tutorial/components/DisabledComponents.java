@@ -16,6 +16,7 @@
 package com.vaadin.flow.tutorial.components;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.HasEnabled;
 import com.vaadin.flow.component.Synchronize;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
@@ -24,6 +25,7 @@ import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.dom.DisabledUpdateMode;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.dom.PropertyChangeEvent;
 import com.vaadin.flow.templatemodel.TemplateModel;
@@ -34,7 +36,8 @@ public class DisabledComponents extends Component {
 
     @Tag("registration-form")
     @HtmlImport("src/registration-form.html")
-    public class RegistrationForm extends PolymerTemplate<TemplateModel> {
+    public class RegistrationForm extends PolymerTemplate<TemplateModel>
+            implements HasEnabled {
 
         @Id
         private TextField name;
@@ -50,15 +53,15 @@ public class DisabledComponents extends Component {
 
         public RegistrationForm() {
             enable.synchronizeProperty("checked", "checked-changed",
-                    AllowUpdates.ALWAYS);
-            enable.addPropertyChangeListener(this::handleEnabled);
+                    DisabledUpdateMode.ALWAYS);
+            enable.addPropertyChangeListener("checked", this::handleEnabled);
         }
 
         @Override
-        public void onEnabledStateChanged(boolean enabled) {
-            name.setAttribute('disabled', !enabled);
-            email.setAttribute('disabled', !enabled);
-            submit.setAttribute('disabled', !enabled);
+        public void onEnabledStateChange(boolean enabled) {
+            name.getElement().setAttribute("disabled", !enabled);
+            email.getElement().setAttribute("disabled", !enabled);
+            submit.getElement().setAttribute("disabled", !enabled);
         }
 
         private void handleEnabled(PropertyChangeEvent event) {
@@ -69,12 +72,12 @@ public class DisabledComponents extends Component {
         private void register() {
             String userName = name.getValue();
             String userEmail = name.getValue();
-            System.out.println("Register user with name='" + name
-                    + "' and email='" + email + "'");
+            System.out.println("Register user with name='" + userName
+                    + "' and email='" + userEmail + "'");
         }
     }
 
-    @Synchronize(property = "prop", value = "prop-changed", allowUpdates = AllowUpdates.ALWAYS)
+    @Synchronize(property = "prop", value = "prop-changed", allowUpdates = DisabledUpdateMode.ALWAYS)
     public String getProp() {
         return getElement().getProperty("prop");
     }
