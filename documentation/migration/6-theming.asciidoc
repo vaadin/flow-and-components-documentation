@@ -31,10 +31,8 @@ The following example shows all the tricks for theming applications, covered in 
 
 [source,java]
 ----
-@Theme(Lumo.class) // the theme for Vaadin Components
+@Theme(Lumo.class) // the theme for Vaadin Components. You can omit it for Lumo
 @HtmlImport("frontend://styles/shared-styles.html") // the application specific theme
-@BodySize(height = "100vh", width = "100vw") // styles the <body> for 100 % available viewport
-// viewport definition
 @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
 public class MainLayout extends Div implements RouterLayout,
         AfterNavigationObserver, PageConfigurator {
@@ -62,6 +60,9 @@ The theme class will handle two things:
 * It specifies a set of shared styles like fonts etc. that will be automatically loaded to the initial page by Flow for the theme.
 
 The Lumo theme can be customized, see <<../theme/using-component-themes#,documentation>> for more information.
+
+[NOTE]
+When no `@Theme` is used, the Lumo theme is used by default (if present in the classpath).
 
 === Application Theming
 

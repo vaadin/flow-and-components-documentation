@@ -141,10 +141,8 @@ The Java code of the application stub main view can be found in the
 
 [source,java]
 ----
-@BodySize(height = "100vh", width = "100vw")
 @HtmlImport("styles/shared-styles.html")
 @Route("")
-@Theme(Lumo.class)
 public class MainView extends VerticalLayout {
 
     public MainView() {
@@ -172,12 +170,11 @@ When this happens, the constructor initialises the UI structure. In this case, t
 inherits from [classname]#VerticalLayout# which is one of the most used layout
 components. Layouts are used to position and display other components.
 
-The third annotation, [classname]#@Theme(Lumo.class)#, defines the component theme to use.
-Using this annotation on the root level navigation target or root layout will enable the Lumo theme
-for all used Vaadin components automatically. You can read more about Web Component themes and Lumo from https://vaadin.com/themes.
-
-Finally, the third annotation [classname]#@BodySize(height = "100vh", width = "100vw")#
-defines the _styles_ that are set to the `<body>` element to make it resize nicely on all devices.
+[NOTE]
+The Lumo theme is applied by default in your application, which provides world-class look and feel
+to the components out of the box. You can change the theme used by the application by using the `@Theme`
+annotation on top of your `MainView`.
+You can read more about Web Component themes and Lumo from https://vaadin.com/themes.
 
 In the main view we have a template (more on it in a bit) that shows
 some text, and a button that, when clicked, modifies the value displayed by the
@@ -326,7 +323,7 @@ is smart enough to automatically create a properly named Java file for the class
 
  * https://raw.githubusercontent.com/vaadin/flow-and-components-documentation/master/tutorial-getting-started/src/main/java/com/vaadin/flow/demo/helloworld/CustomerStatus.java[CustomerStatus.java] -
  this is a simple enum class
- * https://raw.githubusercontent.comvaadin/flow-and-components-documentation/master/tutorial-getting-started/src/main/java/com/vaadin/flow/demo/helloworld/Customer.java[Customer.java] -
+ * https://raw.githubusercontent.com/vaadin/flow-and-components-documentation/master/tutorial-getting-started/src/main/java/com/vaadin/flow/demo/helloworld/Customer.java[Customer.java] -
  this is the main domain object, a basic Java bean that we will be using in our example
  * https://raw.githubusercontent.com/vaadin/flow-and-components-documentation/master/tutorial-getting-started/src/main/java/com/vaadin/flow/demo/helloworld/CustomerService.java[CustomerService.java] -
  this is a simple facade via which you can request and modify [classname]#Customer#
@@ -357,8 +354,6 @@ likely want to refer to it later. Also, let us get a reference to our
 ----
 @HtmlImport("styles/shared-styles.html")
 @Route("")
-@Theme(Lumo.class)
-@BodySize(height = "100vh", width = "100vw")
 public class MainView extends VerticalLayout {
     // Add the next two lines:
     private CustomerService service = CustomerService.getInstance();
@@ -492,7 +487,7 @@ Before adding the text field to the UI, let's improve the usability a bit
 and make a short exercise to compose better components from lower level UI
 components. The search field can naturally be cleared with the keyboard, but let's
 add a clear button next to the text field. Start by adding the following lines
-to the init method, for example right after your `filterText` configuration:
+to the constructor, for example right after your `filterText` configuration:
 
 [source,java]
 ----
@@ -507,7 +502,7 @@ to clear a value. In the click listener, we simply clear the text from the field
 
 Vaadin Flow contains lots of different kinds of layouts. The simplest way to align
 the text field and the button next to each other is to use a
-[classname]#HorizontalLayout#. Add this line to the init method right after you
+[classname]#HorizontalLayout#. Add this line to the constructor right after you
 configured the `clearFilterTextBtn`:
 
 [source,java]
@@ -516,7 +511,7 @@ HorizontalLayout filtering = new HorizontalLayout(filterText,
     clearFilterTextBtn);
 ----
 
-Finally, *change* the line in the init method that currently adds only the grid,
+Finally, *change* the line in the constructor that currently adds only the grid,
 to add both `filtering` composition and the grid to the main view.
 
 [source,java]

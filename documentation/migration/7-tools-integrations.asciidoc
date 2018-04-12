@@ -50,7 +50,7 @@ custom components are fully supported by the new Designer as well. On the other 
 === Migrating from Vaadin 8 Designs
 
 As the underlying technology has been completely changed, Vaadin 8 Designs are not compatible with Flow applications.
-There are two paths to migration; either use the multi-platform runtime to run a Vaadin 8 application inside a Vaadin 10 application,
+There are two paths to migration; either use the upcoming Multiplatform Runtime from the Prime subscription to run a Vaadin 8 application inside a Vaadin 10 application,
 or migrate the HTML files manually. When migrating manually, the declarative component tree should be copied inside the `<template>` in a blank Vaadin 10 design,
 and then modified to fit the new element API's.
 

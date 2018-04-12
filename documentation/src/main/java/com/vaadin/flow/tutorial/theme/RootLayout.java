@@ -11,7 +11,6 @@ import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("theme/using-component-themes.asciidoc")
-@Theme(Lumo.class)
 public class RootLayout extends Div implements PageConfigurator, RouterLayout {
 
     @Override
