@@ -59,4 +59,18 @@ public class ComponentContainer {
         }
 
     }
+
+    public class ComponentWithChildren extends Component {
+        private Element childElement;
+
+        @Override
+        public void onEnabledStateChanged(boolean enabled) {
+            super.onEnabledStateChanged(enabled);
+            if (enabled) {
+                childElement.removeAttribute("disabled");
+            } else {
+                childElement.setAttribute("disabled", true);
+            }
+        }
+    }
 }

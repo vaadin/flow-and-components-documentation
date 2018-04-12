@@ -88,3 +88,9 @@ private Component mappedComponent;
 // sets the attribute "hidden" of the element on the client-side
 mappedComponent.setVisible(false);
 ----
+
+== Enabled and disabled components
+
+(this should be included after Mikael's patch)
+
+Read the <<tutorial-enabled-state#,Component Enabled State>> tutorial for more details.
