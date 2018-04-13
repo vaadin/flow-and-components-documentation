@@ -31,7 +31,7 @@ import com.vaadin.flow.dom.PropertyChangeEvent;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("components/tutorial-disabled-components.asciidoc")
+@CodeFor("components/tutorial-enabled-state.asciidoc")
 public class DisabledComponents extends Component {
 
     @Tag("registration-form")
