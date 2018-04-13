@@ -61,4 +61,16 @@ The setEnabled method will be available for any component implementing the `HasE
 (which comes also with `HasValue`, `HasComponents` and `Focusable`).
 
 By default disabling the component will add a `disabled` property to the client element, but this
-can be modified by overriding `HasElement:enabledStateChanged(boolean)` method.
+can be modified by overriding `Component:onEnabledStateChanged(boolean)` method.
+
+For instance if the component requires a custom disabled marking and that its items
+get updated the override could be created as:
+
+[source, java]
+----
+@Override
+public void onEnabledStateChanged(boolean enabled) {
+    setDisabled(!enabled);
+    refreshButtons();
+}
+----
