@@ -61,5 +61,4 @@ public class ComponentBasicFeatures {
         Span component = new Span();
         component.setId("my-component");
     }
-
 }
