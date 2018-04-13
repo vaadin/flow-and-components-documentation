@@ -91,4 +91,20 @@ mappedComponent.setVisible(false);
 
 == Enabled and disabled components
 
+Disabling user interaction of a component means calling `component.setEnabled(false)` on the server
+which then blocks any interaction from the client to the server for the disabled component and its children
+and adds a `disabled` property to the client element(s).
+
+The enabled state of a component cascades to the child components of the element when it is disabled,
+but doesn't override the enabled state of the children.
+
+So if you have a layout with child A and B where B is disabled, then
+setting `layout.setEnabled(false)` will mark A and B disabled, but after this enabling the layout with
+`layout.setEnabled(true)`, B will still be disabled as it has been disabled on the component level.
+
+[NOTE]
+Having disabled on a template component is not the same as disabling it on the server as
+the server doesn't know about client elements. (Also @Id mapped elements will not be disabled by just having the attribute on the template)
+
 Read the <<tutorial-enabled-state#,Component Enabled State>> tutorial for more details.
+
