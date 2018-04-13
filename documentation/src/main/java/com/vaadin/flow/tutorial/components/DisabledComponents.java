@@ -55,13 +55,7 @@ public class DisabledComponents extends Component {
             enable.synchronizeProperty("checked", "checked-changed",
                     DisabledUpdateMode.ALWAYS);
             enable.addPropertyChangeListener("checked", this::handleEnabled);
-        }
-
-        @Override
-        public void onEnabledStateChange(boolean enabled) {
-            name.getElement().setAttribute("disabled", !enabled);
-            email.getElement().setAttribute("disabled", !enabled);
-            submit.getElement().setAttribute("disabled", !enabled);
+            setEnabled(false);
         }
 
         private void handleEnabled(PropertyChangeEvent event) {
@@ -71,7 +65,7 @@ public class DisabledComponents extends Component {
         @EventHandler
         private void register() {
             String userName = name.getValue();
-            String userEmail = name.getValue();
+            String userEmail = email.getValue();
             System.out.println("Register user with name='" + userName
                     + "' and email='" + userEmail + "'");
         }
