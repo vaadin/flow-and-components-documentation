@@ -154,7 +154,7 @@ The disabled state is automatically cascaded to child components, but while the 
 it is up to the component to change the disabled UX to mark the component as "not-working" when it has been disabled.
 All Vaadin components change their looks when disabled.
 
-Read the <<tutorial-enabled-state#,Component Enabled State>> tutorial for more details.
+Read the https://github.com/vaadin/flow-and-components-documentation/blob/master/documentation/components/tutorial-enabled-state.asciidoc[Component Enabled State] tutorial for more details.
 
 === setReadOnly(boolean readOnly) is Component Specific and Works Differently
 
