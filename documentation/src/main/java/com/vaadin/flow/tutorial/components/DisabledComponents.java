@@ -15,7 +15,10 @@
  */
 package com.vaadin.flow.tutorial.components;
 
+import com.vaadin.flow.component.ClientDelegate;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentEvent;
+import com.vaadin.flow.component.DomEvent;
 import com.vaadin.flow.component.HasEnabled;
 import com.vaadin.flow.component.Synchronize;
 import com.vaadin.flow.component.Tag;
@@ -33,6 +36,23 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("components/tutorial-enabled-state.asciidoc")
 public class DisabledComponents extends Component {
+
+    public static class Notification extends Component {
+
+        public Notification() {
+            getElement().addEventListener("opened-changed", event -> {
+                System.out.println("Notification is opened");
+            }, DisabledUpdateMode.ALWAYS);
+        }
+    }
+
+    @DomEvent(value = "click", allowUpdates = DisabledUpdateMode.ALWAYS)
+    public class CustomEvent extends ComponentEvent<Component> {
+
+        public CustomEvent(Component source, boolean fromClient) {
+            super(source, fromClient);
+        }
+    }
 
     @Tag("registration-form")
     @HtmlImport("src/registration-form.html")
@@ -74,5 +94,13 @@ public class DisabledComponents extends Component {
     @Synchronize(property = "prop", value = "prop-changed", allowUpdates = DisabledUpdateMode.ALWAYS)
     public String getProp() {
         return getElement().getProperty("prop");
+    }
+
+    @EventHandler(DisabledUpdateMode.ALWAYS)
+    private void eventHandler() {
+    }
+
+    @ClientDelegate(DisabledUpdateMode.ALWAYS)
+    private void clientRequest() {
     }
 }
