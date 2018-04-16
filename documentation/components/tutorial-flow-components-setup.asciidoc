@@ -59,10 +59,6 @@ Using the platform dependency guarantees that you'll get versions of Flow and th
 
 [NOTE]
 The components are also provided as single dependencies per component. See https://github.com/vaadin/platform/blob/master/vaadin/pom.xml#L68[the platform pom.xml] for example.
-If you are not using the Vaadin 10 platform dependency and wish to use the Flow components, make sure it is
-properly configured to run with Polymer web components. Please refer to
-<<../web-components/tutorial-webcomponent-basic#,Basic Integration of a Polymer Web Component>>
-for more information.
 
 The platform also contains ready made _theming_ for the components that help you tweak and tune the look and feel of the components.
 See the <<../theme/using-component-themes#,Using Component Themes>> for more info.
@@ -170,5 +166,3 @@ If webjar dependencies are not needed, they can be excluded from the project usi
 </dependencies>
 ----
 
-More documentation on webjars in can be found here: <<../web-components/tutorial-flow-webjars#,WebJars in Flow>>
-General webJars usage manual is here: <<../web-components/tutorial-how-to-use-webjars#, How to use webjars>>

@@ -32,7 +32,7 @@ public class BundleFilter implements DependencyFilter {
 }
 ----
 [TIP]
-You can also use the `frontend://` and `context://` protocols on dependencies returned by the DependencyFilter. These protocols are resolved after the filters are applied. To know more about `frontend://` and `context://` protocols, read <<../web-components/tutorial-webcomponents-es5#,Serving ES5 Web Components to older browsers with Polymer 2>>.
+You can also use the `frontend://` and `context://` protocols on dependencies returned by the DependencyFilter. These protocols are resolved after the filters are applied. The `context://` protocol is resolved to the servlet context root and the `frontend://` protocol is resolved to a `frontend` folder in the servlet context root.
 
 The DependencyFilters are called in two particular situations: when a <<../polymer-templates/tutorial-template-basic#,PolymerTemplate>> is parsed for the first time, and when a set of dependencies are about to be sent to the client.
 
