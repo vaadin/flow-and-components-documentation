@@ -11,3 +11,6 @@
 .settings
 .classpath
 .project
+documentation/target
+docs-helpers/target
+tutorial-getting-started/target

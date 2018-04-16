@@ -16,12 +16,14 @@
 package com.vaadin.flow.tutorial.creatingcomponents;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.HasEnabled;
 import com.vaadin.flow.component.Synchronize;
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("creating-components/tutorial-component-basic.asciidoc")
-public class ComponentBasic {
+public class ComponentBasic extends Component {
 
     @Tag("input")
     public class TextField extends Component {
@@ -40,4 +42,16 @@ public class ComponentBasic {
         }
     }
 
+    @Override
+    public void onEnabledStateChanged(boolean enabled) {
+        setDisabled(!enabled);
+        refreshButtons();
+    }
+
+    private void setDisabled(boolean disabled) {
+        // NO-OP
+    }
+    private void refreshButtons() {
+        // NO-OP
+    }
 }
