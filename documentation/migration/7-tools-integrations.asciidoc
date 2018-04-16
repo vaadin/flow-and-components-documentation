@@ -15,8 +15,6 @@ This is only necessary for when you take the application for production, or want
 There is no custom widgetsets or Sass themes that need compilation for development time in V10.
 Thus there is no need for this in the plugin.
 
-For more information on using the plugin, <<../web-components/tutorial-flow-maven-plugin#,see documentation>>.
-
 == Maven Archetypes
 
 There are no archetypes available for Vaadin 10. Please visit https://vaadin.com/start[vaadin.com/start] for available starting points.

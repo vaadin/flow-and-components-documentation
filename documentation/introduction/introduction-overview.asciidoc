@@ -88,7 +88,7 @@ public class GameCard extends Component {
 }
 ----
 
-For more information, see the tutorials in the <<../web-components/tutorial-webcomponent-basic#,Integrating Web Components>> section.
+For more information, see the tutorials in the <<../web-components/integrating-a-web-component#,Integrating a Web Component>> section.
 
 You can find ready-made Java APIs for Web Components published by the Vaadin Community in the https://vaadin.com/directory/search?framework=Vaadin%2010[Vaadin Directory.]
 
