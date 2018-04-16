@@ -159,7 +159,7 @@ is disabled.
 === Enable property changes
 
 Similarly to the `synchronizeProperty` API method which allows to receive property updates
-for disabled components if it's called with `DisabledUpdateMode.ALWAYS` argument value you may
+for disabled components if it's called with `DisabledUpdateMode.ALWAYS` argument value, you may
 use declarative way to do the same via `@Synchronize` annotation for the property getter 
 in your component:
 
@@ -179,12 +179,39 @@ You may use two ways to receive DOM events: `Element` API method `addEventListen
 To unblock DOM event for a disabled element using API method you may use 
 `addEventListener` overload which accepts extra parameter with value `DisabledUpdateMode.ALWAYS`.
 
+[source, java]
+----
+public Notification() {
+    getElement().addEventListener("opened-changed", event -> {
+        System.out.println("Notification is opened");
+    }, DisabledUpdateMode.ALWAYS);
+}
+----
+
 To unblock DOM event for a disabled component via `@DomEvent` annotation you may 
 use the extra parameter value `DisabledUpdateMode.ALWAYS` : 
 `@DomEvent(value="input", allowUpdates = DisabledUpdateMode.ALWAYS )`.
+
+[source, java]
+----
+@DomEvent(value = "click", allowUpdates = DisabledUpdateMode.ALWAYS)
+public class CustomEvent extends ComponentEvent<Component> {
+}
+----
 
 === Enable server handler methods
 
 If you have server handler methods annotation with `@ClientDelegate` or 
 `@EventHandler` then you may unblock them for the disabled component specifying
  `DisabledUpdateMode.ALWAYS` as a value: `@EventHandler(DisabledUpdateMode.ALWAYS)`. 
+ 
+[source, java]
+----
+@EventHandler(DisabledUpdateMode.ALWAYS)
+private void eventHandler(){
+}
+
+@ClientDelegate(DisabledUpdateMode.ALWAYS)
+private void clientRequest(){
+}
+----
