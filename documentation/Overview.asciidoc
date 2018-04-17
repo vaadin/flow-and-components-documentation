@@ -43,6 +43,7 @@ and keep the page state intact. The following tutorials explain how to use the R
 == Using Vaadin Components
 * <<components/tutorial-flow-components-setup#,Using Vaadin Components>>
 * <<components/tutorial-component-basic-features#,Component Basic Features>>
+* <<components/tutorial-enabled-state#, Component Enabled State>>
 * <<components/tutorial-flow-grid#,Grid>>
 * <<components/tutorial-flow-icon#,Using Icons>>
 
