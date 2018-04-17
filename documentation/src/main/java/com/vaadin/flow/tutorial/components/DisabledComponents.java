@@ -45,7 +45,7 @@ public class DisabledComponents extends Component {
             .setDisabledUpdateMode(DisabledUpdateMode.ALWAYS);
         }
     }
-    
+
     @DomEvent(value = "click", allowUpdates = DisabledUpdateMode.ALWAYS)
     public class CustomEvent extends ComponentEvent<Component> {
 
