@@ -114,7 +114,7 @@ public class ClickEvent extends ComponentEvent<NativeButton> {
 ----
 
 The `@EventData` definition is run as JavaScript in the browser with the DOM event available as `event` and the element to which the listener was added available as `element`.
-See the javadocs for `Element.addEventListener` for more information about how event data is collected and sent to the server.
+See the javadocs for `DomListenerRegistration.addEventData` for more information about how event data is collected and sent to the server.
 
 [TIP]
 See https://developer.mozilla.org/en-US/docs/Web/API/Event for an overview of the standard DOM events and their properties.
