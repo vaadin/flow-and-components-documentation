@@ -41,11 +41,11 @@ public class DisabledComponents extends Component {
 
         public Notification() {
             getElement().addEventListener("opened-changed", event -> {
-                System.out.println("Notification is opened");
-            }, DisabledUpdateMode.ALWAYS);
+                System.out.println("Notification is opened");})
+            .setDisabledUpdateMode(DisabledUpdateMode.ALWAYS);
         }
     }
-
+    
     @DomEvent(value = "click", allowUpdates = DisabledUpdateMode.ALWAYS)
     public class CustomEvent extends ComponentEvent<Component> {
 

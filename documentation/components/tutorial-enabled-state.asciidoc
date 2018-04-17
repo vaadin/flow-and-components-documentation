@@ -183,8 +183,8 @@ To unblock DOM event for a disabled element using API method you may use
 ----
 public Notification() {
     getElement().addEventListener("opened-changed", event -> {
-        System.out.println("Notification is opened");
-    }, DisabledUpdateMode.ALWAYS);
+       System.out.println("Notification is opened");})
+    .setDisabledUpdateMode(DisabledUpdateMode.ALWAYS);
 }
 ----
 
