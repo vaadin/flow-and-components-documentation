@@ -41,8 +41,8 @@ public class DisabledComponents extends Component {
 
         public Notification() {
             getElement().addEventListener("opened-changed", event -> {
-                System.out.println("Notification is opened");
-            }, DisabledUpdateMode.ALWAYS);
+                System.out.println("Notification is opened");})
+            .setDisabledUpdateMode(DisabledUpdateMode.ALWAYS);
         }
     }
 
