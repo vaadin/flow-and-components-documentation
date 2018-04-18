@@ -22,11 +22,13 @@ Clicking the "Say hello" button in the browser will now send the event to the se
 
 == Accessing Data From the Event
 
-Sometimes you need more information about the element or the event which the user interacted with. You can get this by using the third, optional parameter for `addEventListener`:
+Sometimes you need more information about the element or the event which the user interacted with. You can get this by defining required event data on the `DomListenerRegistration` returned by `addEventListener`.
 
 [source,java]
 ----
-helloButton.addEventListener("click", this::handleClick, "event.shiftKey", "element.offsetWidth");
+helloButton.addEventListener("click", this::handleClick)
+    .addEventData("event.shiftKey")
+    .addEventData("element.offsetWidth");
 
 private void handleClick(DomEvent event) {
     JsonObject eventData = event.getEventData();
@@ -43,4 +45,4 @@ private void handleClick(DomEvent event) {
 
 The requested event data values are sent as a JSON object from the client and made available through `event.getEventData()` in the listener.
 You should use the proper getter based on the data type.
-Also make sure you use the same keys that you provided as parameters to `addEventListener`.
+Also make sure you use the same keys that you provided as parameters to `addEventData`.
