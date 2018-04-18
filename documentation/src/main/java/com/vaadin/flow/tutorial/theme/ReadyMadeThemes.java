@@ -1,5 +1,6 @@
 package com.vaadin.flow.tutorial.theme;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLayout;
@@ -32,6 +33,21 @@ public class ReadyMadeThemes {
     public class UnThemedApplication extends Div {
     }
 
+    @Route(value = "")
+    @Theme(value = MyTheme.class, variant = "dark")
+    public class DarkThemedApplication extends Div {
+    }
+
+    @Route(value = "")
+    @Theme(value = Lumo.class, variant = Lumo.DARK)
+    public class DarkApplication extends Div {
+    }
+
     public class MyTheme extends Lumo {
+    }
+
+    public void buttonVariant() {
+        Button button = new Button("Themed button");
+        button.getElement().setAttribute("theme", "contrast primary");
     }
 }

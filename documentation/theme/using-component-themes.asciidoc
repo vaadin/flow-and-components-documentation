@@ -64,6 +64,19 @@ The theme class automatically handles two things:
 [NOTE]
 If the Theme annotation is not on a `@Route` Component or a top `RouterLayout` an exception will be thrown on startup.
 
+== Theme variants
+
+You can use a Theme variant by defining it on the `@Theme` annotation:
+[source,java]
+----
+@Route(value = "")
+@Theme(value = MyTheme.class, variant = "large")
+public class DarkThemedApplication extends Div {
+}
+----
+
+Variants are like "skins" for the theme - it uses the same files for the theme, but sets special selectors in the body to make it appear different.
+
 == Available Themes and Customizations
 
 In Vaadin 10 there is only one ready-made component theme, _Lumo_, which is the main theme for all Vaadin components.
@@ -85,21 +98,25 @@ See the link:https://vaadin.com/themes/material[Material Theme documentation] fo
 
 === Using Lumo variants
 
-Lumo comes with a dark variant. For taking it to use, you need to apply the `theme="dark"` attribute to the DOM.
-Usually you want to do it for the whole UI, thus you should apply it to the `<body>` element.
+Lumo comes with two variants: light (the default) and dark. You can use the dark variant by using:
 
-.Using the dark variant of Lumo
+.Setting the dark variant for Lumo
 [source,java]
 ----
-public class RootLayout extends Div implements PageConfigurator, RouterLayout {
-
-    @Override
-    public void configurePage(InitialPageSettings settings) {
-        settings.getUi().getElement().setAttribute("theme", "dark");
-    }
+@Route(value = "")
+@Theme(value = Lumo.class, variant = Lumo.DARK)
+public class DarkApplication extends Div {
 }
 ----
 
 Individual components have also variants available.
-Component variants are applied similarly using the element API to set the variant as the `theme` attribute.
+Component variants are applied by using the element API to set the variant as the `theme` attribute. For example:
+
+.Setting a theme variant for a component
+[source,java]
+----
+Button button = new Button("Themed button");
+button.getElement().setAttribute("theme", "contrast primary");
+----
+
 For looking up available component variants, https://vaadin.com/components/browse[see the component HTML examples] and look under the _Lumo Theme_ tab for examples of the variants.

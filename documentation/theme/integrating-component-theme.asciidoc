@@ -45,6 +45,22 @@ public List<String> getBodyInlineContents() {
 }
 ----
 
+Your theme can also support variants. For instance, Lumo theme supports both light and dark variants.
+To add support for variants, you can override the `getBodyAttributes`  method:
+[source,java]
+----
+@Override
+public Map<String, String> getBodyAttributes(String variant) {
+    Map<String, String> map = new HashMap<>();
+    if ("dark".equals(variant)) {
+      // the <body> element will have the "theme" attribute set to
+      // "dark" when the dark variant is used
+      map.put("theme", "dark");
+    }
+    return map;
+}
+----
+
 Then you need to create the themed .html files for the elements for an example see:
 https://github.com/vaadin/vaadin-button/blob/master/theme/lumo/vaadin-button.html[Themed Vaadin Button]
 
@@ -66,4 +82,3 @@ a warning is not logged for missing theme.
 
 The theming for the Vaadin components is built using `Vaadin.ThemableMixin`.
 See link:https://github.com/vaadin/vaadin-themable-mixin/wiki[vaadin-themable-mixin wiki] to learn how theming of Vaadin components is done.
-

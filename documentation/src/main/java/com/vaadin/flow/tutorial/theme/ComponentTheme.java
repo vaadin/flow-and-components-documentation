@@ -16,15 +16,12 @@
 package com.vaadin.flow.tutorial.theme;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.vaadin.flow.component.dependency.HtmlImport;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.theme.AbstractTheme;
-import com.vaadin.flow.theme.Theme;
-import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("theme/integrating-component-theme.asciidoc")
@@ -47,6 +44,17 @@ public class ComponentTheme {
             return Collections.singletonList("<custom-style>\n"
                     + "    <style include=\"lumo-color lumo-typography\"></style>\n"
                     + "</custom-style>");
+        }
+
+        @Override
+        public Map<String, String> getBodyAttributes(String variant) {
+            Map<String, String> map = new HashMap<>();
+            if ("dark".equals(variant)) {
+                // the <body> element will have the "theme" attribute set to
+                // "dark" when the dark variant is used
+                map.put("theme", "dark");
+            }
+            return map;
         }
     }
 }
