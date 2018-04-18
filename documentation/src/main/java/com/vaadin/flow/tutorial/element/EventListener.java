@@ -34,9 +34,9 @@ public abstract class EventListener extends UI {
         });
         getElement().appendChild(helloButton);
 
-        //@formatter:off - custom line wrapping
-        helloButton.addEventListener("click", this::handleClick, "event.shiftKey", "element.offsetWidth");
-        //@formatter:on
+        helloButton.addEventListener("click", this::handleClick)
+                .addEventData("event.shiftKey")
+                .addEventData("element.offsetWidth");
     }
 
     private void handleClick(DomEvent event) {
