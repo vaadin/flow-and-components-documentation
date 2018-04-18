@@ -533,8 +533,8 @@ values in our domain objects.
 
 Start by creating a new Java class with the name CustomerForm. In Eclipse right
 click on the "com.vaadin.flow.demo.helloworld" package and choose menu:New[Class].
-Type in the name `CustomerForm`, define the superclass as `com.vaadin.ui.FormLayout`
-and click `finish`.
+Type in the name `CustomerForm`, define the superclass as 
+`com.vaadin.flow.component.formlayout.FormLayout` and click `finish`.
 
 In the form, we'll need editor fields for each property in our [classname]#Customer#
 domain class. There are different kinds of fields in Vaadin for editing different
