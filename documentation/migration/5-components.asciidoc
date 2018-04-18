@@ -146,20 +146,20 @@ Adding icons is possible, it is just HTML5 after all. But as with caption there 
 
 === setEnabled(boolean enabled) is still a server side security feature
 
-[NOTE] This chapter describes how the behavior of the API will be.
-Please see https://github.com/vaadin/flow/issues/3538[the corresponding issue in Flow] for current status.
-
-In Vaadin 10, the `setEnabled` method is specific to components marked with the `HasEnabled` mixin interface.
-When a component is disabled, any property changes and DOM events coming from the client side are ignored.
-It is possible to whitelist some properties and events to to be allowed if necessary.
+In Vaadin 10, the `setEnabled` method is specific to components marked with the `HasEnabled` mixin interface (which comes also with `HasValue`, `HasComponents`, and `Focusable`).
+When a component is disabled, by default, any property changes and DOM events coming from the client side are ignored.
+However, it is possible to whitelist some properties and events to be allowed if necessary.
 
 The disabled state is automatically cascaded to child components, but while the updates are by default always prevented,
 it is up to the component to change the disabled UX to mark the component as "not-working" when it has been disabled.
 All Vaadin components change their looks when disabled.
 
+Read the https://github.com/vaadin/flow-and-components-documentation/blob/master/documentation/components/tutorial-enabled-state.asciidoc[Component Enabled State] tutorial for more details.
+
 === setReadOnly(boolean readOnly) is Component Specific and Works Differently
 
-[NOTE] This chapter describes how the behavior of the API will be.
+[NOTE]
+This chapter describes how the behavior of the API will be.
 Please see https://github.com/vaadin/flow/issues/3539[the corresponding issue in Flow] for current status.
 
 In Vaadin 10 the `setReadOnly(boolean readOnly)` method is specific to components accepting user input and are marked with the `HasReadOnly` mixin interface.

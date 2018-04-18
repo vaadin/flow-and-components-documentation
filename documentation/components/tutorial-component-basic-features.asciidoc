@@ -104,7 +104,8 @@ setting `layout.setEnabled(false)` will mark A and B disabled, but after this en
 
 [NOTE]
 Having disabled on a template component is not the same as disabling it on the server as
-the server doesn't know about client elements. (Also @Id mapped elements will not be disabled by just having the attribute on the template)
+the server doesn't know about client elements. Any `@Id` bound template Components
+will be handled as if they were normal child components and receive enable state changes.
 
 Read the <<tutorial-enabled-state#,Component Enabled State>> tutorial for more details.
 
