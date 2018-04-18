@@ -56,7 +56,8 @@ public class OptionalGreeting extends Div
 }
 ----
 
-[NOTE] Also with an optional parameter a specific route will have precedence over the parameterised one.
+[NOTE]
+Also with an optional parameter a specific route will have precedence over the parameterised one.
 
 == Wildcard URL parameters for Navigation Targets
 
@@ -81,6 +82,8 @@ public class WildcardGreeting extends Div
 }
 ----
 
-[NOTE] The parameter for Wildcard parameter will never be `null`.
+[NOTE]
+The parameter for Wildcard parameter will never be `null`.
 
-[NOTE] More specific paths will have precedence over the wildcard target.
+[NOTE]
+More specific paths will have precedence over the wildcard target.
