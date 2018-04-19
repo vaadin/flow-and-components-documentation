@@ -31,7 +31,7 @@ Here is an example of parent HTML template file:
 </dom-module>
 ----
 
-The Java counterpart defines that `ChildTemplate` should be instantiated for any template element with a matching tag name (i.e. `child-template`). 
+The Java counterpart defines that `ChildTemplate` should be instantiated for any template element with a matching tag name (i.e. `child-template`).
 
 [source,java]
 ----
@@ -91,3 +91,6 @@ And it's the HTML template counterpart:
 
 This template delegates a click handler to the server side and the method `handleClick`
 will be called on the `ChildTemplate` instance (not `ParentTemplate` instance).
+
+[NOTE]
+You can detect whether a component is part of a Template by using the `isTemplateMapped` method. See the <<tutorial-component-integration#,Integrating components in a PolymerTemplate>> tutorial for more details.
