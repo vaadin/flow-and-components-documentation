@@ -77,21 +77,21 @@ MainPage page = new MainPage();
 page.setContent(new Label("Hello!"));
 ----
 
-In the polymer template class example above, the `div` element with 
-`"footer"` identifier could also be mapped via `Div` component and 
-`@Id("footer")` annotation. But neither its hierarchical 
+In the polymer template class example above, the `div` element with
+`"footer"` identifier could also be mapped via `Div` component and
+`@Id("footer")` annotation. But neither its hierarchical
 structure nor attributes/properties are not available on the server side via API.
 The injected `Div` instance doesn't have any server side child even though
-there is the anchor `a` element available on the client side. The injected instance 
+there is the anchor `a` element available on the client side. The injected instance
 `getChildren()` method returns an empty `Stream`.
 
-Similar to this the `getText()` method of the `Div` instance injected via 
+Similar to this the `getText()` method of the `Div` instance injected via
 `@Id("header")` returns an empty string.
 
-So server side `Component`/`Element` read methods are not always in sync 
+So server side `Component`/`Element` read methods are not always in sync
 with the client-side. But you still may use mutation API methods from the server side
 like `appendChild`/`setProperty`/`setAttribute`. Getter methods returns values
-which have been set from the server side only. 
+which have been set from the server side only.
 
 [NOTE]
 The created `Element` is virtually mapped to be connected to the `ShadowRoot` of the
@@ -104,3 +104,6 @@ The declared type used in an `@Id` injection declaration must have a default con
 
 [TIP]
 The `@Id` annotation can also be used to inject an `Element` instance instead of a `Component` instance in case you want to use low level API or there is no appropriate HTML component available.
+
+[NOTE]
+You can detect whether a component is part of a Template by using the `isTemplateMapped` method. See the <<tutorial-component-integration#,Integrating components in a PolymerTemplate>> tutorial for more details.
