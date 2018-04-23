@@ -26,15 +26,14 @@ public class TranslationSources {
 
         @Override
         public void localeChange(LocaleChangeEvent event) {
-            setText(getI18NProvider().getTranslation("my.translation",
-                    getUserId()));
+            setText(getTranslation("my.translation", getUserId()));
         }
     }
 
     public class MyLocale extends Div {
 
         public MyLocale() {
-            setText(getI18NProvider().getTranslation("my.translation", getUserId()));
+            setText(getTranslation("my.translation", getUserId()));
         }
     }
 

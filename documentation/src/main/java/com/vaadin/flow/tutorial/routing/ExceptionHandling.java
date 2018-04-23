@@ -1,8 +1,9 @@
 package com.vaadin.flow.tutorial.routing;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 import java.util.stream.Stream;
+
+import javax.servlet.http.HttpServletResponse;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Tag;
@@ -124,7 +125,7 @@ public class ExceptionHandling {
 
             if (!record.isPresent()) {
                 event.rerouteToError(IllegalArgumentException.class,
-                        getI18NProvider().getTranslation("blog.post.not.found",
+                        getTranslation("blog.post.not.found",
                                 event.getLocation().getPath()));
             } else {
                 displayRecord(record.get());
