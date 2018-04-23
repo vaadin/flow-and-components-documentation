@@ -29,7 +29,6 @@ import org.slf4j.LoggerFactory;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.i18n.I18NProvider;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
@@ -60,20 +59,10 @@ public class TranslationProvider implements I18NProvider {
     }
 
     @Override
-    public String getTranslation(String key, Object... params) {
-        if (key == null) {
-            LoggerFactory.getLogger(TranslationProvider.class.getName()).warn(
-                    "Got lang request for key with null value!");
-            return "";
-        }
-        return getTranslation(key, getLocale(), params);
-    }
-
-    @Override
     public String getTranslation(String key, Locale locale, Object... params) {
         if (key == null) {
-            LoggerFactory.getLogger(TranslationProvider.class.getName()).warn(
-                    "Got lang request for key with null value!");
+            LoggerFactory.getLogger(TranslationProvider.class.getName())
+                    .warn("Got lang request for key with null value!");
             return "";
         }
 
@@ -83,8 +72,8 @@ public class TranslationProvider implements I18NProvider {
         try {
             value = bundle.getString(key);
         } catch (final MissingResourceException e) {
-            LoggerFactory.getLogger(TranslationProvider.class.getName()).warn(
-                    "Missing resource", e);
+            LoggerFactory.getLogger(TranslationProvider.class.getName())
+                    .warn("Missing resource", e);
             return "!" + locale.getLanguage() + ": " + key;
         }
         if (params.length > 0) {
@@ -105,23 +94,10 @@ public class TranslationProvider implements I18NProvider {
             propertiesBundle = ResourceBundle.getBundle(BUNDLE_PREFIX, locale,
                     cl);
         } catch (final MissingResourceException e) {
-            LoggerFactory.getLogger(TranslationProvider.class.getName()).warn(
-                    "Missing resource", e);
+            LoggerFactory.getLogger(TranslationProvider.class.getName())
+                    .warn("Missing resource", e);
         }
         return propertiesBundle;
     }
 
-    private Locale getLocale() {
-        UI currentUi = UI.getCurrent();
-        Locale locale = currentUi == null ? null : currentUi.getLocale();
-        if (locale == null) {
-            List<Locale> locales = getProvidedLocales();
-            if (locales != null && !locales.isEmpty()) {
-                locale = locales.get(0);
-            } else {
-                locale = Locale.getDefault();
-            }
-        }
-        return locale;
-    }
 }
