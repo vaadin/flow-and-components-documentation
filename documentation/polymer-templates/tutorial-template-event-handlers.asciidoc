@@ -244,4 +244,4 @@ In this example the server-side model becomes desynchronized with the client sid
 The line `this.userInfo.name = this.$.name.value` should be replaced to `this.set("userInfo.name", this.$.name.value)`. That's
 the correct way to update sub-properties in Polymer. But in this case the server-side model will be updated automatically for
 you and there is no need to send this custom event at all. You may just notify somehow the server about the click event (e.g. via
-`this.$server` and a `@ClientDelegate` method, see <<tutorial-template-basic#,Creating A Simple Component Using the Template API>>) and get the model value directly from the server-side model.
+`this.$server` and a `@ClientCallable` method, see <<tutorial-template-basic#,Creating A Simple Component Using the Template API>>) and get the model value directly from the server-side model.
