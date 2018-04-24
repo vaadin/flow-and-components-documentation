@@ -17,7 +17,7 @@ Namely, all officially supported listing components use a `DataProvider` to fetc
 The items are generally either loaded directly from memory or lazy loaded from some kind of backend.
 Regardless of how the items are loaded, the component is configured with one or several callbacks that define how the item should be displayed.
 
-In the following example, a `ComboBox` that lists status items is configured to use the `Status.getCaption()` method to represent each status.
+In the following example, a `ComboBox` that lists status items is configured to use the `Status.getLabel()` method to represent each status.
 There is also a `Grid`, which is configured with one column from the person's name and another showing the year of birth.
 
 [source, java]
