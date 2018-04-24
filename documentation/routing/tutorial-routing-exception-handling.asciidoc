@@ -183,7 +183,7 @@ public class BlogPost extends Component implements HasUrlParameter<Long> {
 
         if (!record.isPresent()) {
             event.rerouteToError(IllegalArgumentException.class,
-                    getI18NProvider().getTranslation("blog.post.not.found",
+                    getTranslation("blog.post.not.found",
                             event.getLocation().getPath()));
         } else {
             displayRecord(record.get());
