@@ -78,7 +78,7 @@ are blocked for disabled component.
 
 In the following example the Polymer template component controls its enabled state
 by itself via the checkbox. E.g. it may be a registration form which becomes
-enabled only when user accepts a license agreement. The checkbox should 
+enabled only when user accepts a license agreement. The checkbox should
 not ever be disabled and it should enable/disable the component.
 
 [source, java]
@@ -121,7 +121,7 @@ public class RegistrationForm extends PolymerTemplate<TemplateModel>
 }
 ----
 
-Here is its template file: 
+Here is its template file:
 
 [source, html]
 ----
@@ -141,17 +141,17 @@ Here is its template file:
 </dom-module>
 ----
 
-In this example the checkbox is implicitly disabled if the template (which is its parent) 
-is disabled. As a result no RPC will be allowed for the checkbox. The method 
-`synchronizeProperty` with extra argument is used to synchronize `checked` 
-property. The argument value is `DisabledUpdateMode.ALWAYS`  enum value which 
+In this example the checkbox is implicitly disabled if the template (which is its parent)
+is disabled. As a result no RPC will be allowed for the checkbox. The method
+`synchronizeProperty` with extra argument is used to synchronize `checked`
+property. The argument value is `DisabledUpdateMode.ALWAYS`  enum value which
 instructs to allow updates for this property even if the element is disabled.
 
 Here is the list of RPC communications which are blocked for the disabled element:
 - Property changes
 - DOM events
-- Event handler methods (methods annotated with `@EventHandler`) 
-- Client delegate methods (methods annotated with `@ClientDelegate`)
+- Event handler methods (methods annotated with `@EventHandler`)
+- Client delegate methods (methods annotated with `@ClientCallable`)
 
 E.g. the `register()` method is an event handler method which is blocked when the component
 is disabled.
@@ -160,7 +160,7 @@ is disabled.
 
 Similarly to the `synchronizeProperty` API method which allows to receive property updates
 for disabled components if it's called with `DisabledUpdateMode.ALWAYS` argument value, you may
-use declarative way to do the same via `@Synchronize` annotation for the property getter 
+use declarative way to do the same via `@Synchronize` annotation for the property getter
 in your component:
 
 [source, java]
@@ -173,10 +173,10 @@ public String getProp(){
 
 === Enable DOM events
 
-You may use two ways to receive DOM events: `Element` API method `addEventListener` and 
+You may use two ways to receive DOM events: `Element` API method `addEventListener` and
 `@DomEvent` annotation.
 
-To unblock DOM event for a disabled element using API method you may use 
+To unblock DOM event for a disabled element using API method you may use
 `addEventListener` overload which accepts extra parameter with value `DisabledUpdateMode.ALWAYS`.
 
 [source, java]
@@ -188,8 +188,8 @@ public Notification() {
 }
 ----
 
-To unblock DOM event for a disabled component via `@DomEvent` annotation you may 
-use the extra parameter value `DisabledUpdateMode.ALWAYS` : 
+To unblock DOM event for a disabled component via `@DomEvent` annotation you may
+use the extra parameter value `DisabledUpdateMode.ALWAYS` :
 `@DomEvent(value="input", allowUpdates = DisabledUpdateMode.ALWAYS )`.
 
 [source, java]
@@ -201,17 +201,17 @@ public class CustomEvent extends ComponentEvent<Component> {
 
 === Enable server handler methods
 
-If you have server handler methods annotation with `@ClientDelegate` or 
+If you have server handler methods annotation with `@ClientCallable` or
 `@EventHandler` then you may unblock them for the disabled component specifying
- `DisabledUpdateMode.ALWAYS` as a value: `@EventHandler(DisabledUpdateMode.ALWAYS)`. 
- 
+ `DisabledUpdateMode.ALWAYS` as a value: `@EventHandler(DisabledUpdateMode.ALWAYS)`.
+
 [source, java]
 ----
 @EventHandler(DisabledUpdateMode.ALWAYS)
 private void eventHandler(){
 }
 
-@ClientDelegate(DisabledUpdateMode.ALWAYS)
+@ClientCallable(DisabledUpdateMode.ALWAYS)
 private void clientRequest(){
 }
 ----

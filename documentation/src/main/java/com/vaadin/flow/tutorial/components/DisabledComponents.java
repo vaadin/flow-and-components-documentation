@@ -15,7 +15,7 @@
  */
 package com.vaadin.flow.tutorial.components;
 
-import com.vaadin.flow.component.ClientDelegate;
+import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.DomEvent;
@@ -100,7 +100,7 @@ public class DisabledComponents extends Component {
     private void eventHandler() {
     }
 
-    @ClientDelegate(DisabledUpdateMode.ALWAYS)
+    @ClientCallable(DisabledUpdateMode.ALWAYS)
     private void clientRequest() {
     }
 }
