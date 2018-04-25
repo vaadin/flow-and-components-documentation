@@ -18,10 +18,12 @@ package com.vaadin.flow.tutorial.creatingcomponents;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.DebounceSettings;
 import com.vaadin.flow.component.DomEvent;
 import com.vaadin.flow.component.EventData;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.html.NativeButton;
+import com.vaadin.flow.dom.DebouncePhase;
 import com.vaadin.flow.shared.Registration;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
@@ -62,6 +64,28 @@ public class ComponentEvents {
 
         public int getButton() {
             return button;
+        }
+    }
+
+    @DomEvent(value = "keypress", filter = "event.key == 'Enter'")
+    public class EnterPressEvent extends ComponentEvent<TextField> {
+        public EnterPressEvent(TextField source, boolean fromClient) {
+            super(source, fromClient);
+        }
+    }
+
+    @DomEvent(value = "input", debounce = @DebounceSettings(timeout = 500, phases = DebouncePhase.TRAILING))
+    public class InputEvent extends ComponentEvent<TextField> {
+        private String value;
+
+        public InputEvent(TextField source, boolean fromClient,
+                @EventData("element.value") String value) {
+            super(source, fromClient);
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
         }
     }
 
