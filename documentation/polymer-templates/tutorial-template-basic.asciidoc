@@ -56,6 +56,9 @@ As you can see, this is a Polymer template. All features used in the example are
 If you're unfamiliar with any of them, please refer to
 https://www.polymer-project.org/2.0/docs/about_20[Polymer project documentation page].
 
+[NOTE]
+The tag name of the template, which is defined by the `id` attribute on the `<dom-module>` element and the return of the function `is()`, should have at least one dash (`-`). The value `hello-world` is a valid tag name, but `helloworld` is not.
+
 In the current demo, we have defined a regular template with regular elements, have specified one-way binding (`\[[greeting]]`),
 two-way binding (`{{userInput}}`) and basic declaration for Polymer element in `<script>` class.
 
