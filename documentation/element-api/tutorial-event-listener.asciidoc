@@ -46,3 +46,6 @@ private void handleClick(DomEvent event) {
 The requested event data values are sent as a JSON object from the client and made available through `event.getEventData()` in the listener.
 You should use the proper getter based on the data type.
 Also make sure you use the same keys that you provided as parameters to `addEventData`.
+
+[TIP]
+The `filter` and `debounce` settings in `@DomEvent` that are described in <<../creating-components/tutorial-component-events#,Using Events with Components>> can also be set through the `DomListenerRegistration` object.
