@@ -1,0 +1,129 @@
+---
+title: Taking your Application into Production
+order: 1
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= Taking your Application into Production
+
+== Simple steps for production mode build
+
+To get your application prepped for production you want to add the `flow-maven-plugin` into the pom.xml
+
+If not present add the vaadin-prereleases plugin repository:
+
+.pom.xml
+[source, xml]
+----
+<pluginRepositories>
+    <pluginRepository>
+        <id>vaadin-prereleases</id>
+        <url>https://maven.vaadin.com/vaadin-prereleases</url>
+    </pluginRepository>
+</pluginRepositories>
+----
+
+Then create the production mode profile:
+
+.pom.xml
+[source, xml]
+----
+<profiles>
+    <profile>
+        <id>productionMode</id>
+        <activation>
+            <property>
+                <name>vaadin.productionMode</name>
+            </property>
+        </activation>
+
+        <properties>
+            <transpilation.output>${project.build.directory}/build</transpilation.output>
+            <flow.maven.plugin.version>[PLATFORM_COMPATIBLE_VERSION_HERE]</flow.maven.plugin.version>
+        </properties>
+
+        <dependencies>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>flow-server-production-mode</artifactId>
+            </dependency>
+        </dependencies>
+
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>com.vaadin</groupId>
+                    <artifactId>flow-maven-plugin</artifactId>
+                    <version>${flow.maven.plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>copy-production-files</goal>
+                                <goal>package-for-production</goal>
+                            </goals>
+                            <configuration>
+                                <transpileOutputDirectory>${transpilation.output}</transpileOutputDirectory>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${maven.war.plugin.version}</version>
+                    <configuration>
+                        <archive>
+                            <manifestEntries>
+                                <Implementation-Title>${project.name}</Implementation-Title>
+                                <Implementation-Version>${project.version}</Implementation-Version>
+                            </manifestEntries>
+                        </archive>
+                        <webResources>
+                            <resource>
+                                <directory>${transpilation.output}</directory>
+                            </resource>
+                        </webResources>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>${jetty.version}</version>
+                    <configuration>
+                        <webAppConfig>
+                            <resourceBases>
+                                <resourceBase>${transpilation.output}</resourceBase>
+                            </resourceBases>
+                        </webAppConfig>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+</profiles>
+----
+
+[NOTE]
+The `flow.maven.plugin.version` should be a version that is compatible with the used platform.
+
+After this all that is needed is to run `mvn clean package -Dvaadin.productionMode`.
+This will then do transpilation, minimisation and bundling on the application resources and build a production ready war.
+
+To locally run the application in production mode the server can be starter with `mvn jetty:run -Dvaadin.productionMode`.
+
+The simplest way to get a production ready setup is to get a project base from https://vaadin.com/start
+
+== What is transpilation and bundling
+
+Transpilation in Flow means converting all ES6 JavaScript to ES5 JavaScript format for older browsers to use.
+
+Minimisation is done to make the file smaller. When minifying the code of also often obscured making it harder to read.
+
+Bundling is an optimisation where we merge multiple files to a collection so that the browser doesn't need to
+request so many files making loading faster.
+
+Bundling can also be made to create multiple bundle fragments. For information on this see <<tutorial-production-mode-customizing#,Customizing Bundling>>
