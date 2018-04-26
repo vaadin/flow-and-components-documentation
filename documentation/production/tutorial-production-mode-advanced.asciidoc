@@ -10,14 +10,18 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 == Production mode issues
 
-====  After adding the `flow-server-production-mode` dependency the application no longer starts.
+===  After adding the `flow-server-production-mode` dependency the application no longer starts.
 This is a problem when you run the application in development mode using `maven jetty:run`, but due to the
 production mode dependency the application tries to get the resources from the
 production mode folder.
 
-To fix this you should either compile the frontend resources, remove the dependency,
-disable production mode with the servlet parameter `original.frontend.resources=true`
-or by running the application with `mvn jetty:run-exploded`.
+To fix this you have a couple choices:
+
+ - Use the defined profile from <<tutorial-production-mode-basic#,Basic production mode>>, with the jetty plugin.
+ - running the application with `mvn jetty:run-exploded` or `mvn jetty:run-war`
+ - disable production mode using the servlet parameter `original.frontend.resources=true`
+ - compile the frontend resources by adding the `flow-maven-plugin` see: <<tutorial-production-mode-basic#,Basic production mode>>
+ - remove the `flow-server-production-mode` dependency
 
 == Plugin goals and goal parameters
 
