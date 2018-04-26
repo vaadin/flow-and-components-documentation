@@ -59,43 +59,22 @@ The `pinProperty` descriptor here defines a property with the name `pin` and a d
 
 == Synchronizing the Value
 
-`paper-slider` is an input type component where the user can decide the what the value is. These kind of components should be integrated using the `HasValue` interface so they can automatically work in forms where you use `Binder`. 
+`paper-slider` is an input type component where the user can decide the what the value is. These kind of components must implement the `HasValue` interface so they can automatically work in forms where you use `Binder`, but for web components with a value property you should use the helper super class `AbstractSinglePropertyField` instead.
 
-The value should be synchronized automatically from the client to the server, when the user changes it, and from the server to the client, when changing it form code. Additionally a value change event should be emitted on the server whenever the value changes. To deal with all this, the component should implement `HasValue` with parameters for the component type (`PaperSlider`) and the value type (`Integer`):
-
-[source, java]
-----
-public class PaperSlider extends Component implements HasValue<PaperSlider, Integer> {
-----
-
-The `HasValue` interface requires the component to implement `setValue` and `getValue` to store the value in the correct property and read it from there. This can be accomplished as
+The value should be synchronized automatically from the client to the server, when the user changes it, and from the server to the client, when changing it from code. Additionally a value change event should be emitted on the server whenever the value changes. The `AbstractSinglePropertyField` class handles all these as long as you supply the component type (`PaperSlider`) and the value type (`Integer`) through generics and the property name and default value through the constructor:
 
 [source, java]
 ----
-    private static final PropertyDescriptor<Integer, Integer> valueProperty = PropertyDescriptors.propertyWithDefault("value", 0);
-
-    @Override
-    public void setValue(Integer value) {
-        valueProperty.set(this, value);
+public class PaperSlider extends AbstractSinglePropertyField<PaperSlider, Integer> {
+    public PaperSlider() {
+        super("value", 0, false);
     }
-
-    @Override
-    public Integer getValue() {
-        return valueProperty.get(this);
-    }
+}
 ----
 
-Now if you call `setValue` from Java code, a value change event will automatically be fired. To also get an event when the user changes the value in the UI, you must define what client side event to listen to and ensure the server gets the new property value using `@Synchronize`:
-[source, java]
-----
-    @Override
-    @Synchronize("value-changed")
-    public Integer getValue() {
-        return valueProperty.get(this);
-    }
-----
+The `"value"` parameter specifies the name of the element property which contains the value. The two other parameters specify the default value (`0` in this case) and whether null can be set on the server using `setValue(null)`  (`false` in this case, which will throw an exception if you call `setValue(null)`).
 
-This will listen to the `value-changed` event fired by `<paper-slider>` and send the new value of the `value` property to the server, and automatically fire the value change event.
+`AbstractSinglePropertyField` automatically provides correctly typed `Integer getValue()` and `setValue(Integer value)` methods which fire a value change event when the value changes. It also sets up synchronization of value changes from the client side using the given property name by listening to a `<property name>-changed` event, i.e. `value-changed` in this case.
 
 You can test this for instance as follows in the demo class:
 
@@ -120,8 +99,8 @@ You can test this for instance as follows in the demo class:
     }
 ----
 
-[NOTE]
-If the name of the `value` property is not actually `value`, you need to override `getClientPropertyChangeEventName()` and return the correct property name for value change events to be fired.
+[TIP]
+To change the event to listen to, you can use the protected `setSynchronizedEvent(String)` method, i.e. `setSynchronizedEvent("blur")` to get a value change only when the component loses focus.
 
 == Listening to Events
 
@@ -215,15 +194,13 @@ After doing the steps decribed above, you should end up with the following Slide
 ----
 @Tag("paper-slider")
 @HtmlImport("bower_components/paper-slider/paper-slider.html")
-public class PaperSlider extends Component
-        implements HasValue<PaperSlider, Integer> {
+public class PaperSlider extends AbstractSinglePropertyField<PaperSlider, Integer> {
 
     private static final PropertyDescriptor<Boolean, Boolean> pinProperty = PropertyDescriptors
             .propertyWithDefault("pin", false);
-    private static final PropertyDescriptor<Integer, Integer> valueProperty = PropertyDescriptors
-            .propertyWithDefault("value", 0);
 
     public PaperSlider() {
+        super("value", 0, false);
     }
 
     public void setPin(boolean pin) {
@@ -236,17 +213,6 @@ public class PaperSlider extends Component
 
     public void increment() {
         getElement().callFunction("increment");
-    }
-
-    @Override
-    public void setValue(Integer value) {
-        valueProperty.set(this, value);
-    }
-
-    @Override
-    @Synchronize("value-changed")
-    public Integer getValue() {
-        return valueProperty.get(this);
     }
 
     public Registration addClickListener(
