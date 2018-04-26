@@ -108,4 +108,4 @@ Minimisation is done to make the file smaller. When minifying the code of also o
 Bundling is an optimisation where we merge multiple files to a collection so that the browser doesn't need to
 request so many files making loading faster.
 
-Bundling can also be made to create multiple bundle fragments. For information on this see <<tutorial-production-mode-customizing#,Customizing Bundling>>
+Bundling can also be made to create multiple bundle fragments. For information on this see <<tutorial-production-mode-customising#,Customizing Bundling>>
