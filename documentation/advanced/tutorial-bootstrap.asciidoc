@@ -246,7 +246,7 @@ public class Layout2 extends Div implements RouterLayout, PageConfigurator {
 }
 ----
 
- - using `BootstrapListener#modifyBootstrapPage()` (<<../importing-dependencies/tutorial-bootstrap.asciidoc#bootstraplistener,documentation)>>
+ - using `BootstrapListener#modifyBootstrapPage()` (<<../importing-dependencies/tutorial-bootstrap.asciidoc#bootstraplistener,documentation>>)
 
 [source,java]
 ----
