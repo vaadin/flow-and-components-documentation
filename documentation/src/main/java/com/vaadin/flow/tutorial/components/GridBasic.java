@@ -21,12 +21,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.grid.ColumnGroup;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.Column;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.grid.GridMultiSelectionModel;
 import com.vaadin.flow.component.grid.GridSingleSelectionModel;
+import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.data.provider.QuerySortOrder;
@@ -154,20 +154,16 @@ public class GridBasic {
         Column<Person> postalCodeColumn = grid
                 .addColumn(ValueProvider.identity());
 
-        // Group two columns, nameColumn and ageColumn,
-        // in a ColumnGroup and set the header text
-        ColumnGroup informationColumnGroup = grid
-                .mergeColumns(nameColumn, ageColumn)
-                .setHeader("Basic Information");
+        // Create a header row
+        HeaderRow topRow = grid.prependHeaderRow();
 
-        ColumnGroup addressColumnGroup = grid
-                .mergeColumns(streetColumn, postalCodeColumn)
-                .setHeader("Address information");
+        // group two columns under the same label
+        topRow.join(nameColumn, ageColumn)
+                .setComponent(new Label("Basic Information"));
 
-        // Group two ColumnGroups
-        grid.mergeColumns(informationColumnGroup, addressColumnGroup)
-                .setHeader("Person Information");
-
+        // group the other two columns in the same header row
+        topRow.join(streetColumn, postalCodeColumn)
+                .setComponent(new Label("Address Information"));
     }
 
     public void gridHeadersAndFooters() {
@@ -195,7 +191,7 @@ public class GridBasic {
         grid.addColumn(person -> person.getName() + " " + person.getLastName(),
                 "name", "lastName").setHeader("Name");
 
-        grid.addColumn(TemplateRenderer.<Person> of(
+        grid.addColumn(TemplateRenderer.<Person>of(
                 "<div>[[item.name]]<br><small>[[item.email]]</small></div>")
                 .withProperty("name", Person::getName)
                 .withProperty("email", Person::getEmail), "name", "email")
