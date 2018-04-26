@@ -18,12 +18,7 @@ and then create a production mode profile:
 ----
 <profiles>
     <profile>
-        <id>productionMode</id>
-        <activation>
-            <property>
-                <name>production</name>
-            </property>
-        </activation>
+        <id>production</id>
 
         <properties>
             <flow.maven.plugin.version>[PLATFORM_COMPATIBLE_VERSION_HERE]</flow.maven.plugin.version>
@@ -63,7 +58,7 @@ production settings when running in development mode.
 [NOTE]
 The `flow.maven.plugin.version` should be a version that is compatible with the used platform.
 
-After this all that is needed is to run `mvn clean package -Dvaadin.production`.
+After this all that is needed is to run `mvn clean package -Pproduction`.
 This will then do transpilation, minimisation and bundling on the application resources and build a production ready war.
 
 The simplest way to get a production ready setup is to get a project base from https://vaadin.com/start
@@ -85,11 +80,24 @@ To locally run the application in production mode with jetty you should add to t
 </plugin>
 ----
 
-With this the server can be started with `mvn jetty:run -Dvaadin.production`.
+With this the server can be started with `mvn jetty:run -Pproduction`.
 
 [NOTE]
-*transpilation.output* by default is `${project.build.directory}/${project.build.finalName}/`,
-but could be defined for the flow-maven-plugin also so that one property is used.
+*transpilation.output* should by default be `${project.build.directory}/${project.build.finalName}/`.
+
+When not using the default *transpilation.output* target the `flow-maven-plugin` will require the configuration:
+
+[source, xml]
+----
+<executions>
+    <execution>
+        ...
+        <configuration>
+            <transpileOutputDirectory>${transpilation.output}</transpileOutputDirectory>
+        </configuration>
+    </execution>
+<executions>
+----
 
 == What is transpilation and bundling
 
