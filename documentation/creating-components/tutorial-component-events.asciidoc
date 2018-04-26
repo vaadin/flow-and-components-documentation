@@ -118,3 +118,79 @@ See the javadocs for `DomListenerRegistration.addEventData` for more information
 
 [TIP]
 See https://developer.mozilla.org/en-US/docs/Web/API/Event for an overview of the standard DOM events and their properties.
+
+=== Filtering Events
+
+It is sometimes not appropriate to send all DOM events to the server, but instead determine whether to send an event based on something related to the event.
+To achieve this, you can add define a `filter` in the `@DomEvent` annotation.
+
+[source,java]
+----
+@DomEvent(value = "keypress", filter = "event.key == 'Enter'")
+public class EnterPressEvent extends ComponentEvent<TextField> {
+    public EnterPressEvent(TextField source, boolean fromClient) {
+        super(source, fromClient);
+    }
+}
+----
+
+The `filter` definition is run as JavaScript in the browser with the DOM event available as `event` and the element to which the listener was added available as `element`.
+See the javadocs for `DomListenerRegistration.setFilter` for more information about how the filter is used.
+
+=== Limiting Event Frequency
+
+Some kinds of events are fired very frequently while the user is doing something, like text input events while the user is typing. The rate of sending events to the server can be configured using different `debounce` settings in the `@DomEvent` annotation. Debouncing always requires a `timeout` in milliseconds and one or several phases of a burst for which an event should be sent to the server.
+
+* Listening for the `LEADING` phase means that an event will be sent to the server at the beginning of a burst, but subsequent events will be dropped until one timeout period has passed without any new events. This may be useful for things like button clicks if you want to prevent accidental double submissions.
+* With the `INTERMEDIATE` phase, there will be periodical events to the server while a burst is ongoing. Another event will not be sent to the server until the timeout period has passed since the last event was sent. This may be useful for tings like text input if you want to react continuously while the user is typing.
+* The `TRAILING` phase is triggered at the end of a burst, when the timeout period has passed without any further events. This may be useful for things like text input if you want to react only when the user stops typing.
+
+In this example, an `input` event will be sent to the server when the user has been typing, but there has been half a second since the last time some input was made.
+
+[source,java]
+----
+@DomEvent(value = "input",
+          debounce = @DebounceSettings(
+              timeout = 250,
+              phases = DebouncePhase.TRAILING))
+public class InputEvent extends ComponentEvent<TextField> {
+    private String value;
+
+    public InputEvent(TextField source, boolean fromClient,
+            @EventData("element.value") String value) {
+        super(source, fromClient);
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+}
+----
+
+You can configure your event to be active for several phases at once, e.g. to both receive an event for the `LEADING` phase immediately when a burst starts but also `INTERMEDIATE` events while the burst goes on.
+
+[source,java]
+----
+@DomEvent(value = "input",
+          debounce = @DebounceSettings(
+              timeout = 500,
+              phases = {DebouncePhase.LEADING,
+                        DebouncePhase.INTERMEDIATE }))
+public class ContiniousInputEvent extends ComponentEvent<TextField> {
+    private String value;
+
+    public ContiniousInputEvent(TextField source, boolean fromClient,
+            @EventData("element.value") String value) {
+        super(source, fromClient);
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+}
+----
+
+[NOTE]
+If both `filter` and `debounce` are configured at once, only events that pass the filter are considered when determining whether a burst has ended.
