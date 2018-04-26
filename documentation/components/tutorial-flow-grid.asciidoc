@@ -283,25 +283,23 @@ nameColumn.setFrozen(true);
 
 === Grouping Columns
 
-Multiple columns can be grouped together by calling `mergeColumns` on the grid and supplying it two or more columns.
-Merging columns returns a `ColumnGroup` object, which shares a subset of the `Column` API for basic configuration, for instance setting the header and footer.
-In addition to merging columns, column groups can also be merged to create deeper hierarchies of columns.
+Multiple columns can be grouped together by adding them in the header row of the grid.
+After the `HeaderRow` is retrieved via `prependHeaderRow` or `appendHeaderRow` grid api, `join` method
+can be used to group the columns.
+Additionally, `setText` and `setComponent` methods can be used on the join result to set the text or component for the joined columns.
 
 [source, java]
 ----
-// Group two columns, nameColumn and ageColumn,
-// in a ColumnGroup and set the header text
-ColumnGroup informationColumnGroup = grid
-        .mergeColumns(nameColumn, ageColumn)
-        .setHeader("Basic Information");
+// Create a header row
+HeaderRow topRow = grid.prependHeaderRow();
 
-ColumnGroup addressColumnGroup = grid
-        .mergeColumns(streetColumn, postalCodeColumn)
-        .setHeader("Address information");
+// group two columns under the same label
+topRow.join(nameColumn, ageColumn)
+        .setComponent(new Label("Basic Information"));
 
-// Group two ColumnGroups
-grid.mergeColumns(informationColumnGroup, addressColumnGroup)
-        .setHeader("Person Information");
+// group the other two columns in the same header row
+topRow.join(streetColumn, postalCodeColumn)
+        .setComponent(new Label("Address Information"));
 ----
 
 === Column Keys
