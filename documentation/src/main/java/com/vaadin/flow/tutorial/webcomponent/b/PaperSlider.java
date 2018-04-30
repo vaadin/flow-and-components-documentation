@@ -1,5 +1,6 @@
 package com.vaadin.flow.tutorial.webcomponent.b;
 
+import com.vaadin.flow.component.AbstractSinglePropertyField;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.HasValue;
@@ -11,8 +12,12 @@ import com.vaadin.flow.tutorial.webcomponent.ClickEvent;
 
 @CodeFor("web-components/creating-java-api-for-a-web-component.asciidoc")
 //@formatter:off
-public class PaperSlider extends Component implements HasValue<PaperSlider, Integer> {
+public class PaperSlider extends AbstractSinglePropertyField<PaperSlider, Integer> {
     private static final PropertyDescriptor<Integer, Integer> valueProperty = PropertyDescriptors.propertyWithDefault("value", 0);
+
+    public PaperSlider() {
+        super("", 0, false);
+    }
 
     // @formatter:off
     private static final PropertyDescriptor<Boolean, Boolean> pinProperty = PropertyDescriptors.propertyWithDefault("pin", false);
