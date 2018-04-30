@@ -17,6 +17,10 @@ package com.vaadin.flow.tutorial.advanced;
 
 import javax.servlet.ServletException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;

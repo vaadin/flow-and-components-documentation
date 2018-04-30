@@ -65,7 +65,7 @@ The value should be synchronized automatically from the client to the server, wh
 
 [source, java]
 ----
-public class PaperSlider extends Component implements HasValue<PaperSlider, Integer> {
+public class PaperSlider extends AbstractSinglePropertyField<PaperSlider, Integer> {
 ----
 
 The `HasValue` interface requires the component to implement `setValue` and `getValue` to store the value in the correct property and read it from there. This can be accomplished as
@@ -215,8 +215,8 @@ After doing the steps decribed above, you should end up with the following Slide
 ----
 @Tag("paper-slider")
 @HtmlImport("bower_components/paper-slider/paper-slider.html")
-public class PaperSlider extends Component
-        implements HasValue<PaperSlider, Integer> {
+public class PaperSlider
+        extends AbstractSinglePropertyField<PaperSlider, Integer> {
 
     private static final PropertyDescriptor<Boolean, Boolean> pinProperty = PropertyDescriptors
             .propertyWithDefault("pin", false);
@@ -224,7 +224,9 @@ public class PaperSlider extends Component
             .propertyWithDefault("value", 0);
 
     public PaperSlider() {
+        super("", 0, false);
     }
+
 
     public void setPin(boolean pin) {
         pinProperty.set(this, pin);

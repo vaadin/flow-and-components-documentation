@@ -124,7 +124,7 @@ ListDataProvider<Person> dataProvider =
 ComboBox<Person> comboBox = new ComboBox<>();
 comboBox.setDataProvider(dataProvider);
 
-departmentSelect.addValueChangeListener((HasValue.ValueChangeListener<ComboBox<Department>, Department>) event -> {
+departmentSelect.addValueChangeListener(event -> {
   Department selectedDepartment = event.getValue();
   if (selectedDepartment != null) {
     dataProvider.setFilterByValue(

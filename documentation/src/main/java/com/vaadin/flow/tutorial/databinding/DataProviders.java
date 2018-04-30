@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -206,7 +207,7 @@ public class DataProviders {
         ComboBox<Person> comboBox = new ComboBox<>();
         comboBox.setDataProvider(dataProvider);
 
-        departmentSelect.addValueChangeListener((HasValue.ValueChangeListener<ComboBox<Department>, Department>) event -> {
+        departmentSelect.addValueChangeListener(event -> {
             Department selectedDepartment = event.getValue();
             if (selectedDepartment != null) {
                 dataProvider.setFilterByValue(
