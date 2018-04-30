@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
@@ -196,7 +197,7 @@ public class DataProviders {
 
     public void captionFilter() {
         List<Person> persons = Collections.emptyList();
-        ComboBox<Person.Department> departmentSelect = new ComboBox<>();
+        ComboBox<Department> departmentSelect = new ComboBox<>();
 
         // @formatter:off
         ListDataProvider<Person> dataProvider = DataProvider
@@ -205,7 +206,7 @@ public class DataProviders {
         ComboBox<Person> comboBox = new ComboBox<>();
         comboBox.setDataProvider(dataProvider);
 
-        departmentSelect.addValueChangeListener(event -> {
+        departmentSelect.addValueChangeListener((HasValue.ValueChangeListener<ComboBox<Department>, Department>) event -> {
             Department selectedDepartment = event.getValue();
             if (selectedDepartment != null) {
                 dataProvider.setFilterByValue(
