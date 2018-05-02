@@ -109,6 +109,11 @@ and keep the page state intact. The following tutorials explain how to use the R
 * <<spring/tutorial-spring-configuration#,Vaadin Spring Configuration>>
 * <<spring/tutorial-spring-examples#,Getting Started with Spring and Vaadin>>
 
+== Packaging for Production
+* <<production/tutorial-production-mode-basic#,Taking your Application into Production>>
+* <<production/tutorial-production-mode-customising#,Customising Bundling>>
+* <<production/tutorial-production-mode-advanced#,Advanced production mode topics>>
+
 == Migrating from Vaadin 8 to Vaadin 10
 * <<migration/1-migrating-v8-v10#,Migrating from Vaadin 8 to Vaadin 10>>
 * <<migration/2-migration-strategies#,Migration Strategies>>
