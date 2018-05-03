@@ -9,9 +9,10 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 There are multiple ways you can create a component. This tutorial describes how to create a `Component` container. For other component tutorials, see:
 
-* <<tutorial-component-basic#,Creating A Simple Component Using the Element API>>.
-* <<tutorial-component-many-elements#,Creating a Component Based on Many Elements>>.
+* <<tutorial-component-basic#,Creating a Simple Component Using the Element API>>
+* <<tutorial-component-many-elements#,Creating a Component Based on Many Elements>>
 * <<tutorial-component-composite#,Creating a Component Using Existing Components>>
+* <<../polymer-templates/tutorial-template-basic#,Creating a Simple Component Using the Template API>>
 
 A Component container is a Component to which you can add other components. Typically this is done through a generic public API.
 

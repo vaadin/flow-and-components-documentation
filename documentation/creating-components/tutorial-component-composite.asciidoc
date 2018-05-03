@@ -9,9 +9,10 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 There are multiple ways you can create a component. This tutorial uses a `Composite` to construct a new component using existing components. For other component tutorials, see:
 
-* <<tutorial-component-basic#,Creating A Simple Component Using the Element API>>.
-* <<tutorial-component-many-elements#,Creating a Component Based on Many Elements>>.
+* <<tutorial-component-basic#,Creating a Simple Component Using the Element API>>
+* <<tutorial-component-many-elements#,Creating a Component Based on Many Elements>>
 * <<tutorial-component-container#,Creating a Component Which Can Contain Other Components>>
+* <<../polymer-templates/tutorial-template-basic#,Creating a Simple Component Using the Template API>>
 
 
 A TextField can be created by combining the existing HTML components `Div`, `Label` and `Input` into the following hierarchy:
