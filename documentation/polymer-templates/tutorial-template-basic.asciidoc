@@ -1,15 +1,16 @@
 ---
-title: Creating A Simple Component Using the Template API
+title: Creating a Simple Component Using the Template API
 order: 1
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Creating A Simple Component Using the Template API
+= Creating a Simple Component Using the Template API
 
 There are multiple ways you can create a component. This tutorial uses the `PolymerTemplate` API with no additional elements or components. For other component tutorials, see:
 
+* <<../creating-components/tutorial-component-basic#,Creating a Simple Component Using the Element API>>
 * <<../creating-components/tutorial-component-many-elements#,Creating a Component Based on Many Elements>>
 * <<../creating-components/tutorial-component-composite#,Creating a Component Using Existing Components>>
 * <<../creating-components/tutorial-component-container#,Creating a Component Which Can Contain Other Components>>
