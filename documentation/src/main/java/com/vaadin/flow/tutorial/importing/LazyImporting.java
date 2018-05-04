@@ -21,7 +21,6 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.dependency.StyleSheet;
-import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.flow.shared.ui.LoadMode;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
@@ -35,16 +34,13 @@ public class LazyImporting {
     @JavaScript(value = "/js/animation.js", loadMode = LoadMode.LAZY)
     public class MainLayout extends Component {
         // implementation omitted
+
+        public MainLayout() {
+            UI.getCurrent().getPage().addHtmlImport("/html/layout.html", LoadMode.EAGER);
+            UI.getCurrent().getPage().addStyleSheet("/css/big_style_file.css", LoadMode.INLINE);
+            UI.getCurrent().getPage().addJavaScript("/js/animation.js", LoadMode.LAZY);
+        }
     }
     //@formatter:on
 
-    public class MyCustomUI extends UI {
-
-        @Override
-        protected void init(VaadinRequest request) {
-            getPage().addHtmlImport("/html/layout.html", LoadMode.EAGER);
-            getPage().addStyleSheet("/css/big_style_file.css", LoadMode.INLINE);
-            getPage().addJavaScript("/js/animation.js", LoadMode.LAZY);
-        }
-    }
 }

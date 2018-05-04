@@ -22,10 +22,9 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.dependency.StyleSheet;
-import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("importing-dependencies/tutorial-importing.asciidoc")
+@CodeFor("importing-dependencies/§")
 public class Importing {
 
     //@formatter:off - custom line wrapping
@@ -37,18 +36,9 @@ public class Importing {
     }
     //@formatter:on
 
-    public class MyCustomUI extends UI {
-
-        @Override
-        protected void init(VaadinRequest request) {
-            //@formatter:off - custom line wrapping
-
-            // Loaded regardless of how your application is deployed
-            getPage().addHtmlImport("/html/htmlimport.html");
-            getPage().addJavaScript("/js/script.js");
-
-            //@formatter:on
-        }
+    private void addDependencies() {
+        UI.getCurrent().getPage().addHtmlImport("/html/htmlimport.html");
+        UI.getCurrent().getPage().addJavaScript("/js/script.js");
     }
 
     @JavaScript("1.js")
@@ -57,6 +47,6 @@ public class Importing {
     @JavaScript("2.js")
     @StyleSheet("2.css")
     @HtmlImport("2.html")
-    static class OrderedDependencies extends UI {
+    static class OrderedDependencies extends Div {
     }
 }

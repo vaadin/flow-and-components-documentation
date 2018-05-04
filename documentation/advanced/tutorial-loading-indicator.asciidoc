@@ -27,33 +27,52 @@ accordingly. The element is located inside the `<body>` element.
 </body>
 ----
 
-The indicator is shown after a delay of 300ms by default. The delay is configured
-separately to each `UI`. To configure each `UI` after it has been created, you need
-to define a custom `UI` class in your `@VaadinServletConfiguration` and override
-the `void init(VaadinRequest request)` method. There you can access the
-configuration with the `getLoadingIndicatorConfiguration()` method. There are two
+The indicator is shown after a delay of 300ms by default. The delay may be configured
+per `UI`. Loading indicator should be configured once during the 
+UI initialization so you need to get `UIInitEvent`. To do this you 
+may register a `VaadinServiceInitListener` instance and add 
+a `UIInitListener` to the service instance. Once your get the `UI` instance
+from the event you can access the configuration with the 
+`getLoadingIndicatorConfiguration()` method. There are two
 additional delays which you can configure. After the delays, class names
 _second_ and _third_ are set and can be used to change the style of the loading
 indicator after certain time has passed.
 
 [source,java]
 ----
-public class MyUI extends UI {
-  @Override
-  protected void init(VaadinRequest request) {
-    LoadingIndicatorConfiguration conf = getLoadingIndicatorConfiguration();
+public class LoadingIndicatorConfig
+        implements VaadinServiceInitListener, UIInitListener {
 
-    /* Delay for showing the indicator and setting the 'first' class name. */
-    conf.setFirstDelay(300); // 300ms is the default
+    @Override
+    public void serviceInit(ServiceInitEvent event) {
+        VaadinService service = event.getSource();
+        service.addUIInitListener(this);
+    }
 
-    /* Delay for setting the 'second' class name */
-    conf.setSecondDelay(1500); // 1500ms is the default
+    @Override
+    public void uiInit(UIInitEvent event) {
+        LoadingIndicatorConfiguration conf = event.getUI()
+                .getLoadingIndicatorConfiguration();
 
-    /* Delay for setting the 'third' class name */
-    conf.setThirdDelay(5000); // 5000ms is the default
-  }
+        /*
+         * Delay for showing the indicator and setting the 'first' class name.
+         */
+        conf.setFirstDelay(300); // 300ms is the default
+
+        /* Delay for setting the 'second' class name */
+        conf.setSecondDelay(1500); // 1500ms is the default
+
+        /* Delay for setting the 'third' class name */
+        conf.setThirdDelay(5000); // 5000ms is the default
+    }
 }
 ----
+
+The `LoadingIndicatorConfig` class should be registered depending 
+on specific runtime environments. Normally Java SPI way is used to load
+implementation. In this case the class FQN should be listed in a 
+`META-INF/services/com.vaadin.flow.server.VaadinServiceInitListener` file.
+See `VaadinServiceInitListener` class javadocs for details.
 
 == Displaying a Modal Curtain
 
