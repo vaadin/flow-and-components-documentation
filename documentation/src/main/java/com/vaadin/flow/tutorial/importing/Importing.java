@@ -25,7 +25,7 @@ import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("importing-dependencies/§")
+@CodeFor("importing-dependencies/tutorial-importing.asciidoc")
 public class Importing {
 
     //@formatter:off - custom line wrapping
