@@ -27,8 +27,8 @@ Sometimes you need more information about the element or the event which the use
 [source,java]
 ----
 helloButton.addEventListener("click", this::handleClick)
-        .addEventData("event.shiftKey")
-        .addEventData("element.offsetWidth");
+    .addEventData("event.shiftKey")
+    .addEventData("element.offsetWidth");
 
 private void handleClick(DomEvent event) {
     JsonObject eventData = event.getEventData();
