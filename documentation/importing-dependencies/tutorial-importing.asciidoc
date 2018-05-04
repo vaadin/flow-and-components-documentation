@@ -30,14 +30,10 @@ The functionality is the same as for the annotations.
 
 [source,java]
 ----
-public class MyCustomUI extends UI {
-
-  @Override
-  protected void init(VaadinRequest request) {
-    getPage().addHtmlImport("/html/htmlimport.html");
-    getPage().addJavaScript("/js/script.js");
+  private void addDependencies() {
+    UI.getCurrent().getPage().addHtmlImport("/html/htmlimport.html");
+    UI.getCurrent().getPage().addJavaScript("/js/script.js");
   }
-}
 ----
 
 [NOTE]
@@ -55,7 +51,7 @@ Example:
 @JavaScript("2.js")
 @StyleSheet("2.css")
 @HtmlImport("2.html")
-static class OrderedDependencies extends UI {
+static class OrderedDependencies extends Div {
 }
 ----
 In this case, `1.js` will be imported before `2.js`, `1.css` before `2.css`, `1.html` before `2.html`, but no other guarantees can be made.

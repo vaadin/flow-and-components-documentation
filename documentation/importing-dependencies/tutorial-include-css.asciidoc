@@ -30,12 +30,9 @@ annotation.
 
 [source,java]
 ----
-public class MyCustomUI extends UI {
-
-  @Override
-  protected void init(VaadinRequest request) {
-    // Loaded from "/root.css" regardless of how your application is deployed
-    getPage().addStyleSheet("/root.css");
+  public MainLayout(){
+      // Loaded from "/root.css" regardless of how your application is deployed
+      UI.getCurrent().getPage().addStyleSheet("/root.css");
   }
 }
 ----

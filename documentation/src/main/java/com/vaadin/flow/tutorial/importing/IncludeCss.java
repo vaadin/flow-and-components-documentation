@@ -18,7 +18,6 @@ package com.vaadin.flow.tutorial.importing;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.StyleSheet;
-import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("importing-dependencies/tutorial-include-css.asciidoc")
@@ -29,19 +28,12 @@ public class IncludeCss {
     @StyleSheet("http://www.example.com/example.css") // Loaded from external location
     public class MainLayout extends Component {
         // implementation omitted
+
+        public MainLayout(){
+            // Loaded from "/root.css" regardless of how your application is deployed
+            UI.getCurrent().getPage().addStyleSheet("/root.css");
+        }
     }
     //@formatter:on
 
-    public class MyCustomUI extends UI {
-
-        @Override
-        protected void init(VaadinRequest request) {
-            //@formatter:off - custom line wrapping
-
-            // Loaded from "/root.css" regardless of how your application is deployed
-            getPage().addStyleSheet("/root.css");
-
-            //@formatter:on
-        }
-    }
 }

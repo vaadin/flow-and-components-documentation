@@ -12,8 +12,8 @@ To make an application interactive, you want to react to events from the user. F
 ----
 Element helloButton = ElementFactory.createButton("Say hello");
 helloButton.addEventListener("click", e -> {
-  Element response = ElementFactory.createDiv("Hello!");
-  getElement().appendChild(response);
+    Element response = ElementFactory.createDiv("Hello!");
+    getElement().appendChild(response);
 });
 getElement().appendChild(helloButton);
 ----

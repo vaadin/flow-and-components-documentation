@@ -81,13 +81,10 @@ structure is created for the `MainLayout` component regardless of availability o
 
 [source,java]
 ----
-public class MyCustomUI extends UI {
-
-  @Override
-  protected void init(VaadinRequest request) {
-      getPage().addHtmlImport("/html/layout.html", LoadMode.EAGER);
-      getPage().addStyleSheet("/css/big_style_file.css", LoadMode.INLINE);
-      getPage().addJavaScript("/js/animation.js", LoadMode.LAZY);
+  public MainLayout() {
+      UI.getCurrent().getPage().addHtmlImport("/html/layout.html", LoadMode.EAGER);
+      UI.getCurrent().getPage().addStyleSheet("/css/big_style_file.css", LoadMode.INLINE);
+      UI.getCurrent().getPage().addJavaScript("/js/animation.js", LoadMode.LAZY);
   }
 }
 ----
