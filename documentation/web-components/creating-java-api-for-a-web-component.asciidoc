@@ -7,6 +7,7 @@ layout: page
 = Creating Java API for a Web Component
 
 The component class, e.g. `PaperSlider.java` you get when using the component starter, see <<integrating-a-web-component#,Integrating a Web Component>> is just a stub which handles the imports. There are multiple ways to interact with a web component but the typical pattern is:
+
 * Use properties on the element to define how it should behave
 * Listen to events on the element to get notified of when the user does something
 * Call functions on the element to perform specific tasks such as open a popup
@@ -53,75 +54,61 @@ public class PaperSlider extends Component {
     public boolean isPin() {
         return pinProperty.get(this);
     }
+}
 ----
 
-The `pinProperty` descriptor here defines a property with the name `pin` and a default value of `false` (matches the web component) and a both a setter and getter type of `Boolean` though generics (`<Boolean,Boolean>`). The setter and getter code then only invokes the descriptor with the component instance.
+The `pinProperty` descriptor here defines a property with the name `pin` and a default value of `false` (matches the web component) and both a setter and getter type of `Boolean` through generics (`<Boolean, Boolean>`). The setter and getter code then only invokes the descriptor with the component instance.
 
 == Synchronizing the Value
 
-`paper-slider` is an input type component where the user can decide the what the value is. These kind of components should be integrated using the `HasValue` interface so they can automatically work in forms where you use `Binder`. 
+`paper-slider` is an input type component where the user can decide the what the value is. These kind of components should be integrated using the `HasValue` interface so they can automatically work in forms where you use `Binder`.
 
-The value should be synchronized automatically from the client to the server, when the user changes it, and from the server to the client, when changing it form code. Additionally a value change event should be emitted on the server whenever the value changes. To deal with all this, the component should implement `HasValue` with parameters for the component type (`PaperSlider`) and the value type (`Integer`):
+The value should be synchronized automatically from the client to the server, when the user changes it, and from the server to the client, when changing it form code. Additionally a value change event should be emitted on the server whenever the value changes.
+For the most common case where `getValue()` is based on a single element property, the `AbstractSinglePropertyField` base class can be used to take care of everything related to the value.
 
 [source, java]
 ----
 public class PaperSlider extends AbstractSinglePropertyField<PaperSlider, Integer> {
-----
 
-The `HasValue` interface requires the component to implement `setValue` and `getValue` to store the value in the correct property and read it from there. This can be accomplished as
-
-[source, java]
-----
-    private static final PropertyDescriptor<Integer, Integer> valueProperty = PropertyDescriptors.propertyWithDefault("value", 0);
-
-    @Override
-    public void setValue(Integer value) {
-        valueProperty.set(this, value);
+    public PaperSlider() {
+        super("value", 0, false);
     }
 
-    @Override
-    public Integer getValue() {
-        return valueProperty.get(this);
-    }
+}
 ----
 
-Now if you call `setValue` from Java code, a value change event will automatically be fired. To also get an event when the user changes the value in the UI, you must define what client side event to listen to and ensure the server gets the new property value using `@Synchronize`:
-[source, java]
-----
-    @Override
-    @Synchronize("value-changed")
-    public Integer getValue() {
-        return valueProperty.get(this);
-    }
-----
+The type parameters define the component type (`PaperSlider`) returned by `getSource()` in value change events and the value type (`Integer`).
+The constructor parameters define the name of the element property that contains the value (`value`), the default value to use if there property isn't set (`0`)  and whether `setValue(null)` should be allowed or throw an exception (`false`, meaning that `null` is not allowed).
 
-This will listen to the `value-changed` event fired by `<paper-slider>` and send the new value of the `value` property to the server, and automatically fire the value change event.
+[NOTE]
+For more advanced cases that still rely on only one element property, there's an alternative constructor for defining callbacks that convert between the low-level element property type and the high level `getValue()` type.
+For cases where the value cannot be derived based on a single element property, there's a more generic `AbstractField` base class.
 
 You can test this for instance as follows in the demo class:
 
 [source, java]
 ----
-    public DemoView() {
-        PaperSlider paperSlider = new PaperSlider();
-        paperSlider.setPin(true);
-        paperSlider.addValueChangeListener(e -> {
-            String message = "The value is now " + e.getValue();
-            if (e.isFromClient()) {
-                message += " (set by the user)";
-            }
-            Notification.show(message, 3000, Position.MIDDLE);
-        });
-        add(paperSlider);
+public DemoView() {
+    PaperSlider paperSlider = new PaperSlider();
+    paperSlider.setPin(true);
+    paperSlider.addValueChangeListener(e -> {
+        String message = "The value is now " + e.getValue();
+        if (e.isFromClient()) {
+            message += " (set by the user)";
+        }
+        Notification.show(message, 3000, Position.MIDDLE);
+    });
+    add(paperSlider);
 
-        Button incrementButton = new Button("Increment using setValue", e -> {
-            paperSlider.setValue(paperSlider.getValue() + 5);
-        });
-        add(incrementButton);
-    }
+    Button incrementButton = new Button("Increment using setValue", e -> {
+        paperSlider.setValue(paperSlider.getValue() + 5);
+    });
+    add(incrementButton);
+}
 ----
 
 [NOTE]
-If the name of the `value` property is not actually `value`, you need to override `getClientPropertyChangeEventName()` and return the correct property name for value change events to be fired.
+Some web components also update other properties that are not related to `HasValue`. <<../creating-components/tutorial-component-basic#,Creating A Simple Component Using the Element API>> describes how you can use the `@Synchronize` annotation to synchronize property values without automatically firing a value change event.
 
 == Listening to Events
 
@@ -158,7 +145,7 @@ public class ClickEvent extends ComponentEvent<PaperSlider> {
 
 The `ClickEvent` uses `@DomEvent` to define the name of the DOM event to listen for, `click` in this case. Like all other events fired by a `Component`, it extends `ComponentEvent` which provides a typed `getSource()` method.
 
-The click event defined above uses two additional constructor parameter annotated with `@EventData` to get the click coordinates from the browser. The expression inside the `@EventData` is evaluated when the event is handled in the browser and can access DOM event properties using a `event.` prefix and element properties using the `element.` prefix, e.g. `event.offsetX`. 
+The click event defined above uses two additional constructor parameter annotated with `@EventData` to get the click coordinates from the browser. The expression inside the `@EventData` is evaluated when the event is handled in the browser and can access DOM event properties using a `event.` prefix and element properties using the `element.` prefix, e.g. `event.offsetX`.
 
 Finally, you can test the event integration in the demo e.g. by adding to `DemoView.java`:
 
@@ -209,24 +196,19 @@ This particular example is quite artificial as you are doing a server visit from
 
 == Final Slider Integration Result
 
-After doing the steps decribed above, you should end up with the following Slider class:
+After doing the steps described above, you should end up with the following `PaperSlider` class:
 
 [source, java]
 ----
 @Tag("paper-slider")
 @HtmlImport("bower_components/paper-slider/paper-slider.html")
-public class PaperSlider
-        extends AbstractSinglePropertyField<PaperSlider, Integer> {
+public class PaperSlider extends AbstractSinglePropertyField<PaperSlider, Integer> {
 
-    private static final PropertyDescriptor<Boolean, Boolean> pinProperty = PropertyDescriptors
-            .propertyWithDefault("pin", false);
-    private static final PropertyDescriptor<Integer, Integer> valueProperty = PropertyDescriptors
-            .propertyWithDefault("value", 0);
+    private static final PropertyDescriptor<Boolean, Boolean> pinProperty = PropertyDescriptors.propertyWithDefault("pin", false);
 
     public PaperSlider() {
-        super("", 0, false);
+        super("value", 0, false);
     }
-
 
     public void setPin(boolean pin) {
         pinProperty.set(this, pin);
@@ -236,26 +218,13 @@ public class PaperSlider
         return pinProperty.get(this);
     }
 
-    public void increment() {
-        getElement().callFunction("increment");
-    }
-
-    @Override
-    public void setValue(Integer value) {
-        valueProperty.set(this, value);
-    }
-
-    @Override
-    @Synchronize("value-changed")
-    public Integer getValue() {
-        return valueProperty.get(this);
-    }
-
-    public Registration addClickListener(
-            ComponentEventListener<ClickEvent> listener) {
+    public Registration addClickListener(ComponentEventListener<ClickEvent> listener) {
         return addListener(ClickEvent.class, listener);
     }
 
+    public void increment() {
+        getElement().callFunction("increment");
+    }
 }
 ----
 
