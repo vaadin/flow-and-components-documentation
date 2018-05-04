@@ -158,15 +158,10 @@ Read the https://github.com/vaadin/flow-and-components-documentation/blob/master
 
 === setReadOnly(boolean readOnly) is Component Specific and Works Differently
 
-[NOTE]
-This chapter describes how the behavior of the API will be.
-Please see https://github.com/vaadin/flow/issues/3539[the corresponding issue in Flow] for current status.
+In Vaadin 10 the `setReadOnly(boolean readOnly)` method is specific to components accepting user input by implementing `HasValue`.
 
-In Vaadin 10 the `setReadOnly(boolean readOnly)` method is specific to components accepting user input and are marked with the `HasReadOnly` mixin interface.
-A read-only component won’t accept any value changes coming from client side.
-
-The value is usually determined by the `value` property in the element, but in some components it is actually another property.
-This property is specified by the `String getClientValuePropertyName()` method in the `HasValue` interface implemented by all components accepting user input.
+For a readonly component, changes from the client will not make the return value of `getValue()` to change nor fire any `ValueChangeEvent`.
+Most components will also update their visual status to indicate to the user that the value cannot be changed. 
 
 === Tooltips are Component Specific
 
