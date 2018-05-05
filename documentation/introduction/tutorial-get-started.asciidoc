@@ -576,7 +576,14 @@ public CustomerForm(MainView view) {
 In the constructor we add the fields to the [classname]#CustomerForm# and add
 action buttons to the bottom - side-by-side using a [classname]#HorizontalLayout#.
 Although the form is not yet fully functional, you might want to see what it looks
-like at this point. Add it as a field to [classname]#MainView# class:
+like at this point. To do so, make sure to comment out the following in the [classname]#CustomerForm# in order to avoid errors.
+
+[source,java]
+----
+    // setCustomer(null);
+----
+
+Next add the newly created form as a field to [classname]#MainView# class:
 
 [source,java]
 ----
