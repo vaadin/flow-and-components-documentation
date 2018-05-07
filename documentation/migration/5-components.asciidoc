@@ -158,7 +158,7 @@ The disabled state is automatically cascaded to child components it is up to the
 Changes from the client are still always blocked for disabled components even if the component isn't implemented to appear disabled.
 All relevant Vaadin components change their looks when disabled.
 
-Read the <<../components/tutorial-enabled-state.asciidoc#,Component Enabled State>> tutorial for more details.
+Read the <<../components/tutorial-enabled-state#,Component Enabled State>> tutorial for more details.
 
 === setReadOnly(boolean readOnly) is Component Specific and Works Differently
 
