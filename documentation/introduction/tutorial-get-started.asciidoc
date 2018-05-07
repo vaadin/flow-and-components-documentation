@@ -568,20 +568,13 @@ public CustomerForm(MainView view) {
     HorizontalLayout buttons = new HorizontalLayout(save, delete);
 
     add(firstName, lastName, status, buttons);
-
-    setCustomer(null);
 }
 ----
 
 In the constructor we add the fields to the [classname]#CustomerForm# and add
 action buttons to the bottom - side-by-side using a [classname]#HorizontalLayout#.
 Although the form is not yet fully functional, you might want to see what it looks
-like at this point. To do so, make sure to comment out the following in the [classname]#CustomerForm# in order to avoid errors.
-
-[source,java]
-----
-    // setCustomer(null);
-----
+like at this point. 
 
 Next add the newly created form as a field to [classname]#MainView# class:
 
@@ -675,6 +668,13 @@ field value changes in the user interface.
 If the naming convention based data binding doesn't fit your needs, you can
 use https://www.vaadin.com/api/com/vaadin/annotations/PropertyId.html[PropertyId]
 annotation on fields to explicitly declare the edited property.
+
+To finish off the setter method, let's add setCustomer(null) to the end of the constructor to make sure that the save and delete buttons are disabled by default.
+
+[source,java]
+----
+    setCustomer(null);
+----
 
 We'll disable the save and cancel buttons to prevent user interaction if there is no customer selected.
 We could also disable the input fields if necessary. For improved user experience,
