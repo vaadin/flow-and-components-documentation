@@ -19,34 +19,33 @@ Internet Explorer 11 support is still a critical thing for many applications, an
 performance than Vaadin 10 since polyfills are needed with IE 11. During the guaranteed lifetime of Vaadin 8 the usage of IE11 should decrease significantly from what it is now.
 
 During the remaining years of Vaadin 8 support, the quarterly Vaadin platform releases will bring more and more features
-that you can start using when you eventually decide to migrate to Vaadin 10 or start building a new application with fresh design.
+that you can start using when you eventually decide to migrate to Vaadin 10 or start building a new application with a fresh design.
 
 == Using the Multiplatform Runtime for Running V8 Application Inside V10
 
-The Multiplatform Runtime makes it possible to run views and components from your Vaadin 8 application inside Vaadin 10.
-This helps you migrate it to V10 bit by bit, or just incrementally add V10 features.
+We are planning to release a Multiplatform Runtime that makes it possible to run views and components from your Vaadin 8 application inside Vaadin 10.
+This helps you migrate it to V10 bit by bit, or just incrementally add V10 features while also including existing application features as-is.
 
-Using the runtime you will be able to get your V8 App running in V10 after couple of quick steps.
+Using the runtime, you will be able to get your V8 App running in V10 after couple of quick steps.
 Then you can migrate the necessary parts while having a working application after each step.
 
+Multiplatform Runtime will not be part of Vaadin 10. Instead, we plan to release it separately at a later date.
 
-== Transform Existing Application To Vaadin 10
+== Transform an Existing Application To Vaadin 10
 
-Transforming a Vaadin 8 app to Vaadin 10 by: reusing backend interaction, business logic, as much as possible of UI logic,
-but building the UI with brand new components. When planning this migration, you should at a minimum read through all of
+Transforming a Vaadin 8 app to Vaadin 10 by reusing backend interaction, business logic, and as much as possible of UI logic,
+but updating the UI to use brand new components. When planning this migration, you should at a minimum read through all of
 this documentation to understand the differences and verify what features are available and what you need to redesign.
-One big benefit is that the Data APIs, `Binder` and `DataProvider` work the same way in V10, so you won’t have to rework your backend integration.
-
-Vaadin is also offering a service for doing the migration assessment for your Vaadin 8 or 7 application.
-Our assessment will help you understand what a transformation would entail and will give you an indication on the amount of work needed.
-You can also get us to do the migration for you.
+One big benefit is that the Data APIs, `Binder` and `DataProvider`, work the same way in V10, so you won’t have to rework your backend integration.
 
 == Fresh Start by Redesigning Application for Vaadin 10
 
-Sometimes the best approach is to start from fresh - this way you will be able to focus on using new V10 features to deliver value to your users,
-instead of carrying over legacy code. As mentioned in previous topic, there is still probably some opportunities to reuse
+Sometimes the best approach is to make a fresh start - this way you will be able to focus on using new V10 features to deliver value to your users,
+instead of carrying over legacy code. As mentioned in previous topics, there is still probably some opportunities to reuse
 existing solutions related to integration to your business logic and backend.
 
 == Migration Assessment Service ==
 
 To help you understand what a migration to Vaadin 10 means to you, Vaadin offers an assessment service led by Vaadin experts. During the assessment, our experts will gain an understanding of your organization's objectives and concerns, and analyze your application code. http://pages.vaadin.com/vaadin-application-assessment-for-migration?utm_campaign=V10%20migration&utm_source=docs[Read more about the service].
+
+You can also get us to do the migration for you.
