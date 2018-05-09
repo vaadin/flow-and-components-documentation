@@ -42,7 +42,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | DateField | DatePicker | https://vaadin.com/components/vaadin-date-picker/java-examples[Demo]
 
-| DateTimeField | - | Planned, but no timeline yet. `<input type="datetime">` is supported in some browsers.
+| DateTimeField | - | Planned for Q3 2018. `<input type="datetime">` is supported in some browsers.
 
 | FormLayout | FormLayout | https://vaadin.com/components/vaadin-form-layout/java-examples[Demo]
 
@@ -68,7 +68,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | NativeButton | NativeButton | -
 
-| NativeSelect | - | Planned, by new component `DropdownMenu`. Timeline is Q2 2018. If needed, quite easy to integrate the native `<select>` element.
+| NativeSelect | - | Planned, by new component `DropdownMenu`. Timeline is Q3 2018. If needed, quite easy to integrate the native `<select>` element.
 
 | Notification | Notification | https://vaadin.com/components/vaadin-notification/java-examples[Demo]
 
@@ -92,9 +92,9 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | TextField | TextField | https://vaadin.com/components/vaadin-text-field/java-examples[Demo]
 
-| Tree | - | Planned for 2018
+| Tree | - | Planned, but no timeline yet
 
-| TreeGrid | - | Planned for 2018
+| TreeGrid | - | Planned, but no timeline yet
 
 | TwinColSelect | - | Not planned. Can be built as a composite using `ListBox` and `Button`.
 
