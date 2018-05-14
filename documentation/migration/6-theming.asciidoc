@@ -6,13 +6,13 @@ layout: page
 
 = Themes and Theming Applications
 
-Themes define the look and feel of the Vaadin components. The themes have been the base for the application specific theme.
+Themes define the look and feel of the Vaadin components. The built-in themes have been the base for the application specific theme.
 Vaadin 7 introduced the themes in Sass format and the parameterized Valo theme, which made it possible to customize the UI by tweaking the parameters.
 
 == New CSS Based Themes, - No Sass
 
 Since introducing Sass as a helper to Vaadin Application theming,
-the browsers have started to support https://developer.mozilla.org/en-US/docs/Web/CSS/--*[CSS Custom Properties]
+browsers have started to support https://developer.mozilla.org/en-US/docs/Web/CSS/--*[CSS Custom Properties]
 (IE11 is polyfilled for production mode.), which brings the customizability gains from Sass to basic CSS, without the overhead of needing to compile the Sass to CSS.
 
 Thus, Vaadin 10 itself isn't using Sass, but you can of course use it for your own application theming if you want to.
@@ -32,7 +32,7 @@ The following example shows all the tricks for theming applications, covered in 
 [source,java]
 ----
 @Theme(Lumo.class) // the theme for Vaadin Components. You can omit it for Lumo
-@HtmlImport("frontend://styles/shared-styles.html") // the application specific theme
+@HtmlImport("styles/shared-styles.html") // the application specific styles
 @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
 public class MainLayout extends Div implements RouterLayout,
         AfterNavigationObserver, PageConfigurator {
@@ -43,11 +43,13 @@ public class MainLayout extends Div implements RouterLayout,
 
 === @Theme Annotation
 
-When you take the Vaadin platform dependency to your project,
-you need to tell the Vaadin Flow which theme you want to use for the components.
+Flow needs to know which theme it should use for the components in Vaadin 10.
 Similarly to Vaadin 8 and previously, this is done with a `@Theme` annotation.
 This should be applied on the root layout of the application.
 It can also be in an abstract class if you have multiple root layouts.
+
+[NOTE]
+When no `@Theme` is used, the Lumo theme is used by default (if present in the classpath).
 
 Instead of a magic string, you need to provide a `Class` reference to an theme class that extends `AbstractTheme`.
 There is one ready-made theme available for V10: *Lumo*. Another theme, _Material_,
@@ -61,19 +63,14 @@ The theme class will handle two things:
 
 The Lumo theme can be customized, see <<../theme/using-component-themes#,documentation>> for more information.
 
-[NOTE]
-When no `@Theme` is used, the Lumo theme is used by default (if present in the classpath).
-
 === Application Theming
 
-The `@HtmlImport("frontend://styles/shared-styles.html")` imports the application's style file.
+`@HtmlImport("styles/shared-styles.html")` imports the application's style file.
 
 As the `@Theme` annotation only specifies the theme for the components,
 you should have a separate style module for the styling that only applies for the application.
-The recommended default is to have that inside the frontend folder:
-```
-frontend://styles/shared-styles.html
-```
+The recommended default is to have that inside the frontend folder, e.g. `src/main/webapp/frontend/shared-styles.html`.
+
 One reason why you should always use this location is that this style is automatically imported to templates when using Vaadin Designer to design UIs.
 
 The reason for using a HTML file with https://www.polymer-project.org/2.0/docs/api/elements/Polymer.CustomStyle[`<custom-style>`]

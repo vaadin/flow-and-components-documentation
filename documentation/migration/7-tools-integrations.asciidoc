@@ -8,23 +8,23 @@ layout: page
 
 == Maven Plugin
 
-There is a Maven Plugin available for Vaadin 10, and it is necessary for building a production version of the application,
-since it handles the transpilation, minification and bundling of the front-end resources.
+There is a Maven Plugin available for Vaadin 10.
+It handles transpilation, minification and bundling of the front-end resources for the production version of the application.
 This is only necessary for when you take the application for production, or want to test it with IE11.
 
-There is no custom widgetsets or Sass themes that need compilation for development time in V10.
-Thus there is no need for this in the plugin.
+There are no custom widgetsets or Sass themes that need compilation for development time in V10.
+The plugin is thus not needed during development, except when testing with IE11.
 
 == Maven Archetypes
 
 There are no archetypes available for Vaadin 10. Please visit https://vaadin.com/start[vaadin.com/start] for available starting points.
-There you can find example applications and project bases available for Vaadin 10.
+There you can find Maven-based example applications and project bases available for Vaadin 10.
 
 == Using Vaadin with Spring
 
 Vaadin 10 has an integration for using it with Spring.
 The concept is mostly the same, but some features like the `@ViewScope` have been removed.
-Also there are currently no specific Spring Security support, but it can still be used.
+Also there are currently no specific Spring Security support, but it can still be integrated manually.
 The Bakery App Starter for Flow and Spring shows and example of this.
 
 == No CDI Support
@@ -32,18 +32,20 @@ The Bakery App Starter for Flow and Spring shows and example of this.
 Vaadin 8 has a CDI Add-on enabling JEE features. This is currently missing from Vaadin 10.
 
 We have plans for adding it, but no timeline for this at the moment. To ensure it gets a priority over several other new features and enhancements,
-you should voice your concern in our https://vaadin.com/forum[Forum] or https://github.com/vaadin/flow[github].
+you should voice your concern in our https://vaadin.com/forum[Forum] or https://github.com/vaadin/flow[GitHub].
 
 == Vaadin Designer
 
-In Vaadin 8, Designer was used to edit declarative files with a `.html` suffix. Despite the file format suffix, the declarative format was a generic XML syntax that mapped directly into a tree of Vaadin components on the server side. The XML was read by the Vaadin at runtime on the server, and was never sent to the client. It's important to note that the syntax only allowed component declarations.
+In Vaadin 8, Designer was used to edit declarative files with a `.html` suffix. Despite the file format suffix, the declarative format was a generic XML syntax that mapped directly into a tree of Vaadin components on the server side. The XML was read by Vaadin at runtime on the server, and was never sent to the client. It's important to note that the syntax only allowed component declarations.
 
-In Vaadin 10 the high level concept is the same. There are still are HTML files that can be edited with Designer to declaratively compose views.
+In Vaadin 10 the high level concept is the same. There are still HTML files that can be edited with Designer to declaratively compose views.
 But as with Vaadin 10 in general, the underlying technology has completely changed. In Vaadin 10 the HTML files are valid HTML. More specifically,
 they are https://www.polymer-project.org/2.0/docs/devguide/feature-overview[DOM modules]. The modules define templates and are rendered by the browser,
-and allow using encapsulated CSS, HTML web components and CSS. Using this new format allows Designer to do a couple of new things.
-First, any template can be rendered inside one another. And as templates are be web components themselves,
-custom components are fully supported by the new Designer as well. On the other hand, as a syntax HTML is flexible enough that it's easy to create templates that are difficult to work with within Designer.
+and allow using encapsulated CSS, HTML, Web Components and JavaScript. Using this new format allows Designer to do a couple of new things.
+First, any template can be rendered inside one another. And as templates are themselves Web Components,
+custom components are fully supported by the new Designer as well. On the other hand, HTML as a syntax is flexible enough that Designer might not work with templates created in other ways.
+
+Some features of Designer are only available for Vaadin 10 and other features can only be used when editing Vaadin 8 layouts. See the https://github.com/vaadin/designer/blob/master/RELEASE-NOTES.md[Release Notes] for an overview of the feature-level differences.
 
 === Migrating from Vaadin 8 Designs
 
@@ -52,23 +54,15 @@ There are two paths to migration; either use the upcoming Multiplatform Runtime 
 or migrate the HTML files manually. When migrating manually, the declarative component tree should be copied inside the `<template>` in a blank Vaadin 10 design,
 and then modified to fit the new element API's.
 
-=== Version support
+=== Version Support
 
 The new Designer plugin will support editing both Vaadin 8 and Vaadin 10 designs. Regardless whether you are working with Vaadin 8 or Vaadin 10, you should always update to the latest version of Designer to receive the latest bugfixes and enhancements.
-
-=== Missing features
-
-* Pre-made templates. The wizard currently only allows creating blank designs.
-* Configuring themes or style imports. Lumo & default style module is always loaded.
-* Editing alignment or size via the popup infobar. Alignment and size can be configured through CSS.
-* Custom property editors, for example for date or icon type properties. Only strings and booleans are supported.
-* Replace- and wrap-with.
 
 == Vaadin TestBench
 
 The same features exist in TestBench for Vaadin 10 as in TestBench for Vaadin Framework 8 but the API has been tweaked in many places to be in sync with corresponding changes to the components/elements and the features they offer.
 
-The ElementQuery operation $ no longer has methods such as `caption()` as there is no generic "caption" concept in Vaadin 10. On the other hand, there is instead a generic `attribute(String key, String value)` method which can be used to find elements based on any HTML attribute.
+The ElementQuery operation `$` no longer has methods such as `caption()` as there is no generic "caption" concept in Vaadin 10. On the other hand, there is instead a generic `attribute(String key, String value)` method which can be used to find elements based on any HTML attribute.
 
 The element classes have been moved to a sub package of the component, e.g. `com.vaadin.flow.component.textfield.testbench.TextFieldElement` instead of `com.vaadin.testbench.elements.TextFieldElement`.
 

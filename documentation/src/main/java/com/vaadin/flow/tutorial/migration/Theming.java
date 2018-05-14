@@ -15,7 +15,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @CodeFor("migration/6-theming.asciidoc")
 public class Theming {
     @Theme(Lumo.class) // the theme for Vaadin Components. You can omit it for Lumo
-    @HtmlImport("frontend://styles/shared-styles.html") // the application specific theme
+    @HtmlImport("styles/shared-styles.html") // the application specific styles
     @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
     public class MainLayout extends Div implements RouterLayout,
             AfterNavigationObserver, PageConfigurator {
