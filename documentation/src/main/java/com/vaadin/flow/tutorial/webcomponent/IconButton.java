@@ -1,6 +1,8 @@
 package com.vaadin.flow.tutorial.webcomponent;
 
+import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.icon.VaadinIcons;
@@ -32,6 +34,11 @@ public class IconButton extends Component {
         getElement().removeAllChildren();
         getElement().appendChild(iconComponent.getElement());
 
+    }
+
+    public void addClickListener(
+            ComponentEventListener<ClickEvent<IconButton>> listener) {
+        addListener(ClickEvent.class, (ComponentEventListener) listener);
     }
 
     public VaadinIcons getIcon() {

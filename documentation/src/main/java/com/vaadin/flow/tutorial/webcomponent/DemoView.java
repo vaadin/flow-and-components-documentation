@@ -1,7 +1,5 @@
 package com.vaadin.flow.tutorial.webcomponent;
 
-import com.vaadin.flow.component.ClickEvent;
-import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
@@ -53,7 +51,7 @@ public class DemoView extends VerticalLayout {
 
         // @formatter:off
         IconButton iconButton = new IconButton(VaadinIcons.CHECK);
-        iconButton.addListener(ClickEvent.class, (ComponentEventListener) e -> {
+        iconButton.addClickListener( e -> {
             int next = (iconButton.getIcon().ordinal() + 1) % VaadinIcons.values().length;
             iconButton.setIcon(VaadinIcons.values()[next]);
         });
