@@ -274,6 +274,11 @@ public class IconButton extends Component {
         getElement().removeAllChildren();
         getElement().appendChild(iconComponent.getElement());
     }
+    
+    public void addClickListener(
+            ComponentEventListener<ClickEvent<IconButton>> listener) {
+        addListener(ClickEvent.class, (ComponentEventListener) listener);
+    }
 
     public VaadinIcons getIcon() {
         return icon;
@@ -310,7 +315,7 @@ Regardless of the approach taken, you can test the icon button as e.g.
 [source, java]
 ----
 IconButton iconButton = new IconButton(VaadinIcons.CHECK);
-iconButton.addListener(ClickEvent.class, (ComponentEventListener) e -> {
+iconButton.addClickListener(e -> {
     int next = (iconButton.getIcon().ordinal() + 1) % VaadinIcons.values().length;
     iconButton.setIcon(VaadinIcons.values()[next]);
 });
