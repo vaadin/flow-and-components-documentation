@@ -39,7 +39,7 @@ public class ComponentTheme {
         }
 
         @Override
-        public List<String> getBodyInlineContents() {
+        public List<String> getHeaderInlineContents() {
             return Collections.singletonList("<custom-style>\n"
                     + "    <style include=\"lumo-color lumo-typography\"></style>\n"
                     + "</custom-style>");
