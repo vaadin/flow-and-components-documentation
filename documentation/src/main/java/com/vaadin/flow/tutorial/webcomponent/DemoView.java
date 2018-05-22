@@ -3,7 +3,7 @@ package com.vaadin.flow.tutorial.webcomponent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.icon.VaadinIcons;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -50,10 +50,10 @@ public class DemoView extends VerticalLayout {
         add(root);
 
         // @formatter:off
-        IconButton iconButton = new IconButton(VaadinIcons.CHECK);
+        IconButton iconButton = new IconButton(VaadinIcon.CHECK);
         iconButton.addClickListener( e -> {
-            int next = (iconButton.getIcon().ordinal() + 1) % VaadinIcons.values().length;
-            iconButton.setIcon(VaadinIcons.values()[next]);
+            int next = (iconButton.getIcon().ordinal() + 1) % VaadinIcon.values().length;
+            iconButton.setIcon(VaadinIcon.values()[next]);
         });
         add(iconButton);
         // @formatter:on

@@ -533,9 +533,9 @@ grid.setItems(people);
 
 grid.addColumn(new ComponentRenderer<>(person -> {
     if (person.getGender() == Gender.MALE) {
-        return new Icon(VaadinIcons.MALE);
+        return new Icon(VaadinIcon.MALE);
     } else {
-        return new Icon(VaadinIcons.FEMALE);
+        return new Icon(VaadinIcon.FEMALE);
     }
 })).setHeader("Gender");
 ----
@@ -555,7 +555,7 @@ Or if the component is the same for every item, you only need to provide the `Su
 [source, java]
 ----
 grid.addColumn(new ComponentRenderer<>(
-        () -> new Icon(VaadinIcons.ARROW_LEFT)));
+        () -> new Icon(VaadinIcon.ARROW_LEFT)));
 ----
 
 Using the component APIs allows you to easily listen for events and wrap multiple components inside
