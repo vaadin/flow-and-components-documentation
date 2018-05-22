@@ -669,7 +669,7 @@ If the naming convention based data binding doesn't fit your needs, you can
 use https://www.vaadin.com/api/com/vaadin/annotations/PropertyId.html[PropertyId]
 annotation on fields to explicitly declare the edited property.
 
-To finish off the setCustomer setter method, let's add setCustomer(null) to the end of the constructor to make sure that the save and delete buttons are disabled by default.
+To finish off the `setCustomer` setter method, let's call `setCustomer(null)` at the end of the constructor to make sure that the save and delete buttons are disabled by default.
 
 [source,java]
 ----
