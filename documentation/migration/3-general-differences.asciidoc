@@ -72,6 +72,10 @@ If you had previously customized the initial response with `BootstrapListener`,
 As a custom `UI` class is no longer needed, you can configure the used `PushMode` for your app in the main layout of your application.
 Please see the <<../advanced/tutorial-push-configuration#,Server Push Configuration tutorial>> for more info.
 
+== Loading Indicator is not Visible by Default
+
+The loading indicator is not visible by default in V10. It is added to the DOM, but you need to specifically add CSS to make it visible.
+See more information from the <<../advanced/tutorial-/tutorial-loading-indicator#,loading indicator tutorial>.
 
 == Similarities and Package Naming
 
