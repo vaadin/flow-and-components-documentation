@@ -19,7 +19,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.icon.VaadinIcons;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -47,7 +47,7 @@ public class MainView extends VerticalLayout {
         filterText.addValueChangeListener(e -> updateList());
 
         Button clearFilterTextBtn = new Button(
-                new Icon(VaadinIcon.CLOSE_CIRCLE));
+                new Icon(VaadinIcons.CLOSE_CIRCLE));
         clearFilterTextBtn.addClickListener(e -> filterText.clear());
 
         HorizontalLayout filtering = new HorizontalLayout(filterText,
