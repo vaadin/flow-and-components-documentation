@@ -492,12 +492,12 @@ to the constructor, for example right after your `filterText` configuration:
 [source,java]
 ----
 Button clearFilterTextBtn = new Button(
-        new Icon(VaadinIcon.CLOSE_CIRCLE));
+        new Icon(VaadinIcons.CLOSE_CIRCLE));
 clearFilterTextBtn.addClickListener(e -> filterText.clear());
 ----
 
 Vaadin Flow includes a set of built in icons, from which we use the "X" icon,
-`VaadinIcon.CLOSE_CIRCLE` here, which most users will recognise as a functionality
+`VaadinIcons.CLOSE_CIRCLE` here, which most users will recognise as a functionality
 to clear a value. In the click listener, we simply clear the text from the field.
 
 Vaadin Flow contains lots of different kinds of layouts. The simplest way to align
