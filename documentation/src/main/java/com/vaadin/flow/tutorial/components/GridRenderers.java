@@ -30,7 +30,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcons;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -123,9 +123,9 @@ public class GridRenderers {
 
         grid.addColumn(new ComponentRenderer<>(person -> {
             if (person.getGender() == Gender.MALE) {
-                return new Icon(VaadinIcons.MALE);
+                return new Icon(VaadinIcon.MALE);
             } else {
-                return new Icon(VaadinIcons.FEMALE);
+                return new Icon(VaadinIcon.FEMALE);
             }
         })).setHeader("Gender");
 
@@ -134,7 +134,7 @@ public class GridRenderers {
                 .setHeader("Name");
 
         grid.addColumn(new ComponentRenderer<>(
-                () -> new Icon(VaadinIcons.ARROW_LEFT)));
+                () -> new Icon(VaadinIcon.ARROW_LEFT)));
 
         grid.addColumn(new ComponentRenderer<>(person -> {
 
