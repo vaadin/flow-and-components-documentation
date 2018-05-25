@@ -1,20 +1,20 @@
 ---
 title: The Loading Indicator
-order: 9
+order: 5
 layout: page
 ---
 
 = The Loading Indicator
 
 To inform the user that loading is in progress and that the _UI_ is currently
-unresponsive, a _loading indicator_ can be displayed. A longer loading time might
+unresponsive, a _loading indicator_ is displayed. A longer loading time might
 be due to e.g. bad network conditions. The framework automatically displays a
 loading indicator after a configurable delay when a server request starts, and
 hides it after the response processing has ended.
 
-*By default, the loading indicator is invisible.* If you want to show something,
-you will have to style the `<div class="v-loading-indicator"></div>` element
-accordingly. The element is located inside the `<body>` element.
+*By default, the loading indicator is shown at the top of the viewport after a delay.*
+You can turn the indicator off, change delays or customize the looks of the indicator. The theming targets the `<div class="v-loading-indicator"></div>`
+element located inside the `<body>` element. *You need to also need to toggle the default theming off*.
 
 [source,html]
 ----
@@ -27,32 +27,37 @@ accordingly. The element is located inside the `<body>` element.
 </body>
 ----
 
-The indicator is shown after a delay of 300ms by default. The delay may be configured
-per `UI`. Loading indicator should be configured once during the 
-UI initialization so you need to get `UIInitEvent`. To do this you 
-may register a `VaadinServiceInitListener` instance and add 
-a `UIInitListener` to the service instance. Once your get the `UI` instance
-from the event you can access the configuration with the 
-`getLoadingIndicatorConfiguration()` method. There are two
-additional delays which you can configure. After the delays, class names
-_second_ and _third_ are set and can be used to change the style of the loading
+The loading indicator can be configured from Java by accessing the configuration object from `UI`.
+The easiest way to do this is with the `PageConfigurator` (see <<tutorial-bootstrap#,bootstrap page docs>> for more information)
+and the changes are applied already on the initial response.
+
+[source,java]
+----
+public class MainLayout extends Composite<Div> implements PageConfigurator, RouterLayout {
+
+    // other implementation omitted
+    @Override
+    public void configurePage(InitialPageSettings settings) {
+        LoadingIndicatorConfiguration conf = settings.getLoadingIndicatorConfiguration();
+
+        // disable default theme -> loading indicator will not be shown
+        conf.setApplyDefaultTheme(false);
+    }
+}
+----
+
+The configuration object can be used for configuring the delays after which the indicator changes "stages".
+The indicator is shown after a delay of 300ms by default and a class name `first` is set to it. There are two additional delays which you can configure.
+After the delays, class names `second` and `third` are set and can be used to change the style of the loading
 indicator after certain time has passed.
 
 [source,java]
 ----
-public class LoadingIndicatorConfig
-        implements VaadinServiceInitListener, UIInitListener {
+public class MainLayout extends Composite<Div> implements PageConfigurator, RouterLayout {
 
     @Override
-    public void serviceInit(ServiceInitEvent event) {
-        VaadinService service = event.getSource();
-        service.addUIInitListener(this);
-    }
-
-    @Override
-    public void uiInit(UIInitEvent event) {
-        LoadingIndicatorConfiguration conf = event.getUI()
-                .getLoadingIndicatorConfiguration();
+    public void configurePage(InitialPageSettings settings) {
+        LoadingIndicatorConfiguration conf = settings.getLoadingIndicatorConfiguration();
 
         /*
          * Delay for showing the indicator and setting the 'first' class name.
@@ -68,20 +73,17 @@ public class LoadingIndicatorConfig
 }
 ----
 
-The `LoadingIndicatorConfig` class should be registered depending 
-on specific runtime environments. Normally Java SPI way is used to load
-implementation. In this case the class FQN should be listed in a 
-`META-INF/services/com.vaadin.flow.server.VaadinServiceInitListener` file.
-See `VaadinServiceInitListener` class javadocs for details.
 
 == Displaying a Modal Curtain
 
-To make the user aware that the _UI_ is loading, you might consider showing a
-loading indicator that indicates that the UI is unresponsive. The following style
-snippet simply darkens the UI. The darkening is animated, so that it does not flash
+To show an alternative for the default loading indicator theme, this examples shows how to show a
+loading indicator that simply darkens the UI. The darkening is animated, so that it does not flash
 the screen. The darkening starts after the server side round-trip takes over 0.5
 seconds (300ms delay configured in java + 200ms animation delay).
 
+[NOTE]
+In addition to the css, the default theme should be explicitly disabled via Java,
+as shown in the previous chapter.
 
 [source,css]
 ----
@@ -121,6 +123,9 @@ the look reflect how long time the user has been waiting.
 
 The following style snippet demonstrates how to create an animation that changes
 color as the user is waiting.
+
+[NOTE]
+In addition to the css, the default theme should be explicitly disabled via Java.
 
 [source,css]
 ----
