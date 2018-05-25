@@ -206,7 +206,7 @@ Native elements need to specify a custom change event name in the annotation usi
 .Polymer html template
 [source,html]
 ----
-<!-- Import polymer and polymer components -->
+<!-- Import Polymer and Polymer components -->
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
 <link href="/bower_components/paper-input/paper-input.html" rel="import">
 <link href="/bower_components/paper-radio-button/paper-radio-button.html" rel="import">
@@ -296,7 +296,7 @@ This will show up in a way that for example the value for name is changed in the
 --
 The two input bindings "Input name" and "Change name" have a small difference in the way they work.
 
-Input name binds using `{{name::input}}` and Change with `{{name::change}}` the given `target-change-event` lets polymer know which event
+Input name binds using `{{name::input}}` and Change with `{{name::change}}` the given `target-change-event` lets Polymer know which event
 to listen to for change notification.
 
 The functional difference is that `::input` will update while typed and `::change` when the value for the field changes (so e.g. onBlur event or for enter)
