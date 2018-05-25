@@ -91,7 +91,7 @@ The theming for the Vaadin components is built using `Vaadin.ThemableMixin`.
 See link:https://github.com/vaadin/vaadin-themable-mixin/wiki[vaadin-themable-mixin wiki] to learn how theming of Vaadin components is done.
 
 [NOTE]
-There is another theme being build, _Material Theme_. Once it is ready enough, a Flow integration will be available.
+There is another theme being built, _Material Theme_. Once it is ready enough, a Flow integration will be available.
 Even though it will not be part of Vaadin 10, you should be able to use it with all Vaadin 10 components.
 You can take a look at it and start using it already by manually importing the webjar and the dependencies.
 See the link:https://vaadin.com/themes/material[Material Theme documentation] for more information and tracking progress.
