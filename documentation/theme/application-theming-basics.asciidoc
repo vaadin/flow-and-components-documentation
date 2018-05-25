@@ -11,7 +11,7 @@ Whenever you have styles that are shared across multiple applications,
 you should make the theming as a separate module and resource that can be shared as a dependency for multiple applications.
 This chapter focuses only on theming a single application
 
-== Application Theme - What and Where ?
+== Application Theme - What and Where?
 
 The application can be themed with using pure CSS, but to be able to theme polymer web components,
 you should put the CSS in a HTML file. The recommended convention is to always put the application wide shared styles inside the
