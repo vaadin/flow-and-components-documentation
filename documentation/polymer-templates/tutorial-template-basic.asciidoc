@@ -75,7 +75,7 @@ The `../bower_components/polymer/polymer-element.html` is a link to Polymer libr
 functionality working.
 
 [NOTE]
-You should take care about proper handling of the polymer template file URL, it should be available via URL.
+You should take care about proper handling of the Polymer template file URL, it should be available via URL.
 
 [NOTE]
 To get `polymer-element.html` into your project, you can use one of the ways provided by
@@ -95,7 +95,7 @@ In order to retrieve and use the component in the demo, same rules as for `polym
 === Server side
 
 To be able to use this template you need to create a Java class which extends `PolymerTemplate`,
-set its tag name matching the polymer `dom-module` id attribute and add the html imports for Polymer library (`polymer-element.html`)
+set its tag name matching the Polymer `dom-module` id attribute and add the html imports for Polymer library (`polymer-element.html`)
 and our template:
 
 [source,java]
@@ -158,7 +158,7 @@ In order for a component to be processed correctly, we need to bind a Java class
 Java class name and template file name doesn't have to match each other, this is just a resource file which you can put to any location.
 But you have to be sure that it's accessible via the web.
 
-The `/src/HelloWorld.html` is the URL of the polymer template file declared earlier.
+The `/src/HelloWorld.html` is the URL of the Polymer template file declared earlier.
 
 If needed, more html resources can be imported using the same approach.
 
