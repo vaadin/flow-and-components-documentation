@@ -71,7 +71,7 @@ You can use a Theme variant by defining it on the `@Theme` annotation:
 ----
 @Route(value = "")
 @Theme(value = MyTheme.class, variant = "large")
-public class DarkThemedApplication extends Div {
+public class LargeThemedApplication extends Div {
 }
 ----
 
