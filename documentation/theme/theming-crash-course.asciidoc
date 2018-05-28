@@ -34,7 +34,7 @@ Place your global styles in a separate HTML file:
   <style>
     /* Example global style */
     html {
-      font-size: 12pt;
+      font-size: 1em;
     }
   </style>
 </custom-style>

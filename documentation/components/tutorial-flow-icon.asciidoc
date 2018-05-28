@@ -14,12 +14,12 @@ or another icon collection (see
 
 == Using Icon
 
-`Icon` is normally used with the default `VaadinIcons` enumeration which maps all the
+`Icon` is normally used with the default `VaadinIcon` enumeration which maps all the
 icons from https://github.com/vaadin/vaadin-icons[vaadin-icons], e.g.
 
 [source, java]
 ----
-Icon icon = VaadinIcons.VAADIN_H.create();
+Icon icon = VaadinIcon.VAADIN_H.create();
 new Button("Vaadin", icon);
 ----
 

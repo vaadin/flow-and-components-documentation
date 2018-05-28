@@ -253,7 +253,7 @@ add(root);
 
 If you do not want to provide a public `add`/`remove` API, you have two options: use the Element API or create a new `Component` for encapsulating the internal element behavior.
 
-As an example, say you wanted to create a specialized Vaadin Button which can only show a `VaadinIcon`. Using the available `VaadinIcons` enum, which lists the icons in the set, you can do e.g
+As an example, say you wanted to create a specialized Vaadin Button which can only show a `VaadinIcon`. Using the available `VaadinIcon` enum, which lists the icons in the set, you can do e.g
 
 [source, java]
 ----
@@ -261,13 +261,13 @@ As an example, say you wanted to create a specialized Vaadin Button which can on
 @HtmlImport("bower_components/vaadin-button/vaadin-button.html")
 public class IconButton extends Component {
 
-    private VaadinIcons icon;
+    private VaadinIcon icon;
 
-    public IconButton(VaadinIcons icon) {
+    public IconButton(VaadinIcon icon) {
         setIcon(icon);
     }
 
-    public void setIcon(VaadinIcons icon) {
+    public void setIcon(VaadinIcon icon) {
         this.icon = icon;
 
         Component iconComponent = icon.create();
@@ -280,19 +280,19 @@ public class IconButton extends Component {
         addListener(ClickEvent.class, (ComponentEventListener) listener);
     }
 
-    public VaadinIcons getIcon() {
+    public VaadinIcon getIcon() {
         return icon;
     }
 }
 ----
 
-The relevant part here is in the `setIcon` method. As there happens to be a feature in `VaadinIcons` which creates a component for a given icon (the `create()` call), it is used to create the child element. What remains is then to attach the root element of the child component, done using `getElement().appendChild(iconComponent.getElement());`.
+The relevant part here is in the `setIcon` method. As there happens to be a feature in `VaadinIcon` which creates a component for a given icon (the `create()` call), it is used to create the child element. What remains is then to attach the root element of the child component, done using `getElement().appendChild(iconComponent.getElement());`.
 
-In case the `VaadinIcons.create()` method was not available, you would have to resort to either creating the component yourself or using the element API directly. If you use the element API, the `setIcon` method might look something like:
+In case the `VaadinIcon.create()` method was not available, you would have to resort to either creating the component yourself or using the element API directly. If you use the element API, the `setIcon` method might look something like:
 
 [source, java]
 ----
-public void setIcon(VaadinIcons icon) {
+public void setIcon(VaadinIcon icon) {
     this.icon = icon;
     getElement().removeAllChildren();
 
@@ -302,7 +302,7 @@ public void setIcon(VaadinIcons icon) {
 }
 ----
 
-The first part is the same but in the second part, the element with the correct tag name `<iron-icon>` is created manually and the `icon` attribute is set to the correct value, defined in `vaadin-icons.html`, e.g. `icon="vaadin:check"` for `VaadinIcons.CHECK`. The element is then attached to the `<vaadin-button>` element, after removing any previous content. With this approach you must also ensure that the `vaadin-button.html` dependency is loaded, otherwise handled by the `Icon` component class:
+The first part is the same but in the second part, the element with the correct tag name `<iron-icon>` is created manually and the `icon` attribute is set to the correct value, defined in `vaadin-icons.html`, e.g. `icon="vaadin:check"` for `VaadinIcon.CHECK`. The element is then attached to the `<vaadin-button>` element, after removing any previous content. With this approach you must also ensure that the `vaadin-button.html` dependency is loaded, otherwise handled by the `Icon` component class:
 
 [source, java]
 ----
@@ -314,10 +314,10 @@ public class IconButton extends Component {
 Regardless of the approach taken, you can test the icon button as e.g.
 [source, java]
 ----
-IconButton iconButton = new IconButton(VaadinIcons.CHECK);
+IconButton iconButton = new IconButton(VaadinIcon.CHECK);
 iconButton.addClickListener(e -> {
-    int next = (iconButton.getIcon().ordinal() + 1) % VaadinIcons.values().length;
-    iconButton.setIcon(VaadinIcons.values()[next]);
+    int next = (iconButton.getIcon().ordinal() + 1) % VaadinIcon.values().length;
+    iconButton.setIcon(VaadinIcon.values()[next]);
 });
 add(iconButton);
 ----

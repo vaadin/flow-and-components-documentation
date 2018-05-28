@@ -57,3 +57,59 @@ When you configure an element, e.g setting the `src` attribute for an `<img>`, y
 * Use an absolute URL, e.g. `/myapp/images/logo.png`
 * Deploy your static resources in a directory matching the servlet path, e.g. `/myservlet/`.
 ====
+
+You should be careful with the global styles which you include using `@StyleSheet` annotation or 
+the `addStyleSheet` method. Such styles may leak into web components if a browser 
+doesn't have built-in web components support. A web component (see <<../web-components/integrating-a-web-component.asciidoc,Integrating a Web Component>>) normally uses its own styles defined for it and those styles are scoped to the web component.
+Global styles don't influence on the web component anyhow as well. 
+But this is true only if there is native web components browser support.
+
+[NOTE]
+
+See `Browser support` section https://www.webcomponents.org/[here] for full list 
+of browsers which support web components natively and which requires polyfills.   
+
+But if an user uses browser without this native support, then the missing functionality
+is polyfilled, and a web component in such browsers is not anymore a scoped unit
+but a regular part of the DOM tree. In this case, global styles work for it in the same
+way as for any other HTML element.
+
+To be able to prevent leaking global styles into the local DOM of web components you
+should use `<custom-style>`:
+* Add an import for Polymer `custom-style.html` e.g. `<link rel="import" href="bower_components/polymer/lib/elements/custom-style.html">`. 
+* Add `<custom-style>`  declaration including the CSS you want to add into the `<head>` element (see below an example).
+
+[source,html]
+----
+<custom-style>
+  <style>
+    html {
+      color: red;
+    }
+  </style>
+</custom-style>
+----
+
+You may do this via `@HtmlImport` annotation if you put the content together in one file and import it:
+
+[source,html]
+----
+<link rel="import" href="bower_components/polymer/lib/elements/custom-style.html">
+
+<custom-style>
+  <style>
+    html {
+      color: red;
+    }
+  </style>
+</custom-style>
+----
+
+then use `@HtmlImport("shared-styles.html")` if the file name `shared-styles.html` 
+has the above content.
+
+See https://www.polymer-project.org/2.0/docs/api/elements/Polymer.CustomStyle for more details.
+
+[TIP]
+
+To learn more, see <<../theme/theming-crash-course#,Theming Crash Course>>

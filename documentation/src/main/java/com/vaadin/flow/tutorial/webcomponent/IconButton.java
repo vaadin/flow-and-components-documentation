@@ -5,7 +5,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.HtmlImport;
-import com.vaadin.flow.component.icon.VaadinIcons;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
@@ -15,13 +15,13 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @HtmlImport("bower_components/vaadin-icons/vaadin-icons.html")
 public class IconButton extends Component {
 
-    private VaadinIcons icon;
+    private VaadinIcon icon;
 
-    public IconButton(VaadinIcons icon) {
+    public IconButton(VaadinIcon icon) {
         setIcon(icon);
     }
 
-    public void setIcon(VaadinIcons icon) {
+    public void setIcon(VaadinIcon icon) {
         this.icon = icon;
         getElement().removeAllChildren();
         Element iconElement = new Element("iron-icon");
@@ -41,7 +41,7 @@ public class IconButton extends Component {
         addListener(ClickEvent.class, (ComponentEventListener) listener);
     }
 
-    public VaadinIcons getIcon() {
+    public VaadinIcon getIcon() {
         return icon;
     }
 }
