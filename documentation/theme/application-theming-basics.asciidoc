@@ -41,4 +41,4 @@ For any HTML template based components, it is fine to have the styling, that onl
 This is because of the ease of development when you have just one HTML file when creating the HTML and CSS.
 And it also allows you to more easily make that template a stand-alone component that you can reuse and distribute to others,
 since the styling is already coupled to the component HTML and you don't have to look for it from elsewhere.
-There is an example on this in the crash course chapter too.
+There is an example of this in the <<theming-crash-course#,Theming Crash Course>> chapter too.
