@@ -35,7 +35,7 @@ public class ReadyMadeThemes {
 
     @Route(value = "")
     @Theme(value = MyTheme.class, variant = "large")
-    public class DarkThemedApplication extends Div {
+    public class LargeThemedApplication extends Div {
     }
 
     @Route(value = "")
