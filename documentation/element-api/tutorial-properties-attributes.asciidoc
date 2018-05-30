@@ -96,17 +96,21 @@ You can get the element's class attribute using `element.getAttribute('class')` 
 == Style object
 
 Element inline styles can be set using the `Style` object returned by `element.getStyle()`.
-Style property names should always be in the camelCase format, e.g. `backgroundColor`
-instead of `background-color`.
+Style property names could be in the camelCase format or in the kebab-case, e.g. `backgroundColor`
+or `background-color`.
 
 [source,java]
 ----
 element.getStyle().set("color", "red");
-// Note the camelCase, not dash - separated
+//camelCase
 element.getStyle().set("fontWeight", "bold");
+//kebab-case
+element.getStyle().set("font-weight", "bold");
 
-// Note the camelCase, not dash - separated
+//camelCase
 element.getStyle().remove("backgroundColor");
+//kebab-case
+element.getStyle().remove("background-color");
 
 element.getStyle().has("cursor");
 ----
