@@ -56,11 +56,15 @@ public class PropertiesAttributes {
         element.getProperty("className"); // will return "error critical".
 
         element.getStyle().set("color", "red");
-        // Note the camelCase, not dash - separated
+        //camelCase
         element.getStyle().set("fontWeight", "bold");
+        //kebab-case
+        element.getStyle().set("font-weight", "bold");
 
-        // Note the camelCase, not dash - separated
+        //camelCase
         element.getStyle().remove("backgroundColor");
+        //kebab-case
+        element.getStyle().remove("background-color");
 
         element.getStyle().has("cursor");
     }
