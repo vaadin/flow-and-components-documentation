@@ -24,7 +24,7 @@ nameField.setAttribute("id", "nameField");
 nameField.setAttribute("placeholder", "John Doe");
 nameField.setAttribute("autofocus", "");
 ----
-The above example expressed as HTML would look like `<input id=nameField placeholder="John Doe" autofocus>`.
+The above example expressed as HTML would look like `<input id="nameField" placeholder="John Doe" autofocus>`.
 
 You can also investigate and manipulate attributes that have already been set.
 [source,java]
