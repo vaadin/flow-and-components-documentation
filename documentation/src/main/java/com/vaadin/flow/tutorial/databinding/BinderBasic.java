@@ -16,8 +16,10 @@
 package com.vaadin.flow.tutorial.databinding;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.ReadOnlyHasValue;
 import com.vaadin.flow.data.binder.Setter;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.function.ValueProvider;
@@ -99,6 +101,14 @@ public class BinderBasic {
             }
         });
         //@formatter:on
+    }
+
+    public void nonModifiableData() {
+        Label nameLabel = new Label();
+        ReadOnlyHasValue<Person> fullName = new ReadOnlyHasValue<>(
+                person -> nameLabel.setText(
+                        person.getLastName() + ", " + person.getName()));
+        binder.forField(fullName).bind(person -> person, null);
     }
 
     private void notifyValidationException(ValidationException exception) {
