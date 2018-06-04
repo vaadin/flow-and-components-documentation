@@ -85,7 +85,7 @@ It gives you a full set of building blocks to build a modern looking web applica
 The Flow integration for Lumo is a part of the `vaadin-core` dependency, and as shown in the previous chapter,
 very easily taken into use. You can explicitly declare `@Theme(Lumo.class)` or omit it completely, since the default behavior is to use Lumo if available in the classpath.
 
-Lumo provides some customization points for the components, that allow you to very fine tune the look and provide better UX.
+Lumo provides some customization points for the components, that allow you to fine tune the look and provide a better UX.
 It can be customized by using CSS custom properties, see link:https://vaadin.com/themes/lumo[the Lumo documentation] for more information.
 The theming for the Vaadin components is built using `Vaadin.ThemableMixin`.
 See link:https://github.com/vaadin/vaadin-themable-mixin/wiki[vaadin-themable-mixin wiki] to learn how theming of Vaadin components is done.
