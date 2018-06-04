@@ -8,7 +8,7 @@ layout: page
 
 Vaadin separates the appearance of the user interface from its logic using _themes_.
 Theming is the activity that is done when the look and feel of the UI components or application is customized.
-Theming is done as with any HTML content by using cascading style sheets or in short https://www.w3.org/Style/CSS/[CSS] to it.
+Theming is done as with any HTML content by using https://www.w3.org/Style/CSS/[cascading style sheets (CSS)].
 This documentation does not cover the basics of CSS, for more resources see for example the Open Directory Project https://dmoztools.net/Computers/Data_Formats/Style_Sheets/CSS/[CSS guides].
 
 Theming can be split into the following concepts:
