@@ -34,7 +34,7 @@ public class MainLayout extends Div implements RouterLayout {
 As seen on the <<using-component-themes#,Using Component Themes>> tutorial, the Lumo theme is used by
 default if it is available in the classpath and no other `@Theme` is defined.
 
-The contents of the `shared-styles.html` are discussed further in <<theming-crash-course#,the next chapter's>>.
+The contents of the `shared-styles.html` are discussed further in <<theming-crash-course#,the next chapters>>.
 The recommendation is that the file contains all the application global and view specific theming.
 
 For any HTML template based components, it is fine to have the styling, that only applies to the HTML in that template, inside that template file.
