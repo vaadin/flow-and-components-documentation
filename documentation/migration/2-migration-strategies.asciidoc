@@ -23,13 +23,13 @@ that you can start using when you eventually decide to migrate to Vaadin 10 or s
 
 == Using the Multiplatform Runtime for Running V8 Application Inside V10
 
-We are planning to release a Multiplatform Runtime that makes it possible to run views and components from your Vaadin 8 application inside Vaadin 10.
+We are planning to release a Multiplatform Runtime that makes it possible to run views and components from your Vaadin 7 and 8 application inside Vaadin 10.
 This helps you migrate it to V10 bit by bit, or just incrementally add V10 features while also including existing application features as-is.
 
-Using the runtime, you will be able to get your V8 App running in V10 after couple of quick steps.
+Using the runtime, you will be able to get your V7 or V8 App running in V10 after couple of quick steps.
 Then you can migrate the necessary parts while having a working application after each step.
 
-Multiplatform Runtime will not be part of Vaadin 10. Instead, we plan to release it separately at a later date.
+Multiplatform Runtime will not be part of Vaadin 10. Instead, we plan to release it separately at a later date. The target is to first make it for Vaadin 7 applications, and a bit after that for Vaadin 8.
 
 == Transform an Existing Application To Vaadin 10
 
