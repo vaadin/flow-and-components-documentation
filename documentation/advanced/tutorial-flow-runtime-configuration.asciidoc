@@ -59,11 +59,6 @@ Or when using the `web.xml` file:
     </servlet-class>
 
     <init-param>
-      <param-name>UI</param-name>
-      <param-value>com.ex.myprj.MyUI</param-value>
-    </init-param>
-
-    <init-param>
       <param-name>frontend.url.es6</param-name>
       <param-value>http://mydomain.com/es6/</param-value>
     </init-param>
