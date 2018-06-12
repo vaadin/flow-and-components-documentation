@@ -16,10 +16,10 @@
         <failOnMissingWebXml>false</failOnMissingWebXml>
 
         <!-- Dependencies -->
-        <vaadin.version>10.0.0.rc2</vaadin.version>
+        <vaadin.version>10.0.0.rc3</vaadin.version>
 
         <!-- Plugins -->
-        <jetty.version>9.3.7.v20160115</jetty.version>
+        <jetty.version>9.4.11.v20180605</jetty.version>
         <maven.war.plugin.version>3.2.0</maven.war.plugin.version>
     </properties>
 
