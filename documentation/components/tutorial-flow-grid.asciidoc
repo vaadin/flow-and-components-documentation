@@ -782,3 +782,167 @@ grid.addSortListener(event -> {
             currentSortOrder, event.isFromClient()));
 });
 ----
+
+== Styling
+
+Styling a Grid - or any other Flow Component - is straightforward, but requires some knowledge of web components and
+shadow-dom. Styling depends on the components position in the DOM. If component is in shadow dom, styling needs to be
+done within that component or by variables. If the component is not in the shadow dom, then it's in the "normal" DOM
+and all normal css applies. Also, many Vaadin components support theme -attribute, which allows to quickly customize the
+component.
+
+Example grid:
+
+[source, java]
+----
+Grid<Person> grid = new Grid<>();
+grid.setItems(Person.getPeople());
+grid.addClassName("styled");
+grid.addColumn(new ComponentRenderer<>(person -> {
+    TextField textField = new TextField();
+    textField.setValue(person.getName());
+    textField.addClassName("style-" + person.getGender());
+    textField.addValueChangeListener(event ->
+            person.setName(event.getValue()));
+    return textField;
+})).setHeader("Name");
+
+grid.addColumn(new ComponentRenderer<>(person -> {
+    DatePicker datePicker = new DatePicker();
+    datePicker.setValue(person.getDob());
+    datePicker.addValueChangeListener(event -> {
+        person.setDob(event.getValue());
+    });
+    datePicker.addClassName("style-" + person.getGender());
+    return datePicker;
+})).setHeader("DOB");
+
+grid.addColumn(new ComponentRenderer<>(person -> {
+    Image image = new Image(person.getImgUrl(), person.getFirstName());
+    return image;
+})).setHeader("Image");
+
+----
+
+=== Styling with theme property
+
+Vaadin components have different Lumo Theme variations usable. Using those with Flow is simple: just give needed
+variation, one or more.
+
+[source, java]
+----
+grid.addThemeNames("no-border", "no-row-borders", "row-stripes");
+----
+
+
+=== Styling with css
+
+The Grid itself is in the shadow-dom, but actual values (cells) have slots which are in the light dom, so normal css
+styling applies.
+
+For example, lets set max size for images within grid:
+
+[source, css]
+----
+vaadin-grid vaadin-grid-cell-content img {
+    max-height: 4em;
+}
+----
+
+_vaadin-grid-cell-content_ is the slot that's in the light dom, so selector _vaadin-grid vaadin-grid-cell-content_
+points to grids cells.
+
+And we could of course set some fancier grid - a grid with "styled" -class - which would have rounded images,
+positioned in the center and also capped with max size (size comes with previous css):
+
+[source, css]
+----
+vaadin-grid.styled vaadin-grid-cell-content img {
+    border-radius: 2em;
+    margin-left: 50%;
+    transform: translate(-50%);
+}
+----
+
+=== Styling with overriding component styles
+
+Styling of the grid itself can be done within custom styles by overriding grid-styling:
+
+[source, html]
+----
+<dom-module id="custom-grid" theme-for="vaadin-grid">
+    <template>
+        <style>
+            :host(.styled) #table {
+                border-radius: 20px;
+                box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+                border: 1px solid rgba(81, 203, 238, 1);
+            }
+            :host(.styled) #header {
+                border: none;
+                border-bottom: 1px solid rgba(81, 203, 238, 1);
+            }
+            :host(.styled) #header tr {
+                text-align: center;
+                text-shadow: 0 0 3px rgba(81, 203, 238, 1);
+                text-transform: uppercase;
+            }
+        </style>
+    </template>
+</dom-module>
+----
+
+The _theme-for="vaadin-grid"_ indigates that it's overriding vaadin-grid -components styling. In the the css the
+_:host(.styled)_ is a selector for vaadin-grid that has "styled" as class. So outside of shadow dom that would be
+_vaadin-grid.styled_, but the shadow dom is boxed in it's own dom (ergo, the shadow dom) it must be selected with
+:host([selector]).
+
+In this example we're setting special styles for vaadin-grid with "styled" class. A grid without "styled" class remains
+normal.
+
+=== Styling with variables
+
+Although the shadow-dom is boxed and cannot be affected outside, there's one method to pass info to the shadow-dow:
+CSS variables.
+
+CSS variables will pass through all levels of dom, whether it's light or shadow dom. So, if variable is set, then that
+value is available everywhere under that dom, regardless of shadow / light.
+
+In order for variables to work, they need to be supported by component. So with given grid example, let's make our
+styled grid have gender-wise colorization of text-fields.
+
+First, lets introduce variable usage for wanted component (textfield):
+
+[source, html]
+----
+<dom-module id="custom-text-field" theme-for="vaadin-text-field">
+    <template>
+        <style>
+            .vaadin-text-field-container [part="input-field"] {
+                background-color: var(--custom-text-field-bg, var(--lumo-contrast-10pct));
+            }
+        </style>
+    </template>
+</dom-module>
+----
+
+This is overriding vaadin-text-field styles. The only change made is that, if there's a variable
+_--custom-text-field-bg_ available, use it, otherwise fall back to normal.
+
+Now, changing the variable, based on our person gender
+
+[source, css]
+----
+.styled .style-female {
+    --custom-text-field-bg: #ff99cc;
+}
+.styled .style-male {
+    --custom-text-field-bg: #99ccff;
+}
+----
+
+After this change, the text-field - anywhere - under the _.styled .style-female/male_ uses special background color.
+
+This does not only apply in the text-fields of the grid, but - because date-field uses the text-field internally - also
+the date-fields. Now the look and feel of used component - the textfield - is always the same, whether it's directly
+used or wrapped within another component.
