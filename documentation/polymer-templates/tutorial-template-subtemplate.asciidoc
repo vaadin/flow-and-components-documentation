@@ -48,7 +48,7 @@ public interface Model extends TemplateModel {
 }
 ----
 
-The HTML template uses a `child-template` element, which is a custom element defined in `ChildTemplate.html`.
+The HTML template uses a `child-template` element, which is a custom element defined in `child-template.html`.
 Since the client-side implementation of `child-template` depends on a click handler defined from server-side Java, an instance of `ChildTemplate` must be created on the server.
 By using `@Uses(ChildTemplate.class)`, this instance will automatically be created and hooked up with the `<child-template>` element in the parent template based on the `@Tag("child-template")` annotation value.
 
