@@ -795,8 +795,8 @@ Example grid:
 
 [source, java]
 ----
-Grid<Person> grid = new Grid<>();
-grid.setItems(Person.getPeople());
+Grid<Celebrity> grid = new Grid<>();
+grid.setItems(Celebrity.getPeople());
 grid.addClassName("styled");
 grid.addColumn(new ComponentRenderer<>(person -> {
     TextField textField = new TextField();
@@ -818,7 +818,7 @@ grid.addColumn(new ComponentRenderer<>(person -> {
 })).setHeader("DOB");
 
 grid.addColumn(new ComponentRenderer<>(person -> {
-    Image image = new Image(person.getImgUrl(), person.getFirstName());
+    Image image = new Image(person.getImgUrl(), person.getName());
     return image;
 })).setHeader("Image");
 
@@ -892,7 +892,7 @@ Styling of the grid itself can be done within custom styles by overriding grid-s
 </dom-module>
 ----
 
-The _theme-for="vaadin-grid"_ indigates that it's overriding vaadin-grid -components styling. In the the css the
+The _theme-for="vaadin-grid"_ indicates that it's overriding vaadin-grid -components styling. In the the css the
 _:host(.styled)_ is a selector for vaadin-grid that has "styled" as class. So outside of shadow dom that would be
 _vaadin-grid.styled_, but the shadow dom is boxed in it's own dom (ergo, the shadow dom) it must be selected with
 :host([selector]).
@@ -944,5 +944,7 @@ Now, changing the variable, based on our person gender
 After this change, the text-field - anywhere - under the _.styled .style-female/male_ uses special background color.
 
 This does not only apply in the text-fields of the grid, but - because date-field uses the text-field internally - also
-the date-fields. Now the look and feel of used component - the textfield - is always the same, whether it's directly
+the date-fields.
+
+Now the look and feel of used component - the textfield - is always the same, whether it's directly
 used or wrapped within another component.
