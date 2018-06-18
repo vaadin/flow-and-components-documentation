@@ -26,6 +26,8 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | Button | Button | https://vaadin.com/components/vaadin-button/java-examples[Demo]
 
+| BrowserFrame | - | Use `iframe` directly via `@Tag("iframe")` and `Element` API
+
 | Checkbox | Checkbox | https://vaadin.com/components/vaadin-checkbox/java-examples[Demo]
 
 | CheckBoxGroup | - | Planned, no timeline yet. For now, this can be manually assembled from CheckBoxes on server side
@@ -34,15 +36,17 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | ComboBox | ComboBox | https://vaadin.com/components/vaadin-combo-box/java-examples[Demo]. Note that the V10 ComboBox is not lazy-loading between server and client
 
+| CssLayout | Div & FlexLayout | More details <<#layouts,later in this chapter>>
+
 | CustomComponent | Composite | <<../creating-components/tutorial-component-composite#,Tutorial>>
 
 | CustomLayout | HMTL or PolymerTemplate | See notes below.
 
-| CssLayout | Div & FlexLayout | More details <<#layouts,later in this chapter>>
-
 | DateField | DatePicker | https://vaadin.com/components/vaadin-date-picker/java-examples[Demo]
 
 | DateTimeField | - | Planned for Q3 2018. `<input type="datetime">` is supported in some browsers.
+
+| Embedded | - | Use `<object>` directly via `@Tag("object")` and `Element` API
 
 | FormLayout | FormLayout | https://vaadin.com/components/vaadin-form-layout/java-examples[Demo]
 
@@ -60,7 +64,9 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | InlineDateTimeField | - | Not planned
 
-| Label | Text or Span | There is also a `Label` component based on the `<label>` element, and should therefore only be used  for form field labels.
+| Label | Text or Span | There is also a `Label` component based on the `<label>` element, and should therefore only be used for form field labels.
+
+| Link | Anchor | -
 
 | ListSelect | ListBox | https://vaadin.com/components/vaadin-list-box/java-examples[Demo]
 
