@@ -220,7 +220,7 @@ Then the client side code below won't update the name of the `UserInfo` bean ins
 ----
 <dom-module id="contact-handler">
     <template>
-        <input id="name" type="text"></label>
+        <input id="name" type="text"></input>
         <button on-click="onClick">Send the contact</button>
     </template>
 </dom-module>
