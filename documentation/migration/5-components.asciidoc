@@ -36,11 +36,11 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | ComboBox | ComboBox | https://vaadin.com/components/vaadin-combo-box/java-examples[Demo]. Note that the V10 ComboBox is not lazy-loading between server and client
 
+| CssLayout | Div & FlexLayout | More details <<#layouts,later in this chapter>>
+
 | CustomComponent | Composite | <<../creating-components/tutorial-component-composite#,Tutorial>>
 
 | CustomLayout | HMTL or PolymerTemplate | See notes below.
-
-| CssLayout | Div & FlexLayout | More details <<#layouts,later in this chapter>>
 
 | DateField | DatePicker | https://vaadin.com/components/vaadin-date-picker/java-examples[Demo]
 
