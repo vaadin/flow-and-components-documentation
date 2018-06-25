@@ -104,6 +104,8 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | VerticalSplitPanel | SplitLayout | https://vaadin.com/components/vaadin-split-layout/java-examples[Demo]
 
+| UI | UI | -
+
 | Upload | Upload | https://vaadin.com/components/vaadin-upload/java-examples[Demo]
 
 | Window | Dialog | https://vaadin.com/components/vaadin-dialog/java-examples[Demo] Note that there is only limited support due to missing eg. minimize / maximize feature.
