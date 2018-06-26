@@ -333,7 +333,7 @@ has a reference to an `Address` object, which has a property `postalCode`, you c
 grid.addColumn("address.postalCode");
 ----
 
-The column's key will be "address.postalCode" and it's header will be "Postal Code".
+The column's key will be "address.postalCode" and its header will be "Postal Code".
 
 == Using Renderers
 
@@ -590,7 +590,7 @@ grid.addColumn(new ComponentRenderer<>(person -> {
 ----
 
 [NOTE]
-Editing the grid's items requires refreshing it's `DataProvider`, like explained above in the
+Editing the grid's items requires refreshing its `DataProvider`, like explained above in the
 <<Handling Events,template tutorial>>. More information about `DataProvider` can be found
 <<../binding-data/tutorial-flow-data-provider#,here>>.
 
@@ -598,7 +598,7 @@ Editing the grid's items requires refreshing it's `DataProvider`, like explained
 
 Often you don't want to overwhelm the user with a complex grid with all the information about each item,
 but instead show just the basic information by default and hide the details. For this purpose, grid supports
-expanding it's rows for showing additional details for the items. This is enabled with the
+expanding its rows for showing additional details for the items. This is enabled with the
 `setItemDetailsRenderer()` method. You can pass either a `TemplateRenderer` or a `ComponentRenderer` for the
 method to define how the details are rendered.
 
