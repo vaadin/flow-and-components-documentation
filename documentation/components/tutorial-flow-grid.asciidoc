@@ -467,7 +467,7 @@ grid.addColumn(TemplateRenderer.<Person> of("[[item.age]] years old")
 
 ==== Binding Beans
 
-If the object contains a bean property that has properties of it's own, you only need to make the bean
+If the object contains a bean property that has properties of its own, you only need to make the bean
 accessible by calling `withProperty()`, and the sub-properties become accessible as well.
 
 For example, suppose that `Person` has a field for `Address` bean, and `Address` has fields `street`,
