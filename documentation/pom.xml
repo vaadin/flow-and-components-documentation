@@ -50,8 +50,8 @@
 
         <dependency>
             <groupId>com.vaadin</groupId>
-            <artifactId>flow-spring-addon</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>vaadin-spring</artifactId>
+            <version>10.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
