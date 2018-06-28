@@ -1,6 +1,6 @@
 ---
 title: Creating Collaborative Views
-order: 14
+order: 8
 layout: page
 ---
 

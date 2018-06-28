@@ -1,6 +1,6 @@
 ---
 title: Asynchronous Updates
-order: 13
+order: 7
 layout: page
 ---
 

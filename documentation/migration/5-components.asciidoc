@@ -40,7 +40,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | CustomComponent | Composite | <<../creating-components/tutorial-component-composite#,Tutorial>>
 
-| CustomLayout | HTML or PolymerTemplate | See notes below.
+| CustomLayout | HMTL or PolymerTemplate | See notes below.
 
 | DateField | DatePicker | https://vaadin.com/components/vaadin-date-picker/java-examples[Demo]
 
@@ -109,6 +109,8 @@ The following table lists the existing Vaadin 8 components and their direct repl
 | VerticalLayout | VerticalLayout | https://vaadin.com/components/vaadin-ordered-layout/java-examples[Demo], more details <<#layouts,later in this chapter>>
 
 | VerticalSplitPanel | SplitLayout | https://vaadin.com/components/vaadin-split-layout/java-examples[Demo]
+
+| UI | UI | -
 
 | Upload | Upload | https://vaadin.com/components/vaadin-upload/java-examples[Demo]
 
