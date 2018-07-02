@@ -20,7 +20,7 @@ To change the look and feel of your application, you can style it by using dynam
 ----
 button.setText("Change to blue");
 button.addEventListener("click",
-    e -> button.getClassList().add("blue"));
+    e -> button.getElement().getClassList().add("blue"));
 ----
 
 In this case you are limited to the styles you have defined in advance. To get really dynamic styles, you can use the inline styling API `getStyle()`:
