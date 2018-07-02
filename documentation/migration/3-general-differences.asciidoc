@@ -72,6 +72,10 @@ If you had previously customized the initial response with `BootstrapListener`,
 As a custom `UI` class is no longer needed, you can configure the used `PushMode` for your app in the main layout of your application.
 Please see the <<../advanced/tutorial-push-configuration#,Server Push Configuration tutorial>> for more info.
 
+== Loading Indicator Configuration
+
+The default loading indicator is the same as in Vaadin 8 Valo Theme. If you want to customize it or disable it, you should see
+the <<../advanced/tutorial-loading-indicator#,loading indicator documentation>>.
 
 == Similarities and Package Naming
 
