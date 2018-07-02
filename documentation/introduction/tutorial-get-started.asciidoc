@@ -532,7 +532,7 @@ values in our domain objects.
 // video::Alejandro[youtube, width="640", height="400"]
 
 Start by creating a new Java class with the name CustomerForm. In Eclipse right
-click on the "com.vaadin.starter.starter.skeleton" package and choose menu:New[Class].
+click on the "com.vaadin.starter.skeleton" package and choose menu:New[Class].
 Type in the name `CustomerForm`, define the superclass as 
 `com.vaadin.flow.component.formlayout.FormLayout` and click `finish`.
 
