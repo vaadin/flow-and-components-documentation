@@ -6,6 +6,11 @@ It also contains documentation on the Java APIs for Vaadin's web components.
 This documentation is available in [vaadin.com/docs](https://vaadin.com/docs/v10/flow/Overview.html).
 Any issues and contributions can be added here, or in vaadin.com/docs via the _report issues_ or _edit page_ actions.
 
+This branch is Vaadin 11 (Flow version 1.1) compatible. See other branches for other framework versions:
+
+ - master branch is for Vaadin 11 (Flow version 1.1)
+ - 1.0 branch is for Vaadin 10 (Flow version 1.0)
+
 ## Structure
 
 The documentation is split into the following modules:
