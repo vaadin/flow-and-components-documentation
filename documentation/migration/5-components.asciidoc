@@ -18,7 +18,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 |=========================================================
 |V8 |V10 | Plans and Replacement
 
-| AbsoluteLayout | - | Not planned. Very easy to achieve the same in V10 using e.g. Div
+| AbsoluteLayout | - | Not planned. Similar functionality in V10 can be achieved using DIV elements and CSS.
 
 | Accordion | - | Not planned.
 
@@ -74,7 +74,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | NativeButton | NativeButton | -
 
-| NativeSelect | - | Planned, by new component `DropdownMenu`. Timeline is Q3 2018. If needed, quite easy to integrate the native `<select>` element.
+| NativeSelect | - | Planned, by new component `DropdownMenu`. Timeline is Q3 2018. As a temporary workaround, low level element API can be used with `<select>` element.
 
 | Notification | Notification | https://vaadin.com/components/vaadin-notification/java-examples[Demo]
 
@@ -90,7 +90,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | RichTextArea | - | Not planned. There are Web Components available, check https://vaadin.com/directory[vaadin.com/directory]
 
-| Slider | - | Not planned. There are Web Components available, check https://vaadin.com/directory[vaadin.com/directory]. If needed, quite easy to integrate the native `<input type=”range”>`
+| Slider | - | Not planned. There are Web Components available, check https://vaadin.com/directory[vaadin.com/directory]. You can also use DOM API and `<input type=”range”>`
 
 | TabSheet | Tabs | https://vaadin.com/components/vaadin-tabs/java-examples[Demo]
 
@@ -138,7 +138,7 @@ The component is the high level API for application developers to compose UIs ef
 The Element API is the low level API used to build components. The Element API makes it possible to modify the DOM easily from the server side.
 
 If you look up the `Component` class in V10, you notice that there is no API even for setting the width or height of the component!
-For your own components, it is very easy to add the API by just implementing the `HasSize` mixin interface,
+For your own components, add the API by implementing the `HasSize` mixin interface,
 which has default implementations for e.g. `setWidth(String width)` and `setHeight(String height)`.
 So by adding two words of code you can achieve full sizing capabilities for your components.
 See the <<../creating-components/tutorial-component-basic#,Creating A Simple Component Using the Element API>> tutorial for more info.
@@ -188,10 +188,10 @@ This has its roots in a time when the differences between browsers were big,
 and the Framework still supported Internet Explorer versions that worked by their own rules.
 Creating your own layouts was quite complex since it always required writing custom client side code with GWT.
 
-The layouts of Vaadin 10 are fast and work without magic. All layouts are self-contained and mostly just rely on the HTML5 and CSS3 standards,
-which all modern browsers (as well as IE 11) support. This makes it very easy to create modern responsive layouts with pure Java on server side, since in V10 you have full control of the DOM.
+In Vaadin 10 and newer, there is no more LayoutManager to do calculations in browser. All layouts are self-contained and mostly just rely on the HTML5 and CSS3 standards,
+which all modern browsers (as well as IE 11) support. Since Vaadin 10, responsive layouts can be created using the DOM API in Java on the server side.
 
-The layouts in V10 have thus a much faster performance than in previous versions.
+As native browser features are used for rendering, layouts are rendered faster than in previous versions.
 
 === Core Layouts API and Creating Custom Layouts
 
@@ -216,7 +216,7 @@ There is an https://github.com/vaadin/flow/issues/2465[enhancement issue] for th
 
 ==== HorizontalLayout & VerticalLayout
 
-These layouts have made it really easy to compose UIs. For V10 they are now based on fast native CSS rendering in browsers,
+These layouts have made it easy to compose UIs. For V10 they are now based on fast native CSS rendering in browsers,
 instead of custom JavaScript calculations. This means that the API has been changed to match the underlying CSS concepts instead of custom names -
 this is also to highlight that it might not work exactly the same way as before:
 
@@ -264,7 +264,7 @@ There is currently no direct replacement, but depending on your use case, you co
 
 * `Board` which is commercial and fully responsive
 * `FormLayout` which now supports multiple columns
-* `FlexLayout` which is very powerful but requires mastering the flexbox concepts
+* `FlexLayout` which is powerful but requires mastering the flexbox concepts
 * Nesting `HorizontalLayout` and `VerticalLayout` together
 * Use `Div` together with the new CSS Grid functionality that is supported in most browsers
 
@@ -276,11 +276,10 @@ For dynamic content you can use `PolymerTemplate` with `@Id` bindings.
 == Migrating Your Own Components
 
 One of the biggest improvements in Vaadin 10 compared to Vaadin 8 is making it possible to access and customize the DOM from  server-side Java.
-This obsoletes many reasons for using GWT for creating components and gives a big boost for productivity when creating custom components
-or doing modifications on existing ones. It also means that existing custom components from V8 have to be rebuilt again.
+This obsoletes many reasons for using GWT for creating components. It also means that existing custom components from V8 have to be rebuilt again.
 The server side API can be reused, but some changes may be needed since the class hierarchy has changed in V10.
 
-For simple components, it can be very quick to build in V10 by just using existing components and the Element API.
+Simple components can be composed using existing components and the Element API.
 The <<../creating-components/tutorial-component-basic#,creating components tutorials>> have examples on this.
-For more complex components with lots of client side logic or a complex DOM structure,
+For more complex components, with lots of client side logic or a complex DOM structure,
 it might be better to implement them as Web Components and provide a Java API to those.
