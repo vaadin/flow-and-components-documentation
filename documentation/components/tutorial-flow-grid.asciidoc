@@ -333,7 +333,7 @@ has a reference to an `Address` object, which has a property `postalCode`, you c
 grid.addColumn("address.postalCode");
 ----
 
-The column's key will be "address.postalCode" and its header will be "Postal Code". Note that this does not work unless you're using the Grid constructor that takes the bean type.
+The column's key will be "address.postalCode" and its header will be "Postal Code". Note that you need to use the Grid constructor that takes a bean class parameter in order to use these `String` properties in `addColumn`.
 
 == Using Renderers
 
