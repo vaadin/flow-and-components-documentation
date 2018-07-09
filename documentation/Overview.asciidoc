@@ -27,7 +27,7 @@ This is the documentation for Vaadin Flow. It is divided into the following subs
 
 == Router and Navigation
 Router is a core concept in Vaadin Flow, enabling Navigation for your website or web app.
-It is based on HTML5 History API, and makes it possible to for the user to navigate pages back and forward,
+It is based on HTML5 History API, and makes it possible for the user to navigate pages back and forward,
 and keep the page state intact. The following tutorials explain how to use the Router:
 
 * <<routing/tutorial-routing-annotation#,Defining Routes with @Route>>
