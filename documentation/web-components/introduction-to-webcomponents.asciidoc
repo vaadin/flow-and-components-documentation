@@ -1,3 +1,9 @@
+---
+title: Introduction to Web Components
+order: 30
+layout: page
+---
+
 = What are Web Components?
 
 Web Components are a collection of web standards allowing you to create new HTML tags with custom name, reusability and full encapsulation on styles & markup.  The standards are promised to be ubiquitous in modern browsers.
