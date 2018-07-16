@@ -15,21 +15,27 @@
  */
 package com.vaadin.flow.tutorial.components;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.Column;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.grid.GridMultiSelectionModel;
 import com.vaadin.flow.component.grid.GridSingleSelectionModel;
 import com.vaadin.flow.component.grid.HeaderRow;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.QuerySortOrder;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
 import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
@@ -229,6 +235,109 @@ public class GridBasic {
         column.setSortable(false);
         column.isSortable();
     }
+
+    public void gridTheming() {
+        Grid<Celebrity> grid = new Grid<>();
+        grid.setItems(Celebrity.getPeople());
+        grid.addClassName("styled");
+        grid.addColumn(new ComponentRenderer<>(person -> {
+            TextField textField = new TextField();
+            textField.setValue(person.getName());
+            textField.addClassName("style-" + person.getGender());
+            textField.addValueChangeListener(event ->
+                    person.setName(event.getValue()));
+            return textField;
+        })).setHeader("Name");
+
+        grid.addColumn(new ComponentRenderer<>(person -> {
+            DatePicker datePicker = new DatePicker();
+            datePicker.setValue(person.getDob());
+            datePicker.addValueChangeListener(event -> {
+                person.setDob(event.getValue());
+            });
+            datePicker.addClassName("style-" + person.getGender());
+            return datePicker;
+        })).setHeader("DOB");
+
+        grid.addColumn(new ComponentRenderer<>(person -> {
+            Image image = new Image(person.getImgUrl(), person.getName());
+            return image;
+        })).setHeader("Image");
+
+        grid.addThemeNames("no-border", "no-row-borders", "row-stripes");
+
+    }
+
+    // Bean class for gridTheming
+    public static class Celebrity {
+        enum Gender {
+            MALE("male"),
+            FEMALE("female");
+
+            private String value;
+
+            Gender(String value) {
+                this.value = value;
+            }
+
+            public String getValue() {
+                return value;
+            }
+
+            @Override public String toString() {
+                return value;
+            }
+        }
+
+        private Gender gender;
+        private String name;
+        private LocalDate dob;
+
+        public Celebrity(Gender gender, String firstName, String lastName, LocalDate dob) {
+            this.gender = gender;
+            this.name = firstName + " " + lastName;
+            this.dob = dob;
+        }
+
+        public static List<Celebrity> getPeople() {
+            ArrayList<Celebrity> list = new ArrayList<>();
+            list.add(new Celebrity(Gender.FEMALE, "Aretha", "Franklin", LocalDate.of(1942,3,25)));
+            list.add(new Celebrity(Gender.MALE, "Alan", "Moore", LocalDate.of(1953,11,18)));
+            list.add(new Celebrity(Gender.MALE, "Freddie", "Mercury", LocalDate.of(1946,9,5)));
+
+            return list;
+        }
+
+        public Gender getGender() {
+            return gender;
+        }
+
+        public void setGender(Gender gender) {
+            this.gender = gender;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public LocalDate getDob() {
+            return dob;
+        }
+
+        public void setDob(LocalDate dob) {
+            this.dob = dob;
+        }
+
+        public String getImgUrl() {
+            return "/img/" + name.toLowerCase().replaceAll(" ","") + ".jpg";
+        }
+
+    }
+
 
     //@formatter:off
     /*
