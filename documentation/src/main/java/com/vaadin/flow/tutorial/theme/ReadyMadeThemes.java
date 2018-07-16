@@ -7,6 +7,7 @@ import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.theme.NoTheme;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
+import com.vaadin.flow.theme.material.Material;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("theme/using-component-themes.asciidoc")
@@ -41,6 +42,11 @@ public class ReadyMadeThemes {
     @Route(value = "")
     @Theme(value = Lumo.class, variant = Lumo.DARK)
     public class DarkApplication extends Div {
+    }
+
+    @Route(value = "")
+    @Theme(value = Material.class, variant = Material.DARK)
+    public class DarkMaterialApplication extends Div {
     }
 
     public class MyTheme extends Lumo {
