@@ -9,8 +9,6 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.theme.Theme;
-import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("introduction/tutorial-get-started.asciidoc")
