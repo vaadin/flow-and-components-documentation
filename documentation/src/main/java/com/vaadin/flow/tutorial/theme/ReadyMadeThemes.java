@@ -1,6 +1,9 @@
 package com.vaadin.flow.tutorial.theme;
 
+import java.util.Arrays;
+
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLayout;
@@ -54,6 +57,22 @@ public class ReadyMadeThemes {
 
     public void buttonVariant() {
         Button button = new Button("Themed button");
-        button.getElement().setAttribute("theme", "contrast primary");
+        button.addThemeVariants(ButtonVariant.LUMO_PRIMARY,
+                ButtonVariant.LUMO_CONTRAST);
+    }
+
+    public void buttonVariant2() {
+        Button button = new Button("Themed button");
+        button.getThemeNames().addAll(Arrays.asList("contrast", "primary"));
+    }
+
+    public void buttonVariant3() {
+        Button button = new Button("Themed button");
+        String themeAttributeName = "theme";
+        String oldValue = button.getElement().getAttribute(themeAttributeName);
+        String variantsToAdd = "contrast primary";
+        button.getElement().setAttribute(themeAttributeName,
+                oldValue == null || oldValue.isEmpty() ? variantsToAdd
+                        : ' ' + variantsToAdd);
     }
 }
