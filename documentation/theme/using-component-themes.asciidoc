@@ -189,3 +189,4 @@ no actual changes for the component's look and feel are made.
 
 As was mentioned earlier, by default, if no explicit theme configuration is done and `vaadin-lumo-theme`
 dependency is present in the classpath, LumoTheme is used.
+
