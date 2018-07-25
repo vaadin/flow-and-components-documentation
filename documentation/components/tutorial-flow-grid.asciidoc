@@ -335,6 +335,23 @@ grid.addColumn("address.postalCode");
 
 The column's key will be "address.postalCode" and its header will be "Postal Code". Note that you need to use the Grid constructor that takes a bean class parameter in order to use these `String` properties in `addColumn`.
 
+==== Setting Automatic Columns Sortable
+
+When using columns defined by property names, you can set them as sortable in a single step, by using the `setColumnsSortable` method. For example, instead of using this:
+
+[source, java]
+----
+grid.getColumnByKey("name").setSortable(true);
+grid.getColumnByKey("yearOfBirth").setSortable(true);
+----
+
+... you can use this:
+
+[source, java]
+----
+grid.setSortableColumns("name", "yearOfBirth");
+----
+
 == Using Renderers
 
 Columns can be configured to use Renderers to show the data in a more suitable way inside the cells. Conceptually renderers are split into the three categories listed below.
