@@ -150,6 +150,11 @@ public class GridBasic {
         grid.getColumnByKey("yearOfBirth").setFrozen(true);
 
         grid.addColumn("address.postalCode");
+
+        grid.getColumnByKey("name").setSortable(true);
+        grid.getColumnByKey("yearOfBirth").setSortable(true);
+
+        grid.setSortableColumns("name", "yearOfBirth");
     }
 
     public void gridColumnMerging() {
