@@ -23,7 +23,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.Column;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
@@ -39,6 +38,7 @@ import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
 import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
+import com.vaadin.flow.tutorial.databinding.DatePicker;
 import com.vaadin.flow.tutorial.databinding.Person;
 
 @CodeFor("components/tutorial-flow-grid.asciidoc")
@@ -151,9 +151,9 @@ public class GridBasic {
 
         grid.addColumn("address.postalCode");
 
-        grid.getColumnByKey("name").setSortable(true);
-        grid.getColumnByKey("yearOfBirth").setSortable(true);
+        grid.getColumnByKey("address.postalCode").setSortable(false);
 
+        // All columns except "name" and "yearOfBirth" will be not sortable
         grid.setSortableColumns("name", "yearOfBirth");
     }
 
@@ -202,7 +202,7 @@ public class GridBasic {
         grid.addColumn(person -> person.getName() + " " + person.getLastName(),
                 "name", "lastName").setHeader("Name");
 
-        grid.addColumn(TemplateRenderer.<Person>of(
+        grid.addColumn(TemplateRenderer.<Person> of(
                 "<div>[[item.name]]<br><small>[[item.email]]</small></div>")
                 .withProperty("name", Person::getName)
                 .withProperty("email", Person::getEmail), "name", "email")
@@ -249,8 +249,8 @@ public class GridBasic {
             TextField textField = new TextField();
             textField.setValue(person.getName());
             textField.addClassName("style-" + person.getGender());
-            textField.addValueChangeListener(event ->
-                    person.setName(event.getValue()));
+            textField.addValueChangeListener(
+                    event -> person.setName(event.getValue()));
             return textField;
         })).setHeader("Name");
 
@@ -276,8 +276,7 @@ public class GridBasic {
     // Bean class for gridTheming
     public static class Celebrity {
         enum Gender {
-            MALE("male"),
-            FEMALE("female");
+            MALE("male"), FEMALE("female");
 
             private String value;
 
@@ -289,7 +288,8 @@ public class GridBasic {
                 return value;
             }
 
-            @Override public String toString() {
+            @Override
+            public String toString() {
                 return value;
             }
         }
@@ -298,7 +298,8 @@ public class GridBasic {
         private String name;
         private LocalDate dob;
 
-        public Celebrity(Gender gender, String firstName, String lastName, LocalDate dob) {
+        public Celebrity(Gender gender, String firstName, String lastName,
+                LocalDate dob) {
             this.gender = gender;
             this.name = firstName + " " + lastName;
             this.dob = dob;
@@ -306,9 +307,12 @@ public class GridBasic {
 
         public static List<Celebrity> getPeople() {
             ArrayList<Celebrity> list = new ArrayList<>();
-            list.add(new Celebrity(Gender.FEMALE, "Aretha", "Franklin", LocalDate.of(1942,3,25)));
-            list.add(new Celebrity(Gender.MALE, "Alan", "Moore", LocalDate.of(1953,11,18)));
-            list.add(new Celebrity(Gender.MALE, "Freddie", "Mercury", LocalDate.of(1946,9,5)));
+            list.add(new Celebrity(Gender.FEMALE, "Aretha", "Franklin",
+                    LocalDate.of(1942, 3, 25)));
+            list.add(new Celebrity(Gender.MALE, "Alan", "Moore",
+                    LocalDate.of(1953, 11, 18)));
+            list.add(new Celebrity(Gender.MALE, "Freddie", "Mercury",
+                    LocalDate.of(1946, 9, 5)));
 
             return list;
         }
@@ -338,11 +342,10 @@ public class GridBasic {
         }
 
         public String getImgUrl() {
-            return "/img/" + name.toLowerCase().replaceAll(" ","") + ".jpg";
+            return "/img/" + name.toLowerCase().replaceAll(" ", "") + ".jpg";
         }
 
     }
-
 
     //@formatter:off
     /*
