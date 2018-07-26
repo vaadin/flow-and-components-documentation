@@ -20,7 +20,7 @@ To fix this you have a couple choices:
  - Use the defined profile from <<tutorial-production-mode-basic#,Basic production mode>>, with the jetty plugin.
  - running the application with `mvn jetty:run-exploded` or `mvn jetty:run-war`
  - disable production mode using the servlet parameter `original.frontend.resources=true`
- - compile the frontend resources by adding the `flow-maven-plugin` see: <<tutorial-production-mode-basic#,Basic production mode>>
+ - compile the frontend resources by adding the `vaadin-maven-plugin` see: <<tutorial-production-mode-basic#,Basic production mode>>
  - remove the `flow-server-production-mode` dependency
 
 == Plugin goals and goal parameters
@@ -132,4 +132,3 @@ and with all `$$*.css$$`, `$$*.js$$` and `$$*.html$$` additionally optimized for
 * If not configured to be skipped, `transpileOutputDirectory/es5OutputDirectoryName` with all files from `transpileEs6SourceDirectory` copied into it
 and with all `$$*.css$$`, `$$*.js$$` and `$$*.html$$` additionally optimized for production usage AND transpiled into ES5 so that old browsers are able to use the application still
 * `transpileWorkingDirectory` with all frontend tools and additional files created for the tools, can be ignored after the process
-

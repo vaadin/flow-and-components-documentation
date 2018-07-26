@@ -10,7 +10,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 == Simple steps for production mode build
 
-To get your application prepped for production you want to add the `flow-maven-plugin` into the pom.xml
+To get your application prepped for production you want to add the `vaadin-maven-plugin` into the pom.xml
 and then create a production mode profile:
 
 .pom.xml
@@ -21,7 +21,8 @@ and then create a production mode profile:
         <id>production</id>
 
         <properties>
-            <flow.maven.plugin.version>[PLATFORM_COMPATIBLE_VERSION_HERE]</flow.maven.plugin.version>
+            //This version should have been defined in the previous project settings
+            <vaadin.version>[CURRENT_PLATFORM_VERSION]</vaadin.version>
         </properties>
 
         <dependencies>
@@ -35,8 +36,8 @@ and then create a production mode profile:
             <plugins>
                 <plugin>
                     <groupId>com.vaadin</groupId>
-                    <artifactId>flow-maven-plugin</artifactId>
-                    <version>${flow.maven.plugin.version}</version>
+                    <artifactId>vaadin-maven-plugin</artifactId>
+                    <version>${vaadin.version}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -56,7 +57,7 @@ The profile is recommended so that you don't get any unexpected problems due to
 production settings when running in development mode.
 
 [NOTE]
-The `flow.maven.plugin.version` should be a version that is compatible with the used platform.
+For users who use `flow` only, you can use `flow-maven-plugin` as artifactId and matching the version number with current flow version
 
 After this all that is needed is to run `mvn clean package -Pproduction`.
 This will then do transpilation, minimisation and bundling on the application resources and build a production ready war.
@@ -85,7 +86,7 @@ With this the server can be started with `mvn jetty:run -Pproduction`.
 [NOTE]
 *transpilation.output* should by default be `${project.build.directory}/${project.build.finalName}/`.
 
-When not using the default *transpilation.output* target the `flow-maven-plugin` will require the configuration:
+When not using the default *transpilation.output* target the `vaadin-maven-plugin` will require the configuration:
 
 [source, xml]
 ----
