@@ -337,9 +337,9 @@ The column's key will be "address.postalCode" and its header will be "Postal Cod
 
 ==== Sortable Automatic Columns
 
-All property-based columns are sortable by default if the type of property of the column implements `Comparable`. Most of the usual data types, such as Strings, Numbers, primitive types and Date/LocalDate/LocalDateTime are Comparable, and thus they are sortable by default.
+All property-based columns are sortable by default if the property type implements `Comparable`. Most of the usual data types, such as Strings, Numbers, primitive types and Date/LocalDate/LocalDateTime are Comparable, and thus they are sortable by default.
 
-To make columns of non Comparable properties sortable, you need to define a `Comparator`. See <<Sorting>>for details.
+To make columns of non Comparable properties sortable, you need to define a `Comparator`. See <<Sorting>> for details.
 
 To disable the sorting in a specific column, you can use the `setSortable` method on the column:
 
