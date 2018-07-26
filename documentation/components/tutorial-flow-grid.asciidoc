@@ -335,6 +335,32 @@ grid.addColumn("address.postalCode");
 
 The column's key will be "address.postalCode" and its header will be "Postal Code". Note that you need to use the Grid constructor that takes a bean class parameter in order to use these `String` properties in `addColumn`.
 
+==== Ordering Automatic Columns
+
+To define which columns appear in the Grid, and in which order, you can set the `setColumns` method:
+
+[source, java]
+----
+Grid<Person> grid = new Grid<>(Person.class);
+grid.setColumns("name", "age", "address.postalCode");
+----
+
+[NOTE]
+When calling `setColumns`, all columns that are currently present in the Grid are removed, and only the ones passed as parameters are added.
+
+If you want to add custom columns before the auto-generated ones, you can use the `addColumns` instead. For this case you may want to avoid creating the auto-generated columns by using the `Grid(Class, boolean)` constructor:
+
+[source, java]
+----
+Grid<Person> grid = new Grid<>(Person.class, false);
+grid.addColumn(person -> person.getName().split(" ")[0])
+    .setHeader("First name");
+grid.addColumns("age", "address.postalCode");
+----
+
+[NOTE]
+Adding columns that are already present the Grid raises an `IllegalArgumentException`.
+
 ==== Sortable Automatic Columns
 
 All property-based columns are sortable by default if the property type implements `Comparable`. Most of the usual data types, such as Strings, Numbers, primitive types and Date/LocalDate/LocalDateTime are Comparable, and thus they are sortable by default.
