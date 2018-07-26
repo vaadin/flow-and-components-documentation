@@ -823,8 +823,8 @@ grid.addColumn(new ComponentRenderer<>(person -> {
     TextField textField = new TextField();
     textField.setValue(person.getName());
     textField.addClassName("style-" + person.getGender());
-    textField.addValueChangeListener(event ->
-            person.setName(event.getValue()));
+    textField.addValueChangeListener(
+        event -> person.setName(event.getValue()));
     return textField;
 })).setHeader("Name");
 
