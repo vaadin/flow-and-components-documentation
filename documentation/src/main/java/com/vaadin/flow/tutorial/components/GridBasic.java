@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.Grid.Column;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
@@ -38,7 +39,6 @@ import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
 import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
-import com.vaadin.flow.tutorial.databinding.DatePicker;
 import com.vaadin.flow.tutorial.databinding.Person;
 
 @CodeFor("components/tutorial-flow-grid.asciidoc")
