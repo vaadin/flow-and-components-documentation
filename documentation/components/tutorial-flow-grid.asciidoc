@@ -335,20 +335,24 @@ grid.addColumn("address.postalCode");
 
 The column's key will be "address.postalCode" and its header will be "Postal Code". Note that you need to use the Grid constructor that takes a bean class parameter in order to use these `String` properties in `addColumn`.
 
-==== Setting Automatic Columns Sortable
+==== Sortable Automatic Columns
 
-When using columns defined by property names, you can set them as sortable in a single step, by using the `setColumnsSortable` method. For example, instead of using this:
+All property-based columns are sortable by default if the property type implements `Comparable`. Most of the usual data types, such as Strings, Numbers, primitive types and Date/LocalDate/LocalDateTime are Comparable, and thus they are sortable by default.
 
-[source, java]
-----
-grid.getColumnByKey("name").setSortable(true);
-grid.getColumnByKey("yearOfBirth").setSortable(true);
-----
+To make columns of non Comparable properties sortable, you need to define a `Comparator`. See <<Sorting>> for details.
 
-... you can use this:
+To disable the sorting in a specific column, you can use the `setSortable` method on the column:
 
 [source, java]
 ----
+grid.getColumnByKey("address.postalCode").setSortable(false);
+----
+
+Or, if you want to define a list of columns that should be sortable (making every other column not sortable), you can use the `setSortableColumns` method:
+
+[source, java]
+----
+// All columns except "name" and "yearOfBirth" will be not sortable
 grid.setSortableColumns("name", "yearOfBirth");
 ----
 
@@ -819,8 +823,8 @@ grid.addColumn(new ComponentRenderer<>(person -> {
     TextField textField = new TextField();
     textField.setValue(person.getName());
     textField.addClassName("style-" + person.getGender());
-    textField.addValueChangeListener(event ->
-            person.setName(event.getValue()));
+    textField.addValueChangeListener(
+        event -> person.setName(event.getValue()));
     return textField;
 })).setHeader("Name");
 
