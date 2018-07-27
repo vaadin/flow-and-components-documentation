@@ -234,4 +234,4 @@ layout.add(hello);
 ----
 
 [NOTE]
-To Make your template-based product supporting non-ES6 browers like IE 11 and Safari 9, you need to configure the `vaadin-maven-plugin` in your `pom.xml`. Click https://github.com/vaadin/flow-and-components-documentation/blob/master/documentation/production/tutorial-production-mode-basic.asciidoc[Taking your Application into Production] for more information.
+To make your template-based product supporting non-ES6 browers like IE 11 and Safari 9, you need to configure the `vaadin-maven-plugin` in your `pom.xml`. See the chapter https://github.com/vaadin/flow-and-components-documentation/blob/master/documentation/production/tutorial-production-mode-basic.asciidoc[Taking your Application into Production] for more information.

@@ -20,11 +20,6 @@ and then create a production mode profile:
     <profile>
         <id>production</id>
 
-        <properties>
-            //This version should have been defined in the previous project settings
-            <vaadin.version>[CURRENT_PLATFORM_VERSION]</vaadin.version>
-        </properties>
-
         <dependencies>
             <dependency>
                 <groupId>com.vaadin</groupId>
