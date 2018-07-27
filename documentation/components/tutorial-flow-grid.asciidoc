@@ -337,13 +337,16 @@ The column's key will be "address.postalCode" and its header will be "Postal Cod
 
 ==== Ordering Automatic Columns
 
-To define which columns appear in the Grid, and in which order, you can set the `setColumns` method:
+To define which columns appear in the Grid, and in which order, you can use the `setColumns` method:
 
 [source, java]
 ----
 Grid<Person> grid = new Grid<>(Person.class);
 grid.setColumns("name", "age", "address.postalCode");
 ----
+
+[TIP]
+You can also use the `setColumns` to reorder the columns you already have.
 
 [NOTE]
 When calling `setColumns`, all columns that are currently present in the Grid are removed, and only the ones passed as parameters are added.
