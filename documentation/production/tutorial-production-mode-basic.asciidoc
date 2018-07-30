@@ -52,7 +52,7 @@ The profile is recommended so that you don't get any unexpected problems due to
 production settings when running in development mode.
 
 [NOTE]
-For users who use `Vaadin-Flow` only, you can use `flow-maven-plugin` as artifactId and match the version number with current Flow version
+For users who use `Vaadin Flow` only, you can use `flow-maven-plugin` as artifactId and match the version number with current Flow version
 
 After this all that is needed is to run `mvn clean package -Pproduction`.
 This will then do transpilation, minimisation and bundling on the application resources and build a production ready war.
