@@ -273,6 +273,15 @@ public class GridBasic {
 
     }
 
+    public void beanGridColumnOrder() {
+        Grid<Person> grid = new Grid<>(Person.class, false);
+        grid.addColumn(person -> person.getName().split(" ")[0])
+                .setHeader("First name");
+        grid.addColumns("age", "address.postalCode");
+
+        grid.setColumns("name", "age", "address.postalCode");
+    }
+
     // Bean class for gridTheming
     public static class Celebrity {
         enum Gender {
