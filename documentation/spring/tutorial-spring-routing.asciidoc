@@ -28,7 +28,8 @@ tutorial and other router tutorials for more details about using router.
 The only thing that is new here for Spring is the possibility to use dependency injection in the
 components annotated with `@Route`. Such a component is instantiated by Spring
 and becomes a Spring initialized bean. In particular it means that you may autowire
-other Spring managed beans. Here is an example:
+other Spring managed beans. Use constructor-based autowiring or field-based autowiring
+with `@PostConstruct` method. Here is an example:
 
 [source,java]
 ----
@@ -38,7 +39,8 @@ public class RootComponent extends Div {
     @Autowired
     private DataBean dataBean;
     
-    public RootComponent(){
+    @PostConstruct
+    public void init() {
         setText(dataBean.getMessage());
     }
 }
