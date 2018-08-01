@@ -28,10 +28,7 @@ public class SpringRouting {
     @Route("")
     public class RootComponent extends Div {
 
-        @Autowired
-        private DataBean dataBean;
-
-        public RootComponent() {
+        public RootComponent(@Autowired DataBean dataBean) {
             setText("Default path");
             setText(dataBean.getMessage());
         }
