@@ -28,8 +28,11 @@ public class SpringRouting {
     @Route("")
     public class RootComponent extends Div {
 
-        public RootComponent(@Autowired DataBean dataBean) {
+        public RootComponent() {
             setText("Default path");
+        }
+
+        public RootComponent(@Autowired DataBean dataBean) {
             setText(dataBean.getMessage());
         }
     }
