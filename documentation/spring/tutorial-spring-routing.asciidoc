@@ -35,10 +35,7 @@ other Spring managed beans. Here is an example:
 @Route("")
 public class RootComponent extends Div {
     
-    @Autowired
-    private DataBean dataBean;
-    
-    public RootComponent(){
+    public RootComponent(@Autowired DataBean dataBean){
         setText(dataBean.getMessage());
     }
 }
