@@ -87,6 +87,11 @@ To be able to use Spring Web application you should declare dependencies in your
 </dependencyManagement>
 
 <dependencies>
+    <dependency>
+        <groupId>com.vaadin</groupId>
+        <artifactId>vaadin-spring</artifactId>
+    </dependency>
+
     <!-- Spring -->
     <dependency>
         <groupId>org.springframework</groupId>
