@@ -8,7 +8,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Use Flow with Spring
 
-The Spring add-on allows you to use Flow with Spring in two ways: 
+The `vaadin-spring` add-on allows you to use Flow with Spring in two ways: 
 as a Spring Boot application and as a Spring Web application.
 
 == Spring Boot 
@@ -36,23 +36,28 @@ public class ExampleServletInitializer extends SpringBootServletInitializer {
 This code looks like magic and you may wonder why it works. The `@SpringBootApplication` 
 annotation makes all the job for you under the hood.
 
-Thanks to Spring Boot auto-configuration you only need the Spring add-on 
-in your classpath and no Flow classes are needed in the class declaration. 
-Here is the code snippet from `pom.xml` which declares the necessary dependencies:
+Thanks to Spring Boot auto-configuration you only need the `vaadin-spring` add-on 
+in your classpath and no Flow classes are needed in the class declaration. For `vaadin-platform` user, what you need to do is adding the `vaadin-bom` dependency to the `dependencyManagement` section in your `pom.xml`:
 
 [source,xml]
 ----
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-bom</artifactId>
+            <version>${vaadin.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+
 <dependencies>
     <dependency>
         <groupId>com.vaadin</groupId>
-        <artifactId>flow</artifactId>
-        <version>${flow.version}</version>
-    </dependency>
-
-    <dependency>
-        <groupId>com.vaadin</groupId>
-        <artifactId>flow-spring-addon</artifactId>
-        <version>${flow.version}</version>
+        <artifactId>vaadin-spring-boot-starter</artifactId>
+        <version>${vaadin.version}</version>
     </dependency>
 
     <!-- Spring -->
@@ -75,7 +80,7 @@ It's not relevant for this example but if you want to run your application as a
 deployable WAR then this helps you avoid classpath collisions.
 
 [NOTE]
-The Spring add-on doesn't declare compile dependency to Spring Boot (it doesn't appear transitively) 
+The `vaadin-spring` add-on doesn't declare compile dependency to Spring Boot (it doesn't appear transitively) 
 so you should declare it by yourself. This is done to be able to use the add-on without Spring Boot.
 
 Of course you need at least one Flow related class in your application to be able to handle URLs.

@@ -8,7 +8,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Use Flow with Spring MVC
 
-In the previous section it has been shown the easiest way to use Spring add-on with Spring Boot.
+In the previous section it has been shown the easiest way to use `vaadin-spring` add-on with Spring Boot.
 If you are not familiar with Spring Boot magic or it's just too magic for you 
 and you want to write pure Spring Web application then you can follow this section.
 
@@ -70,24 +70,23 @@ public class SampleConfiguration {
 [NOTE]
 `VaadinScopesConfig` and `VaadinServletConfiguration` configurations will be registered automatically for you in this case.
 
-To be able to use Spring Web application you should declare dependencies in your `pom.xml` file to
-Flow, Flow Spring add-on and Spring web:
+To be able to use Spring Web application you should declare dependencies in your `pom.xml` file to `vaadin-bom` and `spring-web`:
 
 [source,xml]
 ----
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-bom</artifactId>
+            <version>${vaadin.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+
 <dependencies>
-    <dependency>
-        <groupId>com.vaadin</groupId>
-        <artifactId>flow</artifactId>
-        <version>${flow.version}</version>
-    </dependency>
-
-    <dependency>
-        <groupId>com.vaadin</groupId>
-        <artifactId>flow-spring-addon</artifactId>
-        <version>${flow.version}</version>
-    </dependency>
-
     <!-- Spring -->
     <dependency>
         <groupId>org.springframework</groupId>
