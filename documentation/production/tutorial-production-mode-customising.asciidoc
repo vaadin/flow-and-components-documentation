@@ -50,8 +50,8 @@ Each fragment should have its name and at least one file specified.
 ----
 <plugin>
     <groupId>com.vaadin</groupId>
-    <artifactId>flow-maven-plugin</artifactId>
-    <version>${flow.maven.plugin.version}</version>
+    <artifactId>vaadin-maven-plugin</artifactId>
+    <version>${vaadin.version}</version>
     <executions>
         <execution>
             <goals>
@@ -139,8 +139,8 @@ You still have to configure Maven plugin if the json file is not in the default 
 ----
 <plugin>
     <groupId>com.vaadin</groupId>
-    <artifactId>flow-maven-plugin</artifactId>
-    <version>${flow.maven.plugin.version}</version>
+    <artifactId>vaadin-maven-plugin</artifactId>
+    <version>${vaadin.version}</version>
     <executions>
         <execution>
             <goals>

@@ -6,7 +6,7 @@ layout: page
 
 = Application Theming Basics
 
-Application specific theming specifies styles that only effect one application.
+Application specific theming specifies styles that only affect one application.
 Whenever you have styles that are shared across multiple applications,
 you should make the theming as a separate module and resource that can be shared as a dependency for multiple applications.
 This chapter focuses only on theming a single application
@@ -34,7 +34,7 @@ public class MainLayout extends Div implements RouterLayout {
 As seen on the <<using-component-themes#,Using Component Themes>> tutorial, the Lumo theme is used by
 default if it is available in the classpath and no other `@Theme` is defined.
 
-The contents of the `shared-styles.html` are discussed further in <<theming-crash-course#,the next chapter's>>.
+The contents of the `shared-styles.html` are discussed further in <<theming-crash-course#,the next chapter>>.
 The recommendation is that the file contains all the application global and view specific theming.
 
 For any HTML template based components, it is fine to have the styling, that only applies to the HTML in that template, inside that template file.

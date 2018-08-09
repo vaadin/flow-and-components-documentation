@@ -66,7 +66,39 @@ If the Theme annotation is not on a `@Route` Component or a top `RouterLayout` a
 
 == Theme variants
 
-You can use a Theme variant by defining it on the `@Theme` annotation:
+A variant is a special string value that can be placed in the `theme` attribute value of any html element.
+When the corresponding theme enabled, those values change the components' visual appearance.
+
+Multiple variants can be applied to the element, if specified separated by whitespace:
+
+.Html representation of the variants
+[source,html]
+----
+<vaadin-button theme="contrast primary">Themed button</vaadin-button>
+----
+
+There are two types of variants: theme variants, specific for the current theme and working globally
+and component variants, specific to the current component and theme.
+Different themes and different components may have different sets of variants (or none).
+
+== Available Themes and Customizations
+
+In Vaadin 10 there are two ready-made component themes: _Lumo_ (which is the main theme for all Vaadin components) and _Material_ one.
+Both themes give you a full set of building blocks to build a modern looking web application that works just as well on desktop and on mobile.
+
+The Flow integration for both Lumo and Material themes are a part of the `vaadin-core` dependency. The previous chapter shows how to take those to use.
+In order to use Lumo theme, you can explicitly declare `@Theme(Lumo.class)` on the navigation target or omit it completely, since the default behavior is to use Lumo if available in the classpath.
+If you want to use Material theme, explicitly declare `@Theme(Material.class)` on the navigation target.
+
+Both themes provide some customization points for the components, that allow you to fine tune the look and provide a better UX.
+It can be customized by using CSS custom properties, see link:https://vaadin.com/themes/lumo[the Lumo documentation]
+and link:https://vaadin.com/themes/material[the Material documentation] for more information.
+The theming for the Vaadin components is built using `Vaadin.ThemableMixin`.
+See link:https://github.com/vaadin/vaadin-themable-mixin/wiki[vaadin-themable-mixin wiki] to learn how theming of Vaadin components is done.
+
+=== Using Vaadin theme variants
+
+In Flow, you can set a theme variant by defining it on the `@Theme` annotation:
 [source,java]
 ----
 @Route(value = "")
@@ -75,30 +107,9 @@ public class LargeThemedApplication extends Div {
 }
 ----
 
-Variants are like "skins" for the theme - it uses the same files for the theme, but sets special selectors in the body to make it appear different.
+Lumo and Material themes come with two variants: light (the default) and dark.
 
-== Available Themes and Customizations
-
-In Vaadin 10 there is only one ready-made component theme, _Lumo_, which is the main theme for all Vaadin components.
-It gives you a full set of building blocks to build a modern looking web application that works just as well on desktop and on mobile.
-
-The Flow integration for Lumo is a part of the `vaadin-core` dependency, and as shown in the previous chapter,
-very easily taken into use. You can explicitly declare `@Theme(Lumo.class)` or omit it completely, since the default behavior is to use Lumo if available in the classpath.
-
-Lumo provides some customization points for the components, that allow you to very fine tune the look and provide better UX.
-It can be customized by using CSS custom properties, see link:https://vaadin.com/themes/lumo[the Lumo documentation] for more information.
-The theming for the Vaadin components is built using `Vaadin.ThemableMixin`.
-See link:https://github.com/vaadin/vaadin-themable-mixin/wiki[vaadin-themable-mixin wiki] to learn how theming of Vaadin components is done.
-
-[NOTE]
-There is another theme being built, _Material Theme_. Once it is ready enough, a Flow integration will be available.
-Even though it will not be part of Vaadin 10, you should be able to use it with all Vaadin 10 components.
-You can take a look at it and start using it already by manually importing the webjar and the dependencies.
-See the link:https://vaadin.com/themes/material[Material Theme documentation] for more information and tracking progress.
-
-=== Using Lumo variants
-
-Lumo comes with two variants: light (the default) and dark. You can use the dark variant by using:
+By default, no theme variants are used. You can use the dark variant by using:
 
 .Setting the dark variant for Lumo
 [source,java]
@@ -108,17 +119,74 @@ Lumo comes with two variants: light (the default) and dark. You can use the dark
 public class DarkApplication extends Div {
 }
 ----
+and the same can be done for Material theme:
+
+.Setting the dark variant for Material
+[source,java]
+----
+@Route(value = "")
+@Theme(value = Material.class, variant = Material.DARK)
+public class DarkMaterialApplication extends Div {
+}
+----
 
 Individual components have also variants available.
 Component variants are applied by using the element API to set the variant as the `theme` attribute.
-For example, to create a Button with https://vaadin.com/components/vaadin-button/html-examples/button-lumo-theme-demos[increased legibility], you can use:
+For example, to create a Button with https://vaadin.com/components/vaadin-button/html-examples/button-lumo-theme-demos[increased legibility],
+you can use `addThemeVariants` method:
 
-.Setting a theme variant for a component
+.Adding theme variants for the component
 [source,java]
 ----
 Button button = new Button("Themed button");
-button.getElement().setAttribute("theme", "contrast primary");
+        button.addThemeVariants(ButtonVariant.LUMO_PRIMARY,
+                ButtonVariant.LUMO_CONTRAST);
 ----
 
-The `contrast primary` String in this case are theme variants for the Button component. For looking up all available component variants,
-https://vaadin.com/components/browse[see the component HTML examples] and look under the _Lumo Theme_ tab for examples of the variants.
+For each component, there is a predefined set of variants that you can use.
+Those variants are theme-specific and different for each of the component (some may have none).
+For each component that has variants, Flow provides an api similar to the one in the example above to use it.
+
+When added, variants are converted to their html values
+(for a button variant, `ButtonVariant.LUMO_PRIMARY.getVariantName()` is used)
+and those representations are added to the `theme` attribute values.
+
+If the component implements `HasTheme` interface (which is true for every component that has `addThemeVariants` method),
+then the following API can be used:
+
+.Adding theme values for the component that implements `HasTheme` interface
+[source,java]
+----
+Button button = new Button("Themed button");
+button.getThemeNames().addAll(Arrays.asList("contrast", "primary"));
+----
+
+If you want more flexibility (which may come in handy when adding non-standard theme variants to the component),
+you can manipulate the value of the `theme` attribute directly:
+
+.Adding variants to the 'theme' attribute of the component
+[source,java]
+----
+Button button = new Button("Themed button");
+        String themeAttributeName = "theme";
+        String oldValue = button.getElement().getAttribute(themeAttributeName);
+        String variantsToAdd = "contrast primary";
+        button.getElement().setAttribute(themeAttributeName,
+                oldValue == null || oldValue.isEmpty() ? variantsToAdd
+                        : ' ' + variantsToAdd);
+----
+
+Each of the three examples above do the very same thing in the end:
+add `contrast` and `primary` Lumo Theme variants to the `theme` attribute value of the button component.
+
+For looking up all available component variants, https://vaadin.com/components/browse[see the component HTML examples]
+and look under the _Lumo Theme_ tab for examples of the variants.
+
+[NOTE]
+Theme variants for components work only when the corresponding theme is enabled.
+If a different theme or no theme is enabled, then with variants present in `theme` attribute of the corresponding component,
+no actual changes for the component's look and feel are made.
+
+As was mentioned earlier, by default, if no explicit theme configuration is done and `vaadin-lumo-theme`
+dependency is present in the classpath, LumoTheme is used.
+

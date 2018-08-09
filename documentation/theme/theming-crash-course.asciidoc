@@ -180,7 +180,3 @@ Style modules can also be included in global styles:
   <style include="shared-styles"></style>
 </custom-style>
 ----
-
-WARNING: When included, each style module is duplicated in the target scope.
-Pay attention to the amount of styles shared through style modules.
-To avoid unnecessary overhead, it is best to minimize the amount of shared styles in your application.

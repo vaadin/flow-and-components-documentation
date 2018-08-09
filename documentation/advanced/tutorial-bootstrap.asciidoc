@@ -85,7 +85,9 @@ If the `Inline` annotation is not on a `@Route` Component or a top `RouterLayout
 
 To be able to modify default bootstrap page and add your custom meta tags on the page you
 can implement the `PageConfigurator` on the navigation target with `@Route` or
-the top most `RouterLayout` that builds the navigation target chain.
+the top most `RouterLayout` that builds the navigation target chain. The `PageConfigurator` gives
+you easy access to customize the `LoadingIndicatorConfiguration`, `ReconnectDialogConfiguration` and
+`PushConfiguration` for the initial response.
 
 With the `PageConfigurator` you can prepend or append `javascript`, `html` and `css` to the head
 by giving a file on the classpath or as content string. Also supported is adding links and meta tags which
