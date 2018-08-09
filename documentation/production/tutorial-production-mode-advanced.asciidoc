@@ -123,6 +123,21 @@ Both sets are used by Flow depending on the browser type.
 * *ignoreMavenProxies* `default: true`
 
     Turn it on to download all frontend tools using Maven proxy configurations.
+    
+* *minify* `default: true`
+
+    Turn it on to minify ES5 and ES6 code.
+    
+* *hash* `default: true`
+
+    Turn it on to make bundle receive a hash for the content. This
+    makes the bundle update on content change after it is cached in
+    the browser.
+    
+* *yarnNetworkConcurrency* `default: -1`
+
+    Set the maximum number of concurrent network requests. By default there is no any limit.
+    
 
 After the goal is complete, the files from `transpileEs6SourceDirectory` are processed.
 It results in:
