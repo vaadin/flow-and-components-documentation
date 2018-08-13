@@ -66,7 +66,7 @@ In order to verify that Vaadin 10 setup has been done correctly, a
 simple `HelloWorldPage` like the following can be added.
 
 [source, java]
-....
+----
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.router.PageTitle;
@@ -79,7 +79,7 @@ public class HelloWorldPage extends Div {
        this.add(new H1("Hello World!"));
    }
 }
-....
+----
 
 `@Route(“”)` shows that root path should be routed to this page. After
 running the application by `mvn jetty:run`, the “Hello World!” message can
@@ -112,7 +112,7 @@ add required code in `serviceInit` method. The result looks like the
 following piece of code:
 
 [source, java]
-....
+----
 public class BookstoreInitListener implements VaadinServiceInitListener {
    @Override
    public void serviceInit(ServiceInitEvent initEvent) {
@@ -123,7 +123,7 @@ public class BookstoreInitListener implements VaadinServiceInitListener {
        });
    }
 }
-....
+----
 
 `MyUI` class had an instance of `BasicAccessControl` and other classes used
 it via its accessor; now after `MyUI` class is eliminated, there must be
@@ -284,16 +284,16 @@ instead of the `style-name` (class name). E.g.
 
 Vaadin 8 version:
 [source, xml]
-....
+----
 <v-button style-name="primary" _id="save">Save</v-button>
-....
+----
 
 Vaadin 10 version:
 
 [source, xml]
-....
+----
 <vaadin-button theme="primary" id="save">Save</vaadin-button>
-....
+----
 
 === ProductForm Java Class
 
