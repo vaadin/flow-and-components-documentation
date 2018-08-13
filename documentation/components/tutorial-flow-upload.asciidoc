@@ -44,7 +44,7 @@ and you may get the date using a file name and the `getInputStream(String)` meth
 If you are using Spring then you should provide a `org.springframework.web.multipart.MultipartResolver` 
 bean in your configuration. Otherwise there will be an exception about multi-part configuration absence.
 
-The simplest way is to provide a multipart resolver is use `CommonsMultipartResolver` for Apache Commons FileUpload.
+The simplest way to provide a multipart resolver is using `CommonsMultipartResolver` for Apache Commons FileUpload.
 Add the following code into your configuration class: 
 
 [source, java]
