@@ -355,8 +355,9 @@ items are done.
 
 * The best practice to have the production mode in Vaadin 10 is adding a profile
 to pom.xml. So, the production module is no longer needed and is removed and a
-profile named productionMode is added to pom.xml of ui module. Production mode
-in V10 is not the same as V8 and new production mode of V10 is fully described
+profile named productionMode is added to pom.xml of ui module. In terms of
+production mode, there are some differences between V8 and V10. The new
+production mode of V10 is fully described
 https://vaadin.com/docs/v10/flow/production/tutorial-production-mode-basic.html[Here].
 * In `LoginScreen`, `HorizontalLayout` and `Div` are replaced by `FlexLayout` in
 order to leverage its API.
