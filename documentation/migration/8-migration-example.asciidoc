@@ -25,7 +25,7 @@ following:
 <dependency>
    <groupId>com.vaadin</groupId>
    <artifactId>vaadin-core</artifactId>
-   <version>10.0.2</version>
+   <version>LATEST</version>
 </dependency>
 ....
 
@@ -147,9 +147,12 @@ describe what needs to be done in migration process:
 includes both measurement unit and width as a number e.g. “15em” or
 “310px”.
 * `Route` annotation determines the url associated with this screen.
-* Setting theme name is done by calling
-`getElement().getThemeList().add(String)` instead of
-`addStyleName(String)`.
+* In order to add a theme variant in V10,
+`getElement().getThemeList().add(String)` is used. Although theme variant is
+different from style name, the former can be considered as the successor of the
+latter. So, `addStyleName(String)` can be replaced with
+`getElement().getThemeList().add(String)`. Changes in theming from V8 to V10 is
+described link:6-theming.html[here].
 * New `FormLayout` has a method named `addFormItem` takes a component as a
 parameter and in addition to adding it to the form, it adds a label
 beside the component as well.
@@ -247,9 +250,8 @@ view of the project, the route to root path, the `RouteAlias` annotation,
 should be moved here. Other changes in `SampleCrudView` are the following
 items.
 
-* The equivalent of `addStyleName` that adds a theme to a component is
-`getElement().getThemeList()::add`. A nicer API for this is coming to
-Vaadin 12.
+* `getElement().getThemeList()::add` is used to add a theme variant to a
+component. A nicer API for this is coming to Vaadin 12.
 * In Vaadin 8, in order to get the parameters passed via the URL, `View`
 interface must be implemented and the `enter` method must be overridden.
 In Vaadin 10, there is an interface named `HasUrlParameter` that does the
@@ -307,7 +309,7 @@ items are some of the changes in `ProductForm`.
 Vaadin 8, reading the design file is done automatically and there is not
 need to call `Design.read`.
 * `Id` annotation is used to connect fields to their equivalents in the
-design file.
+associated polymer template.
 * In `ComboBox`, `setEmptySelectionAllowed` method is renamed to
 `setAllowCustomValue`.
 * `CheckboxGroup` is not available in Vaadin 10 and will be released with
@@ -353,7 +355,9 @@ items are done.
 
 * The best practice to have the production mode in Vaadin 10 is adding a profile
 to pom.xml. So, the production module is no longer needed and is removed and a
-profile named productionMode is added to pom.xml of ui module.
+profile named productionMode is added to pom.xml of ui module. Production mode
+in V10 is not the same as V8 and new production mode of V10 is fully described
+https://vaadin.com/docs/v10/flow/production/tutorial-production-mode-basic.html[Here].
 * In `LoginScreen`, `HorizontalLayout` and `Div` are replaced by `FlexLayout` in
 order to leverage its API.
 * In `ProductGrid`, a simpler template is used for availability column. Though,
