@@ -283,14 +283,14 @@ theme variants, the variants are applied with the `theme` attribute,
 instead of the `style-name` (class name). E.g.
 
 Vaadin 8 version:
-[source, xml]
+[source, html]
 ----
 <v-button style-name="primary" _id="save">Save</v-button>
 ----
 
 Vaadin 10 version:
 
-[source, xml]
+[source, html]
 ----
 <vaadin-button theme="primary" id="save">Save</vaadin-button>
 ----
