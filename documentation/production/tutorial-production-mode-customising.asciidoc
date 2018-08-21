@@ -155,12 +155,12 @@ You still have to configure Maven plugin if the json file is not in the default 
 </plugin>
 ----
 
-== Using local Node and Yarn (no download)
+== Using local Node and Yarn
 
-In production, the vaadin maven plugin can be configured to work with the local Node and Yarn, that are already installed on the computer.
-This way, it will not be necessary to download them from the internet.
+By default, vaadin-maven-plugin downloads and installs Node and Yarn from the internet.
+This behavior can be overridden and the plugin can use locally installed Node and Yarn.
 
-This feature could be useful, in the case of having to build the application in production-mode in a restrictive environment, that uses firewalls and proxies.
+In order to do this, `nodePath` and `yarnPath` parameters should be specified in the plugin configuration:
 
 .pom.xml
 [source, xml]
@@ -169,13 +169,11 @@ This feature could be useful, in the case of having to build the application in 
     <plugins>
         <plugin>
             <groupId>com.vaadin</groupId>
-            <artifactId>flow-maven-plugin</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <artifactId>vaadin-maven-plugin</artifactId>
+            <version>${vaadin.version}</version>
             <configuration>
-                <nodePath>/usr/local/Cellar/node/10.8.0/bin/node
-                </nodePath>
-                <yarnPath>/usr/local/Cellar/yarn/1.9.4/bin/yarn
-                </yarnPath>
+                <nodePath>/usr/local/Cellar/node/10.8.0/bin/node</nodePath>
+                <yarnPath>/usr/local/Cellar/yarn/1.9.4/bin/yarn</yarnPath>
             </configuration>
             <executions>
                 <execution>
@@ -189,3 +187,8 @@ This feature could be useful, in the case of having to build the application in 
     </plugins>
 </build>
 ----
+
+[NOTE]
+In order to use locally installed tools, both paths should be specified.
+If any of the paths is not specified, both tools will be downloaded.
+If both versions and paths are specified, paths are used.
