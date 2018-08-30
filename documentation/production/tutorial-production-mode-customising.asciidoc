@@ -154,3 +154,41 @@ You still have to configure Maven plugin if the json file is not in the default 
     </executions>
 </plugin>
 ----
+
+== Using local Node and Yarn
+
+By default, vaadin-maven-plugin downloads and installs Node and Yarn from the internet.
+This behavior can be overridden and the plugin can use locally installed Node and Yarn.
+
+In order to do this, `nodePath` and `yarnPath` parameters should be specified in the plugin configuration:
+
+.pom.xml
+[source, xml]
+----
+<build>
+    <plugins>
+        <plugin>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-maven-plugin</artifactId>
+            <version>${vaadin.version}</version>
+            <configuration>
+                <nodePath>/usr/local/Cellar/node/10.8.0/bin/node</nodePath>
+                <yarnPath>/usr/local/Cellar/yarn/1.9.4/bin/yarn</yarnPath>
+            </configuration>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>copy-production-files</goal>
+                        <goal>package-for-production</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+----
+
+[NOTE]
+In order to use locally installed tools, both paths should be specified.
+If any of the paths is not specified, both tools will be downloaded.
+If both versions and paths are specified, paths are used.
