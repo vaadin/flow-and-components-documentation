@@ -17,7 +17,7 @@ order to be able to see the result of migrating steps.
 === Maven
 
 First of all, required maven dependency must be added to pom.xml. The
-Vaadin 8 dependencies are kept for now and will be eliminated after the
+Vaadin 8 dependencies, except `vaadin-themes`, are kept for now and will be eliminated after the
 whole application is migrated. The only Vaadin 10 dependency is the
 following:
 [source, xml]
@@ -156,6 +156,17 @@ described link:6-theming.html[here].
 * New `FormLayout` has a method named `addFormItem` takes a component as a
 parameter and in addition to adding it to the form, it adds a label
 beside the component as well.
+* In Vaadin 10, instead of `Button::setClickShortcut` that adds a shortcut key
+to a button, a keypress event listener should be added. For example, the
+following piece of code is equivalent to
+`login.setClickShortcut(ShortcutAction.KeyCode.ENTER);`.
+
+[source, java]
+----
+    loginForm.getElement()
+        .addEventListener("keypress", event -> login())
+        .setFilter("event.key == 'Enter'");
+----
 
 Some other changes that have been done are not related to Vaadin
 framework migration process; however, it is a good idea to do such
@@ -173,7 +184,7 @@ As explained before, instead of `CssLayout`, `FlexLayout` is used.
 `Navigator` class is removed in Vaadin 10 and this is one of many changes
 in routing and navigation from Version 8 to version 10. So, `navigator`
 field is removed from `Menu`. In `addView` method it can be seen that
-navigation is done by `navigate` method of `UI`.
+navigation is done by `RouterLink` component.
 
 At this stage a pretty look is not aimed and it will be made nicer in
 later steps.
@@ -220,7 +231,7 @@ The following items briefly describe some of the changes in `ProductGrid`.
 
 * There is no `HtmlRenderer` in Vaadin 10 and it must be replaced by other
 renderers such as `TemplateRenderer` or `ComponentRenderer`. In this
-migration `TemplateRenderer` is used. More info and guidance about all
+migration, `TemplateRenderer` is used. More info and guidance about all
 kinds of renderers can be found in "Using Renderers" section of
 https://vaadin.com/docs/v10/flow/components/tutorial-flow-grid.html[Grid
 document]. In `TemplateRenderer`, apart from HTML markup, Polymer data
@@ -229,12 +240,12 @@ TemplateRenderers:
 
 ** Price and StockCount columns leverage `TemplateRenderer` to align their
 text to right.
-** Availability column has a more complex template that needs `dom-if`
-element of Polymer Project, because the content is changed based on its
-data. Also, `iron-icon`, a Vaadin component is used inside this template.
-Moreover, there are some other solutions to achieve what is needed for
-availability column. One of them that uses css classes with identical names as
-availability values will discuss later.
+** Availability column template uses a Vaadin component named `iron-icon` to
+show a circle colored based on availability value. In order to set different
+styles to the circle, three css classes with equivalent names to three values
+of availability (`Available`, `Coming` and `Discontinued`) are defined in a css
+file (grid.css). Also, the dependency of the grid on the css file is defined by
+adding `StyleSheet` annotation to `ProductGrid` class.
 
 * `Grid.Column::setCaption` method is renamed to `setHeader`.
 * `setFlexGrow` method is called for each column to set grow ratios of
@@ -266,6 +277,12 @@ is the link to see the changes in step four.
 
 == Step 5 - Product Form
 
+Since after this step, all Java code is migrated to Vaadin 10, it is time to
+remove Vaadin 8 dependencies. Besides, keeping both versions may cause some
+conflicts in their dependencies e.g. `jsoup`. So, `vaadin-server` and
+`vaadin-push` are removed from pom.xml. Other changes in this step are as
+follows.
+
 === ProductForm Design
 
 The following items are some of the changes from Vaadin 8 to Vaadin 10
@@ -274,8 +291,8 @@ in design files.
 * In Vaadin 8, Vaadin Designer uses HTML markups to store designed views
 and they are stored in files with html extension. However, the tags that
 are used by Vaadin Designer are not standard HTML tags. So, these html
-files cannot be correctly shown and rendered by
-browsers. While in Vaadin 10, Polymer template is used to define views and
+files cannot be correctly shown and rendered by browsers. While in Vaadin 10,
+Polymer template is used to define views and
 Vaadin Designer also uses it to store designed views.
 * Prefix of the Vaadin components names is changed from `v` to `vaadin`.
 * For customizing the look and feel of the components using the provided
@@ -320,7 +337,7 @@ a placeholder is added to design file to make it easier to add the
 `CheckboxGroup`.
 
 The commit showing the changes for a migrated product form is
-https://github.com/vaadin/bookstore-starter-flow/commit/87823b61d53137963cfc84fae7fabf3e13d9ceaf%23diff-042374cce356a88330ea33c5223aae7b[here].
+https://github.com/vaadin/bookstore-starter-flow/commit/c909f99c0a483ab4b6b5a83534be1c8de8a5d5b2#diff-042374cce356a88330ea33c5223aae7b[here].
 
 === ErrorView
 
@@ -334,7 +351,7 @@ something like that. It is automatically detected and is used by Vaadin
 10.
 
 The commit showing the migration of the error view is
-https://github.com/vaadin/bookstore-starter-flow/commit/87823b61d53137963cfc84fae7fabf3e13d9ceaf%23diff-c0d70f19c05c81ab072bb1d2e9c659e2[here].
+https://github.com/vaadin/bookstore-starter-flow/commit/c909f99c0a483ab4b6b5a83534be1c8de8a5d5b2#diff-c0d70f19c05c81ab072bb1d2e9c659e2[here].
 
 === SampleCrudLogic
 
@@ -348,25 +365,17 @@ passed as a parameter to `navigate` method.
 https://github.com/vaadin/bookstore-starter-flow/commit/87823b61d53137963cfc84fae7fabf3e13d9ceaf[Here] is
 the link to see all changes in step five.
 
-== Improvement and Clean up
-https://github.com/vaadin/bookstore-starter-flow/commit/1e56cf49976058045636493a120fa9557712d613[Here]
-between steps 5 and 6, some improvements and clean up including the following
-items are done.
-
-* The best practice to have the production mode in Vaadin 10 is adding a profile
+== Step 6 - Production Mode
+The best practice to have the production mode in Vaadin 10 is adding a profile
 to pom.xml. So, the production module is no longer needed and is removed and a
 profile named productionMode is added to pom.xml of ui module. In terms of
 production mode, there are some differences between V8 and V10. The new
 production mode of V10 is fully described
 https://vaadin.com/docs/v10/flow/production/tutorial-production-mode-basic.html[Here].
-* In `LoginScreen`, `HorizontalLayout` and `Div` are replaced by `FlexLayout` in
-order to leverage its API.
-* In `ProductGrid`, a simpler template is used for availability column. Though,
-the new solution needs css classes with identical names as availability values.
-These classes are defined in a new css file named grid.css. To use the css file
-inside `ProductGrid`, `StyleSheet` annotation is used.
-* Some helpful comments are added.
 
-== Step 6 - Theming the application
+https://github.com/vaadin/bookstore-starter-flow/commit/d62fb258da9e651b2ef23355d1ec28341cee0c27[Here]
+is the link to see all changes in step six.
+
+== Step 7 - Theming the application
 This step is still in progress and its documentation will be added here when it
 is completed.
