@@ -1,7 +1,9 @@
 package com.vaadin.flow.tutorial.migration;
 
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.ServiceInitEvent;
@@ -27,6 +29,20 @@ public class Example {
                     // Controlling access can be done here.
                 });
             });
+        }
+    }
+
+    public class LoginScreen extends FlexLayout {
+        public LoginScreen() {
+            FormLayout loginForm = new FormLayout();
+
+            loginForm.getElement()
+                    .addEventListener("keypress", event -> login())
+                    .setFilter("event.key == 'Enter'");
+        }
+
+        private void login() {
+
         }
     }
 }
