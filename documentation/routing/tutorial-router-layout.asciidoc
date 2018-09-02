@@ -97,9 +97,9 @@ previously mentioned `SomePathComponent`
 === Absolute routes
 
 Sometimes we might have a setup where we want to use the same parent components in many parts,
-but in some cases not use any `@ParentPrefix` from the parent chain or only use them for a defined part.
+but in some cases not use any `@RoutePrefix` from the parent chain or only use them for a defined part.
 
-In these cases we can add `absolute = true` to either the `@Route` or `@ParentPrefix` annotations.
+In these cases we can add `absolute = true` to either the `@Route` or `@RoutePrefix` annotations.
 
 So if we have something that we want to use in many places in the `SomeParent` layout, but
 do not want to get the route prefix added to our navigation path we could have a class `MyContent`
