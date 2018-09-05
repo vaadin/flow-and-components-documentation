@@ -6,7 +6,7 @@ layout: page
 
 = Integrating a Web Component
 
-Web components is a standards based way to create and consume reusable components through custom HTML tags. To learn more about web componnents, see https://www.webcomponents.org/introduction.
+Web Components are a collection of web standards allowing you to create new HTML tags with custom name, reusability and full encapsulation on styles & markup. To understand more about what Web Components are, visit https://vaadin.com/docs/v11/flow/web-components/introduction-to-webcomponents.html[Introduction to Web Components].
 
 To be able to use a web component from Flow you need two things: to load the HTML/JS/CSS files needed by the component and a Java API used to configure the component and to listen to events from it.
 
