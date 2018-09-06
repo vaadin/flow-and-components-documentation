@@ -8,7 +8,7 @@ layout: page
 
 == Overview
 
-`Icon` is for displaying an icon from https://vaadin.com/directory/component/vaadinvaadin-icons[vaadin-icons]
+`Icon` is for displaying an icon from https://vaadin.com/components/vaadin-icons[vaadin-icons]
 or another icon collection (see
     https://vaadin.com/directory/component/polymerelementsiron-iconset-svg[iron-iconset-svg]).
 
