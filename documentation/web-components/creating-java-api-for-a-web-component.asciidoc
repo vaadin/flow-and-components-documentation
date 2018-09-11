@@ -15,7 +15,7 @@ The component class, e.g. `PaperSlider.java` you get when using the component st
 
 == Setting and reading properties
 
-You can typically find out what properties an element supports from its JS docs, e.g. for https://vaadin.com/directory/component/polymerelementspaper-slider[paper-slider]. The slider has a boolean property called `pin` which defines if "numeric value label is shown when the slider thumb is pressed". To create a `setPin(boolean pin)` Java API for this, you can add:
+You can typically find out what properties an element supports from its JS docs, e.g. for paper-slider:  https://www.webcomponents.org/element/PolymerElements/paper-slider/elements/paper-slider. The slider has a boolean property called `pin` which defines if "numeric value label is shown when the slider thumb is pressed". To create a `setPin(boolean pin)` Java API for this, you can add:
 
 [source, java]
 ----
