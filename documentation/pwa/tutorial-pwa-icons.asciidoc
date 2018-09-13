@@ -1,0 +1,57 @@
+---
+title: Icons
+order: 3
+layout: page
+---
+
+= Icons
+
+Icons are needed to give fav-icon for page, icon for device for installed apps and
+also to to create splash screen for installed applications. By default Flow will
+serve icon automatically.
+
+== Adding custom icon
+
+By naming and placing a icon file in "*icons/icon.png*" in resources folder,
+preferably webapp -folder. Flow will scan it in startup and create different
+sizes of images of given image. Icon should be in png -format. If no icon is
+found Flow will fall back to default image.
+
+For example, copy an image to
+```
+src/main/webapp/icons/icon.png
+```
+
+Given image is resized to different sizes for different use cases, so use image
+with size of at least 512x512. Icon will be automatically resized - only
+downscaling the image, that's the reason to give big enough image - to different
+sizes, using top-left -pixel as background color if needed.
+
+== Overriding generated icon
+
+Generated different images are named with as "*icons/icon-[width]x[height].png*".
+
+To override generated image place image named as created one to webapp -folder.
+
+For example, if wanted to get customized splash screen for hi-res iOS devices,
+create an image of size 1125x2436 and copy it to:
+```
+src/main/webapp/icons/icons/icon-1125x2436.png
+```
+
+== Changing name of icons
+
+To change the used icon path give custom path in @PWA -annotation property *iconPath*.
+
+Example
+```
+@PWA(name = "My Progressive Web Application", shortname = "MyPWA", iconPath = "img/icons/logo.png")
+```
+
+Then place the icon to
+```
+src/main/webapp/img/icons/logo.png
+```
+
+Now all icons will be named using value in *iconPath*, so 512x512 sized icon
+would be "*img/icons/logo-512x512.png*".

@@ -1,0 +1,45 @@
+---
+title: Web App Manifest
+order: 4
+layout: page
+---
+
+= Web App Manifest
+
+Automatically created web app manifest will be served as "*manifest.webmanifest*"
+and it has following properties:
+
+- *name* - Name of the application, set in `@PWA` -property *name*.
+- *short_name* - Short name (max 12 characters) of the application. This is used
+on device home screen where there's limited amount of space. Set in `@PWA` -property *shortName*.
+- *description* - Description for application. Default value is is empty string.
+ Set in `@PWA` -property *description*.
+- *display* - Defines the preferred display mode for application. Default value
+is *standalone*.  Set in `@PWA` -property *display*.
+- *background_color* - Background color of application. Default value is "*#f2f2f2*".
+Set in `@PWA` -property *backgroundColor*.
+- *theme_color* - Theme color of application. Default value is "*#ffffff*".
+Set in `@PWA` -property *themeColor*.
+- *scope* -  Tells the scope of application. Cannot be changed, value is root
+of application.
+- *start_url* - The start url where to navigate when application is launched from
+installed app (home screen). Default value empty string, which is root of application.
+Set in `@PWA` -property *startPath*.
+- *icons* - Automatically created from icons.
+
+== Renaming manifest
+
+Default name of web app manifest is "*manifest.webmanifest*", but it can be changed
+with `@PWA` -property *manifestPath*.
+```
+@PWA(name = "My Progressive Web Application", shortName="MyPWA", manifestPath = "manifest.json")
+```
+
+== Overriding generated manifest
+
+To override generated manifest file, place custom manifest named as in *manifestPath*.
+
+For example, create a custom manifest file and copy it to
+```
+src/main/webapp/manifest.webmanifest
+```
