@@ -12,13 +12,14 @@ They give users a native-like experience with a user friendly opt-in
 installation flow.
 
 [NOTE]
-Please refer to the https://vaadin.com/pwa[Progressive Web Applications] for
+This documentation is about creating PWAs with Flow, for generic PWA information,
+please refer to to the https://vaadin.com/pwa[Progressive Web Applications] for
 more information about PWA.
 
-== Creating a PWA
+== Basic PWA Concepts
 
-A progressive web application is a web application, but it also needs some extra
-features to support app-like behaviour:
+All progressive web applications have the same common features that enable the
+native-app-like behavior:
 
 - *Web App Manifest* - The web app manifest provides information about an
 application (such as its name, theming, icon, and description). Provided information

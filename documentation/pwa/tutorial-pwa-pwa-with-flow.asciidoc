@@ -6,8 +6,9 @@ layout: page
 
 = Creating PWA with Flow
 
-Flow server can automatically serve needed resources for PWA. To enable this,
-annotate application with `@PWA(name = "My Progressive Web Application", shortName="MyPWA")`.
+Flow server can automatically serve the needed resources for PWA. To enable this,
+annotate the root layout of your application with
+`@PWA(name = "My Progressive Web Application", shortName="MyPWA")`.
 
 [source,java]
 ----
@@ -21,7 +22,7 @@ public class MyPWA extends Div {
 ----
 
 
-By doing this flow server will automatically serve *web manifest*, *service worker*,
+By doing this Flow server will automatically serve *web manifest*, *service worker*,
 *icons*, *offline page* and *installation prompt*. Also needed additions to
 headers are added to application.
 

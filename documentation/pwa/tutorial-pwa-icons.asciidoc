@@ -1,47 +1,48 @@
 ---
-title: Icons
+title: Application Icons
 order: 3
 layout: page
 ---
 
-= Icons
+= Application Icons
 
-Icons are needed to give fav-icon for page, icon for device for installed apps and
-also to to create splash screen for installed applications. By default Flow will
+Icons are needed to give fav-icon for browser page, icon for device for installed apps and
+also to create splash screen for installed applications. By default Flow will
 serve icon automatically.
 
-== Adding custom icon
+== Using a custom icon
 
-By naming and placing a icon file in "*icons/icon.png*" in resources folder,
-preferably webapp -folder. Flow will scan it in startup and create different
-sizes of images of given image. Icon should be in png -format. If no icon is
-found Flow will fall back to default image.
-
-For example, copy an image to
+To customize the application images, copy your image to the following location
 ```
 src/main/webapp/icons/icon.png
 ```
 
+Flow will automatically scan for an *icon.png* icon file from the */icons* folder
+inside the webapp resources folder. The icon should be in png format. Flow will
+automatically create different sizes of images from the given image for different
+devices. If no icon is found Flow will fall back to default image.
+
 Given image is resized to different sizes for different use cases, so use image
-with size of at least 512x512. Icon will be automatically resized - only
+with size of at least 512x512. The icon will be automatically resized - only
 downscaling the image, that's the reason to give big enough image - to different
 sizes, using top-left -pixel as background color if needed.
 
-== Overriding generated icon
+== Overriding the generated icons
 
-Generated different images are named with as "*icons/icon-[width]x[height].png*".
+All the generated images are named with as "*icons/icon-[width]x[height].png*".
 
-To override generated image place image named as created one to webapp -folder.
+To override generated image place image named as created one to web application
+resources folder.
 
-For example, if wanted to get customized splash screen for hi-res iOS devices,
+For example, for getting a custom splash screen for hi-res iOS devices,
 create an image of size 1125x2436 and copy it to:
 ```
 src/main/webapp/icons/icons/icon-1125x2436.png
 ```
 
-== Changing name of icons
+== Renaming the icons
 
-To change the used icon path give custom path in @PWA -annotation property *iconPath*.
+To change the used icon path give custom path in `@PWA` -annotation property *iconPath*.
 
 Example
 ```

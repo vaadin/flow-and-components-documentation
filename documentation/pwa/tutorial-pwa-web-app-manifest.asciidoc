@@ -6,30 +6,31 @@ layout: page
 
 = Web App Manifest
 
-Automatically created web app manifest will be served as "*manifest.webmanifest*"
-and it has following properties:
+When the @PWA annotation is used, Flow will automatically create a web app
+manifest file with the name manifest.webmanifest. It has the following
+properties that can be customized:
 
-- *name* - Name of the application, set in `@PWA` -property *name*.
-- *short_name* - Short name (max 12 characters) of the application. This is used
+- *name* - The name of the application, set in `@PWA` -property *name*.
+- *short_name* - The short name (max 12 characters) of the application. This is used
 on device home screen where there's limited amount of space. Set in `@PWA` -property *shortName*.
-- *description* - Description for application. Default value is is empty string.
+- *description* - The description for application. The default value is is empty string.
  Set in `@PWA` -property *description*.
-- *display* - Defines the preferred display mode for application. Default value
+- *display* - Defines the preferred display mode for application. The default value
 is *standalone*.  Set in `@PWA` -property *display*.
-- *background_color* - Background color of application. Default value is "*#f2f2f2*".
+- *background_color* - The background color of application. The default value is "*#f2f2f2*".
 Set in `@PWA` -property *backgroundColor*.
-- *theme_color* - Theme color of application. Default value is "*#ffffff*".
+- *theme_color* - The theme color of application. The default value is "*#ffffff*".
 Set in `@PWA` -property *themeColor*.
 - *scope* -  Tells the scope of application. Cannot be changed, value is root
 of application.
 - *start_url* - The start url where to navigate when application is launched from
-installed app (home screen). Default value empty string, which is root of application.
+installed app (home screen). The default value is empty string, which is root of application.
 Set in `@PWA` -property *startPath*.
 - *icons* - Automatically created from icons.
 
 == Renaming manifest
 
-Default name of web app manifest is "*manifest.webmanifest*", but it can be changed
+The default name of web app manifest is "*manifest.webmanifest*", but it can be changed
 with `@PWA` -property *manifestPath*.
 ```
 @PWA(name = "My Progressive Web Application", shortName="MyPWA", manifestPath = "manifest.json")
@@ -37,7 +38,8 @@ with `@PWA` -property *manifestPath*.
 
 == Overriding generated manifest
 
-To override generated manifest file, place custom manifest named as in *manifestPath*.
+To override generated manifest file, place custom manifest with the name defined
+in the *manifestPath* property.
 
 For example, create a custom manifest file and copy it to
 ```

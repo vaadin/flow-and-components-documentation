@@ -7,22 +7,23 @@ layout: page
 = Service Worker
 
 
-A simple service worker will be generated in startup. Service caches resources:
-offline fallback page, icons and user defined offlineResources.
-Service worker also handles simple navigation in offline by serving offline
-fallback page.
+When the @PWA annotation is used, Flow will generate a simple service worker
+automatically during application startup. Service caches resources:
+offline fallback page, icons and user defined offline resources.
+Service worker also handles simple navigation in offline by serving the offline
+page.
 
 Note that the service worker can only respond to full navigation events, like
 refresh or direct navigation to an url.
 
-Service worker uses Workbox (https://developers.google.com/web/tools/workbox/)
+Service worker uses https://developers.google.com/web/tools/workbox/[Google Workbox]
 for caching resources. Needed workbox files are served by Flow, from directory
 “_VAADIN/resources/workbox/_”.
 
 == Custom cached resources
 
-To get custom files to be cached by service worker add those to `@PWA` -property
-*offlineResources*.
+To get custom files to be cached automatically by the service worker, add those
+to `@PWA` -property *offlineResources*.
 
 For example, if wanted to cache *styles/offline.css*, *img/offline.jpg* and *js/jquery.js*
 ```

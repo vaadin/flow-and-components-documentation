@@ -6,14 +6,16 @@ layout: page
 
 = Offline experience
 
-Flow will automatically serve generated offline page. The generated offline page
-is simple page tell that application is offline and it requires network connection.
+Flow will automatically serve a generated offline page. The generated offline page
+is a simple page to communicate to the user that the application is offline
+because there is network connection currently.
 
-Page is personalized with given name and icon.
+Flow automatically personalizes the offline page with the given application name
+and icon.
 
 == Custom offline page
 
-To use own offline page create file with name "*offline.html*" in webapp -folder.
+To use own offline page create file with name "*offline.html*" in web resources folder.
 
 ```
 src/main/webapp/offline.html
@@ -21,9 +23,9 @@ src/main/webapp/offline.html
 
 To change the name of the file, use `@PWA` -property *offlinePath*.
 
-Offline page may only use resources found in cache. By default, in cache
-there’s only the offline page, manifest and icons. If offline page needs other
-resources (such as css, images, webcomponents) describe those in offlineResources.
+Offline page may only use resources found in cache. By default only the offline
+page, manifest and icons are cached. If the offline page needs other resources
+(such as css, images, webcomponents) describe those in *offlineResources*.
 
 Offline experience with simple fallback page is very limited and by having separate
 offline page it also isolates the offline experience from application itself.
