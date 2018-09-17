@@ -26,17 +26,17 @@ There are some limitations when not using proxies. Circular referencing (that
 is, injecting A to B and B to A) will not work.
 Injecting into a larger scope will bind the instance
 from the currently active smaller scope, and will ignore smaller scope change.
-For example after being injected into session scope it will point to the same
-`@UIScoped` bean instance ( even its `UI` is closed ) regardless of `UI` change.
+For example a `@UIScoped` bean after being injected into session scope will point to the same
+ instance ( even its `UI` is closed ) regardless of current `UI`.
 
 .About Push
-Vaadin contexts are usable inside `UI.access` with any push transport.
+Vaadin contexts are usable inside the `UI.access` method with any push transport.
 [NOTE]
 Please refer to <<../advanced/tutorial-push-access#push.access,Asynchronous Updates>>
 about push.
 
 An incoming websocket message does not count as a request in CDI.
-Need a http request to have request, session, and conversation context.
+Need an http request to have request, session, and conversation context.
 So you should use `WEBSOCKET_XHR` (it is the default), or `LONG_POLLING`
 transport, otherwise you lost these standard contexts.
 
@@ -52,8 +52,9 @@ Please refer to <<../advanced/tutorial-application-lifecycle#application.lifecyc
 section of <<../advanced/tutorial-application-lifecycle#,Application Lifecycle>> tutorial
 for details about the Vaadin Service.
 
-Its purpose to define a scope for the beans used by VaadinService.
-See <<tutorial-cdi-service-beans#,Vaadin service interfaces as a CDI bean>>
+For beans automatically picked up by VaadinService you need the `@VaadinServiceEnabled` annotation.
+It should be used together with `@VaadinServiceScoped`,
+see <<tutorial-cdi-service-beans#,Vaadin service interfaces as a CDI bean>> for details.
 
 == `@VaadinSessionScoped`
 
