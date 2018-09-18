@@ -7,9 +7,8 @@ import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("creating-components/tutorial-component-lifecycle-callbacks.asciidoc")
+// code for creating-components/tutorial-component-lifecycle-callbacks.asciidoc
 public class ComponentAttach {
 
     interface I18N {

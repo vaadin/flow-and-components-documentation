@@ -18,9 +18,8 @@ package com.vaadin.flow.tutorial.components;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("components/tutorial-enabled-state.asciidoc")
+// code for components/tutorial-enabled-state.asciidoc
 public class ComponentEnabledState {
 
     public void enabledState_component() {

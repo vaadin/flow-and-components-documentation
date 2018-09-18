@@ -19,11 +19,10 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.dom.DomEvent;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.dom.ElementFactory;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 import elemental.json.JsonObject;
 
-@CodeFor("element-api/tutorial-event-listener.asciidoc")
+// code for element-api/tutorial-event-listener.asciidoc
 public abstract class EventListener extends Div {
 
     void tutorialCode() {

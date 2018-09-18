@@ -41,10 +41,9 @@ import com.vaadin.flow.data.renderer.LocalDateTimeRenderer;
 import com.vaadin.flow.data.renderer.NativeButtonRenderer;
 import com.vaadin.flow.data.renderer.NumberRenderer;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.databinding.Person.Gender;
 
-@CodeFor("components/tutorial-flow-grid.asciidoc")
+// code for components/tutorial-flow-grid.asciidoc
 public class GridRenderers {
 
     private List<Person> people = Arrays.asList(new Person(), new Person());

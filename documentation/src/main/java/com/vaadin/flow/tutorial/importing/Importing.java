@@ -23,9 +23,8 @@ import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("importing-dependencies/tutorial-importing.asciidoc")
+// code for importing-dependencies/tutorial-importing.asciidoc
 public class Importing {
 
     //@formatter:off - custom line wrapping

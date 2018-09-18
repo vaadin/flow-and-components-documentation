@@ -30,9 +30,8 @@ import com.vaadin.flow.server.BootstrapListener;
 import com.vaadin.flow.server.BootstrapPageResponse;
 import com.vaadin.flow.server.InitialPageSettings;
 import com.vaadin.flow.server.PageConfigurator;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-bootstrap.asciidoc")
+// code for advanced/tutorial-bootstrap.asciidoc
 public class BootstrapPage {
 
     public class CustomBootstrapListener implements BootstrapListener {

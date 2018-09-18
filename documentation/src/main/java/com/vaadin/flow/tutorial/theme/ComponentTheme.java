@@ -21,9 +21,8 @@ import java.util.Map;
 
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.theme.AbstractTheme;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("theme/integrating-component-theme.asciidoc")
+// code for theme/integrating-component-theme.asciidoc
 public class ComponentTheme {
 
     @HtmlImport("frontend://bower_components/vaadin-lumo-styles/color.html")

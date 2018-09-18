@@ -22,9 +22,8 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.RouteData;
 import com.vaadin.flow.router.Router;
 import com.vaadin.flow.router.RouterLayout;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("routing/tutorial-routing-get-registered-routes.asciidoc")
+// code for routing/tutorial-routing-get-registered-routes.asciidoc
 public class RountingGettingRoutes {
 
     public void getRoutes() {

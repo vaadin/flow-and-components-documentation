@@ -25,9 +25,8 @@ import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.ModelItem;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.templatemodel.TemplateModel;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-event-handlers.asciidoc")
+// code for polymer-templates/tutorial-template-event-handlers.asciidoc
 public class PolymerTemplateEvents {
 
     // @formatter:off

@@ -2,9 +2,8 @@ package com.vaadin.flow.tutorial.polymer;
 
 import java.io.Serializable;
 
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-model-encoders.asciidoc")
+// code for polymer-templates/tutorial-template-model-encoders.asciidoc
 public class DateBean implements Serializable {
 
     private String day;

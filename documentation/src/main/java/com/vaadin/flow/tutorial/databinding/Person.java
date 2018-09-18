@@ -17,9 +17,8 @@ package com.vaadin.flow.tutorial.databinding;
 
 import java.io.Serializable;
 
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("binding-data/tutorial-flow-components-binder.asciidoc")
+// code for binding-data/tutorial-flow-components-binder.asciidoc
 public class Person implements Serializable {
 
     public static class Department {

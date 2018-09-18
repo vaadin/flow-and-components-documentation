@@ -20,9 +20,8 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.dom.ShadowRoot;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("element-api/tutorial-shadow-root.asciidoc")
+// code for element-api/tutorial-shadow-root.asciidoc
 public class ShadowRootSamples {
 
     @Tag("my-label")

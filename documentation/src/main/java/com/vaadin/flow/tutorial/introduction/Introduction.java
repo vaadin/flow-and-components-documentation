@@ -14,9 +14,8 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.templatemodel.TemplateModel;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("introduction/introduction-overview.asciidoc")
+// code for introduction/introduction-overview.asciidoc
 public class Introduction {
 
     public Introduction() {

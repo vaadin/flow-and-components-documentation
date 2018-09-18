@@ -9,9 +9,8 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("introduction/tutorial-get-started.asciidoc")
+// code for introduction/tutorial-get-started.asciidoc
 @HtmlImport("styles/shared-styles.html")
 @Route("")
 public class MainView extends VerticalLayout {

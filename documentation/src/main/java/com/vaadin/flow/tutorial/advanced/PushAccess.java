@@ -23,9 +23,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.Command;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-push-access.asciidoc")
+// code for advanced/tutorial-push-access.asciidoc
 public class PushAccess {
     private void accessExamples() {
         UI ui = null;

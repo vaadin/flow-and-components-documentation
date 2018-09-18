@@ -22,9 +22,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.FileBuffer;
 import com.vaadin.flow.component.upload.receivers.MultiFileBuffer;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("components/tutorial-flow-upload.asciidoc")
+// code for components/tutorial-flow-upload.asciidoc
 public class UploadBasic {
 
     @Test

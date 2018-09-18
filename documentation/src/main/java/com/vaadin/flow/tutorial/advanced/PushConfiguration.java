@@ -20,9 +20,8 @@ import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.shared.communication.PushMode;
 import com.vaadin.flow.shared.ui.Transport;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-push-configuration.asciidoc")
+// code for advanced/tutorial-push-configuration.asciidoc
 public class PushConfiguration {
     @Push
     public class MyLayout extends Div implements RouterLayout {

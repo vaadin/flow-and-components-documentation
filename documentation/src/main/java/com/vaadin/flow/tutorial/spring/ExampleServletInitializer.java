@@ -15,10 +15,9 @@
  */
 package com.vaadin.flow.tutorial.spring;
 
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @SpringBootApplication
-@CodeFor("spring/tutorial-spring-basic.asciidoc")
+// code for spring/tutorial-spring-basic.asciidoc
 public class ExampleServletInitializer extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

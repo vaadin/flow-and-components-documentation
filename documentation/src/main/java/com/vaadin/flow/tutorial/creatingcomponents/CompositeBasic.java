@@ -19,9 +19,8 @@ import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Input;
 import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("creating-components/tutorial-component-composite.asciidoc")
+// code for creating-components/tutorial-component-composite.asciidoc
 public class CompositeBasic {
     public class TextField extends Composite<Div> {
 

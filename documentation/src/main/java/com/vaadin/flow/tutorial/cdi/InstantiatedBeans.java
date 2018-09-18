@@ -15,6 +15,10 @@
  */
 package com.vaadin.flow.tutorial.cdi;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.Span;
@@ -22,14 +26,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.templatemodel.TemplateModel;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.polymer.Id;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-
-@CodeFor("cdi/tutorial-cdi-instantiated-beans.asciidoc")
+// code for cdi/tutorial-cdi-instantiated-beans.asciidoc
 public class InstantiatedBeans {
 
     @Route

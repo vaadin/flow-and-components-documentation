@@ -22,9 +22,8 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("routing/tutorial-routing-navigation.asciidoc")
+// code for routing/tutorial-routing-navigation.asciidoc
 public class RouterNavigation {
 
     void navigation() {

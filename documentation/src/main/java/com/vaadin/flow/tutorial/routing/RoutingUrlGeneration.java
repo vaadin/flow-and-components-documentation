@@ -21,9 +21,8 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("routing/tutorial-routing-url-generation.asciidoc")
+// code for routing/tutorial-routing-url-generation.asciidoc
 public class RoutingUrlGeneration {
 
     @Route("path")

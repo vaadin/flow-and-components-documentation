@@ -25,9 +25,8 @@ import com.vaadin.flow.router.ParentLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.templatemodel.TemplateModel;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-components-in-slot.asciidoc")
+// code for polymer-templates/tutorial-template-components-in-slot.asciidoc
 public class PolymerSlotView {
     @Tag("component-container")
     @HtmlImport("/com/example/ComponentContainer.html")

@@ -15,11 +15,10 @@
  */
 package com.vaadin.flow.tutorial.databinding;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
@@ -31,9 +30,8 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.BinderValidationStatusHandler;
 import com.vaadin.flow.data.binder.ValidationResult;
 import com.vaadin.flow.data.converter.StringToIntegerConverter;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("binding-data/tutorial-flow-components-binder-beans.asciidoc")
+// code for binding-data/tutorial-flow-components-binder-beans.asciidoc
 public class BinderBeans {
 
     private TextField streetAddressField;

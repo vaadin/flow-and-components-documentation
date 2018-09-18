@@ -22,9 +22,8 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.polymertemplate.Id;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("components/tutorial-component-basic-features.asciidoc")
+// code for components/tutorial-component-basic-features.asciidoc
 public class ComponentBasicFeatures {
 
     @Id("my-component")

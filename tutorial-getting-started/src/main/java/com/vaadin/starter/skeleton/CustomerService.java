@@ -1,6 +1,5 @@
 package com.vaadin.starter.skeleton;
 
-import com.vaadin.flow.tutorial.annotations.Helper;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -13,7 +12,7 @@ import java.util.logging.Logger;
  * In demos/tutorials/examples, get a reference to this service class with
  * {@link CustomerService#getInstance()}.
  */
-@Helper
+// helper
 public class CustomerService {
 
 	private static CustomerService instance;

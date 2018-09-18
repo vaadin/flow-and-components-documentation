@@ -24,8 +24,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import com.vaadin.flow.component.AbstractField;
-import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
@@ -41,10 +39,9 @@ import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.data.provider.QuerySortOrder;
 import com.vaadin.flow.data.provider.SortDirection;
 import com.vaadin.flow.data.provider.SortOrder;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.databinding.Person.Department;
 
-@CodeFor("binding-data/tutorial-flow-data-provider.asciidoc")
+// code for binding-data/tutorial-flow-data-provider.asciidoc
 public class DataProviders {
 
     public static class PersonSort {

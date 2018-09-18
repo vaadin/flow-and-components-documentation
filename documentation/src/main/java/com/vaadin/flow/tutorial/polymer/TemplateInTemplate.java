@@ -21,9 +21,8 @@ import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.templatemodel.TemplateModel;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-subtemplate.asciidoc")
+// code for polymer-templates/tutorial-template-subtemplate.asciidoc
 public class TemplateInTemplate {
 
     @Tag("parent-template")

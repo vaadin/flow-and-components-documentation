@@ -8,9 +8,8 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.ServiceInitEvent;
 import com.vaadin.flow.server.VaadinServiceInitListener;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("migration/8-migration-example.asciidoc")
+// code for migration/8-migration-example.asciidoc
 public class Example {
 
     @Route("")

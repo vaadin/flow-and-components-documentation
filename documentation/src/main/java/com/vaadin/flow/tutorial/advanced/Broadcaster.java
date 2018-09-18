@@ -21,9 +21,8 @@ import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 import com.vaadin.flow.shared.Registration;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-push-broadcaster.asciidoc")
+// code for advanced/tutorial-push-broadcaster.asciidoc
 public class Broadcaster {
     static Executor executor = Executors.newSingleThreadExecutor();
 

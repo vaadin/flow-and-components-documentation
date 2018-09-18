@@ -10,9 +10,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("web-components/creating-java-api-for-a-web-component.asciidoc")
+// code for web-components/creating-java-api-for-a-web-component.asciidoc
 @Route("")
 @Theme(Lumo.class)
 public class DemoView extends VerticalLayout {

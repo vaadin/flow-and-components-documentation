@@ -32,9 +32,8 @@ import com.vaadin.flow.dom.DisabledUpdateMode;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.dom.PropertyChangeEvent;
 import com.vaadin.flow.templatemodel.TemplateModel;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("components/tutorial-enabled-state.asciidoc")
+// code for components/tutorial-enabled-state.asciidoc
 public class DisabledComponents extends Component {
 
     public static class Notification extends Component {

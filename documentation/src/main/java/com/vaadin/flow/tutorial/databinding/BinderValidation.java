@@ -27,10 +27,9 @@ import com.vaadin.flow.data.binder.ValueContext;
 import com.vaadin.flow.data.converter.Converter;
 import com.vaadin.flow.data.converter.StringToIntegerConverter;
 import com.vaadin.flow.data.validator.EmailValidator;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.databinding.Person.Gender;
 
-@CodeFor("binding-data/tutorial-flow-components-binder-validation.asciidoc")
+// code for binding-data/tutorial-flow-components-binder-validation.asciidoc
 public class BinderValidation {
 
     private TextField emailField;

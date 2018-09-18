@@ -18,9 +18,8 @@ package com.vaadin.flow.tutorial.components;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("components/tutorial-flow-icon.asciidoc")
+// code for components/tutorial-flow-icon.asciidoc
 public class IconBasic {
 
     public void basics() {

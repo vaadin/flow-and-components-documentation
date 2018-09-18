@@ -8,9 +8,8 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.OptionalParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("routing/tutorial-routing-page-titles.asciidoc")
+// code for routing/tutorial-routing-page-titles.asciidoc
 public class RoutingViewTitles {
     @PageTitle("home")
     class HomeView extends Div {

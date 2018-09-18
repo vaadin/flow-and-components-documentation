@@ -15,17 +15,17 @@
  */
 package com.vaadin.flow.tutorial.spring;
 
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
 import com.vaadin.flow.spring.annotation.VaadinSessionScope;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
-@CodeFor("spring/tutorial-spring-scopes.asciidoc")
+// code for spring/tutorial-spring-scopes.asciidoc
 public class Scopes {
 
     public static class SessionScoped {

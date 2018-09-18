@@ -15,12 +15,11 @@
  */
 package com.vaadin.flow.tutorial.spring;
 
-import java.util.Collection;
-import java.util.Collections;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
+import java.util.Collection;
+import java.util.Collections;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -30,9 +29,8 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 
 import com.vaadin.flow.spring.SpringServlet;
 import com.vaadin.flow.spring.VaadinMVCWebAppInitializer;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("spring/tutorial-spring-basic-mvc.asciidoc")
+// code for spring/tutorial-spring-basic-mvc.asciidoc
 public class MvcSpringUsage {
 
     public abstract class ExampleWebAppInitializer

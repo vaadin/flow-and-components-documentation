@@ -23,9 +23,8 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.templatemodel.TemplateModel;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-basic.asciidoc")
+// code for polymer-templates/tutorial-template-basic.asciidoc
 public class HelloWorldTutorial {
 
     /**

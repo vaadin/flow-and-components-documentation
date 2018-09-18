@@ -17,9 +17,8 @@ package com.vaadin.flow.tutorial.routing;
 
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("routing/tutorial-routing-annotation.asciidoc")
+// code for routing/tutorial-routing-annotation.asciidoc
 public class RoutingAnnotation {
 
     @Route("")

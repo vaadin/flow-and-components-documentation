@@ -6,9 +6,8 @@ import com.vaadin.flow.component.page.LoadingIndicatorConfiguration;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.server.InitialPageSettings;
 import com.vaadin.flow.server.PageConfigurator;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-loading-indicator.asciidoc")
+// code for advanced/tutorial-loading-indicator.asciidoc
 public class MainLayout extends Composite<Div> implements PageConfigurator, RouterLayout {
 
     // other implementation omitted
