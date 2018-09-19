@@ -29,7 +29,7 @@ Before getting more into actual Vaadin development, let us introduce some domain
 Copy the following three classes from github to your project in the "com.vaadin.starter.skeleton" package. Class names point to the classes hosted in Github. Copying classes can be done in many ways.
 
 [TIP]
-The fastest way to copy classes using Eclipse is to use your good old clipboard. Select the text content of the whole class from your browser, choose "Edit > Copy", focus the node representing the [packagename]#com.vaadin.starter.skeleton.my-app# Java package in Eclipse’s Java Resources view and choose "Edit > Paste". Eclipse is smart enough to automatically create a properly named Java file for the class.
+The fastest way to copy classes using Eclipse is to use your good, old clipboard. Select the text content of the whole class from your browser, choose "Edit > Copy", focus the node representing the [packagename]#com.vaadin.starter.skeleton.my-app# Java package in Eclipse’s Java Resources view and choose "Edit > Paste". Eclipse is smart enough to automatically create a properly named Java file for the class.
 
  * https://raw.githubusercontent.com/vaadin/flow-and-components-documentation/master/tutorial-getting-started/src/main/java/com/vaadin/flow/demo/helloworld/CustomerStatus.java[CustomerStatus.java] -
  this is a simple enum class
@@ -63,7 +63,7 @@ public class MainView extends VerticalLayout {
 
 [TIP]
 If you are new to Java development, you probably do not feel comfortable with the red compilation error for the line where the [classname]#Grid# got introduced, because of a missing import. This is easily fixed in Eclipse by using the menu:Source[Organize Imports] command. Learn its shortcut (kbd:[Ctrl-Shift-O]
-or kbd:[CMD-Shift-O] on Macs), you will be using it a lot in Java development. In possible class name collisions, always choose the appropriate class from the `com.vaadin.flow` package if you want to import core Vaadin Flow UI components like the Grid.
+or kbd:[CMD-Shift-O] on Macs), you will be using it a lot in Java development. In possible class name collisions, always choose the appropriate class from the `com.vaadin.flow` package if you want to import core Vaadin Flow UI components, like the Grid.
 
 To list all properties of all Customer objects from the backend service, replace the [classname]#MainView# constructor with the following:
 
@@ -93,7 +93,7 @@ public void updateList() {
 }
 ----
 
-At this point the body of the MainView class should look like this:
+At this point, the body of the MainView class should look like this:
 
 [source,java]
 ----
@@ -117,4 +117,4 @@ public void updateList() {
 }
 ----
 
-You can now save your code changes and verify the changes in your browser. You can do this at any point during the rest of the tutorial as well.
+You can now save your code changes and verify the changes in your browser. You can do this at any point during the rest of the tutorial, as well.

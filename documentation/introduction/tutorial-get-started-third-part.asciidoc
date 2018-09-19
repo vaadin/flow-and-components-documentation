@@ -33,10 +33,10 @@ filterText.addValueChangeListener(e -> updateList());
 ----
 
 [TIP]
-To keep your code more readable, you can use autoformat after you write or copy paste code snippets. The default keyboard shortcut in Eclipse is kbd:[Ctrl+Shift+F] or kbd:[Cmd+Shift+F]. This can also be configured for all save actions in the Eclipse, that means this command does formatting whenever you need, but it can also be automated if the user wants to.
-By selecting the Format source code in “Preferences > Save Actions” you can automate the formating action.
+To keep your code more readable, you can use autoformat after you write or copy paste code snippets. The default keyboard shortcut in Eclipse is kbd:[Ctrl+Shift+F] or kbd:[Cmd+Shift+F]. This can also be configured for all save actions in Eclipse, that means this command does formatting whenever you need, but it can also be automated, if the user wants to.
+By selecting the Format source code in “Preferences > Save Actions”, you can automate the formating action.
 
-As its name implies, the value change listener allows you to react to changes in the value contained in the text field. When setting the mode as `EAGER` it is configured so that the event is fired while the user is typing. This makes it perfect for this kind of automatic filtering. When the user is typing in the text, we’ll just update the listing calling the `updateList` method as before.
+As its name implies, the value change listener allows you to react to changes in the value contained in the text field. When setting the mode as `EAGER`, it is configured so that the event is fired while the user is typing. This makes it perfect for this kind of automatic filtering. When the user is typing in the text, we’ll just update the listing, calling the `updateList` method as before.
 To keep the `updateList` method functionality correct, it should take into consideration the possible value in the filterText field. Change the body of the method into this:	 
 
 [source,java]
@@ -123,4 +123,4 @@ public class MainView extends VerticalLayout {
 
 Now it is a good time to save your changes and try them out in your browser!
 
-Good job! Let's move on and continue by creating a form using plain Java in the next tutorial section.
+Good job! Let's move on, and continue by creating a form using plain Java in the next tutorial section.
