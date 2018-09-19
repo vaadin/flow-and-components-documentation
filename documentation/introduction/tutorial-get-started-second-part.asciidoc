@@ -84,7 +84,7 @@ public MainView() {
 
 We need the line setHeight("100vh"), with the 'setSizeFull' line for the Grid above, to make sure both the app itself and the Grid take all the available vertical space.
 
-As we’ll want to refresh the listing from various places in our application, we put the customer listing part into its own "updateList" method with the *public* modifier. The public modifier is handy later when we want to update the listing from other classes. The method looks like this:
+As we’ll want to refresh the listing from various places in our application, we put the customer listing part into its own "updateList" method with the *public* modifier. The public modifier is handy later, when we want to update the listing from other classes. The method looks like this:
 
 [source,java]
 ----
