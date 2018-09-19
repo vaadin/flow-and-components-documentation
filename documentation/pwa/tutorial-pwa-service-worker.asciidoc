@@ -16,7 +16,7 @@ page.
 Note that the service worker can only respond to full navigation events, like
 refresh or direct navigation to an url.
 
-Service worker uses https://developers.google.com/web/tools/workbox/[Google Workbox]
+The service worker uses https://developers.google.com/web/tools/workbox/[Google Workbox]
 for caching resources. Needed workbox files are served by Flow, from directory
 “_VAADIN/resources/workbox/_”.
 
