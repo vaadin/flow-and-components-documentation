@@ -21,12 +21,18 @@ is *standalone*.  Set in `@PWA` -property *display*.
 Set in `@PWA` -property *backgroundColor*.
 - *theme_color* - The theme color of application. The default value is "*#ffffff*".
 Set in `@PWA` -property *themeColor*.
-- *scope* -  Tells the scope of application. Cannot be changed, value is root
-of application.
+- *scope* -  Defines the navigation scope of this website's context. This restricts
+what web pages can be viewed while the manifest is applied. Cannot be changed
+with `@PWA` -annotation. Value is set to the context path of application.
 - *start_url* - The start url where to navigate when application is launched from
-installed app (home screen). The default value is empty string, which is root of application.
+installed app (home screen). The default value is an empty string `""`, which
+points to the default route target for the application (marked with `@Route("")`).
 Set in `@PWA` -property *startPath*.
 - *icons* - Automatically created from icons.
+
+[NOTE]
+For detailed information about Web App Manifest please refer to the
+https://developer.mozilla.org/en-US/docs/Web/Manifest[MDN web docs]
 
 == Renaming manifest
 

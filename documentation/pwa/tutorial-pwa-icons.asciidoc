@@ -7,8 +7,8 @@ layout: page
 = Application Icons
 
 Icons are needed to give fav-icon for browser page, icon for device for installed apps and
-also to create splash screen for installed applications. By default Flow will
-serve icon automatically.
+also to create splash screen for installed applications. By default, Flow will
+use a default icon and serve an it automatically.
 
 == Using a custom icon
 
@@ -20,7 +20,7 @@ src/main/webapp/icons/icon.png
 Flow will automatically scan for an *icon.png* icon file from the */icons* folder
 inside the webapp resources folder. The icon should be in png format. Flow will
 automatically create different sizes of images from the given image for different
-devices. If no icon is found Flow will fall back to default image.
+devices. If no icon is found, then Flow will fall back to default image.
 
 Given image is resized to different sizes for different use cases, so use image
 with size of at least 512x512. The icon will be automatically resized - only
