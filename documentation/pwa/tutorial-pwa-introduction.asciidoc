@@ -1,0 +1,43 @@
+---
+title: Introduction
+order: 1
+layout: page
+---
+
+= Introduction
+
+Progressive Web Apps (PWA) combine new technologies with established best
+practices for creating reliable, accessible, and engaging experiences.
+They give users a native-like experience with a user friendly opt-in
+installation flow.
+
+[NOTE]
+This documentation is about creating PWAs with Flow, for generic PWA information,
+please refer to to the https://vaadin.com/pwa[Progressive Web Applications] for
+more information about PWA.
+
+== Basic PWA Concepts
+
+All progressive web applications have the same common features that enable the
+native-app-like behavior:
+
+- *Web App Manifest* - The web app manifest provides information about an
+application (such as its name, theming, icon, and description). Provided information
+describes the details needed for making an installable version of web application.
+- *Service Worker* - A service worker is a type of web worker. It's essentially
+a JavaScript file that runs separately from the main browser thread, intercepting
+network requests, caching or retrieving resources from the cache, and delivering push messages.
+The ability the intercept network request makes it possible to serve files directly
+from cache and even create a full application experience even where there's no
+network available.
+
+Those are the basic needs, but in order to support installation on devices there
+are also other requirements, which also depend on device and browser used:
+
+- *Icons* - different sizes of icons are needed to support different devices.
+Also for better experience, there should be splash screen -images for iOS -devices.
+- *Offline support* - the service worker must be able respond to serve client if
+network is unavailable.
+- *Header information* - in addition to manifest file, the application must also
+have describing data in header (browser/device specific version of theming and icons)
+- *Installation prompt* - Google Chrome requires special installation handling.

@@ -1,0 +1,41 @@
+---
+title: Service Worker
+order: 5
+layout: page
+---
+
+= Service Worker
+
+
+When the @PWA annotation is used, Flow will generate a simple service worker
+automatically during application startup. Service caches resources:
+offline fallback page, icons and user defined offline resources.
+Service worker also handles simple navigation in offline by serving the offline
+page.
+
+Note that the service worker can only respond to full navigation events, like
+refresh or direct navigation to an url.
+
+The service worker uses https://developers.google.com/web/tools/workbox/[Google Workbox]
+for caching resources. Needed workbox files are served by Flow, from directory
+“_VAADIN/resources/workbox/_”.
+
+== Custom cached resources
+
+To get custom files to be cached automatically by the service worker, add those
+to `@PWA` -property *offlineResources*.
+
+For example, if wanted to cache *styles/offline.css*, *img/offline.jpg* and *js/jquery.js*
+```
+@PWA(name = "My Progressive Web Application", shortName="MyPWA",
+offlineResources = { "styles/offline.css", "js/jquery.js", "img/offline.jpg"})
+```
+
+== Overriding generated service worker
+
+To override generated service worker, copy a custom service worker to webbapp
+-folder, named as "*sw.js*".
+
+```
+src/main/webapp/sw.js
+```
