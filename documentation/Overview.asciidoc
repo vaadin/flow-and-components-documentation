@@ -122,6 +122,14 @@ and keep the page state intact. The following tutorials explain how to use the R
 * <<production/tutorial-production-mode-customising#,Customising Bundling>>
 * <<production/tutorial-production-mode-advanced#,Advanced production mode topics>>
 
+== Progressive Web Applications
+* <<pwa/tutorial-pwa-introduction#,Introduction>>
+* <<pwa/tutorial-pwa-pwa-with-flow#,Creating PWA with Flow>>
+* <<pwa/tutorial-pwa-icons#,Application Icons>>
+* <<pwa/tutorial-pwa-web-app-manifest#,Web App Manifest>>
+* <<pwa/tutorial-pwa-service-worker#,Service Worker>>
+* <<pwa/tutorial-pwa-offline#,Offline experience>>
+
 == Migrating from Vaadin 8 to Vaadin 10
 * <<migration/1-migrating-v8-v10#,Migrating from Vaadin 8 to Vaadin 10>>
 * <<migration/2-migration-strategies#,Migration Strategies>>
@@ -133,14 +141,6 @@ and keep the page state intact. The following tutorials explain how to use the R
 ** <<migration/5-components#layouts,Layouts in Vaadin 10>>
 * <<migration/6-theming#,Themes and Theming Applications>>
 * <<migration/7-tools-integrations#,Add-ons, Integrations and Tools>>
-
-== Progressive Web Applications
-* <<pwa/tutorial-pwa-introduction#,Introduction>>
-* <<pwa/tutorial-pwa-pwa-with-flow#,Creating PWA with Flow>>
-* <<pwa/tutorial-pwa-icons#,Application Icons>>
-* <<pwa/tutorial-pwa-web-app-manifest#,Web App Manifest>>
-* <<pwa/tutorial-pwa-service-worker#,Service Worker>>
-* <<pwa/tutorial-pwa-offline#,Offline experience>>
 
 == Advanced Topics
 * <<advanced/tutorial-application-lifecycle#,Application Lifecycle>>
