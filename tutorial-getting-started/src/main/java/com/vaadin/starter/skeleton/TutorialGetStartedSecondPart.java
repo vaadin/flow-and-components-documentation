@@ -3,9 +3,8 @@ package com.vaadin.starter.skeleton;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("introduction/tutorial-get-started-second-part.asciidoc")
+// code for introduction/tutorial-get-started-second-part.asciidoc
 public class TutorialGetStartedSecondPart {
 
 

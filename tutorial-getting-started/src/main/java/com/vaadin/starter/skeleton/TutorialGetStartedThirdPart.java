@@ -9,9 +9,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("introduction/tutorial-get-started-third-part.asciidoc")
+// code for introduction/tutorial-get-started-third-part.asciidoc
 public class TutorialGetStartedThirdPart {
 
 
