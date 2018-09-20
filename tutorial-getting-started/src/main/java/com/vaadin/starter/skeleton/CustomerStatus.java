@@ -1,4 +1,4 @@
-package com.vaadin.flow.demo.helloworld;
+package com.vaadin.starter.skeleton;
 
 import com.vaadin.flow.tutorial.annotations.Helper;
 
