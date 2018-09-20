@@ -41,13 +41,13 @@ To keep the `updateList` method functionality correct, it should take into consi
 
 [source,java]
 ----
-	public void updateList() {
-		/**
-		 * Note that filterText.getValue() might return null; in this case, the backend
-		 * takes care of it for us
-		 */
-		grid.setItems(service.findAll(filterText.getValue()));
-	}
+public void updateList() {
+    /**
+    * Note that filterText.getValue() might return null; in this case, the backend
+    * takes care of it for us
+    */
+    grid.setItems(service.findAll(filterText.getValue()));
+    }
 ----
 
 Before adding the text field to the UI, let’s improve the usability a bit and make a short exercise to compose better components from lower level UI components. The search field can naturally be cleared with the keyboard, but let’s add a clear button next to the text field. Start by adding the following lines to the constructor, for example right after your `filterText` configuration:
@@ -82,7 +82,7 @@ Now the mainView looks like this:
 	/**
  * The main view contains a button and a click listener.
  */
-@Route
+@Route("")
 public class MainView extends VerticalLayout {
 
 	private CustomerService service = CustomerService.getInstance();

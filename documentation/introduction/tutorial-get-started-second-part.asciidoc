@@ -23,9 +23,6 @@ In this tutorial section we want to display some data in a grid.
 
 Before getting more into actual Vaadin development, let us introduce some domain objects and a dummy backend. In a real-world application, you will most likely have something similar, implemented with JPA and EJB or a Spring-based service.
 
-// The following video shows how to do this step of the tutorial:
-
-// video::Alejandro[youtube, width="640", height="400"]
 Copy the following three classes from github to your project in the "com.vaadin.starter.skeleton" package. Class names point to the classes hosted in Github. Copying classes can be done in many ways.
 
 [TIP]
@@ -44,25 +41,22 @@ We will be using these classes and build a UI around them. The actual implementa
 === UI code for showing data in a Grid
 
 Often when you start building a UI for a data-centric application, the first thing you want to do is to list your data from your back-end. There are several components and ways in Vaadin to do this. In this example, we will use the Grid component for tabular presentation of our customers.
-// The following video shows how to do this step of the tutorial:
 
-// video::Alejandro[youtube, width="640", height="400"]
 We start by introducing a [classname]#Grid# field in [classname]#MainView#. We could of course just introduce the grid as a local variable in the constructor, but we most likely want to refer to it later. Also, let us get a reference to our [classname]#CustomerService#.
 
 [source, java]
 ----
-@Route
+@Route("")
 public class MainView extends VerticalLayout {
-	
-	private CustomerService service = CustomerService.getInstance();
-    private Grid<Customer> grid = new Grid<>();
 
+    private CustomerService service = CustomerService.getInstance();
+    private Grid<Customer> grid = new Grid<>();
 
     public MainView() {
 ----
 
 [TIP]
-If you are new to Java development, you probably do not feel comfortable with the red compilation error for the line where the [classname]#Grid# got introduced, because of a missing import. This is easily fixed in Eclipse by using the menu:Source[Organize Imports] command. Learn its shortcut (kbd:[Ctrl-Shift-O]
+If you are new to Java development, you probably do not feel comfortable with the red compilation error for the line where the [classname]#Grid# got introduced, because of a missing import. This is easily fixed in Eclipse by using the "Source > Organize" Imports command. Learn its shortcut (kbd:[Ctrl-Shift-O]
 or kbd:[CMD-Shift-O] on Macs), you will be using it a lot in Java development. In possible class name collisions, always choose the appropriate class from the `com.vaadin.flow` package if you want to import core Vaadin Flow UI components, like the Grid.
 
 To list all properties of all Customer objects from the backend service, replace the [classname]#MainView# constructor with the following:
@@ -118,3 +112,5 @@ public void updateList() {
 ----
 
 You can now save your code changes and verify the changes in your browser. You can do this at any point during the rest of the tutorial, as well.
+
+Good job! Let's move on, and continue by creating live filtering for entities.

@@ -88,7 +88,7 @@ The Java code of the application stub main view can be found in the
 /**
  * The main view contains a button and a click listener.
  */
-@Route
+@Route("")
 public class MainView extends VerticalLayout {
 
     public MainView() {
@@ -99,7 +99,7 @@ public class MainView extends VerticalLayout {
 }
 ----
 
-The annotation, [classname]#@Route#, tells Vaadin Flow to direct the root URL to this view.
+The annotation, [classname]#@Route("")#, tells Vaadin Flow to direct the root URL to this view.
 In the main view, we have a button and when this button is clicked, a notification is shown. The logic is attached to the button with a simple Java 8 lambda expression, and finally the button is added into the main view.
 
 To test your first Vaadin application, right-click on the project and choose [guilabel]#“Debug as ▸ Maven build…”#​. The debug mode is slightly slower than the basic run mode, but it often helps you to figure out what is happening in your application.

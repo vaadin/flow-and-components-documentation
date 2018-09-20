@@ -23,19 +23,19 @@ subnav:
 In this section, we first of all explain how to create a form and show the grids selected row in it and secondly,
 how to Add, Update, and Delete the customer data of the form.
 
-[[#flow.tutorial.form.showselectedrow]]
+[[flow.tutorial.form.showselectedrow]]
 === Create a form and show the grids selected row in it
 // The following video shows how to create a form using plain Java:
 
 // video::Alejandro[youtube, width="640", height="400"]
 In this part we want to create a new form and connect it to the Grid. We start by creating a new Java class with the name CustomerForm.
-In Eclipse, right click on the "com.vaadin.starter.skeleton" package and choose menu:New[Class]. Type in the name `CustomerForm`,
+In Eclipse, right click on the "com.vaadin.starter.skeleton" package and choose "New > Class". Type in the name `CustomerForm`,
 define the superclass as `com.vaadin.flow.component.formlayout.FormLayout` and click `finish`.
 
 We need a field for each property in the [classname]#Customer# class that we want to edit.
 There are different kinds of fields in Vaadin for editing different kinds of properties. In this example,
 we’ll use two [classname]#TextField# and a [classname]#ComboBox#.
-Add the following field declarations and action buttons as Java fields to [classname]#CustomerForm#:
+Add the following field declarations as Java fields to [classname]#CustomerForm#:
 
 [source,java]
 ----
@@ -60,8 +60,7 @@ public CustomerForm(MainView mainView) {
 }
 ----
 
-In the constructor we add the fields to the [classname]#CustomerForm# and add
-action buttons to the bottom - side-by-side using a [classname]#HorizontalLayout#.
+In the constructor we add the fields to the [classname]#CustomerForm# - side-by-side using a [classname]#HorizontalLayout#.
 Although the form is not yet fully functional, you might want to see what it looks
 like at this point. 
 
@@ -147,31 +146,31 @@ Now your CustomerForm looks like this:
 [source,java]
 ----
 public class CustomerForm extends FormLayout {
-private TextField firstName = new TextField("First name");
-private TextField lastName = new TextField("Last name");
-private ComboBox<CustomerStatus> status = new ComboBox<>("Status");
-private CustomerService service = CustomerService.getInstance();
-private Customer customer;
-private MainView mainView;
-private Binder<Customer> binder = new Binder<>(Customer.class);
+    private TextField firstName = new TextField("First name");
+    private TextField lastName = new TextField("Last name");
+    private ComboBox<CustomerStatus> status = new ComboBox<>("Status");
+    private CustomerService service = CustomerService.getInstance();
+    private Customer customer;
+    private MainView mainView;
+    private Binder<Customer> binder = new Binder<>(Customer.class);
 
-public CustomerForm(MainView mainView) {
-this.mainView = mainView;
-add(firstName, lastName, status);
-status.setItems(CustomerStatus.values());
-binder.bindInstanceFields(this);
-}
+    public CustomerForm(MainView mainView) {
+        this.mainView = mainView;
+        add(firstName, lastName, status);
+        status.setItems(CustomerStatus.values());
+        binder.bindInstanceFields(this);
+    }
 
-public void setCustomer(Customer customer) {
-this.customer = customer;
-binder.setBean(customer);
-}
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+        binder.setBean(customer);
+    }
 }
 ----
 
 Run your project again, and you should see your form next to the grid that lists your existing entities. The form is now connected to the Grid and when you select a row, the data is copied into the fields.
 
-[[#flow.tutorial.form.deleteupdate]]
+[[flow.tutorial.form.deleteupdate]]
 === How to Delete and Update the data
 
 In this part we want to edit, add and remove Customer objects. 
@@ -179,22 +178,22 @@ Let’s start by adding the following action buttons as Java fields to [classnam
 
 [source,java]
 ----
-    private Button save = new Button("Save");
-    private Button delete = new Button("Delete");
+private Button save = new Button("Save");
+private Button delete = new Button("Delete");
 ----
 
 Add the following line to the constructor, above the line *add(firstName, lastName, status)*
 
 [source,java]
 ----
-   HorizontalLayout buttons = new HorizontalLayout(save, delete);
+HorizontalLayout buttons = new HorizontalLayout(save, delete);
 ----
 
 Add the buttons object in the *add(firstName, lastName, status)* so that it looks like this:
 
 [source,java]
 ----
-   add(firstName, lastName, status, buttons);
+add(firstName, lastName, status, buttons);
 ----
 
 Let’s also improve the UX a bit. The most common thing your users will want to do with this kind of form is to save it. Let’s decorate the button with a style name that makes it more prominent in the UI:
@@ -208,12 +207,12 @@ Add the following code to the `setCustomer` method:
 
 [source,java]
 ----
- boolean enabled = customer != null;
-    save.setEnabled(enabled);
-    delete.setEnabled(enabled);
-    if (enabled) {
-        firstName.focus();
-    }
+boolean enabled = customer != null;
+save.setEnabled(enabled);
+delete.setEnabled(enabled);
+if (enabled) {
+    firstName.focus();
+}
 ----
 
 Now the `setCustomer` method should look like this:
@@ -236,7 +235,7 @@ To finish off the `setCustomer` setter method, let's call `setCustomer(null)` at
 
 [source,java]
 ----
-    setCustomer(null);
+setCustomer(null);
 ----
 
 We’ll disable the save and cancel buttons to prevent user interaction, if there is no customer selected. We could also disable the input fields if necessary, by calling the setEnabled() method on each of them. For improved user experience, we focus the `firstName` field.
@@ -273,56 +272,55 @@ Now the [classname]#CustomerForm# looks like this:
 [source,java]
 ----
 public class CustomerForm extends FormLayout {
-private TextField firstName = new TextField("First name");
-private TextField lastName = new TextField("Last name");
-private ComboBox<CustomerStatus> status = new ComboBox<>("Status");
-private CustomerService service = CustomerService.getInstance();
-private Customer customer;
-private MainView mainView;
-private Binder<Customer> binder = new Binder<>(Customer.class);
-private Button save = new Button("Save");
-private Button delete = new Button("Delete");
+    private TextField firstName = new TextField("First name");
+    private TextField lastName = new TextField("Last name");
+    private ComboBox<CustomerStatus> status = new ComboBox<>("Status");
+    private CustomerService service = CustomerService.getInstance();
+    private Customer customer;
+    private MainView mainView;
+    private Binder<Customer> binder = new Binder<>(Customer.class);
+    private Button save = new Button("Save");
+    private Button delete = new Button("Delete");
 
-public CustomerForm(MainView mainView) {
-this.mainView = mainView;
-add(firstName, lastName, status);
-status.setItems(CustomerStatus.values());
-binder.bindInstanceFields(this);
-HorizontalLayout buttons = new HorizontalLayout(save, delete);
-add(firstName, lastName, status, buttons);
-save.getElement().setAttribute("theme", "primary");
-setCustomer(null);
-save.addClickListener(e -> this.save());
-delete.addClickListener(e -> this.delete());
+    public CustomerForm(MainView mainView) {
+        this.mainView = mainView;
+        add(firstName, lastName, status);
+        status.setItems(CustomerStatus.values());
+        binder.bindInstanceFields(this);
+        HorizontalLayout buttons = new HorizontalLayout(save, delete);
+        add(firstName, lastName, status, buttons);
+        save.getElement().setAttribute("theme", "primary");
+        setCustomer(null);
+        save.addClickListener(e -> this.save());
+        delete.addClickListener(e -> this.delete());
+    }
 
-}
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+        binder.setBean(customer);
+        boolean enabled = customer != null;
+        save.setEnabled(enabled);
+        delete.setEnabled(enabled);
+        if (enabled) {
+            firstName.focus();
+        }
+    }
 
-public void setCustomer(Customer customer) {
-this.customer = customer;
-binder.setBean(customer);
-boolean enabled = customer != null;
-save.setEnabled(enabled);
-delete.setEnabled(enabled);
-if (enabled) {
-firstName.focus();
-}
-}
+    private void delete() {
+        service.delete(customer);
+        mainView.updateList();
+        setCustomer(null);
+    }
 
-private void delete() {
-service.delete(customer);
-mainView.updateList();
-setCustomer(null);
-}
-
-private void save() {
-service.save(customer);
-mainView.updateList();
-setCustomer(null);
-}
+    private void save() {
+        service.save(customer);
+        mainView.updateList();
+        setCustomer(null);
+    }
 }
 ----
 
-[[#flow.tutorial.form.add]]
+[[flow.tutorial.form.add]]
 === How to Add the data
 
 To allow users to also create new customer records, we’ll create a simple "Add customer button" to the top of the UI, right next to the `filtering` composition we have already built in a previous step. Introduce a new [classname]#Button# with a click listener, by adding the following lines to the constructor, right after where you introduced the `filtering` composition:
@@ -363,7 +361,7 @@ Now the [classname]#MainView# should look like this:
 /**
  * The main view contains a button and a click listener.
  */
-@Route
+@Route("")
 public class MainView extends VerticalLayout {
 
 	private CustomerService service = CustomerService.getInstance();

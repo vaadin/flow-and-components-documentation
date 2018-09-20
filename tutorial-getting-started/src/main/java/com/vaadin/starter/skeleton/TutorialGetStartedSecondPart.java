@@ -9,7 +9,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class TutorialGetStartedSecondPart {
 
 
-    @Route
+    @Route("")
     public class MainView extends VerticalLayout {
 
         private CustomerService service = CustomerService.getInstance();
