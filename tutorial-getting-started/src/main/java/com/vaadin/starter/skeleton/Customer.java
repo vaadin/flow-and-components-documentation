@@ -1,8 +1,9 @@
-package com.vaadin.flow.demo.helloworld;
-
-import java.io.Serializable;
+package com.vaadin.starter.skeleton;
 
 import com.vaadin.flow.tutorial.annotations.Helper;
+
+import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * A entity object, like in any other Java application. In a typical real world
@@ -18,7 +19,11 @@ public class Customer implements Serializable, Cloneable {
 
 	private String lastName = "";
 
-	private CustomerStatus status;
+	private LocalDate birthDate;
+
+	private com.vaadin.starter.skeleton.CustomerStatus status;
+
+	private String email = "";
 
 	public Long getId() {
 		return id;
@@ -26,6 +31,24 @@ public class Customer implements Serializable, Cloneable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/**
+	 * Get the value of email
+	 *
+	 * @return the value of email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * Set the value of email
+	 *
+	 * @param email new value of email
+	 */
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	/**
@@ -40,11 +63,28 @@ public class Customer implements Serializable, Cloneable {
 	/**
 	 * Set the value of status
 	 *
-	 * @param status
-	 *            new value of status
+	 * @param status new value of status
 	 */
 	public void setStatus(CustomerStatus status) {
 		this.status = status;
+	}
+
+	/**
+	 * Get the value of birthDate
+	 *
+	 * @return the value of birthDate
+	 */
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+	/**
+	 * Set the value of birthDate
+	 *
+	 * @param birthDate new value of birthDate
+	 */
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
 	}
 
 	/**
@@ -59,8 +99,7 @@ public class Customer implements Serializable, Cloneable {
 	/**
 	 * Set the value of lastName
 	 *
-	 * @param lastName
-	 *            new value of lastName
+	 * @param lastName new value of lastName
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
@@ -78,8 +117,7 @@ public class Customer implements Serializable, Cloneable {
 	/**
 	 * Set the value of firstName
 	 *
-	 * @param firstName
-	 *            new value of firstName
+	 * @param firstName new value of firstName
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;

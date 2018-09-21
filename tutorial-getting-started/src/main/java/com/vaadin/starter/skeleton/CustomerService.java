@@ -1,15 +1,10 @@
-package com.vaadin.flow.demo.helloworld;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+package com.vaadin.starter.skeleton;
 
 import com.vaadin.flow.tutorial.annotations.Helper;
+
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * An in memory dummy "database" for the example purposes. In a typical Java app

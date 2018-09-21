@@ -33,9 +33,14 @@ offlineResources = { "styles/offline.css", "js/jquery.js", "img/offline.jpg"})
 
 == Overriding generated service worker
 
-To override generated service worker, copy a custom service worker to webbapp
--folder, named as "*sw.js*".
+To override generated service worker, copy a custom service worker to web application
+folder, named as "*sw.js*".
 
 ```
 src/main/webapp/sw.js
 ```
+
+[NOTE]
+Overriding service worker means that offline support and resource caching must be
+done in that custom service worker. A good template for custom service worker can
+be achieved by copying generated service worker from browser resources.
