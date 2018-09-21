@@ -36,7 +36,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | ComboBox | ComboBox | https://vaadin.com/components/vaadin-combo-box/java-examples[Demo]. Note that the V10 ComboBox is not lazy-loading between server and client, that is planned for Vaadin 12.
 
-| ContextMenu (official add-on) | ContextMenu (V12) | Not in V10, take `vaadin-context-menu` 1.0 which is V10 compatible. Included in Vaadin 12 (12/2018)
+| ContextMenu (official add-on) | ContextMenu (V12) | Not in V10, take `vaadin-context-menu-flow` 1.0 which is V10 compatible. Included in Vaadin 12 (12/2018)
 
 | CssLayout | Div & FlexLayout | More details <<#layouts,later in this chapter>>
 
