@@ -16,7 +16,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 .Comparison Matrix
 [width="80%",cols=">4,4,10",options="header"]
 |=========================================================
-|V8 |V10 | Plans and Replacement
+|V8 |V10 | Details
 
 | AbsoluteLayout | - | Not planned. Similar functionality in V10 can be achieved using DIV elements and CSS.
 
@@ -30,11 +30,13 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | Checkbox | Checkbox | https://vaadin.com/components/vaadin-checkbox/java-examples[Demo]
 
-| CheckBoxGroup | - | Planned, no timeline yet. For now, this can be manually assembled from CheckBoxes on server side
+| CheckBoxGroup | - | Not in V10, take `vaadin-radio-button-flow` 1.1. Included in Vaadin 12 (12/2018). Also available as an add-on in Directory for V10
 
 | ColorPicker | - | Not planned. See https://vaadin.com/directory[vaadin.com/directory]. `<input type="color">` is supported in some browsers.
 
-| ComboBox | ComboBox | https://vaadin.com/components/vaadin-combo-box/java-examples[Demo]. Note that the V10 ComboBox is not lazy-loading between server and client
+| ComboBox | ComboBox | https://vaadin.com/components/vaadin-combo-box/java-examples[Demo]. Note that the V10 ComboBox is not lazy-loading between server and client, that is planned for Vaadin 12.
+
+| ContextMenu (official add-on) | ContextMenu (V12) | Not in V10, take `vaadin-context-menu` 1.0 which is V10 compatible. Included in Vaadin 12 (12/2018)
 
 | CssLayout | Div & FlexLayout | More details <<#layouts,later in this chapter>>
 
@@ -44,7 +46,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | DateField | DatePicker | https://vaadin.com/components/vaadin-date-picker/java-examples[Demo]
 
-| DateTimeField | - | Planned for Q3 2018. `<input type="datetime">` is supported in some browsers.
+| DateTimeField | - | Planned for Q4 2018. `<input type="datetime">` is supported in some browsers.
 
 | Embedded | - | Use `<object>` directly via `@Tag("object")` and `Element` API
 
@@ -88,7 +90,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | RadioButtonGroup | RadioButtonGroup | https://vaadin.com/components/vaadin-radio-button/java-examples[Demo]
 
-| RichTextArea | - | Not planned. There are Web Components available, check https://vaadin.com/directory[vaadin.com/directory]
+| RichTextArea | - | Planned for Vaadin 12 (12/2018). There are Web Components available, check https://vaadin.com/directory[vaadin.com/directory]
 
 | Slider | - | Not planned. There are Web Components available, check https://vaadin.com/directory[vaadin.com/directory]. You can also use DOM API and `<input type=”range”>`
 
@@ -100,7 +102,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | Tree | - | Planned, but no timeline yet
 
-| TreeGrid | - | Planned, but no timeline yet
+| TreeGrid | TreeGrid (V12) | Not in V10, `vaadin-grid-flow` 1.1.0 (or newer) is V10 compatible. Included in Vaadin 12 (12/2018)
 
 | TwinColSelect | - | Not planned. Can be built as a composite using `ListBox` and `Button`.
 
