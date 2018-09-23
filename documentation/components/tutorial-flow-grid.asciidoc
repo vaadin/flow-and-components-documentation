@@ -249,11 +249,12 @@ the `removeColumn()`, as described later.
 
 === Hiding Columns
 
-Columns can be hidden by calling `setHidden()` in `Column`.
-Furthermore, you can set the columns user hidable using method `setHidable()`.
+Columns can be hidden by calling `setVisible()` in `Column`.
 
 ////
 NOT IMPLEMENTED YET
+
+Furthermore, you can set the columns user hidable using method `setHidable()`.
 
 === Removing Columns
 Columns can be removed with `removeColumn()` and
