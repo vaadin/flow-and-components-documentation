@@ -196,5 +196,5 @@ the same template definition is reused for all component instances using the sam
 
 == NEXT: Getting Started with Vaadin Flow
 
-<<tutorial-get-started#,The next chapter>> shows how to build your first application with Vaadin Flow.
+<<tutorial-get-started-first-part#,The next chapter>> shows how to build your first application with Vaadin Flow.
 
