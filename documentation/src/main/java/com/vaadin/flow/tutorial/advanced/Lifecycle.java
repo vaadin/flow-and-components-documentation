@@ -17,10 +17,6 @@ package com.vaadin.flow.tutorial.advanced;
 
 import javax.servlet.ServletException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -32,9 +28,8 @@ import com.vaadin.flow.server.SessionDestroyListener;
 import com.vaadin.flow.server.SessionInitEvent;
 import com.vaadin.flow.server.SessionInitListener;
 import com.vaadin.flow.server.VaadinServlet;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-application-lifecycle.asciidoc")
+// code for advanced/tutorial-application-lifecycle.asciidoc
 public class Lifecycle {
 
     public static class Basics {

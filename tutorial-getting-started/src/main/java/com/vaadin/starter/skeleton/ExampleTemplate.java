@@ -19,10 +19,9 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.templatemodel.TemplateModel;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.starter.skeleton.ExampleTemplate.ExampleModel;
 
-@CodeFor("introduction/tutorial-get-started.asciidoc")
+// code for introduction/tutorial-get-started.asciidoc
 /**
  * Simple template example.
  */

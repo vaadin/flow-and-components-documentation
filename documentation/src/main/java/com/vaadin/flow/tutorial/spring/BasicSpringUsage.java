@@ -17,9 +17,8 @@ package com.vaadin.flow.tutorial.spring;
 
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("spring/tutorial-spring-basic.asciidoc")
+// code for spring/tutorial-spring-basic.asciidoc
 public class BasicSpringUsage {
 
     @Route("")

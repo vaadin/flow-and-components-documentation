@@ -18,9 +18,8 @@ package com.vaadin.flow.tutorial.advanced;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.i18n.LocaleChangeEvent;
 import com.vaadin.flow.i18n.LocaleChangeObserver;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-i18n-localization.asciidoc")
+// code for advanced/tutorial-i18n-localization.asciidoc
 public class TranslationSources {
     public class LocaleObserver extends Div implements LocaleChangeObserver {
 

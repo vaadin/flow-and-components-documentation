@@ -16,13 +16,10 @@
 package com.vaadin.flow.tutorial.creatingcomponents;
 
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.HasEnabled;
 import com.vaadin.flow.component.Synchronize;
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.dom.Element;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("creating-components/tutorial-component-basic.asciidoc")
+// code for creating-components/tutorial-component-basic.asciidoc
 public class ComponentBasic extends Component {
 
     @Tag("input")

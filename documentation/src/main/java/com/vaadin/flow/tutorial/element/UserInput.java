@@ -18,9 +18,8 @@ package com.vaadin.flow.tutorial.element;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.dom.ElementFactory;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("element-api/tutorial-user-input.asciidoc")
+// code for element-api/tutorial-user-input.asciidoc
 public abstract class UserInput extends Div {
 
     void tutorialCode() {

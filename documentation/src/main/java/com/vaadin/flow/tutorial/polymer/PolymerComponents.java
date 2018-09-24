@@ -23,9 +23,8 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.templatemodel.TemplateModel;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-components.asciidoc")
+// code for polymer-templates/tutorial-template-components.asciidoc
 public class PolymerComponents {
     @Tag("main-page")
     @HtmlImport("/com/example/MainPage.html")

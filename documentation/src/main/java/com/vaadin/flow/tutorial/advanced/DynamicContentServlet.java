@@ -22,9 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import com.vaadin.flow.tutorial.annotations.CodeFor;
-
-@CodeFor("advanced/tutorial-dynamic-content.asciidoc")
+// code for advanced/tutorial-dynamic-content.asciidoc
 @WebServlet(urlPatterns = "/image", name = "DynamicContentServlet")
 public class DynamicContentServlet extends HttpServlet {
 

@@ -22,9 +22,8 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.BinderValidationStatus;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.data.binder.ValidationResult;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("binding-data/tutorial-flow-components-binder-load.asciidoc")
+// code for binding-data/tutorial-flow-components-binder-load.asciidoc
 public class BinderLoadSave {
 
     private Binder<Person> binder = new Binder<>();

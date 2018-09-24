@@ -31,9 +31,8 @@ import com.vaadin.flow.router.BeforeLeaveEvent.ContinueNavigationAction;
 import com.vaadin.flow.router.BeforeLeaveObserver;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.templatemodel.TemplateModel;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("routing/tutorial-routing-lifecycle.asciidoc")
+// code for routing/tutorial-routing-lifecycle.asciidoc
 public class NavigationEvents {
 
     @Route("")

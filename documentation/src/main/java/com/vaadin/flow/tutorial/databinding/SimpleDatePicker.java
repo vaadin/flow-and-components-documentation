@@ -21,9 +21,8 @@ import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.dom.PropertyChangeEvent;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("binding-data/tutorial-flow-field.asciidoc")
+// code for binding-data/tutorial-flow-field.asciidoc
 @Tag("simple-date-picker")
 public class SimpleDatePicker
         extends AbstractField<SimpleDatePicker, LocalDate> {

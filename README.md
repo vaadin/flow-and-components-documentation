@@ -24,7 +24,8 @@ For verifying the changes made to the documentation, run `mvn verify` on the roo
 ### Adding new tutorials
 
 When a new tutorial is added, the end result should be included as a new module that needs to be built before the `documentation` module.
-The tutorial should use the `@CodeFor("path/file.asciidoc")` and `@Helper` annotations available from the `docs-helpers` dependency to map the source files to the tutorial code snippets in the `documentation` module.
+The tutorial should use the `// code for path/file.asciidoc` comment to map the source files to the tutorial code snippets in the `documentation` module
+and `// helper` comment to exclude Java class from tests.
 
 Any added tutorial module can be included as a dependency to the `documentation` module,
 so that the code snippets from the documentation can be verified. This requires couple steps:

@@ -21,9 +21,8 @@ import com.vaadin.flow.server.CustomizedSystemMessages;
 import com.vaadin.flow.server.SystemMessages;
 import com.vaadin.flow.server.SystemMessagesInfo;
 import com.vaadin.flow.server.SystemMessagesProvider;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("cdi/tutorial-cdi-service-beans.asciidoc")
+// code for cdi/tutorial-cdi-service-beans.asciidoc
 public class ServiceBeans {
 
     @VaadinServiceEnabled

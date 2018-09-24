@@ -18,9 +18,8 @@ package com.vaadin.flow.tutorial.polymer;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-model-converters.asciidoc")
+// code for polymer-templates/tutorial-template-model-converters.asciidoc
 @Target(ElementType.FIELD)
 public @interface Id {
 

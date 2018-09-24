@@ -4,9 +4,8 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("web-components/creating-java-api-for-a-web-component.asciidoc")
+// code for web-components/creating-java-api-for-a-web-component.asciidoc
 // @formatter:off
 public class DemoView extends VerticalLayout {
     public DemoView() {

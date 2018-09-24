@@ -18,9 +18,8 @@ package com.vaadin.flow.tutorial.polymer;
 import java.util.Optional;
 
 import com.vaadin.flow.templatemodel.ModelEncoder;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-model-encoders.asciidoc")
+// code for polymer-templates/tutorial-template-model-encoders.asciidoc
 public class LongToStringEncoder implements ModelEncoder<Long, String> {
 
     @Override

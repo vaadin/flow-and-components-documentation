@@ -4,9 +4,8 @@ import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.router.RouterLayout;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("theme/application-theming-basics.asciidoc")
+// code for theme/application-theming-basics.asciidoc
 public class ApplicationTheme {
 
     @HtmlImport("frontend://styles/shared-styles.html")

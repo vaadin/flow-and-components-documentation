@@ -18,9 +18,8 @@ package com.vaadin.flow.tutorial.advanced;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.server.StreamReceiver;
 import com.vaadin.flow.server.StreamVariable;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-stream-resources.asciidoc")
+// code for advanced/tutorial-stream-resources.asciidoc
 public class StreamResources {
 
     void tutorialCode() {

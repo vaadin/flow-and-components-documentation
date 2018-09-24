@@ -7,10 +7,9 @@ import com.vaadin.flow.component.PropertyDescriptors;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.shared.Registration;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.webcomponent.ClickEvent;
 
-@CodeFor("web-components/creating-java-api-for-a-web-component.asciidoc")
+// code for web-components/creating-java-api-for-a-web-component.asciidoc
 //@formatter:off
 @Tag("paper-slider")
 @HtmlImport("bower_components/paper-slider/paper-slider.html")

@@ -1,16 +1,13 @@
 package com.vaadin.starter.skeleton;
 
-import com.vaadin.flow.tutorial.annotations.Helper;
-
 import java.io.Serializable;
 import java.time.LocalDate;
-
 /**
  * A entity object, like in any other Java application. In a typical real world
  * application this could for example be a JPA entity.
  */
 @SuppressWarnings("serial")
-@Helper
+// helper
 public class Customer implements Serializable, Cloneable {
 
 	private Long id;

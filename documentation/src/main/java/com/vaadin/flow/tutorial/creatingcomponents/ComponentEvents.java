@@ -25,9 +25,8 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.html.NativeButton;
 import com.vaadin.flow.dom.DebouncePhase;
 import com.vaadin.flow.shared.Registration;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("creating-components/tutorial-component-events.asciidoc")
+// code for creating-components/tutorial-component-events.asciidoc
 public class ComponentEvents {
 
     @DomEvent("change")

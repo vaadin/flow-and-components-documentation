@@ -27,11 +27,8 @@ import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.shared.Registration;
-import com.vaadin.flow.theme.Theme;
-import com.vaadin.flow.theme.lumo.Lumo;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-push-broadcaster.asciidoc")
+// code for advanced/tutorial-push-broadcaster.asciidoc
 @Push
 @Route("broadcaster")
 public class BroadcasterView extends Div {

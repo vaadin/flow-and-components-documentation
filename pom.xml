@@ -7,7 +7,6 @@
     <packaging>pom</packaging>
     <version>1.1-SNAPSHOT</version>
     <modules>
-        <module>docs-helpers</module>
         <module>tutorial-getting-started</module>
         <module>documentation</module>
     </modules>

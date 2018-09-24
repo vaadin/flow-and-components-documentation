@@ -22,9 +22,8 @@ import com.vaadin.flow.router.ParentLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RoutePrefix;
 import com.vaadin.flow.router.RouterLayout;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("routing/tutorial-router-layout.asciidoc")
+// code for routing/tutorial-router-layout.asciidoc
 public class RouterLayoutTutorial {
 
     @Tag("div")

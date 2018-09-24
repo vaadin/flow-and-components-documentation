@@ -11,9 +11,8 @@ import com.vaadin.flow.theme.NoTheme;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.theme.material.Material;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("theme/using-component-themes.asciidoc")
+// code for theme/using-component-themes.asciidoc
 public class ReadyMadeThemes {
     @Route(value = "")
     @Theme(Lumo.class) // can be omitted for Lumo

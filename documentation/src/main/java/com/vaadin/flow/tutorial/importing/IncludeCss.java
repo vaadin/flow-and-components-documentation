@@ -18,9 +18,8 @@ package com.vaadin.flow.tutorial.importing;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.StyleSheet;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("importing-dependencies/tutorial-include-css.asciidoc")
+// code for importing-dependencies/tutorial-include-css.asciidoc
 public class IncludeCss {
 
     //@formatter:off - custom line wrapping

@@ -17,9 +17,8 @@ package com.vaadin.flow.tutorial.polymer;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-component-integration.asciidoc")
+// code for polymer-templates/tutorial-component-integration.asciidoc
 public class ComponentIntegration {
 
     @Tag("div")

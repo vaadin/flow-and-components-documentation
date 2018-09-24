@@ -18,9 +18,8 @@ package com.vaadin.flow.tutorial.advanced;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.dom.Element;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-execute-javascript.asciidoc")
+// code for advanced/tutorial-execute-javascript.asciidoc
 public class ExecuteJavaScript {
     public static void logElementSize(String name, Element element) {
         Page page = UI.getCurrent().getPage();

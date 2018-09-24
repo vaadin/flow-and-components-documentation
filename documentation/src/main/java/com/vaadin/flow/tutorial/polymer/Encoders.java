@@ -20,9 +20,8 @@ import java.util.Date;
 
 import com.vaadin.flow.templatemodel.Encode;
 import com.vaadin.flow.templatemodel.TemplateModel;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-model-encoders.asciidoc")
+// code for polymer-templates/tutorial-template-model-encoders.asciidoc
 public class Encoders {
 
     public interface MyModel extends TemplateModel {

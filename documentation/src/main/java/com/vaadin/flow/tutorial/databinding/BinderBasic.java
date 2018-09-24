@@ -23,9 +23,8 @@ import com.vaadin.flow.data.binder.ReadOnlyHasValue;
 import com.vaadin.flow.data.binder.Setter;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.function.ValueProvider;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("binding-data/tutorial-flow-components-binder.asciidoc")
+// code for binding-data/tutorial-flow-components-binder.asciidoc
 public class BinderBasic {
 
     private TextField titleField;

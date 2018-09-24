@@ -15,8 +15,11 @@
  */
 package com.vaadin.flow.tutorial;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,9 +37,6 @@ import java.util.stream.Collectors;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.vaadin.flow.tutorial.annotations.CodeFor;
-import com.vaadin.flow.tutorial.annotations.Helper;
-
 public class TestTutorialCodeCoverage {
     private static final String ASCII_DOC_EXTENSION = ".asciidoc";
     private static final String WEB_SOURCE_MARK = "tutorial::";
@@ -49,15 +49,23 @@ public class TestTutorialCodeCoverage {
     private static final Path CSS_LOCATION = DOCS_ROOT
             .resolve(Paths.get("src", "main", "css"));
 
+    private static final String HELPER_COMMENT = "// helper";
+    private static final String CODE_FOR_COMMENT = "// code for ";
+
     private static final String JAVA_BLOCK_IDENTIFIER = "[source,java]";
     private static final String HTML_BLOCK_IDENTIFIER = "[source,html]";
     private static final String CSS_BLOCK_IDENTIFIER = "[source,css]";
 
-    private static Path TUTORIAL_GETTING_STARTED_LOCATION = new File("..").toPath().resolve(Paths.get("tutorial-getting-started", "src", "main"));
-    private static Path TUTORIAL_GETTING_STARTED_HTML_LOCATION = TUTORIAL_GETTING_STARTED_LOCATION.resolve(Paths.get("webapp", "frontend"));
-    private static Path TUTORIAL_GETTING_STARTED_JAVA_LOCATION = TUTORIAL_GETTING_STARTED_LOCATION.resolve(Paths.get("java"));
+    private static final Path TUTORIAL_GETTING_STARTED_LOCATION = new File("..")
+            .toPath()
+            .resolve(Paths.get("tutorial-getting-started", "src", "main"));
+    private static final Path TUTORIAL_GETTING_STARTED_HTML_LOCATION = TUTORIAL_GETTING_STARTED_LOCATION
+            .resolve(Paths.get("webapp", "frontend"));
+    private static final Path TUTORIAL_GETTING_STARTED_JAVA_LOCATION = TUTORIAL_GETTING_STARTED_LOCATION
+            .resolve(Paths.get("java"));
 
-    private static final Path[] JAVA_LOCATIONS = new Path[]{JAVA_LOCATION, TUTORIAL_GETTING_STARTED_JAVA_LOCATION};
+    private static final Path[] JAVA_LOCATIONS = new Path[] { JAVA_LOCATION,
+            TUTORIAL_GETTING_STARTED_JAVA_LOCATION };
 
     private final StringBuilder documentationErrors = new StringBuilder();
     private int documentationErrorsCount;
@@ -69,7 +77,8 @@ public class TestTutorialCodeCoverage {
                 new CodeFileChecker(CSS_BLOCK_IDENTIFIER,
                         gatherWebFilesCode("css", CSS_LOCATION)),
                 new CodeFileChecker(HTML_BLOCK_IDENTIFIER,
-                        gatherWebFilesCode("html", HTML_LOCATION, TUTORIAL_GETTING_STARTED_HTML_LOCATION)),
+                        gatherWebFilesCode("html", HTML_LOCATION,
+                                TUTORIAL_GETTING_STARTED_HTML_LOCATION)),
                 new AsciiDocLinkWithDescriptionChecker("image:",
                         Pattern.compile("image:(.*?)\\[(.*?)]")),
                 new AsciiDocLinkWithDescriptionChecker("#,",
@@ -91,7 +100,7 @@ public class TestTutorialCodeCoverage {
     }
 
     private void verifyTutorial(Path tutorialPath,
-                                List<TutorialLineChecker> lineCheckers) {
+            List<TutorialLineChecker> lineCheckers) {
         String tutorialName = DOCS_ROOT.relativize(tutorialPath).toString();
         try {
             AtomicInteger lineCounter = new AtomicInteger();
@@ -115,18 +124,18 @@ public class TestTutorialCodeCoverage {
     private Map<String, Set<String>> gatherJavaCode() throws IOException {
         Map<String, Set<String>> codeFileMap = new HashMap<>();
 
-        // Populate map based on @CodeFor annotations
+        // Populate map based on '// code for' comments
         for (Path javaLocation : JAVA_LOCATIONS) {
             Files.walk(javaLocation)
                     .filter(path -> path.toString().endsWith(".java"))
-                    .forEach(path -> extractJavaFiles(javaLocation, path, codeFileMap));
+                    .forEach(path -> extractJavaFiles(path, codeFileMap));
         }
 
         return codeFileMap;
     }
 
-    private Map<String, Set<String>> gatherWebFilesCode(
-            String extension, Path... locations) throws IOException {
+    private Map<String, Set<String>> gatherWebFilesCode(String extension,
+            Path... locations) throws IOException {
         Map<String, Set<String>> codeFileMap = new HashMap<>();
 
         for (Path location : locations) {
@@ -138,39 +147,44 @@ public class TestTutorialCodeCoverage {
         return codeFileMap;
     }
 
-    private void extractJavaFiles(Path rootLocation, Path javaFile,
-                                  Map<String, Set<String>> allowedLines) {
-        String className = rootLocation.relativize(javaFile).toString()
-                .replace(File.separatorChar, '.').replaceAll("\\.java$", "");
+    private void extractJavaFiles(Path javaFile,
+            Map<String, Set<String>> allowedLines) {
 
-        try {
-            Class<?> clazz = Class.forName(className, false,
-                    getClass().getClassLoader());
-            if (clazz == CodeFor.class || clazz == Helper.class) {
-                // Ignore the annotation itself
-                return;
-            }
-
-            CodeFor codeFor = clazz.getAnnotation(CodeFor.class);
-            if (codeFor == null) {
-                if (clazz.getAnnotation(Helper.class) == null) {
-                    addDocumentationError(
-                            "Java file without @CodeFor or @Helper: " + className);
+        String tutorialName = null;
+        Set<String> lines = new HashSet<>();
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader(javaFile.toFile()))) {
+            String line = reader.readLine();
+            while (line != null) {
+                if (line.startsWith(CODE_FOR_COMMENT)) {
+                    tutorialName = trimWhitespace(
+                            line.replace(CODE_FOR_COMMENT, ""));
+                } else if (line.startsWith(HELPER_COMMENT)) {
+                    // found a helper class, ignore
+                    return;
+                } else {
+                    lines.add(trimWhitespace(line));
                 }
-                return;
+                line = reader.readLine();
             }
 
-            String tutorialName = codeFor.value();
+        } catch (IOException e) {
+            throw new UncheckedIOException(String
+                    .format("Failed to read the java file '%s'", javaFile), e);
+        }
 
-            Files.lines(javaFile).forEach(
-                    line -> addLineToAllowed(allowedLines, tutorialName, line));
-        } catch (ClassNotFoundException | IOException e) {
-            throw new RuntimeException(e);
+        if (tutorialName != null && !tutorialName.isEmpty()) {
+            String name = tutorialName;
+            lines.forEach(line -> addLineToAllowed(allowedLines, name, line));
+        } else {
+            addDocumentationError(
+                    "Java file without '// code for' or '// helper comments: "
+                            + javaFile);
         }
     }
 
     private void extractWebFiles(Path htmlFile,
-                                 Map<String, Set<String>> allowedLines) {
+            Map<String, Set<String>> allowedLines) {
         try {
             List<String> lines = Files.readAllLines(htmlFile);
             String idLine = lines.remove(0);
@@ -188,10 +202,9 @@ public class TestTutorialCodeCoverage {
         }
     }
 
-    private static boolean addLineToAllowed(
-            Map<String, Set<String>> allowedLines, String tutorialName,
-            String line) {
-        return allowedLines
+    private static void addLineToAllowed(Map<String, Set<String>> allowedLines,
+            String tutorialName, String line) {
+        allowedLines
                 .computeIfAbsent(tutorialName.replace('/', File.separatorChar),
                         n -> new HashSet<>())
                 .add(trimWhitespace(line));

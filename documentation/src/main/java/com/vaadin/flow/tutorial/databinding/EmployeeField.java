@@ -20,10 +20,9 @@ import java.util.Collection;
 import com.vaadin.flow.component.AbstractCompositeField;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.databinding.EmployeeField.Employee;
 
-@CodeFor("binding-data/tutorial-flow-field.asciidoc")
+// code for binding-data/tutorial-flow-field.asciidoc
 public class EmployeeField extends
         AbstractCompositeField<HorizontalLayout, EmployeeField, Employee> {
     static class Employee {

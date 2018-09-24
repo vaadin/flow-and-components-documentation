@@ -38,10 +38,9 @@ import com.vaadin.flow.data.provider.QuerySortOrder;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
 import com.vaadin.flow.function.ValueProvider;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.databinding.Person;
 
-@CodeFor("components/tutorial-flow-grid.asciidoc")
+// code for components/tutorial-flow-grid.asciidoc
 public class GridBasic {
 
     public void basics() {

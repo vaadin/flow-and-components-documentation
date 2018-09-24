@@ -24,15 +24,14 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
-import org.slf4j.LoggerFactory;
-
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.vaadin.flow.i18n.I18NProvider;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
+import org.slf4j.LoggerFactory;
 
-@CodeFor("advanced/tutorial-i18n-localization.asciidoc")
+import com.vaadin.flow.i18n.I18NProvider;
+
+// code for advanced/tutorial-i18n-localization.asciidoc
 public class TranslationProvider implements I18NProvider {
 
     public static final String BUNDLE_PREFIX = "translate";

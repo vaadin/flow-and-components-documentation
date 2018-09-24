@@ -1,9 +1,8 @@
 package com.vaadin.flow.tutorial.routing;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 import java.util.stream.Stream;
-
-import javax.servlet.http.HttpServletResponse;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Tag;
@@ -18,9 +17,8 @@ import com.vaadin.flow.router.NotFoundException;
 import com.vaadin.flow.router.ParentLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLayout;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("routing/tutorial-routing-exception-handling.asciidoc")
+// code for routing/tutorial-routing-exception-handling.asciidoc
 public class ExceptionHandling {
 
     @Tag(Tag.DIV)

@@ -4,9 +4,8 @@ import org.slf4j.LoggerFactory;
 
 import com.vaadin.flow.server.ServiceInitEvent;
 import com.vaadin.flow.server.VaadinServiceInitListener;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-ui-init-listener.asciidoc")
+// code for advanced/tutorial-ui-init-listener.asciidoc
 public class ServiceListener implements VaadinServiceInitListener {
 
     @Override

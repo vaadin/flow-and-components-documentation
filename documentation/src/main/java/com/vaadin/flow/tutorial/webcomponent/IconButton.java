@@ -7,9 +7,8 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.dom.Element;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("web-components/creating-java-api-for-a-web-component.asciidoc")
+// code for web-components/creating-java-api-for-a-web-component.asciidoc
 @Tag("vaadin-button")
 @HtmlImport("bower_components/vaadin-button/vaadin-button.html")
 @HtmlImport("bower_components/vaadin-icons/vaadin-icons.html")

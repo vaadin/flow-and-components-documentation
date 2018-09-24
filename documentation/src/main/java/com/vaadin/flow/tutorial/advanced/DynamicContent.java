@@ -24,9 +24,8 @@ import com.vaadin.flow.component.html.Input;
 import com.vaadin.flow.component.html.NativeButton;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.server.StreamResource;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-dynamic-content.asciidoc")
+// code for advanced/tutorial-dynamic-content.asciidoc
 public class DynamicContent {
 
     void tutorialCode() {

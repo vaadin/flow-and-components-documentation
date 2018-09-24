@@ -10,9 +10,8 @@ import com.vaadin.flow.server.InitialPageSettings;
 import com.vaadin.flow.server.PageConfigurator;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("migration/6-theming.asciidoc")
+// code for migration/6-theming.asciidoc
 public class Theming {
     @Theme(Lumo.class) // the theme for Vaadin Components. You can omit it for Lumo
     @HtmlImport("styles/shared-styles.html") // the application specific styles

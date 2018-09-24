@@ -21,9 +21,8 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.PropertyDescriptor;
 import com.vaadin.flow.component.PropertyDescriptors;
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("creating-components/tutorial-component-property-descriptor.asciidoc")
+// code for creating-components/tutorial-component-property-descriptor.asciidoc
 public class ComponentPropertyDescriptor {
 
     // @formatter:off

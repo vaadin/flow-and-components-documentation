@@ -15,6 +15,10 @@
  */
 package com.vaadin.flow.tutorial.cdi;
 
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import java.util.UUID;
+
 import com.vaadin.cdi.annotation.NormalRouteScoped;
 import com.vaadin.cdi.annotation.NormalUIScoped;
 import com.vaadin.cdi.annotation.RouteScopeOwner;
@@ -24,16 +28,10 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RoutePrefix;
 import com.vaadin.flow.router.RouterLayout;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
-
-import javax.enterprise.event.Observes;
-import javax.enterprise.event.Reception;
-import javax.inject.Inject;
-import java.util.UUID;
 
 import static javax.enterprise.event.Reception.IF_EXISTS;
 
-@CodeFor("cdi/tutorial-cdi-contexts.asciidoc")
+// code for cdi/tutorial-cdi-contexts.asciidoc
 public class Contexts {
 
     public static class SessionScope {

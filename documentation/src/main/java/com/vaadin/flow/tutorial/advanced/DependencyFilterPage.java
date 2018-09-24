@@ -5,9 +5,8 @@ import java.util.List;
 import com.vaadin.flow.server.DependencyFilter;
 import com.vaadin.flow.shared.ui.Dependency;
 import com.vaadin.flow.shared.ui.LoadMode;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-dependency-filter.asciidoc")
+// code for advanced/tutorial-dependency-filter.asciidoc
 public class DependencyFilterPage {
 
     public class BundleFilter implements DependencyFilter {

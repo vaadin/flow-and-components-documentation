@@ -20,9 +20,8 @@ import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.dom.ElementFactory;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("creating-components/tutorial-component-container.asciidoc")
+// code for creating-components/tutorial-component-container.asciidoc
 public class ComponentContainer {
 
     @Tag("div")

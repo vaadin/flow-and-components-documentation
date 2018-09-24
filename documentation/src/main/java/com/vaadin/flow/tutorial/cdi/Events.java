@@ -15,13 +15,12 @@
  */
 package com.vaadin.flow.tutorial.cdi;
 
-import com.vaadin.flow.server.BootstrapPageResponse;
-import com.vaadin.flow.server.ServiceInitEvent;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
-
 import javax.enterprise.event.Observes;
 
-@CodeFor("cdi/tutorial-cdi-events.asciidoc")
+import com.vaadin.flow.server.BootstrapPageResponse;
+import com.vaadin.flow.server.ServiceInitEvent;
+
+// code for cdi/tutorial-cdi-events.asciidoc
 public class Events {
 
     public class BootstrapCustomizer {

@@ -1,8 +1,6 @@
 package com.vaadin.flow.tutorial.cdi;
 
-import com.vaadin.flow.tutorial.annotations.Helper;
-
-@Helper
+// helper
 public class MessageEvent {
     private final String text;
 
