@@ -1,6 +1,6 @@
 ---
-title: How to use Vaadin Flow
-order: 2
+title: Part 2 - Listing entities in a Grid
+order: 3
 layout: page
 subnav_auto_list_numbers: true
 subnav:
