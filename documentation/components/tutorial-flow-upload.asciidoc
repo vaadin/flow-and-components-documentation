@@ -39,18 +39,3 @@ Here the `MultiFileBuffer` class is a ready-made implementation of `MultiFileRec
 Similary to the single file case the data will be stored in files on the filesystem
 and you may get the date using a file name and the `getInputStream(String)` method.
 
-== Using Upload with Spring
-
-If you are using Spring then you should provide a `org.springframework.web.multipart.MultipartResolver` 
-bean in your configuration. Otherwise there will be an exception about multi-part configuration absence.
-
-The simplest way to provide a multipart resolver is using `CommonsMultipartResolver` for Apache Commons FileUpload.
-Add the following code into your configuration class: 
-
-[source, java]
-----
-@Bean(name = "multipartResolver")
-public CommonsMultipartResolver multipartResolver() {
-    return new CommonsMultipartResolver();
-}
-----
