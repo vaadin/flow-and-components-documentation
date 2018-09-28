@@ -47,7 +47,7 @@ public void updateList() {
     * takes care of it for us
     */
     grid.setItems(service.findAll(filterText.getValue()));
-    }
+}
 ----
 
 Before adding the text field to the UI, let’s improve the usability a bit and make a short exercise to compose better components from lower level UI components. The search field can naturally be cleared with the keyboard, but let’s add a clear button next to the text field. Start by adding the following lines to the constructor, for example right after your `filterText` configuration:
@@ -79,45 +79,44 @@ Now the mainView looks like this:
 
 [source,java]
 ----
-	/**
+/**
  * The main view contains a button and a click listener.
  */
 @Route("")
 public class MainView extends VerticalLayout {
 
-	private CustomerService service = CustomerService.getInstance();
-	private Grid<Customer> grid = new Grid<>();
-	private TextField filterText = new TextField();
+    private CustomerService service = CustomerService.getInstance();
+    private Grid<Customer> grid = new Grid<>();
+    private TextField filterText = new TextField();
 
-	public MainView() {
-		filterText.setPlaceholder("Filter by name...");
-		filterText.setValueChangeMode(ValueChangeMode.EAGER);
-		filterText.addValueChangeListener(e -> updateList());
-		        Button clearFilterTextBtn = new Button(
-                        new Icon(VaadinIcon.CLOSE_CIRCLE));
-		clearFilterTextBtn.addClickListener(e -> filterText.clear());
-		HorizontalLayout filtering = new HorizontalLayout(filterText,
-                        clearFilterTextBtn);
+    public MainView() {
+        filterText.setPlaceholder("Filter by name...");
+        filterText.setValueChangeMode(ValueChangeMode.EAGER);
+        filterText.addValueChangeListener(e -> updateList());
+        Button clearFilterTextBtn = new Button(
+                new Icon(VaadinIcon.CLOSE_CIRCLE));
+        clearFilterTextBtn.addClickListener(e -> filterText.clear());
+        HorizontalLayout filtering = new HorizontalLayout(filterText,
+                clearFilterTextBtn);
 
-		grid.setSizeFull();
+        grid.setSizeFull();
 
-		grid.addColumn(Customer::getFirstName).setHeader("First name");
-		grid.addColumn(Customer::getLastName).setHeader("Last name");
-		grid.addColumn(Customer::getStatus).setHeader("Status");
+        grid.addColumn(Customer::getFirstName).setHeader("First name");
+        grid.addColumn(Customer::getLastName).setHeader("Last name");
+        grid.addColumn(Customer::getStatus).setHeader("Status");
 
-		add(filtering, grid);
-		setHeight("100vh");
-		updateList();
-	}
+        add(filtering, grid);
+        setHeight("100vh");
+        updateList();
+    }
 
-	public void updateList() {
-		/**
-		 * Note that filterText.getValue() might return null; in this case, the backend
-		 * takes care of it for us
-		 */
-		grid.setItems(service.findAll(filterText.getValue()));
-	}
-
+    public void updateList() {
+        /**
+         * Note that filterText.getValue() might return null; in this case, the backend
+         * takes care of it for us
+         */
+        grid.setItems(service.findAll(filterText.getValue()));
+    }
 }
 ----
 
