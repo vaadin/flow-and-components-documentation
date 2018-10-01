@@ -15,9 +15,6 @@
  */
 package com.vaadin.flow.tutorial.routing;
 
-import com.vaadin.flow.tutorial.annotations.Helper;
-
-@Helper
 public class AccessHandler {
 
     public static AccessHandler getInstance() {
