@@ -31,13 +31,22 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import com.google.common.collect.Sets;
 import org.junit.Assert;
 import org.junit.Test;
 
 import com.vaadin.flow.tutorial.annotations.CodeFor;
-import com.vaadin.flow.tutorial.annotations.Helper;
 
 public class TestTutorialCodeCoverage {
+    private static final Set<String> HELPER_CLASSES = Sets.newHashSet(
+            "com.vaadin.flow.tutorial.cdi.Greeter",
+            "com.vaadin.flow.tutorial.cdi.MessageEvent",
+            "com.vaadin.flow.tutorial.routing.AccessHandler",
+            "com.vaadin.starter.skeleton.Customer",
+            "com.vaadin.starter.skeleton.CustomerStatus",
+            "com.vaadin.starter.skeleton.CustomerService"
+    );
+
     private static final String ASCII_DOC_EXTENSION = ".asciidoc";
     private static final String WEB_SOURCE_MARK = "tutorial::";
 
@@ -53,9 +62,9 @@ public class TestTutorialCodeCoverage {
     private static final String HTML_BLOCK_IDENTIFIER = "[source,html]";
     private static final String CSS_BLOCK_IDENTIFIER = "[source,css]";
 
-    private static Path TUTORIAL_GETTING_STARTED_LOCATION = new File("..").toPath().resolve(Paths.get("tutorial-getting-started", "src", "main"));
-    private static Path TUTORIAL_GETTING_STARTED_HTML_LOCATION = TUTORIAL_GETTING_STARTED_LOCATION.resolve(Paths.get("webapp", "frontend"));
-    private static Path TUTORIAL_GETTING_STARTED_JAVA_LOCATION = TUTORIAL_GETTING_STARTED_LOCATION.resolve(Paths.get("java"));
+    private static final Path TUTORIAL_GETTING_STARTED_LOCATION = new File("..").toPath().resolve(Paths.get("tutorial-getting-started", "src", "main"));
+    private static final Path TUTORIAL_GETTING_STARTED_HTML_LOCATION = TUTORIAL_GETTING_STARTED_LOCATION.resolve(Paths.get("webapp", "frontend"));
+    private static final Path TUTORIAL_GETTING_STARTED_JAVA_LOCATION = TUTORIAL_GETTING_STARTED_LOCATION.resolve(Paths.get("java"));
 
     private static final Path[] JAVA_LOCATIONS = new Path[]{JAVA_LOCATION, TUTORIAL_GETTING_STARTED_JAVA_LOCATION};
 
@@ -146,16 +155,15 @@ public class TestTutorialCodeCoverage {
         try {
             Class<?> clazz = Class.forName(className, false,
                     getClass().getClassLoader());
-            if (clazz == CodeFor.class || clazz == Helper.class) {
+            if (clazz == CodeFor.class) {
                 // Ignore the annotation itself
                 return;
             }
 
             CodeFor codeFor = clazz.getAnnotation(CodeFor.class);
             if (codeFor == null) {
-                if (clazz.getAnnotation(Helper.class) == null) {
-                    addDocumentationError(
-                            "Java file without @CodeFor or @Helper: " + className);
+                if (!HELPER_CLASSES.contains(className)) {
+                    addDocumentationError("Java file without @CodeFor annotation and not excluded from the checks: " + className);
                 }
                 return;
             }
