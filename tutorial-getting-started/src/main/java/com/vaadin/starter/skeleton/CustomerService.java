@@ -1,8 +1,11 @@
 package com.vaadin.starter.skeleton;
 
-import com.vaadin.flow.tutorial.annotations.Helper;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,7 +16,6 @@ import java.util.logging.Logger;
  * In demos/tutorials/examples, get a reference to this service class with
  * {@link CustomerService#getInstance()}.
  */
-@Helper
 public class CustomerService {
 
 	private static CustomerService instance;
