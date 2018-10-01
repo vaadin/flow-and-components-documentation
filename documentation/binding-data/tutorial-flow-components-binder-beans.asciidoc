@@ -40,10 +40,18 @@ binder.forField(yearOfBirthField)
 [NOTE]
 Code using strings to identify properties will cause exceptions during runtime if the string contains a typo or if the name of the setter and getter methods have been changed without also updating the string.
 
-If you have a Bean Validation implementation available in your classpath and
-want to use JSR 303 Bean Validation annotations then a `BeanValidationBinder` should be used.
-`BeanValidationBinder` extends  `Binder` class so it has the same API but its implementation
-automatically adds a bean validator which takes care of JSR 303 constraints.
+If you want to use JSR 303 Bean Validation annotations such as Max, Min, Size, etc. then a `BeanValidationBinder` should be used. `BeanValidationBinder` extends `Binder` class so it has the same API but its implementation automatically adds a bean validator which takes care of JSR 303 constraints. Constraints defined for properties in the bean will work in the same way as if configured when the binding is created.
+Note that to use Bean Validation annotations you should have a JSR 303 implementation like Hibernate Validator available in your classpath. E.g. if you use Maven, the following dependency can be used.
+
+[source, java]
+----
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-validator</artifactId>
+    <version>5.4.1.Final</version>
+</dependency>
+----
+
 Constraints defined for properties in the bean will work in the same way as if configured when the binding is created.
 
 [source, java]
