@@ -43,7 +43,7 @@ Code using strings to identify properties will cause exceptions during runtime i
 If you want to use JSR 303 Bean Validation annotations such as Max, Min, Size, etc. then a `BeanValidationBinder` should be used. `BeanValidationBinder` extends `Binder` class so it has the same API but its implementation automatically adds a bean validator which takes care of JSR 303 constraints. Constraints defined for properties in the bean will work in the same way as if configured when the binding is created.
 Note that to use Bean Validation annotations you should have a JSR 303 implementation like Hibernate Validator available in your classpath. E.g. if you use Maven, the following dependency can be used.
 
-[source, java]
+[source, xml]
 ----
 <dependency>
     <groupId>org.hibernate</groupId>
@@ -184,7 +184,7 @@ binder.forField(gender)
 
 [source, java]
 ----
-@PropertyId(“sex”)
+@PropertyId("sex")
 private ComboBox<Gender> gender = new ComboBox<>("Gender");
 ----
 
