@@ -1,7 +1,5 @@
 package com.vaadin.starter.skeleton;
 
-import com.vaadin.flow.tutorial.annotations.Helper;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -10,7 +8,6 @@ import java.time.LocalDate;
  * application this could for example be a JPA entity.
  */
 @SuppressWarnings("serial")
-@Helper
 public class Customer implements Serializable, Cloneable {
 
 	private Long id;
