@@ -2,9 +2,19 @@
 title: Binding Beans to Forms
 order: 4
 layout: page
+subnav_auto_list_numbers: true
+subnav:
+  - title: Binding Beans to Forms
+    href: '#flow.tutorial.bindingbeanstoform'
+  - title: Automatic Data Binding
+    href: '#flow.tutorial.automaticdatabinding'
+    subnav:
+      - title: The bindInstanceFields method
+        href: '#flow.tutorial.automaticdatabinding.bindinstancefield'
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
+[[flow.tutorial.bindingbeanstoform]]
 == Binding Beans to Forms
 
 The business objects used in an application are in most cases implemented as Java beans or POJOs.
@@ -117,3 +127,72 @@ binder.setValidationStatusHandler(status -> {
     defaultHandler.statusChange(status);
 });
 ----
+
+[[flow.tutorial.automaticdatabinding]]
+== Automatic Data Binding
+
+In this tutorial, we will explain a way to automatically bind properties of a business object to form fields.
+
+[[flow.tutorial.automaticdatabinding.bindinstancefield]]
+=== The `bindInstanceFields` method
+
+Usually, we define UI fields as members of a UI Java class in order to access them in different methods of the class. In such a case, binding
+those fields is really easy because the `bindInstanceFields` method can do this job for us. We simply need to pass an object of the UI Class to it and it matches fields
+of that object to the properties of the related business object based on their names.
+
+[source, java]
+----
+public class MyForm extends VerticalLayout {
+    private TextField firstName = new TextField("First name");
+    private TextField lastName = new TextField("Last name");
+    private ComboBox<Gender> gender = new ComboBox<>("Gender");
+
+    public MyForm() {
+        Binder<Person> binder = new Binder<>(Person.class);
+        binder.bindInstanceFields(this);
+    }
+}
+----
+
+This binds the firstName TextField to the "firstName" property in the item,
+lastName TextField to the “lastName” property and the gender ComboBox to the “gender” property.
+
+Without this method, we would have to bind all the fields separately like the following example:
+
+[source, java]
+----
+binder.forField(firstName)
+	.bind(Person::getFirstName, Person::setFirstName);
+binder.forField(lastName)
+	.bind(Person::getLastName, Person::setLastName);
+binder.forField(gender)
+	.bind(Person::getGender, Person::setGender);
+----
+
+`bindInstanceFields` processes all Java member fields whose type extends `HasValue` (such as TextField) and that can be mapped to a property name. In case the field name
+ does not match the corresponding property name in business object, we can use an annotation named `@PropertyId` to specify the property name. For example, if the related property of gender field in Person class is “sex”, we need to use the `@PropertyId` like the following:
+
+[source, java]
+----
+@PropertyId(“sex”)
+private ComboBox<Gender> gender = new ComboBox<>("Gender");
+----
+
+It's not always possible to automatically bind all the fields to their corresponding properties because the value type of the field may not match
+the property type. E.g. consider an “age” field which is a TextField whose value type is String, while the type of the “age” property in Person class
+is Integer. In such case an IllegalStateException will be thrown when calling `bindInstanceFields`. To avoid this exception, the “age” field should be
+configured manually before calling the `bindInstanceFields` method:
+
+[source, java]
+----
+TextField yearOfBirthField = new TextField("Year of birth");
+
+binder.forField(yearOfBirthField)
+.withConverter(
+       new StringToIntegerConverter("Must enter a number"))
+.bind(Person::getYearOfBirth, Person::setYearOfBirth);
+
+binder.bindInstanceFields(this);
+
+----
+
