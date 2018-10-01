@@ -78,7 +78,9 @@ configures the field as required. It's possible to change this behavior using
 the `BeanValidationBinder.setRequiredConfigurator` method.
 
 [NOTE]
-Bean level validation can only be performed once the bean has been updated. This means that this functionality can only be used together with `setBean`. You need to trigger validation manually if using `readBean` and `writeBean`.
+
+When using unbuffered binding (with the `setBean` method), validation will be triggered automatically on all change events. If you use buffered binding (with the `readBean` and `writeBean` methods), validation is only triggered automatically
+while calling `writeBean`. You can trigger it manually at any time by calling `validate()` on the Binder, for instance in a ValueChange handler.
 
 Validation errors caused by that bean level validation might not be directly associated with any field component shown in the user interface, so `Binder` cannot know where such messages should be displayed.
 
@@ -196,4 +198,15 @@ binder.bindInstanceFields(this);
 
 The `bindInstanceFields` does not support validations and if you want to add validation you need to use the `BeanValidationBinder` instead of the `bindInstanceFields`.
 
+If you want to use JSR 303 Bean Validation annotations such as Max, Min, Size, etc. then a `BeanValidationBinder` should be used. `BeanValidationBinder` extends `Binder` class so it has the same API but its implementation automatically adds a bean validator which takes care of JSR 303 constraints. Constraints defined for properties in the bean will work in the same way as if configured when the binding is created.
+Note that to use Bean Validation annotations you should have a JSR 303 implementation like Hibernate Validator available in your classpath. E.g. if you use Maven, the following dependency can be used.
+
+[source, java]
+----
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-validator</artifactId>
+    <version>5.4.1.Final</version>
+</dependency>
+----
 
