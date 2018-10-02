@@ -42,6 +42,7 @@ and keep the page state intact. The following tutorials explain how to use the R
 
 == Browser features and events
 * <<browser/tutorial-flow-window-resize#,Browser Window Resize Events>>
+* <<advanced/tutorial-execute-javascript#,Executing JavaScript from Server Side>>
 
 == Using Vaadin Components
 * <<components/tutorial-flow-components-setup#,Using Vaadin Components>>
@@ -154,7 +155,6 @@ and keep the page state intact. The following tutorials explain how to use the R
 * <<advanced/tutorial-push-configuration#,Server Push Configuration>>
 * <<advanced/tutorial-push-access#,Asynchronous Updates>>
 * <<advanced/tutorial-push-broadcaster#,Creating Collaborative Views>>
-* <<advanced/tutorial-execute-javascript#,Executing JavaScript from Server Side>>
 * <<advanced/tutorial-dependency-filter#,Modifying how dependencies are loaded with DependencyFilters>>
 * <<advanced/tutorial-service-init-listener#,Configure RequestHandlers, BootstrapListeners and DependencyFilters using VaadinServiceInitListener>>
 * <<advanced/tutorial-dynamic-content#,Showing Dynamic Content>>

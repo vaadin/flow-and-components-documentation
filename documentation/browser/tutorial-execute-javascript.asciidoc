@@ -1,6 +1,6 @@
 ---
 title: Executing JavaScript
-order: 9
+order: 2
 layout: page
 ---
 
@@ -29,13 +29,5 @@ The parameter value will be `null` for an element parameter that is not attached
 The script is executed asynchronously, so you can't directly pass values back to the server.
 
 There is already ready made solution for listening browser window resize events
-from ther server side without custom JavaScript execution.
-You can access the browser window size and add size change listeners:
-
-[source,java]
-----
-Page page = someUI.getPage();
-page.addBrowserWindowResizeListener(
-        event -> Notification.show("Window width=" + event.getWidth()
-                + ", height=" + event.getHeight()));
-----
+from the server side without custom JavaScript execution, 
+see <<tutorial-flow-window-resize#,Browser Window Resize Events>>.
