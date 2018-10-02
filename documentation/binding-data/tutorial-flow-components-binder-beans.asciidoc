@@ -172,11 +172,11 @@ Without this method, we would have to bind all the fields separately like the fo
 [source, java]
 ----
 binder.forField(firstName)
-	.bind(Person::getFirstName, Person::setFirstName);
+    .bind(Person::getFirstName, Person::setFirstName);
 binder.forField(lastName)
-	.bind(Person::getLastName, Person::setLastName);
+    .bind(Person::getLastName, Person::setLastName);
 binder.forField(gender)
-	.bind(Person::getGender, Person::setGender);
+    .bind(Person::getGender, Person::setGender);
 ----
 
 `bindInstanceFields` processes all Java member fields whose type extends `HasValue` (such as TextField) and that can be mapped to a property name. In case the field name
