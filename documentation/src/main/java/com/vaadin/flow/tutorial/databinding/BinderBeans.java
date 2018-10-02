@@ -15,23 +15,20 @@
  */
 package com.vaadin.flow.tutorial.databinding;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotEmpty;
-
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.*;
+import com.vaadin.flow.data.converter.StringToIntegerConverter;
+import com.vaadin.flow.tutorial.annotations.CodeFor;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
-import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.BeanValidationBinder;
-import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.binder.BinderValidationStatusHandler;
-import com.vaadin.flow.data.binder.ValidationResult;
-import com.vaadin.flow.data.converter.StringToIntegerConverter;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @CodeFor("binding-data/tutorial-flow-components-binder-beans.asciidoc")
 public class BinderBeans {
@@ -124,4 +121,102 @@ public class BinderBeans {
     private void setVisible(Label label, boolean visible) {
 
     }
+
+    enum Gender {
+        MALE("male"), FEMALE("female");
+
+        private String value;
+
+        Gender(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+    }
+
+    public static class A {
+
+        public class MyForm extends VerticalLayout {
+            private TextField firstName = new TextField("First name");
+            private TextField lastName = new TextField("Last name");
+            private ComboBox<Gender> gender = new ComboBox<>("Gender");
+
+            public MyForm() {
+                Binder<Person> binder = new Binder<>(Person.class);
+                binder.bindInstanceFields(this);
+
+                binder.forField(firstName)
+                        .bind(Person::getFirstName, Person::setFirstName);
+                binder.forField(lastName)
+                        .bind(Person::getLastName, Person::setLastName);
+                binder.forField(gender)
+                        .bind(Person::getGender, Person::setGender);
+
+
+                TextField yearOfBirthField = new TextField("Year of birth");
+
+                binder.forField(yearOfBirthField)
+                        .withConverter(
+                                new StringToIntegerConverter("Must enter a number"))
+                        .bind(Person::getYearOfBirth, Person::setYearOfBirth);
+
+                binder.bindInstanceFields(this);
+            }
+        }
+
+        public class Person {
+            private String firstName;
+            private String lastName;
+            private Gender gender;
+            private int yearOfBirth;
+
+            public String getFirstName() {
+                return firstName;
+            }
+
+            public void setFirstName(String firstName) {
+                this.firstName = firstName;
+            }
+
+            public String getLastName() {
+                return lastName;
+            }
+
+            public void setLastName(String lastName) {
+                this.lastName = lastName;
+            }
+
+            public Gender getGender() {
+                return gender;
+            }
+
+            public void setGender(Gender gender) {
+                this.gender = gender;
+            }
+
+            public int getYearOfBirth() {
+                return yearOfBirth;
+            }
+
+            public void setYearOfBirth(int yearOfBirth) {
+                this.yearOfBirth = yearOfBirth;
+            }
+        }
+    }
+
+    public class B {
+        public class MyForm extends VerticalLayout {
+            @PropertyId("sex")
+            private ComboBox<Gender> gender = new ComboBox<>("Gender");
+        }
+
+    }
 }
+
