@@ -14,16 +14,6 @@
     <name>Tutorials' code</name>
     <description>Module containing tutorials' code</description>
 
-    <repositories>
-        <repository>
-            <id>vaadin-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>com.vaadin</groupId>

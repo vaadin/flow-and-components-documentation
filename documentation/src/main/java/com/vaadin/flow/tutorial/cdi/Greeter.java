@@ -15,9 +15,6 @@
  */
 package com.vaadin.flow.tutorial.cdi;
 
-import com.vaadin.flow.tutorial.annotations.Helper;
-
-@Helper
 public class Greeter {
 
     public String sayHello() {
