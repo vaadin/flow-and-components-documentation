@@ -13,14 +13,14 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.vaadin.flow.tutorial.advanced;
+package com.vaadin.flow.tutorial.browser;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-execute-javascript.asciidoc")
+@CodeFor("browser/tutorial-execute-javascript.asciidoc")
 public class ExecuteJavaScript {
     public static void logElementSize(String name, Element element) {
         Page page = UI.getCurrent().getPage();

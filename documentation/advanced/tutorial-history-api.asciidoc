@@ -1,6 +1,6 @@
 ---
 title: History API
-order: 13
+order: 12
 layout: page
 ---
 
