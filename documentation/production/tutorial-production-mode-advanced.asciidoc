@@ -11,7 +11,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 == Production mode issues
 
 ===  After adding the `flow-server-production-mode` dependency the application no longer starts.
-This is a problem when you run the application in development mode using `maven jetty:run`, but due to the
+This is a problem when you run the application in development mode using `mvn jetty:run`, but due to the
 production mode dependency the application tries to get the resources from the
 production mode folder.
 

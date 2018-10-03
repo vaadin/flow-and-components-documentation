@@ -18,7 +18,7 @@ and then create a production mode profile:
 ----
 <profiles>
     <profile>
-        <id>production</id>
+        <id>production-mode</id>
 
         <dependencies>
             <dependency>
@@ -54,46 +54,12 @@ production settings when running in development mode.
 [NOTE]
 For users who use `Vaadin Flow` only, you can use `flow-maven-plugin` as artifactId and match the version number with current Flow version
 
-After this all that is needed is to run `mvn clean package -Pproduction`.
+After this all that is needed is to run `mvn clean package -Pproduction-mode`.
 This will then do transpilation, minimisation and bundling on the application resources and build a production ready war.
 
 The simplest way to get a production ready setup is to get a project base from https://vaadin.com/start
 
-To locally run the application in production mode with jetty you should add to the production profile:
-[source, xml]
-----
-<plugin>
-    <groupId>org.eclipse.jetty</groupId>
-    <artifactId>jetty-maven-plugin</artifactId>
-    <version>${jetty.version}</version>
-    <configuration>
-        <webAppConfig>
-            <resourceBases>
-                <resourceBase>${transpilation.output}</resourceBase>
-            </resourceBases>
-        </webAppConfig>
-    </configuration>
-</plugin>
-----
-
-With this the server can be started with `mvn jetty:run -Pproduction`.
-
-[NOTE]
-*transpilation.output* should by default be `${project.build.directory}/${project.build.finalName}/`.
-
-When not using the default *transpilation.output* target the `vaadin-maven-plugin` will require the configuration:
-
-[source, xml]
-----
-<executions>
-    <execution>
-        ...
-        <configuration>
-            <transpileOutputDirectory>${transpilation.output}</transpileOutputDirectory>
-        </configuration>
-    </execution>
-<executions>
-----
+With this the server can be started with `mvn jetty:run-exploded -Pproduction-mode`.
 
 == What is transpilation and bundling
 
