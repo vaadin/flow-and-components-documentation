@@ -42,7 +42,7 @@ and keep the page state intact. The following tutorials explain how to use the R
 
 == Browser features and events
 * <<browser/tutorial-flow-window-resize#,Browser Window Resize Events>>
-* <<advanced/tutorial-execute-javascript#,Executing JavaScript from Server Side>>
+* <<browser/tutorial-execute-javascript#,Executing JavaScript from Server Side>>
 
 == Using Vaadin Components
 * <<components/tutorial-flow-components-setup#,Using Vaadin Components>>
