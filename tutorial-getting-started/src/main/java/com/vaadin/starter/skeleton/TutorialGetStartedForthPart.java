@@ -69,7 +69,7 @@ public class TutorialGetStartedForthPart {
      * The main view contains a button and a click listener.
      */
     @Route("")
-    public static class MainView extends VerticalLayout {
+    public class MainView extends VerticalLayout {
         private CustomerService service = CustomerService.getInstance();
         private Grid<Customer> grid = new Grid<>();
         private TextField filterText = new TextField();

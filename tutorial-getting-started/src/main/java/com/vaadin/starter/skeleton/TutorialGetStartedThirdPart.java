@@ -15,12 +15,12 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class TutorialGetStartedThirdPart {
 
 
-    public static class A {
+    public class A {
         /**
          * The main view contains a button and a click listener.
          */
         @Route("")
-        public static class MainView extends VerticalLayout {
+        public class MainView extends VerticalLayout {
 
             private CustomerService service = CustomerService.getInstance();
             private Grid<Customer> grid = new Grid<>();
