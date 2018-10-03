@@ -17,7 +17,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @CodeFor("introduction/tutorial-get-started-forth-part.asciidoc")
 public class TutorialGetStartedForthPart {
 
-    public class CustomerForm extends FormLayout {
+    public static class CustomerForm extends FormLayout {
         private TextField firstName = new TextField("First name");
         private TextField lastName = new TextField("Last name");
         private ComboBox<CustomerStatus> status = new ComboBox<>("Status");
@@ -69,7 +69,7 @@ public class TutorialGetStartedForthPart {
      * The main view contains a button and a click listener.
      */
     @Route("")
-    public class MainView extends VerticalLayout {
+    public static class MainView extends VerticalLayout {
         private CustomerService service = CustomerService.getInstance();
         private Grid<Customer> grid = new Grid<>();
         private TextField filterText = new TextField();

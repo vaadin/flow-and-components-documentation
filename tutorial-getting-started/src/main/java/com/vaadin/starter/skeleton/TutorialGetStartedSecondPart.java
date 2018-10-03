@@ -10,7 +10,7 @@ public class TutorialGetStartedSecondPart {
 
 
     @Route("")
-    public class MainView extends VerticalLayout {
+    public static class MainView extends VerticalLayout {
 
         private CustomerService service = CustomerService.getInstance();
         private Grid<Customer> grid = new Grid<>();
