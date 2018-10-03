@@ -13,22 +13,20 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.vaadin.flow.tutorial.annotations;
+package com.vaadin.flow.tutorial.browser;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.page.Page;
+import com.vaadin.flow.dom.Element;
+import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-/**
- * Marks the annotated java file as a helper file so we know to skip it during
- * extraction.
- *
- * @author Vaadin Ltd
- */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface Helper {
+@CodeFor("browser/tutorial-execute-javascript.asciidoc")
+public class ExecuteJavaScript {
+    public static void logElementSize(String name, Element element) {
+        Page page = UI.getCurrent().getPage();
+
+        page.executeJavaScript(
+                "console.log($0 + ' size:', $1.offsetWidth, $1.offsetHeight)",
+                name, element);
+    }
 }

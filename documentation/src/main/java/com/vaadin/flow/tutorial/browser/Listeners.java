@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2017 Vaadin Ltd.
+ * Copyright 2000-2018 Vaadin Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -13,20 +13,21 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.vaadin.flow.tutorial.advanced;
+package com.vaadin.flow.tutorial.browser;
 
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.page.Page;
-import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-execute-javascript.asciidoc")
-public class ExecuteJavaScript {
-    public static void logElementSize(String name, Element element) {
-        Page page = UI.getCurrent().getPage();
+@CodeFor("browser/tutorial-flow-window-resize.asciidoc")
+public class Listeners {
 
-        page.executeJavaScript(
-                "console.log($0 + ' size:', $1.offsetWidth, $1.offsetHeight)",
-                name, element);
+    public void addResizeListener() {
+        UI someUI = null;
+        Page page = someUI.getPage();
+        page.addBrowserWindowResizeListener(
+                event -> Notification.show("Window width=" + event.getWidth()
+                        + ", height=" + event.getHeight()));
     }
 }
