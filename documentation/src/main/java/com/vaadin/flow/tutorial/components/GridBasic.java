@@ -130,8 +130,8 @@ public class GridBasic {
         Grid<Person> grid = new Grid<>();
 
         grid.setSelectionMode(SelectionMode.NONE);
-        // grid.addItemClickListener(event -> System.out
-        // .println(("Clicked Item: " + event.getItem())));
+        grid.addItemClickListener(event -> System.out
+                .println(("Clicked Item: " + event.getItem())));
     }
 
     public void itemDoubleClickEvent() {
