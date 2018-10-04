@@ -103,7 +103,6 @@
 
             <properties>
                 <vaadin.productionMode>true</vaadin.productionMode>
-                <transpilation.output>${project.build.directory}/build</transpilation.output>
             </properties>
 
             <dependencies>
@@ -125,9 +124,6 @@
                                     <goal>copy-production-files</goal>
                                     <goal>package-for-production</goal>
                                 </goals>
-                                <configuration>
-                                    <transpileOutputDirectory>${transpilation.output}</transpileOutputDirectory>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
@@ -143,24 +139,6 @@
                                     <Implementation-Version>${project.version}</Implementation-Version>
                                 </manifestEntries>
                             </archive>
-                            <webResources>
-                                <resource>
-                                    <directory>${transpilation.output}</directory>
-                                </resource>
-                            </webResources>
-                        </configuration>
-                    </plugin>
-
-                    <plugin>
-                        <groupId>org.eclipse.jetty</groupId>
-                        <artifactId>jetty-maven-plugin</artifactId>
-                        <version>${jetty.version}</version>
-                        <configuration>
-                            <webAppConfig>
-                                <resourceBases>
-                                    <resourceBase>${transpilation.output}</resourceBase>
-                                </resourceBases>
-                            </webAppConfig>
                         </configuration>
                     </plugin>
                 </plugins>
