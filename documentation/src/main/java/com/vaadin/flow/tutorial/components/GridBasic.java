@@ -126,6 +126,21 @@ public class GridBasic {
         });
     }
 
+    public void itemClickEvent() {
+        Grid<Person> grid = new Grid<>();
+
+        grid.setSelectionMode(SelectionMode.NONE);
+        // grid.addItemClickListener(event -> System.out
+        // .println(("Clicked Item: " + event.getItem())));
+    }
+
+    public void itemDoubleClickEvent() {
+        Grid<Person> grid = new Grid<>();
+
+        grid.setSelectionMode(SelectionMode.MULTI);
+        grid.addItemDoubleClickListener(event -> copy(grid.getSelectedItems()));
+    }
+
     public void gridConfiguringColumns() {
         Grid<Person> grid = new Grid<>();
 

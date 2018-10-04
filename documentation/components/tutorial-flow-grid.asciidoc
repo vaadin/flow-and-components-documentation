@@ -179,6 +179,40 @@ selectionModel.addMultiSelectionListener(event -> {
 });
 ----
 
+== Handling Item Click Events
+
+In addition to selection events there is a way to handle item click or 
+double click events. The events may be used along with selection or completely 
+without selection.
+
+E.g. you may disable selection via `SelectionMode.NONE` but still get events
+about item clicks:
+
+[source, java]
+----
+grid.setSelectionMode(SelectionMode.NONE);
+grid.addItemClickListener(event -> System.out
+        .println(("Clicked Item: " + event.getItem())));
+----
+
+As you can see you may get the clicked item via the event along with other
+information about click.
+
+In the example above you won't get any selection events and there will be
+no visual selection shown once you click on a row.
+
+Another example is to use `Grid` in the multi-selection mode and also add a click 
+(or double click) listener, so it's possible to know a selection and 
+separately get a click event.
+
+[source, java]
+----
+grid.setSelectionMode(SelectionMode.MULTI);
+grid.addItemDoubleClickListener(event -> copy(grid.getSelectedItems()));
+----
+
+In this example you may do a copy of selected items on a double click.
+
 == Configuring Columns
 
 The `addColumn()` method can be used to add columns to `Grid`.
