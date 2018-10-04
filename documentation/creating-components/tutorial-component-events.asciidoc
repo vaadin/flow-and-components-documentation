@@ -135,7 +135,7 @@ public class EnterPressEvent extends ComponentEvent<TextField> {
 ----
 
 The `filter` definition is run as JavaScript in the browser with the DOM event available as `event` and the element to which the listener was added available as `element`.
-See the javadocs for `DomListenerRegistration.setFilter` for more information about how the filter is used.
+See the docs for link:https://demo.vaadin.com/javadoc/com.vaadin/vaadin-core/10.0.0/com/vaadin/flow/dom/DomListenerRegistration.html#setFilter-java.lang.String-[`DomListenerRegistration.setFilter`] for more information about how the filter is used.
 
 === Limiting Event Frequency
 
@@ -191,6 +191,8 @@ public class ContiniousInputEvent extends ComponentEvent<TextField> {
     }
 }
 ----
+
+See the docs for link:https://demo.vaadin.com/javadoc/com.vaadin/vaadin-core/10.0.0/com/vaadin/flow/dom/DomListenerRegistration.html#setFilter-java.lang.String-[`DomListenerRegistration.debounce`] for more information about how the filter is used.
 
 [NOTE]
 If both `filter` and `debounce` are configured at once, only events that pass the filter are considered when determining whether a burst has ended.
