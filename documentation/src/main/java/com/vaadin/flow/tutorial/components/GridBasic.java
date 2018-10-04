@@ -371,6 +371,9 @@ public class GridBasic {
 
     }
 
+    private void copy(Set<Person> persons) {
+    }
+
     //@formatter:off
     /*
      * code of commented lines
