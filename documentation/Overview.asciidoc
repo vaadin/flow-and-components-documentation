@@ -87,11 +87,11 @@ and keep the page state intact. The following tutorials explain how to use the R
 * <<element-api/tutorial-shadow-root#,Shadow root in server-side Element>>
 
 == Integrating Web Components
-* <<web-components/integrating-a-web-component.asciidoc,Integrating a Web Component>>
-* <<web-components/creating-java-api-for-a-web-component.asciidoc,Creating Java API for a Web Component>>
-* <<web-components/debugging-a-web-component-integration.asciidoc,Debugging a Web Component Integration>>
-* <<web-components/creating-another-type-of-addon.asciidoc,Debugging a Web Component Integration>>
-* <<web-components/creating-an-in-project-web-component.asciidoc,Creating an In-project Web Component>>
+* <<web-components/integrating-a-web-component.asciidoc#,Integrating a Web Component>>
+* <<web-components/creating-java-api-for-a-web-component.asciidoc#,Creating Java API for a Web Component>>
+* <<web-components/debugging-a-web-component-integration.asciidoc#,Debugging a Web Component Integration>>
+* <<web-components/creating-another-type-of-addon.asciidoc#,Debugging a Web Component Integration>>
+* <<web-components/creating-an-in-project-web-component.asciidoc#,Creating an In-project Web Component>>
 
 == Creating Polymer Templates
 * <<polymer-templates/tutorial-template-basic#,Creating A Simple Component Using the Template API>>
