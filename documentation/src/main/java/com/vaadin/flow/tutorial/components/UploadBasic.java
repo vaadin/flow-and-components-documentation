@@ -16,8 +16,6 @@
 package com.vaadin.flow.tutorial.components;
 
 import org.junit.Test;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.FileBuffer;
@@ -39,8 +37,4 @@ public class UploadBasic {
         Upload upload = new Upload(multiFileBuffer);
     }
 
-    @Bean(name = "multipartResolver")
-    public CommonsMultipartResolver multipartResolver() {
-        return new CommonsMultipartResolver();
-    }
 }
