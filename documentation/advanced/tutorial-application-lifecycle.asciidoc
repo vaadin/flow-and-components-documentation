@@ -25,10 +25,31 @@ specific URL paths and loads the classes. Deployment does not yet normally run
 any code in the application, although static blocks in classes are executed when
 they are loaded.
 
-There is no need to define your own servlet class (which should extend 
-the `VaadinServlet` class) if you are using Servlet 3.0 specification. You just need 
-to have at least one class annotated with `@Route` annotation and a 
-`VaadinServlet` instance will be registered for you automatically.
+There is no need to define your own servlet class (which should extend
+the `VaadinServlet` class) if you are using Servlet 3.0 specification. You just need
+to have at least one class annotated with `@Route` annotation and a
+`VaadinServlet` instance will be registered for you automatically and Vaadin will
+register all servlets required automatically.
+
+=== Automatic servlet registration
+
+When starting, Vaadin application tries to registed the following servlets:
+
+* Vaadin application servlet, mapped to `/*` path
+
+This servlet is needed to serve the main application files.
+
+The servlet won't be registered, if any {@link VaadinServlet} is registered already
+or if there are no classes annotated with {@link Route} annotation.
+
+* Frontend files servlet, mapped to `/frontend/*` path
+
+This servlet is required in the development mode to serve the WebJar contents
+and is only registered when the application is started in the development mode.
+
+In addition to the rules mentioned above, a servlet won't be registered, if
+  * there is a servlet that had been mapped to the same path already
+  * or if `disable.automatic.servlet.registration` system property is set to `true`
 
 [[application.lifecycle.deployment.redeployment]]
 === Undeploying and Redeploying
@@ -97,7 +118,7 @@ To customize [classname]#VaadinService#, you first need to extend the
 == User Session
 
 ((("session")))
-A user session begins when a user first makes a request to a Vaadin servlet 
+A user session begins when a user first makes a request to a Vaadin servlet
 by opening the URL for a particular [classname]#UI#. All server requests
 belonging to a particular UI class are processed by the
 [classname]#VaadinServlet# class. When a new
@@ -246,7 +267,7 @@ inactive long enough, which is the original purpose of the session timeout
 setting. ((("session",
 "timeout")))
 ((("closeIdleSessions")))
-If the [parameter]#closeIdleSessions# deployment configuration parameter 
+If the [parameter]#closeIdleSessions# deployment configuration parameter
 of the servlet is set to [literal]#++true++# the session and all of its UIs are closed
 when the timeout specified by the [parameter]#session-timeout# parameter of the
 servlet expires after the last non-heartbeat request. Once the session is gone,
@@ -280,7 +301,7 @@ calling the method.
 public class MainLayout extends Div {
 
     protected void onAttach(AttachEvent attachEvent) {
-        UI ui = getUI().get(); 
+        UI ui = getUI().get();
         Button button = new Button("Logout", event -> {
             // Redirect this page immediately
             ui.getPage().executeJavaScript(
@@ -289,7 +310,7 @@ public class MainLayout extends Div {
             // Close the session
             ui.getSession().close();
         });
-        
+
         add(button);
 
         // Notice quickly if other UIs are closed
