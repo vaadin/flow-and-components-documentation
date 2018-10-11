@@ -18,11 +18,11 @@ The following table lists the existing Vaadin 8 components and their direct repl
 |=========================================================
 |V8 |V10 | Details
 
-| AbsoluteLayout | - | Not planned. Similar functionality in V10 can be achieved using DIV elements and CSS.
+| AbsoluteLayout | - | Not planned. Similar functionality in V10 can be achieved using eg. https://vaadin.com/api/platform/11.0.1/com/vaadin/flow/component/html/Div.html[`<div>] elements and CSS positioning.
 
-| Accordion | - | Not planned.
+| Accordion | - | Not planned. Available as a web component https://vaadin.com/directory/component/htmlelementssmart-accordion[(an example)].
 
-| Audio | - | Not planned. Can directly use the native `<audio>` element.
+| Audio | - | Not planned. Use the native `<audio>` element.
 
 | Button | Button | https://vaadin.com/components/vaadin-button/java-examples[Demo]
 
@@ -30,11 +30,11 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | Checkbox | Checkbox | https://vaadin.com/components/vaadin-checkbox/java-examples[Demo]
 
-| CheckBoxGroup | - | Not in V10, take `vaadin-radio-button-flow` 1.1. Included in Vaadin 12 (12/2018). Also available as an add-on in Directory for V10
+| CheckBoxGroup | CheckBoxGroup (V12) | Not in V10, take `vaadin-radio-button-flow` 1.1. Included in Vaadin 12 (12/2018). Also available as an add-on in Directory for V10
 
-| ColorPicker | - | Not planned. See https://vaadin.com/directory[vaadin.com/directory]. `<input type="color">` is supported in some browsers.
+| ColorPicker | - | Not planned. See https://vaadin.com/directory[vaadin.com/directory] for alternatives. `<input type="color">` is supported in some browsers.
 
-| ComboBox | ComboBox | https://vaadin.com/components/vaadin-combo-box/java-examples[Demo]. Note that the V10 ComboBox is not lazy-loading between server and client, that is planned for Vaadin 12.
+| ComboBox | ComboBox | https://vaadin.com/components/vaadin-combo-box/java-examples[Demo]. Note that the V10 ComboBox is not lazy-loading between server and client, that is included in Vaadin 12 (12/2018).
 
 | ContextMenu (official add-on) | ContextMenu (V12) | Not in V10, take `vaadin-context-menu-flow` 1.0 which is V10 compatible. Included in Vaadin 12 (12/2018)
 
@@ -46,7 +46,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | DateField | DatePicker | https://vaadin.com/components/vaadin-date-picker/java-examples[Demo]
 
-| DateTimeField | - | Planned for Q4 2018. `<input type="datetime">` is supported in some browsers.
+| DateTimeField | DatePicker (V10) & TimePicker (V12) | Planned for 2019. Possible by combining `DatePicker` and `TimePicker`. `<input type="datetime">` is supported in some browsers.
 
 | Embedded | - | Use `<object>` directly via `@Tag("object")` and `Element` API
 
@@ -72,25 +72,25 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | ListSelect | ListBox | https://vaadin.com/components/vaadin-list-box/java-examples[Demo]
 
-| MenuBar | - | No plans for replacement. A menu bar is a desktop pattern that is typically not suitable in a world of mobile first applications. `Tabs` can in some cases be used as a replacement.
+| MenuBar | - | Planned for Vaadin 14. Can be made currently by combining `Select` (V12) and `ContextMenu` (V12)
 
 | NativeButton | NativeButton | -
 
-| NativeSelect | - | Planned, by new component `DropdownMenu`. Timeline is Q3 2018. As a temporary workaround, low level element API can be used with `<select>` element.
+| NativeSelect | - | Planned, by new component `Select`. Timeline is Q4 2018. As a temporary workaround, low level element API can be used with `<select>` element.
 
 | Notification | Notification | https://vaadin.com/components/vaadin-notification/java-examples[Demo]
 
-| Panel | - | Planned with `vaadin-card` element. No timeline yet. Also, it's possible to make any component scrollable with `component.getElement().getStyle().set("overflow", "auto")`
+| Panel | - | Planned with `vaadin-card` web component H1 2019. Also, it's possible to make any component scrollable with `component.getElement().getStyle().set("overflow", "auto")`
 
 | PasswordField | PasswordField | https://vaadin.com/components/vaadin-text-field/java-examples[Demo]
 
-| PopupView | - | Not planned. You can use the `<vaadin-overlay>` element to create your own.
+| PopupView | - | Planned for 2019. Can be made by combining `Button` and `ContextMenu` (V12).
 
 | ProgressBar | ProgressBar | https://vaadin.com/components/vaadin-progress-bar/java-examples[Demo]
 
 | RadioButtonGroup | RadioButtonGroup | https://vaadin.com/components/vaadin-radio-button/java-examples[Demo]
 
-| RichTextArea | - | Planned for Vaadin 12 (12/2018). There are Web Components available, check https://vaadin.com/directory[vaadin.com/directory]
+| RichTextArea | - | Planned for Vaadin 12 (12/2018).
 
 | Slider | - | Not planned. There are Web Components available, check https://vaadin.com/directory[vaadin.com/directory]. You can also use DOM API and `<input type=”range”>`
 
@@ -100,7 +100,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | TextField | TextField | https://vaadin.com/components/vaadin-text-field/java-examples[Demo]
 
-| Tree | - | Planned, but no timeline yet
+| Tree | - | Planned for H1 2019
 
 | TreeGrid | TreeGrid (V12) | Not in V10, `vaadin-grid-flow` 1.1.0 (or newer) is V10 compatible. Included in Vaadin 12 (12/2018)
 
