@@ -18,7 +18,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 |=========================================================
 |V8 |V10 | Details
 
-| AbsoluteLayout | - | Not planned. Similar functionality in V10 can be achieved using eg. https://vaadin.com/api/platform/11.0.1/com/vaadin/flow/component/html/Div.html[`<div>] elements and CSS positioning.
+| AbsoluteLayout | - | Not planned. Similar functionality in V10 can be achieved using eg. https://vaadin.com/api/platform/11.0.1/com/vaadin/flow/component/html/Div.html[`<div>`] elements and CSS positioning.
 
 | Accordion | - | Not planned. Available as a web component https://vaadin.com/directory/component/htmlelementssmart-accordion[(an example)].
 
