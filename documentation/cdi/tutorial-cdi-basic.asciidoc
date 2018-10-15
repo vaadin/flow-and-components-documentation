@@ -10,7 +10,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 The `vaadin-cdi` add-on allows you to use Vaadin with CDI.
 You need to package the add-on in your application,
-and need to deploy it to a jee7 (or newer) compliant application server.
+and need to deploy it to a Java EE 7 (or newer) compliant application server.
 For `vaadin-platform` user, what you need to do is adding the `vaadin-bom` dependency
 to the `dependencyManagement` section in your `pom.xml`:
 
