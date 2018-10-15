@@ -47,8 +47,8 @@ to the `dependencyManagement` section in your `pom.xml`:
 Version 10 of the add-on works with Vaadin version 10, and 11.
 
 Minimum requirement is CDI 1.2 API, and a provided implementation.
-In practice other jee features are used together with CDI,
-the most simple way is to depend on javaee-api 7 or newer.
+In practice other Java EE/Jakarta EE features are used together with CDI,
+so the most simple way is ensure you have a Java EE 7 container or newer.
 
 == Configuration
 
