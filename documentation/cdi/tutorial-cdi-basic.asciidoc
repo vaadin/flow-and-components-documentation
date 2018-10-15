@@ -32,7 +32,7 @@ to the `dependencyManagement` section in your `pom.xml`:
     <dependency>
          <groupId>com.vaadin</groupId>
          <artifactId>vaadin-cdi</artifactId>
-         <version>10.0.0.beta1</version>
+         <version>10.0.0</version>
     </dependency>
     <dependency>
         <groupId>javax</groupId>
