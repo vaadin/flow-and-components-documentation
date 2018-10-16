@@ -10,7 +10,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 The `vaadin-cdi` add-on allows you to use Vaadin with CDI.
 You need to package the add-on in your application,
-and need to deploy it to a jee7 (or newer) compliant application server.
+and need to deploy it to a Java EE 7 (or newer) compliant application server.
 For `vaadin-platform` user, what you need to do is adding the `vaadin-bom` dependency
 to the `dependencyManagement` section in your `pom.xml`:
 
@@ -32,7 +32,7 @@ to the `dependencyManagement` section in your `pom.xml`:
     <dependency>
          <groupId>com.vaadin</groupId>
          <artifactId>vaadin-cdi</artifactId>
-         <version>10.0.0.beta1</version>
+         <version>10.0.0</version>
     </dependency>
     <dependency>
         <groupId>javax</groupId>
@@ -47,8 +47,8 @@ to the `dependencyManagement` section in your `pom.xml`:
 Version 10 of the add-on works with Vaadin version 10, and 11.
 
 Minimum requirement is CDI 1.2 API, and a provided implementation.
-In practice other jee features are used together with CDI,
-the most simple way is to depend on javaee-api 7 or newer.
+In practice other Java EE/Jakarta EE features are used together with CDI,
+so the most simple way is ensure you have a Java EE 7 container or newer.
 
 == Configuration
 
