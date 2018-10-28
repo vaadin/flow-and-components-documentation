@@ -32,6 +32,7 @@ public class Person implements Serializable {
     private String lastName;
     private String email;
     private String title;
+    private MaritalStatus maritalStatus;
 
 
     private String fullName;
@@ -129,6 +130,14 @@ public class Person implements Serializable {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public MaritalStatus getMaritalStatus() {
+        return maritalStatus;
+    }
+
+    public void setMaritalStatus(MaritalStatus maritalStatus) {
+        this.maritalStatus = maritalStatus;
     }
 
 }
