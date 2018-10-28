@@ -15,9 +15,9 @@
  */
 package com.vaadin.flow.tutorial.databinding;
 
-import java.io.Serializable;
-
 import com.vaadin.flow.tutorial.annotations.CodeFor;
+
+import java.io.Serializable;
 
 @CodeFor("binding-data/tutorial-flow-components-binder.asciidoc")
 public class Person implements Serializable {
@@ -32,6 +32,9 @@ public class Person implements Serializable {
     private String lastName;
     private String email;
     private String title;
+
+
+    private String fullName;
 
     private int yearOfBirth;
     private int age;
@@ -62,6 +65,14 @@ public class Person implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
