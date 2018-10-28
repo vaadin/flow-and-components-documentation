@@ -15,14 +15,14 @@
  */
 package com.vaadin.flow.tutorial.databinding;
 
-import java.util.List;
-
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.BinderValidationStatus;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.data.binder.ValidationResult;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
+
+import java.util.List;
 
 @CodeFor("binding-data/tutorial-flow-components-binder-load.asciidoc")
 public class BinderLoadSave {
@@ -72,6 +72,10 @@ public class BinderLoadSave {
         }
     }
 
+    public void beanLevelValidation() {
+        binder.withValidator(p -> p.getYearOfMarriage() > p.getYearOfBirth(), "Marriage  year must be bigger than birth year.");
+    }
+
     public void statusChangeListener() {
         Button saveButton = new Button("Save");
         Button resetButton = new Button("Reset");
@@ -80,20 +84,20 @@ public class BinderLoadSave {
             boolean isValid = event.getBinder().isValid();
             boolean hasChanges = event.getBinder().hasChanges();
 
-            saveButton.setEnabled(!hasChanges || !isValid);
-            resetButton.setEnabled(!hasChanges);
+            saveButton.setEnabled(hasChanges && isValid);
+            resetButton.setEnabled(hasChanges);
         });
     }
 
     public void autoSave() {
         Binder<Person> binder = new Binder<>();
 
-        // Field binding configuration omitted, it should be done here
+// Field binding configuration omitted, it should be done here
 
         Person person = new Person("John Doe", 1957);
 
-        // Loads the values from the person instance
-        // Sets person to be updated when any bound field is updated
+// Loads the values from the person instance
+// Sets person to be updated when any bound field is updated
         binder.setBean(person);
 
         Button saveButton = new Button("Save", event -> {

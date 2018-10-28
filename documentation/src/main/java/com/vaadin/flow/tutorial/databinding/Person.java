@@ -38,6 +38,7 @@ public class Person implements Serializable {
     private String fullName;
 
     private int yearOfBirth;
+    private int yearOfMarriage;
     private int age;
 
     private Gender gender;
@@ -140,4 +141,11 @@ public class Person implements Serializable {
         this.maritalStatus = maritalStatus;
     }
 
+    public int getYearOfMarriage() {
+        return yearOfMarriage;
+    }
+
+    public void setYearOfMarriage(int yearOfMarriage) {
+        this.yearOfMarriage = yearOfMarriage;
+    }
 }
