@@ -90,7 +90,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | RadioButtonGroup | RadioButtonGroup | https://vaadin.com/components/vaadin-radio-button/java-examples[Demo]
 
-| RichTextArea | - | Planned for Vaadin 12 (12/2018).
+| RichTextArea | - | Planned for Vaadin 13.
 
 | Slider | - | Not planned. There are Web Components available, check https://vaadin.com/directory[vaadin.com/directory]. You can also use DOM API and `<input type=”range”>`
 
