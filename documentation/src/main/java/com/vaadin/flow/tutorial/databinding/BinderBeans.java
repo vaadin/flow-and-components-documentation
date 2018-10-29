@@ -39,6 +39,7 @@ public class BinderBeans {
 
     public class Person {
 
+        @Max(2000)
         @Max(value = 2000, message = "Year of Birth must be less than or equal to 2000")
         private int yearOfBirth;
 

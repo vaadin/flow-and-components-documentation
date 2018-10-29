@@ -79,7 +79,7 @@ Example of Binder Validation:
 
 [source, java]
 ----
-binder.forField(yearOfBirth)
+binder.forField(yearOfBirthField)
   .withValidator(
     yearOfBirth -> yearOfBirth <= 2000,
     "Year of Birth must be less than or equal to 2000")
