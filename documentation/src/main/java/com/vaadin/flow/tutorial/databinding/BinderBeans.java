@@ -38,7 +38,8 @@ public class BinderBeans {
     private TextField yearOfBirthField;
 
     public class Person {
-        @Max(2000)
+
+        @Max(value = 2000, message = "Year of Birth must be less than or equal to 2000")
         private int yearOfBirth;
 
         // Non-standard constraint provided by Hibernate Validator
@@ -46,7 +47,35 @@ public class BinderBeans {
         private String name;
 
         // + other fields, constructors, setters, and getters
+
+        public int getYearOfBirth() {
+            return yearOfBirth;
+        }
+
+        public void setYearOfBirth(int yearOfBirth) {
+            this.yearOfBirth = yearOfBirth;
+        }
     }
+
+
+    public void bindProprties() {
+
+        Binder<Person> binder = new Binder<>(Person.class);
+
+        binder.forField(yearOfBirthField)
+                .withConverter(
+                        new StringToIntegerConverter("Must enter a number"))
+                .withValidator(
+                        yearOfBirth -> yearOfBirth <= 2000,
+                        "Year of Birth must be less than or equal to 2000")
+                .bind(Person::getYearOfBirth, Person::setYearOfBirth);
+    }
+
+    public void requiredConfigurator() {
+        BeanValidationBinder<Person>  binder = new BeanValidationBinder<>(Person.class);
+        binder.setRequiredConfigurator(RequiredFieldConfigurator.NOT_EMPTY.chain(RequiredFieldConfigurator.NOT_NULL));
+   }
+
 
     public void bindSubProprties() {
         Binder<Person> binder = new Binder<>(Person.class);
@@ -68,9 +97,9 @@ public class BinderBeans {
 
         binder.bind(nameField, "name");
         binder.forField(yearOfBirthField)
-        .withConverter(
-                new StringToIntegerConverter("Please enter a number"))
-        .bind("yearOfBirth");
+                .withConverter(
+                        new StringToIntegerConverter("Please enter a number"))
+                .bind("yearOfBirth");
         // @formatter:on
     }
 
@@ -118,6 +147,7 @@ public class BinderBeans {
         // @formatter:on
     }
 
+
     private void setVisible(Label label, boolean visible) {
 
     }
@@ -140,6 +170,8 @@ public class BinderBeans {
             return value;
         }
     }
+
+    //Automatic Binding
 
     public static class A {
 
