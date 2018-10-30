@@ -1,24 +1,27 @@
 ---
-title: Components in Vaadin 10
+title: Platform Components
 order: 5
 layout: page
 ---
 
-= Components in Vaadin 10
+= Platform Components
 
 [#components]
 == Component Set
 
 While all the components have been rebuilt based on Web Components, there are some components that don’t yet have a replacement with server side Java API. The ones that have, might have gone through some changes. Some older features might have been removed.
 
-The following table lists the existing Vaadin 8 components and their direct replacements in V10. Note that the replacement component might not have 1-1 feature parity. If no replacement is yet available, current plans or options for replacement is mentioned.
+The following table lists the existing Vaadin 8 components and their direct replacements in the platform (V10+). Note that the replacement component might not have 1-1 feature parity. If no replacement is yet available, current plans or options for replacement is mentioned.
+
+[NOTE]
+The mentioned components are available starting from Vaadin 10 or from the specifically mentioned platform version.
 
 .Comparison Matrix
 [width="80%",cols=">4,4,10",options="header"]
 |=========================================================
-|V8 |V10 | Details
+|V8 |Platform | Details
 
-| AbsoluteLayout | - | Not planned. Similar functionality in V10 can be achieved using eg. https://vaadin.com/api/platform/11.0.1/com/vaadin/flow/component/html/Div.html[`<div>`] elements and CSS positioning.
+| AbsoluteLayout | - | Not planned. Similar functionality in V10+ can be achieved using eg. https://vaadin.com/api/platform/11.0.1/com/vaadin/flow/component/html/Div.html[`<div>`] elements and CSS positioning.
 
 | Accordion | - | Not planned. Available as a web component (https://vaadin.com/directory/component/htmlelementssmart-accordion[an example]).
 
@@ -122,7 +125,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 For any missing components, you should first look for alternatives in https://vaadin.com/directory[vaadin.com/directory]. It shows both V10 add-ons with Java API and web components that can be integrated to Java.
 
-For the components that are available in V10, you can browse https://vaadin.com/components/browse[vaadin.com/components/browse] for features and examples.
+For the components that are available in the platform, you can browse https://vaadin.com/components/browse[vaadin.com/components/browse] for features and examples.
 
 [#basic-features]
 == Basic Component Features
@@ -182,7 +185,7 @@ Most components will also update their visual status to indicate to the user tha
 In Vaadin 8 the framework made it possible to show a tooltip for any component if the user hovered the mouse on top of the component.
 In Vaadin 10 there is no automatic way for this; it is a component specific feature and possible using CSS.
 
-== [#layouts]#Layouts in Vaadin 10#
+== [#layouts]#Layouts in Platform#
 
 In Vaadin 8 the layouting of components was managed by a `LayoutManager` on the client engine.
 This has its roots in a time when the differences between browsers were big,
@@ -213,7 +216,7 @@ There is currently no direct API exposed for this in the layouts. But if you wan
 If this is a much requested API, we could make it a standard feature to the layouts.
 There is an https://github.com/vaadin/flow/issues/2465[enhancement issue] for this.
 
-=== Available Layouts in Vaadin 10
+=== Available Layouts in Platform
 
 ==== HorizontalLayout & VerticalLayout
 
