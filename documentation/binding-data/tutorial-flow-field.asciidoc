@@ -25,8 +25,9 @@ This is the case for many Web Components that are designed similarly to the nati
 In many case, the Web Component that a component is based on has a property that contains its value.
 The name of that property is most typically `value`, and it fires a `value-changed` event when the property is changed.
 As long as the type of the property is a string, a number or a boolean, all we need to do is to extend `AbstractSinglePropertyField` and call its constructor with the name of the property, the default value, and whether null values are accepted.
+d call its constructor with the name of the property, the default value, and whether null values are accepted.
 
-The `<paper-slider>` Web Component works in this way.
+As an example, The `<paper-slider>` Web Component works in this way.
 It has an integer property named `value`, it shows the slider at the 0 position if no value is set and it doesn't support the concept of showing no value at all.
 A `PaperSlider` component that works perfectly with `Binder` can thus be implemented in this way:
 
@@ -42,14 +43,18 @@ public class PaperSlider
 }
 ----
 
-The type parameters of `AbstractSinglePropertyField` define the type of the `getSource()` method in fired value change events (`PaperSlider`) and the value type (`Integer`).
+The type parameters of `AbstractSinglePropertyField` are:
 
-The default value, i.e. `0` in this case, is automatically used by the `clear()` and `isEmpty()` methods. `clear()` sets the field's value to the default value. `isEmpty()` returns true if the field's value is the default value.
+* The type of the `getSource()` method in fired value change events (`PaperSlider`).
+* The value type (`Integer`).
+
+The default value, i.e. `0` in this case, is automatically used by the `clear()` and `isEmpty()` methods. `clear()` sets the field’s value to the default value. `isEmpty()` returns true if the field’s value is the default value.
+Note that you should use the 2.0.7 version of paper-slider component, because the latest version is not compatible with Vaadin.
 
 === Converting the Property Value
 
 With some Web Components, there is a Java type that is more suitable than the type of the element property.
-In these cases, it is possible to configure `AbstractSinglePropertyField` to apply a converter when changing reading or writing the value to the element property.
+In these cases, it is possible to configure `AbstractSinglePropertyField` to apply a converter when changing, reading or writing the value to the element property.
 
 As an example, the `value` property of `<input type="date">` is an ISO 8601 formatted string, e.g. `2018-01-31`.
 We can turn this into a `DatePicker` component for selecting a `LocalDate` with the help of `AbstractSinglePropertyField` by providing one callback that converts from `LocalDate` to `String` and one callback that converts in the opposite direction.
@@ -60,8 +65,7 @@ We can turn this into a `DatePicker` component for selecting a `LocalDate` with 
 public class DatePicker
         extends AbstractSinglePropertyField<DatePicker, LocalDate> {
 
-    public DatePicker(String propertyName, LocalDate defaultValue,
-            boolean acceptNullValues) {
+    public DatePicker() {
         super("value", null, String.class, LocalDate::parse,
                 LocalDate::toString);
 
@@ -78,7 +82,7 @@ public class DatePicker
 ----
 
 In this case, the convention of listening for an event named `{propertyName}-changed` is not appropriate.
-Instead, we override the default configuration by calling `setSynchronizedEvent("change")`, thus listening for the `change` event in the browser.
+Instead, we override the default configuration by calling `setSynchronizedEvent("change")`, thus listening for the change event in the browser.
 
 We also override the `hasValidValue` method to validate the element value before it is being passed to the `LocalDate.parse` method that we defined in the constructor.
 In this way, we can silently ignore invalid values instead of causing nasty exceptions.
@@ -86,7 +90,7 @@ In this way, we can silently ignore invalid values instead of causing nasty exce
 == Combining Multiple Properties Into One Value
 
 `AbstractSinglePropertyField` only works with a Web Component that has the value in a single element property.
-One quite typical situation when this isn't the case is if the value of a component is a composition of multiple element properties.
+One quite typical situation when this isn’t the case is if the value of a component is a composition of multiple element properties.
 Those properties might either all belong to the same element, or there might be multiple elements.
 
 These kinds of situations are best handled by extending `AbstractField`.
@@ -97,6 +101,8 @@ Both values should be kept in sync, except while the value is currently being ch
 
 Let's pretend there is a `<simple-date-picker>` Web Component that has separate integer properties for the selected date: `year`, `month` and `dayOfMonth`.
 For each property, there is a corresponding event when the user makes a change, i.e. `year-changed`, `month-changed` and `day-of-month-changed`.
+
+e, i.e. year-changed, month-changed and day-of-month-changed.
 
 We can start implementing a `SimpleDatePicker` component by extending `AbstractField` and passing the default value to its constructor.
 
@@ -186,9 +192,37 @@ This means that `getValue()` will still return the same value that it returned p
 
 [TIP]
 ====
+
 The component can call `setModelValue` from inside its `setPresentationValue` implementation.
-In that case, the value of the component will be set to value passed to `setModelValue` will be used instead of the original value.
-This is useful if the component wants to transform values provided by the application developer, e.g. to always make all strings upper case.
+In that case, the value of the component will be set to the value passed to the `setModelValue` and will be used instead of the original value.
+This is useful if the component wants to transform values provided by the application developer, e.g. to always make all strings uppercase.
+
+E.g. if you have a percentage field that can only be 0-100%, in your setPresentationValue you can write the following code:
+
+[source, java]
+----
+@Override
+protected void setPresentationValue(Integer value) {
+        if (value < 0) value = 0;
+        if (value > 100) value = 100;
+
+        getElement().setProperty("value", false);
+}
+----
+
+If the value set from the server was for example, 138, then this code sets the value 100 to the client, but the internal server value is still 138. You can change the internal server value like the following code:
+
+[source, java]
+----
+@Override
+protected void setPresentationValue(Integer value) {
+        if (value < 0) value = 0;
+        if (value > 100) value = 100;
+
+        getElement().setProperty("value", value);
+        setModelValue(value, false);
+}
+----
 
 Calling `setModelValue` from the implementation of `setPresentationValue` will not fire any value change event.
 If `setModelValue` is called multiple times, the value of the last invocation will be used.
