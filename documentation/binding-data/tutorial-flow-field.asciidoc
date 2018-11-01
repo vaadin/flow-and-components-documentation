@@ -22,10 +22,10 @@ This is the case for many Web Components that are designed similarly to the nati
 
 == Directly Using a Single Element Property As the Value
 
-In many case, the Web Component that a component is based on has a property that contains its value.
+In many cases, the Web Component that a component is based on has a property that contains its value.
 The name of that property is most typically `value`, and it fires a `value-changed` event when the property is changed.
-As long as the type of the property is a string, a number or a boolean, all we need to do is to extend `AbstractSinglePropertyField` and call its constructor with the name of the property, the default value, and whether null values are accepted.
-d call its constructor with the name of the property, the default value, and whether null values are accepted.
+As long as the type of the property is a string, a number or a boolean, all we need to do is to extend `AbstractSinglePropertyField` and call its constructor with the name of the property, the default value,
+and whether null values are accepted.
 
 As an example, The `<paper-slider>` Web Component works in this way.
 It has an integer property named `value`, it shows the slider at the 0 position if no value is set and it doesn't support the concept of showing no value at all.
@@ -190,9 +190,6 @@ private void propertyUpdated(PropertyChangeEvent event) {
 If any of the properties are not filled in, we don't call `setModelValue`.
 This means that `getValue()` will still return the same value that it returned previously.
 
-[TIP]
-====
-
 The component can call `setModelValue` from inside its `setPresentationValue` implementation.
 In that case, the value of the component will be set to the value passed to the `setModelValue` and will be used instead of the original value.
 This is useful if the component wants to transform values provided by the application developer, e.g. to always make all strings uppercase.
@@ -227,7 +224,6 @@ protected void setPresentationValue(Integer value) {
 Calling `setModelValue` from the implementation of `setPresentationValue` will not fire any value change event.
 If `setModelValue` is called multiple times, the value of the last invocation will be used.
 This means that the component developer doesn't have to worry about causing infinite loops by doing something in `setPresentationValue` that fires an internal event that in turn would `setModelValue`.
-====
 
 == Creating a Field From One or Several Other Fields
 
