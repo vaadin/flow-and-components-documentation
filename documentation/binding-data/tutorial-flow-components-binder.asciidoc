@@ -8,13 +8,18 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 = Binding Data to Forms
 
 A typical application lets the user fill out structured data and maybe also browse previously entered data.
-The data that is being entered is typically represented in code as an instance of a business object (bean), for instance, a Person in an HR application.
+The data that is being entered is typically represented in code as an instance of a business object (bean), for
+instance, a Person in an HR application.
 
-Flow provides a `Binder` class that the developer can use to define how the values in a business object should be bound to the fields shown in the user interface.
-`Binder` takes care of reading values from the business object and converting the data between the format expected by the business object and the format expected by the field.
-The input entered by the user can also be validated, and the current validation status can be presented to the user in different ways.
+Flow provides a `Binder` class that the developer can use to define how the values in a business object should be bound
+to the fields shown in the user interface.
+`Binder` takes care of reading values from the business object and converting the data between the format expected by
+the business object and the format expected by the field.
+The input entered by the user can also be validated, and the current validation status can be presented to the user
+in different ways.
 
-The first step to binding fields for a form is to create a `Binder` and bind some input fields. There is only one `Binder` instance for each form and it is used for all fields in that form.
+The first step to binding fields for a form is to create a `Binder` and bind some input fields. There is only
+one `Binder` instance for each form and it is used for all fields in that form.
 
 [source, java]
 ----
@@ -37,7 +42,8 @@ TextField nameField = new TextField();
 binder.bind(nameField, Person::getName, Person::setName);
 ----
 
-When we have bound field components using our binder, we can use the binder to load values from a person into the field, let the user edit the values and finally save the values back into a person instance.
+When we have bound field components using our binder, we can use the binder to load values from a person into the
+field, let the user edit the values and finally save the values back into a person instance.
 
 [source, java]
 ----
@@ -64,11 +70,14 @@ Button resetButton = new Button("Reset",
   event -> binder.readBean(person));
 ----
 
-Every time `writeBean` is called, the data is validated and then copied from the UI to the business object. If the data is invalid a `ValidationException` that includes all errors in the data is thrown. That is why we need to put `writeBean` inside a try/catch block.
+Every time `writeBean` is called, the data is validated and then copied from the UI to the business object. If the
+data is invalid a `ValidationException` that includes all errors in the data is thrown. That is why we need to
+put `writeBean` inside a try/catch block.
 
 With these basic steps, we have defined everything that is needed for loading, editing and saving values for a form.
 
-The above example uses Java 8 method references for defining how field values are loaded and saved. It is also possible to use a lambda expression instead of a method reference. You
+The above example uses Java 8 method references for defining how field values are loaded and saved. It is also
+possible to use a lambda expression instead of a method reference. You
 can use this to call any method or to run additional commands in the callback:
 
 [source, java]
@@ -92,8 +101,10 @@ TextField fullName = new TextField();
 binder.forField(fullName).bind(Person::getFullName, null);
 ----
 
-The Binder can only bind components that implement the `HasValue` interface e.g. TextField and ComboBox. If we want to bind other components, that does
-not implement the `HasValue` interface, to non-modifiable data we should use the `ReadOnlyHasValue` helper class. For example, we can bind a `Label` to display
+The Binder can only bind components that implement the `HasValue` interface e.g. TextField and ComboBox. If we want to
+bind other components, that does
+not implement the `HasValue` interface, to non-modifiable data we should use the `ReadOnlyHasValue` helper class. For
+example, we can bind a `Label` to display
 a person’s full name:
 
 [source, java]
@@ -101,5 +112,6 @@ a person’s full name:
 Label fullNameLabel = new Label();
 ReadOnlyHasValue<String> fullName = new ReadOnlyHasValue<>(
         text -> fullNameLabel.setText(text));
-binder.forField(fullName).bind(Person::getFullName, null);
+binder.forField(fullName)
+        .bind(Person::getFullName, null);
 ----

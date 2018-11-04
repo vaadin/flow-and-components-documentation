@@ -8,27 +8,33 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 = Creating a Component That Has a Value
 
 A component must implement the `HasValue` interface in order to work with `Binder`.
-This interface defines methods for accessing the value itself, an event when the value changes, some helpers for dealing with empty values, readonly mode, and showing a required indicator.
+This interface defines methods for accessing the value itself, an event when the value changes, some helpers for
+dealing with empty values, readonly mode, and showing a required indicator.
 
-Implementing all of the methods requires a lot of code that is common for all cases, not to mention the risk of missing some of the finer details of how things are supposed to work.
-There are a couple of helper classes that you can use as a base class for a component that shows a value to the user and allows the user to change that value.
+Implementing all of the methods requires a lot of code that is common for all cases, not to mention the risk of
+missing some of the finer details of how things are supposed to work.
+There are a couple of helper classes that you can use as a base class for a component that shows a value to the user
+and allows the user to change that value.
 
 * `AbstractField` is the most basic but also the most flexible base class.
 It requires the developer to take care of many details, but it also makes it possible to support complex cases.
 * `AbstractCompositeField` is similar to `AbstractField`, but uses `Composite` instead of `Component` as the base class.
 This makes it suitable for cases where the value input component is made up of several individual components.
-* `AbstractSinglePropertyField` greatly simplifies the very common case when the value is based on a single element property of the component's only element.
+* `AbstractSinglePropertyField` greatly simplifies the very common case when the value is based on a single element
+property of the component's only element.
 This is the case for many Web Components that are designed similarly to the native `<input>` element.
 
 == Directly Using a Single Element Property As the Value
 
 In many cases, the Web Component that a component is based on has a property that contains its value.
 The name of that property is most typically `value`, and it fires a `value-changed` event when the property is changed.
-As long as the type of the property is a string, a number or a boolean, all we need to do is to extend `AbstractSinglePropertyField` and call its constructor with the name of the property, the default value,
+As long as the type of the property is a string, a number or a boolean, all we need to do is to extend
+`AbstractSinglePropertyField` and call its constructor with the name of the property, the default value,
 and whether null values are accepted.
 
-As an example, The `<paper-slider>` Web Component works in this way.
-It has an integer property named `value`, it shows the slider at the 0 position if no value is set and it doesn't support the concept of showing no value at all.
+As an example, the `<paper-slider>` Web Component works in this way.
+It has an integer property named `value`, it shows the slider at the 0 position if no value is set and it doesn't
+support the concept of showing no value at all.
 A `PaperSlider` component that works perfectly with `Binder` can thus be implemented in this way:
 
 [source, java]
@@ -48,16 +54,21 @@ The type parameters of `AbstractSinglePropertyField` are:
 * The type of the `getSource()` method in fired value change events (`PaperSlider`).
 * The value type (`Integer`).
 
-The default value, i.e. `0` in this case, is automatically used by the `clear()` and `isEmpty()` methods. `clear()` sets the field’s value to the default value. `isEmpty()` returns true if the field’s value is the default value.
-Note that you should use the 2.0.7 version of paper-slider component, because the latest version is not compatible with Vaadin.
+The default value, i.e. `0` in this case, is automatically used by the `clear()` and `isEmpty()` methods. `clear()`
+sets the field’s value to the default value. `isEmpty()` returns true if the field’s value is the default value.
+Note that you should use the 2.0.7 version of paper-slider component, because the latest version is not compatible
+with Vaadin.
 
 === Converting the Property Value
 
 With some Web Components, there is a Java type that is more suitable than the type of the element property.
-In these cases, it is possible to configure `AbstractSinglePropertyField` to apply a converter when changing, reading or writing the value to the element property.
+In these cases, it is possible to configure `AbstractSinglePropertyField` to apply a converter when changing,
+reading or writing the value to the element property.
 
 As an example, the `value` property of `<input type="date">` is an ISO 8601 formatted string, e.g. `2018-01-31`.
-We can turn this into a `DatePicker` component for selecting a `LocalDate` with the help of `AbstractSinglePropertyField` by providing one callback that converts from `LocalDate` to `String` and one callback that converts in the opposite direction.
+We can turn this into a `DatePicker` component for selecting a `LocalDate` with the
+help of `AbstractSinglePropertyField` by providing one callback that converts from `LocalDate` to `String` and one
+callback that converts in the opposite direction.
 
 [source, java]
 ----
@@ -82,29 +93,36 @@ public class DatePicker
 ----
 
 In this case, the convention of listening for an event named `{propertyName}-changed` is not appropriate.
-Instead, we override the default configuration by calling `setSynchronizedEvent("change")`, thus listening for the change event in the browser.
+Instead, we override the default configuration by calling `setSynchronizedEvent("change")`, thus listening for the
+change event in the browser.
 
-We also override the `hasValidValue` method to validate the element value before it is being passed to the `LocalDate.parse` method that we defined in the constructor.
+We also override the `hasValidValue` method to validate the element value before it is being passed to the
+`LocalDate.parse` method that we defined in the constructor.
 In this way, we can silently ignore invalid values instead of causing nasty exceptions.
 
 == Combining Multiple Properties Into One Value
 
 `AbstractSinglePropertyField` only works with a Web Component that has the value in a single element property.
-One quite typical situation when this isn’t the case is if the value of a component is a composition of multiple element properties.
+One quite typical situation when this isn’t the case is if the value of a component is a composition of multiple
+element properties.
 Those properties might either all belong to the same element, or there might be multiple elements.
 
 These kinds of situations are best handled by extending `AbstractField`.
 When doing so, there are two different value representation to handle.
 The _presentation value_ is what is shown to the user through the web browser, e.g. as element properties.
 The _model value_ is the value that is available to the application developer through the `getValue()` method.
-Both values should be kept in sync, except while the value is currently being changed or in situations when the element properties are in an invalid state that cannot or shouldn't be represented through `getValue()`.
+Both values should be kept in sync, except while the value is currently being changed or in situations when the
+element properties are in an invalid state that cannot or shouldn't be represented through `getValue()`.
 
-Let's pretend there is a `<simple-date-picker>` Web Component that has separate integer properties for the selected date: `year`, `month` and `dayOfMonth`.
-For each property, there is a corresponding event when the user makes a change, i.e. `year-changed`, `month-changed` and `day-of-month-changed`.
+Let's pretend there is a `<simple-date-picker>` Web Component that has separate integer properties for the selected
+date: `year`, `month` and `dayOfMonth`.
+For each property, there is a corresponding event when the user makes a change, i.e. `year-changed`, `month-changed`
+and `day-of-month-changed`.
 
 e, i.e. year-changed, month-changed and day-of-month-changed.
 
-We can start implementing a `SimpleDatePicker` component by extending `AbstractField` and passing the default value to its constructor.
+We can start implementing a `SimpleDatePicker` component by extending `AbstractField` and passing the default value
+to its constructor.
 
 [source, java]
 ----
@@ -117,10 +135,13 @@ public class SimpleDatePicker
 }
 ----
 
-The type parameters are the same as for `AbstractSinglePropertyField`, i.e. the `getSource()` type for the value change event and the value type.
+The type parameters are the same as for `AbstractSinglePropertyField`, i.e. the `getSource()` type for the value change
+event and the value type.
 
-When the developer calls `setValue(T value)` with a new value, `AbstractField` will invoke the `setPresentationValue(T value)` with the new value.
-The component should implement this method so that it updates the element properties to match the value set by the application developer.
+When the developer calls `setValue(T value)` with a new value, `AbstractField` will invoke the
+`setPresentationValue(T value)` with the new value.
+The component should implement this method so that it updates the element properties to match the value set by the
+application developer.
 
 [source, java]
 ----
@@ -140,16 +161,22 @@ protected void setPresentationValue(LocalDate value) {
 }
 ----
 
-To handle value changes from the user's browser, the component must listen to appropriate internal events and pass a new value to the `setModelValue(T value, boolean fromClient)` method.
-`AbstractField` will then check if the provided value has actually changed, and if that is the case also fire a value change event to all listeners.
+To handle value changes from the user's browser, the component must listen to appropriate internal events and pass a
+new value to the `setModelValue(T value, boolean fromClient)` method.
+`AbstractField` will then check if the provided value has actually changed, and if that is the case also fire a value
+change event to all listeners.
 
 [TIP]
-By default, `AbstractField` uses `Objects.equals` for determining whether a new value is the same as the previous value. In cases where the the `equals` method of the value type is not appropriate, you can override the `valueEquals` method to implement your own comparison logic.
+By default, `AbstractField` uses `Objects.equals` for determining whether a new value is the same as the previous value.
+In cases where the the `equals` method of the value type is not appropriate, you can override the `valueEquals` method
+to implement your own comparison logic.
 
 [WARNING]
-`AbstractField` should only be used with immutable value instances. No value change event will be fired if the original `getValue()` instance is modified and passed to `setModelValue` or `setValue`.
+`AbstractField` should only be used with immutable value instances. No value change event will be fired if the original
+`getValue()` instance is modified and passed to `setModelValue` or `setValue`.
 
-In this case, we update the constructor to define each of the element properties as synchronized and add the same property change listener to each of them.
+In this case, we update the constructor to define each of the element properties as synchronized and add the same
+property change listener to each of them.
 
 [source, java]
 ----
@@ -169,7 +196,8 @@ private void setupProperty(String name, String event) {
 }
 ----
 
-Finally, we implement the property change listener to create a new `LocalDate` based on the element property values and pass it to `setModelValue`.
+Finally, we implement the property change listener to create a new `LocalDate` based on the element property values and
+pass it to `setModelValue`.
 
 [source, java]
 ----
@@ -191,10 +219,13 @@ If any of the properties are not filled in, we don't call `setModelValue`.
 This means that `getValue()` will still return the same value that it returned previously.
 
 The component can call `setModelValue` from inside its `setPresentationValue` implementation.
-In that case, the value of the component will be set to the value passed to the `setModelValue` and will be used instead of the original value.
-This is useful if the component wants to transform values provided by the application developer, e.g. to always make all strings uppercase.
+In that case, the value of the component will be set to the value passed to the `setModelValue` and will be used
+instead of the original value.
+This is useful if the component wants to transform values provided by the application developer, e.g. to always make
+all strings uppercase.
 
-E.g. if you have a percentage field that can only be 0-100%, in your setPresentationValue you can write the following code:
+E.g. if you have a percentage field that can only be 0-100%, in your setPresentationValue you can write the following
+code:
 
 [source, java]
 ----
@@ -207,7 +238,8 @@ protected void setPresentationValue(Integer value) {
 }
 ----
 
-If the value set from the server was for example, 138, then this code sets the value 100 to the client, but the internal server value is still 138. You can change the internal server value like the following code:
+If the value set from the server was for example, 138, then this code sets the value 100 to the client, but the
+internal server value is still 138. You can change the internal server value like the following code:
 
 [source, java]
 ----
@@ -223,21 +255,27 @@ protected void setPresentationValue(Integer value) {
 
 Calling `setModelValue` from the implementation of `setPresentationValue` will not fire any value change event.
 If `setModelValue` is called multiple times, the value of the last invocation will be used.
-This means that the component developer doesn't have to worry about causing infinite loops by doing something in `setPresentationValue` that fires an internal event that in turn would `setModelValue`.
+This means that the component developer doesn't have to worry about causing infinite loops by doing something in
+`setPresentationValue` that fires an internal event that in turn would `setModelValue`.
 
 == Creating a Field From One or Several Other Fields
 
-`AbstractCompositeField` makes it possible to create a field component that has a value that is based on the value of one or several internal fields.
+`AbstractCompositeField` makes it possible to create a field component that has a value that is based on the value of
+one or several internal fields.
 
-As an example, let's build an employee selector field where the user first selects a department from one dropdown and then selects one of the employees from that department in another dropdown.
-In this case, the component itself is a `Composite` based on a `HorizontalLayout` containing the two dropdown components side-by-side.
+As an example, let's build an employee selector field where the user first selects a department from one dropdown and
+then selects one of the employees from that department in another dropdown.
+In this case, the component itself is a `Composite` based on a `HorizontalLayout` containing the two dropdown
+components side-by-side.
 
 [TIP]
 This example uses a layout component as the composite content.
-Another use case for `AbstractCompositeField` is to create a field component that is directly based on another field, while converting the value from that field.
+Another use case for `AbstractCompositeField` is to create a field component that is directly based on another field,
+while converting the value from that field.
 
 The class declaration is a mix of `Composite` and `AbstractField`.
-The first type parameter defines the `Composite` content type, the second is for the value change event `getSource()` type and the last is the `getValue()` type of the field.
+The first type parameter defines the `Composite` content type, the second is for the value change event `getSource()`
+type and the last is the `getValue()` type of the field.
 
 [source, java]
 ----
@@ -249,7 +287,9 @@ public class EmployeeField extends
 ----
 We also initialize instance fields for each dropdown.
 
-In the constructor, we configure `departmentSelect` value changes to update the items in `employeeSelect`. Next, the employee selected in `employeeSelect` is set as the field's value. Finally, we add both dropdowns to the horizontal layout.
+In the constructor, we configure `departmentSelect` value changes to update the items in `employeeSelect`. Next, the
+employee selected in `employeeSelect` is set as the field's value. Finally, we add both dropdowns to the horizontal
+layout.
 
 [source, java]
 ----
@@ -272,7 +312,8 @@ public EmployeeField() {
 }
 ----
 
-As with `AbstractField`, we also implement `setPresentationValue` to update the dropdowns according to a provided employee.
+As with `AbstractField`, we also implement `setPresentationValue` to update the dropdowns according to a provided
+employee.
 
 [source, java]
 ----
@@ -288,7 +329,8 @@ protected void setPresentationValue(Employee employee) {
 ----
 
 Next, we need to change how the required indicator is shown for the field.
-The default implementation assumes the component's root element reacts to a property named `required`, which works nicely for Web Components that mimic the API of `<input>`.
+The default implementation assumes the component's root element reacts to a property named `required`, which works
+nicely for Web Components that mimic the API of `<input>`.
 In our case, we want to show the required indicator of the employee dropdown.
 
 [source, java]
@@ -305,7 +347,8 @@ public boolean isRequiredIndicatorVisible() {
 ----
 
 As a last step, we also implement readonly handling to mark both dropdowns as readonly.
-The default implementation is similar to how required indicators are handled, except that it uses the `readonly` property instead.
+The default implementation is similar to how required indicators are handled, except that it uses the `readonly`
+property instead.
 
 [source, java]
 ----

@@ -99,7 +99,8 @@ public class BinderBasic {
         Label fullNameLabel = new Label();
         ReadOnlyHasValue<String> fullName = new ReadOnlyHasValue<>(
                 text -> fullNameLabel.setText(text));
-        binder.forField(fullName).bind(Person::getFullName, null);
+        binder.forField(fullName)
+                .bind(Person::getFullName, null);
     }
 
     private void notifyValidationException(ValidationException exception) {
