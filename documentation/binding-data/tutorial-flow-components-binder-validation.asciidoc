@@ -190,7 +190,7 @@ You can define your own conversion either by using callbacks, typically lambda e
 implementing the `Converter` interface.
 
 When using callbacks, there is one for converting in each direction. If the callback used for converting the
-user-provided value throws an unchecked exception (`RuntimeException` and its subclasses), then the field will be
+user-provided value throws an unchecked exception, then the field will be
 marked as invalid and the message of the exception will be used as the validation error message.
 Messages in Java runtime exceptions are typically written with developers in mind and might not be suitable to show to
 end users.
