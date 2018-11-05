@@ -83,7 +83,7 @@ binder.forField(nameField)
 ----
 
 The `withStatusLabel(Label label)` method sets the given label to show an error message if validation fails.
-Instead of using labels you can set a custom validation status handler using the `withValidationStatusHandler` method.
+Instead of using labels you can set a custom validation status handler by the `withValidationStatusHandler` method.
 It allows customizing the way a binder displays error messages to get more flexibility than what
 `AbstractComponent.setComponentError(com.vaadin.server.ErrorMessage)` provides (it replaces the default behavior).
 
