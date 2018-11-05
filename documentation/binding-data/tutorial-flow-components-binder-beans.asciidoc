@@ -38,13 +38,10 @@ binder.forField(yearOfBirthField)
 ----
 
 [NOTE]
-Code using strings to identify properties will cause exceptions during runtime if the string contains a typo or if
-the name of the setter and getter methods have been changed without also updating the string.
+Code using strings to identify properties will cause exceptions during runtime if the string contains a typo or if the name of the setter and getter methods have been changed without also updating the string.
 
-If you want to use JSR 303 Bean Validation annotations such as Max, Min, Size, etc. then a `BeanValidationBinder`
-should be used.
-`BeanValidationBinder` extends the `Binder` class so it has the same API but its implementation automatically adds a
-bean validator which takes care of all JSR 303 constraints.
+If you want to use JSR 303 Bean Validation annotations such as Max, Min, Size, etc. then a `BeanValidationBinder` should be used.
+`BeanValidationBinder` extends the `Binder` class so it has the same API but its implementation automatically adds a bean validator which takes care of all JSR 303 constraints.
 
 [source, java]
 ----
@@ -68,8 +65,7 @@ binder.forField(yearOfBirthField)
   .bind("yearOfBirth");
 ----
 
-Constraints defined for properties in the bean will work in the same way as if configured when the binding is created.
-E.g. the following two pieces of code have the same result:
+Constraints defined for properties in the bean will work in the same way as if configured when the binding is created. E.g. the following two pieces of code have the same result:
 
 Example of Bean Validation annotation:
 
@@ -90,8 +86,7 @@ binder.forField(yearOfBirthField)
   .bind(Person::getYearOfBirth, Person::setYearOfBirth);
 ----
 
-Note that to use Bean Validation annotations you should have a JSR 303 implementation like Hibernate Validator
-available in your classpath. E.g. if you use Maven, the following dependency can be used.
+Note that to use Bean Validation annotations you should have a JSR 303 implementation like Hibernate Validator available in your classpath. E.g. if you use Maven, the following dependency can be used.
 
 [source, xml]
 ----
@@ -116,17 +111,12 @@ binder.setRequiredConfigurator(RequiredFieldConfigurator.NOT_EMPTY.chain(Require
 ----
 
 [NOTE]
-When using unbuffered binding (with the `setBean` method), validation will be triggered automatically on all change
-events. If you use buffered binding (with the `readBean` and `writeBean` methods), validation is only triggered
-automatically
-while calling `writeBean`. You can trigger it manually at any time by calling `validate()` on the Binder, for
-instance in a ValueChange handler.
+When using unbuffered binding (with the `setBean` method), validation will be triggered automatically on all change events. If you use buffered binding (with the `readBean` and `writeBean` methods), validation is only triggered automatically
+while calling `writeBean`. You can trigger it manually at any time by calling `validate()` on the Binder, for instance in a ValueChange handler.
 
-Validation errors caused by bean level validation might not be directly associated with any field component shown in
-the user interface, so `Binder` cannot know where such messages should be displayed.
-Similarly to how the `withStatusLabel` method can be used for defining where messages for a specific binding should
-be shown, we can also define a `Label` that is used for showing status messages that are not related to any specific
-field.
+Validation errors caused by bean level validation might not be directly associated with any field component shown in the user interface, so `Binder` cannot know where such messages should be displayed.
+Similarly to how the `withStatusLabel` method can be used for defining where messages for a specific binding should be shown,
+we can also define a `Label` that is used for showing status messages that are not related to any specific field.
 
 [source, java]
 ----
@@ -180,10 +170,8 @@ In this tutorial, we will explain a way to automatically bind properties of a bu
 [[flow.tutorial.automaticdatabinding.bindinstancefield]]
 === The `bindInstanceFields` method
 
-Usually, we define UI fields as members of a UI Java class in order to access them in different methods of the class.
-In such a case, binding
-those fields is really easy because the `bindInstanceFields` method can do this job for us. We simply need to pass an
-object of the UI Class to it and it matches fields
+Usually, we define UI fields as members of a UI Java class in order to access them in different methods of the class. In such a case, binding
+those fields is really easy because the `bindInstanceFields` method can do this job for us. We simply need to pass an object of the UI Class to it and it matches fields
 of that object to the properties of the related business object based on their names.
 
 [source, java]
@@ -215,11 +203,8 @@ binder.forField(gender)
     .bind(Person::getGender, Person::setGender);
 ----
 
-`bindInstanceFields` processes all Java member fields whose type extends `HasValue` (such as TextField) and that can be
-mapped to a property name. In case the field name
- does not match the corresponding property name in business object, we can use an annotation named `@PropertyId` to
- specify the property name. For example, if the related property of gender field in Person class is “sex”, we need to
- use the `@PropertyId` like the following:
+`bindInstanceFields` processes all Java member fields whose type extends `HasValue` (such as TextField) and that can be mapped to a property name. In case the field name
+ does not match the corresponding property name in business object, we can use an annotation named `@PropertyId` to specify the property name. For example, if the related property of gender field in Person class is “sex”, we need to use the `@PropertyId` like the following:
 
 [source, java]
 ----
@@ -227,12 +212,8 @@ mapped to a property name. In case the field name
 private ComboBox<Gender> gender = new ComboBox<>("Gender");
 ----
 
-It's not always possible to automatically bind all the fields to their corresponding properties because the value type
-of the field may not match the property type and `bindInstanceFields` doesn’t automatically add a converter to the
-binding. E.g. consider an “age” field which is a TextField whose value type is String, while the type of the “age”
-property in Person class is Integer. In such case an IllegalStateException will be thrown when calling
-bindInstanceFields. To avoid this exception, the “age” field should be configured manually to specify its converter
-before calling the `bindInstanceFields` method:
+It's not always possible to automatically bind all the fields to their corresponding properties because the value type of the
+field may not match the property type and `bindInstanceFields` doesn’t automatically add a converter to the binding. E.g. consider an “age” field which is a TextField whose value type is String, while the type of the “age” property in Person class is Integer. In such case an IllegalStateException will be thrown when calling bindInstanceFields. To avoid this exception, the “age” field should be configured manually to specify its converter before calling the `bindInstanceFields` method:
 
 [source, java]
 ----
@@ -247,5 +228,4 @@ binder.bindInstanceFields(this);
 
 ----
 
-The `bindInstanceFields` does not support validations and if you want to add validation you need to use the
-`BeanValidationBinder` instead of the `bindInstanceFields`.
+The `bindInstanceFields` does not support validations and if you want to add validation you need to use the `BeanValidationBinder` instead of the `bindInstanceFields`.
