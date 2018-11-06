@@ -68,8 +68,7 @@ Every time `writeBean` is called, the data is validated and then copied from the
 
 With these basic steps, we have defined everything that is needed for loading, editing and saving values for a form.
 
-The above example uses Java 8 method references for defining how field values are loaded and saved. It is also possible to use a lambda expression instead of a method reference. You
-can use this to call any method or to run additional commands in the callback:
+The above example uses Java 8 method references for defining how field values are loaded and saved. It is also possible to use a lambda expression instead of a method reference. The following is another example on how field values can be saved and loaded:
 
 [source, java]
 ----
