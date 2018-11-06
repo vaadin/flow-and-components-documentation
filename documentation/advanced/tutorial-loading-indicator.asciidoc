@@ -14,7 +14,7 @@ hides it after the response processing has ended.
 
 *By default, the loading indicator is shown at the top of the viewport after a delay.*
 You can turn the indicator off, change delays or customize the looks of the indicator. The theming targets the `<div class="v-loading-indicator"></div>`
-element located inside the `<body>` element. *You need to also need to toggle the default theming off*.
+element located inside the `<body>` element. *You also need to toggle the default theming off*.
 
 [source,html]
 ----

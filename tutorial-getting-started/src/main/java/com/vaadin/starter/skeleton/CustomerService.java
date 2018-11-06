@@ -1,4 +1,4 @@
-package com.vaadin.flow.demo.helloworld;
+package com.vaadin.starter.skeleton;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,8 +9,6 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.vaadin.flow.tutorial.annotations.Helper;
-
 /**
  * An in memory dummy "database" for the example purposes. In a typical Java app
  * this class would be replaced by e.g. EJB or a Spring based service class.
@@ -18,7 +16,6 @@ import com.vaadin.flow.tutorial.annotations.Helper;
  * In demos/tutorials/examples, get a reference to this service class with
  * {@link CustomerService#getInstance()}.
  */
-@Helper
 public class CustomerService {
 
 	private static CustomerService instance;
