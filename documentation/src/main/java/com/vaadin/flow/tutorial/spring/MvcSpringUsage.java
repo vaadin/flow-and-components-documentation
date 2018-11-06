@@ -46,7 +46,7 @@ public class MvcSpringUsage {
             servletContext.addListener(new ContextLoaderListener(context));
 
             ServletRegistration.Dynamic registration = servletContext
-                    .addServlet("dispatcher", new SpringServlet(context));
+                    .addServlet("dispatcher", new SpringServlet(context, false));
             registration.setLoadOnStartup(1);
             registration.addMapping("/*");
         }
