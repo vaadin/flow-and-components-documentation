@@ -459,9 +459,8 @@ DataProvider<Person, String> getDataProvider(PersonService service) {
 }
 ----
 
-To use a data provider that filters by some other type, you need to use the `withConvertedFilter`. This method creates a
-new data provider that uses the same data but a different filter type; converting the filter value before passing it to
-the original data provider instance.
+To use a data provider that filters by some other type, you need to use the `withConvertedFilter`. In this example, we filter a series of people by name. Users type some text into a filter input line,
+but we can not directly use the text to select data items from the existing objects. Here we use a lambda which produces a predicate (another lambda) which filters the people by name.
 
 Now, we can use the DataProvider:
 
