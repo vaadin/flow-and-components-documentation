@@ -459,6 +459,10 @@ DataProvider<Person, String> getDataProvider(PersonService service) {
 }
 ----
 
+To use a data provider that filters by some other type, you need to use the `withConvertedFilter`. This method creates a
+new data provider that uses the same data but a different filter type; converting the filter value before passing it to
+the original data provider instance.
+
 Now, we can use the DataProvider:
 
 [source, java]
@@ -467,10 +471,6 @@ DataProvider<Person, String> dataProvider = getDataProvider(service);
 ComboBox<Person> comboBox = new ComboBox<>();
 comboBox.setDataProvider(dataProvider);
 ----
-
-To use a data provider that filters by some other type, you need to use the `withConvertedFilter`. This method creates a
-new data provider that uses the same data but a different filter type; converting the filter value before passing it to
-the original data provider instance.
 
 ==== Filtering with Grid
 

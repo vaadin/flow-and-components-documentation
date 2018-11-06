@@ -49,7 +49,7 @@ The type parameters of `AbstractSinglePropertyField` are:
 * The value type (`Integer`).
 
 The default value, i.e. `0` in this case, is automatically used by the `clear()` and `isEmpty()` methods. `clear()` sets the field’s value to the default value. `isEmpty()` returns true if the field’s value is the default value.
-Note that you should use the 2.0.7 version of paper-slider component, because the latest version is not compatible with Vaadin.
+Note that Vaadin Platform uses Polymer 2. When integrating a third party web component, you should use the Polymer 2 version for best compatibility.
 
 === Converting the Property Value
 
