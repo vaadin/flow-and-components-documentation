@@ -8,20 +8,21 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 == Validating and Converting User Input
 
-`Binder` supports checking the validity of the user's input and converting the values between the type used in business objects and the bound UI components.
+`Binder` supports checking the validity of the user’s input and converting the values between the type used in business objects and the bound UI components.
 These two concepts go hand in hand since validation can be based on a converted value, and being able to convert a value is a kind of validation.
 
 === Validation
 
 An application typically has some restrictions on exactly what kinds of values the user is allowed to enter into different fields.
 `Binder` lets us define validators for each field that we are binding.
-The validator is by default run whenever the user changes the value of a field, and the validation status is also checked again when saving.
+The validator is by default run whenever the user changes the value of a field, and the validation status is also checked again when writing bean.
 
 Validators for a field are defined between the `forField` and `bind` steps when a binding is created.
-A validator can be defined using `Validator` instance or inline using a lambda expression.
+A validator can be defined using a `Validator` instance or inline using a lambda expression.
 
 [source, java]
 ----
+
 binder.forField(emailField)
   // Explicit validator instance
   .withValidator(new EmailValidator(
@@ -42,19 +43,22 @@ binder.forField(titleField)
 ----
 
 [NOTE]
-`Binder.forField` works like a builder where `forField` starts the process, is followed by various configuration calls for the field and `bind` acts as the finalizing method which applies the configuration.
+`Binder.forField` works like a builder where the `forField` call starts the process, is followed by various configuration calls for the field and `bind` acts as the finalizing method which applies the configuration.
+
+`asRequired` is used when the field is mandatory and the user must provide a value for the field. So, if the user leaves the specified field’s value empty, an error message is shown.
+It also enables visual "required" indicator. See https://vaadin.com/api/platform/com/vaadin/flow/component/HasValue.html#setRequiredIndicatorVisible-boolean-[HasValue.setRequiredIndicatorVisible(boolean)].
 
 The validation state of each field is updated whenever the user modifies the value of that field.
 
-To customize the way a binder displays error messages is to configure each binding to use its own `Label` that is used to show the status for each field.
+The way a binder displays error messages can be customized by configuring each binding to use its own `Label` that is used to show the status for each field.
 
 [NOTE]
-The status label is not only used for validation errors but also for showing confirmation and helper messages.
+The status label can be used for validation errors but also for showing confirmation and helper messages.
 
 [source, java]
 ----
 Label emailStatus = new Label();
-
+emailStatus.getStyle().set("color", "Red");
 binder.forField(emailField)
   .withValidator(new EmailValidator(
     "This doesn't look like a valid email address"))
@@ -72,11 +76,16 @@ binder.forField(nameField)
   // Define how the validation status is displayed
   .withValidationStatusHandler(status -> {
       nameStatus.setText(status.getMessage().orElse(""));
-      setVisible(nameStatus, status.isError());
+      nameStatus.setVisible(status.isError());
     })
   // Finalize the binding
   .bind(Person::getName, Person::setName);
 ----
+
+The `withStatusLabel(Label label)` method sets the given label to show an error message if the validation fails.
+Instead of using labels you can set a custom validation status handler by the `withValidationStatusHandler` method.
+It allows customizing the way a binder displays error messages to get more flexibility than what
+`AbstractComponent.setComponentError(com.vaadin.server.ErrorMessage)` provides (it replaces the default behavior).
 
 It is possible to add multiple validators for the same binding.
 The following example will first validate that the entered text looks like an email address, and only for seemingly valid email addresses it will continue checking that the email address is for the expected domain.
@@ -97,31 +106,30 @@ We can save the binding to a local variable and trigger a revalidation when anot
 
 [source, java]
 ----
-Binder<Trip> binder = new Binder<>();
+Binder<Trip> binder = new Binder<>(Trip.class);
 DatePicker departing = new DatePicker();
 departing.setLabel("Departing");
 DatePicker returning = new DatePicker();
 returning.setLabel("Returning");
 
 // Store return date binding so we can revalidate it later
-Binder.BindingBuilder<Trip, LocalDate> returnBindingBuilder = binder
-        .forField(returning).withValidator(
-                returnDate -> !returnDate
-                .isBefore(departing.getValue()),
-                "Cannot return before departing");
-Binder.Binding<Trip, LocalDate> returnBinder = returnBindingBuilder
-        .bind(Trip::getReturnDate, Trip::setReturnDate);
+Binder.Binding<Trip, LocalDate> returningBinding = binder
+       .forField(returning).withValidator(
+               returnDate -> !returnDate
+                       .isBefore(departing.getValue()),
+               "Cannot return before departing")
+       .bind(Trip::getReturnDate, Trip::setReturnDate);
 
 // Revalidate return date when departure date changes
-departing.addValueChangeListener(event -> returnBinder.validate());
+departing.addValueChangeListener(event -> returningBinding.validate());
 ----
 
 === Conversion
 
 You can also bind application data to a UI field component even though the types do not match.
-In some cases, there might be types specific for the application, such as custom type that encapsulates a postal code that the user enters through a `TextField`.
-Another quite typical case is for entering integer numbers using a `TextField` or enumeration values (`Checkbox` is used as an example).
-Similarly to validators, we can define a converter using  `Converter` instance or inline using lambda expressions. We can optionally specify also an error message.
+In some cases, there might be types specific for the application, such as the custom type that encapsulates a postal code that the user enters through a `TextField`.
+Another typical case is for entering integer numbers using a `TextField` or selecting enumeration values (`Checkbox` is used as an example).
+Similarly to validators, we can define a converter using a `Converter` instance or inline using lambda expressions. We can also optionally specify an error message.
 
 [source, java]
 ----
@@ -132,13 +140,13 @@ binder.forField(yearOfBirthField)
         new StringToIntegerConverter("Must enter a number"))
 .bind(Person::getYearOfBirth, Person::setYearOfBirth);
 
-// Checkbox for gender
-Checkbox genderField = new Checkbox("Gender");
+// Checkbox for marital status
+Checkbox marriedField = new Checkbox("Married");
 
-binder.forField(genderField)
-.withConverter(gender -> gender ? Gender.FEMALE : Gender.MALE,
-        gender -> Gender.FEMALE.equals(gender))
-        .bind(Person::getGender, Person::setGender);
+binder.forField(marriedField)
+.withConverter(isMarried -> isMarried ? MaritalStatus.MARRIED : MaritalStatus.SINGLE,
+        marritalStatus -> MaritalStatus.MARRIED.equals(marritalStatus))
+        .bind(Person::getMaritalStatus, Person::setMaritalStatus);
 ----
 
 Multiple validators and converters can be used for building one binding.
@@ -189,24 +197,24 @@ Since it is assumed that the business object only contains valid values, this me
 [source, java]
 ----
 class MyConverter implements Converter<String, Integer> {
-  @Override
-  public Result<Integer> convertToModel(String fieldValue, ValueContext context) {
-    // Produces a converted value or an error
-    try {
-      // ok is a static helper method that creates a Result
-      return Result.ok(Integer.valueOf(fieldValue));
-    } catch (NumberFormatException e) {
-      // error is a static helper method that creates a Result
-      return Result.error("Please enter a number");
+    @Override
+    public Result<Integer> convertToModel(String fieldValue, ValueContext context) {
+        // Produces a converted value or an error
+        try {
+            // ok is a static helper method that creates a Result
+            return Result.ok(Integer.valueOf(fieldValue));
+        } catch (NumberFormatException e) {
+            // error is a static helper method that creates a Result
+            return Result.error("Please enter a number");
+        }
     }
-  }
 
-  @Override
-  public String convertToPresentation(Integer integer, ValueContext context) {
-    // Converting to the field type should always succeed,
-    // so there is no support for returning an error Result.
-    return String.valueOf(integer);
-  }
+    @Override
+    public String convertToPresentation(Integer integer, ValueContext context) {
+        // Converting to the field type should always succeed,
+        // so there is no support for returning an error Result.
+        return String.valueOf(integer);
+    }
 }
 
 // Using the converter
