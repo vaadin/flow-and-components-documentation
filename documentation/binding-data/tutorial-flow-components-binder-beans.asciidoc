@@ -40,7 +40,52 @@ binder.forField(yearOfBirthField)
 [NOTE]
 Code using strings to identify properties will cause exceptions during runtime if the string contains a typo or if the name of the setter and getter methods have been changed without also updating the string.
 
-If you want to use JSR 303 Bean Validation annotations such as Max, Min, Size, etc. then a `BeanValidationBinder` should be used. `BeanValidationBinder` extends `Binder` class so it has the same API but its implementation automatically adds a bean validator which takes care of JSR 303 constraints. Constraints defined for properties in the bean will work in the same way as if configured when the binding is created.
+If you want to use JSR 303 Bean Validation annotations such as Max, Min, Size, etc. then a `BeanValidationBinder` should be used.
+`BeanValidationBinder` extends the `Binder` class so it has the same API but its implementation automatically adds a bean validator which takes care of all JSR 303 constraints.
+
+[source, java]
+----
+public class Person {
+    @Max(2000)
+    private int yearOfBirth;
+
+    //Non-standard constraint provided by Hibernate Validator
+    @NotEmpty
+    private String name;
+
+    // + other fields, constructors, setters, and getters
+}
+
+BeanValidationBinder<Person> binder = new BeanValidationBinder<>(Person.class);
+
+binder.bind(nameField, "name");
+binder.forField(yearOfBirthField)
+  .withConverter(
+    new StringToIntegerConverter("Please enter a number"))
+  .bind("yearOfBirth");
+----
+
+Constraints defined for properties in the bean will work in the same way as if configured when the binding is created. E.g. the following two pieces of code have the same result:
+
+Example of Bean Validation annotation:
+
+[source, java]
+----
+public class Person {
+    @Max(value = 2000, message = "Year of Birth must be less than or equal to 2000")
+    private int yearOfBirth;
+----
+Example of Binder Validation:
+
+[source, java]
+----
+binder.forField(yearOfBirthField)
+  .withValidator(
+    yearOfBirth -> yearOfBirth <= 2000,
+    "Year of Birth must be less than or equal to 2000")
+  .bind(Person::getYearOfBirth, Person::setYearOfBirth);
+----
+
 Note that to use Bean Validation annotations you should have a JSR 303 implementation like Hibernate Validator available in your classpath. E.g. if you use Maven, the following dependency can be used.
 
 [source, xml]
@@ -52,47 +97,26 @@ Note that to use Bean Validation annotations you should have a JSR 303 implement
 </dependency>
 ----
 
-Constraints defined for properties in the bean will work in the same way as if configured when the binding is created.
-
-[source, java]
-----
-public class Person {
-  @Max(2000)
-  private int yearOfBirth;
-
-  //Non-standard constraint provided by Hibernate Validator
-  @NotEmpty
-  private String name;
-
-  // + other fields, constructors, setters, and getters
-}
-----
-
-[source, java]
-----
-BeanValidationBinder<Person> binder = new BeanValidationBinder<>(Person.class);
-
-binder.bind(nameField, "name");
-binder.forField(yearOfBirthField)
-  .withConverter(
-    new StringToIntegerConverter("Please enter a number"))
-  .bind("yearOfBirth");
-----
-
 Constraint annotations can also be defined on the bean level instead of being defined for any specific property.
 
-There are some number of predefined constraint annotations that mark a bound field as required using `BeanValidationBinder.setRequiredIndicatorVisible`. By default `@NotNull`, `@NotEmpty` and `@Size` (if `min()` value is greater than 0)
-configures the field as required. It's possible to change this behavior using
-the `BeanValidationBinder.setRequiredConfigurator` method.
+https://docs.jboss.org/hibernate/validator/5.4/reference/en-US/html_single/#validator-gettingstarted-createmodel[Constraint annotations listed here]
+may automatically enable visual "required" indicator using `HasValue.setRequiredIndicatorVisible(true)`.
+By default `@NotNull`, `@NotEmpty` and `@Size` (if `min()` value is greater than 0) configures the field as required.
+It’s possible to change this behavior using the `BeanValidationBinder.setRequiredConfigurator` method.
+For example, if we want to skip `@size` we can use the following piece of code:
+
+[source, java]
+----
+binder.setRequiredConfigurator(RequiredFieldConfigurator.NOT_EMPTY.chain(RequiredFieldConfigurator.NOT_NULL));
+----
 
 [NOTE]
-
 When using unbuffered binding (with the `setBean` method), validation will be triggered automatically on all change events. If you use buffered binding (with the `readBean` and `writeBean` methods), validation is only triggered automatically
 while calling `writeBean`. You can trigger it manually at any time by calling `validate()` on the Binder, for instance in a ValueChange handler.
 
-Validation errors caused by that bean level validation might not be directly associated with any field component shown in the user interface, so `Binder` cannot know where such messages should be displayed.
-
-Similarly to how the `withStatusLabel` method can be used for defining where messages for a specific binding should be showed, we can also define a `Label` that is used for showing status messages that are not related to any specific field.
+Validation errors caused by bean level validation might not be directly associated with any field component shown in the user interface, so `Binder` cannot know where such messages should be displayed.
+Similarly to how the `withStatusLabel` method can be used for defining where messages for a specific binding should be shown,
+we can also define a `Label` that is used for showing status messages that are not related to any specific field.
 
 [source, java]
 ----
