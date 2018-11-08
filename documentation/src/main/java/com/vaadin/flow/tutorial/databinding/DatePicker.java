@@ -15,19 +15,18 @@
  */
 package com.vaadin.flow.tutorial.databinding;
 
-import java.time.LocalDate;
-
 import com.vaadin.flow.component.AbstractSinglePropertyField;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
+
+import java.time.LocalDate;
 
 @CodeFor("binding-data/tutorial-flow-field.asciidoc")
 @Tag("input")
 public class DatePicker
         extends AbstractSinglePropertyField<DatePicker, LocalDate> {
 
-    public DatePicker(String propertyName, LocalDate defaultValue,
-            boolean acceptNullValues) {
+    public DatePicker() {
         super("value", null, String.class, LocalDate::parse,
                 LocalDate::toString);
 

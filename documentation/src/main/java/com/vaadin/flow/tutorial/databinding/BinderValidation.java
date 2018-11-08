@@ -15,8 +15,6 @@
  */
 package com.vaadin.flow.tutorial.databinding;
 
-import java.time.LocalDate;
-
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.html.Label;
@@ -28,7 +26,8 @@ import com.vaadin.flow.data.converter.Converter;
 import com.vaadin.flow.data.converter.StringToIntegerConverter;
 import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
-import com.vaadin.flow.tutorial.databinding.Person.Gender;
+
+import java.time.LocalDate;
 
 @CodeFor("binding-data/tutorial-flow-components-binder-validation.asciidoc")
 public class BinderValidation {
@@ -65,28 +64,29 @@ public class BinderValidation {
     public void bindFields() {
         // @formatter:off
         binder.forField(emailField)
-        // Explicit validator instance
-        .withValidator(new EmailValidator(
-                "This doesn't look like a valid email address"))
-        .bind(Person::getEmail, Person::setEmail);
+                // Explicit validator instance
+                .withValidator(new EmailValidator(
+                        "This doesn't look like a valid email address"))
+                .bind(Person::getEmail, Person::setEmail);
 
         binder.forField(nameField)
-        // Validator defined based on a lambda and an error message
-        .withValidator(
-                name -> name.length() >= 3,
-                "Full name must contain at least three characters")
-        .bind(Person::getName, Person::setName);
+                // Validator defined based on a lambda and an error message
+                .withValidator(
+                        name -> name.length() >= 3,
+                        "Full name must contain at least three characters")
+                .bind(Person::getName, Person::setName);
 
         binder.forField(titleField)
-        // Shorthand for requiring the field to be non-empty
-        .asRequired("Every employee must have a title")
-        .bind(Person::getTitle, Person::setTitle);
+                // Shorthand for requiring the field to be non-empty
+                .asRequired("Every employee must have a title")
+                .bind(Person::getTitle, Person::setTitle);
         // @formatter:on
     }
 
     public void statusLabel() {
+        // @formatter:off
         Label emailStatus = new Label();
-
+        emailStatus.getStyle().set("color", "Red");
         binder.forField(emailField)
                 .withValidator(new EmailValidator(
                         "This doesn't look like a valid email address"))
@@ -98,47 +98,48 @@ public class BinderValidation {
 
         binder.forField(nameField)
                 // Define the validator
-                .withValidator(name -> name.length() >= 3,
+                .withValidator(
+                        name -> name.length() >= 3,
                         "Full name must contain at least three characters")
                 // Define how the validation status is displayed
                 .withValidationStatusHandler(status -> {
                     nameStatus.setText(status.getMessage().orElse(""));
-                    setVisible(nameStatus, status.isError());
+                    nameStatus.setVisible(status.isError());
                 })
                 // Finalize the binding
                 .bind(Person::getName, Person::setName);
+        // @formatter:on
     }
 
     public void validateEmail() {
         // @formatter:off
         binder.forField(emailField)
-        .withValidator(new EmailValidator(
-                "This doesn't look like a valid email address"))
-        .withValidator(
-                email -> email.endsWith("@acme.com"),
-                "Only acme.com email addresses are allowed")
-        .bind(Person::getEmail, Person::setEmail);
+                .withValidator(new EmailValidator(
+                        "This doesn't look like a valid email address"))
+                .withValidator(
+                        email -> email.endsWith("@acme.com"),
+                        "Only acme.com email addresses are allowed")
+                .bind(Person::getEmail, Person::setEmail);
         // @formatter:on
     }
 
     public void crossFieldValidation() {
-        Binder<Trip> binder = new Binder<>();
+        Binder<Trip> binder = new Binder<>(Trip.class);
         DatePicker departing = new DatePicker();
         departing.setLabel("Departing");
         DatePicker returning = new DatePicker();
         returning.setLabel("Returning");
 
-        // Store return date binding so we can revalidate it later
-        Binder.BindingBuilder<Trip, LocalDate> returnBindingBuilder = binder
+// Store return date binding so we can revalidate it later
+        Binder.Binding<Trip, LocalDate> returningBinding = binder
                 .forField(returning).withValidator(
                         returnDate -> !returnDate
                                 .isBefore(departing.getValue()),
-                        "Cannot return before departing");
-        Binder.Binding<Trip, LocalDate> returnBinder = returnBindingBuilder
+                        "Cannot return before departing")
                 .bind(Trip::getReturnDate, Trip::setReturnDate);
 
-        // Revalidate return date when departure date changes
-        departing.addValueChangeListener(event -> returnBinder.validate());
+// Revalidate return date when departure date changes
+        departing.addValueChangeListener(event -> returningBinding.validate());
     }
 
     public void conversion() {
@@ -149,13 +150,14 @@ public class BinderValidation {
                         new StringToIntegerConverter("Must enter a number"))
                 .bind(Person::getYearOfBirth, Person::setYearOfBirth);
 
-        // Checkbox for gender
-        Checkbox genderField = new Checkbox("Gender");
+// Checkbox for marital status
+        Checkbox marriedField = new Checkbox("Married");
 
-        binder.forField(genderField)
-                .withConverter(gender -> gender ? Gender.FEMALE : Gender.MALE,
-                        gender -> Gender.FEMALE.equals(gender))
-                .bind(Person::getGender, Person::setGender);
+
+        binder.forField(marriedField)
+                .withConverter(isMarried -> isMarried ? MaritalStatus.MARRIED : MaritalStatus.SINGLE,
+                        marritalStatus -> MaritalStatus.MARRIED.equals(marritalStatus))
+                .bind(Person::getMaritalStatus, Person::setMaritalStatus);
     }
 
     public void multipleConverters() {
@@ -172,15 +174,44 @@ public class BinderValidation {
                 .bind(Person::getYearOfBirth, Person::setYearOfBirth);
     }
 
+    public void multipleConverter() {
+        binder.forField(yearOfBirthField)
+                .withConverter(
+                        Integer::valueOf,
+                        String::valueOf,
+                        // Text to use instead of the NumberFormatException message
+                        "Please enter a number")
+                .bind(Person::getYearOfBirth, Person::setYearOfBirth);
+    }
+
     public void callBackConverters() {
         // @formatter:off
+        class MyConverter implements Converter<String, Integer> {
+            @Override
+            public Result<Integer> convertToModel(String fieldValue, ValueContext context) {
+                // Produces a converted value or an error
+                try {
+                    // ok is a static helper method that creates a Result
+                    return Result.ok(Integer.valueOf(fieldValue));
+                } catch (NumberFormatException e) {
+                    // error is a static helper method that creates a Result
+                    return Result.error("Please enter a number");
+                }
+            }
+
+            @Override
+            public String convertToPresentation(Integer integer, ValueContext context) {
+                // Converting to the field type should always succeed,
+                // so there is no support for returning an error Result.
+                return String.valueOf(integer);
+            }
+        }
+
+// Using the converter
         binder.forField(yearOfBirthField)
-        .withConverter(
-                Integer::valueOf,
-                String::valueOf,
-                // Text to use instead of the NumberFormatException message
-                "Please enter a number")
-        .bind(Person::getYearOfBirth, Person::setYearOfBirth);
+                .withConverter(new MyConverter())
+                .bind(Person::getYearOfBirth, Person::setYearOfBirth);
+
         // @formatter:on
     }
 
@@ -188,8 +219,8 @@ public class BinderValidation {
         // Using the converter
         // @formatter:off
         binder.forField(yearOfBirthField)
-        .withConverter(new MyConverter())
-        .bind(Person::getYearOfBirth, Person::setYearOfBirth);
+                .withConverter(new MyConverter())
+                .bind(Person::getYearOfBirth, Person::setYearOfBirth);
         // @formatter:on
     }
 

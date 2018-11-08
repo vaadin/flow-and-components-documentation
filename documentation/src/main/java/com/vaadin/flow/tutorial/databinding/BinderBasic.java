@@ -20,13 +20,14 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ReadOnlyHasValue;
-import com.vaadin.flow.data.binder.Setter;
 import com.vaadin.flow.data.binder.ValidationException;
-import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @CodeFor("binding-data/tutorial-flow-components-binder.asciidoc")
 public class BinderBasic {
+    private static Logger logger = LoggerFactory.getLogger(BinderBasic.class);
 
     private TextField titleField;
     private TextField nameField;
@@ -34,11 +35,11 @@ public class BinderBasic {
     private Binder<Person> binder = new Binder<>();
 
     public void bindField() {
-        Binder<Person> binder = new Binder<>();
+        Binder<Person> binder = new Binder<>(Person.class);
 
         TextField titleField = new TextField();
 
-        // Start by defining the Field instance to use
+// Start by defining the Field instance to use
         binder.forField(titleField)
                 // Finalize by doing the actual binding to the Person class
                 .bind(
@@ -46,22 +47,20 @@ public class BinderBasic {
                         Person::getTitle,
                         // Callback that saves the title in a person instance
                         Person::setTitle);
-
         TextField nameField = new TextField();
 
-        // Shorthand for cases without extra configuration
+// Shorthand for cases without extra configuration
         binder.bind(nameField, Person::getName, Person::setName);
     }
 
     public void readWriteBean() {
-        // The person to edit
-        // Would be loaded from the backend in a real application
+// The person to edit
+// Would be loaded from the backend in a real application
         Person person = new Person("John Doe", 1957);
 
-        // Updates the value in each bound field component
+// Updates the value in each bound field component
         binder.readBean(person);
 
-        // @formatter:off
         Button saveButton = new Button("Save",
                 event -> {
                     try {
@@ -73,10 +72,9 @@ public class BinderBasic {
                     }
                 });
 
-        // Updates the fields again with the previously saved values
+// Updates the fields again with the previously saved values
         Button resetButton = new Button("Reset",
                 event -> binder.readBean(person));
-        //@formatter:on
     }
 
     public void lambdaCllbacks() {
@@ -84,31 +82,25 @@ public class BinderBasic {
         // With lambda expressions
         binder.bind(titleField,
                 person -> person.getTitle(),
-                (person, title) -> person.setTitle(title));
-
-        // With explicit callback interface instances
-        binder.bind(nameField,
-                new ValueProvider<Person, String>() {
-            @Override
-            public String apply(Person person) {
-                return person.getName();
-            }
-        },
-                new Setter<Person, String>() {
-            @Override
-            public void accept(Person person, String name) {
-                person.setName(name);
-            }
-        });
+                (person, title) -> {
+                    person.setTitle(title);
+                    logger.info("setTitle: {}", title);
+                });
         //@formatter:on
     }
 
+    public void readOnlyData() {
+        TextField fullName = new TextField();
+        binder.forField(fullName).bind(Person::getFullName, null);
+    }
+
     public void nonModifiableData() {
-        Label nameLabel = new Label();
-        ReadOnlyHasValue<Person> fullName = new ReadOnlyHasValue<>(
-                person -> nameLabel.setText(
-                        person.getLastName() + ", " + person.getName()));
-        binder.forField(fullName).bind(person -> person, null);
+
+        Label fullNameLabel = new Label();
+        ReadOnlyHasValue<String> fullName = new ReadOnlyHasValue<>(
+                text -> fullNameLabel.setText(text));
+        binder.forField(fullName)
+                .bind(Person::getFullName, null);
     }
 
     private void notifyValidationException(ValidationException exception) {
