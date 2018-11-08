@@ -8,7 +8,7 @@ layout: page
 
 Flow will automatically serve a generated offline page. The generated offline page
 is a simple page to communicate to the user that the application is offline
-because there is network connection currently.
+because there is no network connection currently.
 
 Flow automatically personalizes the offline page with the given application name
 and icon.
@@ -28,6 +28,6 @@ page, manifest and icons are cached. If the offline page needs other resources
 (such as css, images, webcomponents) describe those in *offlineResources*.
 
 Offline experience with simple fallback page is very limited and by having separate
-offline page it also isolates the offline experience from application itself.
+offline page, it also isolates the offline experience from application itself.
 For this developer could have offline experience within web components and
 re-use those web components in offline -page.
