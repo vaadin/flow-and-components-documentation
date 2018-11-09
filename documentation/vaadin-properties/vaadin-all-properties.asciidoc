@@ -1,0 +1,78 @@
+---
+title: All Vaadin properties
+order: 1
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= All Vaadin properties
+
+There are a number of properties that you can use to configure your Flow application.
+
+This document summarizes the properties defines in
+https://github.com/vaadin/flow/blob/399424cef1a8989bb05cc9d6e589b3801e196b26/flow-server/src/main/java/com/vaadin/flow/function/DeploymentConfiguration.java[com.vaadin.server.DeploymentConfiguration]
+and
+https://github.com/vaadin/flow/blob/e5c2e4b98e26c3e7ba40ce681f9762d970ff4c0a/flow-server/src/main/java/com/vaadin/flow/server/Constants.java[com.vaadin.server.Constants]
+classes.
+
+[NOTE]
+If you use Spring Boot then you should add the prefix `vaadin.`, e.g. vaadin.productionMode=true.
+
+.Vaadin properties
+[width="100%",cols="3,10",frame="topbot",options="header"]
+|==========================
+|Property |Description
+
+|productionMode |
+Turns application to work in production mode.
+
+|requestTiming |
+if request timing info should be made available.
+
+|disable-xsrf-protection |
+Cross-site request forgery protection.
+
+|closeIdleSessions |
+When it is set to true (the default is false), the session will be closed if no UI is active.
+
+|pushMode |
+The permitted values are "disabled" or "manual".
+
+|pushURL |
+The push URL to use.
+
+|syncIdCheck |
+Returns whether sync id checking is enabled. The sync id is used to gracefully handle situations
+when the client sends a message to a connector that has recently been removed on the server.
+
+|sendUrlsAsParameters |
+Returns whether the sending of URL's as GET and POST parameters in requests with content-type
+<code>application/x-www-form-urlencoded</code>is enabled or not.
+
+|pushLongPollingSuspendTimeout |
+When using the long polling transport strategy,  it specifies how long it accepts responses after
+ each network request. Number of milliseconds.
+
+|load.es5.adapters |
+Include polyfills for browsers that does not support ES6 to their initial page. In order for
+web components to work, extra libraries (polyfills) are required to be loaded, can be turned off
+if different versions or libraries should be included instead.
+
+|frontend.url.es5 |
+A location Flow searches web components' files in production mode when the request is coming
+from older browsers, not supporting es6, default web components' development language version.
+
+|frontend.url.es6 |
+A location Flow searches web components' files in production mode for requests from modern browsers.
+
+|disable.webjars |
+Configuration name for the parameter that determines if Flow should use webJars or not.
+
+|original.frontend.resources |
+Configuration name for the parameter that determines if Flow should use bundled fragments or not.
+
+|i18n.provider |
+I18N provider property.
+
+|==========================
