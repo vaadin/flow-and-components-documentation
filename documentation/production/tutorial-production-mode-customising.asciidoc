@@ -160,7 +160,43 @@ You still have to configure Maven plugin if the json file is not in the default 
 By default, vaadin-maven-plugin downloads and installs Node and Yarn from the internet.
 This behavior can be overridden and the plugin can use locally installed Node and Yarn.
 
-In order to do this, `nodePath` and `yarnPath` parameters should be specified in the plugin configuration:
+=== Autodetecting locally installed tools
+
+By default, autodetection is turned off, in order to enable it, set `autodetectTools` configuration property to `true`:
+
+.pom.xml
+[source, xml]
+----
+<build>
+    <plugins>
+        <plugin>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-maven-plugin</artifactId>
+            <version>${vaadin.version}</version>
+            <configuration>
+                <autodetectTools>true</autodetectTools>
+            </configuration>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>copy-production-files</goal>
+                        <goal>package-for-production</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+----
+
+With this configuration, the plugin will attempt to locate the tools in the system and pick the first ones that are possible to launch, without any version checks.
+Tools that are not located will be downloaded.
+
+If you have tools installed, but the plugin does not automatically locate them, run Maven with debug logging to see the additional output: `mvn -X ... (rest of the command)`.
+
+=== Specifying paths to tools to use
+
+If automatic location is not suitable, you can specify `nodePath` and `yarnPath` parameters in the plugin configuration: 
 
 .pom.xml
 [source, xml]
@@ -188,7 +224,4 @@ In order to do this, `nodePath` and `yarnPath` parameters should be specified in
 </build>
 ----
 
-[NOTE]
-In order to use locally installed tools, both paths should be specified.
-If any of the paths is not specified, both tools will be downloaded.
-If both versions and paths are specified, paths are used.
+Before using the paths, they will be validated and, if any issues occur, corresponding tools will be downloaded.
