@@ -285,6 +285,12 @@ the `removeColumn()`, as described later.
 
 Columns can be hidden by calling `setVisible()` in `Column`.
 
+[NOTE]
+Hidden column still sends data required for its rendering to the client side. 
+Do not add a column at all or remove it if you want to reduce amount of 
+communication data.   
+  
+
 ////
 NOT IMPLEMENTED YET
 
