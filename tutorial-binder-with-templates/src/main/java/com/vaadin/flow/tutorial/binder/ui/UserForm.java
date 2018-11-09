@@ -62,12 +62,11 @@ public class UserForm extends PolymerTemplate<UserForm.FormComponentModel> {
                 .bind(User::getFirstName, User::setFirstName);
 
         // lastName
-        binder.forField(lastName).asRequired("It can not be empty")
+        binder.forField(lastName).asRequired("Last name can't be empty")
                 .bind(User::getLastName, User::setLastName);
 
         // comment
-        binder.forField(comment).asRequired("It can not be empty")
-                .bind(User::getComment, User::setComment);
+        binder.forField(comment).bind(User::getComment, User::setComment);
     }
 
     /**

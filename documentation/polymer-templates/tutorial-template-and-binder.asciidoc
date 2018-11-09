@@ -67,7 +67,7 @@ Once the mapping between Java and the HTML template is done, the process of bind
 private Binder<User> binder;
 ----
 
-- After that, we can create a method that initializes the binder and links it with the form’s fields:
+- After that, we can create `initBinder` method that initializes the binder and links it with the form’s fields:
 [source,java]
 ----
 private void initBinder() {
@@ -84,17 +84,17 @@ private void initBinder() {
             .bind(User::getFirstName, User::setFirstName);
 
     // lastName textField
-    binder.forField(lastName).asRequired("It can not be empty")
+    binder.forField(lastName).asRequired("Last name can't be empty")
             .bind(User::getLastName, User::setLastName);
 
     // comment textArea
-    binder.forField(comment).asRequired("It can not be empty")
-            .bind(User::getComment, User::setComment);
+    binder.forField(comment).bind(User::getComment, User::setComment);
 }
 ----
 
 [NOTE]
-For more information refer to <<tutorial-flow-components-binder#,Binding Data to Forms>>
+For more information about binding fields to forms, please refer to
+<<binding-data/tutorial-flow-components-binder#,Binding Data to Forms>>.
 
 - We can call initBinder inside the constructor of the class:
 [source,java]
@@ -135,6 +135,12 @@ public Optional<User> getBean() {
     return Optional.of(binder.getBean());
 }
 ----
+[NOTE]
+Notice that a unbuffered binding is used.
+An unbuffered binder keeps a reference to the bean, and every time the user changes any value,
+that value is immediately validated and written to the bean object. On the other hand,
+if the buffered mode is chosen, the changes are not written to the bean until it is explicitly said. See differences between
+<<binding-data/tutorial-flow-components-binder-load#, buffered and unbuffered binding>>.
 
 Now the UserForm component is ready to be used in other parts of our code.
 
@@ -180,14 +186,12 @@ public class MainView extends PolymerTemplate<TemplateModel> {
 }
 ----
 
-
 The result is the following:
 
 image:images/template-and-binder-first-result.png[MainView]
 
-Now the objective is to configure it, in a way that when a row is clicked the form is filled with the information of that user.
-
-To achieve it, a row selection listener must be declared, as well as a listener for the buttons of the form:
+Once all the components and the user form's binder are created, it is necessary to configure them
+and initialize their listeners in the `MainView.class`.
 
 .MainView.class
 [source,java]
@@ -226,7 +230,7 @@ The user is saved calling a method of the repository and that item of the grid i
 [source,java]
 ----
 formButtonsBar.addSaveListener(saveEvent -> {
-    // it checks that the bind user of the UserForm has a correct format.
+    // it checks that all validators defined in the form pass without error.
     if (!userForm.getBinder().validate().isOk()) {
         return;
     }
@@ -239,10 +243,17 @@ formButtonsBar.addSaveListener(saveEvent -> {
         user = userUsersRepository.save(user);
 
         usersGrid.refresh(user);
-        userForm.setBean(user); // in case that the Repository is a DB
+        userForm.setBean(user); // update the data in the form
     }
 });
 ----
+
+[NOTE]
+In the case of using unbuffered binding, it would be necessary to call `binder.writeBean()`.
+
+[NOTE]
+When using unbuffered binding (with the `setBean` method), validation will be triggered automatically on all change events.
+If you use buffered binding (with the `readBean` and `writeBean` methods), validation is only triggered automatically
 
 === Cancel
 
@@ -261,7 +272,7 @@ See `usersGrid.addSelectionListener` implementation.
 === Delete
 
 The selected user is selected from the grid and the user is removed calling `UsersRepository.delete`
-and the user(bean) is removed from the UserForm. When a user(bean) is removed, the fields of the UserForm are empty.
+and the user(bean) is removed from the UserForm. When a user(bean) is removed, the fields of the UserForm are emptied.
 
 .MainView.class - initFormListeners
 [source,java]
@@ -271,15 +282,13 @@ formButtonsBar.addDeleteListener(deleteEvent -> {
 
     if (optionalUser.isPresent()) {
         UsersRepository.delete(optionalUser.get());
-        usersGrid.refreshAll();
-        userForm.removeBean();
         usersGrid.deselectAll();
+        sersGrid.refreshAll();
     }
 });
 ----
 
-
-== Result
+== Final view
 
 When a row is selected, the form is filled with the information of that user.
 If the save button is clicked the modifications of a user will be saved, and when

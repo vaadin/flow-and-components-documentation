@@ -58,7 +58,7 @@ public class MainView extends PolymerTemplate<TemplateModel> {
 
         // SAVE
         formButtonsBar.addSaveListener(saveEvent -> {
-            // it checks that the bind user of the UserForm has a correct format.
+            // it checks that all validators defined in the form pass without error.
             if (!userForm.getBinder().validate().isOk()) {
                 return;
             }
@@ -71,7 +71,7 @@ public class MainView extends PolymerTemplate<TemplateModel> {
                 user = UsersRepository.save(user);
 
                 usersGrid.refresh(user);
-                userForm.setBean(user);
+                userForm.setBean(user); // update the data in the form
             }
         });
 
@@ -86,8 +86,8 @@ public class MainView extends PolymerTemplate<TemplateModel> {
 
             if (optionalUser.isPresent()) {
                 UsersRepository.delete(optionalUser.get());
-                usersGrid.refreshAll();
                 usersGrid.deselectAll();
+                usersGrid.refreshAll();
             }
         });
     }
