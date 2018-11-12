@@ -9,10 +9,13 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 Once all bindings have been set up, you are ready to actually fill the bound UI components with data from your business object. Changes can be written to the business object automatically or manually.
 
-Writing the changes automatically when the user makes any change through the UI is often the most convenient option, but it might have undesirable side effects – the user may see unsaved changes if some other part of the application uses the same business object instance.
+Writing the changes automatically when the user makes any change through the UI is often the most convenient option, but it might have undesirable side effects – if some other part of the application is also using the same instance, then that part might show changes before the user has clicked the save button.
 To prevent that, you either need to use a copy of the edited object or use manual writing to only update the object when the user wants to save.
 
 === Manual Reading and Writing
+
+==== Reading
+
 The `readBean` method reads values from a business object instance into the UI components.
 
 [source, java]
@@ -21,7 +24,10 @@ Person person = new Person("John Doe", 1957);
 
 binder.readBean(person);
 ----
+
 Assuming `binder` has already been configured as in previous examples with a `TextField` bound to the name property, this example would show the value "John Doe" in that field.
+
+==== Validating and writing
 
 To avoid showing lots of errors to the user, validation errors are not shown until the user edits each field after the form has been bound or loaded.
 
@@ -40,9 +46,9 @@ if (status.hasErrors()) {
 Trying to write the field values to a business object will fail if any of the bound fields has an invalid value.
 There are different methods that let us choose how to structure the code for dealing with invalid values.
 
-Handling a checked exception::
-+
---
+Handling a checked exception
+
+
 [source, java]
 ----
 try {
@@ -52,11 +58,9 @@ try {
   notifyValidationErrors(e.getValidationErrors());
 }
 ----
---
 
-Checking a return value::
-+
---
+Checking a return value
+
 [source, java]
 ----
 boolean saved = binder.writeBeanIfValid(person);
@@ -66,7 +70,22 @@ if (saved) {
   notifyValidationErrors(binder.validate().getValidationErrors());
 }
 ----
---
+
+Bean level validators can be added using the `withValidator(Validator)` method and will be run on the bound bean once it has been updated from
+the values of the bound fields. Bean level validators are also run as part of `writeBean(Object)`, `writeBeanIfValid(Object)` and `validate(Object)`
+if all field level validators pass.
+
+The following code is a bean level validation.
+
+[source, java]
+----
+binder.withValidator(p -> p.getYearOfMarriage() > p.getYearOfBirth(), "Marriage  year must be bigger than birth year.");
+----
+
+[NOTE]
+For bean level validators, the bean must be updated before the validators are run. If a bean level validator fails
+in `writeBean(Object)` or `writeBeanIfValid(Object)`, the bean will be reverted to the previous state before returning from the method.
+You should ensure that the `getters/setters` in the bean do not have side effects.
 
 Binder keeps track of which bindings have been updated by the user and which bindings are in an invalid state.
 It also fires an event when this status changes.
@@ -78,8 +97,8 @@ binder.addStatusChangeListener(event -> {
   boolean isValid = event.getBinder().isValid();
   boolean hasChanges = event.getBinder().hasChanges();
 
-  saveButton.setEnabled(!hasChanges || !isValid);
-  resetButton.setEnabled(!hasChanges);
+  saveButton.setEnabled(hasChanges && isValid);
+  resetButton.setEnabled(hasChanges);
 });
 ----
 
@@ -101,15 +120,17 @@ Person person = new Person("John Doe", 1957);
 binder.setBean(person);
 
 Button saveButton = new Button("Save", event -> {
-  if (binder.validate().isOk()) {
-    // person is always up-to-date as long as there are no
-    // validation errors
+    if (binder.validate().isOk()) {
+        // person is always up-to-date as long as there are no
+        // validation errors
 
-    MyBackend.updatePersonInDatabase(person);
-  }
+        MyBackend.updatePersonInDatabase(person);
+    }
 });
 ----
 
 [WARNING]
 When using the `setBean` method, the business object instance will be updated whenever the user changes the value in any bound field.
 If some other part of the application is also using the same instance, then that part might show changes before the user has clicked the save button.
+
+Note that we should call validate() to make sure that bean level validators are also checked in automatic saving.
