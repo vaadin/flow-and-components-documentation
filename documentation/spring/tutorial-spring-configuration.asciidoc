@@ -29,6 +29,10 @@ this line into you `application.properties` file.
 vaadin.urlMapping=/my_mapping/*
 ----
 
+[NOTE]
+Please note that at the moment an additional Servlet is required to handle
+the `frontend resources` for non-root context, when using `vaadin.urlMapping`.
+
 == Configuring Spring Web application
 
 If you don't use Spring Boot and you use `VaadinMVCWebAppInitializer` subclass then 
