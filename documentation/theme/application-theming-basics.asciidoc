@@ -13,7 +13,7 @@ feeling of uniformity and professionality.
 Application specific theming specifies styles that only affect one application.
 Whenever you have styles that are shared across multiple applications,
 you should make the theming as a separate module and resource that can be shared as a dependency for multiple applications.
-This chapter focuses only on theming a single application
+This chapter focuses only on theming a single application.
 
 == Application Theme - Approaches
 
