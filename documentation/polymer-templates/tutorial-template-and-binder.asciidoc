@@ -20,7 +20,7 @@ The first step is to declare an HTML template.
 <dom-module id="user-form">
     <template>
         <style>
-        ...
+
         </style>
         <vaadin-form-layout id="form">
             <vaadin-text-field id="email" label="Email (login)" colspan="2"></vaadin-text-field>
@@ -30,7 +30,7 @@ The first step is to declare an HTML template.
         </vaadin-form-layout>
         <form-buttons-bar id="action-buttons"></form-buttons-bar>
     </template>
-    ...
+
 </dom-module>
 ----
 
@@ -73,21 +73,21 @@ private Binder<User> binder;
 private void initBinder() {
     binder = new Binder<>();
 
-    // email textField
+    // email
     binder.forField(email).withValidator(
             new EmailValidator("This doesn't look like a valid email address")
     ).bind(User::getEmail, User::setEmail);
 
-    // firstName textField
+    // firstName
     binder.forField(firstName).withValidator(firstName -> firstName.length() > 1,
             "The first name must contains at least 2 characters").asRequired()
             .bind(User::getFirstName, User::setFirstName);
 
-    // lastName textField
+    // lastName
     binder.forField(lastName).asRequired("Last name can't be empty")
             .bind(User::getLastName, User::setLastName);
 
-    // comment textArea
+    // comment
     binder.forField(comment).bind(User::getComment, User::setComment);
 }
 ----
@@ -127,14 +127,15 @@ public void removeBean() {
 }
 
 /**
- * Gets the bean(user) from the binder.
+ * Gets the binder of the UserForm
  *
- * @return
+ * @return binder it binds the fields of an object to the fields shown
  */
 public Optional<User> getBean() {
     return Optional.of(binder.getBean());
 }
 ----
+
 [NOTE]
 Notice that a unbuffered binding is used.
 An unbuffered binder keeps a reference to the bean, and every time the user changes any value,
@@ -145,6 +146,7 @@ if the buffered mode is chosen, the changes are not written to the bean until it
 Now the UserForm component is ready to be used in other parts of our code.
 
 == Main view
+
 The MainView is a template that contains a grid of users and the user-form component of previous steps:
 
 .main-view HTML Template
@@ -157,14 +159,14 @@ The MainView is a template that contains a grid of users and the user-form compo
 <dom-module id="main-view">
     <template>
         <style>
-            ...
+
         </style>
         <div id="main-container">
             <vaadin-grid id="users-grid"></vaadin-grid>
             <user-form id="user-form"></user-form>
         </div>
     </template>
-    ...
+
 </dom-module>
 ----
 
@@ -182,7 +184,6 @@ public class MainView extends PolymerTemplate<TemplateModel> {
     @Id("users-grid")
     private UsersGrid usersGrid;
 
-    ...
 }
 ----
 
@@ -238,9 +239,9 @@ formButtonsBar.addSaveListener(saveEvent -> {
     Optional<User> optionalUser = userForm.getBean();
 
     if (optionalUser.isPresent()) {
-        User user= optionalUser.get();
+        User user = optionalUser.get();
 
-        user = userUsersRepository.save(user);
+        user = UsersRepository.save(user);
 
         usersGrid.refresh(user);
         userForm.setBean(user); // update the data in the form

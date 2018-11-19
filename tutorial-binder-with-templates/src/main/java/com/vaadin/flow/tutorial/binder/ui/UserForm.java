@@ -72,7 +72,7 @@ public class UserForm extends PolymerTemplate<UserForm.FormComponentModel> {
     }
 
     /**
-     * Sets the binder of the UserForm.
+     * Connects the bean to the binder.
      *
      * @param user bean
      */
@@ -81,7 +81,7 @@ public class UserForm extends PolymerTemplate<UserForm.FormComponentModel> {
     }
 
     /**
-     * Clears the form and disconnects any bean.
+     * Clears the form and disconnnect any bean.
      */
     public void removeBean() {
         binder.removeBean();
