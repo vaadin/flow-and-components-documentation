@@ -41,3 +41,10 @@ network is unavailable.
 - *Header information* - in addition to manifest file, the application must also
 have describing data in header (browser/device specific version of theming and icons)
 - *Installation prompt* - Google Chrome requires special installation handling.
+
+
+[NOTE]
+HTTPS is a requirement for many new browser features, including those required
+for progressive web apps. Even if PWA currently works without HTTPS in some
+environment, e.g. Android, it is not guaranteed to stay the same and it is
+highly probable for those apps to malfunction in the future.
