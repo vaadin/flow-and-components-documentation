@@ -27,7 +27,6 @@ Another alternative is to base your custom themes on top of other themes, such a
 Vaadin Material is a complete theme for Vaadin components, inspired by Google’s Material
 Design guidelines.
 
-
 Vaadin developers follow 2 approaches:
 
 . *Not using the @Theme annotation, Lumo as default:*
@@ -90,7 +89,6 @@ This is because of the ease of development when you have just one HTML file when
 And it also allows you to more easily make that template a stand-alone component that you can reuse and distribute to others,
 since the styling is already coupled to the component HTML and you don't have to look for it from elsewhere.
 There is an example of this in the <<theming-crash-course#,Theming Crash Course>> chapter too.
-
 
 == Application Theme - Issues
 
