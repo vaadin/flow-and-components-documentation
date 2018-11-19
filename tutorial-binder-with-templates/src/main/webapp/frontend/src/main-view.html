@@ -1,0 +1,58 @@
+tutorial::polymer-templates/tutorial-template-and-binder.asciidoc
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="user-form.html">
+<link rel="import" href="../bower_components/vaadin-grid/src/vaadin-grid.html">
+
+<dom-module id="main-view">
+    <template>
+        <style>
+            #main-container {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            @media screen and (min-width: 600px) {
+                #main-container {
+                    flex-direction: row;
+                }
+            }
+
+            #users-grid {
+                flex: 1;
+                overflow-y: scroll;
+                height: 100%;
+                background-color: #fafafa;
+            }
+
+            #user-form {
+                flex: 1;
+                height: 100%;
+                border-left: 1px solid #d4d4d4;
+                border-top: 1px solid #d4d4d4;
+                background: #ededed;
+            }
+
+        </style>
+        <div id="main-container">
+            <vaadin-grid id="users-grid"></vaadin-grid>
+            <user-form id="user-form"></user-form>
+        </div>
+    </template>
+
+    <script>
+        class MainView extends Polymer.Element {
+            static get is() {
+                return 'main-view';
+            }
+
+            static get properties() {
+                return {
+                    // Declare your properties here.
+                };
+            }
+        }
+        customElements.define(MainView.is, MainView);
+    </script>
+</dom-module>
