@@ -249,7 +249,7 @@ formButtonsBar.addSaveListener(saveEvent -> {
 ----
 
 [NOTE]
-In the case of using unbuffered binding, it would be necessary to call `binder.writeBean()`.
+In the case of buffered binding, it would be necessary to call `binder.writeBean()`.
 
 [NOTE]
 When using unbuffered binding (with the `setBean` method), validation will be triggered automatically on all change events.
