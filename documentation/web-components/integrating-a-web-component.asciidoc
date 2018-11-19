@@ -137,8 +137,9 @@ Some web components will not show any UI when they are just added as empty tags 
 While the project setup is easy to use for development/testing, it does not allow you to easily produce a demo war file for deployment. It's usually better to create a separate project (or convert the project into a multi-module project) for this as the "demo" files included in the addon itself tend to be more test UIs and a demo should be aimed at the end user.
 
 [NOTE]
-If you want to make your component OSGi compatible refer to
-<<../advanced/tutorial-making-components-osgi-compatible#,this document>>.
+If you want to make your component OSGi compatible refer to the
+<<../advanced/tutorial-making-components-osgi-compatible#,Making a component
+add-on OSGi-compatible>> document.
 
 == Step 3. Deploying the Add-on to Vaadin Directory
 
