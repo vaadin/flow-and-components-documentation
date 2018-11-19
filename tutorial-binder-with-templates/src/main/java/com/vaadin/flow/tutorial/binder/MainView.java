@@ -8,12 +8,14 @@ import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.templatemodel.TemplateModel;
+import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.binder.data.User;
 import com.vaadin.flow.tutorial.binder.data.UsersRepository;
 import com.vaadin.flow.tutorial.binder.ui.FormButtonsBar;
 import com.vaadin.flow.tutorial.binder.ui.UserForm;
 import com.vaadin.flow.tutorial.binder.ui.UsersGrid;
 
+@CodeFor("polymer-templates/tutorial-template-and-binder.asciidoc")
 /**
  * The main view of the application.
  */

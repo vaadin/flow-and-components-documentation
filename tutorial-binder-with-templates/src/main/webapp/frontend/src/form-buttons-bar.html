@@ -6,7 +6,7 @@
 
 <dom-module id="form-buttons-bar">
     <template>
-<style>
+        <style>
             :host {
                 width: 100%;
             }
@@ -15,18 +15,19 @@
                 margin-left: auto;
             }
         </style>
-<vaadin-horizontal-layout style="width: 100%;" themes="" theme="spacing padding">
- <vaadin-button id="save" theme="raised primary">
-   Save 
- </vaadin-button>
- <vaadin-button id="cancel" theme="raised">
-   Cancel 
- </vaadin-button>
- <vaadin-button id="delete" theme="raised tertiary error">
-   Delete 
- </vaadin-button>
-</vaadin-horizontal-layout>
-</template>
+        <vaadin-horizontal-layout style="width: 100%;" themes=""
+                                  theme="spacing padding">
+            <vaadin-button id="save" theme="raised primary">
+                Save
+            </vaadin-button>
+            <vaadin-button id="cancel" theme="raised">
+                Cancel
+            </vaadin-button>
+            <vaadin-button id="delete" theme="raised tertiary error">
+                Delete
+            </vaadin-button>
+        </vaadin-horizontal-layout>
+    </template>
     <script>
         {
             class FormButtonsBarElement extends Polymer.Element {

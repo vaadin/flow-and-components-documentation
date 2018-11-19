@@ -11,8 +11,10 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.templatemodel.TemplateModel;
+import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.binder.data.User;
 
+@CodeFor("polymer-templates/tutorial-template-and-binder.asciidoc")
 /**
  * Example of how to combine Templates(recommended way of building UIs) with
  * Binder(recommended way of building forms).
