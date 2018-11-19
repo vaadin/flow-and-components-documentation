@@ -51,7 +51,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- test data generator -->
+        <!-- test-data generator to create random data -->
         <dependency>
             <groupId>org.jfairy</groupId>
             <artifactId>jfairy</artifactId>
