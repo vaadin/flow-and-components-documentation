@@ -9,7 +9,6 @@
     <modules>
         <module>docs-helpers</module>
         <module>tutorial-getting-started</module>
-        <module>tutorial-servlet-spring-boot</module>
         <module>documentation</module>
     </modules>
 
