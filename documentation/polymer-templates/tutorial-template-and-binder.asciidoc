@@ -94,7 +94,7 @@ private void initBinder() {
 
 [NOTE]
 For more information about binding fields to forms, please refer to
-<<binding-data/tutorial-flow-components-binder#,Binding Data to Forms>>.
+<<../binding-data/tutorial-flow-components-binder#,Binding Data to Forms>>.
 
 - We can call initBinder inside the constructor of the class:
 [source,java]
@@ -140,7 +140,7 @@ Notice that a unbuffered binding is used.
 An unbuffered binder keeps a reference to the bean, and every time the user changes any value,
 that value is immediately validated and written to the bean object. On the other hand,
 if the buffered mode is chosen, the changes are not written to the bean until it is explicitly said. See differences between
-<<binding-data/tutorial-flow-components-binder-load#, buffered and unbuffered binding>>.
+<<../binding-data/tutorial-flow-components-binder-load#, buffered and unbuffered binding>>.
 
 Now the UserForm component is ready to be used in other parts of our code.
 
