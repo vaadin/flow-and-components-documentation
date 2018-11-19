@@ -1,0 +1,11 @@
+tutorial::theme/application-theming-basics.asciidoc
+
+<dom-module id="my-grid-theme" theme-for="vaadin-grid">
+    <template>
+        <style>
+            [part~="cell"] ::slotted(vaadin-grid-cell-content) {
+                padding: 5px !important;
+            }
+        </style>
+    </template>
+</dom-module>
