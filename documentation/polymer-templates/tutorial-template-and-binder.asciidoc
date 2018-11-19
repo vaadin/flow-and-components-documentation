@@ -283,7 +283,7 @@ formButtonsBar.addDeleteListener(deleteEvent -> {
     if (optionalUser.isPresent()) {
         UsersRepository.delete(optionalUser.get());
         usersGrid.deselectAll();
-        sersGrid.refreshAll();
+        usersGrid.refreshAll();
     }
 });
 ----
