@@ -20,7 +20,7 @@ information. Some of the headers are as follows.
   this bundle. The value 1 indicates OSGi release 3, and the value 2 indicates
   OSGi release 4 and later.
 - *Bundle-Version* specifies the version of this bundle which consists of up to
-  four parts separating by dots.
+  four parts separated with dots.
 - *Import-Package* declares the imported packages for this bundle.
 - *Export-Package* contains a declaration of exported packages.
 - *Require-Capability* specifies that this bundle requires other bundles to
