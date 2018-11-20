@@ -9,7 +9,7 @@ For this purpose, a dedicated servlet is registered.
 # Running the application
 Run application using `mvn spring-boot:run` or directly running Application class from your IDE.
 
-Open http://localhost:8080/ in browser.
+Open http://localhost:8080/foo/ in browser.
 
 For documentation on using Vaadin Flow and Spring, visit [vaadin.com/docs](https://vaadin.com/docs/v10/flow/spring/tutorial-spring-basic.html)
 
