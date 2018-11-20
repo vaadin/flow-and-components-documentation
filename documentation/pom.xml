@@ -163,5 +163,13 @@
             <classifier>classes</classifier>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>tutorial-binder-with-templates</artifactId>
+            <version>${project.version}</version>
+            <classifier>classes</classifier>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
