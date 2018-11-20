@@ -2,7 +2,6 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.vaadin.diego</groupId>
     <artifactId>tutorial-servlet-spring-boot</artifactId>
-    <name>Registering a servlet on spring boot</name>
     <packaging>jar</packaging>
     <version>1.1-SNAPSHOT</version>
     <properties>
