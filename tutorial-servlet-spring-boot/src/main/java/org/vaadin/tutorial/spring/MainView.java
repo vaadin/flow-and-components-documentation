@@ -1,4 +1,4 @@
-package org.vaadin.diego.spring;
+package org.vaadin.tutorial.spring;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
@@ -15,6 +15,4 @@ public class MainView extends VerticalLayout {
                 e -> Notification.show(bean.getMessage()));
         add(button);
     }
-
-
 }

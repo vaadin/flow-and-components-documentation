@@ -1,4 +1,4 @@
-package org.vaadin.diego.spring;
+package org.vaadin.tutorial.spring;
 
 import java.time.LocalTime;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package org.vaadin.diego.spring;
+package org.vaadin.tutorial.spring;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +11,7 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
 import com.vaadin.flow.server.VaadinServlet;
+import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 /**
  * The entry point of the Spring Boot application.

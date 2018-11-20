@@ -155,6 +155,7 @@
             <artifactId>docs-helpers</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>tutorial-getting-started</artifactId>
