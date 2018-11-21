@@ -15,3 +15,4 @@ documentation/target
 docs-helpers/target
 tutorial-getting-started/target
 tutorial-binder-with-templates/target
+tutorial-servlet-spring-boot/target
