@@ -29,7 +29,9 @@ Turns application to work in production mode.
 The intention of the goal is to process application web files in order to optimize them for production usage: minify them, transpile to ES5 and bundle them (squash all frontend files into bigger files to reduce the amount of server round-trips).
 
 |requestTiming |
-if request timing info should be made available.
+If request timing info should be made available.
+If true, in each response the server includes some basic timing information.
+This can be used for performance testing.
 
 |disable-xsrf-protection |
 Cross-site request forgery protection. This protection is enabled by default, but it might need to be disabled to allow a certain type of testing.
