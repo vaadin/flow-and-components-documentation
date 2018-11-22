@@ -43,7 +43,7 @@ Place your global styles in a separate HTML file:
 As shown in the previous chapter, this file should be imported to the root layout level of your application.
 
 [WARNING]
-Remember to import the `<custom-style>` from `bower_components/polymer/lib/elements/custom-style.html`. That file is always loaded when a Vaadin component is imported, but if Vaadin components are not imported, the styles might be not loaded in the browser and scope leaks could appear in polyfilled browsers.
+Remember to import the `<custom-style>` from `bower_components/polymer/lib/elements/custom-style.html`. Although the `<style>` element inside `<custom-style>` is always processed by the browser, its scope will not work in polyfilled browsers if `<custom-style>` is not imported. Note that `<custom-style>` is always loaded when a Vaadin component is imported.
 
 == Styling Polymer Templates
 
