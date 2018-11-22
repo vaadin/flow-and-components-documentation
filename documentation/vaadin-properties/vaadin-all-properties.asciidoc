@@ -50,7 +50,7 @@ This means that as long as there is an open UI, the session never expires even t
 You can control this behavior by setting an init parameter named closeIdleSessions to true.
 
 |pushMode |
-The permitted values are "disabled" or "manual". <<../advanced/tutorial-push-configuration.asciidoc, See `push` documentation>>.
+The permitted values are "disabled" or "manual". <<../advanced/tutorial-push-configuration#, See `push` documentation>>.
 
 |pushURL |
 The push URL to use.
