@@ -1,5 +1,5 @@
 ---
-title: Vaadin mixin interfaces
+title: Vaadin Mixin Interfaces
 order: 8
 layout: page
 ---
