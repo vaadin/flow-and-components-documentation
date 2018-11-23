@@ -5,23 +5,23 @@ layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
-= Vaadin mixin interfaces
+= Vaadin Mixin Interfaces
 
 A mixin refers to a defined amount of functionality which can be added to a class.
 
 Before Java 8, interfaces could only have abstract methods.
-In Java 8 developers has the possibility to add default methods to interfaces.
+In Java 8, developers have the possibility to add default methods to interfaces.
 
 Vaadin uses this concept to create a common set of functionalities that are present in most web components.
 Providing a common API and default functionality for Vaadin components.
 
-Amount the most important mixins are:
+Among the most important mixins are:
 
 * HasSize
 * HasComponents
 * HasStyle
 
-These predefined mixins allows developers to add functionalities to their components saving time and effort, just with implementing those interfaces.
+These predefined mixins allow developers to add functionalities to their components saving time and effort, just with implementing those interfaces.
 
 [NOTE]
 There are many more mixins. Other important mixins are: `HasEnabled`, `HasElement`, `HasDataProvider<T>`, `HasValidation`, `HasItems`, `HasOrderedComponents`, `HasText`, `Focusable<T>`.
@@ -30,43 +30,43 @@ There are many more mixins. Other important mixins are: `HasEnabled`, `HasElemen
 == HasSize
 
 Any component implementing this interface supports setting the size of the
-component using {@link #setWidth(String)} and {@link #setHeight(String)}
+component using `setWidth(String)` and `setHeight(String)`.
 
-The methods that are implemented in `HasSize` interface are:
+The methods that are implemented in the `HasSize` interface are:
 
-* void setWidth(String width)
-* String getWidth()
-* void setHeight(String height)
-* String getHeight()
-* void setSizeFull()
-* void setSizeUndefined()
+* `void setWidth(String width)
+* `String getWidth()`
+* `void setHeight(String height)`
+* `String getHeight()`
+* `void setSizeFull()`
+* `void setSizeUndefined()`
 
 == HasComponents
 
 A component to which the user can add and remove child components.
 
-The methods that are implemented in `HasComponents` interface are:
+The methods that are implemented in the `HasComponents` interface are:
 
-* void add(Component... components)
-* void remove(Component... components)
-* void removeAll()
+* `void add(Component... components)`
+* `void remove(Component... components)`
+* `void removeAll()`
 
 == HasStyle
 
 Represents a component which has class attribute and inline styles.
 
-The methods that are implemented in `HasStyle` interface are:
+The methods that are implemented in the `HasStyle` interface are:
 
-* void addClassName(String className)
-* boolean removeClassName(String className)
-* void setClassName(String className)
-* String getClassName()
-* ClassList getClassNames()
-* void setClassName(String className, boolean set)
-* boolean hasClassName(String className)
-* Style getStyle()
-* void addClassNames(String... classNames)
-* void removeClassNames(String... classNames)
+* `void addClassName(String className)`
+* `boolean removeClassName(String className)`
+* `void setClassName(String className)`
+* `String getClassName()`
+* `ClassList getClassNames()`
+* `void setClassName(String className, boolean set)`
+* `boolean hasClassName(String className)`
+* `Style getStyle()`
+* `void addClassNames(String... classNames)`
+* `void removeClassNames(String... classNames)``
 
 == Example
 
@@ -91,9 +91,9 @@ public class Tooltip extends Component implements HasComponents, HasStyle {
 ----
 
 [NOTE]
-The component that implements HasComponents needs to have an `slot`.
+The component that implements `HasComponents` needs to have a `slot`.
 
-Just adding the interface it will add components to it:
+Just adding the `HasComponents` interface to the component will allow adding components to it:
 
 [source,java]
 ----
@@ -102,7 +102,6 @@ Tooltip tooltip = new Tooltip();
 tooltip.add(new H5("Tooltip"));
 tooltip.add(new Paragraph("I am a paragraph"));
 ----
-
 
 == Why is it recommended to use them?
 
