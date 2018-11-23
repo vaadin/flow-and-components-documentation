@@ -1,6 +1,6 @@
 ---
-title: Creating a Component Using Existing Components
-order: 4
+title: Vaadin mixin interfaces
+order: 8
 layout: page
 ---
 
@@ -9,11 +9,11 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 A mixin refers to a defined amount of functionality which can be added to a class.
 
-Before Java 8, interfaces could have only abstract methods.
+Before Java 8, interfaces could only have abstract methods.
 In Java 8 developers has the possibility to add default methods to interfaces.
-Default methods contains
 
-Vaadin has some predifined mixins that allows developers to add functionalities to their components.
+Vaadin uses this concept to create a common set of functionalities that are present in most web components.
+Providing a common API and default functionality for Vaadin components.
 
 Amount the most important mixins are:
 
@@ -21,17 +21,10 @@ Amount the most important mixins are:
 * HasComponents
 * HasStyle
 
-[NOTE]
-There much more elements.
+These predefined mixins allows developers to add functionalities to their components saving time and effort, just with implementing those interfaces.
 
-* HasEnabled
-* HasElement
-* HasDataProvider<T>
-* HasValidation
-* HasItems
-* HasOrderedComponents
-* HasText
-* Focusable<T>
+[NOTE]
+There are many more mixins. Other important mixins are: `HasEnabled`, `HasElement`, `HasDataProvider<T>`, `HasValidation`, `HasItems`, `HasOrderedComponents`, `HasText`, `Focusable<T>`.
 
 
 == HasSize
@@ -39,86 +32,45 @@ There much more elements.
 Any component implementing this interface supports setting the size of the
 component using {@link #setWidth(String)} and {@link #setHeight(String)}
 
-* setWidth
-* getWidth
-* setHeight
-* getHeight
-* setSizeFull
-* setSizeUndefined
+The methods that are implemented in `HasSize` interface are:
+
+* void setWidth(String width)
+* String getWidth()
+* void setHeight(String height)
+* String getHeight()
+* void setSizeFull()
+* void setSizeUndefined()
+
+== HasComponents
+
+A component to which the user can add and remove child components.
+
+The methods that are implemented in `HasComponents` interface are:
+
+* void add(Component... components)
+* void remove(Component... components)
+* void removeAll()
 
 == HasStyle
 
-[source,java]
-----
-public interface HasSize extends HasElement {
+Represents a component which has class attribute and inline styles.
 
-    default void setWidth(String width) {
-        getElement().getStyle().set(ElementConstants.STYLE_WIDTH, width);
-    }
+The methods that are implemented in `HasStyle` interface are:
 
-    default String getWidth() {
-        return getElement().getStyle().get(ElementConstants.STYLE_WIDTH);
-    }
+* void addClassName(String className)
+* boolean removeClassName(String className)
+* void setClassName(String className)
+* String getClassName()
+* ClassList getClassNames()
+* void setClassName(String className, boolean set)
+* boolean hasClassName(String className)
+* Style getStyle()
+* void addClassNames(String... classNames)
+* void removeClassNames(String... classNames)
 
-    default void setHeight(String height) {
-        getElement().getStyle().set(ElementConstants.STYLE_HEIGHT, height);
-    }
+== Example
 
-    default String getHeight() {
-        return getElement().getStyle().get(ElementConstants.STYLE_HEIGHT);
-    }
-
-    default void setSizeFull() {
-        setWidth("100%");
-        setHeight("100%");
-    }
-
-    default void setSizeUndefined() {
-        setWidth(null);
-        setHeight(null);
-    }
-----
-
-[source,java]
-----
-public interface HasComponents extends HasElement, HasEnabled {
-
-    default void add(Component... components) {
-        Objects.requireNonNull(components, "Components should not be null");
-        for (Component component : components) {
-            Objects.requireNonNull(component,
-                    "Component to add cannot be null");
-            getElement().appendChild(component.getElement());
-        }
-    }
-
-    default void remove(Component... components) {
-        Objects.requireNonNull(components, "Components should not be null");
-        for (Component component : components) {
-            Objects.requireNonNull(component,
-                    "Component to remove cannot be null");
-            Element parent = component.getElement().getParent();
-            if (parent == null) {
-                LoggerFactory.getLogger(HasComponents.class).debug(
-                        "Remove of a component with no parent does nothing.");
-                return;
-            }
-            if (getElement().equals(parent)) {
-                getElement().removeChild(component.getElement());
-            } else {
-                throw new IllegalArgumentException("The given component ("
-                        + component + ") is not a child of this component");
-            }
-        }
-    }
-
-    default void removeAll() {
-        getElement().removeAllChildren();
-    }
-}
-----
-
-Implementation
+This example describes how a custom component can use the Vaadin mixin interfaces to acquire new functionalities.
 
 [source,java]
 ----
@@ -154,17 +106,9 @@ tooltip.add(new Paragraph("I am a paragraph"));
 
 == Why is it recommended to use them?
 
-With out those mixins it would be necessary to
+Without Vaadin mixins it would be necessary to access the component´s api like this: `getElement().getStyle().set("width", "300px")`.
 
-Developers who use the component will save time:
-
-`setWidth("300px)` vs `getElement().getStyle().set("width", "300px")`.
-
-It provides and standard api to all components:
-
-* verticalLayout.add(Components)
-* horizontalLayout.add(Components)
-* tabs.add(Components)
+On the other hand, using the already implemented functionality defined in the `HasSize` mixin is much easier: `setWidth("300px)`.
 
 [TIP]
 Do not reinvent the wheel.
