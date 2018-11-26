@@ -18,8 +18,8 @@ layout: page
 
 Those component are actually 2 components
 
-- The main component, e.g. `<vaadin-dialog>`, it is not visible (`display:none`).
-- The overlay component, `<vaadin-dialog-overlay>`, which is actually visible.
+. The main component, e.g. `<vaadin-dialog>`, it is not visible (`display:none`).
+. The overlay component, `<vaadin-dialog-overlay>`, which is actually visible.
 
 == How to style an overlay
 
@@ -72,7 +72,6 @@ In the case of vaadin-dialog-overlay
         </style>
     </template>
 </dom-module>
-
 ----
 
 [NOTE]
