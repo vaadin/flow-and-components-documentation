@@ -17,6 +17,68 @@ a set of properties that defines the behaviour of the component.
 The server side component allows to modify those properties to allow managing the component's behaviour from
 Java (server side).
 
+== Server Side Extension
+
+Extending a component in flow is usefull:
+
+- When its child client-side component inherits from its parent client-side component: both shares the same properties
+- When it is necessary to modify small functionalities in the server side
+
+[WARNING]
+In the case of planing to do many modifications in the server side component, it is more efficient
+to extend the component in the server side. Using the Element API excessively creates and overload.
+
+There are 2 ways of archiving this:
+
+. Composition
+. Extension
+
+= Example
+
+.NumberField.java
+[source,html]
+----
+public class NumericField extends TextField {
+
+    private Button substractBtn;
+    private TextField textField;
+    private Button addBtn;
+
+    private Double currentValue = 0d;
+    private Double incrementValue = 1d;
+    private Double decrementValue = -incrementValue;
+
+    public NumericField() {
+        initComonents();
+    }
+
+    public NumericField(Double currentValue, Double incrementValue, Double decrementValue) {
+        this.currentValue = currentValue;
+        this.incrementValue = incrementValue;
+        this.decrementValue = decrementValue;
+
+        initComonents();
+    }
+
+    private void initComonents(){
+        substractBtn = new Button("-", event -> {
+            setValue(currentValue + decrementValue);
+        });
+
+        textField = new TextField();
+
+        addBtn = new Button("+", event -> {
+            setValue(currentValue + incrementValue);
+        });
+
+        this.addToPrefix(substractBtn);
+        this.addToSuffix(addBtn);
+
+        updateShownValue(currentValue);
+    }
+    ...
+----
+
 == Client Side Extension
 
 Inherit a template from another Polymer element can be done in several ways:
