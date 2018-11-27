@@ -1,0 +1,143 @@
+---
+title: Extending Components
+order: 8
+layout: page
+---
+
+= Extending Components
+
+Extending a component is an easy way of creating a new component.
+
+Vaadin flow application are formed of many web components. In most of the cases those
+components have a client-side component and a server side component.
+
+The client side component contains the HTML, CSS and JS code (Polymer). This client component defines
+a set of properties that defines the behaviour of the component.
+
+The server side component allows to modify those properties to allow managing the component's behaviour from
+Java (server side).
+
+== Client Side Extension
+
+Inherit a template from another Polymer element can be done in several ways:
+
+- Inheriting a base class template without modifying it.
+- Overriding a base class template in a child class.
+- Modifying a copy of a superclass template.
+- Extending a base class template in a child class.
+- Provide template extension points in a base class for content from a child class.
+
+This document focus mainly in the 3th option: *Modifying a copy of a superclass template*.
+
+== Example
+
+In this approach, the
+The steps
+. Children template definition
+. Parent element extension e.g `class NumberFieldElement extends Vaadin.TextFieldElement`.
+. Override the `static get template` with the final component DOM.
+
+The following example is a `NumberFieldElement` that extends from `Vaadin.TextFieldElement`.
+
+image::sunset.jpg[]
+
+
+The first step is to define the children's template with the basic structure of the child component.
+
+[NOTE]
+This structure will be accessed inside `static get template`.
+
+.vaadin-number-field.html
+[source,html]
+----
+<div
+    disabled$="[[!_allowed(-1, value, min, max)]]"
+    part="decrease-button"
+    on-click="_decreaseValue"
+    hidden$="[[!hasControls]]">
+</div>
+
+<div
+    disabled$="[[!_allowed(1, value, min, max)]]"
+    part="increase-button"
+    on-click="_increaseValue"
+    hidden$="[[!hasControls]]">
+</div>
+----
+
+After that, it is necessary to specify the element that the child component is going to inherit from.
+In this case is `Vaadin.TextFieldElement`.
+
+The component will inherit the properties and methods of the superclass.
+
+.vaadin-number-field.html
+[source,html]
+----
+class NumberFieldElement extends Vaadin.TextFieldElement {
+    static get is() {
+        return 'vaadin-number-field';
+    }
+
+    static get properties() {
+        return {
+            hasControls: {
+              type: Boolean,
+              value: false,
+              reflectToAttribue: true
+            },
+            min: {
+              type: Number,
+              reflectToAttribue: true,
+              observer: '_minChanged'
+            },
+            max: {
+              type: Number,
+              reflectToAttribue: true,
+              observer: '_maxChanged'
+            },
+            step: {
+              reflectToAttribue: true,
+              observer: '_stepChanged',
+              value: 1
+            }
+        };
+    }
+    ...
+}
+----
+
+The superclass template can be overridden by defining a template getter that returns a modified template element.
+
+.vaadin-number-field.html
+[source,html]
+----
+static get template() {
+    if (!memoizedTemplate) {
+        // Clone the superclass template
+        memoizedTemplate = super.template.cloneNode(true);
+
+        // Retrieve this element's dom-module template
+        const thisTemplate = Polymer.DomModule.import(this.is + '-template', 'template');
+        const decreaseButton = thisTemplate.content.querySelector('[part="decrease-button"]');
+        const increaseButton = thisTemplate.content.querySelector('[part="increase-button"]');
+        const styles = thisTemplate.content.querySelector('style');
+
+        // Add the buttons and styles to the text-field template
+        const inputField = memoizedTemplate.content.querySelector('[part="input-field"]');
+        const prefixSlot = memoizedTemplate.content.querySelector('[name="prefix"]');
+        inputField.insertBefore(decreaseButton, prefixSlot);
+        inputField.appendChild(increaseButton);
+        memoizedTemplate.content.appendChild(styles);
+
+        return memoizedTemplate;
+    }
+}
+----
+
+[WARNING]
+Don't modify the superclass template in place; make a copy before modifying.
+you should memoize the modified template so you don't have to regenerate it when the getter is called.
+`memoizedTemplate = super.template.cloneNode(true);`
+
+[NOTE]
+For more information about inheritance in Polymer consult the https://polymer-library.polymer-project.org/2.0/docs/devguide/dom-template#inherit[Polymer documentation].
