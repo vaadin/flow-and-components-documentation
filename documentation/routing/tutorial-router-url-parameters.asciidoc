@@ -101,12 +101,13 @@ Represents a relative URL made up of path segments and query parameters but lack
 [source,java]
 ----
 @Override
-public void setParameter(BeforeEvent event,@OptionalParameter String parameter) {
+public void setParameter(BeforeEvent event,
+        @OptionalParameter String parameter) {
 
     Location location = event.getLocation();
     QueryParameters queryParameters = location.getQueryParameters();
 
-    Map<String, List<String>> parametersMap =  queryParameters.getParameters();
+    Map<String, List<String>> parametersMap = queryParameters.getParameters();
 }
 ----
 
