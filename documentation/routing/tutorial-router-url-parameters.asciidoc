@@ -96,7 +96,7 @@ Those query parameters can be accessed through the method `getQueryParameters()`
 The Location class can be obtained through the `BeforeEvent` parameter of the `setParameter` method.
 
 [NOTE]
-A `Location` object represents a relative URL made up of path segments and query parameters but lacking the hostname, e.g `new Location("foo/bar/baz?name1=value1")`.
+A `Location` object represents a relative URL made up of path segments and query parameters but lacking the hostname, e.g. `new Location("foo/bar/baz?name1=value1")`.
 
 [source,java]
 ----
