@@ -65,6 +65,8 @@ public class NumericField extends TextField {
         setValue(value + "");
     }
 
+    // ...
+
     public Integer getNumericValue() {
         return numericValue;
     }

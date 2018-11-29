@@ -112,7 +112,7 @@ Learn more about the <<tutorial-component-many-elements#,`Element` API>>.
 In addition to this, it is necessary to create a theme module to customize the appearance of the `vaadin-text-field` component.
 For further information, please refer to <<../theme/theming-overview#,theming documentation>>.
 
-[source,java]
+[source,html]
 ----
 <dom-module id="vaadin-numeric-field-theme" theme-for="vaadin-text-field">
     <template>
