@@ -15,15 +15,10 @@
  */
 package com.vaadin.flow.tutorial.routing;
 
-import java.util.List;
-import java.util.Map;
-
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
-import com.vaadin.flow.router.Location;
 import com.vaadin.flow.router.OptionalParameter;
-import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.WildcardParameter;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
@@ -70,20 +65,4 @@ public class HasUrlParameterTutorial {
             }
         }
     }
-
-    @Route("greet")
-    public class QueryParametersGreeting extends Div
-            implements HasUrlParameter<String> {
-
-        @Override
-        public void setParameter(BeforeEvent event,
-                @OptionalParameter String parameter) {
-
-            Location location = event.getLocation();
-            QueryParameters queryParameters = location.getQueryParameters();
-
-            Map<String, List<String>> parametersMap = queryParameters.getParameters();
-        }
-    }
-
 }
