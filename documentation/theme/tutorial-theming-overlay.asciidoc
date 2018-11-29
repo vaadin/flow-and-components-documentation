@@ -16,9 +16,9 @@ layout: page
 * `select`
 * `context-menu`
 
-Those component are actually 2 components
+Those component are actually 2 components;
 
-. The main component, e.g. `<vaadin-dialog>`, it is not visible (`display:none`).
+. The main component, e.g. `<vaadin-dialog>`, which is not visible (`display:none`).
 . The overlay component, `<vaadin-dialog-overlay>`, which is actually visible.
 
 == How to style an overlay
