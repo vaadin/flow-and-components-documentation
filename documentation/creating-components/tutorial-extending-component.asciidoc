@@ -31,46 +31,69 @@ to extend the component in the client side. Using the Flow Element API excessive
 
 = Example
 
+The following example is a `NumericField` that extends from `TextField`.
+
+image:images/vaadin-number-field-server-side-extension.png[vaadin-number-field]
+
 .NumberField.java
 [source,java]
 ----
 public class NumericField extends TextField {
 
     private Button substractBtn;
-    private TextField textField;
     private Button addBtn;
 
-    private Double currentValue = 0d;
-    private Double incrementValue = 1d;
-    private Double decrementValue = -incrementValue;
+    private static final int DEFAULT_VALUE = 0;
+    private static final int DEFAULT_INCREMENT = 1;
+
+    private Integer numericValue;
+    private Integer incrementValue;
+    private Integer decrementValue;
 
     public NumericField() {
-        initComonents();
+        this(DEFAULT_VALUE, DEFAULT_INCREMENT, -DEFAULT_INCREMENT);
     }
 
-    public NumericField(Double currentValue, Double incrementValue, Double decrementValue) {
-        this.currentValue = currentValue;
+    public NumericField(Integer value, Integer incrementValue, Integer decrementValue) {
+        setNumericValue(value);
         this.incrementValue = incrementValue;
         this.decrementValue = decrementValue;
 
-        initComonents();
-    }
+        setPattern("-?[0-9]*");
+        setPreventInvalidInput(true);
 
-    private void initComonents(){
-        substractBtn = new Button("-", event -> {
-            setValue(currentValue + decrementValue);
+        addChangeListener(event -> {
+            String text = event.getSource().getValue();
+            if (StringUtils.isNumeric(text)) {
+                setNumericValue(Integer.parseInt(text));
+            } else {
+                setNumericValue(DEFAULT_VALUE);
+            }
         });
 
-        textField = new TextField();
+        substractBtn = new Button("-", event -> {
+            setNumericValue(numericValue + decrementValue);
+        });
 
         addBtn = new Button("+", event -> {
-            setValue(currentValue + incrementValue);
+            setNumericValue(numericValue + incrementValue);
         });
 
-        this.addToPrefix(substractBtn);
-        this.addToSuffix(addBtn);
+        styleBtns();
 
-        updateShownValue(currentValue);
+        addToPrefix(substractBtn);
+        addToSuffix(addBtn);
+    }
+
+    private void styleBtns() {
+        // Note: The same as addThemeVariants
+        substractBtn.getElement().setAttribute("theme", "icon");
+        addBtn.getElement().setAttribute("theme", "icon");
+    }
+
+    public void setNumericValue(Integer value) {
+        numericValue = value;
+        setValue(value + "");
     }
 
     // ...
@@ -85,6 +108,33 @@ The composite class has a minimal API. If `Composite` is not use, your component
 `Element` API contains methods for updating and querying various parts of the element, such as attributes.
 Every component has a `getElement()` function that allows to access it.
 Learn more about the <<tutorial-component-many-elements#,`Element` API>>.
+
+In addition to this, it is necessary to create a theme module to customize the appearance of the `vaadin-text-field` component.
+For further information, please refer to <<../theme/theming-overview#,theming documentation>>.
+
+[source,java]
+----
+<dom-module id="vaadin-numeric-field-theme" theme-for="vaadin-text-field">
+    <template>
+        <style>
+            :host(vaadin-text-field) [part="input-field"] {
+                background-color: #FFFFFF;
+                border: solid 1px #E0E5E8;
+                box-sizing: border-box;
+            }
+
+            :host(vaadin-text-field) [part="value"]{
+                --_lumo-text-field-overflow-mask-image: none;
+                text-align:center;
+            }
+
+            :host(vaadin-text-field) [part="input-field"] ::slotted(vaadin-button) {
+                background-color: transparent !important;
+            }
+        </style>
+    </template>
+</dom-module>
+----
 
 == Client Side Extension
 
@@ -112,7 +162,7 @@ The parent's template can be accessed using `super.template`.
 
 The following example is a `NumberFieldElement` that extends from `Vaadin.TextFieldElement`.
 
-image:images/vaadin-number-field.png[vaadin-number-field]
+image:images/vaadin-number-field-client-side-extension.png[vaadin-number-field]
 
 In this example, there are mainly 3 steps:
 

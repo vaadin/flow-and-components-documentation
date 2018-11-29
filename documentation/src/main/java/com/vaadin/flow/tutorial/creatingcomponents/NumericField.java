@@ -1,5 +1,7 @@
 package com.vaadin.flow.tutorial.creatingcomponents;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
@@ -8,50 +10,78 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class NumericField extends TextField {
 
     private Button substractBtn;
-    private TextField textField;
     private Button addBtn;
 
-    private Double currentValue = 0d;
-    private Double incrementValue = 1d;
-    private Double decrementValue = -incrementValue;
+    private static final int DEFAULT_VALUE = 0;
+    private static final int DEFAULT_INCREMENT = 1;
+
+    private Integer numericValue;
+    private Integer incrementValue;
+    private Integer decrementValue;
 
     public NumericField() {
-        initComonents();
+        this(DEFAULT_VALUE, DEFAULT_INCREMENT, -DEFAULT_INCREMENT);
     }
 
-    public NumericField(Double currentValue, Double incrementValue, Double decrementValue) {
-        this.currentValue = currentValue;
+    public NumericField(Integer value, Integer incrementValue, Integer decrementValue) {
+        setNumericValue(value);
         this.incrementValue = incrementValue;
         this.decrementValue = decrementValue;
 
-        initComonents();
-    }
+        setPattern("-?[0-9]*");
+        setPreventInvalidInput(true);
 
-    private void initComonents(){
-        substractBtn = new Button("-", event -> {
-            setValue(currentValue + decrementValue);
+        addChangeListener(event -> {
+            String text = event.getSource().getValue();
+            if (StringUtils.isNumeric(text)) {
+                setNumericValue(Integer.parseInt(text));
+            } else {
+                setNumericValue(DEFAULT_VALUE);
+            }
         });
 
-        textField = new TextField();
+        substractBtn = new Button("-", event -> {
+            setNumericValue(numericValue + decrementValue);
+        });
 
         addBtn = new Button("+", event -> {
-            setValue(currentValue + incrementValue);
+            setNumericValue(numericValue + incrementValue);
         });
 
-        this.addToPrefix(substractBtn);
-        this.addToSuffix(addBtn);
+        styleBtns();
 
-        updateShownValue(currentValue);
+        addToPrefix(substractBtn);
+        addToSuffix(addBtn);
     }
 
-    // ...
-
-    private void updateShownValue(Double value) {
-        textField.setValue(value + "");
+    private void styleBtns() {
+        // Note: The same as addThemeVariants
+        substractBtn.getElement().setAttribute("theme", "icon");
+        addBtn.getElement().setAttribute("theme", "icon");
     }
 
-    public void setValue(Double value) {
-        currentValue = value;
-        updateShownValue(value);
+    public void setNumericValue(Integer value) {
+        numericValue = value;
+        setValue(value + "");
+    }
+
+    public Integer getNumericValue() {
+        return numericValue;
+    }
+
+    public Integer getIncrementValue() {
+        return incrementValue;
+    }
+
+    public void setIncrementValue(Integer incrementValue) {
+        this.incrementValue = incrementValue;
+    }
+
+    public Integer getDecrementValue() {
+        return decrementValue;
+    }
+
+    public void setDecrementValue(Integer decrementValue) {
+        this.decrementValue = decrementValue;
     }
 }
