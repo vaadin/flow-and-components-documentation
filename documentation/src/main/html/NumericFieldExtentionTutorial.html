@@ -1,4 +1,5 @@
 tutorial::creating-components/tutorial-extending-component.asciidoc
+
 <!--
 @license
 Copyright (c) 2017 Vaadin Ltd.
@@ -12,9 +13,18 @@ This program is available under Apache License Version 2.0, available at https:/
 <dom-module id="vaadin-number-field-template">
     <template>
         <style>
+
+            :host {
+                background-color: #FFFFFF !important;
+                border: solid 1px #E0E5E8 !important;
+                box-sizing: border-box;
+            }
+
             :host([readonly]) {
                 pointer-events: none;
             }
+
+            /* ... */
 
             [part="decrease-button"]::before {
                 content: "−";
@@ -24,28 +34,25 @@ This program is available under Apache License Version 2.0, available at https:/
                 content: "+";
             }
 
-            /* Hide the native arrow icons */
-            [part="value"]::-webkit-outer-spin-button,
-            [part="value"]::-webkit-inner-spin-button {
-                -webkit-appearance: none;
-                margin: 0;
+            /* ... */
+
+            [part="input-field"] {
+                background-color: transparent !important;
             }
 
             [part="value"] {
                 -moz-appearance: textfield;
+                text-align: center;
             }
+
         </style>
 
-        <div disabled$="[[!_allowed(-1, value, min, max)]]"
-             part="decrease-button"
-             on-click="_decreaseValue"
-             hidden$="[[!hasControls]]">
+        <div part="decrease-button"
+             on-click="_decreaseValue">
         </div>
 
-        <div disabled$="[[!_allowed(1, value, min, max)]]"
-             part="increase-button"
-             on-click="_increaseValue"
-             hidden$="[[!hasControls]]">
+        <div part="increase-button"
+             on-click="_increaseValue">
         </div>
     </template>
 
@@ -72,51 +79,31 @@ This program is available under Apache License Version 2.0, available at https:/
 
                 static get properties() {
                     return {
-                        /**
-                         * Set to true to display value increase/decrease controls.
-                         */
-                        hasControls: {
-                            type: Boolean,
-                            value: false,
-                            reflectToAttribue: true
-                        },
-
-                        /**
-                         * The minimum value of the field.
-                         */
-                        min: {
+                        decrementValue: {
                             type: Number,
+                            value: -1,
                             reflectToAttribue: true,
-                            observer: '_minChanged'
+                            observer: '_decrementChanged'
                         },
-
-                        /**
-                         * The maximum value of the field.
-                         */
-                        max: {
+                        incrementValue: {
                             type: Number,
+                            value: 1,
                             reflectToAttribue: true,
-                            observer: '_maxChanged'
-                        },
-
-                        /**
-                         * Specifies the allowed number intervals of the field.
-                         */
-                        step: {
-                            reflectToAttribue: true,
-                            observer: '_stepChanged',
-                            value: 1
+                            observer: '_incrementChanged'
                         }
 
+                        // Note: the value is stored in the TF's value property.
                     };
+
                 }
 
-                // ...
+                /* ... */
 
                 ready() {
                     super.ready();
-                    this.focusElement.type = 'number';
-                    this.focusElement.addEventListener('change', this.__onInputChange.bind(this));
+                    this.value = 0;
+                    this.setAttribute('prevent-invalid-input','');
+                    this.setAttribute('pattern','-?[0-9]*');
                 }
 
                 static get template() {
@@ -142,65 +129,21 @@ This program is available under Apache License Version 2.0, available at https:/
                 }
 
                 _decreaseValue() {
-                    this._allowed(-1) && this.__add(-1);
+                    this.__add(this.decrementValue);
                 }
 
                 _increaseValue() {
-                    this._allowed(1) && this.__add(1);
+                    this.__add(this.incrementValue);
                 }
 
-                __add(sign) {
-                    const incr = sign * (this.step || 1);
-                    // Behave like native number input adjusting to the next exact multiple of step.
-                    this.value = (incr + (incr * Math.floor((parseFloat(this.value || 0) / incr).toFixed(1)))).toFixed(this.__decimals);
+                __add(value) {
+                    this.value = parseInt(this.value, 10) + value;
                     this.dispatchEvent(new CustomEvent('change', {bubbles: true}));
-                    this.focusElement.focus();
-                }
-
-                _allowed(sign, value, min, max) {
-                    const incr = sign * (this.step || 1);
-                    return !this.disabled && (incr < 0
-                        ? this.min == null || this.value > this.min
-                        : this.max == null || this.value < this.max);
-                }
-
-                _minChanged() {
-                    this.focusElement.min = this.min;
-                }
-
-                _maxChanged() {
-                    this.focusElement.max = this.max;
                 }
 
                 _valueChanged(newVal, oldVal) {
-                    // native input does not accept certain values, and also converts
-                    // from number to string, so we need synchronize value
                     this.value = this.focusElement.value;
                     super._valueChanged(this.value, oldVal);
-                }
-
-                __onInputChange() {
-                    this.checkValidity() && this.__adjustDecimals();
-                }
-
-                __adjustDecimals() {
-                    // when step is not an integer, adjust decimals.
-                    this.focusElement.value && (this.value = parseFloat(this.focusElement.value).toFixed(this.__decimals));
-                }
-
-                _stepChanged(step) {
-                    this.focusElement.step = step;
-                    // Compute number of dedimals to display in input based on provided step
-                    this.__decimals = String(step).replace(/^\d*\.?(.*)?$/, '$1').length;
-                    this.__adjustDecimals();
-                }
-
-                checkValidity() {
-                    // text-field mixin does not check against `min` and `max`
-                    if (this.min !== undefined || this.max !== undefined) {
-                        this.invalid = !this.focusElement.checkValidity();
-                    }
-                    return super.checkValidity();
                 }
             }
 

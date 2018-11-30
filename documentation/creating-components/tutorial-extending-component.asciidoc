@@ -11,7 +11,7 @@ Extending a component is an easy way of creating a new component.
 Vaadin flow applications are formed of many web components. In most of the cases those
 components have a client-side component and a server-side component.
 
-The client-side component contains the HTML, CSS and JavaScript. This client component defines
+The client-side component contains the HTML, CSS, and JavaScript. This client component defines
 a set of properties that defines the behaviour of the component.
 
 The server-side component allows modifying those properties to manage the component's behaviour from
@@ -23,11 +23,11 @@ Extending a component in flow is useful:
 
 * when it is planned to add a new functionality that does not add any visual aspects to the component visuals.
 
-Examples of those new functionalities are automatically processing data, adding default validators, combining multiple simpler components to a field that manages complex data, ... .
+Examples of those new functionalities are automatically processing data, adding default validators, combining multiple simpler components to a field that manages complex data, ...
 
 [WARNING]
 If it is planned to add many new functionalities or visual aspects in the component, it is more efficient
-to extend the component in the client side. Using the Flow Element API excessively creates an overload.
+to extend the component to the client side. Using the Flow Element API excessively creates an overload.
 
 = Example
 
@@ -102,7 +102,7 @@ public class NumericField extends TextField {
 
 [NOTE]
 It is possible to hide the parent's API on the server side by extending the `Composite` class.
-The composite class has a minimal API. If `Composite` is not use, your component would expose all its methods, even those you might not want for a custom component.
+The composite class has a minimal API. If `Composite` is not used, your component would expose all its methods, even those you might not want for a custom component.
 
 [NOTE]
 `Element` API contains methods for updating and querying various parts of the element, such as attributes.
@@ -135,6 +135,9 @@ For further information, please refer to <<../theme/theming-overview#,theming do
     </template>
 </dom-module>
 ----
+
+[NOTE]
+It is important to remember to import the theme-module in the view in which the component is used: `@HtmlImport("frontend://styles/vaadin-numeric-field-theme.html")`.
 
 == Client Side Extension
 
@@ -178,17 +181,31 @@ This template will be accessed inside `static get template`.
 .vaadin-number-field.html
 [source,html]
 ----
-<div disabled$="[[!_allowed(-1, value, min, max)]]"
-     part="decrease-button"
-     on-click="_decreaseValue"
-     hidden$="[[!hasControls]]">
-</div>
+<template>
+    <style>
 
-<div disabled$="[[!_allowed(1, value, min, max)]]"
-     part="increase-button"
-     on-click="_increaseValue"
-     hidden$="[[!hasControls]]">
-</div>
+      /* ... */
+
+      [part="decrease-button"]::before {
+        content: "−";
+      }
+
+      [part="increase-button"]::before {
+        content: "+";
+      }
+
+      /* ... */
+
+    </style>
+
+    <div part="decrease-button"
+         on-click="_decreaseValue">
+    </div>
+
+    <div part="increase-button"
+         on-click="_increaseValue">
+    </div>
+</template>
 ----
 
 After that, it is necessary to specify elements that the child component is going to inherit from.
@@ -204,30 +221,25 @@ class NumberFieldElement extends Vaadin.TextFieldElement {
 
     static get properties() {
         return {
-            hasControls: {
-              type: Boolean,
-              value: false,
-              reflectToAttribue: true
-            },
-            min: {
+            decrementValue: {
               type: Number,
+              value: -1,
               reflectToAttribue: true,
-              observer: '_minChanged'
+              observer: '_decrementChanged'
             },
-            max: {
+            incrementValue: {
               type: Number,
+              value: 1,
               reflectToAttribue: true,
-              observer: '_maxChanged'
-            },
-            step: {
-              reflectToAttribue: true,
-              observer: '_stepChanged',
-              value: 1
+              observer: '_incrementChanged'
             }
+
+            // Note: the value is stored in the TF's value property.
         };
+
     }
 
-    // ...
+    /* ... */
 }
 ----
 
@@ -256,6 +268,24 @@ static get template() {
 
         return memoizedTemplate;
     }
+}
+
+_decreaseValue() {
+    this.__add(this.decrementValue);
+}
+
+_increaseValue() {
+    this.__add(this.incrementValue);
+}
+
+__add(value) {
+    this.value = parseInt(this.value, 10) + value;
+    this.dispatchEvent(new CustomEvent('change', {bubbles: true}));
+}
+
+_valueChanged(newVal, oldVal) {
+    this.value = this.focusElement.value;
+    super._valueChanged(this.value, oldVal);
 }
 ----
 
