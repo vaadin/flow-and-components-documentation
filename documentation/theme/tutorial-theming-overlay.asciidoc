@@ -1,0 +1,80 @@
+---
+title: Theming components - Overlay
+order: 6
+layout: page
+---
+
+= Theming components - Overlay
+
+`<vaadin-overlay>` is a Web Component for creating overlays. It is an essential part of many components such as:
+
+* `dialog`
+* `notification`
+* `combo-box`
+* `date-picker`
+* `time-picker`
+* `select`
+* `context-menu`
+
+Those component are actually 2 components;
+
+. The main component, e.g. `<vaadin-dialog>`, which is not visible (`display:none`).
+. The overlay component, `<vaadin-dialog-overlay>`, which is actually visible.
+
+== How to style an overlay
+
+The `<vaadin-overlay>` component contains 3 stylable parts:
+
+. *backdrop*: the optional modality curtain, covering the whole host/viewport.
+. *overlay*: container for position/sizing/alignment of the content – this one is usually a scrolling container as well.
+. *content*: the content area inside the scrolling container, where padding should be applied (if you want it to affect the bottom of scrolled content as well).
+
+[WARNING]
+Attributes from the main component are not copied to the overlay component, e.g. the class selector.
+
+The theme attribute is an exception to the above, and it is copied to the overlay component, allowing styling of individual overlays.
+
+To style an overlay component it is necessary to create a style/theme module, in the same way that is done for other components, and target the stylable parts, optionally scoped with a theme variant selector:
+
+[source,html]
+----
+<dom-module id="..." theme-for="vaadin-*-overlay">
+    <template>
+        <style>
+            :host([theme~="custom-theme-variant"]) [part~="overlay"] {
+                ...
+            }
+        </style>
+    </template>
+</dom-module>
+----
+
+In the case of vaadin-dialog-overlay
+
+[source,html]
+----
+<dom-module id="my-vaadin-dialog-theme" theme-for="vaadin-dialog-overlay">
+    <template>
+        <style>
+
+            [part="backdrop"] {
+                ...
+            }
+
+            [part="overlay"] {
+                ...
+            }
+
+            [part="content"] {
+                ...
+            }
+
+        </style>
+    </template>
+</dom-module>
+----
+
+[NOTE]
+ThemableMixin does not guarantee the order in which the style modules are applied.
+It is important to declare CSS rules whose specificity is greater than the Lumo properties that are being overridden.
+For more information refer to <<application-theming-basics#, Application Theming Basics >>.
