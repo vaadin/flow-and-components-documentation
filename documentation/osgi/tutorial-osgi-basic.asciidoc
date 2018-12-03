@@ -222,8 +222,8 @@ Here is a minimal list of required Vaadin Flow bundles:
 * `flow-osgi-X.Y.Z.jar`
 
 This is not a full list of all required bundles. The full list is too long
-and may very because of transitive dependencies.
-Here is some of required external dependencies (the versions are omitted):
+and may vary due to transitive dependencies.
+Here are some of the required external dependencies (the versions are omitted):
 
 * `jsoup`
 * `gentyref-x.y.z.vaadin1.jar`
@@ -233,26 +233,25 @@ Here is some of required external dependencies (the versions are omitted):
 
 Please note that some of the dependencies are repackaged by Vaadin because
 original jars are not OSGi compatible (like `gwt-elemental`).
-Other dependencies requires some OSGi features which needs to be deployed at 
+Other dependencies require some OSGi features which needs to be deployed at 
 runtime but they don't depend on them during compilation.
 This is the case with `ph-css` bundle. It depends on `ph-commons` (which 
 should be deployed also of course) but the latter bundle requires `ServiceLoader` 
 OSGi implementation. You will need to deploy the bundle which contains
 this implementation suitable for your OSGi container.
-Also Vaadin OSGi support uses OSGi Compendium API (which allows register OSGi
-service using declarative services annotations). And you have to deploy 
-(if your OSGI container doesn't have it out of the box) implementation 
-bundle to support this API. 
+Also Vaadin OSGi support uses OSGi Compendium API (which allows registering an OSGi
+service using declarative services annotations). If your OSGI container doesn't have it 
+out of the box, you have to deploy an implementation bundle to support the Compendium API.
 
 [NOTE]
-We have OSGi base starter project which is ready to use and it declares
+There exists an OSGi base starter project that is ready to use and it declares
 all bundles which needs to be deployed to the OSGi container as provided dependencies 
 in the dedicated profile.
 Those bundles are copied into the specific folder using `maven-dependency-plugin` and auto-deployed from there.
-As a result all required bundles becomes deployed to the OSGi container.
+As a result all required bundles are deployed to the OSGi container.
 See https://github.com/vaadin/base-starter-flow-osgi.
 
-In your project you will want most likely to use some ready-made Vaadin components like Vaadin Button.
+In your project you will most likely want to use some ready-made Vaadin components like Vaadin Button.
 In this case you should deploy `vaadin-button-flow` bundle as a dependency.
 Please note that all Vaadin Flow components are OSGi compatible bundles but they
 depend on webjars with the client side web component resources which are not
@@ -345,4 +344,3 @@ them automatically available as web resources.
 [TIP]
 This is done in our OSGi base starter project https://github.com/vaadin/base-starter-flow-osgi. 
 You may check out the code.
- 

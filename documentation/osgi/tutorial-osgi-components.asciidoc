@@ -14,11 +14,9 @@ then you should be aware about several aspects:
 * Static resource registration
 
 All those aspects are already shortly covered in the basic tutorial <<tutorial-osgi-basic#,Vaadin OSGi Support>>
-since there are common but let's highlight every of them one more time
-regarding to creation a component bundle.
+since there are common parts, but we'll go through them here in more depth and in regards to component bundle creation.
 
-There is nothing to care about apart of that. OSGi compatible bundle is just a 
-jar file with a proper manifest file.
+In all simplicity, an OSGi compatible bundle is just a jar file with the proper manifest file.
 
 [[osgi.component.manifest]]
 == Making OSGi compatible jar
@@ -107,11 +105,11 @@ public class MyCoponent extends Div {
 
 You normally use standard locations for static resources since your jar
 should work also in non OSGi environment. So let's assume your resource 
-folder is `META-IF/resources`. 
+folder is `META-INF/resources`. 
 
 [NOTE]
 If you use maven then all resources are located inside `src/main/resources` folder.
-So the full path of the static resources directory is `src/main/resources/META-IF/resources`.
+So the full path of the static resources directory is `src/main/resources/META-INF/resources`.
 
 This resource should be registered via the way provided by Vaadin OSGi
 integration. We are using `OsgiVaadinStaticResource`  service interface since
@@ -137,7 +135,7 @@ public class MyComponentResource implements OsgiVaadinStaticResource {
 ----
 
 [NOTE]
-Your component project will use webjars most likely 
+Your component project will most likely use webjars 
 (see <<../web-components/integrating-a-web-component#,Integrating a Web Component>>).
 You should be aware of the fact that webjars are not OSGi compatible. So
 webjar archive is not an OSGi bundle and cannot be deployed to an OSGi container.
