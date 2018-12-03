@@ -1,6 +1,6 @@
 ---
 title: All Vaadin properties
-order: 1
+order: 18
 layout: page
 ---
 
