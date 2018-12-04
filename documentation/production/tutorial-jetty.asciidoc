@@ -123,10 +123,6 @@ public final class JettyTest {
 
 When the application has to be deployed on a server, it is necessary to generate a war file with the application in it.
 
-[NOTE]
-WAR. Is the extension of a file that packages a web application directory hierarchy in ZIP format and is short for Web Archive. Java web applications are usually packaged as WAR files for deployment.
-WAR files can be created on the command line or with an IDE like Eclipse.
-
 It is possible to change the name of the `war` file specifying
 
 .pom.xml
