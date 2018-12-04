@@ -1,0 +1,107 @@
+---
+title: Advanced production mode topics
+order: 4
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= How to Deploy a Flow Application to Jetty
+
+The easiest way to deploy a Flow application is to generate a `war` file.
+
+This Jetty command generate the `war` file that is needed to deploy the application.
+
+`mvn clean package`
+
+[NOTE]
+It is possible to change the name of the `war` file specifying
+
+.pom.xml
+[source, xml]
+----
+<build>
+    <finalName>application</finalName>
+    ...
+</build>
+----
+
+[NOTE]
+WAR. Is the extension of a file that packages a web application directory hierarchy in ZIP format and is short for Web Archive. Java web applications are usually packaged as WAR files for deployment.
+WAR files can be created on the command line or with an IDE like Eclipse.
+
+[NOTE]
+server.servlet.context-path=/foo
+
+== Context path
+Refers to the location which is relative to the server’s address and represents the name of the web application.
+
+==  Deploying by Copying WAR
+The easiest way to deploy a web application to Jetty server is probably by copying the WAR file into the $JETTY_HOME/webapps directory.
+
+After copying, we can start the server by navigating to $JETTY_HOME and running the command:
+
+== Deploying with the Jetty Maven Plugin
+
+.pom.xml
+[source, xml]
+----
+<plugin>
+    <groupId>org.eclipse.jetty</groupId>
+    <artifactId>jetty-maven-plugin</artifactId>
+    <version>9.3.11.v20160721</version>
+</plugin>
+----
+
+== Running Jetty without Maven
+
+[source,java]
+----
+public final class JettyTest {
+  public static void main(String[] args) throws Exception {
+    Server server = new Server(8080);
+
+    Configuration.ClassList classlist = Configuration.ClassList.setServerDefault(server);
+    classlist.addAfter("org.eclipse.jetty.webapp.FragmentConfiguration", "org.eclipse.jetty.plus.webapp.EnvConfiguration", "org.eclipse.jetty.plus.webapp.PlusConfiguration");
+    classlist.addBefore("org.eclipse.jetty.webapp.JettyWebXmlConfiguration", "org.eclipse.jetty.annotations.AnnotationConfiguration");
+
+    File tempDir = new File(System.getProperty("java.io.tmpdir"), "JettyTest");
+    if (tempDir.exists()) {
+      if (!tempDir.isDirectory()) {
+        throw new RuntimeException("Not a directory: " + tempDir);
+      }
+    } else if (!tempDir.mkdirs()) {
+      throw new RuntimeException("Could not make: " + tempDir);
+    }
+
+    WebAppContext context = new WebAppContext();
+    context.setInitParameter("productionMode", "false");
+    context.setContextPath("");
+    context.setExtractWAR(false);
+    context.setTempDirectory(tempDir);
+
+    context.addServlet(VaadinServlet.class, "/*");
+
+    context.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern", ".*");
+
+    context.setParentLoaderPriority(true);
+    server.setHandler(context);
+
+    List<Resource> resourceList = new ArrayList<>();
+    for (String entry : ClassPathHelper.getAllClassPathEntries()) {
+      File file = new File(entry);
+      if (entry.endsWith(".jar")) {
+        resourceList.add(Resource.newResource("jar:" + file.toURI().toURL() + "!/"));
+      } else {
+        resourceList.add(Resource.newResource(entry));
+      }
+    }
+
+    resourceList.add(Resource.newResource("./src/main/webapp"));
+    context.setBaseResource(new ResourceCollection(resourceList.toArray(new Resource[0])));
+
+    server.start();
+    server.join();
+  }
+}
+----
