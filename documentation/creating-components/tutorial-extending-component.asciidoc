@@ -26,8 +26,8 @@ Extending a component in flow is useful:
 Examples of those new functionalities are automatically processing data, adding default validators, combining multiple simpler components to a field that manages complex data, ...
 
 [WARNING]
-If it is planned to add many new functionalities or visual aspects in the component, it is more efficient
-to extend the component to the client side. Using the Flow Element API excessively creates an overload.
+If you plan on adding many new features or changing any visual aspects in the component, it is better to extend the component to the client side.
+Using the Flow Element API excessively creates an overload.
 
 = Example
 
