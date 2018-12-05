@@ -1,76 +1,81 @@
 ---
-title: How to Deploy a Flow Application on Jetty
+title: How to Run a Deploy a Flow Application on Jetty
 order: 4
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= How to configure Jetty
+= How to Run a Deploy a Flow Application on Jetty
 
-This document explains how to deploy a compiled production package on a standalone jetty.
+This document explains how to run and deploy a Vaadin Flow application on Jetty.
 
 Jetty is an open-source project providing an HTTP server, HTTP client, and javax.servlet container.
 
-Jetty application can be deployed in 2 different ways:
+Jetty applications can be deployed in 2 different ways:
 
-. Development Mode
-. Standalone Mode
+. Embedded Jetty
+    * Jetty Maven Plugin
+    * Programmatically
+. Standalone Jetty
+    * WAR
+    * Exploded directory
+    * Context File
 
-== Development Mode (Embedded Jetty)
+== Embedded Jetty
 
 Jetty can be used during the development phase of an application to increase the productivity of developers.
 
 Using Jetty has the advantage that it can be instantiated and used in a Java program.
 
-"Don't deploy your application in Jetty, deploy Jetty in your application!" by jetty.
+"Don't deploy your application in Jetty, deploy Jetty in your application!" by Jetty.
 
 This application is Embedded Jetty.
 
 Embedded Jetty can be used in Vaadin application in 2 different ways:
 
-. Deploying with the Jetty Maven Plugin
+. Jetty Maven Plugin
 . Programmatically (without Maven)
 
 === Jetty Maven Plugin
 
 The Jetty Maven plugin is useful for rapid development and testing.
-You can add it to any webapp project that is structured according to the Maven defaults.
 
-To be able to deploy and run applications with it, we only need to add the plugin in pom.xml:
+To be able to deploy and run applications with it, it is only needed to add the plugin inside the `pom.xml`:
 
 .pom.xml
 [source, xml]
 ----
 <build>
-        <plugins>
-            <!-- Jetty plugin for easy testing without a server -->
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.4.11.v20180605</version>
-                <configuration>
-                    <scanIntervalSeconds>1</scanIntervalSeconds>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <plugins>
+        <!-- Jetty plugin for easy testing without a server -->
+        <plugin>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
+            <version>9.4.11.v20180605</version>
+            <configuration>
+                <scanIntervalSeconds>1</scanIntervalSeconds>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
 ----
 
-To deploy our app after adding the plugin, we navigate to the root where pom.xml is located and run the following command:
+To run the application after adding the plugin, it is necessary to be situated in the project's root directory where `pom.xml` is located and run the following command:
 
 [source,ini]
 ----
-`mvn jetty:run`
+mvn jetty:run
 ----
 
-=== Running Jetty without Maven
+=== Programmatically (without Maven)
 
 Jetty can also be configured to run programmatically. This requires a manual configuration to make it work with Vaadin.
 
+.main.java
 [source,java]
 ----
-public final class JettyTest {
+public final class ManualJetty {
   public static void main(String[] args) throws Exception {
     Server server = new Server(8080);
 
@@ -119,11 +124,31 @@ public final class JettyTest {
 }
 ----
 
-== Standalone Mode (Production Mode)
+This programmatically configuration requires to add extra dependencies to the `pom.xml`.
 
-When the application has to be deployed on a server, it is necessary to generate a war file with the application in it.
+.pom.xml
+[source, xml]
+----
+<dependency>
+    <groupId>org.eclipse.jetty</groupId>
+    <artifactId>jetty-project</artifactId>
+    <version>${project.version}</version>
+</dependency>
+<dependency>
+    <groupId>org.eclipse.jetty</groupId>
+    <artifactId>jetty-webapp</artifactId>
+    <version>${jetty.version}</version>
+</dependency>
+----
 
-It is possible to change the name of the `war` file specifying
+[NOTE]
+It might requires additional dependencies, such as: `jetty-annotations`,`jetty-continuation`,`javax-websocket-server-impl`, ...
+
+== Standalone Jetty
+
+When the application has to be deployed on a server, it is necessary to generate a WAR file or an exploded directory with the application in it.
+
+It is possible to change the name of the WAR file and exploded directory specifying the `finalName`:
 
 .pom.xml
 [source, xml]
@@ -135,24 +160,41 @@ It is possible to change the name of the `war` file specifying
 ----
 
 [NOTE]
-Remember to activate the prodcution mode when the application is ready for its deployment.
+Remember to activate the production mode when the application is ready for its deployment.
 Production Mode can be activated in the following way: `mvn jetty:run-exploded -Pproduction-mode`.
 For more information about it, please consult <<tutorial-production-mode-basic#,Taking your Application into Production>>.
 
 ===  Deploying by Copying WAR
 
-The easiest way to deploy a web application to Jetty server is probably by copying the WAR file into the $JETTY_HOME/webapps directory.
+The easiest way to deploy a web application on a Jetty server is probably by copying the WAR file into the `webapps` directory of Jetty.
 
-After copying, we can start the server by navigating to $JETTY_HOME and running the command:
+The WAR file can be generated executing the following Maven goal:
+
+[source,ini]
+----
+mvn package
+----
+
+After copying the WAR file into the `webapps` directory, Jetty can be started  navigating to Jetty's folder and running the command:
 
 [source,ini]
 ----
 `java -jar start.jar`
 ----
 
+=== Deploying by Copying exploded directory
+
+An exploded directory is a folder containing the unzipped (exploded) contents and all the application files.
+It is actually an extracted WAR file.
+
+`mvn package` creates the exploded directory before creating the WAR file.
+
+[NOTE]
+The WAR file and the exploded directory can be found with the same name in the `target` directory.
+
 === Deploying Using Context File
 
-Jetty web server offers us a way to deploy a web archive located anywhere in the file system by us creating a context file for it.
+Jetty web server offers the possibility of deploying a web archive located anywhere in the file system by creating a context file for it.
 
 .jetty-app.xml
 [source, xml]
@@ -166,11 +208,11 @@ Jetty web server offers us a way to deploy a web archive located anywhere in the
 </Configure>
 ----
 
-== Spring
+== Spring Boot
 
-When the Vaadin Flow application is using Jetty it requires an additional configuration for several aspects of the application.
+When the Vaadin Flow application is using Spring Boot, it requires an additional configuration for several aspects of the application.
 
-One example of this, is `urlMapping`.
+One example of this is `urlMapping`:
 
 [source,ini]
 ----
@@ -179,4 +221,4 @@ vaadin.urlMapping=/my_mapping/*
 
 An additional Servlet is required to handle the frontend resources for non-root servlets, such as /my_mapping/*. The servlet can be defined in your application class, link:../src/main/java/com/vaadin/flow/tutorial/spring/ExampleServletRegistration.java[see here for an example].
 
-For more information about it, please consult the <<../spring/tutorial-spring-configuration#, Vaadin Spring configuration guide>>.
+For more information about Spring configuration, please consult the <<../spring/tutorial-spring-configuration#, Vaadin Spring configuration guide>>.
