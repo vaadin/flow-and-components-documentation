@@ -116,8 +116,7 @@ There are many more mixins. Other important mixins are: `HasEnabled`, `HasElemen
 
 Without Vaadin mixins it would be necessary to access the component´s api like this: `getElement().getStyle().set("width", "300px")`.
 
-On the other hand, using the already predefined functionality of the `HasSize` mixin is much easier: `setWidth("300px)`.
+On the other hand, using the already predefined functionality of the `HasSize` mixin is much easier: `setWidth("300px")`.
 
 [TIP]
-It is a good practice to use Vaadin mixins because its code and functionality have been checked and tested.
-Amount other benefits of using Vaadin mixins are standardization and productivity.
+It is a good practice to use Vaadin mixins because its code and functionality have been checked and tested by Vaadin.
