@@ -1,12 +1,12 @@
 ---
-title: How to Run a Deploy a Flow Application on Jetty
+title: How to Run and Deploy and Flow Application on Jetty
 order: 4
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= How to Run a Deploy a Flow Application on Jetty
+= How to Run and Deploy a Flow Application on Jetty
 
 This document explains how to run and deploy a Vaadin Flow application on Jetty.
 
