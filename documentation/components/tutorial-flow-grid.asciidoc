@@ -501,9 +501,10 @@ An easy way to create a clickable button inside the grid cells. It creates a nat
 
 [source, java]
 ----
-grid.addColumn(new NativeButtonRenderer<>("Remove item", clickedItem -> {
-          // remove the item
-        }));
+grid.addColumn(
+    new NativeButtonRenderer<>("Remove item", clickedItem -> {
+        // remove the item
+    }));
 ----
 
 It is also possible to configure a custom label for each item:
@@ -511,8 +512,8 @@ It is also possible to configure a custom label for each item:
 [source, java]
 ----
 grid.addColumn(new NativeButtonRenderer<>(item -> "Remove " + item, clickedItem -> {
-          // remove the item
-        }));
+  // remove the item
+}));
 ----
 
 === Using Templates
@@ -636,8 +637,9 @@ it for each item.
 
 [source, java]
 ----
-grid.addColumn(new ComponentRenderer<>(Div::new,
-        (div, person) -> div.setText(person.getName())))
+SerializableBiConsumer<Div, Person> consumer = (div, person) -> div
+                .setText(person.getName());
+grid.addColumn(new ComponentRenderer<>(Div::new, consumer))
         .setHeader("Name");
 ----
 
@@ -645,8 +647,8 @@ Or if the component is the same for every item, you only need to provide the `Su
 
 [source, java]
 ----
-grid.addColumn(new ComponentRenderer<>(
-        () -> new Icon(VaadinIcon.ARROW_LEFT)));
+grid.addColumn(
+    new ComponentRenderer<>(() -> new Icon(VaadinIcon.ARROW_LEFT)));
 ----
 
 Using the component APIs allows you to easily listen for events and wrap multiple components inside

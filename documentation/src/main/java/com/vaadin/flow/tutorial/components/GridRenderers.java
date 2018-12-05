@@ -41,6 +41,7 @@ import com.vaadin.flow.data.renderer.LocalDateTimeRenderer;
 import com.vaadin.flow.data.renderer.NativeButtonRenderer;
 import com.vaadin.flow.data.renderer.NumberRenderer;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
+import com.vaadin.flow.function.SerializableBiConsumer;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.databinding.Person.Gender;
 
@@ -73,9 +74,10 @@ public class GridRenderers {
         grid.addColumn(new NumberRenderer<>(Item::getPrice, "$ %(,.2f",
                 Locale.US, "$ 0.00")).setHeader("Price");
 
-        grid.addColumn(new NativeButtonRenderer<>("Remove item", clickedItem -> {
-            // remove the item
-        }));
+        grid.addColumn(
+                new NativeButtonRenderer<>("Remove item", clickedItem -> {
+                    // remove the item
+                }));
 
         //@formatter:off
         grid.addColumn(new NativeButtonRenderer<>(item -> "Remove " + item, clickedItem -> {
@@ -129,12 +131,13 @@ public class GridRenderers {
             }
         })).setHeader("Gender");
 
-        grid.addColumn(new ComponentRenderer<>(Div::new,
-                (div, person) -> div.setText(person.getName())))
+        SerializableBiConsumer<Div, Person> consumer = (div, person) -> div
+                .setText(person.getName());
+        grid.addColumn(new ComponentRenderer<>(Div::new, consumer))
                 .setHeader("Name");
 
-        grid.addColumn(new ComponentRenderer<>(
-                () -> new Icon(VaadinIcon.ARROW_LEFT)));
+        grid.addColumn(
+                new ComponentRenderer<>(() -> new Icon(VaadinIcon.ARROW_LEFT)));
 
         grid.addColumn(new ComponentRenderer<>(person -> {
 
