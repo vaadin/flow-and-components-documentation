@@ -16,7 +16,7 @@ and
 https://github.com/vaadin/flow/blob/e5c2e4b98e26c3e7ba40ce681f9762d970ff4c0a/flow-server/src/main/java/com/vaadin/flow/server/Constants.java[com.vaadin.server.Constants]
 classes.
 
-These properties can be set from the command line as a system property, as a Servlet init parameter in the `web.xml` or using the `web.xml` annotation.
+These properties can be set from the command line as a system property, as a Servlet init parameter in the `web.xml` or using the `@WebServlet` annotation.
 For further information, please consult the tutorial <<tutorial-flow-runtime-configuration#, Changing Flow behavior with runtime configuration>>.
 
 [NOTE]
@@ -53,10 +53,10 @@ This means that as long as there is an open UI, the session never expires even t
 You can control this behavior by setting an init parameter named closeIdleSessions to true.
 
 |pushMode |
-The permitted values are "disabled" or "manual". <<../advanced/tutorial-push-configuration#, See `push` documentation>>.
+The permitted values are "disabled" or "manual". <<tutorial-push-configuration#, See `push` documentation>>.
 
 |pushURL |
-The push URL to use. <<../advanced/tutorial-push-configuration#, See `push` documentation>>.
+It is the url to use for push requests. <<tutorial-push-configuration#, See `push` documentation>>.
 
 |syncIdCheck |
 Returns whether sync id checking is enabled. The sync id is used to gracefully handle situations
