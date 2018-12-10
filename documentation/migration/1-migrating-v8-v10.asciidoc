@@ -15,7 +15,7 @@ instead of just limiting it to Vaadin or GWT. Vaadin Flow is the Java framework 
 It makes all the components available for server side Java developers. It gives a much better toolset for building any reusable UI components,
 not just Web Components, and does not force you to use GWT for that.
 
-Switching from Vaadin 8 to Vaadin platform could considered as switching from a modern car to a flying car - the use cases are the same,
+Switching from Vaadin 8 to Vaadin platform could be considered as switching from a modern car to a flying car - the use cases are the same,
 the features are mostly the same, except the new technology brings more capabilities and potential for the future.
 Some features may have been removed to make way for new things.
 
