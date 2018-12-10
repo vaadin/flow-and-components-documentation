@@ -82,3 +82,4 @@ configuration with the `pushmode` parameter for the servlet in the
 `web.xml` deployment descriptor or a corresponding `@WebServlet` annotation.
 
 In addition to this, it is possible to configure the url to use for push requests by setting the `pushURL` parameter.
+This is useful for servers that require a predefined URL to push.

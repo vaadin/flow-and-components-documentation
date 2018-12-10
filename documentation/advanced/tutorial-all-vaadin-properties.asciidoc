@@ -56,7 +56,8 @@ You can control this behavior by setting an init parameter named closeIdleSessio
 The permitted values are "disabled" or "manual". <<tutorial-push-configuration#, See `push` documentation>>.
 
 |pushURL |
-It is the url to use for push requests. <<tutorial-push-configuration#, See `push` documentation>>.
+It is the url to use for push requests. Some servers require a predefined URL to push.
+<<tutorial-push-configuration#, See `push` documentation>>.
 
 |syncIdCheck |
 Returns whether sync id checking is enabled. The sync id is used to gracefully handle situations
