@@ -68,6 +68,13 @@ To run the application after adding the plugin, it is necessary to be situated i
 mvn jetty:run
 ----
 
+It is possible to run the application on jetty using an exploded WAR file:
+
+[source,ini]
+----
+mvn jetty:run-exploded
+----
+
 === Programmatically (without Maven)
 
 Jetty can also be configured to run programmatically. This requires a manual configuration to make it work with Vaadin.
@@ -76,51 +83,59 @@ Jetty can also be configured to run programmatically. This requires a manual con
 [source,java]
 ----
 public final class ManualJetty {
-  public static void main(String[] args) throws Exception {
-    Server server = new Server(8080);
+    public static void main(String[] args) throws Exception {
+        Server server = new Server(8080);
 
-    Configuration.ClassList classlist = Configuration.ClassList.setServerDefault(server);
-    classlist.addAfter("org.eclipse.jetty.webapp.FragmentConfiguration", "org.eclipse.jetty.plus.webapp.EnvConfiguration", "org.eclipse.jetty.plus.webapp.PlusConfiguration");
-    classlist.addBefore("org.eclipse.jetty.webapp.JettyWebXmlConfiguration", "org.eclipse.jetty.annotations.AnnotationConfiguration");
+        // Specifies the order in which the configurations are scanned.
+        Configuration.ClassList classlist = Configuration.ClassList.setServerDefault(server);
+        classlist.addAfter("org.eclipse.jetty.webapp.FragmentConfiguration", "org.eclipse.jetty.plus.webapp.EnvConfiguration", "org.eclipse.jetty.plus.webapp.PlusConfiguration");
+        classlist.addBefore("org.eclipse.jetty.webapp.JettyWebXmlConfiguration", "org.eclipse.jetty.annotations.AnnotationConfiguration");
 
-    File tempDir = new File(System.getProperty("java.io.tmpdir"), "JettyTest");
-    if (tempDir.exists()) {
-      if (!tempDir.isDirectory()) {
-        throw new RuntimeException("Not a directory: " + tempDir);
-      }
-    } else if (!tempDir.mkdirs()) {
-      throw new RuntimeException("Could not make: " + tempDir);
+        // Creation of a temporal directory.
+        File tempDir = new File(System.getProperty("java.io.tmpdir"), "JettyTest");
+        if (tempDir.exists()) {
+            if (!tempDir.isDirectory()) {
+                throw new RuntimeException("Not a directory: " + tempDir);
+            }
+        } else if (!tempDir.mkdirs()) {
+            throw new RuntimeException("Could not make: " + tempDir);
+        }
+
+        WebAppContext context = new WebAppContext();
+        context.setInitParameter("productionMode", "false");
+        // context path of the application.
+        context.setContextPath("");
+        // exploded war or not.
+        context.setExtractWAR(false);
+        context.setTempDirectory(tempDir);
+
+        //  it pulls the respective config from there iirc.
+        context.addServlet(VaadinServlet.class, "/*");
+
+        context.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern", ".*");
+
+        context.setParentLoaderPriority(true);
+        server.setHandler(context);
+
+        // This add jars to the jetty classpath in a certain syntax and the pattern makes sure to load all of them.
+        List<Resource> resourceList = new ArrayList<>();
+        for (String entry : ClassPathHelper.getAllClassPathEntries()) {
+            File file = new File(entry);
+            if (entry.endsWith(".jar")) {
+                resourceList.add(Resource.newResource("jar:" + file.toURI().toURL() + "!/"));
+            } else {
+                resourceList.add(Resource.newResource(entry));
+            }
+        }
+
+        // add the web application resources. Styles, client-side components, ...
+        resourceList.add(Resource.newResource("./src/main/webapp"));
+        // base resource is where jetty serves its static content from.
+        context.setBaseResource(new ResourceCollection(resourceList.toArray(new Resource[0])));
+
+        server.start();
+        server.join();
     }
-
-    WebAppContext context = new WebAppContext();
-    context.setInitParameter("productionMode", "false");
-    context.setContextPath("");
-    context.setExtractWAR(false);
-    context.setTempDirectory(tempDir);
-
-    context.addServlet(VaadinServlet.class, "/*");
-
-    context.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern", ".*");
-
-    context.setParentLoaderPriority(true);
-    server.setHandler(context);
-
-    List<Resource> resourceList = new ArrayList<>();
-    for (String entry : ClassPathHelper.getAllClassPathEntries()) {
-      File file = new File(entry);
-      if (entry.endsWith(".jar")) {
-        resourceList.add(Resource.newResource("jar:" + file.toURI().toURL() + "!/"));
-      } else {
-        resourceList.add(Resource.newResource(entry));
-      }
-    }
-
-    resourceList.add(Resource.newResource("./src/main/webapp"));
-    context.setBaseResource(new ResourceCollection(resourceList.toArray(new Resource[0])));
-
-    server.start();
-    server.join();
-  }
 }
 ----
 
@@ -142,7 +157,8 @@ This programmatically configuration requires to add extra dependencies to the `p
 ----
 
 [NOTE]
-It might requires additional dependencies, such as: `jetty-annotations`,`jetty-continuation`,`javax-websocket-server-impl`, ...
+It might require additional dependencies, such as: `jetty-annotations`,`jetty-continuation`,`javax-websocket-server-impl`, ...
+For more information about jetty, please consult https://wiki.eclipse.org/Jetty[Jetty Documentation].
 
 == Standalone Jetty
 
@@ -160,8 +176,9 @@ It is possible to change the name of the WAR file and exploded directory specify
 ----
 
 [NOTE]
+In the case of creating a production build, it is important to
 Remember to activate the production mode when the application is ready for its deployment.
-Production Mode can be activated in the following way: `mvn jetty:run-exploded -Pproduction-mode`.
+Production Mode can be activated in the following way: `mvn jetty:run-exploded -PproductionMode`.
 For more information about it, please consult <<tutorial-production-mode-basic#,Taking your Application into Production>>.
 
 ===  Deploying by Copying WAR
@@ -172,10 +189,10 @@ The WAR file can be generated executing the following Maven goal:
 
 [source,ini]
 ----
-mvn package
+mvn package -PproductionMode
 ----
 
-After copying the WAR file into the `webapps` directory, Jetty can be started  navigating to Jetty's folder and running the command:
+After copying the WAR file into the `webapps` directory, Jetty can be started by navigating to Jetty's folder and running the command:
 
 [source,ini]
 ----

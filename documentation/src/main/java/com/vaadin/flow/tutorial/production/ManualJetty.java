@@ -19,10 +19,12 @@ public final class ManualJetty {
     public static void main(String[] args) throws Exception {
         Server server = new Server(8080);
 
+        // Specifies the order in which the configurations are scanned.
         Configuration.ClassList classlist = Configuration.ClassList.setServerDefault(server);
         classlist.addAfter("org.eclipse.jetty.webapp.FragmentConfiguration", "org.eclipse.jetty.plus.webapp.EnvConfiguration", "org.eclipse.jetty.plus.webapp.PlusConfiguration");
         classlist.addBefore("org.eclipse.jetty.webapp.JettyWebXmlConfiguration", "org.eclipse.jetty.annotations.AnnotationConfiguration");
 
+        // Creation of a temporal directory.
         File tempDir = new File(System.getProperty("java.io.tmpdir"), "JettyTest");
         if (tempDir.exists()) {
             if (!tempDir.isDirectory()) {
@@ -34,10 +36,13 @@ public final class ManualJetty {
 
         WebAppContext context = new WebAppContext();
         context.setInitParameter("productionMode", "false");
+        // context path of the application.
         context.setContextPath("");
+        // exploded war or not.
         context.setExtractWAR(false);
         context.setTempDirectory(tempDir);
 
+        //  it pulls the respective config from there iirc.
         context.addServlet(VaadinServlet.class, "/*");
 
         context.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern", ".*");
@@ -45,6 +50,7 @@ public final class ManualJetty {
         context.setParentLoaderPriority(true);
         server.setHandler(context);
 
+        // This add jars to the jetty classpath in a certain syntax and the pattern makes sure to load all of them.
         List<Resource> resourceList = new ArrayList<>();
         for (String entry : ClassPathHelper.getAllClassPathEntries()) {
             File file = new File(entry);
@@ -55,7 +61,9 @@ public final class ManualJetty {
             }
         }
 
+        // add the web application resources. Styles, client-side components, ...
         resourceList.add(Resource.newResource("./src/main/webapp"));
+        // base resource is where jetty serves its static content from.
         context.setBaseResource(new ResourceCollection(resourceList.toArray(new Resource[0])));
 
         server.start();
