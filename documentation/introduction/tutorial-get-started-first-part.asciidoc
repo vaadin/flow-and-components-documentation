@@ -49,11 +49,11 @@ from http://www.eclipse.org/downloads/[eclipse.org].
 [[flow.tutorial.overview.projectbase]]
 === Starting with the Project Base
 
-As the starting point for the application, we use a Vaadin Application Starter, called Project Base for Vaadin 10. Project Bases are project stubs that have dependencies set up, and may include some example code. The steps of creating a Vaadin Application are as follows:
+As the starting point for the application, we use a Vaadin Application Starter, called Project Base for Vaadin platform. Project Bases are project stubs that have dependencies set up, and may include some example code. The steps of creating a Vaadin Application are as follows:
 
 . Start by pointing your browser at https://vaadin.com/start[Vaadin Start]
 
-. Select the Project Base for V10 by clicking it
+. Select the Project Base for Vaadin platform by clicking it
 
 . For [guilabel]#Group ID#::Give `com.vaadin.starter.skeleton`
 

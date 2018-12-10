@@ -1,10 +1,10 @@
 ---
-title: Components in Vaadin 10
+title: Components in Vaadin platform
 order: 5
 layout: page
 ---
 
-= Components in Vaadin 10
+= Components in Vaadin platform
 
 [#components]
 == Component Set
@@ -16,7 +16,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 .Comparison Matrix
 [width="80%",cols=">4,4,10",options="header"]
 |=========================================================
-|V8 |V10 | Details
+|V8 |Vaadin platform | Details
 
 | AbsoluteLayout | - | Not planned. Similar functionality in Vaadin platform can be achieved using eg. https://vaadin.com/api/platform/11.0.1/com/vaadin/flow/component/html/Div.html[`<div>`] elements and CSS positioning.
 
@@ -122,7 +122,7 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 For any missing components, you should first look for alternatives in https://vaadin.com/directory[vaadin.com/directory]. It shows both Vaadin platform add-ons with Java API and web components that can be integrated to Java.
 
-For the components that are available in V10, you can browse https://vaadin.com/components/browse[vaadin.com/components/browse] for features and examples.
+For the components that are available in Vaadin platform, you can browse https://vaadin.com/components/browse[vaadin.com/components/browse] for features and examples.
 
 [#basic-features]
 == Basic Component Features
@@ -182,7 +182,7 @@ Most components will also update their visual status to indicate to the user tha
 In Vaadin 8 the framework made it possible to show a tooltip for any component if the user hovered the mouse on top of the component.
 In Vaadin platform there is no automatic way for this; it is a component specific feature and possible using CSS.
 
-== [#layouts]#Layouts in Vaadin 10#
+== [#layouts]#Layouts in Vaadin platform#
 
 In Vaadin 8 the layouting of components was managed by a `LayoutManager` on the client engine.
 This has its roots in a time when the differences between browsers were big,
@@ -213,7 +213,7 @@ There is currently no direct API exposed for this in the layouts. But if you wan
 If this is a much requested API, we could make it a standard feature to the layouts.
 There is an https://github.com/vaadin/flow/issues/2465[enhancement issue] for this.
 
-=== Available Layouts in Vaadin 10
+=== Available Layouts in Vaadin platform
 
 ==== HorizontalLayout & VerticalLayout
 
