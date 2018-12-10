@@ -46,15 +46,15 @@ public class NumericField extends TextField {
     private static final int DEFAULT_VALUE = 0;
     private static final int DEFAULT_INCREMENT = 1;
 
-    private Integer numericValue;
-    private Integer incrementValue;
-    private Integer decrementValue;
+    private int numericValue;
+    private int incrementValue;
+    private int decrementValue;
 
     public NumericField() {
         this(DEFAULT_VALUE, DEFAULT_INCREMENT, -DEFAULT_INCREMENT);
     }
 
-    public NumericField(Integer value, Integer incrementValue, Integer decrementValue) {
+    public NumericField(int value, int incrementValue, int decrementValue) {
         setNumericValue(value);
         this.incrementValue = incrementValue;
         this.decrementValue = decrementValue;
@@ -91,7 +91,7 @@ public class NumericField extends TextField {
         addBtn.getElement().setAttribute("theme", "icon");
     }
 
-    public void setNumericValue(Integer value) {
+    public void setNumericValue(int value) {
         numericValue = value;
         setValue(value + "");
     }
@@ -141,7 +141,7 @@ It is important to remember to import the theme-module in the view in which the 
 
 == Client Side Extension
 
-Vaadin Components are based on Polymer, that also provides the possibility of extending components from existing ones.
+Vaadin components are based on Polymer, that also provides the possibility of extending components from existing ones.
 There is a `extends` property that can be used to extend an existing element on Polymer.
 
 Inherit a template from another Polymer element can be done in several ways:

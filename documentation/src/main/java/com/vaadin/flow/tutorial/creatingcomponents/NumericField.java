@@ -15,15 +15,15 @@ public class NumericField extends TextField {
     private static final int DEFAULT_VALUE = 0;
     private static final int DEFAULT_INCREMENT = 1;
 
-    private Integer numericValue;
-    private Integer incrementValue;
-    private Integer decrementValue;
+    private int numericValue;
+    private int incrementValue;
+    private int decrementValue;
 
     public NumericField() {
         this(DEFAULT_VALUE, DEFAULT_INCREMENT, -DEFAULT_INCREMENT);
     }
 
-    public NumericField(Integer value, Integer incrementValue, Integer decrementValue) {
+    public NumericField(int value, int incrementValue, int decrementValue) {
         setNumericValue(value);
         this.incrementValue = incrementValue;
         this.decrementValue = decrementValue;
@@ -60,30 +60,30 @@ public class NumericField extends TextField {
         addBtn.getElement().setAttribute("theme", "icon");
     }
 
-    public void setNumericValue(Integer value) {
+    public void setNumericValue(int value) {
         numericValue = value;
         setValue(value + "");
     }
 
     // ...
 
-    public Integer getNumericValue() {
+    public int getNumericValue() {
         return numericValue;
     }
 
-    public Integer getIncrementValue() {
+    public int getIncrementValue() {
         return incrementValue;
     }
 
-    public void setIncrementValue(Integer incrementValue) {
+    public void setIncrementValue(int incrementValue) {
         this.incrementValue = incrementValue;
     }
 
-    public Integer getDecrementValue() {
+    public int getDecrementValue() {
         return decrementValue;
     }
 
-    public void setDecrementValue(Integer decrementValue) {
+    public void setDecrementValue(int decrementValue) {
         this.decrementValue = decrementValue;
     }
 }
