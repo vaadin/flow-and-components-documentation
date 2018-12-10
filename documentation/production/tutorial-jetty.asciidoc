@@ -103,13 +103,13 @@ public final class ManualJetty {
 
         WebAppContext context = new WebAppContext();
         context.setInitParameter("productionMode", "false");
-        // context path of the application.
+        // Context path of the application.
         context.setContextPath("");
-        // exploded war or not.
+        // Exploded war or not.
         context.setExtractWAR(false);
         context.setTempDirectory(tempDir);
 
-        //  it pulls the respective config from there iirc.
+        // It pulls the respective config from the VaadinServlet.
         context.addServlet(VaadinServlet.class, "/*");
 
         context.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern", ".*");
@@ -128,9 +128,9 @@ public final class ManualJetty {
             }
         }
 
-        // add the web application resources. Styles, client-side components, ...
+        // It adds the web application resources. Styles, client-side components, ...
         resourceList.add(Resource.newResource("./src/main/webapp"));
-        // base resource is where jetty serves its static content from.
+        // The base resource is where jetty serves its static content from.
         context.setBaseResource(new ResourceCollection(resourceList.toArray(new Resource[0])));
 
         server.start();
@@ -157,7 +157,7 @@ This programmatically configuration requires to add extra dependencies to the `p
 ----
 
 [NOTE]
-It might require additional dependencies, such as: `jetty-annotations`,`jetty-continuation`,`javax-websocket-server-impl`, ...
+Depending of Jetty's configuration, it could require additional dependencies, such as: `jetty-annotations`,`jetty-continuation`,`javax-websocket-server-impl`, ...
 For more information about jetty, please consult https://wiki.eclipse.org/Jetty[Jetty Documentation].
 
 == Standalone Jetty
@@ -176,9 +176,8 @@ It is possible to change the name of the WAR file and exploded directory specify
 ----
 
 [NOTE]
-In the case of creating a production build, it is important to
-Remember to activate the production mode when the application is ready for its deployment.
-Production Mode can be activated in the following way: `mvn jetty:run-exploded -PproductionMode`.
+In the case of creating a production build, it is important to activate the maven profile `production`.
+Production mode can be activated in the following way: `mvn jetty -PproductionMode`.
 For more information about it, please consult <<tutorial-production-mode-basic#,Taking your Application into Production>>.
 
 ===  Deploying by Copying WAR

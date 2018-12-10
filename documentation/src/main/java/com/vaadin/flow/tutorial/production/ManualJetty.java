@@ -36,13 +36,13 @@ public final class ManualJetty {
 
         WebAppContext context = new WebAppContext();
         context.setInitParameter("productionMode", "false");
-        // context path of the application.
+        // Context path of the application.
         context.setContextPath("");
-        // exploded war or not.
+        // Exploded war or not.
         context.setExtractWAR(false);
         context.setTempDirectory(tempDir);
 
-        //  it pulls the respective config from there iirc.
+        // It pulls the respective config from the VaadinServlet.
         context.addServlet(VaadinServlet.class, "/*");
 
         context.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern", ".*");
@@ -61,9 +61,9 @@ public final class ManualJetty {
             }
         }
 
-        // add the web application resources. Styles, client-side components, ...
+        // It adds the web application resources. Styles, client-side components, ...
         resourceList.add(Resource.newResource("./src/main/webapp"));
-        // base resource is where jetty serves its static content from.
+        // The base resource is where jetty serves its static content from.
         context.setBaseResource(new ResourceCollection(resourceList.toArray(new Resource[0])));
 
         server.start();
