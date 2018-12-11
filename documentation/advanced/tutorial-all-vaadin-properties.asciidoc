@@ -10,11 +10,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 There are a number of properties that you can use to configure your Flow application.
 
-This document summarizes the properties defines in
-https://github.com/vaadin/flow/blob/399424cef1a8989bb05cc9d6e589b3801e196b26/flow-server/src/main/java/com/vaadin/flow/function/DeploymentConfiguration.java[com.vaadin.server.DeploymentConfiguration]
-and
-https://github.com/vaadin/flow/blob/e5c2e4b98e26c3e7ba40ce681f9762d970ff4c0a/flow-server/src/main/java/com/vaadin/flow/server/Constants.java[com.vaadin.server.Constants]
-classes.
+This document summarizes the properties that are defined in `com.vaadin.server.DeploymentConfiguration` and `com.vaadin.server.Constants` classes.
 
 These properties can be set from the command line as a system property, as a Servlet init parameter in the `web.xml` or using the `@WebServlet` annotation.
 For further information, please consult the tutorial <<tutorial-flow-runtime-configuration#, Changing Flow behavior with runtime configuration>>.
