@@ -70,7 +70,7 @@ When using the long polling transport strategy,  it specifies how long it accept
 each network request. Number of milliseconds.
 
 |load.es5.adapters |
-Include polyfills for browsers that does not support ES6 to their initial page. In order for
+Include polyfills for browsers that do not support ES6 to their initial page. In order for
 web components to work, extra libraries (polyfills) are required to be loaded, can be turned off
 if different versions or libraries should be included instead.
 
@@ -83,7 +83,7 @@ A location Flow searches web components' files in production mode for requests f
 
 |disable.webjars |
 Configuration name for the parameter that determines if Flow should use webJars or not.
-If set to true, webjars would be ignored during request resolving, allowing Flow to use external source of web components' files.
+If set to true, webjars would be ignored during request resolving, allowing Flow to use an external source of web components' files.
 
 |original.frontend.resources |
 Configuration name for the parameter that determines if Flow should use bundled fragments or not.
