@@ -18,15 +18,13 @@ The server-side component allows modifying those properties to manage the compon
 
 == Server Side Extension
 
-Extending a component in flow is useful:
+Extending a component in flow is useful if it is planned to add a new functionality that does not add any visual aspects to the existing component.
 
-* when it is planned to add a new functionality that does not add any visual aspects to the component visuals.
-
-Examples of those new functionalities are automatically processing data, adding default validators, combining multiple simpler components to a field that manages complex data, ...
+Examples of those new functionalities are automatically processing data, adding default validators, combining multiple simpler components to a field that manages complex data, etc.
 
 [WARNING]
 If you plan on adding many new features or changing any visual aspects in the component, it is better to extend the component to the client side.
-Using the Flow Element API excessively creates an overload.
+Using the Flow Element API excessively creates an extra load in the application.
 
 = Example
 
@@ -175,7 +173,7 @@ In this example, there are mainly 3 steps:
 The first step is to define the child's DOM template.
 
 [NOTE]
-This template will be accessed inside `static get template`.
+This template will be accessed inside `static get template` method.
 
 .vaadin-number-field.html
 [source,html]
