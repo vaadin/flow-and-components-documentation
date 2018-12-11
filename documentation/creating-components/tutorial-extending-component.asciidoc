@@ -8,14 +8,13 @@ layout: page
 
 Extending a component is an easy way of creating a new component.
 
-Vaadin flow applications are formed of many web components. In most of the cases those
-components have a client-side component and a server-side component.
+Vaadin flow applications are formed of many web components.
+In most of the cases those components have a client-side component and a server-side component.
 
-The client-side component contains the HTML, CSS, and JavaScript. This client component defines
-a set of properties that defines the behaviour of the component.
+The client-side component contains the HTML, CSS, and JavaScript.
+This client component defines a set of properties that defines the behaviour of the component.
 
-The server-side component allows modifying those properties to manage the component's behaviour from
-Java (server side).
+The server-side component allows modifying those properties to manage the component's behaviour from Java (server side).
 
 == Server Side Extension
 
