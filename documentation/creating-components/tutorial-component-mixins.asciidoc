@@ -1,0 +1,122 @@
+---
+title: Vaadin Mixin Interfaces
+order: 8
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+= Vaadin Mixin Interfaces
+
+A mixin refers to a defined amount of functionality which can be added to a class.
+
+Before Java 8, interfaces could only have abstract methods.
+In Java 8, developers have the possibility to add default methods to interfaces.
+
+Vaadin uses this concept to create a common set of functionalities that are present in most web components.
+Providing a common API and default functionality for Vaadin components.
+
+Among the most important mixins are:
+
+* HasSize
+* HasComponents
+* HasStyle
+
+These predefined mixins allow developers to add functionalities to their components saving time and effort, just with implementing those interfaces.
+
+== HasSize
+
+Any component implementing this interface supports setting the size of the
+component using `setWidth(String)` and `setHeight(String)`.
+
+The methods that are implemented in the `HasSize` interface are:
+
+* `void setWidth(String width)`
+* `String getWidth()`
+* `void setHeight(String height)`
+* `String getHeight()`
+* `void setSizeFull()`
+* `void setSizeUndefined()`
+
+== HasComponents
+
+A component to which the user can add and remove child components.
+
+The methods that are implemented in the `HasComponents` interface are:
+
+* `void add(Component... components)`
+* `void remove(Component... components)`
+* `void removeAll()`
+
+== HasStyle
+
+Represents a component which has class attribute and inline styles.
+
+The methods that are implemented in the `HasStyle` interface are:
+
+* `void addClassName(String className)`
+* `boolean removeClassName(String className)`
+* `void setClassName(String className)`
+* `String getClassName()`
+* `ClassList getClassNames()`
+* `void setClassName(String className, boolean set)`
+* `boolean hasClassName(String className)`
+* `Style getStyle()`
+* `void addClassNames(String... classNames)`
+* `void removeClassNames(String... classNames)``
+
+== Example
+
+This example describes how a custom component can use the Vaadin mixin interfaces to acquire new functionalities.
+
+[source,java]
+----
+public class Tooltip extends Component implements HasComponents, HasStyle {
+
+}
+----
+
+[source,html]
+----
+<dom-module id="tooltip">
+  <template>
+    <div part="content" theme="dark">
+      <slot></slot>
+    </div>
+  </template>
+</dom-module>
+----
+
+[NOTE]
+The component that implements `HasComponents` needs to have a `slot`.
+
+Just adding the `HasComponents` interface to the component will allow adding components to it:
+
+[source,java]
+----
+Tooltip tooltip = new Tooltip();
+
+tooltip.add(new H5("Tooltip"));
+tooltip.add(new Paragraph("I am a paragraph"));
+----
+
+== Other Mixins
+
+There are many more mixins. Other important mixins are: `HasEnabled`, `HasElement`, `HasDataProvider<T>`, `HasValidation`, `HasItems`, `HasOrderedComponents`, `HasText`, `Focusable<T>`.
+
+* `HasEnabled`: A generic interface for components and other user interface objects that may be enabled or disabled.
+* `HasElement`: Marker interface for any class which is based on an `Element`.
+* `HasDataProvider<T>`: A generic interface for listing components that use a data provider for showing data.
+* `HasValidation`: A component that supports input validation.
+* `HasItems`: Mixin interface for components that displays a collection of items.
+* `HasOrderedComponents`: A component which the children components are ordered, so the index of each child matters for the layout.
+* `HasText`:  A component that supports text content.
+* `Focusable<T>`: Interface with the methods implemented by components that can gain and lose focus.
+
+== Why is it recommended to use them?
+
+Without Vaadin mixins it would be necessary to access the component´s api like this: `getElement().getStyle().set("width", "300px")`.
+
+On the other hand, using the already predefined functionality of the `HasSize` mixin is much easier: `setWidth("300px")`.
+
+[TIP]
+It is a good practice to use Vaadin mixins because its code and functionality have been checked and tested by Vaadin.
