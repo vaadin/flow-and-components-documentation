@@ -9,10 +9,10 @@ layout: page
 Extending a component is an easy way of creating a new component.
 
 Vaadin flow applications are formed of many web components.
-In most of the cases those components have a client-side component and a server-side component.
+In most of the cases, those components have a client-side component and a server-side component.
 
 The client-side component contains the HTML, CSS, and JavaScript.
-This client component defines a set of properties that defines the behaviour of the component.
+This client component defines a set of properties that define the behaviour of the component.
 
 The server-side component allows modifying those properties to manage the component's behaviour from Java (server side).
 
@@ -134,7 +134,7 @@ For further information, please refer to <<../theme/theming-overview#,theming do
 ----
 
 [NOTE]
-It is important to remember to import the theme-module in the view in which the component is used: `@HtmlImport("frontend://styles/vaadin-numeric-field-theme.html")`.
+Remember to import the theme-module in the view in which the component is used: `@HtmlImport("frontend://styles/vaadin-numeric-field-theme.html")`.
 
 == Client Side Extension
 
@@ -151,7 +151,7 @@ Inherit a template from another Polymer element can be done in several ways:
 
 This document focuses mainly on the 3rd option: *Modifying a copy of a superclass template*.
 
-It is important to remember when a component is extended that the properties and its methods are available on its children.
+It is important to remember when a component is extended its properties and its methods are available on its children.
 
 [NOTE]
 By default, a child component uses its parent's template, if the child component does not provide its own template.
@@ -173,7 +173,7 @@ In this example, there are mainly 3 steps:
 The first step is to define the child's DOM template.
 
 [NOTE]
-This template will be accessed inside `static get template` method.
+This template will be accessed inside the `static get template` method.
 
 .vaadin-number-field.html
 [source,html]
