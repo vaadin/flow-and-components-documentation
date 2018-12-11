@@ -30,7 +30,7 @@ If you use Spring Boot then you should add the prefix `vaadin.`, e.g. vaadin.pro
 |productionMode |
 Turns application to work in production mode.
 Production mode disables most of the logged information that appears on the console because logging and other debug features can have a significant performance impact.
-In addition to this, development mode js functions are not exported, `push` is given as a minified JS file instead of full size and static resources are cached.
+In addition to this, development mode JS functions are not exported, `push` is given as a minified JS file instead of full size and static resources are cached.
 
 |requestTiming |
 If request timing info should be made available.
