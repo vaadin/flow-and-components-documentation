@@ -35,7 +35,7 @@ This can be used for performance testing.
 
 |disable-xsrf-protection |
 Cross-site request forgery protection. This protection is enabled by default, but it might need to be disabled to allow a certain type of testing.
-For these cases, the check can be disabled by setting the init parameter
+For these cases, the check can be disabled by setting the init parameter.
 
 |heartbeatInterval |
 Vaadin UIs that are open on the client side send a regular heartbeat to the server to indicate they are still alive, even though there is no ongoing user interaction.
