@@ -109,6 +109,7 @@ Learn more about the <<tutorial-component-many-elements#,`Element` API>>.
 In addition to this, it is necessary to create a theme module to customize the appearance of the `vaadin-text-field` component.
 For further information, please refer to <<../theme/theming-overview#,theming documentation>>.
 
+.vaadin-numeric-field-theme.html
 [source,html]
 ----
 <dom-module id="vaadin-numeric-field-theme" theme-for="vaadin-text-field">
@@ -166,7 +167,7 @@ image:images/vaadin-number-field-client-side-extension.png[vaadin-number-field]
 
 In this example, there are mainly 3 steps:
 
-. Child template definition
+. Child template definition.
 . Parent element extension e.g `class NumberFieldElement extends Vaadin.TextFieldElement`.
 . Overriding the `static get template` with the final component DOM.
 
