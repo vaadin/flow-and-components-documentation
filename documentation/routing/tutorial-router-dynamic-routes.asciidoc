@@ -1,0 +1,255 @@
+---
+title: Dynamic routes
+order: 10
+layout: page
+---
+
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+== Dynamic routes
+
+Flow supports runtime route changes both on the global (ServletContext) level and
+user (HttpSession) level.
+
+The global scope is initially populated using all `@Route` annotated classes found
+through the ServletContext on servlet init.
+
+To not have a `@Route` annotated class register on servlet init just add `@DynamicRoute`
+and it will be ignored for the initial load.
+This is useful for when you have a known Route setup, but want to register it at
+a later time when specific conditions are met.
+
+A dynamic route can be added to a `RouteRegistry` using `void setRoute(String path, Class<? extends Component> navigationTarget, List<Class<? extends RouterLayout>>
+parentChain);`.
+This will register a navigationTarget to the given path with the given parent layout chain.
+
+In the <<RouteUtil>> utility class there are helper methods for
+handling `@Route` and `@RouteAlias` annotated classes.
+
+For use of `DynamicRoute` classes with the `@Route` specified there is in the `RouteUtil`
+the method
+which will get the path and any parent layouts from the annotation itself as before.
+
+== RouteRegistry
+
+The `RouteRegistry` interface is implemented by <<ApplicationRouteRegistry>> and <<SessionRouteRegistry>>
+which work in different scopes. Application registry is available for everybody using the same servlet context and
+Session registry is available for the VaadinSession.
+
+As an example we could have an application that only has the global routes "" and "info" that
+have been registered from the `@Route` annotation on server init. (For more information see <<tutorial-routing-annotation#,Defining Routes with @Route>>)
+
+These classes could be for instance
+
+[[Login.class]]
+.Login.class
+[source, java]
+----
+@Route("")
+public class Login extends Div {
+
+    private TextField login;
+    private PasswordField password;
+
+    public Login() {
+        login = new TextField("Login");
+        password = new PasswordField("Password");
+
+        Button submit = new Button("Submit", this::handeLogin);
+
+        add(login, password, submit);
+    }
+
+    private void handeLogin(ClickEvent<Button> buttonClickEvent) {
+    }
+}
+----
+
+and
+
+.Info.class
+[source, java]
+----
+@Route("info")
+public class Info extends Div {
+    public Info() {
+        add(new Span("This page contains info about the application"));
+    }
+}
+----
+
+These routes would be available for any user navigating to the server.
+
+Then we might have the views
+
+.Admin.class
+[source, java]
+----
+public class Admin extends Div {
+}
+----
+
+.User.class
+[source, java]
+----
+public class User extends Div {
+}
+----
+
+which we would want to make available after login in through the <<Login.class>>
+depending on the credentials used.
+
+==== Adding routes
+
+This could be done by having in the `Login.handleLogin` method:
+
+[source, java]
+----
+private void handeLogin(ClickEvent<Button> buttonClickEvent) {
+    // Validation of credentials is skipped
+
+    RouteRegistry sessionRegistry = SessionRouteRegistry
+                    .getSessionRegistry(VaadinSession.getCurrent());
+
+    if ("admin".equals(login.getValue())) {
+        sessionRegistry.setRoute("", Admin.class, Collections.emptyList());
+    } else if("user".equals(login.getValue())) {
+        sessionRegistry.setRoute("", User.class, Collections.emptyList());
+    }
+
+    UI.getCurrent().getPage().reload();
+}
+----
+
+With this after login in with the username admin we would for the route "", which
+was `Login.class` originally, now get `Admin.class`. (This is due to the fact that the
+`SessionRouteRegistry` can be used to mask routes in `ApplicationRouteRegistry`)
+`Info.class` is still available for the route "info" and for other users "" will still
+map to `Login.class`.
+
+Another way to register a new route would be by using the `@Route` annotation and <<RouteUtil>>.
+In that case we would have `Admin.class` as:
+
+.Admin.class
+[source, java]
+----
+@Route("")
+@DynamicRoute
+public class Admin extends Div {
+}
+----
+
+[NOTE]
+Without the `@DynamicRoute` Admin.class would be registered on servlet init which
+would create an exception as two routes would be registered to the same place.
+
+With this the route could be set as:
+
+[source, java]
+----
+if ("admin".equals(login.getValue())) {
+    RouteUtil.setAnnotatedRoute(Admin.class, sessionRegistry);
+}
+----
+
+=== Main route and alias routes
+
+When adding dynamic routes the first path for which the navigation target is added
+will be marked as the main path and be returned for the `Router.getUrl` methods.
+
+Any additional paths registered will be seen as a route alias.
+
+So for the registrations:
+
+[source, java]
+----
+registry.setRoute("main", MyRoute.class, Collections.emptyList());
+registry.setRoute("info", MyRoute.class, Collections.emptyList());
+registry.setRoute("version", MyRoute.class, Collections.emptyList());
+----
+
+In this scenario `Router.getUrl(MyRoute.class)` would return `main`.
+
+This is the same as having the class
+[source, java]
+----
+@Route("main")
+@RouteAlias("info")
+@RouteAlias("version")
+private class MyRoute extends Div {
+}
+----
+
+In case the main path gets removed and a alias path is still left for use, then
+the main path will be updated to the first alias path found from the registry.
+
+=== Removing routes
+
+To remove a route from a registry there are some methods available that help remove only
+the wanted parts that have been registered.
+
+As can be seen in <<tutorial-router-url-parameters,Routing and URL Parameters>> we can register multiple
+targets for the same path and `@RouteAlias` gave us the chance to register the same target to multiple paths.
+This means that we may have one target on multiple paths or have multiple targets on the same path.
+
+To remove a single path completely, any navigation target registered, one can use `registry.removeRoute(String path)`
+which will remove the whole path from the registry so after `registry.removeRoute("home")` any
+navigation to "home" will return a 404 route not found.
+
+To remove a single navigation target from a path leaving for instance a wildcard URL parameter target
+one can use `registry.removeRoute(String path, Class navigationTarget);`. With this you can remove only
+the given navigationTarget from the path, but have the path still available if other targets have been register
+to the path.
+
+[NOTE]
+These two methods will update the main navigation target path is the removed path was the main path
+and another path for the navigation target can be found.
+
+The final remove is when you have registered a route with multiple alias routes and
+want to remove the target for all paths there is `registry.removeRoute(Class<? extends Component> navigationTarget)`.
+
+[NOTE]
+All remove commands will remove path completely if it leaves no navigation targets to the path.
+
+== SessionRouteRegistry
+
+SessionRouteRegistry is active for the session and will be removed when the session is closed.
+Any routes registered to this registry will be only available for the VaadinSession, this means
+that it is available for multiple UIs inside the same session.
+
+To get the session registry you can request it either directly or get it from the `Router`
+e.g.
+
+- `RouteRegistry sessionRegistry = SessionRouteRegistry.getSessionRegistry(VaadinSession.getCurrent());`
+- `RouteRegistry sessionRegistry = ui.getRouter().getRegistry();`
+
+Router will return session registry as long as we have a current VaadinSession available.
+
+=== ApplicationRouteRegistry
+
+Availability of routes registered to the ApplicationRouteRegistry is for any new or existing session for
+the servlet context in which it was initialized.
+The ApplicationRouteRegistry will work in unison with the <<SessionRouteRegistry>>.
+
+Getting the global registry you just request for the instance by the ServletContext
+e.g. for the current context the request would be
+`RouteRegistry registry = ApplicationRouteRegistry.getInstance(VaadinServlet.getCurrent().getServletContext())`
+
+[NOTE]
+When adding or removing routes from the `ApplicationRouteRegistry` it should be
+well understood that it will have an impact on every user of the system.
+
+=== RouteUtil
+
+To handle a navigation target using the `@Route` and `@RouteAlias` annotation on the class:
+
+- `setAnnotatedRoute(Class<? extends Component> navigationTarget, RouteRegistry registry)`
+
+To register a set of `@Route` (and `@RouteAlias`) annotated components as navigation targets there is the helper:
+
+- `setNavigationTargets(Set<Class<? extends Component>> navigationTargets, RouteRegistry registry)`
+
+To add a navigation target for the specified path and populate the parent layouts by
+using a `@ParentLayout` annotation to populate the parent layout chain there is a helper:
+
+- `setRoute(String path, Class<? extends Component> navigationTarget, RouteRegistry registry)`
