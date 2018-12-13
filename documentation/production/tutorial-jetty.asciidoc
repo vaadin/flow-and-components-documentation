@@ -175,11 +175,6 @@ It is possible to change the name of the WAR file and exploded directory specify
 </build>
 ----
 
-[NOTE]
-In the case of creating a production build, it is important to activate the maven profile `production`.
-Production mode can be activated in the following way: `mvn jetty -Pproduction-mode`.
-For more information about it, please consult <<tutorial-production-mode-basic#,Taking your Application into Production>>.
-
 ===  Deploying by Copying WAR
 
 The easiest way to deploy a web application on a Jetty server is probably by copying the WAR file into the `webapps` directory of Jetty.
@@ -190,6 +185,10 @@ The WAR file can be generated executing the following Maven goal:
 ----
 mvn package -Pproduction-mode
 ----
+
+[NOTE]
+The `production-mode` Maven profile performs a number of tasks to make sure the application performs optimally in production.
+For more information about the process, please consult <<tutorial-production-mode-basic#,Taking your Application into Production>>.
 
 After copying the WAR file into the `webapps` directory, Jetty can be started by navigating to Jetty's folder and running the command:
 
