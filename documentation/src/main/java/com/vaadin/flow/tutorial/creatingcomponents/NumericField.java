@@ -65,7 +65,7 @@ public class NumericField extends TextField {
         setValue(value + "");
     }
 
-    // ...
+    // getters and setters
 
     public int getNumericValue() {
         return numericValue;
