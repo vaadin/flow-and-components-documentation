@@ -15,6 +15,8 @@
  */
 package com.vaadin.flow.tutorial.routing;
 
+import javax.servlet.ServletContext;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -30,11 +32,14 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.DynamicRoute;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.internal.AbstractRouteRegistry;
 import com.vaadin.flow.router.internal.RouteUtil;
 import com.vaadin.flow.server.RouteRegistry;
 import com.vaadin.flow.server.SessionRouteRegistry;
+import com.vaadin.flow.server.VaadinServlet;
 import com.vaadin.flow.server.VaadinSession;
+import com.vaadin.flow.server.startup.ApplicationRouteRegistry;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("routing/tutorial-router-dynamic-routes.asciidoc")
@@ -46,7 +51,7 @@ public class DynamicRoutes {
     private class MyRoute extends Div {
 
         public MyRoute() {
-            RouteRegistry registry = new AbstractRouteRegistry() {
+            RouteRegistry routeRegistry = new AbstractRouteRegistry() {
 
                 @Override
                 public Optional<Class<? extends Component>> getNavigationTarget(
@@ -60,9 +65,26 @@ public class DynamicRoutes {
                     return Optional.empty();
                 }
             };
-            registry.setRoute("main", MyRoute.class, Collections.emptyList());
-            registry.setRoute("info", MyRoute.class, Collections.emptyList());
-            registry.setRoute("version", MyRoute.class, Collections.emptyList());
+            routeRegistry.setRoute("main", MyRoute.class, Collections.emptyList());
+            routeRegistry.setRoute("info", MyRoute.class, Collections.emptyList());
+            routeRegistry.setRoute("version", MyRoute.class, Collections.emptyList());
+            // No path "users" should be available
+            routeRegistry.removeRoute("users");
+
+            // No navigationTarget Users should be available
+            routeRegistry.removeRoute(Users.class);
+
+            // Only the Users navigationTarget should be removed from "users"
+            routeRegistry.removeRoute("users", Users.class);
+
+            List<Class<? extends RouterLayout>> parentLayouts = Arrays.asList(MainLayout.class);
+            routeRegistry.setRoute("home", Home.class, parentLayouts);
+
+            VaadinSession session = VaadinSession.getCurrent();
+            RouteRegistry sessionRegistry = SessionRouteRegistry.getSessionRegistry(session);
+
+            ServletContext servletContext = VaadinServlet.getCurrent().getServletContext();
+            RouteRegistry registry = ApplicationRouteRegistry.getInstance(servletContext);
         }
     }
 
@@ -72,6 +94,13 @@ public class DynamicRoutes {
     }
 
     public class User extends Div {
+    }
+
+    private static class Home extends Div {
+    }
+    private static class Users extends Div {
+    }
+    private static class MainLayout extends Div implements RouterLayout {
     }
 
     @Route("")

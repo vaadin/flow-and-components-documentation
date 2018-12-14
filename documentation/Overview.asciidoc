@@ -39,7 +39,7 @@ and keep the page state intact. The following tutorials explain how to use the R
 * <<routing/tutorial-routing-page-titles#,Updating Page Title on Navigation>>
 * <<routing/tutorial-routing-exception-handling#,Router Exception Handling>>
 * <<routing/tutorial-routing-get-registered-routes#,Getting Registered Routes>>
-* <<routing/tutorial-router-dynamic-routes#,Dynamic routes>>
+* <<routing/tutorial-router-dynamic-routes#,Dynamic Route Registration>>
 
 == Browser features and events
 * <<browser/tutorial-flow-window-resize#,Browser Window Resize Events>>
