@@ -109,6 +109,41 @@ public class BlogList extends Div implements BeforeEnterObserver {
 [NOTE]
 `rerouteTo` has several overloads to serve different use cases.
 
+[#forwardTo]
+=== Forward
+Behave similar as <<reroute,Reroute>> but `forwardTo` will update the URL.
+Either `BeforeEnterEvent` or `BeforeLeaveEvent` can be used to forward dynamically if there is a need to redirect to different URL.
+The event will not be fired any further listeners or observers after `forward`.
+Instead, a new navigation phase will be triggered based on the new navigation target, and events will be fired based on that navigation instead.
+
+In this example, the forwarding would happen when viewing `BlogList` without a right permission.
+[source,java]
+----
+@Route("no-permission")
+public class NoPermission extends Div {
+    public NoPermission() {
+        setText("No permission.");
+    }
+}
+
+@Route("blog")
+public class BlogList extends Div implements BeforeEnterObserver {
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        if (!hasPermission()) {
+            event.forwardTo("no-permission");
+        }
+    }
+
+    private boolean hasPermission() {
+        // no-op implementation
+        return false;
+    }
+}
+----
+[NOTE]
+`forwardTo` has several overloads to serve different use cases.
+
 == AfterNavigationEvent
 
 The third and last fired event during navigation is `AfterNavigationEvent`.
