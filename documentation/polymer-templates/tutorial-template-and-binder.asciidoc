@@ -61,13 +61,15 @@ public class UserForm extends PolymerTemplate < UserForm.FormComponentModel > {
 
 Once the mapping between Java and the HTML template is done, the process of binding can start.
 
-- The first step is to declare a binder as a class variable in the UserForm.class:
+The first step is to declare a binder as a class variable in the UserForm.class:
+
 [source,java]
 ----
 private Binder<User> binder;
 ----
 
-- After that, we can create `initBinder` method that initializes the binder and links it with the form’s fields:
+After that, we can create `initBinder` method that initializes the binder and links it with the form’s fields:
+
 [source,java]
 ----
 private void initBinder() {
@@ -96,7 +98,8 @@ private void initBinder() {
 For more information about binding fields to forms, please refer to
 <<../binding-data/tutorial-flow-components-binder#,Binding Data to Forms>>.
 
-- We can call initBinder inside the constructor of the class:
+We can call initBinder inside the constructor of the class:
+
 [source,java]
 ----
 public UserForm() {
@@ -260,7 +263,7 @@ If you use buffered binding (with the `readBean` and `writeBean` methods), valid
 
 In the `cancel` listener all the elements of the grid are deselected and the form is emptied.
 
-.MainView.class - initFormListeners
+.MainView.initFormListeners
 [source,java]
 ----
 formButtonsBar.addCancelListener(cancelEvent -> {
@@ -275,7 +278,7 @@ See `usersGrid.addSelectionListener` implementation.
 The selected user is selected from the grid and the user is removed calling `UsersRepository.delete`
 and the user(bean) is removed from the UserForm. When a user(bean) is removed, the fields of the UserForm are emptied.
 
-.MainView.class - initFormListeners
+.MainView.class.initFormListeners
 [source,java]
 ----
 formButtonsBar.addDeleteListener(deleteEvent -> {
