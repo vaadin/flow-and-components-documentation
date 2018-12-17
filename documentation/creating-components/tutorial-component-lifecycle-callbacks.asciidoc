@@ -1,6 +1,6 @@
 ---
 title: Component Lifecycle Callbacks
-order: 7
+order: 8
 layout: page
 ---
 
