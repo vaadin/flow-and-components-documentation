@@ -77,6 +77,8 @@ public class DynamicRoutes {
             // Only the Users navigationTarget should be removed from "users"
             routeRegistry.removeRoute("users", Users.class);
 
+            routeRegistry.setRoute("home", Home.class, Collections.emptyList());
+
             List<Class<? extends RouterLayout>> parentLayouts = Arrays.asList(MainLayout.class);
             routeRegistry.setRoute("home", Home.class, parentLayouts);
 

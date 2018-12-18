@@ -7,11 +7,11 @@ layout: page
 ifdef::env-github[:outfilesuffix: .asciidoc]
 == Dynamic Route Registration
 
-The RouteRegistry contains the collection of navigation targets that can be
+The `RouteRegistry` contains the collection of navigation targets that can be
 navigated to for a Flow application.
 
 The normal way in Flow is to registers routes using the static `@Route` annotation on a
-class that is then addded to an application scoped registry on servlet initialization.
+class that is then added to an application scoped registry on servlet initialization.
 These routes are available for all users navigating to the mapped path.
 For more information on static routes see <<tutorial-routing-annotation#,Defining Routes with @Route>>.
 
@@ -20,9 +20,14 @@ or application state.
 This might mean adding an entry point to the system (application scope) or new
 targets for a logged in user (session scope).
 
-To add a new route to a RouteRegistry you need to define the path, target Component and the parent layouts.
+To add a new route to a `RouteRegistry` you need to define the path, target `Component` and the parent layouts.
 
 With all the needed parts registering a route is done as:
+
+[source, java]
+----
+routeRegistry.setRoute("home", Home.class, Collections.emptyList());
+----
 
 [source, java]
 ----
@@ -30,14 +35,16 @@ List<Class<? extends RouterLayout>> parentLayouts = Arrays.asList(MainLayout.cla
 routeRegistry.setRoute("home", Home.class, parentLayouts);
 ----
 
+To get the registry see: <<Getting a route registry>>
+
 For information on parent layouts see <<tutorial-router-layout#,Router Layouts and Nested Router Targets>>.
 
 [NOTE]
 When dynamically registering a route any annotations on the classes *will* be ignored.
 
-To remove a route from a RouteRegistry you need to define decide if what you want to
-remove is the path (e.g. "users"), the navigationTarget (e.g. Users.class) with all route aliases
-or a single navigationTarget registered to a path (e.g. Users.class from "users" where there will
+To remove a route from a `RouteRegistry` you need to define decide if what you want to
+remove is the path (e.g. "users"), the navigation target (e.g. `Users.class`) with all route aliases
+or a single navigation target registered to a path (e.g. `Users.class` from "users" where there will
 be left a parameter target "users/{id}").
 
 [source, java]
@@ -53,10 +60,11 @@ routeRegistry.removeRoute("users", Users.class);
 ----
 
 For routes with route aliases see: <<Adding route aliases for dynamic routes>>
-For information on multiple navigationTargets on a single path see: <<tutorial-router-url-parameters#,URL Parameters for Navigation Targets>>
+For information on multiple navigation targets on a single path see: <<tutorial-router-url-parameters#,URL Parameters for Navigation Targets>>
 
 [NOTE]
-Removing a route in session scope any masked route in the application scope will be visible.
+Removing a route in session scope will not create a removal mask and any route
+masked in the application scope by the removed route will be visible.
 
 
 === Adding route aliases for dynamic routes
@@ -88,13 +96,13 @@ private class MyRoute extends Div {
 }
 ----
 
-In case the main path gets removed and a alias path is still left for use, then
+In case the main path gets removed and an alias path is still left for use, then
 the main path will be updated to the first alias path found from the registry.
 
 
-=== Getting the session scoped route registry
+=== Getting a route registry
 
-The session scoped route registry is tied to the VaadinSession
+The session scoped route registry is tied to the `VaadinSession`
 
 [source, java]
 ----
@@ -103,13 +111,11 @@ RouteRegistry sessionRegistry = SessionRouteRegistry.getSessionRegistry(session)
 ----
 
 [NOTE]
-SessionRouteRegistry is active for the session and will be removed when the session is closed.
-Any routes registered to this registry will be only available for the VaadinSession, this means
-that it is available for multiple UIs inside the same session.
+`SessionRouteRegistry` is active for the session and will be removed when the session is closed.
+Any routes registered to this registry will be only available for the `VaadinSession`, this means
+that it is available for all the `UI` instances inside the same session.
 
-=== Getting the application scoped route registry
-
-The application scoped registry is tied to the ServletContext.
+The application scoped registry is tied to the `ServletContext`.
 
 [source, java]
 ----
@@ -124,7 +130,7 @@ well understood that it will have an impact on every user of the system.
 ==== Example: Adding a new view on user login
 
 Our application contains 2 statically registered routes "" and "info".
-Where "" maps to a Login for user authentication and "info" would be a route
+Where "" maps to a login for user authentication and "info" would be a route
 that has some data on the application version for instance.
 
 [[Login.class]]
@@ -202,7 +208,7 @@ private void handeLogin(ClickEvent<Button> buttonClickEvent) {
 }
 ----
 
-Here we add to the session scope route registry a new target for the path "" which will
+Here we add to the session scoped route registry a new target for the path "" which will
 mask the application scoped path "".
 
 [NOTE]
