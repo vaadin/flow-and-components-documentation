@@ -15,7 +15,7 @@
     <description>Module containing tutorials' code</description>
 
     <properties>
-        <jetty.version>9.3.23.v20180228</jetty.version>
+        <jetty.version>9.3.24.v20180605</jetty.version>
     </properties>
 
     <dependencies>
