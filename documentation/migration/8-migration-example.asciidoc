@@ -153,7 +153,7 @@ different from style name, the former can be considered as the successor of the
 latter. So, `addStyleName(String)` can be replaced with
 `getElement().getThemeList().add(String)`. Changes in theming from V8 to V10 is
 described link:6-theming.html[here].
-* New `FormLayout` has a method named `addFormItem` takes a component as a
+* New `FormLayout` has a method named `addFormItem` which takes a component as a
 parameter and in addition to adding it to the form, it adds a label
 beside the component as well.
 * In Vaadin 10, instead of `Button::setClickShortcut` that adds a shortcut key

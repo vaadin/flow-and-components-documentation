@@ -9,7 +9,7 @@ layout: page
 Routing and navigation are core concepts for any web application or site. In Vaadin 10 this has been completely reinvented.
 The `Navigator` in Vaadin 8 and 7 only supported single-level navigation, had limited support for parameters and did not support the HTML5 History API until Vaadin 8.2.
 
-This document only outlines the core concept and how it differs from the old `Navigator`.
+`Router` is the new navigation API provided by Vaadin platform. This document only outlines the core concept and how it differs from the old `Navigator`.
 To get the best picture on the capabilities of the new `Router`, you should visit the <<../routing/tutorial-routing-annotation#,Router documentation>>.
 
 The `Router` API in Vaadin 10 is easy to use and allows building robust and complex application structures with hierarchies,
