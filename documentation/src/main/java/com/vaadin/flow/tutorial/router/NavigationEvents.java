@@ -79,6 +79,28 @@ public class NavigationEvents {
         }
     }
 
+    @Route("no-permission")
+    public class NoPermission extends Div {
+        public NoPermission() {
+            setText("No permission.");
+        }
+    }
+
+    @Route("blog-post")
+    public class BlogPost extends Div implements BeforeEnterObserver {
+        @Override
+        public void beforeEnter(BeforeEnterEvent event) {
+            if (!hasPermission()) {
+                event.forwardTo(NoPermission.class);
+            }
+        }
+
+        private boolean hasPermission() {
+            // no-op implementation
+            return false;
+        }
+    }
+
     public class SignupForm extends Div implements BeforeLeaveObserver {
         @Override
         public void beforeLeave(BeforeLeaveEvent event) {
