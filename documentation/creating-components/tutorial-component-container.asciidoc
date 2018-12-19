@@ -1,6 +1,6 @@
 ---
 title: Creating a Component Which Can Contain Other Components
-order: 6
+order: 7
 layout: page
 ---
 
