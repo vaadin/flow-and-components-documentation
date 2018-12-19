@@ -1,21 +1,21 @@
 ---
-title: Retrieving User Input
+title: Remote Procedure Calls
 order: 3
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
-= RPC
+= Remote Procedure Calls
 
-RPC (Remote Procedures Calls) is a way of executing a procedure or subroutine in a different address space, typically on another machine.
+RPC (Remote Procedure Calls) is a way of executing a procedure or subroutine in a different address space, typically on another machine.
 
 Flow handles server-client communication allowing to invoke RPC from the server to client side and from the client to the server side.
 
-== Call a client side method from the server side
+== Call a client-side method from the server side
 
 It is possible to execute a client-side method from the server side by accessing the Element API.
 
-The Element API `callFunction` allows to execute a client-side component function taking as arguments the name of the function to call and the the arguments to pass to the function.
+The Element API `callFunction` allows executing a client-side component function taking as arguments the name of the function to call and the arguments to pass to the function.
 
 [NOTE]
 The arguments to pass to the function must be of a type supported by the communication mechanism.
@@ -39,27 +39,34 @@ The supported types are `String`, `Integer`, `Double`, `Boolean` and `Element`.
 getElement().execute("remoteProcedure","Hello","World",1.0);
 ----
 
-== Call a server side method from the client side
+[NOTE]
+Please consult and <<../creating-components/tutorial-component-basic#, Creating a Simple Component Using the Element API>> for creating a new component using element API.
+
+== Call a server-side method from the client side
 
 A method defined in the server side can be called from the client side in 2 different ways:
 
 . Using the `@EventHandler` annotation to register a server-side method as an event handler.
 . Using the `@ClientCallable` annotation to invoke a server-side method from the client side.
 
-=== Event handler
+=== Event handler method
 
 The `@EventHandler` annotation publishes the annotated method so it can be invoked from the client side as template event handlers.
-For more information about `@EventHandler`, please consult <<../polymer-templates/tutorial-template-event-handlers",Handling User Events in a PolymerTemplate>>
+For more information about `@EventHandler`, please consult <<../polymer-templates/tutorial-template-event-handlers",Handling User Events in a PolymerTemplate>>.
 
-=== Call the server side method from the client side
+=== Client delegate method
 
 Another way to call a server side method is `@ClientCallable` annotation which marks a template method as the
 method which should be called from the client side code using notation `this.$server.serverMethodName(args)`.
 
-It can be used somewhere in your client side Polymer class implementation. You can pass your own arguments in this method.
-Just make sure that their types matches to method declaration on the server side.
+It can be used somewhere in your client-side Polymer class implementation. You can pass your own arguments in this method.
+Just make sure that their types match to method declaration on the server side.
 
 [source, xml]
 ----
 this.$server.serverMethodName(args)
 ----
+
+[IMPORTANT]
+Property changes, DOM events, Event handler methods (methods annotated with `@EventHandler`) and Client delegate methods (methods annotated with `@ClientCallable`) are blocked for disabled components.
+
