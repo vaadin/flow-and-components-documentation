@@ -23,7 +23,13 @@ The supported types are `String`, `Boolean`, `Integer`, `Double`, `JsonValue`, `
 
 [source, java]
 ----
-getElement().callFunction("remoteProcedure","Hello","World",1.0);
+public void clearSelection() {
+    getElement().callFunction("clearSelection");
+}
+
+public void setExpanded(Component component) {
+    getElement().callFunction("expand", component.getElement());
+}
 ----
 
 In addition to this, `executeJavaScript` can be used to execute JavaScript asynchronously from the server side.
@@ -34,11 +40,23 @@ Notice that the given parameters will be available as variables named `$0`, `$1`
 The arguments to pass to the function must be of a type supported by the communication mechanism.
 The supported types are `String`, `Integer`, `Double`, `Boolean` and `Element`.
 
-It is also possible to execute JavaScript to manipulate a web component:
+It is also possible to execute JavaScript method to manipulate a web component:
 
 [source, java]
 ----
-getElement().executeJavaScript("$0.remoteProcedure($1,$2,$3);",getElement(),"Hello","World",1.0);
+public void complete() {
+    getElement().executeJavaScript("$0.complete()", this);
+}
+----
+
+Note that `Element.executeJavaScript` method was introduced in Vaadin 12. For previous Vaadin Platform versions it is necessary to access the `Page`.
+
+[source, java]
+----
+public void complete() {
+    Page page = UI.getCurrent().getPage();
+    page.executeJavaScript("$0.complete()", this);
+}
 ----
 
 [NOTE]
@@ -61,12 +79,12 @@ For more information about `@EventHandler`, please consult <<../polymer-template
 Another way to call a server side method is `@ClientCallable` annotation which marks a template method as the
 method which should be called from the client side code using notation `this.$server.serverMethodName(args)`.
 
-It can be used somewhere in your client-side Polymer class implementation. You can pass your own arguments in this method.
+It can be used anywhere in your client-side Polymer class implementation. You can pass your own arguments in this method.
 Just make sure that their types match to method declaration on the server side.
 
 [source, xml]
 ----
-this.$server.serverMethodName(args)
+this.$server.clickHandler()
 ----
 
 [IMPORTANT]
