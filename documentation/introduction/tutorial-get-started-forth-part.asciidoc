@@ -99,7 +99,7 @@ The binder takes care of reading values from the business object, and converts u
 binder.bindInstanceFields(this);
 ----
 
-* This configures the binder to use all similarly named fields in this class and to bind their values with their counterparts in the `Customer` class.
+* When using this method the binder analyze the bean and the form classes and bind properties and fields with same names. For instance the TextField `firstName` will be bound to the `Customer`'s property `firstName`. You can of course do this also manually.
 
 .. Create a setter method for the customer field. 
 
@@ -194,7 +194,7 @@ add(firstName, lastName, status, buttons);
 +
 [source,java]
 ----
-save.getElement().setAttribute("theme", "primary");
+save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 ----
 
 * This improves the UI by highlighting the more common action. 
