@@ -43,7 +43,7 @@ The high abstraction layers provided by Flow's Java Web Components API allow you
 [source,java]
 ----
 TextField textField = new TextField();
-Label greeting = new Label("Hello stranger");
+Span greeting = new Span("Hello stranger"); // a simple html inline text
 
 textField.addValueChangeListener(event ->
       greeting.setText("Hello " + event.getValue()));
@@ -55,7 +55,7 @@ The API includes prebuilt server-side components for Vaadin components and most 
 
 See <<../components/tutorial-flow-components-setup#,Using Vaadin Components>> for a full set of available Vaadin components. 
 
-=== Composing New Components in 100% Java
+=== Composing new Components in 100% Java
 
 On the higher abstraction layers, you can easily create custom components by adapting or combining existing components to meet your requirements. 
 
@@ -98,13 +98,8 @@ You can also find prebuilt Java APIs for Web Components that have been published
 
 === Building Components with HTML Templates
 
-It is also possible to create components as HTML templates and then encapsulate them into reusable Java components (with an API) by creating a server-side Java class. This allows you to take full control of the DOM and communications at the lowest level, while simultaneously leveraging the benefits of a high-level Java API.  
-
-To build your HTML templates, Flow provides:
-
-* A Java model to share and synchronize data between the Java code and the HTML template.
-* A type-safe Java RPC API for interacting with JavaScript in the browser.
-
+Another way to create components is by separating layout and ui logic. This is done best by using HTML templates together with Java classes, where the HTML file contains the layout and (if needed) pure client side logic, while the Java class takes care of the server side logic, like event handling. You may then use your component as any other component in your Java environment - Flow does not distinguish between pure Java or HTML/Java combined components.
+ 
 *Example*: @Id injection in a component
 [source,html]
 ----
@@ -188,11 +183,11 @@ Use `element.getParent()` to navigate upwards in the element hierarchy, and `ele
 
 The `Component` class wraps the `Element` and provides a higher level of abstraction. You can obtain the element representation of a component using the `Component.getElement()` method.
 
-The component's element can optionally contain any number of child elements. In addition, the component itself supports child components. You can use the `Component.add(Component... )` method and the result will be reflected in the element's tree.
+The component's element can optionally contain any number of child elements. In addition to the low level element, the component itself may also support child components. In that case it provides likewise methods like `Component.add(Component... )`. 
 
-As with elements, use `component.getParent()` to navigate upwards in the component hierarchy, and `component.getChildren()` to navigate downwards.
+As with elements you may navigate through component's hierarchy: use `component.getParent()` to navigate upwards in the component hierarchy, and `component.getChildren()` to navigate downwards.
 
-The component hierarchy is constructed based on the element hierarchy, so they are always in sync.
+The component hierarchy is constructed based on the element hierarchy. Changes in the component's hierarchy are reflected in the element's hierarchy (but not vice versa).
 
 
 === HTML Templates
