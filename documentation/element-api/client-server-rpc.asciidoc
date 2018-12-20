@@ -40,7 +40,7 @@ Notice that the given parameters will be available as variables named `$0`, `$1`
 The arguments to pass to the function must be of a type supported by the communication mechanism.
 The supported types are `String`, `Integer`, `Double`, `Boolean` and `Element`.
 
-It is also possible to execute JavaScript method to manipulate a web component:
+It is also possible to call `executeJavaScript` method to access methods and fields of a web component:
 
 [source, java]
 ----
@@ -49,7 +49,7 @@ public void complete() {
 }
 ----
 
-Note that `Element.executeJavaScript` method was introduced in Vaadin 12. For previous Vaadin Platform versions it is necessary to access the `Page`.
+Notice that `Element.executeJavaScript` method was introduced in Vaadin 12. For previous Vaadin Platform versions it is necessary to access the `Page`.
 
 [source, java]
 ----
