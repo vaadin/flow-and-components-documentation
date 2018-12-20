@@ -8,7 +8,7 @@ layout: page
 
 This basic tutorial takes you through the process of creating your first web app with https://vaadin.com/flow[Vaadin Flow].
 
-You can get up and running with quickly with Vaadin Flow. You don't need extensive Java knowledge, but you do need basic Java programming skills, some experience using an https://en.wikipedia.org/wiki/Integrated_development_environment[IDE] (like Eclipse), and JDK 8 installed on your computer.  
+You can get up and running with quickly with Vaadin Flow. You don't need extensive Java knowledge, but you do need basic Java programming skills, some experience using an https://en.wikipedia.org/wiki/Integrated_development_environment[IDE] (like Eclipse) and Maven plus a JDK 8 installed on your computer.  
 
 
 == Overview
@@ -83,13 +83,7 @@ To build the project in Eclipse:
 [NOTE]
 *Maven Install* initiates a full build of your application and creates a https://en.wikipedia.org/wiki/WAR_(file_format)[WAR] file in the `/target` directory of your project folder. You can deploy the WAR file to your application server when you go to production. During development, we use Jetty that is provided through Maven, and there is no need to install an application server. 
 
- 
-
 === Viewing the Starter Files
-
-You can view your project resources in the *Project Explorer* tree. 
-
-Note:
 
 * `/pom.xml` contains the settings for building your project and declares the dependencies that are used. 
 
