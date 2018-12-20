@@ -174,7 +174,7 @@ A web application is structured as a tree of elements, with the `UI` instance el
 An element can be added as a child of another element, using methods such as:
 
 * `element.appendChild(Element)` to add an element at the end of a parent's child list, or 
-* `element.insertChild(int, Element)` to add it to any position the a child list.
+* `element.insertChild(int, Element)` to add it to any position in the child list.
 
 Use `element.getParent()` to navigate upwards in the element hierarchy, and `element.getChildCount()` to navigate downwards. 
 
