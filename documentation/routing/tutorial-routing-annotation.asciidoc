@@ -1,13 +1,20 @@
 ---
-title: Defining Routes With @Route
+title: Defining Routes with @Route
 order: 1
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
+= Defining Routes with @Route
 
-= Defining Routes With @Route
-The `@Route` annotation allows you to define an arbitrary component as a route target for a given URL fragment. For example:
+Flow provides the `Router` class to structure the navigation of your web application into logical parts.
+
+The router takes care of serving content when the user navigates within an application. It includes support for nested routes, access to URL parameters and more. 
+
+== Using the @Route Annotation
+
+You can use the `@Route` annotation to define any component as a route target for a given URL fragment. 
+
+*Example*: Defining the `HelloWorld` component as the default route target (empty route) for your application. 
 
 [source,java]
 ----
@@ -18,7 +25,8 @@ public class HelloWorld extends Div {
   }
 }
 ----
-This defines the `HelloWorld` component as the default route target for the application (empty route). You can define a separate component for a different route like this:
+
+You can also define a separate component for a specific route:
 
 [source,java]
 ----
@@ -30,8 +38,12 @@ public class SomePathComponent extends Div {
 }
 ----
 
-So whenever the user navigates to `http://yourdomain.com/some/path` (assuming the app is running from the root context), either by clicking on links inside the application or by typing the address directly on the address bar, the `SomePathComponent` component would be shown at the page.
+* Assuming your app is running from the root context, when the user navigates to `http://yourdomain.com/some/path`, either by clicking a link in the application or entering the address in the address bar, the `SomePathComponent` component is shown on the page. 
 
-TIP: If you leave out the parameter to a Route annotation, the route target will be derived from the class name. For example MyEditor will become "myeditor", PersonView will become "person" and MainView will become "".
+[NOTE]
+If you omit the `@Route` annotation parameter, the route target is derived from the class name. For example, MyEditor becomes "myeditor", PersonView becomes "person" and MainView becomes "".
 
-For nested route definitions see: <<tutorial-router-layout#route-prefix,ParentLayout route control using @RoutePrefix>>
+// I think this NOTE needs further explanation. It is not obvious to me why and how the route target is derived.
+
+
+// I think this section needs additional background and introductory content. I think we should include a new page "About Routing and Navigation" that describes in general terms (high-level) what routing is and how it is used for navigation. Section 11.8 of the Vaadin 8 book contains a nice summary, but it is out of date. The content at https://vaadin.github.io/vaadin-router/vaadin-router/demo/#vaadin-router-getting-started-demos is  good, but I'm not too sure how it relates or how to include it. 
