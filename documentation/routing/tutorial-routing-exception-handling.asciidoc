@@ -1,27 +1,25 @@
----
+   ---
 title: Router Exception Handling
 order: 7
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
 = Router Exception Handling
 
-There is special support for navigation targets that are activated for an unhandled exception
-thrown *during navigation* to show an "error view" to the user.
+`Router` provides special support for navigation target exceptions.  
+When an unhandled exception is thrown during navigation, the user is shown an error view.   
 
-These targets generally work in the same way as regular navigation targets, although they do typically
-not have any specific `@Route` as they are shown for arbitrary URLs.
+Exception targets generally work in the same way as regular navigation targets, except they typically do not have a specific `@Route` because they are shown for arbitrary URLs.
 
-Error navigation is resolved to a target based on the exception type thrown during navigation.
 
-At startup all classes implementing the interface `HasErrorParameter<T extends Exception>`
-will be collected to be used as exception targets during navigation.
+== Error Resolving
 
-For instance here is the default target for the `NotFoundException` that will
-be shown when there is no target for the given url.
+Errors in navigation are resolved to a target that is based on the exception type thrown during navigation.
 
-.RouteNotFoundError for NotFoundException during routing
+At startup, all classes implementing the `HasErrorParameter<T extends Exception>` interface are collected for use as exception targets during navigation. Example classes include `RouteNotFoundError` for `NotFoundException`. 
+
+*Example*: `RouteNotFoundError` defines the default target for the `NotFoundException` that is shown when there is no target for the given URL.
+
 [source, java]
 ----
 @Tag(Tag.DIV)
@@ -38,16 +36,19 @@ public class RouteNotFoundError extends Component
 }
 ----
 
-This will return an http response of 404 and show the set text to the user.
+* This returns a 404 HTTP response and displays the `setText` to the user.
 
-Exception matching will run first by exception cause and then by exception super type.
+The exception matching order is first by exception cause and then by exception super type.
 
-Default exceptions that are implemented are `RouteNotFoundError` for `NotFoundException` with a `404`
-and `InternalServerError` for `java.lang.Exception` with a `500`.
 
-The default exception handlers can be overridden by extending them like:
+The 404 `RouteNotFoundError` (for `NotFoundException`), and 500 `InternalServerError` (for `java.lang.Exception`) are implemented by default.
 
-.Custom route not found that is using our application layout
+
+== Custom Exception Handlers
+
+You can override the default exception handlers by extending them. 
+
+*Example*: Custom route not found handler that uses a custom application layout 
 [source, java]
 ----
 @ParentLayout(MainLayout.class)
@@ -62,19 +63,21 @@ public class CustomNotFoundTarget extends RouteNotFoundError {
 }
 ----
 
-As a more complex sample we could have a Dashboard that collects and shows widgets
-to the user and can have widgets that should not be shown for unauthenticated users.
-For some reason a `ProtectedWidget` is loaded for an un-authenticated user.
+Note:
 
-The collection should have caught the protected widget, but for some reason
-instantiates it, but luckily the widget checks authentication on creation and throws
-and `AccessDeniedException`.
+* Only extending instances are allowed.
+* Exception targets may define `ParentLayouts`. `BeforeNavigationEvent` and `AfterNavigationEvent` are still sent, as in the case of normal navigation.
 
-This unhandled exception propagates during navigation and is handled by the
-`AccessDeniedExceptionHandler` that still keeps the MainLayout with its menu bar,
-but displays information that an exception has happened.
+* One exception may only have one exception handler. 
 
-.Access denied exception sample when protected widget is loaded by mistake
+=== Advanced Exception Handling Example
+
+The following example assumes an application `Dashboard` that collects and shows widgets to users. Only authenticated users are allowed to see protected widgets.  
+
+If the collection instantiates a `ProtectedWidget` in error, the widget itself will check authentication on creation and throw an `AccessDeniedException`. 
+
+The unhandled exception propagates during navigation and is handled by the `AccessDeniedExceptionHandler` that keeps the `MainLayout` with its menu bar, but displays information that an exception has occurred.
+
 [source, java]
 ----
 @Route(value = "dashboard", layout = MainLayout.class)
@@ -130,21 +133,13 @@ public class AccessDeniedExceptionHandler extends Component
 }
 ----
 
-[NOTE]
-Exception targets may define ParentLayouts and `BeforeNavigationEvent` and `AfterNavigationEvent`
-will be sent as for normal navigation.
+== Rerouting to an Error View
 
-[NOTE]
-One exception may only have one exception handler (only extending instances are allowed).
+It is possible to reroute from the `BeforeEnterEvent` and `BeforeLeaveEvent` to an error view registered for an exception.
 
-== Rerouting to an error view
+You can use one of the `rerouteToError` method overloads. All you need to add is the exception class to target and a custom error message, where necessary.
 
-It is possible to reroute to an error view registered for an exception from the `BeforeEnterEvent` and `BeforeLeaveEvent`.
-
-The rerouting is done by using one of the overloads for `rerouteToError` with only the
-exception class to target or with an added custom error message.
-
-.Reroute to error view
+*Example*: Reroute to error view
 [source, java]
 ----
 public class AuthenticationHandler implements BeforeEnterObserver {
@@ -163,11 +158,10 @@ public class AuthenticationHandler implements BeforeEnterObserver {
 }
 ----
 
-[NOTE]
-In cases where the rerouting method catches an exception and there is a need to add a custom
-message it is possible to use the `rerouteToError(Exception, String)` method to set a custom message.
+If the rerouting method catches an exception, you can use the `rerouteToError(Exception, String)` method to set a custom message.
 
-.Blog sample error view with a custom message
+*Example*: Blog sample error view with a custom message
+
 [source, java]
 ----
 @Tag(Tag.DIV)
