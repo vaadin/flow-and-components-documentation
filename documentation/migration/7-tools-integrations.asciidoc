@@ -27,7 +27,7 @@ The concept is mostly the same, but some features like the `@ViewScope` have bee
 Also there are currently no specific Spring Security support, but it can still be integrated manually.
 The Bakery App Starter for Flow and Spring shows and example of this.
 
-== No CDI Support
+== CDI Support
 
 Vaadin 8 has a CDI Add-on enabling JEE features.
 
