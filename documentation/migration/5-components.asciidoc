@@ -30,13 +30,13 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | Checkbox | Checkbox | https://vaadin.com/components/vaadin-checkbox/java-examples[Demo]
 
-| CheckBoxGroup | CheckBoxGroup (V12) | Not in Vaadin platform, take `vaadin-radio-button-flow` 1.1. Included in Vaadin platform 12 (12/2018). Also available as an add-on in Directory for Vaadin platform
+| CheckBoxGroup | CheckBoxGroup (V12) | Not in V10, take `vaadin-radio-button-flow` 1.1. Included in Vaadin platform 12 (12/2018). Also available as an add-on in Directory for Vaadin platform
 
 | ColorPicker | - | Not planned. See https://vaadin.com/directory[vaadin.com/directory] for alternatives. `<input type="color">` is supported in some browsers.
 
 | ComboBox | ComboBox | https://vaadin.com/components/vaadin-combo-box/java-examples[Demo]. Note that lazy-loading between server and client was only included in Vaadin platform V12 (12/2018).
 
-| ContextMenu (official add-on) | ContextMenu (V12) | Not in Vaadin platform, take `vaadin-context-menu-flow` 1.0 which is Vaadin platform compatible. Included in Vaadin platform V12 (12/2018)
+| ContextMenu (official add-on) | ContextMenu (V12) | Not in V10, take `vaadin-context-menu-flow` 1.0 which is Vaadin platform compatible. Included in Vaadin platform V12 (12/2018)
 
 | CssLayout | Div & FlexLayout | More details <<layouts,later in this chapter>>
 
@@ -131,15 +131,15 @@ The way components are structured has been renewed in Vaadin platform. While the
 
 In Vaadin 8, there was a large and complex class hierarchy for components, and the `Component` interface already declared a large set of API that components were supposed to support. This meant that almost every time, the component had to extend at least `AbstractComponent` so that they would not need to implement all the methods from the interface. That would mean that there would be a lot of API in the actual component, some of which made no sense in all cases.
 
-In Vaadin platform the `Component` is an abstract class, with only the minimal set of API exposed. For the component implementations, it is up to them to pick up pieces of API as mixin interfaces that provide default implementations.
+In Vaadin Flow the `Component` is an abstract class, with only the minimal set of API exposed. For the component implementations, it is up to them to pick up pieces of API as mixin interfaces that provide default implementations.
 
 === Component is Lightweight and it Maps to an Element
 
-Every Vaadin platform component always maps to one root element in the server-side DOM representation. A component can contain multiple components or elements inside it.
+Every Vaadin Flow component always maps to one root element in the server-side DOM representation. A component can contain multiple components or elements inside it.
 The component is the high level API for application developers to compose UIs efficiently.
 The Element API is the low level API used to build components. The Element API makes it possible to modify the DOM easily from the server side.
 
-If you look up the `Component` class in Vaadin platform, you notice that there is no API even for setting the width or height of the component!
+If you look up the `Component` class in Vaadin Flow, you notice that there is no API even for setting the width or height of the component!
 For your own components, add the API by implementing the `HasSize` mixin interface,
 which has default implementations for e.g. `setWidth(String width)` and `setHeight(String height)`.
 So by adding two words of code you can achieve full sizing capabilities for your components.
@@ -160,7 +160,7 @@ Adding icons is possible, it is just HTML5 after all. But as with caption there 
 
 === setEnabled(boolean enabled) is Still a Server Side Security Feature
 
-In Vaadin platform, the `setEnabled` method is specific to components marked with the `HasEnabled` mixin interface (which comes also with `HasValue`, `HasComponents`, and `Focusable`).
+In Vaadin Flow, the `setEnabled` method is specific to components marked with the `HasEnabled` mixin interface (which comes also with `HasValue`, `HasComponents`, and `Focusable`).
 When a component is disabled, by default, any property changes and DOM events coming from the client side are ignored.
 However, it is possible to whitelist some properties and events to be allowed if necessary.
 
@@ -172,7 +172,7 @@ Read the <<../components/tutorial-enabled-state#,Component Enabled State>> tutor
 
 === setReadOnly(boolean readOnly) is Component Specific and Works Differently
 
-In Vaadin platform the `setReadOnly(boolean readOnly)` method is specific to components accepting user input by implementing `HasValue`.
+In Flow the `setReadOnly(boolean readOnly)` method is specific to components accepting user input by implementing `HasValue`.
 
 For a readonly component, changes from the client will not make the return value of `getValue()` to change nor fire any `ValueChangeEvent`.
 Most components will also update their visual status to indicate to the user that the value cannot be changed.
@@ -276,9 +276,9 @@ For dynamic content you can use `PolymerTemplate` with `@Id` bindings.
 
 == Migrating Your Own Components
 
-One of the biggest improvements in Vaadin platform compared to Vaadin 8 is making it possible to access and customize the DOM from  server-side Java.
+One of the biggest improvements in Vaadin Flow compared to Vaadin 8 is making it possible to access and customize the DOM from  server-side Java.
 This obsoletes many reasons for using GWT for creating components. It also means that existing custom components from V8 have to be rebuilt again.
-The server side API can be reused, but some changes may be needed since the class hierarchy has changed in Vaadin platform.
+The server side API can be reused, but some changes may be needed since the class hierarchy has changed in Flow.
 
 Simple components can be composed using existing components and the Element API.
 The <<../creating-components/tutorial-component-basic#,creating components tutorials>> have examples on this.

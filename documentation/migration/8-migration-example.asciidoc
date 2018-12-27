@@ -6,13 +6,13 @@ layout: page
 
 = Migration example - Bookstore Starter
 
-This document shows an example migration from a V8 app to Vaadin platform. The
+This document shows an example migration from a V8 app to Vaadin Flow. The
 migration process is done step-by-step and can be seen through the history
 of its https://github.com/vaadin/bookstore-starter-flow[GitHub repository].
 The idea is to keep the application compilable in
 order to be able to see the result of migrating steps.
 
-== Step 1 - Initial Vaadin platform configuration
+== Step 1 - Initial Vaadin Flow configuration
 
 === Maven
 
@@ -38,20 +38,20 @@ is removed.
 
 === UI class and Servlet configuration
 
-* Both `UI` class and Servlet configuration are optional in Vaadin platform.
+* Both `UI` class and Servlet configuration are optional in Vaadin Flow.
 However, we can keep them to leverage them in some cases e.g.
 controlling user access.
 * Since the components are different, the DOM structure has changed. The
 new components are based on web components and a new theme. Thus the
 theming is discussed later.
-* In Vaadin platform  the locale is set automatically based on user preferred
+* In Vaadin Flow the locale is set automatically based on user preferred
 locale. So, `setLocale` can be removed.
 * Best practice for setting page title is using `PageTitle` annotation on
 each view. So, `getPage().setTitle` is removed from `MyUI::init`.
-* All packages names in Vaadin platform start with `com.vaadin.flow`. One way
+* All packages names in Vaadin Flow start with `com.vaadin.flow`. One way
 to correct them is to remove all `import` statements starting
-by `com.vaadin` and reimport Vaadin platform classes. For example some
-equivalent classes in Vaadin platform are:
+by `com.vaadin` and reimport Vaadin Flow classes. For example some
+equivalent classes in Vaadin Flow are:
 
 * `com.vaadin.ui.UI` → `com.vaadin.flow.component.UI`
 * `com.vaadin.server.VaadinRequest` → `com.vaadin.flow.server.VaadinRequest`
@@ -62,7 +62,7 @@ equivalent classes in Vaadin platform are:
 
 === Test page
 
-In order to verify that Vaadin platform setup has been done correctly, a
+In order to verify that Vaadin Flow setup has been done correctly, a
 simple `HelloWorldPage` like the following can be added.
 
 [source, java]
@@ -93,7 +93,7 @@ the link to the repository after the first step.
 
 === VaadinServletConfiguration and UI class
 
-In Vaadin platform, defining a Servlet class is optional. So, we don’t have to
+In Vaadin Flow, defining a Servlet class is optional. So, we don’t have to
 create an extended class of `VaadinServlet`, unless we need to change some
 configuration. Having a `UI` class is optional too and this class can be
 removed as well, because the `UI` class is created by the framework.
@@ -131,31 +131,32 @@ another provider for `AccessControl` implementation. The selected solution
 here is using a factory class (`AccessControlFactory`).
 
 `CurrentUser` class is also needed to change because it is used in
-`BasicAccessControl` class. We need to apply new packages names of Vaadin platform that start with `com.vaadin.flow`. The same should be done in next
+`BasicAccessControl` class. We need to apply new packages names of Flow that start with `com.vaadin.flow`. The same should be done in next
 steps of migration.
 
 === LoginScreen
 
-This is the first `UI` screen migrated to Vaadin platform. The following items
+This is the first `UI` screen migrated to Flow. The following items
 describe what needs to be done in migration process:
 
 * Instead of `CssLayout` another equivalent component must be used e.g.
 `FlexLayout` or a simple `Div`.
 * Equivalent of `addComponent` method is `add` method.
-* `setWidth` method in Vaadin platform has only one `String` parameter that
+* `setWidth` method in Flow has only one `String` parameter that
 includes both measurement unit and width as a number e.g. “15em” or
 “310px”.
 * `Route` annotation determines the url associated with this screen.
-* In order to add a theme variant in Vaadin platform,
+* In order to add a theme variant in V10,
 `getElement().getThemeList().add(String)` is used. Although theme variant is
 different from style name, the former can be considered as the successor of the
 latter. So, `addStyleName(String)` can be replaced with
-`getElement().getThemeList().add(String)`. Changes in theming from V8 to Vaadin
+`getElement().getThemeList().add(String)`. However, in V12 `addThemeVariants(...)`
+API was reintroduced for generated components. Changes in theming from V8 to Vaadin
 platform is described link:6-theming.html[here].
 * New `FormLayout` has a method named `addFormItem` takes a component as a
 parameter and in addition to adding it to the form, it adds a label
 beside the component as well.
-* In Vaadin platform, instead of `Button::setClickShortcut` that adds a shortcut key
+* In Flow, instead of `Button::setClickShortcut` that adds a shortcut key
 to a button, a keypress event listener should be added. For example, the
 following piece of code is equivalent to
 `login.setClickShortcut(ShortcutAction.KeyCode.ENTER);`.
@@ -166,6 +167,8 @@ following piece of code is equivalent to
         .addEventListener("keypress", event -> login())
         .setFilter("event.key == 'Enter'");
 ----
+
+An improved keyboard shortcuts API will be available in Vaadin 13.
 
 Some other changes that have been done are not related to Vaadin
 framework migration process; however, it is a good idea to do such
@@ -180,8 +183,8 @@ the link to see the changes in second migration step.
 
 As explained before, instead of `CssLayout`, `FlexLayout` is used.
 
-`Navigator` class is removed in Vaadin platform and this is one of many changes
-in routing and navigation since Version 8. So, `navigator`
+`Navigator` class is removed in Flow and this is one of many changes
+in routing and navigation since version 8. So, `navigator`
 field is removed from `Menu`. In `addView` method it can be seen that
 navigation is done by `RouterLink` component.
 
@@ -192,7 +195,7 @@ later steps.
 
 In Vaadin 8 version there is a `CssLayout` that acts as a view container
 and navigation between different views is done inside the `CssLayout`. In
-Vaadin platform, parent layouts can be defined using a newly introduced
+Vaadin Flow, parent layouts can be defined using a newly introduced
 `RouterLayout` interface.  Since `MainScreen` is used as a layout for other
 views, it must implement `RouterLayout` interface.
 
@@ -261,7 +264,7 @@ should be moved here. Other changes in `SampleCrudView` are the following
 items.
 
 * `getElement().getThemeList()::add` is used to add a theme variant to a
-component. A nicer API for this is coming to Vaadin Vaadin platform v12.
+component. An improved API for this has been released in V12.
 * In Vaadin 8, in order to get the parameters passed via the URL, `View`
 interface must be implemented and the `enter` method must be overridden.
 In Vaadin platform, there is an interface named `HasUrlParameter` that does the
@@ -328,25 +331,20 @@ need to call `Design.read`.
 associated polymer template.
 * In `ComboBox`, `setEmptySelectionAllowed` method is renamed to
 `setAllowCustomValue`.
-* `CheckboxGroup` is not available in Vaadin platform and will be released later.
-However, there is a `CheckboxGroup` available in
-https://vaadin.com/directory/component/checkboxgroup-multiselect-component-for-java[Vaadin
-Directory] that can be used for now. Since this component is Java-only,
-a placeholder is added to design file to make it easier to add the
-`CheckboxGroup`.
+* `CheckboxGroup` has been released in Vaadin 12.
 
 The commit showing the changes for a migrated product form is
 https://github.com/vaadin/bookstore-starter-flow/commit/c909f99c0a483ab4b6b5a83534be1c8de8a5d5b2#diff-042374cce356a88330ea33c5223aae7b[here].
 
 === ErrorView
 
-Router Exception Handling in Vaadin platform is described
+Router Exception Handling in Vaadin Flow is described
 https://vaadin.com/docs/v10/flow/routing/tutorial-routing-exception-handling.html[here].
 Applications can have different views for catching different exceptions.
 For example, `ErrorView` catches `NotFoundException` that is thrown when
 something goes wrong while resolving navigation routes. And unlike
 Vaadin 8, there is no need to register `ErrorView` in a `navigator` or
-something like that. It is automatically detected and is used by Vaadin platform.
+something like that. It is automatically detected and is used by Flow.
 
 The commit showing the migration of the error view is
 https://github.com/vaadin/bookstore-starter-flow/commit/c909f99c0a483ab4b6b5a83534be1c8de8a5d5b2#diff-c0d70f19c05c81ab072bb1d2e9c659e2[here].
@@ -356,7 +354,7 @@ https://github.com/vaadin/bookstore-starter-flow/commit/c909f99c0a483ab4b6b5a835
 Apart from some cleaning, a small change that is worth mentioning is the
 change in how the URL of the browser is updated. In Vaadin 8,
 `page.setUriFragment` is called and the new URL must be constructed and
-passed as a parameter. While in Vaadin platform, it is done in a more elegant
+passed as a parameter. While in Vaadin Flow, it is done in a more elegant
 way; `navigate` method of `UI` class is called and the view parameter is
 passed as a parameter to `navigate` method.
 
@@ -364,11 +362,11 @@ https://github.com/vaadin/bookstore-starter-flow/commit/87823b61d53137963cfc84fa
 the link to see all changes in step five.
 
 == Step 6 - Production Mode
-The best practice to have the production mode in Vaadin platform is adding a profile
+The best practice to have the production mode in Vaadin Flow is adding a profile
 to pom.xml. So, the production module is no longer needed and is removed and a
 profile named productionMode is added to pom.xml of ui module. In terms of
-production mode, there are some differences between Vaadin 8 and Vaadin platform. The new
-production mode of Vaadin platform is fully described
+production mode, there are some differences between Vaadin 8 and Flow. The new
+production mode of Flow is fully described
 https://vaadin.com/docs/v10/flow/production/tutorial-production-mode-basic.html[Here].
 
 https://github.com/vaadin/bookstore-starter-flow/commit/d62fb258da9e651b2ef23355d1ec28341cee0c27[Here]

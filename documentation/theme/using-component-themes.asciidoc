@@ -79,8 +79,7 @@ Variants are like "skins" for the theme - it uses the same files for the theme, 
 
 == Available Themes and Customizations
 
-In Vaadin platform there is only one ready-made component theme, _Lumo_, which is the main theme for all Vaadin components.
-It gives you a full set of building blocks to build a modern looking web application that works just as well on desktop and on mobile.
+In Vaadin 10 there is only one ready-made component theme, _Lumo_, which is the main theme for all Vaadin components. Vaadin 12 also includes the Material theme. Both themes gives you a full set of building blocks to build a modern looking web application that works just as well on desktop and on mobile.
 
 The Flow integration for Lumo is a part of the `vaadin-core` dependency, and as shown in the previous chapter,
 very easily taken into use. You can explicitly declare `@Theme(Lumo.class)` or omit it completely, since the default behavior is to use Lumo if available in the classpath.
@@ -89,12 +88,6 @@ Lumo provides some customization points for the components, that allow you to fi
 It can be customized by using CSS custom properties, see link:https://vaadin.com/themes/lumo[the Lumo documentation] for more information.
 The theming for the Vaadin components is built using `Vaadin.ThemableMixin`.
 See link:https://github.com/vaadin/vaadin-themable-mixin/wiki[vaadin-themable-mixin wiki] to learn how theming of Vaadin components is done.
-
-[NOTE]
-There is another theme being built, _Material Theme_. Once it is ready enough, a Flow integration will be available.
-Even though it will not be part of Vaadin platform, you should be able to use it with all Vaadin platform components.
-You can take a look at it and start using it already by manually importing the webjar and the dependencies.
-See the link:https://vaadin.com/themes/material[Material Theme documentation] for more information and tracking progress.
 
 === Using Lumo variants
 

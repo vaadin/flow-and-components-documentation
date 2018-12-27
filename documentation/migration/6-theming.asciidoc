@@ -52,8 +52,8 @@ It can also be in an abstract class if you have multiple root layouts.
 When no `@Theme` is used, the Lumo theme is used by default (if present in the classpath).
 
 Instead of a magic string, you need to provide a `Class` reference to an theme class that extends `AbstractTheme`.
-There is one ready-made theme available for Vaadin platform: *Lumo*. Another theme, _Material_,
-is also in progress, but not yet available in Vaadin platform. It will be possible to use it with the Vaadin components once it is released.
+There is one ready-made theme available for V10: *Lumo*. Another theme, _Material_,
+is also available starting with V12 and it is possible to use it also with Vaadin components.
 You should always use a theme, since the unthemed versions of the components are only meant as a baseline for creating a new theme from scratch!
 
 The theme class will handle two things:
