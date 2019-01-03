@@ -1,6 +1,6 @@
 ---
 title: Using Events with Components
-order: 5
+order: 6
 layout: page
 ---
 

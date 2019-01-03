@@ -327,22 +327,22 @@ We need to create a DataProvider to use these service methods to fill a ComboBox
 [source, java]
 ----
 DataProvider<Department, String> createDepartmentDataProvider(DepartmentService service) {
-        return DataProvider.fromFilteringCallbacks(query -> {
-            // getFilter returns Optional<String>
-            String filter = query.getFilter().orElse(null);
-            return service.fetch(query.getOffset(), query.getLimit(), filter).stream();
-        }, query -> {
-            String filter = query.getFilter().orElse(null);
-            return service.getCount(filter);
-        });
-    }
+    return DataProvider.fromFilteringCallbacks(query -> {
+        // getFilter returns Optional<String>
+        String filter = query.getFilter().orElse(null);
+        return service.fetch(query.getOffset(), query.getLimit(), filter).stream();
+    }, query -> {
+        String filter = query.getFilter().orElse(null);
+        return service.getCount(filter);
+    });
+}
 ----
 
 Now, we can use the `DataProvider`:
 
 [source, java]
 ----
-DataProvider<Department, String> dataProvider =createDepartmentDataProvider(service);
+DataProvider<Department, String> dataProvider = createDepartmentDataProvider(service);
 ComboBox<Department> departmentComboBox = new ComboBox<>();
 departmentComboBox.setDataProvider(dataProvider);
 ----
@@ -391,43 +391,46 @@ In order to create that wrapper, we should use the `withConfigurableFilter` meth
 
 [source, java]
 ----
-    ConfigurableFilterDataProvider<Employee, String, Department>
-    getDataProvider(EmployeeService service) {
-        DataProvider<Employee, EmployeeFilter> dataProvider = DataProvider.fromFilteringCallbacks(query -> {
-            // getFilter returns Optional<String>
-            EmployeeFilter filter = query.getFilter().orElse(null);
-            return service.fetch(query.getOffset(), query.getLimit(), filter).stream();
-        }, query -> {
-            EmployeeFilter filter = query.getFilter().orElse(null);
-            return service.getCount(filter);
-        });
+ConfigurableFilterDataProvider<Employee, String, Department> 
+getDataProvider(EmployeeService service) {
+    DataProvider<Employee, EmployeeFilter> dataProvider = 
+    DataProvider.fromFilteringCallbacks(query -> {
+        // getFilter returns Optional<String>
+        EmployeeFilter filter = query.getFilter().orElse(null);
+        return service.fetch(query.getOffset(), query.getLimit(), filter).stream();
+    }, query -> {
+        EmployeeFilter filter = query.getFilter().orElse(null);
+        return service.getCount(filter);
+    });
 
-        ConfigurableFilterDataProvider<Employee, String, Department> configurableFilterDataProvider = dataProvider
-                .withConfigurableFilter(
-                        (String filterText, Department department) -> new EmployeeFilter(filterText, department));
+ConfigurableFilterDataProvider<Employee, String, Department> 
+configurableFilterDataProvider = dataProvider
+        .withConfigurableFilter(
+                (String filterText, Department department) -> 
+                        new EmployeeFilter(filterText, department));
 
         return configurableFilterDataProvider;
-    }
+}
 ----
 
 Now, we can use the DataProvider:
 
 [source, java]
 ----
-        ConfigurableFilterDataProvider<Employee, String, Department
-> employeeDataProvider = getDataProvider(service);
-        ComboBox<Employee> employeeComboBox = new ComboBox<>();
-        employeeComboBox.setDataProvider(employeeDataProvider);
+ConfigurableFilterDataProvider<Employee, String, Department> employeeDataProvider = 
+        getDataProvider(service);
+ComboBox<Employee> employeeComboBox = new ComboBox<>();
+employeeComboBox.setDataProvider(employeeDataProvider);
 ----
 
 And we should manually set the department when it’s changed by calling the setFilter method of ConfigurableFilterDataProvider like this:
 
 [source, java]
 ----
-        departmentComboBox.addValueChangeListener(event -> {
-            employeeDataProvider.setFilter(event.getValue());
-            employeeDataProvider.refreshAll();
-        });
+departmentComboBox.addValueChangeListener(event -> {
+    employeeDataProvider.setFilter(event.getValue());
+    employeeDataProvider.refreshAll();
+});
 ----
 
 ===== Case 3
@@ -448,8 +451,10 @@ However, a cleaner solution is to create a `DataProvider<Person, Predicate<Emplo
 [source, java]
 ----
 DataProvider<Person, String> getDataProvider(PersonService service) {
-    DataProvider<Person, Predicate<Person>> predicateDataProvider = DataProvider.fromFilteringCallbacks(
-            query -> service.fetch(query.getOffset(), query.getLimit(), query.getFilter()).stream(),
+    DataProvider<Person, Predicate<Person>> predicateDataProvider = 
+    DataProvider.fromFilteringCallbacks(
+            query -> service.fetch(query.getOffset(), query.getLimit(), 
+                    query.getFilter()).stream(),
             query -> service.getCount(query.getFilter()));
 
     DataProvider<Person, String> dataProvider = predicateDataProvider
