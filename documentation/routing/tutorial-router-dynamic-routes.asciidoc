@@ -20,8 +20,8 @@ or application state.
 This might mean adding an entry point to the system (application scope) or new
 targets for a logged in user (session scope).
 
-To add new routes to a registry there is the RouteConfiguration helper class that
-simplifies handling of new routes. To get a configuration for a specific scope there are
+To add new routes, there is a RouteConfiguration class that allows you to add
+routes to a specific scope. For scope configuration there are
 the static methods `forSessionScope` and `forApplicationScope`.
 
 The simplest way of adding any route to a registry is to define the path and the layout component:
