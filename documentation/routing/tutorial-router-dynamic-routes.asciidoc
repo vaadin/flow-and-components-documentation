@@ -7,12 +7,12 @@ layout: page
 ifdef::env-github[:outfilesuffix: .asciidoc]
 == Dynamic Route Registration
 
-The `RouteRegistry` contains the collection of navigation targets that can be
-navigated to for a Flow application.
+The `RouteRegistry` contains a collection of routes that can be
+navigated to for a Flow application. A route consist of a path and one or more renderable layouts.
 
 The normal way in Flow is to registers routes using the static `@Route` annotation on a
 class that is then added to an application scoped registry on servlet initialization.
-These routes are available for all users navigating to the mapped path.
+These routes are available to all users navigating to the mapped path.
 For more information on static routes see <<tutorial-routing-annotation#,Defining Routes with @Route>>.
 
 In some cases there might be a need to add or remove a route due to changed data
@@ -20,27 +20,30 @@ or application state.
 This might mean adding an entry point to the system (application scope) or new
 targets for a logged in user (session scope).
 
-To add a new route to a `RouteRegistry` you need to define the path, target `Component` and the parent layouts.
+To add new routes to a registry there is the RouteConfiguration helper class that
+simplifies handling of new routes. To get a configuration for a specific scope there are
+the static methods `forSessionScope` and `forApplicationScope`.
 
-With all the needed parts registering a route is done as:
+The simplest way of adding any route to a registry is to define the path and the layout component:
 
+.Register Home.class to session scoped registry using the path 'home' with no parent layouts
 [source, java]
 ----
-routeRegistry.setRoute("home", Home.class, Collections.emptyList());
+RouteConfiguration.forSessionScope().setRoute("home", Home.class);
 ----
 
+Adding parent layouts is as easy as giving them as varArgs or a list.
+
+.Register Home.class with MainLayout.class as its parent
 [source, java]
 ----
-List<Class<? extends RouterLayout>> parentLayouts = Arrays.asList(MainLayout.class);
-routeRegistry.setRoute("home", Home.class, parentLayouts);
+RouteConfiguration.forSessionScope().setRoute("home", Home.class, MainLayout.class);
 ----
-
-To get the registry see: <<Getting a route registry>>
 
 For information on parent layouts see <<tutorial-router-layout#,Router Layouts and Nested Router Targets>>.
 
 [NOTE]
-When dynamically registering a route any annotations on the classes *will* be ignored.
+When dynamically registering a route any annotations on the classes *will* be ignored except when using methods containing `Annotated` e.g. `setAnnotatedRoute`.
 
 To remove a route from a `RouteRegistry` you need to define decide if what you want to
 remove is the path (e.g. "users"), the navigation target (e.g. `Users.class`) with all route aliases
@@ -49,14 +52,15 @@ be left a parameter target "users/{id}").
 
 [source, java]
 ----
+RouteConfiguration configuration = RouteConfiguration.forSessionScope();
 // No path "users" should be available
-routeRegistry.removeRoute("users");
+configuration.removeRoute("users");
 
 // No navigationTarget Users should be available
-routeRegistry.removeRoute(Users.class);
+configuration.removeRoute(Users.class);
 
 // Only the Users navigationTarget should be removed from "users"
-routeRegistry.removeRoute("users", Users.class);
+configuration.removeRoute("users", Users.class);
 ----
 
 For routes with route aliases see: <<Adding route aliases for dynamic routes>>
@@ -70,7 +74,7 @@ masked in the application scope by the removed route will be visible.
 === Adding route aliases for dynamic routes
 
 When adding dynamic routes the first path for which the navigation target is added
-will be marked as the main path and be returned for the `Router.getUrl` methods.
+will be marked as the main path and be returned for the `getUrl` methods.
 
 Any additional paths registered will be seen as a route alias.
 
@@ -78,12 +82,13 @@ So for the registrations:
 
 [source, java]
 ----
-routeRegistry.setRoute("main", MyRoute.class, Collections.emptyList());
-routeRegistry.setRoute("info", MyRoute.class, Collections.emptyList());
-routeRegistry.setRoute("version", MyRoute.class, Collections.emptyList());
+RouteConfiguration configuration = RouteConfiguration.forSessionScope();
+configuration.setRoute("main", MyRoute.class);
+configuration.setRoute("info", MyRoute.class);
+configuration.setRoute("version", MyRoute.class);
 ----
 
-In this scenario `Router.getUrl(MyRoute.class)` would return `main`.
+In this scenario `configuration.getUrl(MyRoute.class)` would return `main`.
 
 This is the same as having the static class definition:
 
@@ -99,39 +104,26 @@ private class MyRoute extends Div {
 In case the main path gets removed and an alias path is still left for use, then
 the main path will be updated to the first alias path found from the registry.
 
-
-=== Getting a route registry
-
-The session scoped route registry is tied to the `VaadinSession`
-
-[source, java]
-----
-VaadinSession session = VaadinSession.getCurrent();
-RouteRegistry sessionRegistry = SessionRouteRegistry.getSessionRegistry(session);
-----
-
-[NOTE]
-`SessionRouteRegistry` is active for the session and will be removed when the session is closed.
-Any routes registered to this registry will be only available for the `VaadinSession`, this means
-that it is available for all the `UI` instances inside the same session.
-
-The application scoped registry is tied to the `ServletContext`.
-
-[source, java]
-----
-ServletContext servletContext = VaadinServlet.getCurrent().getServletContext();
-RouteRegistry registry = ApplicationRouteRegistry.getInstance(servletContext);
-----
-
 [NOTE]
 When adding or removing routes from the `ApplicationRouteRegistry` it should be
 well understood that it will have an impact on every user of the system.
 
+=== Using @Route annotated classes
+
+To utilise the features that `@Route` brings for static registration the `RouteConfiguration`
+class contains methods to add routes that have been annotated with `@Route`.
+
+To skip the static registration on servlet initialization just add `@DynamicRoute`
+to the `@Route` annotated class and it will not be registered on startup to the application scoped registry.
+This makes it easy to use existing parent chains and paths that get modified from the parent.
+
 ==== Example: Adding a new view on user login
 
-Our application contains 2 statically registered routes "" and "info".
-Where "" maps to a login for user authentication and "info" would be a route
-that has some data on the application version for instance.
+Our application contains the statically registered route "" which maps to the
+login used for user authentication.
+
+We also have the "info" route that will not be statically registered
+as it's marked with `@DynamicRoute`.
 
 [[Login.class]]
 .Login.class
@@ -157,10 +149,21 @@ public class Login extends Div {
 }
 ----
 
+.The main layout containing a menu
+[source, java]
+----
+public class MainLayout extends Div implements RouterLayout {
+    public MainLayout() {
+        // Implementation omitted, but could contain a menu.
+    }
+}
+----
+
 .Info.class
 [source, java]
 ----
-@Route("info")
+@Route(value = "info", layout = MainLayout.class)
+@DynamicRoute
 public class Info extends Div {
     public Info() {
         add(new Span("This page contains info about the application"));
@@ -195,22 +198,26 @@ In Login we would handle the adding to only the user session as:
 private void handeLogin(ClickEvent<Button> buttonClickEvent) {
     // Validation of credentials is skipped
 
-    RouteRegistry sessionRegistry = SessionRouteRegistry
-                    .getSessionRegistry(VaadinSession.getCurrent());
+    RouteConfiguration configuration = RouteConfiguration
+            .forSessionScope();
 
     if ("admin".equals(login.getValue())) {
-        sessionRegistry.setRoute("", Admin.class, Collections.emptyList());
-    } else if("user".equals(login.getValue())) {
-        sessionRegistry.setRoute("", User.class, Collections.emptyList());
+        configuration.setRoute("", Admin.class, MainLayout.class);
+    } else if ("user".equals(login.getValue())) {
+        configuration.setRoute("", User.class, MainLayout.class);
     }
+
+    configuration.setAnnotatedRoute(Info.class);
 
     UI.getCurrent().getPage().reload();
 }
 ----
 
 Here we add to the session scoped route registry a new target for the path "" which will
-mask the application scoped path "".
+mask the application scoped path "". Also the Info class is added here using
+the layout setup configured using `@Route` making it be registered to the path "info" with
+the same `MainLayout` as the parent layout.
 
 [NOTE]
 This still means that other users on other sessions get
-Login for the "" path.
+Login for the "" path and can not use "info".
