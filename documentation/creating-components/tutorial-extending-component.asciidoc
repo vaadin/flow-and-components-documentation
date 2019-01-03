@@ -1,0 +1,296 @@
+---
+title: Extending Components
+order: 5
+layout: page
+---
+
+= Extending Components
+
+Extending a component is an easy way of creating a new component.
+
+Vaadin flow applications are formed of many web components.
+In most of the cases, those components have a client-side component and a server-side component.
+
+The client-side component contains the HTML, CSS, and JavaScript.
+This client component defines a set of properties that define the behaviour of the component.
+
+The server-side component allows modifying those properties to manage the component's behaviour from Java (server side).
+
+== Server Side Extension
+
+Extending a component in flow is useful if it is planned to add a new functionality that does not add any visual aspects to the existing component.
+
+Examples of those new functionalities are automatically processing data, adding default validators, combining multiple simpler components to a field that manages complex data, etc.
+
+[WARNING]
+If you plan on adding many new features or changing any visual aspects in the component, it is better to extend the component to the client side.
+Using the Flow Element API excessively creates an extra load in the application.
+
+= Example
+
+The following example is a `NumericField` that extends from `TextField`.
+
+image:images/vaadin-number-field-server-side-extension.png[vaadin-number-field]
+
+.NumberField.java
+[source,java]
+----
+public class NumericField extends TextField {
+
+    private Button substractBtn;
+    private Button addBtn;
+
+    private static final int DEFAULT_VALUE = 0;
+    private static final int DEFAULT_INCREMENT = 1;
+
+    private int numericValue;
+    private int incrementValue;
+    private int decrementValue;
+
+    public NumericField() {
+        this(DEFAULT_VALUE, DEFAULT_INCREMENT, -DEFAULT_INCREMENT);
+    }
+
+    public NumericField(int value, int incrementValue, int decrementValue) {
+        setNumericValue(value);
+        this.incrementValue = incrementValue;
+        this.decrementValue = decrementValue;
+
+        setPattern("-?[0-9]*");
+        setPreventInvalidInput(true);
+
+        addChangeListener(event -> {
+            String text = event.getSource().getValue();
+            if (StringUtils.isNumeric(text)) {
+                setNumericValue(Integer.parseInt(text));
+            } else {
+                setNumericValue(DEFAULT_VALUE);
+            }
+        });
+
+        substractBtn = new Button("-", event -> {
+            setNumericValue(numericValue + decrementValue);
+        });
+
+        addBtn = new Button("+", event -> {
+            setNumericValue(numericValue + incrementValue);
+        });
+
+        styleBtns();
+
+        addToPrefix(substractBtn);
+        addToSuffix(addBtn);
+    }
+
+    private void styleBtns() {
+        // Note: The same as addThemeVariants
+        substractBtn.getElement().setAttribute("theme", "icon");
+        addBtn.getElement().setAttribute("theme", "icon");
+    }
+
+    public void setNumericValue(int value) {
+        numericValue = value;
+        setValue(value + "");
+    }
+
+    // getters and setters
+}
+----
+
+[NOTE]
+It is possible to hide the parent's API on the server side by extending the `Composite` class.
+The composite class has a minimal API. If `Composite` is not used, your component would expose all its methods, even those you might not want for a custom component.
+
+[NOTE]
+`Element` API contains methods for updating and querying various parts of the element, such as attributes.
+Every component has a `getElement()` function that allows to access it.
+Learn more about the <<tutorial-component-many-elements#,`Element` API>>.
+
+In addition to this, it is necessary to create a theme module to customize the appearance of the `vaadin-text-field` component.
+For further information, please refer to <<../theme/theming-overview#,theming documentation>>.
+
+.vaadin-numeric-field-theme.html
+[source,html]
+----
+<dom-module id="vaadin-numeric-field-theme" theme-for="vaadin-text-field">
+    <template>
+        <style>
+            :host(vaadin-text-field) [part="input-field"] {
+                background-color: #FFFFFF;
+                border: solid 1px #E0E5E8;
+                box-sizing: border-box;
+            }
+
+            :host(vaadin-text-field) [part="value"]{
+                --_lumo-text-field-overflow-mask-image: none;
+                text-align:center;
+            }
+
+            :host(vaadin-text-field) [part="input-field"] ::slotted(vaadin-button) {
+                background-color: transparent !important;
+            }
+        </style>
+    </template>
+</dom-module>
+----
+
+[NOTE]
+Remember to import the theme-module in the view in which the component is used: `@HtmlImport("frontend://styles/vaadin-numeric-field-theme.html")`.
+
+== Client Side Extension
+
+Vaadin components are based on Polymer, that also provides the possibility of extending components from existing ones.
+There is a `extends` property that can be used to extend an existing element on Polymer.
+
+Inherit a template from another Polymer element can be done in several ways:
+
+* Inheriting a base class template without modifying it.
+* Overriding a base class template in a child class.
+* Modifying a copy of a superclass template.
+* Extending a base class template in a child class.
+* Providing template extension points in a base class for content from a child class.
+
+This document focuses mainly on the 3rd option: *Modifying a copy of a superclass template*.
+
+It is important to remember when a component is extended its properties and its methods are available on its children.
+
+[NOTE]
+By default, a child component uses its parent's template, if the child component does not provide its own template.
+
+The parent's template can be accessed using `super.template`.
+
+== Example
+
+The following example is a `NumberFieldElement` that extends from `Vaadin.TextFieldElement`.
+
+image:images/vaadin-number-field-client-side-extension.png[vaadin-number-field]
+
+In this example, there are mainly 3 steps:
+
+. Child template definition.
+. Parent element extension e.g `class NumberFieldElement extends Vaadin.TextFieldElement`.
+. Overriding the `static get template` with the final component DOM.
+
+The first step is to define the child's DOM template.
+
+[NOTE]
+This template will be accessed inside the `static get template` method.
+
+.vaadin-number-field.html
+[source,html]
+----
+<template>
+    <style>
+
+      /* ... */
+
+      [part="decrease-button"]::before {
+        content: "−";
+      }
+
+      [part="increase-button"]::before {
+        content: "+";
+      }
+
+      /* ... */
+
+    </style>
+
+    <div part="decrease-button"
+         on-click="_decreaseValue">
+    </div>
+
+    <div part="increase-button"
+         on-click="_increaseValue">
+    </div>
+</template>
+----
+
+After that, it is necessary to specify elements that the child component is going to inherit from.
+In this case, `NumberFieldElement` inherits from `Vaadin.TextFieldElement`, inheriting its properties and methods.
+
+.vaadin-number-field.html
+[source,html]
+----
+class NumberFieldElement extends Vaadin.TextFieldElement {
+    static get is() {
+        return 'vaadin-number-field';
+    }
+
+    static get properties() {
+        return {
+            decrementValue: {
+              type: Number,
+              value: -1,
+              reflectToAttribue: true,
+              observer: '_decrementChanged'
+            },
+            incrementValue: {
+              type: Number,
+              value: 1,
+              reflectToAttribue: true,
+              observer: '_incrementChanged'
+            }
+
+            // Note: the value is stored in the TF's value property.
+        };
+
+    }
+
+    /* ... */
+}
+----
+
+The superclass template can be overridden by defining a template getter that returns a modified template element.
+
+.vaadin-number-field.html
+[source,html]
+----
+static get template() {
+    if (!memoizedTemplate) {
+        // Clone the superclass template
+        memoizedTemplate = super.template.cloneNode(true);
+
+        // Retrieve this element's dom-module template
+        const thisTemplate = Polymer.DomModule.import(this.is + '-template', 'template');
+        const decreaseButton = thisTemplate.content.querySelector('[part="decrease-button"]');
+        const increaseButton = thisTemplate.content.querySelector('[part="increase-button"]');
+        const styles = thisTemplate.content.querySelector('style');
+
+        // Add the buttons and styles to the text-field template
+        const inputField = memoizedTemplate.content.querySelector('[part="input-field"]');
+        const prefixSlot = memoizedTemplate.content.querySelector('[name="prefix"]');
+        inputField.insertBefore(decreaseButton, prefixSlot);
+        inputField.appendChild(increaseButton);
+        memoizedTemplate.content.appendChild(styles);
+
+        return memoizedTemplate;
+    }
+}
+
+_decreaseValue() {
+    this.__add(this.decrementValue);
+}
+
+_increaseValue() {
+    this.__add(this.incrementValue);
+}
+
+__add(value) {
+    this.value = parseInt(this.value, 10) + value;
+    this.dispatchEvent(new CustomEvent('change', {bubbles: true}));
+}
+
+_valueChanged(newVal, oldVal) {
+    this.value = this.focusElement.value;
+    super._valueChanged(this.value, oldVal);
+}
+----
+
+[WARNING]
+Cloning can be done to avoid modifying the superclass template.
+In addition to this, the modified template should be memoized to avoid creating it again when the getter is called.
+It can be done in the following way: `memoizedTemplate = super.template.cloneNode(true);`
+
+[NOTE]
+For more information about inheritance in Polymer, please consult the https://polymer-library.polymer-project.org/2.0/docs/devguide/dom-template#inherit[Polymer documentation].
