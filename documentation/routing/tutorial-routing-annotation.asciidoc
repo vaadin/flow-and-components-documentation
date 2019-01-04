@@ -42,8 +42,3 @@ public class SomePathComponent extends Div {
 
 [NOTE]
 If you omit the `@Route` annotation parameter, the route target is derived from the class name. For example, MyEditor becomes "myeditor", PersonView becomes "person" and MainView becomes "".
-
-// I think this NOTE needs further explanation. It is not obvious to me why and how the route target is derived.
-
-
-// I think this section needs additional background and introductory content. I think we should include a new page "About Routing and Navigation" that describes in general terms (high-level) what routing is and how it is used for navigation. Section 11.8 of the Vaadin 8 book contains a nice summary, but it is out of date. The content at https://vaadin.github.io/vaadin-router/vaadin-router/demo/#vaadin-router-getting-started-demos is  good, but I'm not too sure how it relates or how to include it. 
