@@ -1,6 +1,6 @@
 ---
 title: Updating Page Title on Navigation
-order: 8
+order: 9
 layout: page
 ---
 
