@@ -4,13 +4,15 @@ order: 5
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
+= URL Generation
 
-= URL generation
+`Router` exposes methods to get the navigation URL for registered navigation targets.
 
-Router exposes methods to get the navigation URL for registered navigation targets.
+== Standard Navigation Targets
 
-For a normal navigation target the request is a simple as calling for `Router.getUrl(Class target)`
+For standard navigation targets, the request is a simple call for `Router.getUrl(Class target)`
+
+*Example*: Returned URL is resolved to `path`
 
 [source,java]
 ----
@@ -31,13 +33,14 @@ public class Menu extends Div {
 }
 ----
 
-The returned url would in this case simply be resolved to *path*, but in the case where we have parent
-layouts that add path parts it might not be as simple to generate the path by hand.
+If parent layouts add path parts, it is not always simple to generate the path by hand.
 
-== URL generation for navigation target with parameter
 
-For navigation targets with required parameters the parameter is given to resolver
-and the returning string will then contain the parameter e.g. `Router.getUrl(Class target, T parameter)`
+== Navigation Target with Parameters
+
+For navigation targets with required parameters, the parameter is given to the resolver and the returning string contains the parameter.
+
+*Example*: Returning string contains `Router.getUrl(Class target, T parameter)`.
 
 [source,java]
 ----
