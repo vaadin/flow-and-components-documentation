@@ -187,8 +187,8 @@ public class DataProviders {
         ComboBox<Department> departmentComboBox = new ComboBox<>();
 
         EmployeeServiceImpl service = new EmployeeServiceImpl();
-        ConfigurableFilterDataProvider<Employee, String, Department
-                > employeeDataProvider = getDataProvider(service);
+        ConfigurableFilterDataProvider<Employee, String, Department> employeeDataProvider = 
+                getDataProvider(service);
         ComboBox<Employee> employeeComboBox = new ComboBox<>();
         employeeComboBox.setDataProvider(employeeDataProvider);
         departmentComboBox.addValueChangeListener(event -> {
@@ -227,7 +227,8 @@ public class DataProviders {
 
     ConfigurableFilterDataProvider<Employee, String, Department>
     getDataProvider(EmployeeService service) {
-        DataProvider<Employee, EmployeeFilter> dataProvider = DataProvider.fromFilteringCallbacks(query -> {
+        DataProvider<Employee, EmployeeFilter> dataProvider = 
+        DataProvider.fromFilteringCallbacks(query -> {
             // getFilter returns Optional<String>
             EmployeeFilter filter = query.getFilter().orElse(null);
             return service.fetch(query.getOffset(), query.getLimit(), filter).stream();
@@ -236,9 +237,11 @@ public class DataProviders {
             return service.getCount(filter);
         });
 
-        ConfigurableFilterDataProvider<Employee, String, Department> configurableFilterDataProvider = dataProvider
+        ConfigurableFilterDataProvider<Employee, String, Department> 
+        configurableFilterDataProvider = dataProvider
                 .withConfigurableFilter(
-                        (String filterText, Department department) -> new EmployeeFilter(filterText, department));
+                        (String filterText, Department department) -> 
+                                new EmployeeFilter(filterText, department));
 
         return configurableFilterDataProvider;
 
@@ -333,8 +336,10 @@ public class DataProviders {
     }
 
     DataProvider<Person, String> getDataProvider(PersonService service) {
-        DataProvider<Person, Predicate<Person>> predicateDataProvider = DataProvider.fromFilteringCallbacks(
-                query -> service.fetch(query.getOffset(), query.getLimit(), query.getFilter()).stream(),
+        DataProvider<Person, Predicate<Person>> predicateDataProvider = 
+        DataProvider.fromFilteringCallbacks(
+                query -> service.fetch(query.getOffset(), query.getLimit(), 
+                        query.getFilter()).stream(),
                 query -> service.getCount(query.getFilter()));
 
         DataProvider<Person, String> dataProvider = predicateDataProvider
