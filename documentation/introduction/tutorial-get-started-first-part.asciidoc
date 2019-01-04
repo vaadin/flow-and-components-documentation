@@ -95,7 +95,6 @@ Note:
 * `/Java Resources/src/main/java` contains the Vaadin UI code.
 
 ** `../MainView.java` defines the application layout. 
-// is this correct?? original - is the application stub  -/ what is a stub? 
 
 +
 [source,java]
