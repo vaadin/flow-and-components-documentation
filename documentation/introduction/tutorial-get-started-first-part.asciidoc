@@ -43,7 +43,7 @@ https://github.com/vaadin/flow-and-components-documentation/tree/master/tutorial
 
 === Installing the Project Base
 
-The tutorial uses the *Project Base* starter pack for Vaadin 12. 
+The tutorial uses the *Project Base* starter pack for Vaadin. 
 
 A starter pack is a project stub that has all the dependencies set up, and may also include sample code. 
 
@@ -51,7 +51,7 @@ To download the starter pack:
 
 . Open https://vaadin.com/start[Start a new project] in your browser. 
 
-. Go to *Latest Release Vaadin 12* > *For Java Developers* and select *Project Base*.
+. Go to *Latest Release Vaadin <_XX_>* > *For Java Developers* and select *Project Base*.
 
 . In *Get Started* enter:
 ** *Group ID*: `com.vaadin.starter.skeleton`
@@ -84,7 +84,6 @@ To build the project in Eclipse:
 *Maven Install* initiates a full build of your application and creates a https://en.wikipedia.org/wiki/WAR_(file_format)[WAR] file in the `/target` directory of your project folder. You can deploy the WAR file to your application server when you go to production. During development, we use Jetty that is provided through Maven, and there is no need to install an application server. 
 
  
-
 === Viewing the Starter Files
 
 You can view your project resources in the *Project Explorer* tree. 
