@@ -61,6 +61,9 @@ The simplest way to get a production ready setup is to get a project base from h
 
 With this the server can be started with `mvn jetty:run-exploded -Pproduction-mode`.
 
+[NOTE]
+If your environment(OS) is 64bit make sure to use JDK 64bit as well. There is a known issue when JDK 32bit is used on a 64bit environment.
+
 == What is transpilation and bundling
 
 Transpilation in Flow means converting all ES6 JavaScript to ES5 JavaScript format for older browsers which for us is IE 11 and Safari 9.
