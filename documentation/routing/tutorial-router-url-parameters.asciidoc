@@ -4,19 +4,21 @@ order: 4
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
-
 = Routing and URL Parameters
 
 == URL Parameters for Navigation Targets
 
-A navigation target that supports parameters passed through the URL should implement the `HasUrlParameter` interface and define the parameter type using generics.
-In this way, the Router API can offer a type-safe way of constructing URLs that lead to a specific target.
+A navigation target that supports parameters passed through the URL should:
 
-`HasUrlParameter` defines the setParameter method that is invoked by Router based on values extracted from the URL.
-The method will always be invoked before a navigation target is activated.
+* Implement the `HasUrlParameter` interface, and 
+* Define the parameter type using generics.
 
-In the following code snippet we define a navigation target that takes a string parameter and produces a greeting string from it, which the target then sets as its own text content on navigation.
+
+`HasUrlParameter` defines the `setParameter` method that is called by the `Router`, based on values extracted from the URL.
+This method will always be invoked before a navigation target is activated.
+
+*Example*: Defining a navigation target that takes a string parameter and produces a greeting string from it, which the target then sets as its own text content on navigation:
+
 
 [source,java]
 ----
@@ -31,11 +33,17 @@ public class GreetingComponent extends Div
 }
 ----
 
-On startup this navigation target will automatically be configured to every path of the form *greet/<anything>*, except in the case where a separate navigation target with an exact `@Route` has been configured to match *greet/<some specific path>* the exact navigation target takes precedence when resolving the URL.
+* On startup, the navigation target is automatically configured for every `greet/<anything>` path, except where a separate navigation target with the exact `@Route` is configured to match `greet/<some specific path>`. 
 
-== Optional URL parameters for Navigation Targets
+[NOTE]
+An exact navigation target always takes precedence when resolving the URL.
 
-URL parameters can be annotated using `@OptionalParameter` to have the route match both *greet* and *greet/<anything>*.
+
+== Optional URL parameters
+
+URL parameters can be annotated as optional using `@OptionalParameter`.
+
+*Example*: Defining the route to match both `greet` and `greet/<anything>`:
 
 [source,java]
 ----
@@ -56,12 +64,15 @@ public class OptionalGreeting extends Div
 ----
 
 [NOTE]
-Also with an optional parameter a specific route will have precedence over the parameterised one.
+A more specific route always takes precedence over a parameterised route.
 
-== Wildcard URL parameters for Navigation Targets
 
-In cases where more parameters are wanted the URL parameter can also be annotated with `@WildcardParameter`
-to have the route match *greet* and anything after for instance *greet/one/five/three*
+
+== Wildcard URL parameters 
+
+Where more parameters are needed, the URL parameter can also be annotated with `@WildcardParameter`.
+
+*Example*: Defining the route to match `greet` and anything after it, for instance `greet/one/five/three`:
 
 [source,java]
 ----
@@ -82,20 +93,21 @@ public class WildcardGreeting extends Div
 ----
 
 [NOTE]
-The parameter for Wildcard parameter will never be `null`.
+The wildcard parameter will never be `null`.
 
 [NOTE]
-More specific paths will have precedence over the wildcard target.
+More specific routes always take precedence over wildcard routes.
 
 == Query parameters
 
-It is also possible to get the query parameters that are contained in a URL, e.g. `?name1=value1&name2=value2`.
+It is possible to get any query parameters contained in a URL, for example `?name1=value1&name2=value2`.
 
-Those query parameters can be accessed through the method `getQueryParameters()` of the `Location` class.
-The Location class can be obtained through the `BeforeEvent` parameter of the `setParameter` method.
+Use the `getQueryParameters()` method of the `Location` class to access query parameters.
+You can obtain the `Location` class through the `BeforeEvent` parameter of the `setParameter` method.
 
+ 
 [NOTE]
-A `Location` object represents a relative URL made up of path segments and query parameters but lacking the hostname, e.g. `new Location("foo/bar/baz?name1=value1")`.
+A `Location` object represents a relative URL made up of path segments and query parameters, but without the hostname, e.g. `new Location("foo/bar/baz?name1=value1")`.
 
 [source,java]
 ----
@@ -111,5 +123,4 @@ public void setParameter(BeforeEvent event,
 ----
 
 [NOTE]
-`getQueryParameters()` supports multiple values associated with the same key.
-Example: `https://example.com/?one=1&two=2&one=3` will result in the corresponding map `{"one" : [1, 3], "two": [2]}}`.
+`getQueryParameters()` supports multiple values associated with the same key, for example `https://example.com/?one=1&two=2&one=3` will result in the corresponding map `{"one" : [1, 3], "two": [2]}}`.
