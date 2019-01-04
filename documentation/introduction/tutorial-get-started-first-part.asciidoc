@@ -145,6 +145,6 @@ image:images/Jetty-Run.png[Generating a Maven launch for `jetty:run` target]
 If you make changes to the code, Jetty  picks up the changes and deploys most of them automatically within a few seconds. You can also reload the page to reflect the changes.
 
 [TIP]
-If your JVM does not permit injecting changes on the fly, Eclipse will show an error similar to `Hot Code Replace Failed`. Restart the server to display the latest changes. Many Java developers use the http://zeroturnaround.com/software/jrebel/[JRebel] commercial tool to ensure that code replacement work smoothly.
+If your JVM does not permit injecting changes on the fly, Eclipse will show an error similar to `Hot Code Replace Failed`. Restart the server to display the latest changes. Many Java developers use http://zeroturnaround.com/software/jrebel/[JRebel] (commercial JVM agent) to ensure that hot code replacement work smoothly.
 
 *NEXT*: *<<tutorial-get-started-second-part#,Part 2 - Listing Entities in a Grid>>* 
