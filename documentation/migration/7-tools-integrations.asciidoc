@@ -27,13 +27,6 @@ The concept is mostly the same, but some features like the `@ViewScope` have bee
 Also there are currently no specific Spring Security support, but it can still be integrated manually.
 The Bakery App Starter for Flow and Spring shows and example of this.
 
-== No CDI Support
-
-Vaadin 8 has a CDI Add-on enabling JEE features. This is currently missing from Vaadin 10.
-
-We have plans for adding it, but no timeline for this at the moment. To ensure it gets a priority over several other new features and enhancements,
-you should voice your concern in our https://vaadin.com/forum[Forum] or https://github.com/vaadin/flow[GitHub].
-
 == Vaadin Designer
 
 In Vaadin 8, Designer was used to edit declarative files with a `.html` suffix. Despite the file format suffix, the declarative format was a generic XML syntax that mapped directly into a tree of Vaadin components on the server side. The XML was read by Vaadin at runtime on the server, and was never sent to the client. It's important to note that the syntax only allowed component declarations.
