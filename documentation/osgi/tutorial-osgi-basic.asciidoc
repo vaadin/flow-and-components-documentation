@@ -150,6 +150,12 @@ public class VaadinServletRegistration {
 `FixedVaadinServlet` class is used here as a workaround for the 
 https://github.com/vaadin/flow/issues/4367[Classloader bug]. Once it's fixed there will be no need in it.
 
+[NOTE]
+When you have more than one bundle created by Vaadin, note that only one of them
+should have ‍‍‍`VaadinServlet` registration. It's also a good practice to have a
+core bundle where you have this `FixedVaadinServlet` and make sure that this
+bundle is active all the time by making all other bundles dependent on it.
+
 [[osgi.resources]]
 == Publishing Static Resources With OSGi
 
