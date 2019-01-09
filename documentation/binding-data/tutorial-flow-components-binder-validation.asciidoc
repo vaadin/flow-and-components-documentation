@@ -4,21 +4,29 @@ order: 2
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
+= Validating and Converting User Input
 
-== Validating and Converting User Input
+`Binder` supports:
 
-`Binder` supports checking the validity of the user’s input and converting the values between the type used in business objects and the bound UI components.
-These two concepts go hand in hand since validation can be based on a converted value, and being able to convert a value is a kind of validation.
+* Validating user input, and 
+* Converting value types from types used in business objects to types used in bound UI components, and _vice versa_.
 
-=== Validation
+These concepts go hand in hand, because validation can be based on a converted value, and the ability to convert a value is a kind of validation in itself.
 
-An application typically has some restrictions on exactly what kinds of values the user is allowed to enter into different fields.
-`Binder` lets us define validators for each field that we are binding.
-The validator is by default run whenever the user changes the value of a field, and the validation status is also checked again when writing bean.
+== Validating User Input
 
-Validators for a field are defined between the `forField` and `bind` steps when a binding is created.
-A validator can be defined using a `Validator` instance or inline using a lambda expression.
+It is typical for applications to restrict the kind of value the user is allowed to enter into certain fields.  
+
+=== Defining Validators
+
+`Binder` allows you to define validators for each bound field. 
+
+* By default, validators run whenever the user changes the field value. 
+* The validation status is also checked when writing to the bean.
+
+You should define the field validator between the `forField` and `bind` code lines when creating the binding.
+
+*Example*: Defining a validator using a `Validator` instance or an inline Lambda expression.
 
 [source, java]
 ----
@@ -42,18 +50,18 @@ binder.forField(titleField)
   .bind(Person::getTitle, Person::setTitle);
 ----
 
-[NOTE]
-`Binder.forField` works like a builder where the `forField` call starts the process, is followed by various configuration calls for the field and `bind` acts as the finalizing method which applies the configuration.
+* `Binder.forField` works like a builder: the `forField` call starts the process, it is followed by various configuration calls for the field, and `bind` is the final method of the configuration.
 
-`asRequired` is used when the field is mandatory and the user must provide a value for the field. So, if the user leaves the specified field’s value empty, an error message is shown.
-It also enables visual "required" indicator. See https://vaadin.com/api/platform/com/vaadin/flow/component/HasValue.html#setRequiredIndicatorVisible-boolean-[HasValue.setRequiredIndicatorVisible(boolean)].
+* `asRequired` is used for mandatory fields:
+** A visual "required" indicator displays. 
 
-The validation state of each field is updated whenever the user modifies the value of that field.
+** If the user leaves the field  empty, an error message displays.
 
-The way a binder displays error messages can be customized by configuring each binding to use its own `Label` that is used to show the status for each field.
+=== Customizing Validation Messages
 
-[NOTE]
-The status label can be used for validation errors but also for showing confirmation and helper messages.
+You can customize the way error messages display, by configuring the `Label` for each binding. The label is used to show the status of the field. The label can be used for validation errors, as well as, confirmation and helper messages.
+
+*Example*: Configuring `Label` for email and minimum length validation. 
 
 [source, java]
 ----
@@ -82,13 +90,15 @@ binder.forField(nameField)
   .bind(Person::getName, Person::setName);
 ----
 
-The `withStatusLabel(Label label)` method sets the given label to show an error message if the validation fails.
-Instead of using labels you can set a custom validation status handler by the `withValidationStatusHandler` method.
-It allows customizing the way a binder displays error messages to get more flexibility than what
-`AbstractComponent.setComponentError(com.vaadin.server.ErrorMessage)` provides (it replaces the default behavior).
+* The `withStatusLabel(Label label)` method sets the given label to show an error message if the validation fails.
 
-It is possible to add multiple validators for the same binding.
-The following example will first validate that the entered text looks like an email address, and only for seemingly valid email addresses it will continue checking that the email address is for the expected domain.
+As an alternative to using labels, you can set a custom validation status handler, using the `withValidationStatusHandler` method. This allows you to customize how the binder displays error messages and is more flexible than `AbstractComponent.setComponentError(com.vaadin.server.ErrorMessage)`.
+
+=== Adding Multiple Validators
+
+You can add multiple validators for the same binding.
+
+*Example*: Defining two validators: first, for the email input, and second, for the expected domain.  
 
 [source, java]
 ----
@@ -101,8 +111,11 @@ binder.forField(emailField)
   .bind(Person::getEmail, Person::setEmail);
 ----
 
-In some cases, the validation of one field depends on the value of some other field.
-We can save the binding to a local variable and trigger a revalidation when another field fires a value change event.
+=== Triggering Revalidation
+
+The validation of one field can depend on the value of another field. You can achieve this by saving the binding to a local variable and triggering revalidation when the other field fires a value-change event.
+
+*Example*: Storing a binding for later revalidation. 
 
 [source, java]
 ----
@@ -124,12 +137,19 @@ Binder.Binding<Trip, LocalDate> returningBinding = binder
 departing.addValueChangeListener(event -> returningBinding.validate());
 ----
 
-=== Conversion
+== Converting User Input
 
-You can also bind application data to a UI field component even though the types do not match.
-In some cases, there might be types specific for the application, such as the custom type that encapsulates a postal code that the user enters through a `TextField`.
-Another typical case is for entering integer numbers using a `TextField` or selecting enumeration values (`Checkbox` is used as an example).
-Similarly to validators, we can define a converter using a `Converter` instance or inline using lambda expressions. We can also optionally specify an error message.
+You can bind application data to a UI field component, even if the types do not match. 
+
+Examples where this is useful include an application-specific type for a postal code that the user enters in a `TextField`, or requesting the user enter only integers in a `TextField`, or selecting enumeration values in a `Checkbox` field.
+
+=== Defining Converters
+
+Like validators, each binding can have one or more converters, with an optional error message.  
+
+You can define converters using callbacks, typically Lambda expressions or method references, or by implementing the `Converter` interface.
+
+*Examples*: Defining converters. 
 
 [source, java]
 ----
@@ -149,13 +169,24 @@ binder.forField(marriedField)
         .bind(Person::getMaritalStatus, Person::setMaritalStatus);
 ----
 
-Multiple validators and converters can be used for building one binding.
-Each validator or converter is used in the order they were defined for a value provided by the user.
-The value is passed along until a final converted value is stored in the business object, or until the first validation error or impossible conversion is encountered.
-When updating the UI components, values from the business object are passed through each converter in the reverse order without doing any validation.
+=== Adding Multiple Converters
 
-[NOTE]
-A converter can be used as a validator but for code clarity and to avoid boilerplate code, you should use a validator when checking the contents and a converter when modifying the value.
+You can add multiple converters (and validators) for each binding.
+
+Each validator or converter is used in the order defined for a value to be input by the user. The value is passed along until:
+
+* A final converted value is stored in the business object, or 
+* The first validation error or impossible conversion is encountered.
+
+When updating UI components, values from the business object are passed through each converter in reverse order (without validation).
+
+//What does "Each validator or converter is used in the order defined for a value to be input by the user"? The field order or the definition order or something else?
+
+=== Distinguishing Validators and Converters 
+
+Although it is possible to use a converter as a validator, best practice is to use a validator to check the contents of a field, and a converter to modify the value. This improves code clarity and avoids excessive boilerplate code. 
+
+*Examples*: Using validators and converters
 
 [source, java]
 ----
@@ -172,11 +203,13 @@ binder.forField(yearOfBirthField)
   .bind(Person::getYearOfBirth, Person::setYearOfBirth);
 ----
 
-You can define your own conversion either by using callbacks, typically lambda expressions or method references, or by implementing the `Converter` interface.
+=== Conversion Error Messages
 
-When using callbacks, there is one for converting in each direction. If the callback used for converting the user-provided value throws an unchecked exception, then the field will be marked as invalid and the message of the exception will be used as the validation error message.
-Messages in Java runtime exceptions are typically written with developers in mind and might not be suitable to show to end users.
-We can provide a custom error message that is used whenever the conversion throws an unchecked exception.
+You can define a custom error message to be used if a conversion throws an unchecked exception. 
+
+When using callbacks, you should provide one converter in each direction. If the callback used for converting the user-provided value throws an unchecked exception, the field will be marked as invalid, and the exception message used as the validation error message. Java runtime exception messages are typically written for developers, and may not be suitable for end users. 
+
+*Example*: Defining a custom conversion error message. 
 
 [source, java]
 ----
@@ -189,10 +222,16 @@ binder.forField(yearOfBirthField)
   .bind(Person::getYearOfBirth, Person::setYearOfBirth);
 ----
 
-There are two separate methods to implement in the `Converter` interface.
-`convertToModel` receives a value that originates from the user. The method should return a `Result` that either contains a converted value or a conversion error message.
-`convertToPresentation` receives a value that originates from the business object.
-Since it is assumed that the business object only contains valid values, this method directly returns the converted value.
+=== Implementing the Converter Interface
+
+There are two methods to implement in the `Converter` interface:
+
+* `convertToModel` receives a value that originates from the user.
+** The method returns a `Result` that either contains a converted value or a conversion error message.
+* `convertToPresentation` receives a value that originates from the business object.
+** This method returns the converted value directly. It is assumed that the business object only contains valid values.
+
+*Example*: Using the `convertToModel` and `convertToPresentation` methods.
 
 [source, java]
 ----
@@ -223,4 +262,4 @@ binder.forField(yearOfBirthField)
   .bind(Person::getYearOfBirth, Person::setYearOfBirth);
 ----
 
-The provided `ValueContext` can be used for finding `Locale` to be used for the conversion.
+* The provided `ValueContext` can be used to find the `Locale` to be used for the conversion.
