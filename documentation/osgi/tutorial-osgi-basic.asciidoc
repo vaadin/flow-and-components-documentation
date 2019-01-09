@@ -151,10 +151,11 @@ public class VaadinServletRegistration {
 https://github.com/vaadin/flow/issues/4367[Classloader bug]. Once it's fixed there will be no need in it.
 
 [NOTE]
-When you have more than one bundle created by Vaadin, note that only one of them
-should have ‍‍‍`VaadinServlet` registration. It's also a good practice to have a
-core bundle where you have this `FixedVaadinServlet` and make sure that this
-bundle is active all the time by making all other bundles dependent on it.
+When you have more than one bundle created by Vaadin, note that you should not
+have multiple ‍‍‍`VaadinServlet` registrations with the same servlet pattern. So,
+you should either use a unique pattern for each bundle or create `VaadinServlet`
+in only one bundle that serves all. In case of the latter, keep in mind that the
+other bundles depend on the bundle including the servlet.
 
 [[osgi.resources]]
 == Publishing Static Resources With OSGi
