@@ -2,25 +2,19 @@
 title: Binding Beans to Forms
 order: 4
 layout: page
-subnav_auto_list_numbers: true
-subnav:
-  - title: Binding Beans to Forms
-    href: '#flow.tutorial.bindingbeanstoform'
-  - title: Automatic Data Binding
-    href: '#flow.tutorial.automaticdatabinding'
-    subnav:
-      - title: The bindInstanceFields method
-        href: '#flow.tutorial.automaticdatabinding.bindinstancefield'
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
-[[flow.tutorial.bindingbeanstoform]]
-== Binding Beans to Forms
+= Binding Beans to Forms
 
-The business objects used in an application are in most cases implemented as Java beans or POJOs.
-There is special support for that kind of business object in `Binder`.
-It can use reflection based on bean property names to bind values.
-This reduces the amount of code you have to write when binding to fields in the bean.
+Business objects are typically implemented as JavaBeans or POJOs in an application. `Binder` supports both implementations. 
+
+== Manual Data Binding
+
+=== Using Bean Property Names
+
+You can use reflection based on bean property names to bind values. This reduces the amount of code needed when binding to fields in the bean.
+
+*Examples*: Binding using reflection based on bean property names.
 
 [source, java]
 ----
@@ -38,10 +32,28 @@ binder.forField(yearOfBirthField)
 ----
 
 [NOTE]
-Code using strings to identify properties will cause exceptions during runtime if the string contains a typo or if the name of the setter and getter methods have been changed without also updating the string.
+Be cautious when using strings to identify properties. A typo in the string, or a subsequent changes to the setter and getter method names, will result in a runtime exception.
 
-If you want to use JSR 303 Bean Validation annotations such as Max, Min, Size, etc. then a `BeanValidationBinder` should be used.
-`BeanValidationBinder` extends the `Binder` class so it has the same API but its implementation automatically adds a bean validator which takes care of all JSR 303 constraints.
+=== Using JSR 303 Bean Validation
+
+You can use `BeanValidationBinder` if you prefer to use JSR 303 Bean Validation annotations such as `Max`, `Min`, `Size`, etc.
+
+`BeanValidationBinder` extends `Binder`, and therefore has the same API, but its implementation automatically adds a bean validator which takes care of all JSR 303 constraints.
+
+To use Bean Validation annotations, you need a JSR 303 implementation like Hibernate Validator available in your classpath. You can use the following dependency in Maven:
+
+[source, xml]
+----
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-validator</artifactId>
+    <version>5.4.1.Final</version>
+</dependency>
+----
+
+==== Defining Constraints for Specific Properties
+
+*Example*: Using JSR 303 Bean Validation annotations with `BeanValidationBinder`
 
 [source, java]
 ----
@@ -65,9 +77,9 @@ binder.forField(yearOfBirthField)
   .bind("yearOfBirth");
 ----
 
-Constraints defined for properties in the bean will work in the same way as if configured when the binding is created. E.g. the following two pieces of code have the same result:
+Constraints defined for properties in the bean, work in the same way as if configured when the binding is created. For example, the following code snippets have the same result:
 
-Example of Bean Validation annotation:
+*Example*: Bean Validation annotation.
 
 [source, java]
 ----
@@ -75,7 +87,7 @@ public class Person {
     @Max(value = 2000, message = "Year of Birth must be less than or equal to 2000")
     private int yearOfBirth;
 ----
-Example of Binder Validation:
+*Example*: Binder validation.
 
 [source, java]
 ----
@@ -86,24 +98,47 @@ binder.forField(yearOfBirthField)
   .bind(Person::getYearOfBirth, Person::setYearOfBirth);
 ----
 
-Note that to use Bean Validation annotations you should have a JSR 303 implementation like Hibernate Validator available in your classpath. E.g. if you use Maven, the following dependency can be used.
+==== Defining Constraints on the Bean Level
 
-[source, xml]
+// The original text was difficult to understand. I copied this code example from the Hibernate docs and referenced them as the source. The original text just linked to the example. We could leave it like this or amend the code. I'm very unsure about the explanation here.   
+
+As an alternative to defining constraint annotations for specific properties, you can define constraints on the bean level.
+
+*Example*: Defining bean-level constraint annotations. _Source: https://docs.jboss.org/hibernate/validator/5.4/reference/en-US/html_single/#validator-gettingstarted-createmodel[Hibernate Validator 5.4.2 - Applying constraints]_
+
+[source, java]
 ----
-<dependency>
-    <groupId>org.hibernate</groupId>
-    <artifactId>hibernate-validator</artifactId>
-    <version>5.4.1.Final</version>
-</dependency>
+package org.hibernate.validator.referenceguide.chapter01;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+public class Car {
+
+    @NotNull
+    private String manufacturer;
+
+    @NotNull
+    @Size(min = 2, max = 14)
+    private String licensePlate;
+
+    @Min(2)
+    private int seatCount;
+
+    public Car(String manufacturer, String licencePlate, int seatCount) {
+        this.manufacturer = manufacturer;
+        this.licensePlate = licencePlate;
+        this.seatCount = seatCount;
+    }
+
+    //getters and setters ...
+}
 ----
 
-Constraint annotations can also be defined on the bean level instead of being defined for any specific property.
+The previous example automatically enables the visual "required" indicator using `HasValue.setRequiredIndicatorVisible(true)`. By default `@NotNull`, `@NotEmpty` and `@Size` (if `min()` value is greater than 0) configures the field as required. You can change this behavior using the `BeanValidationBinder.setRequiredConfigurator` method.
 
-https://docs.jboss.org/hibernate/validator/5.4/reference/en-US/html_single/#validator-gettingstarted-createmodel[Constraint annotations listed here]
-may automatically enable visual "required" indicator using `HasValue.setRequiredIndicatorVisible(true)`.
-By default `@NotNull`, `@NotEmpty` and `@Size` (if `min()` value is greater than 0) configures the field as required.
-It’s possible to change this behavior using the `BeanValidationBinder.setRequiredConfigurator` method.
-For example, if we want to skip `@size` we can use the following piece of code:
+*Example*: Overriding the default `@Size` behavior. 
 
 [source, java]
 ----
@@ -111,12 +146,11 @@ binder.setRequiredConfigurator(RequiredFieldConfigurator.NOT_EMPTY.chain(Require
 ----
 
 [NOTE]
-When using unbuffered binding (with the `setBean` method), validation will be triggered automatically on all change events. If you use buffered binding (with the `readBean` and `writeBean` methods), validation is only triggered automatically
-while calling `writeBean`. You can trigger it manually at any time by calling `validate()` on the Binder, for instance in a ValueChange handler.
+When you use the `setBean` method (unbuffered binding), validation is triggered automatically on all change events. When you use the `readBean` and `writeBean` methods (unbuffered binding), validation is only triggered automatically when calling `writeBean`. You can trigger it manually at any time by calling `validate()` on the `Binder`, for example in a `ValueChange` handler.
 
-Validation errors caused by bean level validation might not be directly associated with any field component shown in the user interface, so `Binder` cannot know where such messages should be displayed.
-Similarly to how the `withStatusLabel` method can be used for defining where messages for a specific binding should be shown,
-we can also define a `Label` that is used for showing status messages that are not related to any specific field.
+Validation errors resulting from bean-level validation may not be directly associated with a field component in the UI. For this reason, `Binder` may not know where to display the messages. You can overcome this, by defining a `Label` for status messages that are not related to specific fields. This is similar to the `withStatusLabel` method that is used to define where messages for a specific binding should be displayed.
+
+*Example*: Defining a `formStatusLabel`.
 
 [source, java]
 ----
@@ -129,7 +163,9 @@ binder.setStatusLabel(formStatusLabel);
 // Continue by binding fields
 ----
 
-We can also define our own status handler to provide a custom way of handling statuses.
+You can also define a status handler for custom status handling.
+
+*Example*: Defining a custom status handler. 
 
 [source, java]
 ----
@@ -137,12 +173,12 @@ BinderValidationStatusHandler<Person> defaultHandler = binder
                 .getValidationStatusHandler();
 
 binder.setValidationStatusHandler(status -> {
-    // create an error message on failed bean level validations
+    // create an error message on failed bean-level validations
     List<ValidationResult> errors = status
             .getBeanValidationErrors();
 
-    // collect all bean level error messages into a single string,
-    // separating each message with a <br> tag
+    // collect all bean-level error messages into a single string,
+    // separate each message with a <br> tag
     String errorMessage = errors.stream()
             .map(ValidationResult::getErrorMessage)
             // sanitize the individual error strings to avoid code
@@ -152,7 +188,7 @@ binder.setValidationStatusHandler(status -> {
                     Whitelist.simpleText()))
             .collect(Collectors.joining("<br>"));
 
-    // finally, display all bean level validation errors in a single
+    // finally, display all bean-level validation errors in a single
     // label
     formStatusLabel.getElement().setProperty("innerHTML", errorMessage);
     setVisible(formStatusLabel, !errorMessage.isEmpty());
@@ -162,17 +198,13 @@ binder.setValidationStatusHandler(status -> {
 });
 ----
 
-[[flow.tutorial.automaticdatabinding]]
 == Automatic Data Binding
 
-In this tutorial, we will explain a way to automatically bind properties of a business object to form fields.
+The `bindInstanceFields` method facilitates automatic data binding. 
 
-[[flow.tutorial.automaticdatabinding.bindinstancefield]]
-=== The `bindInstanceFields` method
+UI fields are typically defined as members of a UI Java class. This allows you to access the fields easily using the different methods made available by the class. In this scenario, binding the fields is also simple, because when you pass the object to the UI class, the `bindInstanceFields` method matches the fields of the object to the properties of the related business object, based on their names.
 
-Usually, we define UI fields as members of a UI Java class in order to access them in different methods of the class. In such a case, binding
-those fields is really easy because the `bindInstanceFields` method can do this job for us. We simply need to pass an object of the UI Class to it and it matches fields
-of that object to the properties of the related business object based on their names.
+*Example*: Using the `bindInstanceFields` method to bind all fields in a UI class.
 
 [source, java]
 ----
@@ -188,10 +220,12 @@ public class MyForm extends VerticalLayout {
 }
 ----
 
-This binds the firstName TextField to the "firstName" property in the item,
-lastName TextField to the “lastName” property and the gender ComboBox to the “gender” property.
+* This binds the `firstName` text field to the "firstName" property in the item,
+`lastName` text field to the “lastName” property, and the `gender` combo box to the “gender” property.
 
-Without this method, we would have to bind all the fields separately like the following example:
+Without this method, it would be necessary to bind each field separately. 
+
+*Example*: Binding each field separately. 
 
 [source, java]
 ----
@@ -203,8 +237,13 @@ binder.forField(gender)
     .bind(Person::getGender, Person::setGender);
 ----
 
-`bindInstanceFields` processes all Java member fields whose type extends `HasValue` (such as TextField) and that can be mapped to a property name. In case the field name
- does not match the corresponding property name in business object, we can use an annotation named `@PropertyId` to specify the property name. For example, if the related property of gender field in Person class is “sex”, we need to use the `@PropertyId` like the following:
+=== Specifying Property Names
+
+The `bindInstanceFields` method processes all Java member fields with a type that extends `HasValue` (such as `TextField`) that can be mapped to a property name. 
+
+If the field name does not match the corresponding property name in the business object, you  can use the `@PropertyId` annotation to specify the property name. 
+
+*Example*: Using the `@PropertyId` annotation to specify the "sex" property for the `gender` field. 
 
 [source, java]
 ----
@@ -212,8 +251,13 @@ binder.forField(gender)
 private ComboBox<Gender> gender = new ComboBox<>("Gender");
 ----
 
-It's not always possible to automatically bind all the fields to their corresponding properties because the value type of the
-field may not match the property type and `bindInstanceFields` doesn’t automatically add a converter to the binding. E.g. consider an “age” field which is a TextField whose value type is String, while the type of the “age” property in Person class is Integer. In such case an IllegalStateException will be thrown when calling bindInstanceFields. To avoid this exception, the “age” field should be configured manually to specify its converter before calling the `bindInstanceFields` method:
+=== Converting Value Types
+
+The `bindInstanceFields` method does not automatically add a converter to the binding. For this reason, if the value type of the field does not match the property type, it may not be possible to automatically bind a field to its corresponding property. For example, an "age” `TextField` (with a String value type), and an “age” property in the `Person` class (with an Integer property type), will throw an `IllegalStateException` when calling `bindInstanceFields`. 
+
+You can prevent this exception by manually specifying a converter before calling the `bindInstanceFields` method.
+
+*Example*: Manually specifying `StringToIntegerConverter` before calling the `bindInstanceFields` method. 
 
 [source, java]
 ----
@@ -228,4 +272,6 @@ binder.bindInstanceFields(this);
 
 ----
 
-The `bindInstanceFields` does not support validations and if you want to add validation you need to use the `BeanValidationBinder` instead of the `bindInstanceFields`.
+=== Validating Fields
+
+The `bindInstanceFields` method does not support validation. If you want to add validation, use `BeanValidationBinder` instead of the `bindInstanceFields` method.
