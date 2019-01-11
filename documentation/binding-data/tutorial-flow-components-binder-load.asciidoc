@@ -78,7 +78,7 @@ if (saved) {
 +
 [source, java]
 ----
-binder.withValidator(p -> p.getYearOfMarriage() > p.getYearOfBirth(), "Marriage year must be later than birth year.");
+binder.withValidator(p -> p.getYearOfMarriage() > p.getYearOfBirth(), "Marriage  year must be bigger than birth year.");
 ----
 +
 ** The `withValidator(Validator)` method runs on the bound bean after update of the values of the bound fields. 
