@@ -36,14 +36,7 @@ When you use the Vaadin 10 platform dependency, you automatically get *ALL* avai
 Using the platform dependency guarantees that you'll get versions of Flow and the components that are compatible together.
 [source,xml]
 ----
-<repositories>
-    <repository>
-        <id>vaadin-prereleases</id>
-        <url>https://maven.vaadin.com/vaadin-prereleases</url>
-    </repository>
-</repositories>
-
-<dependencies>
+    <dependencies>
     <!-- other dependencies -->
     <!-- component dependency -->
     <dependency>
@@ -91,10 +84,6 @@ web components' files:
 * if no suitable webjar is found, request resolving falls back to configured
 external web components' locations
 
-[NOTE]
-Due to current webjar https://github.com/webjars/webjars/issues[limitations],
-extra maven configuration (extra repository + bom file declaration) is required.
-
 == Maven configuration to use only single components
 
 If you don't want to take everything provided by the `com.vaadin:vaadin` dependency,
@@ -102,18 +91,14 @@ you can also optionally declare single components as dependencies.
 
 The first step is to add the `bom` and the wanted `flow-component` (e.g. `vaadin-button-flow`)
 package to your project dependencies.
+https://www.webjars.org/ generates the Maven artifacts with pom.xml that specifies version ranges for jar's dependencies
+instead of some particular version.
 
-When using Maven you can add a the button component into your `pom.xml` as this:
+This means that build results may differ from time to time because of the new libraries' versions released.
+Vaadin provides a bom that fixes all vaadin-related dependencies, so that the separate components can be added the following way:
 
 [source,xml]
 ----
-<repositories>
-    <repository>
-        <id>vaadin-prereleases</id>
-        <url>https://maven.vaadin.com/vaadin-prereleases</url>
-    </repository>
-</repositories>
-
 <dependencyManagement>
     <dependencies>
         <dependency>
@@ -134,8 +119,6 @@ When using Maven you can add a the button component into your `pom.xml` as this:
         <groupId>com.vaadin</groupId>
         <artifactId>vaadin-button-flow</artifactId>
     </dependency>
-
-    <!-- other dependencies -->
 </dependencies>
 ----
 
