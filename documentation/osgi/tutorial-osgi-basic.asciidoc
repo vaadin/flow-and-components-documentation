@@ -154,8 +154,8 @@ https://github.com/vaadin/flow/issues/4367[Classloader bug]. Once it's fixed the
 When you have more than one bundle created by Vaadin, note that you should not
 have multiple ‍‍‍`VaadinServlet` registrations with the same servlet pattern. So,
 you should either use a unique pattern for each bundle or create `VaadinServlet`
-in only one bundle that serves all. In the latter case, keep in mind that the
-other bundles depend on the bundle including the servlet.
+in only one bundle. In the latter case, keep in mind that for the other bundles
+to work, it is required that the bundle containing the servlet is active.
 
 [[osgi.resources]]
 == Publishing Static Resources With OSGi
