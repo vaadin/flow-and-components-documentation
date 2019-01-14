@@ -11,9 +11,9 @@ Flow is the part of the Vaadin platform that connects the Java ecosystem with th
 == Architecture
 
 Working with low-level web technologies is time-consuming and hard.
-In Vaadin 10, all user interface elements are componentized into Web Components,
+In Vaadin platform, all user interface elements are componentized into Web Components,
 meaning that they are de-coupled and sandboxed, making web development easier than ever before.
-As part of Vaadin 10, Flow provides a type-safe Java server-side API to use these Web Components.
+As part of Vaadin platform, Flow provides a type-safe Java server-side API to use these Web Components.
 Flow provides automated bi-directional communication between the server and the browser giving Java developers full access to all of the modern web
 and makes it easier to connect the UI to data via a robust Java backend than using traditional REST-based communication.
 
@@ -197,4 +197,3 @@ the same template definition is reused for all component instances using the sam
 == NEXT: Getting Started with Vaadin Flow
 
 <<tutorial-get-started-first-part#,The next chapter>> shows how to build your first application with Vaadin Flow.
-

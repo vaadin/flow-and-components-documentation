@@ -1,24 +1,24 @@
 ---
-title: Components in Vaadin 10
+title: Components in Vaadin platform
 order: 5
 layout: page
 ---
 
-= Components in Vaadin 10
+= Components in Vaadin platform
 
 [#components]
 == Component Set
 
 While all the components have been rebuilt based on Web Components, there are some components that don’t yet have a replacement with server side Java API. The ones that have, might have gone through some changes. Some older features might have been removed.
 
-The following table lists the existing Vaadin 8 components and their direct replacements in V10. Note that the replacement component might not have 1-1 feature parity. If no replacement is yet available, current plans or options for replacement is mentioned.
+The following table lists the existing Vaadin 8 components and their direct replacements in the Vaadin platform. Note that the replacement component might not have 1-1 feature parity. If no replacement is yet available, current plans or options for replacement is mentioned.
 
 .Comparison Matrix
 [width="80%",cols=">4,4,10",options="header"]
 |=========================================================
-|V8 |V10 | Details
+|V8 |Vaadin platform | Details
 
-| AbsoluteLayout | - | Not planned. Similar functionality in V10 can be achieved using eg. https://vaadin.com/api/platform/11.0.1/com/vaadin/flow/component/html/Div.html[`<div>`] elements and CSS positioning.
+| AbsoluteLayout | - | Not planned. Similar functionality in Vaadin platform can be achieved using eg. https://vaadin.com/api/platform/11.0.1/com/vaadin/flow/component/html/Div.html[`<div>`] elements and CSS positioning.
 
 | Accordion | - | Not planned. Available as a web component (https://vaadin.com/directory/component/htmlelementssmart-accordion[an example]).
 
@@ -30,13 +30,13 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 | Checkbox | Checkbox | https://vaadin.com/components/vaadin-checkbox/java-examples[Demo]
 
-| CheckBoxGroup | CheckBoxGroup (V12) | Not in V10, take `vaadin-radio-button-flow` 1.1. Included in Vaadin 12 (12/2018). Also available as an add-on in Directory for V10
+| CheckBoxGroup | CheckBoxGroup (V12) | Not in V10, take `vaadin-radio-button-flow` 1.1. Included in Vaadin platform 12 (12/2018). Also available as an add-on in Directory for Vaadin platform
 
 | ColorPicker | - | Not planned. See https://vaadin.com/directory[vaadin.com/directory] for alternatives. `<input type="color">` is supported in some browsers.
 
-| ComboBox | ComboBox | https://vaadin.com/components/vaadin-combo-box/java-examples[Demo]. Note that the V10 ComboBox is not lazy-loading between server and client, that is included in Vaadin 12 (12/2018).
+| ComboBox | ComboBox | https://vaadin.com/components/vaadin-combo-box/java-examples[Demo]. Note that lazy-loading between server and client was only included in Vaadin platform V12 (12/2018).
 
-| ContextMenu (official add-on) | ContextMenu (V12) | Not in V10, take `vaadin-context-menu-flow` 1.0 which is V10 compatible. Included in Vaadin 12 (12/2018)
+| ContextMenu (official add-on) | ContextMenu (V12) | Not in V10, take `vaadin-context-menu-flow` 1.0 which is Vaadin platform compatible. Included in Vaadin platform V12 (12/2018)
 
 | CssLayout | Div & FlexLayout | More details <<layouts,later in this chapter>>
 
@@ -120,26 +120,26 @@ The following table lists the existing Vaadin 8 components and their direct repl
 
 |=========================================================
 
-For any missing components, you should first look for alternatives in https://vaadin.com/directory[vaadin.com/directory]. It shows both V10 add-ons with Java API and web components that can be integrated to Java.
+For any missing components, you should first look for alternatives in https://vaadin.com/directory[vaadin.com/directory]. It shows both Vaadin platform add-ons with Java API and web components that can be integrated to Java.
 
-For the components that are available in V10, you can browse https://vaadin.com/components/browse[vaadin.com/components/browse] for features and examples.
+For the components that are available in Vaadin platform, you can browse https://vaadin.com/components/browse[vaadin.com/components/browse] for features and examples.
 
 [#basic-features]
 == Basic Component Features
 
-The way components are structured has been renewed in Vaadin 10. While the basics stay the same, backwards compatibility has been discarded in favor of optimizing for current and future usage.
+The way components are structured has been renewed in Vaadin platform. While the basics stay the same, backwards compatibility has been discarded in favor of optimizing for current and future usage.
 
 In Vaadin 8, there was a large and complex class hierarchy for components, and the `Component` interface already declared a large set of API that components were supposed to support. This meant that almost every time, the component had to extend at least `AbstractComponent` so that they would not need to implement all the methods from the interface. That would mean that there would be a lot of API in the actual component, some of which made no sense in all cases.
 
-In V10 the `Component` is an abstract class, with only the minimal set of API exposed. For the component implementations, it is up to them to pick up pieces of API as mixin interfaces that provide default implementations.
+In Vaadin Flow the `Component` is an abstract class, with only the minimal set of API exposed. For the component implementations, it is up to them to pick up pieces of API as mixin interfaces that provide default implementations.
 
 === Component is Lightweight and it Maps to an Element
 
-Every Vaadin 10 component always maps to one root element in the server-side DOM representation. A component can contain multiple components or elements inside it.
+Every Vaadin Flow component always maps to one root element in the server-side DOM representation. A component can contain multiple components or elements inside it.
 The component is the high level API for application developers to compose UIs efficiently.
 The Element API is the low level API used to build components. The Element API makes it possible to modify the DOM easily from the server side.
 
-If you look up the `Component` class in V10, you notice that there is no API even for setting the width or height of the component!
+If you look up the `Component` class in Vaadin Flow, you notice that there is no API even for setting the width or height of the component!
 For your own components, add the API by implementing the `HasSize` mixin interface,
 which has default implementations for e.g. `setWidth(String width)` and `setHeight(String height)`.
 So by adding two words of code you can achieve full sizing capabilities for your components.
@@ -150,7 +150,7 @@ See the <<../creating-components/tutorial-component-basic#,Creating A Simple Com
 In Vaadin 8 every component had a caption. The caption was usually shown next to the component, based on the parent layout's caption handling implementation. The caption could optionally be rendered with an icon.
 Some layouts didn't support showing captions and/or icons.
 
-In V10 there is no universal caption concept anymore. Some components might have a similar feature,
+In Vaadin platform there is no universal caption concept anymore. Some components might have a similar feature,
 but that it is always component specific. Usually that API is `setLabel(String label)` instead of `setCaption`.
 Some layouts, such as `FormLayout`, also support showing a label text or component for each child component.
 
@@ -160,7 +160,7 @@ Adding icons is possible, it is just HTML5 after all. But as with caption there 
 
 === setEnabled(boolean enabled) is Still a Server Side Security Feature
 
-In Vaadin 10, the `setEnabled` method is specific to components marked with the `HasEnabled` mixin interface (which comes also with `HasValue`, `HasComponents`, and `Focusable`).
+In Vaadin Flow, the `setEnabled` method is specific to components marked with the `HasEnabled` mixin interface (which comes also with `HasValue`, `HasComponents`, and `Focusable`).
 When a component is disabled, by default, any property changes and DOM events coming from the client side are ignored.
 However, it is possible to whitelist some properties and events to be allowed if necessary.
 
@@ -172,31 +172,31 @@ Read the <<../components/tutorial-enabled-state#,Component Enabled State>> tutor
 
 === setReadOnly(boolean readOnly) is Component Specific and Works Differently
 
-In Vaadin 10 the `setReadOnly(boolean readOnly)` method is specific to components accepting user input by implementing `HasValue`.
+In Flow the `setReadOnly(boolean readOnly)` method is specific to components accepting user input by implementing `HasValue`.
 
 For a readonly component, changes from the client will not make the return value of `getValue()` to change nor fire any `ValueChangeEvent`.
-Most components will also update their visual status to indicate to the user that the value cannot be changed. 
+Most components will also update their visual status to indicate to the user that the value cannot be changed.
 
 === Tooltips are Component Specific
 
 In Vaadin 8 the framework made it possible to show a tooltip for any component if the user hovered the mouse on top of the component.
-In Vaadin 10 there is no automatic way for this; it is a component specific feature and possible using CSS.
+In Vaadin platform there is no automatic way for this; it is a component specific feature and possible using CSS.
 
-== [#layouts]#Layouts in Vaadin 10#
+== [#layouts]#Layouts in Vaadin platform#
 
 In Vaadin 8 the layouting of components was managed by a `LayoutManager` on the client engine.
 This has its roots in a time when the differences between browsers were big,
 and the Framework still supported Internet Explorer versions that worked by their own rules.
 Creating your own layouts was quite complex since it always required writing custom client side code with GWT.
 
-In Vaadin 10 and newer, there is no more LayoutManager to do calculations in browser. All layouts are self-contained and mostly just rely on the HTML5 and CSS3 standards,
-which all modern browsers (as well as IE 11) support. Since Vaadin 10, responsive layouts can be created using the DOM API in Java on the server side.
+In Vaadin platform, there is no more LayoutManager to do calculations in browser. All layouts are self-contained and mostly just rely on the HTML5 and CSS3 standards,
+which all modern browsers (as well as IE 11) support. Responsive layouts can be created now using the DOM API in Java on the server side.
 
 As native browser features are used for rendering, layouts are rendered faster than in previous versions.
 
 === Core Layouts API and Creating Custom Layouts
 
-In Vaadin 10 you can create a custom layout with only server side Java code by using mixin-interfaces and the Element API.
+In Vaadin platform you can create a custom layout with only server side Java code by using mixin-interfaces and the Element API.
 The mixin-interfaces are also the basis for the core layouts and replace a complex class hierarchy from Vaadin 8:
 
 * `HasComponents` for simply adding components to the parent's root Element with:
@@ -213,11 +213,11 @@ There is currently no direct API exposed for this in the layouts. But if you wan
 If this is a much requested API, we could make it a standard feature to the layouts.
 There is an https://github.com/vaadin/flow/issues/2465[enhancement issue] for this.
 
-=== Available Layouts in Vaadin 10
+=== Available Layouts in Vaadin platform
 
 ==== HorizontalLayout & VerticalLayout
 
-These layouts have made it easy to compose UIs. For V10 they are now based on fast native CSS rendering in browsers,
+These layouts have made it easy to compose UIs. For Vaadin platform they are now based on fast native CSS rendering in browsers,
 instead of custom JavaScript calculations. This means that the API has been changed to match the underlying CSS concepts instead of custom names -
 this is also to highlight that it might not work exactly the same way as before:
 
@@ -248,7 +248,7 @@ If you haven’t already, you should introduce yourself to flexbox. It will allo
 The most powerful layout of Vaadin 8 in terms of customizability is the `CssLayout`, which is just a `<div>` element in the browser.
 This is now also available, but it is now named to what is actually is - a `Div` element in the browser.
 
-The `getCss` method from V8 is not available, but in Vaadin 10 you can easily modify the element CSS from the server side for any component using `component.getElement().getStyle()`. This works with any layout, not only `Div`.
+The `getCss` method from V8 is not available, but in Vaadin platform you can easily modify the element CSS from the server side for any component using `component.getElement().getStyle()`. This works with any layout, not only `Div`.
 
 === Replacing Existing Layouts
 
@@ -276,9 +276,9 @@ For dynamic content you can use `PolymerTemplate` with `@Id` bindings.
 
 == Migrating Your Own Components
 
-One of the biggest improvements in Vaadin 10 compared to Vaadin 8 is making it possible to access and customize the DOM from  server-side Java.
+One of the biggest improvements in Vaadin Flow compared to Vaadin 8 is making it possible to access and customize the DOM from  server-side Java.
 This obsoletes many reasons for using GWT for creating components. It also means that existing custom components from V8 have to be rebuilt again.
-The server side API can be reused, but some changes may be needed since the class hierarchy has changed in V10.
+The server side API can be reused, but some changes may be needed since the class hierarchy has changed in Flow.
 
 Simple components can be composed using existing components and the Element API.
 The <<../creating-components/tutorial-component-basic#,creating components tutorials>> have examples on this.
