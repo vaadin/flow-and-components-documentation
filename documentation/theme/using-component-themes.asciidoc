@@ -84,7 +84,7 @@ Different themes and different components may have different sets of variants (o
 
 == Available Themes and Customizations
 
-In Vaadin 10 there are two ready-made component themes: _Lumo_ (which is the main theme for all Vaadin components) and _Material_ one.
+In Vaadin Platform there are two ready-made component themes: _Lumo_ (which is the main theme for all Vaadin components) and _Material_ one.
 Both themes give you a full set of building blocks to build a modern looking web application that works just as well on desktop and on mobile.
 
 The Flow integration for both Lumo and Material themes are a part of the `vaadin-core` dependency. The previous chapter shows how to take those to use.
@@ -190,14 +190,3 @@ no actual changes for the component's look and feel are made.
 
 As was mentioned earlier, by default, if no explicit theme configuration is done and `vaadin-lumo-theme`
 dependency is present in the classpath, LumoTheme is used.
-
-=== Using Vaadin theme presets
-
-The compact preset for Lumo defines values for the sizing and spacing properties to reduce the visual space required by components to better fit a large amount of content on the screen. Annotate the main layout as follows to enable the compact preset:
-[source,java]
-----
-@HtmlImport("frontend://bower_components/vaadin-lumo-styles/presets/compact.html")
-@Theme(Lumo.class)
-public class CompactMainLayout extends Div implements RouterLayout {
-}
-----
