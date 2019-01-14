@@ -10,7 +10,7 @@ layout: page
 
 `Grid` is for displaying and editing tabular data laid out in rows
 and columns. At the top, a __header__ can be shown, and a __footer__ at the
-bottom. In addition to plain text, the header and footer can contain HTML and
+bottom. In addition to plain text, the header and footer can contain
 components. Having components in the header allows implementing filtering
 easily. The grid data can be sorted by clicking on a column header;
 shift-clicking a column header enables secondary sorting criteria.
