@@ -13,7 +13,7 @@ subnav:
         href: '#flow.tutorial.form.deleteupdate'
       - title: How to Add the data
         href: '#flow.tutorial.form.add'
-  
+
 ---
 :sectnums:
 
@@ -62,7 +62,7 @@ public CustomerForm(MainView mainView) {
 
 In the constructor we add the fields to the [classname]#CustomerForm# - side-by-side using a [classname]#HorizontalLayout#.
 Although the form is not yet fully functional, you might want to see what it looks
-like at this point. 
+like at this point.
 
 Next add the newly created form as a field to [classname]#MainView# class:
 [source,java]
@@ -173,7 +173,7 @@ Run your project again, and you should see your form next to the grid that lists
 [[flow.tutorial.form.deleteupdate]]
 === How to Delete and Update the data
 
-In this part we want to edit, add and remove Customer objects. 
+In this part we want to edit, add and remove Customer objects.
 Let’s start by adding the following action buttons as Java fields to [classname]#CustomerForm#:
 
 [source,java]
@@ -480,5 +480,5 @@ Congratulations! Users can now create, read, update and delete customer records 
 
 If you are an experienced Java developer, you are probably already full of ideas of how you can use your existing skills and create new UIs apps for your existing Java apps. If you want more ideas of how to create full stack applications, you might, for example, go through the http://spring.io/guides/gs/crud-with-vaadin/[Creating CRUD UI with Vaadin] guide and create a bit similar UI with a real database backend, implemented with Spring Data JPA. We have also collected a couple of other resources for an easy start in your Vaadin developer career.
 
- * https://vaadin.com/start#vaadin10[Vaadin 10 app starters]
+ * https://vaadin.com/start[Vaadin platform app starters]
  * http://vaadin.com/directory[Directory] - a vast source of awesome Vaadin add-ons

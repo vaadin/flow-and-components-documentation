@@ -7,7 +7,7 @@ layout: page
 = Using Vaadin Components
 
 There is a set of pre-built server-side components with Java API for https://vaadin.com/components/browse[Vaadin Web Components],
-such as `Button`, `TextField` and so on. Those components are part of the Vaadin 10 platform,
+such as `Button`, `TextField` and so on. Those components are part of the Vaadin platform,
 and are included as dependencies in the platform together with Flow.
 
 The platform has the following components with Java API available:
@@ -147,4 +147,3 @@ If webjar dependencies are not needed, they can be excluded from the project usi
     <!-- other dependencies -->
 </dependencies>
 ----
-
