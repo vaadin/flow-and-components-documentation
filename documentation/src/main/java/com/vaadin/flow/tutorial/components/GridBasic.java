@@ -199,7 +199,7 @@ public class GridBasic {
 
         // Sets a simple text header
         nameColumn.setHeader("Name");
-        // Sets a header containing a custom template,
+        // Sets a header using Html component,
         // in this case simply bolding the caption "Name"
         nameColumn.setHeader(new Html("<b>Name</b>"));
 
