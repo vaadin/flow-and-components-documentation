@@ -45,6 +45,8 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | CustomComponent | Composite | <<../creating-components/tutorial-component-composite#,Tutorial>>
 
+| CustomField |  AbstractField, AbstractCompositeField or AbstractSinglePropertyField | <<../binding-data/tutorial-flow-field#,Tutorial>>
+
 | CustomLayout | HTML or PolymerTemplate | See <<layouts,notes below>>.
 
 | DateField | DatePicker | https://vaadin.com/components/vaadin-date-picker/java-examples[Demo]
