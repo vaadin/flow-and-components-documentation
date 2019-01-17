@@ -36,7 +36,7 @@ Here is a list of components included in _vaadin-core_ module, which includes al
 
 The components are part of the Vaadin platform and are included as dependencies, together with Flow. Each component has a Java API. 
 
-Using the platform dependency ensures that all available components are included automatically. You are guaranteed to get compatible versions of both Flow and the components.
+Using the platform dependency (com.vaadin:vaadin) ensures that all available components, both open source and commercial, are included automatically. You are guaranteed to get compatible versions of both Flow and the components.
 
 *Example*: Declaring the `vaadin.platform` dependency. 
 
