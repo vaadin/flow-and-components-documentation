@@ -77,6 +77,8 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | ListSelect | ListBox | https://vaadin.com/components/vaadin-list-box/java-examples[Demo]
 
+| LoginForm | Login | In development, see https://github.com/vaadin/vaadin-login-flow[GitHub project]
+
 | MenuBar | - | Planned for Vaadin 14. Can be made currently by combining `Select` (V12) and `ContextMenu` (V12)
 
 | NativeButton | NativeButton | -
