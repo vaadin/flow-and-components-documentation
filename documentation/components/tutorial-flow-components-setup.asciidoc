@@ -10,7 +10,7 @@ The Vaadin Platform includes a set of https://vaadin.com/components/browse[compo
 
 The components are included, together with Flow, as dependencies in platform.
 
-Here is a list of available components:
+Here is a list of components included in _vaadin-core_ module, which includes all open source components:
 
 - `Button` - https://vaadin.com/components/vaadin-button/java-examples[Demos], https://vaadin.com/api/platform/com/vaadin/flow/component/button/Button.html[Javadoc], https://github.com/vaadin/vaadin-button-flow[sources and issue tracking]
 - `CheckBox` - https://vaadin.com/components/vaadin-checkbox/java-examples[Demos], https://vaadin.com/api/platform/com/vaadin/flow/component/checkbox/Checkbox.html[Javadoc], https://github.com/vaadin/vaadin-checkbox-flow[sources and issue tracking]
