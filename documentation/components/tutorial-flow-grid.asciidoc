@@ -74,10 +74,10 @@ You can use the `select(T)` method to programmatically select values.  In multis
 
 [source, java]
 ----
-// in single-selection mode, only one item is selected
+// in single-select, only one item is selected
 grid.select(defaultItem);
 
-// switch to multi-selection mode, clears selection
+// switch to multi select, clears selection
 grid.setSelectionMode(SelectionMode.MULTI);
 // Select items 2-4
 people.subList(2,3).forEach(grid::select);
@@ -161,7 +161,7 @@ selectionModel.addMultiSelectionListener(event -> {
             event.getAddedSelection().size(),
             event.getRemovedSelection().size()));
 
-    // Allow deleting only if there's a selection
+    // Allow deleting only if there's any selected
     deleteSelected.setEnabled(event.getNewSelection().isEmpty());
 });
 ----
@@ -671,7 +671,7 @@ grid.addColumn(new ComponentRenderer<>(person -> {
     TextField name = new TextField("Name");
     name.setValue(person.getName());
 
-    // button for saving the name to the backend
+    // button for saving the name to backend
     Button update = new Button("Update", event -> {
         person.setName(name.getValue());
         grid.getDataProvider().refreshItem(person);
