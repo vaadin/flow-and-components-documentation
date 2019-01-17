@@ -111,7 +111,7 @@ You need to add the `bom` and the relevant Flow component package, for example `
 
 == Using WebJars
 
-Individual component packages consists of two main sections:
+Individual component packages often consist of two parts
 
 . Java API classes.
 . Web Component files (HTML, JavaScript, CSS ..).
