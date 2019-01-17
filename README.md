@@ -8,8 +8,11 @@ Any issues and contributions can be added here, or in vaadin.com/docs via the _r
 
 This branch is Flow version 1.1 compatible (Vaadin 12). See other branches for other framework versions:
 
- - master branch is for Flow version 1.1 (Vaadin 12)
- - 1.0 branch is for Flow version 1.0 (Vaadin 10 & 11)
+ - `master` branch is for Flow version 1.3 (or 2.0) that will go into upcoming Vaadin 13
+ - `V12` branch is for Flow version 1.2 (Vaadin 12)
+ - `V10` branch is for Flow version 1.0 (Vaadin 10 & 11)
+
+ALL FIXES should always target the master branch and we will pick the bugfixes to correct branches from there. 
 
 ## Structure
 
