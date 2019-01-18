@@ -1,6 +1,6 @@
 ---
 title: Shadow root in server-side Element
-order: 5
+order: 6
 layout: page
 ---
 

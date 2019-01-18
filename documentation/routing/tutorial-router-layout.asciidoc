@@ -4,18 +4,16 @@ order: 3
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
-
 = Router Layouts and Nested Router Targets
 
-For a basic routing tutorial, see <<tutorial-routing-annotation#,Defining Routes with @Route>>.
 
-== RouterLayout
+== RouterLayout Interface
 
-When defining routes using `@Route("path")`, the component will by default be rendered inside the `<body>` tag on the page (the element returned by `HasElement.getElement()` is attached to the `<body>`).
+All parent layouts of a navigation target component must implement the `RouterLayout` interface.
 
-A parent layout can be defined using the `Route.layout()` method.
-As an example to have `CompanyComponent` render inside a layout called `MainLayout` the code would look like:
+You can define a parent layout using the `Route.layout()` method.
+
+*Example*: Render `CompanyComponent` inside `MainLayout`:
 
 [source,java]
 ----
@@ -25,19 +23,24 @@ public class CompanyComponent extends Component {
 }
 ----
 
-All layouts used as a parent layout must implement the `RouterLayout` interface.
+[NOTE]
+When using the <<tutorial-routing-annotation#,`@Route("path")`>> annotation to define a route, the component by default renders in the `<body>` tag on the page. This is because the element returned by `HasElement.getElement()` is attached to the `<body>` tag.
 
-If there are multiple router target components using the same parent layout, then the parent layout instances will remain the same when the user navigates between the child components.
 
-See also:
+=== Multiple Router Target Components
 
-* <<tutorial-routing-page-titles#,Updating Page Title on Navigation>>
+Where multiple router target components use the same parent layout, the parent layout instances remain the same when the user navigates between the child components.
 
-=== Multiple parent layouts with @ParentLayout
-In some cases there might be a need to have a parent layout for a parent layout in the application.
-One example would be that we have a Main layout used for everything and a Menu bar that is reused for views.
+See <<tutorial-routing-page-titles#,Updating Page Title on Navigation>> for more. 
 
-For this we could have the following setup:
+=== Multiple Parent Layouts
+
+Use the `@ParentLayout` annotation to define a parent layout for components in the routing hierarchy.
+
+You can create a parent layout for a parent layout, where necessary. 
+
+*Example*: `MainLayout` used for everything and `MenuBar` reused for views:
+
 [source,java]
 ----
 public class MainLayout extends Div implements RouterLayout {
@@ -64,18 +67,17 @@ public class IconsView extends Div {
 }
 ----
 
-In this case we would have a `MainLayout` that always encapsulates `MenuBar` which in turn encapsulates
-`TutorialView` or `IconsView` depending on where we have navigated to.
+* `MainLayout` encapsulates `MenuBar`, which in turn encapsulates
+`TutorialView` or `IconsView` depending on where the user has navigated to.
 
-In this sample we have 2 parent layers, but there is no restriction in the amount of nested layouts.
 
-[#route-prefix]
-== ParentLayout route control using @RoutePrefix
+== ParentLayout Route Control 
 
-There might be some cases where a parent layout should supplement the navigation route
-by adding to the route location.
+A parent layout can supplement the navigation route by adding to the route location.
 
-This can be done by annotating a parent layout with `@RoutePrefix("prefix_to_add")`
+This is done by annotating the parent layout with `@RoutePrefix("prefix_to_add")`
+
+*Example*: `PathComponent` receives the `some/path` route.
 
 [source, java]
 ----
@@ -90,19 +92,14 @@ public class SomeParent extends Div implements RouterLayout {
 }
 ----
 
-In this example the route that `PathComponent` would receive is `some/path` as in the case of the
-previously mentioned `SomePathComponent`
 
-=== Absolute routes
+=== Absolute Routes
 
-Sometimes we might have a setup where we want to use the same parent components in many parts,
-but in some cases not use any `@ParentPrefix` from the parent chain or only use them for a defined part.
+You can use same parent component in many parts, without using a `@ParentPrefix` from the parent chain, or by only using it in defined parts. 
 
-In these cases we can add `absolute = true` to either the `@Route` or `@ParentPrefix` annotations.
+This is done by adding `absolute = true` to either the `@Route` or `@ParentPrefix` annotations.
 
-So if we have something that we want to use in many places in the `SomeParent` layout, but
-do not want to get the route prefix added to our navigation path we could have a class `MyContent`
-built the following way:
+*Example*: Building a `MyContent` class to add "something" to multiple places in the `SomeParent` layout, without adding the route prefix to the navigation path:
 
 [source, java]
 ----
@@ -112,10 +109,10 @@ public class MyContent extends Div {
 }
 ----
 
-In this case even though the full chain path should be `some/content` we actually get just `content`
-as we have defined that this should be absolute.
+* Even though the full path would typically be `some/content`, we actually get only `content` because it has been defined as `absolute`.
 
-The same works when having absolute defined in the middle of the chain for instance:
+
+*Example*: Defining `absolute` in the middle of the chain.
 
 [source, java]
 ----
@@ -131,11 +128,6 @@ public class Tutorials extends Div {
 }
 ----
 
-In this case the bound route would be `framework/tutorial` even though the full chain
-is `some/framework/tutorial`
+* The bound route is `framework/tutorial` even though the full chain is `some/framework/tutorial`.
 
-[NOTE]
-If a parent layout has a `@RoutePrefix` defined the "default" child could have its route
-defined as `@Route("")` and be mapped to the parent layout route.
-E.g. In the case of `Tutorials` with route "" it would be mapped as `framework/`
-
+* If a parent layout defines a `@RoutePrefix`, the "default" child could have its route defined as `@Route("")` and be mapped to the parent layout route. For example, in the case of `Tutorials` with route `""` it would be mapped as `framework/`.
