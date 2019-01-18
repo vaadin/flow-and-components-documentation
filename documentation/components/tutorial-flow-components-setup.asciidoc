@@ -118,7 +118,7 @@ Individual component packages often consist of two parts
 
 Both sections are provided in the same JAR by default, and both sections are used to display the components correctly in pages.
 
-Web Component files are provided as https://github.com/webjars/webjars/[WebJars] (JAR files that contain Web Component files), the design of which was heavily influenced by the Polymer package manager, https://bower.io/[Bower] (not developed or maintained by Vaadin). WebJars facilitate using Maven, instead of Bower, for the same purpose. 
+Web Component files are provided as https://github.com/webjars/webjars/[WebJars] (JAR files that contain Web Component files). WebJars contain the resources needed by the client-side and it also contain the dependency information as Maven pom.xml files, so there is no need to use Bower or similar for the client side dependency management. 
 
 Flow is able to resolve requests into WebJar-compatible content by imitating regular Web Component files.
 
