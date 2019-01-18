@@ -62,7 +62,7 @@ public MainView() {
 }
 ----
 
-** In conjunction, the lines `setHeight("100vh")` and `grid.setSizeFull()` make sure that both the app and the `Grid` use the entire available vertical space.
+** In conjunction, the lines `setHeight("100vh")` and `grid.setSizeFull()` make sure that both the app and the `Grid` use the entire available vertical space. "100vh" means 100% of the viewport height and is more reliable than setting your main view to "100%". 
 
 . Add the following code to put the customer listing part in its own `updateList` method, using the `public` modifier:
 
