@@ -6,7 +6,7 @@ layout: page
 
 = Binding Beans to Forms
 
-Business objects are typically implemented as JavaBeans or POJOs in an application. `Binder` supports both implementations. 
+Business objects are typically implemented as JavaBeans in an application. `Binder` is used to tie the properties of a business object to UI components in your forms.
 
 == Manual Data Binding
 
