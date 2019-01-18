@@ -120,7 +120,6 @@ Both sections are provided in the same JAR by default, and both sections are use
 
 Web Component files are provided as https://github.com/webjars/webjars/[WebJars] (JAR files that contain Web Component files). WebJars contain the resources needed by the client-side and it also contain the dependency information as Maven pom.xml files, so there is no need to use Bower or similar for the client side dependency management. 
 
-Flow is able to resolve requests into WebJar-compatible content by imitating regular Web Component files.
 
 Using WebJars does not restrict you from also using external Web Component files, and this is enabled by default. If no suitable WebJar is found, request resolving falls back to the configured external Web Component location. You can turn off WebJar resolving by changing your configuration. 
 
