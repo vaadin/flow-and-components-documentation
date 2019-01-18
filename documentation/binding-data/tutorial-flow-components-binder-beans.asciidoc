@@ -40,7 +40,7 @@ You can use `BeanValidationBinder` if you prefer to use JSR 303 Bean Validation 
 
 `BeanValidationBinder` extends `Binder`, and therefore has the same API, but its implementation automatically adds a bean validator which takes care of all JSR 303 constraints.
 
-To use Bean Validation annotations, you need a JSR 303 implementation like Hibernate Validator available in your classpath. You can use the following dependency in Maven:
+To use Bean Validation annotations, you need a JSR 303 implementation like Hibernate Validator available in your classpath. If your environment, such as Java EE container, does not provide the implementation, you can use the following dependency in Maven:
 
 [source, xml]
 ----
