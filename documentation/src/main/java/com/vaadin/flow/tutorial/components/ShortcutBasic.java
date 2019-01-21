@@ -82,8 +82,8 @@ public class ShortcutBasic {
 
     private Div anotherComponent = new Div();
     public void configuringShortcuts_lifecycleOwner() {
-        Input input = new Input();
-        input.registerFocusShortcut(Key.KEY_F).bindLifecycleTo(anotherComponent);
+        UI.getCurrent().registerShortcut(() -> {/* do a thing*/}, Key.KEY_F)
+                .bindLifecycleTo(anotherComponent);
     }
 
     public void configuringShortcuts_clientsideEventBehavior() {

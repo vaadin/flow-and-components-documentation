@@ -6,7 +6,7 @@ layout: page
 
 = Shortcuts
 
-Shortcut feature gives the developer and ability to create custom
+Shortcut feature gives the developer an ability to create custom
 keyboard shortcuts and react when those shortcuts are triggered.
 
 == Using the Shortcut API
@@ -14,8 +14,8 @@ Shortcut's key combination consists of one _primary key_ and from 0 to 4 _key
 modifiers_ (alt, ctrl, meta, shift).
 
 === Adding a "`click`" shortcut
-Click shortcuts perform the _click_ action on a clickable component, such as
-a `Button`.
+Click shortcuts perform the _click_ action on a component which implements
+the `ClickNotifier` interface, such as the `Button`.
 
 [source, java]
 ----
@@ -38,7 +38,7 @@ textField.addFocusShortcut(Key.KEY_F, KeyModifier.ALT);
 
 Now the user can focus the _textField_ by pressing _ALT+F_ on their keyboard.
 
-=== Adding a general purpose shortcut
+=== Adding a custom shortcut
 In addition to _focus_ and _click_ shortcuts, it is possible to add shortcuts
 that simply execute code as a response to a triggered shortcut.
 
@@ -52,10 +52,10 @@ UI.getCurrent().addShortcut(this::openCustomerCreation, Key.KEY_N,
 ----
 
 Now, when the user presses _Ctrl+Alt+N_ the form will open and allow the user
-to input the customer details.
+to input the customer's details.
 
 The shortcut can run any code that conforms to the functional interface
-`Action`, which has a single zero arguments method called `execute`.
+`Command`, which has a single zero arguments method called `execute`.
 
 [source, java]
 ----
@@ -63,7 +63,7 @@ UI.getCurrent().addShortcut(() -> Notification.show("Shortcut triggered"),
         Key.SPACE);
 ----
 
-=== Adding a scoped shortcut
+=== Configuring shortcut's active scope
 The different shortcuts discussed above have all operated in the global scope.
 This means that when the user presses the correct keys, it does not matter where
 the user's cursor is and which element is focused on the screen; the shortcut
@@ -138,8 +138,8 @@ For shortcuts registered through `UI`, the `lifecycle` owner is the `UI` -
 this means that the shortcut will stop functioning only when the shortcut is
 removed (see <<Removing shortcuts>>).
 
-To create a shortcut which has its lifecycle bound to the desired component,
-we can use `Shortcuts.addShortcut(...)`.
+To create a shortcut which has its lifecycle bound to a specific component, we
+can use `Shortcuts.addShortcut(...)`.
 
 [source, java]
 ----
@@ -153,15 +153,15 @@ add(paragraph);
 
 The first parameter of `Shortcuts.addShortcut(Component, Command, Key,
 KeyModifier...);` is the `lifecycleOwner`. The shortcut _ALT+G_ is now bound
-the the lifecycle of _paragraph_ and is only valid when _paragraph_ is attached.
+the the lifecycle of _paragraph_ and is only valid when _paragraph_ is
+attached and visible.
 
 === Configuring shortcuts
-The previously used methods for registering a shortcut have all began with
-"`add--`" and have returned a `Registration`. If the user wants more freedom
-with how to configure the shortcut, the shortcut API has a second class of
-methods which start with "`register--`". These methods returns an instance of
-`ShortcutRegistration` which provides a fluent API for further configuring
-the shortcuts.
+The previously used methods for adding shortcuts have all began with "`add--`"
+and returned a `Registration`. If the user wants more freedom to configure
+shortcuts, the shortcut API has a second class of methods which start with
+"`register--`". These methods return an instance of `ShortcutRegistration`
+which provides a fluent API for further configuring the shortcuts.
 
 ==== Modifiers
 `ShortcutRegistration` offers shorthands for assigning key modifiers to a
@@ -177,8 +177,8 @@ The focus shortcut is triggered with _Alt+Shift+F`.
 
 `ShortcutRegistration` also has a method `.withModifiers(KeyModifiers...
 modifiers)` which can be used to configure all modifiers simultaneously - or
-to remove modifiers. Calling `withModifiers();` without parameters removes
-all modifiers.
+to remove all modifiers. Calling `withModifiers(...);` without parameters
+removes all modifiers from the shortcut.
 
 ==== Lifecycle owner
 `ShortcutRegistration` offers a method for reconfiguring the `lifecycleOwner` of
@@ -186,15 +186,15 @@ the shortcut.
 
 [source, java]
 ----
-Input input = new Input();
-input.registerFocusShortcut(Key.KEY_F).bindLifecycleTo(anotherComponent);
+UI.getCurrent().registerShortcut(() -> {/* do a thing*/}, Key.KEY_F)
+        .bindLifecycleTo(anotherComponent);
 ----
 
-The _input_'s lifecycle is now bond to _anotherComponent_.
+The lifecycle of the global shortcut is now bond to _anotherComponent_.
 
 ==== Client-side event behavior
-`ShortcutRegistration` offers methods for defining how the event should
-behave on the client-side. DOM events offer the developer the tools to
+`ShortcutRegistration` provides methods for defining how the event should
+behave on the client-side. DOM events provide the developer with the tools to
 control if the event should propagate upwards in the DOM tree, and if the
 event should allow browsers' default behavior to take place or not.
 
@@ -217,8 +217,8 @@ input.registerFocusShortcut(Key.KEY_F)
 
 ==== Inspection
 `ShortcutRegistration` offers a variety of methods for checking the internal
-state of the shortcut and all the values configured can be checked through
-getter methods.
+state of the shortcut and all configurable values have corresponding _getter_
+ methods.
 
-One extra method is `boolean isShortcutActive()` which can be used to check
-if the shortcut is enabled at the client-side or not.
+One extra method is `boolean isShortcutActive()` which can be used to check,
+whether the shortcut is enabled on the client-side or not.
