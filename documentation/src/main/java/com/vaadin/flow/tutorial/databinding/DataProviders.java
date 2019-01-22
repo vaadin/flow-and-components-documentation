@@ -210,7 +210,7 @@ public class DataProviders {
                 employeeProvider.withConfigurableFilter();
 
         Grid<Employee> grid = new Grid<>();
-        grid.setDataProvider(employeeProvider);
+        grid.setDataProvider(wrapper);
         grid.addColumn(Employee::getName).setHeader("Name");
 
         searchField.addValueChangeListener(event -> {
