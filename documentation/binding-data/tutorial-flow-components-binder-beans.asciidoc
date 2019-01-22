@@ -89,7 +89,7 @@ private ComboBox<Gender> gender = new ComboBox<>("Gender");
 
 === Configuring Converters and Validators
 
-When using the automatic `bindInstanceFields` method to bind fields, all converters and validators must be configured beforehand using a special `forMemberField` configurator. It works simlar to the `forField` method, but it requires no explicit call to bind method. If `bindInstanceFields` method finds incompatible property-field pair, it will throw an `IllegalStateException`.
+When using the automatic `bindInstanceFields` method to bind fields, all converters and validators must be configured beforehand using a special `forMemberField` configurator. It works similar to the `forField` method, but it requires no explicit call to a bind method. If the `bindInstanceFields` method finds incompatible property-field pair, it will throw an `IllegalStateException`.
 
 Also, you can bind properties that need validators manually and then bind all remaining fields using the `bindInstanceFields` method. `bindInstaceFields` method will skip the properties already bound manually.
 
@@ -108,7 +108,7 @@ binder.bindInstanceFields(this);
 
 ----
 
-If you are using JSR-303 validators, they work fine when using `BeanValidationBinder`. 
+If you are using JSR-303 validators, you should use BeanValidationBinder, that picks validators automatically when using bindInstanceFields`. See next paragraph for more details.
 
 == Using JSR 303 Bean Validation
 
