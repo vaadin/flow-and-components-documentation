@@ -25,7 +25,7 @@ component.setId("my-component");
 
 == Element
 
-Every component has a mapped `Element`.
+Every component is assosiated to a root `Element`.
 
 You can use the `Element` to access low-level functionality using `component.getElement()`.
 
