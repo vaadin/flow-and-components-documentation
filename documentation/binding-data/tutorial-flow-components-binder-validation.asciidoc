@@ -13,6 +13,8 @@ layout: page
 
 These concepts go hand in hand, because validation can be based on a converted value, and the ability to convert a value is a kind of validation in itself.
 
+There are several validators and converters that come with the framework, or you can implement them yourself.
+
 == Validating User Input
 
 It is typical for applications to restrict the kind of value the user is allowed to enter into certain fields.  
