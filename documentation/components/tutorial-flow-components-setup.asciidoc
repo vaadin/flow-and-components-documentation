@@ -58,7 +58,7 @@ It is possible to include components individually by declaring a dependency for 
 
 The platform also includes theming for the components that you can edit to ensure the styling suits your UI. See <<../theme/using-component-themes#,Using Component Themes>> for more.
 
-You can find additional prebuilt Web Components (with Java APIs) contributed by the Vaadin community in the https://vaadin.com/directory/search?framework=Vaadin%2010[Vaadin Directory.]
+You can find additional prebuilt Web Components (with Java APIs) contributed by the Vaadin community in the https://vaadin.com/directory/search[Vaadin Directory.]
 
 == Individual Component Dependencies
 
