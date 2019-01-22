@@ -6,7 +6,7 @@ layout: page
 
 = Using Vaadin Components
 
-The Vaadin Platform includes a set of https://vaadin.com/components/browse[components], with server-side Java APIs, that you can use to build your UI.   
+The Vaadin platform includes a set of https://vaadin.com/components/browse[components], with server-side Java APIs, that you can use to build your UI.   
 
 The components are included, together with Flow, as dependencies in platform.
 
