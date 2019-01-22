@@ -91,7 +91,7 @@ private ComboBox<Gender> gender = new ComboBox<>("Gender");
 
 When using the automatic `bindInstanceFields` method to bind fields, all converters and validators must be configured beforehand using a special `forMemberField` configurator. It works similar to the `forField` method, but it requires no explicit call to a bind method. If the `bindInstanceFields` method finds incompatible property-field pair, it will throw an `IllegalStateException`.
 
-Also, you can bind properties that need validators manually and then bind all remaining fields using the `bindInstanceFields` method. `bindInstaceFields` method will skip the properties already bound manually.
+Alternatively, you can bind properties that need validators manually and then bind all remaining fields using the `bindInstanceFields` method. `bindInstaceFields` method will skip the properties already bound manually.
 
 *Example*: Manually specifying `StringToIntegerConverter` before calling the `bindInstanceFields` method. 
 
