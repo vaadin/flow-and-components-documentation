@@ -6,7 +6,7 @@ layout: page
 
 = Binding Beans to Forms
 
-Business objects are typically implemented as JavaBeans in an application. `Binder` is used to tie the properties of a business object to UI components in your forms.
+Business objects are typically implemented as JavaBeans in an application. `Binder` supports binding the properties of a business object to UI components in your forms.
 
 == Manual Data Binding
 
@@ -33,117 +33,6 @@ binder.forField(yearOfBirthField)
 
 [NOTE]
 Be cautious when using strings to identify properties. A typo in the string, or a subsequent changes to the setter and getter method names, will result in a runtime exception.
-
-=== Using JSR 303 Bean Validation
-
-You can use `BeanValidationBinder` if you prefer to use JSR 303 Bean Validation annotations such as `Max`, `Min`, `Size`, etc.
-
-`BeanValidationBinder` extends `Binder`, and therefore has the same API, but its implementation automatically adds a bean validator which takes care of all JSR 303 constraints.
-
-To use Bean Validation annotations, you need a JSR 303 implementation like Hibernate Validator available in your classpath. If your environment, such as Java EE container, does not provide the implementation, you can use the following dependency in Maven:
-
-[source, xml]
-----
-<dependency>
-    <groupId>org.hibernate</groupId>
-    <artifactId>hibernate-validator</artifactId>
-    <version>5.4.1.Final</version>
-</dependency>
-----
-
-==== Defining Constraints for Specific Properties
-
-*Example*: Using JSR 303 Bean Validation annotations with `BeanValidationBinder`
-
-[source, java]
-----
-public class Person {
-    @Max(2000)
-    private int yearOfBirth;
-
-    //Non-standard constraint provided by Hibernate Validator
-    @NotEmpty
-    private String name;
-
-    // + other fields, constructors, setters, and getters
-}
-
-BeanValidationBinder<Person> binder = new BeanValidationBinder<>(Person.class);
-
-binder.bind(nameField, "name");
-binder.forField(yearOfBirthField)
-  .withConverter(
-    new StringToIntegerConverter("Please enter a number"))
-  .bind("yearOfBirth");
-----
-
-Constraints defined for properties in the bean, work in the same way as if configured when the binding is created. For example, the following code snippets have the same result:
-
-*Example*: Bean Validation annotation.
-
-[source, java]
-----
-public class Person {
-    @Max(value = 2000, message = "Year of Birth must be less than or equal to 2000")
-    private int yearOfBirth;
-----
-*Example*: Binder validation.
-
-[source, java]
-----
-binder.forField(yearOfBirthField)
-  .withValidator(
-    yearOfBirth -> yearOfBirth <= 2000,
-    "Year of Birth must be less than or equal to 2000")
-  .bind(Person::getYearOfBirth, Person::setYearOfBirth);
-----
-
-==== Defining Constraints on the Bean Level
-
-// The original text was difficult to understand. I copied this code example from the Hibernate docs and referenced them as the source. The original text just linked to the example. We could leave it like this or amend the code. I'm very unsure about the explanation here.   
-
-As an alternative to defining constraint annotations for specific properties, you can define constraints on the bean level.
-
-*Example*: Defining bean-level constraint annotations. _Source: https://docs.jboss.org/hibernate/validator/5.4/reference/en-US/html_single/#validator-gettingstarted-createmodel[Hibernate Validator 5.4.2 - Applying constraints]_
-
-[source, java]
-----
-package org.hibernate.validator.referenceguide.chapter01;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-public class Car {
-
-    @NotNull
-    private String manufacturer;
-
-    @NotNull
-    @Size(min = 2, max = 14)
-    private String licensePlate;
-
-    @Min(2)
-    private int seatCount;
-
-    public Car(String manufacturer, String licencePlate, int seatCount) {
-        this.manufacturer = manufacturer;
-        this.licensePlate = licencePlate;
-        this.seatCount = seatCount;
-    }
-
-    //getters and setters ...
-}
-----
-
-The previous example automatically enables the visual "required" indicator using `HasValue.setRequiredIndicatorVisible(true)`. By default `@NotNull`, `@NotEmpty` and `@Size` (if `min()` value is greater than 0) configures the field as required. You can change this behavior using the `BeanValidationBinder.setRequiredConfigurator` method.
-
-*Example*: Overriding the default `@Size` behavior. 
-
-[source, java]
-----
-binder.setRequiredConfigurator(RequiredFieldConfigurator.NOT_EMPTY.chain(RequiredFieldConfigurator.NOT_NULL));
-----
 
 [NOTE]
 When you use the `setBean` method (unbuffered binding), validation is triggered automatically on all change events. When you use the `readBean` and `writeBean` methods (unbuffered binding), validation is only triggered automatically when calling `writeBean`. You can trigger it manually at any time by calling `validate()` on the `Binder`, for example in a `ValueChange` handler.
@@ -251,11 +140,11 @@ If the field name does not match the corresponding property name in the business
 private ComboBox<Gender> gender = new ComboBox<>("Gender");
 ----
 
-=== Converting Value Types
+=== Configuring Converters and Validators
 
-The `bindInstanceFields` method does not automatically add a converter to the binding. For this reason, if the value type of the field does not match the property type, it may not be possible to automatically bind a field to its corresponding property. For example, an "age” `TextField` (with a String value type), and an “age” property in the `Person` class (with an Integer property type), will throw an `IllegalStateException` when calling `bindInstanceFields`. 
+When using the automatic `bindInstanceFields` method to bind fields, all converters and validators must be configured beforehand using a special `forMemberField` configurator. It works simlar to the `forField` method, but it requires no explicit call to bind method. If `bindInstanceFields` method finds incompatible property-field pair, it will throw an `IllegalStateException`.
 
-You can prevent this exception by manually specifying a converter before calling the `bindInstanceFields` method.
+Also, you can bind properties that need validators manually and then bind all remaining fields using the `bindInstanceFields` method. `bindInstaceFields` method will skip the properties already bound manually.
 
 *Example*: Manually specifying `StringToIntegerConverter` before calling the `bindInstanceFields` method. 
 
@@ -272,6 +161,82 @@ binder.bindInstanceFields(this);
 
 ----
 
-=== Validating Fields
+If you are using JSR-303 validators, they work fine when using `BeanValidationBinder`. 
 
-The `bindInstanceFields` method does not support adding programmatic validation bindings. If you are using JSR-303 validators, they work fine when using `BeanValidationBinder`. Also, you can bind properties that need validators manually and then bind all remaining fields using bindInstanceFields method.
+== Using JSR 303 Bean Validation
+
+You can use `BeanValidationBinder` if you prefer to use JSR 303 Bean Validation annotations such as `Max`, `Min`, `Size`, etc.
+
+`BeanValidationBinder` extends `Binder`, and therefore has the same API, but its implementation automatically adds validators based on some JSR 303 constraints.
+
+To use Bean Validation annotations, you need a JSR 303 implementation like Hibernate Validator available in your classpath. If your environment, such as Java EE container, does not provide the implementation, you can use the following dependency in Maven:
+
+[source, xml]
+----
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-validator</artifactId>
+    <version>5.4.1.Final</version>
+</dependency>
+----
+
+=== Defining Constraints for Properties
+
+*Example*: Using JSR 303 Bean Validation annotations with `BeanValidationBinder`
+
+[source, java]
+----
+public class Person {
+    @Max(2000)
+    private int yearOfBirth;
+
+    //Non-standard constraint provided by Hibernate Validator
+    @NotEmpty
+    private String name;
+
+    // + other fields, constructors, setters, and getters
+}
+
+BeanValidationBinder<Person> binder = new BeanValidationBinder<>(Person.class);
+
+binder.bind(nameField, "name");
+binder.forField(yearOfBirthField)
+  .withConverter(
+    new StringToIntegerConverter("Please enter a number"))
+  .bind("yearOfBirth");
+----
+
+Constraints defined for properties in the bean, work in the same way as if configured programmatically when the binding is created. For example, the following code snippets have the same result:
+
+*Example*: Declarative Bean Validation annotation.
+
+[source, java]
+----
+public class Person {
+    @Max(value = 2000, message = "Year of Birth must be less than or equal to 2000")
+    private int yearOfBirth;
+----
+*Example*: Programmatic validation using Binder specific API.
+
+[source, java]
+----
+binder.forField(yearOfBirthField)
+  .withValidator(
+    yearOfBirth -> yearOfBirth <= 2000,
+    "Year of Birth must be less than or equal to 2000")
+  .bind(Person::getYearOfBirth, Person::setYearOfBirth);
+----
+
+[NOTE]
+As an alternative to defining constraint annotations for specific properties, you can define constraints on the bean level. Currently the BeanValidationBinder in Vaadin don't support those and simply ignore all JSR 303 validations that are not assigned directly to properties.
+
+=== Automatically Marking Form Fields as Required
+
+Some built-in validators in bean validation API suggest that the value is required in input field. BeanValidationBinder automatically enables the visual "required" indicator using `HasValue.setRequiredIndicatorVisible(true)` for properties annotated with such validators. By default `@NotNull`, `@NotEmpty` and `@Size` (if `min()` value is greater than 0) configures the field as required. You can change this behavior using the `BeanValidationBinder.setRequiredConfigurator` method.
+
+*Example*: Overriding the default `@Size` behavior. 
+
+[source, java]
+----
+binder.setRequiredConfigurator(RequiredFieldConfigurator.NOT_EMPTY.chain(RequiredFieldConfigurator.NOT_NULL));
+----
