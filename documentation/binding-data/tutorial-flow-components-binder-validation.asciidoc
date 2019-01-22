@@ -59,9 +59,9 @@ binder.forField(titleField)
 
 === Customizing Validation Messages
 
-You can customize the way error messages display, by configuring the `Label` for each binding. The label is used to show the status of the field. The label can be used for validation errors, as well as, confirmation and helper messages.
+You can customize the way error messages display, by defining a `ValidationStatusHandler` or configuring the `Label` for each binding. The label is used to show the status of the field. The label can be used for validation errors, as well as, confirmation and helper messages.
 
-*Example*: Configuring `Label` for email and minimum length validation. 
+*Example*: Configuring validation messages for email and minimum length validation. 
 
 [source, java]
 ----
@@ -92,7 +92,7 @@ binder.forField(nameField)
 
 * The `withStatusLabel(Label label)` method sets the given label to show an error message if the validation fails.
 
-As an alternative to using labels, you can set a custom validation status handler, using the `withValidationStatusHandler` method. This allows you to customize how the binder displays error messages and is more flexible than `AbstractComponent.setComponentError(com.vaadin.server.ErrorMessage)`.
+As an alternative to using labels, you can set a custom validation status handler, using the `withValidationStatusHandler` method. This allows you to customize how the binder displays error messages and is more flexible than using the status label approach.
 
 === Adding Multiple Validators
 
