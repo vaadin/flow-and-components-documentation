@@ -4,13 +4,16 @@ order: 3
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
 = Importing HTML and JavaScript
 
-There are two ways to import HTML and JavaScript with a component.
+You can add HTML and JavaScript to your Java classes. 
+ 
+There are two ways to add HTML and JavaScript files. Both have the same effect and you can use whichever suits you best.
 
-By using the annotations @JavaScript and @HtmlImport
-
+. Using the `@JavaScript` and `@HtmlImport` annotations.
++
+*Example*: Importing HTML and JavaScript files into `HtmlComponent`.
++
 [source,java]
 ----
 @Tag("div")
@@ -21,13 +24,12 @@ static class HtmlComponent extends Component implements HasText {
 }
 ----
 
-Both annotations are repeatable and you can add multiple annotations for both
-to the component.
+* Both annotations are repeatable. Add one annotation for each file you need to add. 
 
-Another way of adding imports are the `addHtmlImport(String url)` and
-`addJavaScript(String url)` methods from the `Page` class.
-The functionality is the same as for the annotations.
-
+. Using the `addHtmlImport(String url)` and `addJavaScript(String url)` methods from the `Page` class.
++
+*Example*: Using the `addHtmlImport(String url)` and `addJavaScript(String url)` methods. to import HTML and JavaScript files. 
++
 [source,java]
 ----
   private void addDependencies() {
@@ -36,68 +38,26 @@ The functionality is the same as for the annotations.
   }
 ----
 
-[NOTE]
-====
-For every class that imports dependencies, import order is guaranteed for dependencies of the same type only.
-No guarantees are given regarding numerous classes' dependencies' import order, same as no guarantees are given on import order of
-dependencies of not the same type.
+== Storing JavaScript and HTML Files
 
-Example:
-[source, java]
-----
-@JavaScript("1.js")
-@StyleSheet("1.css")
-@HtmlImport("1.html")
-@JavaScript("2.js")
-@StyleSheet("2.css")
-@HtmlImport("2.html")
-static class OrderedDependencies extends Div {
-}
-----
-In this case, `1.js` will be imported before `2.js`, `1.css` before `2.css`, `1.html` before `2.html`, but no other guarantees can be made.
+// This content is repeated on the Including CSS page. Should we combine these pages?
 
-If you want to enforce an order between dependencies of a different type, you can add html import with imports in it.
-For example, if `htmlimport4.html` should be run before `htmlimport4-js.js` then you should import an html that has the
-correct load order:
-[source, html]
-----
-<link rel="import" href="htmlimport4.html">
-<script src="htmlimport4-js.js"></script>
-----
-====
+You can place your JavaScript and HTML files in any folder in your WAR file, except `/VAADIN`, which is reserved for internal framework use.
 
-You can place your static resources in any folder inside your WAR file except
-for `/VAADIN` which is reserved for framework internal use.
-`VaadinServlet` handles static resource requests if you have mapped it to `/*` .
-Otherwise, the servlet container will take care of static resource requests.
+`VaadinServlet` handles static resource requests if you have mapped it to `/*`.
+If not, the servlet container takes care of static resource requests.
 
-By using relative URLs you are not dependent on whether the application is
-deployed in the root context (e.g.  `http://mysite.com/`) or in a sub
-context (e.g. `http://mysite.com/myapp/`).
 
-Relative URLs are resolved using the page base URI, which is always set to
-match the servlet URL.
+If you use relative URLs, it is irrelevant whether your application is deployed in the root context (for example  `\http://mysite.com/`) or in a sub context (for example `\http://mysite.com/myapp/`). Relative URLs are resolved using the page base URI, which is always set to match the servlet URL.
 
-[TIP]
-====
-If you are using a servlet path for the servlet, e.g. `http://mysite.com/myapp/myservlet/`
-then you will need to take the servlet path into account when including resources.
-This is needed because the base URI is `http://mysite.com/myapp/myservlet/` but
-static resources are deployed in `http://mysite.com/myapp/`.
+=== Using a Servlet Path
 
-You can use the special protocol `context://` with e.g. `Page.addHtmlImport` to
-ensure a URL relative to the context path but this is only supported when
-including resources.
+If you use a servlet path for the servlet, for example `\http://mysite.com/myapp/myservlet/`, you need to take the servlet path into account when including resources. This is because the base URI is `\http://mysite.com/myapp/myservlet/`, but static resources are deployed at `\http://mysite.com/myapp/`.
 
-When you configure an element, e.g setting the `src` attribute for an `<img>`,
-you cannot use the `context://` protocol. Your options are then:
+You can use the `context://` protocol, with the `Page.addStyleSheet` method, for example. This ensures the URL is relative to the context path, but is only supported when including resources.
 
-* Cancel out the servlet path, e.g. `../images/logo.png`.
-* Use an absolute URL, e.g. `/myapp/images/logo.png`
-* Deploy your static resources in a directory matching the servlet path, e.g. `/myservlet/`.
-====
+When you configure an element, for example setting the `src` attribute for an `<img>`, you cannot use the `context://` protocol. Your options are:
 
-[TIP]
-====
-There is a possibility to define which dependencies are loaded first, refer to <<tutorial-ways-of-importing#,Ways of importing the dependencies>> for details.
-====
+* Cancel out the servlet path, for example `../images/logo.png`.
+* Use an absolute URL, for example `/myapp/images/logo.png`
+* Deploy your static resources in a directory that matches your servlet path, for example `/myservlet/`.
