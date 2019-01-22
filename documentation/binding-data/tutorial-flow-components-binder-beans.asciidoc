@@ -34,59 +34,6 @@ binder.forField(yearOfBirthField)
 [NOTE]
 Be cautious when using strings to identify properties. A typo in the string, or a subsequent changes to the setter and getter method names, will result in a runtime exception.
 
-[NOTE]
-When you use the `setBean` method (unbuffered binding), validation is triggered automatically on all change events. When you use the `readBean` and `writeBean` methods (unbuffered binding), validation is only triggered automatically when calling `writeBean`. You can trigger it manually at any time by calling `validate()` on the `Binder`, for example in a `ValueChange` handler.
-
-Validation errors resulting from bean-level validation may not be directly associated with a field component in the UI. For this reason, `Binder` may not know where to display the messages. You can overcome this, by defining a `Label` for status messages that are not related to specific fields. This is similar to the `withStatusLabel` method that is used to define where messages for a specific binding should be displayed.
-
-*Example*: Defining a `formStatusLabel`.
-
-[source, java]
-----
-Label formStatusLabel = new Label();
-
-Binder<Person> binder = new Binder<>(Person.class);
-
-binder.setStatusLabel(formStatusLabel);
-
-// Continue by binding fields
-----
-
-You can also define a status handler for custom status handling.
-
-*Example*: Defining a custom status handler. 
-
-[source, java]
-----
-BinderValidationStatusHandler<Person> defaultHandler = binder
-                .getValidationStatusHandler();
-
-binder.setValidationStatusHandler(status -> {
-    // create an error message on failed bean-level validations
-    List<ValidationResult> errors = status
-            .getBeanValidationErrors();
-
-    // collect all bean-level error messages into a single string,
-    // separate each message with a <br> tag
-    String errorMessage = errors.stream()
-            .map(ValidationResult::getErrorMessage)
-            // sanitize the individual error strings to avoid code
-            // injection
-            // since we are displaying the resulting string as HTML
-            .map(errorString -> Jsoup.clean(errorString,
-                    Whitelist.simpleText()))
-            .collect(Collectors.joining("<br>"));
-
-    // finally, display all bean-level validation errors in a single
-    // label
-    formStatusLabel.getElement().setProperty("innerHTML", errorMessage);
-    setVisible(formStatusLabel, !errorMessage.isEmpty());
-
-    // Let the default handler show messages for each field
-    defaultHandler.statusChange(status);
-});
-----
-
 == Automatic Data Binding
 
 The `bindInstanceFields` method facilitates automatic data binding. 
