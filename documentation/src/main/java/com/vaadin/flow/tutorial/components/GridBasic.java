@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
@@ -198,13 +199,13 @@ public class GridBasic {
 
         // Sets a simple text header
         nameColumn.setHeader("Name");
-        // Sets a header containing a custom template,
+        // Sets a header using Html component,
         // in this case simply bolding the caption "Name"
-        nameColumn.setHeader("<b>Name</b>");
+        nameColumn.setHeader(new Html("<b>Name</b>"));
 
         // Similarly for the footer
         nameColumn.setFooter("Name");
-        nameColumn.setFooter("<b>Name</b>");
+        nameColumn.setFooter(new Html("<b>Name</b>"));
     }
 
     public void gridSorting() {
