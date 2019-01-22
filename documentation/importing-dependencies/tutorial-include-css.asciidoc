@@ -67,7 +67,7 @@ When you configure an element, for example setting the `src` attribute for an `<
 
 Be cautious when including global styles for your application. If the user's browser does not have native support for Web Components, global styles tend to leak into your Web Components, 
 
-See <<integrating-a-web-component#,Integrating a Web Component>> for more, and *Browser support* at https://www.webcomponents.org/[webcomponents.org] for a list of browsers that support Web Components and those that require polyfills. 
+See <<../web-components/integrating-a-web-component#,Integrating a Web Component>> for more, and *Browser support* at https://www.webcomponents.org/[webcomponents.org] for a list of browsers that support Web Components and those that require polyfills. 
 
 Web Component normally uses their own styles that are specifically scoped for each component. If the browser does not support Web Components, the missing functionality is polyfilled, and the Web Component is no longer treated as a scoped unit, but rather as a regular part of the DOM tree. Global styles are applied to it in the same way as any other HTML element.
 
@@ -111,4 +111,4 @@ You can also do this using the `@HtmlImport` annotation:
 
 . Use the `@HtmlImport("shared-styles.html")` annotation in the component class.
 
-See <<theming-crash-course#,Theming Web Components>> and https://www.polymer-project.org/2.0/docs/api/elements/Polymer.CustomStyle[Polymer.CustomStyle] for more.
+See <<../theme/theming-crash-course#,Theming Web Components>> and https://www.polymer-project.org/2.0/docs/api/elements/Polymer.CustomStyle[Polymer.CustomStyle] for more.
