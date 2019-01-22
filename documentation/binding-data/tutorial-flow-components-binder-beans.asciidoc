@@ -274,4 +274,4 @@ binder.bindInstanceFields(this);
 
 === Validating Fields
 
-The `bindInstanceFields` method does not support validation. If you want to add validation, use `BeanValidationBinder` instead of the `bindInstanceFields` method.
+The `bindInstanceFields` method does not support adding programmatic validation bindings. If you are using JSR-303 validators, they work fine when using `BeanValidationBinder`. Also, you can bind properties that need validators manually and then bind all remaining fields using bindInstanceFields method.
