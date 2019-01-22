@@ -39,14 +39,14 @@ public class ShortcutBasic {
     }
 
     public class Scope extends Div {
-        public void scopedShortcut() {
+        public Scope() {
             TextField firstName = new TextField();
             TextField lastName = new TextField();
 
             add(firstName, lastName);
 
-            // the first `this` is the scope, or "owner" of this shortcut. The second `this`
-            // is the lifecycleOwner which will be discussed later
+            // the first `this` is the scope, or "owner" of this shortcut. The
+            // second `this` is the lifecycleOwner, which will be discussed later
             Shortcuts.addShortcut(this, this,
                     () -> {
                         firstName.setValue("");

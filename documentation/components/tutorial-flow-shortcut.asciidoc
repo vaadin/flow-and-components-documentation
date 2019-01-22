@@ -75,19 +75,23 @@ using the `Shortcuts` factory class.
 
 [source, java]
 ----
-TextField firstName = new TextField();
-TextField lastName = new TextField();
+public class Scope extends Div {
+    public Scope() {
+        TextField firstName = new TextField();
+        TextField lastName = new TextField();
 
-add(firstName, lastName);
+        add(firstName, lastName);
 
-// the first `this` is the scope, or "owner" of this shortcut. The second `this`
-// is the lifecycleOwner which will be discussed later
-Shortcuts.addShortcut(this, this,
-        () -> {
-            firstName.setValue("");
-            lastName.setValue("");
-            firstName.focus();},
-        Key.ESCAPE);
+        // the first `this` is the scope, or "owner" of this shortcut. The
+        // second `this` is the lifecycleOwner, which will be discussed later
+        Shortcuts.addShortcut(this, this,
+                () -> {
+                    firstName.setValue("");
+                    lastName.setValue("");
+                    firstName.focus();},
+                Key.ESCAPE);
+    }
+}
 ----
 
 The shortcut in the example is tied to the parent component of the `Input`
@@ -218,7 +222,7 @@ input.registerFocusShortcut(Key.KEY_F)
 ==== Inspection
 `ShortcutRegistration` offers a variety of methods for checking the internal
 state of the shortcut and all configurable values have corresponding _getter_
- methods.
+methods.
 
 One extra method is `boolean isShortcutActive()` which can be used to check,
 whether the shortcut is enabled on the client-side or not.
