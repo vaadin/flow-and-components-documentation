@@ -4,12 +4,16 @@ order: 2
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
 = Including Style Sheets
 
-For styling the application you typically need to include a style sheet. There
-are two ways to do this.
+You can use CSS style sheets to style your application and Web Components. 
 
+There are two ways to include a CSS style sheet in your Java classes. Both have the same effect and you can use whichever suits best.   
+
+. Using the `@StyleSheet` annotation.
++
+*Examples*: Using the `@StyleSheet` annotation to include a style sheet.
++
 [source,java]
 ----
 @StyleSheet("styles.css") // Relative to Servlet URL
@@ -19,15 +23,15 @@ public class MainLayout extends Component {
 }
 ----
 
-The above snippet uses the `@StyleSheet` annotation on a component. The value of
-the annotation is a URL to load the style sheet from. The style sheet is loaded
-when the component is shown for the first time in the browser. You can use the
-annotation multiple times on the same component.
+* The snippet uses the `@StyleSheet` annotation on a component. 
+* The value of the annotation is a URL from which the style sheet loads. 
+* The style sheet is loaded when the component displays for the first time in the browser. 
+* You can use the annotation multiple times on the same component.
 
-Another way of adding a style sheet is using the `addStyleSheet(String url)`
-method from the `Page` class. It does exactly the same as the `@StyleSheet`
-annotation.
-
+. Using the `addStyleSheet(String url)` method from the `Page` class. 
++
+*Example*: Using the `addStyleSheet(String url)` method to include a style sheet. 
++
 [source,java]
 ----
   public MainLayout(){
@@ -37,48 +41,44 @@ annotation.
 }
 ----
 
-You can place style sheets and other static resources in any folder inside your WAR file except for `/VAADIN` which is reserved for framework internal use.
-`VaadinServlet` handles static resource requests if you have mapped it to `/*` .
-Otherwise, the servlet container will take care of static resource requests.
+== Storing CSS Files
 
-By using relative URLs you are not dependent on whether the application is deployed in the root context (e.g.  `http://mysite.com/`) or in a sub context (e.g. `http://mysite.com/myapp/`).
-Relative URLs are resolved using the page base URI, which is always set to match the servlet URL.
+You can place CSS style sheets and other static resource files in any folder in your WAR file, except `/VAADIN`, which is reserved for internal framework use.
 
-[TIP]
-====
-If you are using a servlet path for the servlet, e.g. `http://mysite.com/myapp/myservlet/` then you will need to take the servlet path into account when including resources.
-This is needed because the base URI is `http://mysite.com/myapp/myservlet/` but static resources are deployed in `http://mysite.com/myapp/`.
+`VaadinServlet` handles static resource requests, if you have mapped it to `/*`.
+If not, the servlet container takes care of static resource requests.
 
-You can use the special protocol `context://` with e.g. `Page.addStyleSheet` to ensure a URL relative to the context path but this is only supported when including resources.
+If you use relative URLs, it is irrelevant whether your application is deployed in the root context (for example  `\http://mysite.com/`) or in a sub context (for example `\http://mysite.com/myapp/`). Relative URLs are resolved using the page base URI, which is always set to match the servlet URL.
 
-When you configure an element, e.g setting the `src` attribute for an `<img>`, you cannot use the `context://` protocol. Your options are then:
+=== Using a Servlet Path
 
-* Cancel out the servlet path, e.g. `../images/logo.png`.
-* Use an absolute URL, e.g. `/myapp/images/logo.png`
-* Deploy your static resources in a directory matching the servlet path, e.g. `/myservlet/`.
-====
+If you use a servlet path for the servlet, for example `\http://mysite.com/myapp/myservlet/`, you need to take the servlet path into account when including resources. This is because the base URI is `\http://mysite.com/myapp/myservlet/`, but static resources are deployed at `\http://mysite.com/myapp/`.
 
-You should be careful with the global styles which you include using `@StyleSheet` annotation or 
-the `addStyleSheet` method. Such styles may leak into web components if a browser 
-doesn't have built-in web components support. A web component (see <<../web-components/integrating-a-web-component.asciidoc,Integrating a Web Component>>) normally uses its own styles defined for it and those styles are scoped to the web component.
-Global styles don't influence on the web component anyhow as well. 
-But this is true only if there is native web components browser support.
+You can use the `context://` protocol, with the `Page.addStyleSheet` method, for example. This ensures the URL is relative to the context path, but is only supported when including resources.
 
-[NOTE]
+When you configure an element, for example setting the `src` attribute for an `<img>`, you cannot use the `context://` protocol. Your options are:
 
-See `Browser support` section https://www.webcomponents.org/[here] for full list 
-of browsers which support web components natively and which requires polyfills.   
+* Cancel out the servlet path, for example `../images/logo.png`.
+* Use an absolute URL, for example `/myapp/images/logo.png`
+* Deploy your static resources in a directory that matches your servlet path, for example `/myservlet/`.
 
-But if an user uses browser without this native support, then the missing functionality
-is polyfilled, and a web component in such browsers is not anymore a scoped unit
-but a regular part of the DOM tree. In this case, global styles work for it in the same
-way as for any other HTML element.
 
-To be able to prevent leaking global styles into the local DOM of web components you
-should use `<custom-style>`:
-* Add an import for Polymer `custom-style.html` e.g. `<link rel="import" href="bower_components/polymer/lib/elements/custom-style.html">`. 
-* Add `<custom-style>`  declaration including the CSS you want to add into the `<head>` element (see below an example).
+== Using Global Styles
 
+Be cautious when including global styles for your application. If the user's browser does not have native support for Web Components, global styles tend to leak into your Web Components, 
+
+See <<integrating-a-web-component#,Integrating a Web Component>> for more, and *Browser support* at https://www.webcomponents.org/[webcomponents.org] for a list of browsers that support Web Components and those that require polyfills. 
+
+Web Component normally uses their own styles that are specifically scoped for each component. If the browser does not support Web Components, the missing functionality is polyfilled, and the Web Component is no longer treated as a scoped unit, but rather as a regular part of the DOM tree. Global styles are applied to it in the same way as any other HTML element.
+
+To prevent global styles leaking into the local DOM of Web Components, you can use the `<custom-style>` extension:
+
+. Add an import for Polymer `custom-style.html`, for example `<link rel="import" href="bower_components/polymer/lib/elements/custom-style.html">`. 
+
+. Add a `<custom-style>` declaration that includes the CSS styles you want to add in the `<head>` element.
++
+*Example*: Adding a `<custom-style>` declaration.
++
 [source,html]
 ----
 <custom-style>
@@ -90,8 +90,12 @@ should use `<custom-style>`:
 </custom-style>
 ----
 
-You may do this via `@HtmlImport` annotation if you put the content together in one file and import it:
+You can also do this using the `@HtmlImport` annotation:
 
+. Put the import and custom styles in the same file. 
++
+*Example*: `shared-styles.html`. 
++
 [source,html]
 ----
 <link rel="import" href="bower_components/polymer/lib/elements/custom-style.html">
@@ -105,11 +109,6 @@ You may do this via `@HtmlImport` annotation if you put the content together in 
 </custom-style>
 ----
 
-then use `@HtmlImport("shared-styles.html")` if the file name `shared-styles.html` 
-has the above content.
+. Use the `@HtmlImport("shared-styles.html")` annotation in the component class.
 
-See https://www.polymer-project.org/2.0/docs/api/elements/Polymer.CustomStyle for more details.
-
-[TIP]
-
-To learn more, see <<../theme/theming-crash-course#,Theming Crash Course>>
+See <<theming-crash-course#,Theming Web Components>> and https://www.polymer-project.org/2.0/docs/api/elements/Polymer.CustomStyle[Polymer.CustomStyle] for more.
