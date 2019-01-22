@@ -99,9 +99,9 @@ binder.bind(titleField,
         });
 ----
 
-== Binding Non-Modifiable Data
+== Binding Read-Only Data
 
-To bind a component to non-modifiable data, you can use a `null` value for the `setter`. 
+To bind a component to read-only data, you can use a `null` value for the `setter`. 
 
 *Example*: Using a `null` value setter.
 
@@ -111,7 +111,7 @@ TextField fullName = new TextField();
 binder.forField(fullName).bind(Person::getFullName, null);
 ----
 
-To bind components that do not implement the `HasValue` interface to non-modifiable data, you can use the `ReadOnlyHasValue` helper class. 
+To bind components that do not implement the `HasValue` interface to read-only data, you can use the `ReadOnlyHasValue` helper class. 
 
 *Example*: Using the `ReadOnlyHasValue` helper class.
 
