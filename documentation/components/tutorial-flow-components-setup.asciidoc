@@ -42,14 +42,7 @@ Using the platform dependency (com.vaadin:vaadin) ensures that all available com
 
 [source,xml]
 ----
-<repositories>
-    <repository>
-        <id>vaadin-prereleases</id>
-        <url>https://maven.vaadin.com/vaadin-prereleases</url>
-    </repository>
-</repositories>
-
-<dependencies>
+    <dependencies>
     <!-- other dependencies -->
     <!-- component dependency -->
     <dependency>
@@ -71,19 +64,16 @@ You can find additional prebuilt Web Components (with Java APIs) contributed by 
 
 As an alternative to using the platform dependency, you can declare single components as dependencies.
 
+https://www.webjars.org/ generates the Maven artifacts with pom.xml that specifies version ranges for jar's dependencies
+instead of some particular version. This means that build results may differ from time to time because of the new libraries' versions released.
+Vaadin provides a BOM (Bill Of Materials) that fixes all vaadin-related dependencies to a tested combination, so that the individual components can be added safely.
+
 You need to add the `bom` and the relevant Flow component package, for example `vaadin-button-flow`, to your project dependencies.
 
 *Example*: Adding the Button component in your `pom.xml` using Maven.
 
 [source,xml]
 ----
-<repositories>
-    <repository>
-        <id>vaadin-prereleases</id>
-        <url>https://maven.vaadin.com/vaadin-prereleases</url>
-    </repository>
-</repositories>
-
 <dependencyManagement>
     <dependencies>
         <dependency>
@@ -104,8 +94,6 @@ You need to add the `bom` and the relevant Flow component package, for example `
         <groupId>com.vaadin</groupId>
         <artifactId>vaadin-button-flow</artifactId>
     </dependency>
-
-    <!-- other dependencies -->
 </dependencies>
 ----
 
