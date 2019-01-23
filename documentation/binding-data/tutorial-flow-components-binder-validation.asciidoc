@@ -175,20 +175,12 @@ binder.forField(marriedField)
 
 You can add multiple converters (and validators) for each binding.
 
-Each validator or converter is used in the order defined for a value to be input by the user. The value is passed along until:
+Each validator or converter is used in the order defined in the class. The value is passed along until:
 
 * A final converted value is stored in the business object, or 
 * The first validation error or impossible conversion is encountered.
 
-When updating UI components, values from the business object are passed through each converter in reverse order (without validation).
-
-//What does "Each validator or converter is used in the order defined for a value to be input by the user"? The field order or the definition order or something else?
-
-=== Distinguishing Validators and Converters 
-
-Although it is possible to use a converter as a validator, best practice is to use a validator to check the contents of a field, and a converter to modify the value. This improves code clarity and avoids excessive boilerplate code. 
-
-*Examples*: Using validators and converters
+*Example*: Validator and converter sequence.
 
 [source, java]
 ----
@@ -204,6 +196,11 @@ binder.forField(yearOfBirthField)
     "Person must be born in the 20th century")
   .bind(Person::getYearOfBirth, Person::setYearOfBirth);
 ----
+
+When updating UI components, values from the business object are passed through each converter in reverse order (without validation).
+
+[NOTE]
+Although it is possible to use a converter as a validator, best practice is to use a validator to check the contents of a field, and a converter to modify the value. This improves code clarity and avoids excessive boilerplate code.
 
 === Conversion Error Messages
 
