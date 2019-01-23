@@ -8,15 +8,44 @@ layout: page
 
 Once your bindings are set up, you are ready to fill the bound UI components with data from your business objects. 
 
-Changes can be written to business objects manually or automatically. 
+Changes can be written to business objects automatically or manually. 
 
-[NOTE]
-Writing automatically when the user makes changes in the UI is typically the most convenient option, but can result in unwanted consequences. For example, if another part of the application uses the same instance, changes made by that part could show before the user saves the form. You can prevent this by using a copy of the edited object, or by manually writing to only update the object when the user saves.
+== Reading and Writing Automatically
 
+Writing to business objects automatically when the user makes changes in the UI is ususally the most convenient option. 
+
+You can bind the values directly to an instance, by allowing `Binder` to automatically save values from the fields.
+
+*Example*: Automatically saving field values.
+[source, java]
+----
+Binder<Person> binder = new Binder<>();
+
+// Field binding configuration omitted, it should be done here
+
+Person person = new Person("John Doe", 1957);
+
+// Loads the values from the person instance
+// Sets person to be updated when any bound field is updated
+binder.setBean(person);
+
+Button saveButton = new Button("Save", event -> {
+    if (binder.validate().isOk()) {
+        // person is always up-to-date as long as there are no
+        // validation errors
+
+        MyBackend.updatePersonInDatabase(person);
+    }
+});
+----
+* The `validate()` call ensures that bean-level validators are checked when saving automatically.
+
+[WARNING]
+When you use the `setBean` method, the business object instance updates whenever the user changes the value of a bound field. If another part of the application simultaneously uses the same instance, that part could display changes before the user saves. You can prevent this by using a copy of the edited object, or by manually writing to only update the object when the user saves. 
 
 == Reading Manually
 
-You can use the `readBean` method to read values from a business object instance into the UI components.
+You can use the `readBean` method to manually read values from a business object instance into the UI components.
 
 *Example*: Using the `readBean` method.
 
@@ -104,33 +133,3 @@ binder.addStatusChangeListener(event -> {
   resetButton.setEnabled(hasChanges);
 });
 ----
-
-== Reading and Writing Automatically
-
-Instead of manually saving field values to a business object instance, you can bind the values directly to an instance, by allowing `Binder` to automatically save values from the fields.
-
-*Example*: Automatically saving field values.
-[source, java]
-----
-Binder<Person> binder = new Binder<>();
-
-// Field binding configuration omitted, it should be done here
-
-Person person = new Person("John Doe", 1957);
-
-// Loads the values from the person instance
-// Sets person to be updated when any bound field is updated
-binder.setBean(person);
-
-Button saveButton = new Button("Save", event -> {
-    if (binder.validate().isOk()) {
-        // person is always up-to-date as long as there are no
-        // validation errors
-
-        MyBackend.updatePersonInDatabase(person);
-    }
-});
-----
-* The `validate()` call ensures that bean-level validators are checked when saving automatically.
-[WARNING]
-When you use the `setBean` method, the business object instance updates whenever the user changes the value of a bound field. If another part of the application simultaneously uses the same instance, that part could display changes before the user saves. 
