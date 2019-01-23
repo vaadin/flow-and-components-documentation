@@ -233,7 +233,7 @@ There are two methods to implement in the `Converter` interface:
 * `convertToPresentation` receives a value that originates from the business object.
 ** This method returns the converted value directly. It is assumed that the business object only contains valid values.
 
-*Example*: Using the `convertToModel` and `convertToPresentation` methods.
+*Example*: Implementing a String to Integer Converter.
 
 [source, java]
 ----
