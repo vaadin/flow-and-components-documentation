@@ -76,91 +76,6 @@ grid.addColumn(Person::getName).setHeader("Name")
 [NOTE]
 This kind of sorting is only supported for in-memory data. See <<Sorting Lazy-Loaded Data>> for how to sort data loaded from a backend service. 
 
-=== Creating a List Data Provider
-
-As an alternative to assigning the items in the collection directly, you can create a `ListDataProvider` that contains the items a component should use. 
-
-Multiple components can share a single list data provider to display the same data. You can also configure the instance to filter out some items or display items in a specific order.
-
-For components like `Grid` that can be separately configured to sort data in a specific way, sorting configured in the data provider is only used as a fallback. The fallback is used if no sorting is defined in the component, or if the order between items is considered equal by the component's sorting definition. Components update automatically when you change sorting in the data provider.
-
-*Example*: Defining differing sort orders in the `ListDataProvider` and components.
-
-[source, java]
-----
-ListDataProvider<Person> dataProvider =
-        DataProvider.ofCollection(persons);
-
-dataProvider.setSortOrder(Person::getName,
-        SortDirection.ASCENDING);
-
-Grid<Person> grid = new Grid<>(Person.class);
-// The grid shows the persons sorted by name
-grid.setDataProvider(dataProvider);
-
-// Makes the combo box show persons in descending order
-button.addClickListener(event -> {
-    dataProvider.setSortOrder(Person::getName,
-            SortDirection.DESCENDING);
-});
-----
-
-=== Filtering In-memory Data
-
-You can configure the list data provider to always apply a specific filter to limit which items display, or to filter by data that is not included in the displayed item caption. 
-
-*Example*: Defining a `ListDataProvider` with a filter. 
-
-[source, java]
-----
-ListDataProvider<Person> dataProvider =
-        DataProvider.ofCollection(persons);
-
-ComboBox<Person> comboBox = new ComboBox<>();
-comboBox.setDataProvider(dataProvider);
-
-departmentSelect.addValueChangeListener(event -> {
-    Department selectedDepartment = event.getValue();
-    if (selectedDepartment != null) {
-        dataProvider.setFilterByValue(
-                Person::getDepartment,
-                selectedDepartment);
-    } else {
-        dataProvider.clearFilters();
-    }
-});
-----
-
-* The selected department in the `departmentSelect` component is used to dynamically change the persons displayed in the combo box.
-* In addition to `setFilterByValue`, it is also possible to set a filter based on a predicate that tests each item or the value of some specific property in the item.
-* Multiple filters can be stacked using `addFilter` methods instead of `setFilter`.
-
-=== Notifying the Data Provider About Item Changes
-
-The listing component does not automatically know about changes to the list of items or the individual items. For changes to reflect in the component, you need to notify the list data provider when items are changed, added or removed. 
-
-`DataProvider` has two methods for this purpose, `refreshAll` and `refreshItems`.
-
-*Example*: Using the `refreshAll` and `refreshItems` methods to update the data provider. 
-[source, java]
-----
-ListDataProvider<Person> dataProvider =
-        new ListDataProvider<>(persons);
-
-Button addPersonButton = new Button("Add person",
-        clickEvent -> {
-            persons.add(new Person("James Monroe", 1758));
-            dataProvider.refreshAll();
-        });
-
-Button modifyPersonButton = new Button("Modify person",
-        clickEvent -> {
-            Person personToChange = persons.get(0);
-            personToChange.setName("Changed person");
-            dataProvider.refreshItem(personToChange);
-        });
-----
-
 == Lazy Loading Data from a Backend Service
 
 When fetching data from a backend service, it is often more efficient to only load the items that currently display. For example, when loading all available data uses excessive memory or slows down page load. 
@@ -517,6 +432,91 @@ searchField.addValueChangeListener(event -> {
 ----
 
 * The filter type of the `wrapper` instance is `Void`. This means that the data provider does not support further filtering through the query. It is therefore not possible to use this data provider with a combo box.
+
+== Using a ListDataProvider for Advanced In-memory Data Handling
+
+As an alternative to assigning the items in a collection directly, you can create a `ListDataProvider` that contains the items a component should use. 
+
+Multiple components can share a single list data provider to display the same data. You can also configure the instance to filter out some items or display items in a specific order.
+
+For components like `Grid` that can be separately configured to sort data in a specific way, sorting configured in the data provider is only used as a fallback. The fallback is used if no sorting is defined in the component, or if the order between items is considered equal by the component's sorting definition. Components update automatically when you change sorting in the data provider.
+
+*Example*: Defining differing sort orders in the `ListDataProvider` and components.
+
+[source, java]
+----
+ListDataProvider<Person> dataProvider =
+        DataProvider.ofCollection(persons);
+
+dataProvider.setSortOrder(Person::getName,
+        SortDirection.ASCENDING);
+
+Grid<Person> grid = new Grid<>(Person.class);
+// The grid shows the persons sorted by name
+grid.setDataProvider(dataProvider);
+
+// Makes the combo box show persons in descending order
+button.addClickListener(event -> {
+    dataProvider.setSortOrder(Person::getName,
+            SortDirection.DESCENDING);
+});
+----
+
+=== Filtering In-memory Data
+
+You can configure the list data provider to always apply a specific filter to limit which items display, or to filter by data that is not included in the displayed item caption. 
+
+*Example*: Defining a `ListDataProvider` with a filter. 
+
+[source, java]
+----
+ListDataProvider<Person> dataProvider =
+        DataProvider.ofCollection(persons);
+
+ComboBox<Person> comboBox = new ComboBox<>();
+comboBox.setDataProvider(dataProvider);
+
+departmentSelect.addValueChangeListener(event -> {
+    Department selectedDepartment = event.getValue();
+    if (selectedDepartment != null) {
+        dataProvider.setFilterByValue(
+                Person::getDepartment,
+                selectedDepartment);
+    } else {
+        dataProvider.clearFilters();
+    }
+});
+----
+
+* The selected department in the `departmentSelect` component is used to dynamically change the persons displayed in the combo box.
+* In addition to `setFilterByValue`, it is also possible to set a filter based on a predicate that tests each item or the value of some specific property in the item.
+* Multiple filters can be stacked using `addFilter` methods instead of `setFilter`.
+
+=== Notifying the Data Provider About Item Changes
+
+The listing component does not automatically know about changes to the list of items or the individual items. For changes to reflect in the component, you need to notify the list data provider when items are changed, added or removed. 
+
+`DataProvider` has two methods for this purpose, `refreshAll` and `refreshItems`.
+
+*Example*: Using the `refreshAll` and `refreshItems` methods to update the data provider. 
+[source, java]
+----
+ListDataProvider<Person> dataProvider =
+        new ListDataProvider<>(persons);
+
+Button addPersonButton = new Button("Add person",
+        clickEvent -> {
+            persons.add(new Person("James Monroe", 1758));
+            dataProvider.refreshAll();
+        });
+
+Button modifyPersonButton = new Button("Modify person",
+        clickEvent -> {
+            Person personToChange = persons.get(0);
+            personToChange.setName("Changed person");
+            dataProvider.refreshItem(personToChange);
+        });
+----
 
 === Refreshing Data from a Backend Service
 
