@@ -12,15 +12,15 @@ A listing component, is a component that:
 
 * Displays one or several properties from a list of items, 
 * Allows the user to inspect the data and mark items as selected, and 
-* Optionally, allows item editing directly in the component.
+* Optionally, allows the user to edit items directly in the component.
 
 There are a number of officially-supported listing components, such as `ListBox` and `ComboBox`. Each component has its own API to configure exactly how the data is represented and manipulated. 
 
-All list components have a method called `setItems` to define what items are to be displayed and they have an interface called `DataProvider` for more finegrained control of the displayed data.
+All list components have a `setItems` method to define which items display. They also have the `DataProvider` interface for more fine-grained control of the displayed data.
 
-== Changing how items are displayed
+== Changing how items display
 
-Most components by default use `toString()` method to display items. If that don't suite for you, you can change the behaviour by configuring the component. Components are configured with one or more callbacks that define how to display the items.
+By default, most components use the `toString()` method to display items. If this is not suitable, you can change the behavior by configuring the component. Components are configured with one or more callbacks that define how to display the items.
 
 *Example*: A `ComboBox` component that lists status items and and uses the `Status.getLabel()` method to represent each status. There is also a `Grid` with two columns, Name and Year of birth. .
 
@@ -35,9 +35,9 @@ grid.addColumn(person -> Integer.toString(person.getYearOfBirth()))
         .setHeader("Year of birth");
 ----
 
-== Showing in memory data
+== Displaying In-memory Data
 
-The easiest way to pass data to listing components is to use `setItems` method. It accepts a collection, an array or a stream of items.
+The easiest way to pass data to listing components is to use the `setItems` method. It accepts a collection, an array, or a stream of items.
 
 *Example*: Passing data values to `setItems`. 
 
@@ -71,7 +71,7 @@ grid.addColumn(Person::getName).setHeader("Name")
                 .comparing(person -> person.getName().toLowerCase()));
 ----
 [NOTE]
-This kind of sorting is only supported for in-memory data. See <<Sorting Lazy-Loaded Data>> for how to sort data loaded from a backend service. 
+This kind of sorting is only supported for in-memory data. See <<Sorting Lazy-loaded Data>> for how to sort data loaded from a backend service. 
 
 == Lazy Loading Data from a Backend Service
 
@@ -128,9 +128,9 @@ grid.setDataProvider(dataProvider);
 ----
 * The results of the first and second callbacks must be symmetric, so that fetching all available items using the first callback returns the number of items indicated by the second callback.
 * If you impose any restrictions in the first callback, you must add the same restrictions for the second callback. 
-* The second `DataProvider` type parameter defines how the provider can be filtered. In the example, the filter type is `Void`, meaning filtering in not supported. See <<Filtering Lazy-Loaded Data>> below for more. 
+* The second `DataProvider` type parameter defines how the provider can be filtered. In the example, the filter type is `Void`, meaning filtering in not supported. See <<Filtering Lazy-loaded Data>> below for more. 
 
-=== Sorting Lazy-Loaded Data
+=== Sorting Lazy-loaded Data
 
 It is not practical to order items based on a `Comparator` when the items are loaded on demand, because this requires all items to be loaded and inspected.
 
@@ -205,7 +205,7 @@ grid.addColumn(Person::getName).setHeader("Name")
 grid.addColumn(Person::getYearOfBirth).setHeader("Year of birth");
 ----
 
-In some cases providing a single property name is not enough. For example, if the backend sorts by multiple properties for one column in the UI, or if the backend sort order needs to be inverted when compared to the sort order defined by the user. In these cases, you need to define a callback that generates suitable `SortOrder` values for the given column.
+In some cases, providing a single property name is not enough. For example, if the backend sorts by multiple properties for one column in the UI, or if the backend sort order needs to be inverted when compared to the sort order defined by the user. In these cases, you need to define a callback that generates suitable `SortOrder` values for the given column.
 
 *Example*: Generating a `SortOrder` by last name and then first name. 
 
@@ -219,7 +219,7 @@ grid.addColumn(person -> person.getName() + " " + person.getLastName())
                         new QuerySortOrder("firstName", direction)));
 ----
 
-=== Filtering Lazy-Loaded Data
+=== Filtering Lazy-loaded Data
 
 Different backends support filtering in different ways: some offer no filtering support, some allow filtering by a single value (of a specific type), and some support complex filtering options.
 
@@ -387,7 +387,7 @@ DataProvider<Person, String> getDataProvider(PersonService service) {
 ----
 
 * The `withConvertedFilter` method allows you to use a data provider that filters by another type. 
-* The example filters a series of people by name. When users input text, it is not used directly to select data items from the existing objects. A Lambda produces a predicate (another Lambda) that filters the people by name.
+* The example filters a series of people by name. When users input text, it is not used directly to select data items from the existing objects. A lambda produces a predicate (another lambda) that filters the people by name.
 
 *Example*: Using the DataProvider.
 
@@ -429,6 +429,40 @@ searchField.addValueChangeListener(event -> {
 ----
 
 * The filter type of the `wrapper` instance is `Void`. This means that the data provider does not support further filtering through the query. It is therefore not possible to use this data provider with a combo box.
+
+=== Refreshing Data from a Backend Service
+
+`DataProvider` has two methods, `refreshAll` and `refreshItems`, that you can use to ensure that backend changes reflect in all parts of you application. 
+
+Whether refreshing is required depends on your implementation and environment. Spring Data, for example, gives new instances with every request, and changes to the repository make old instances of the same object "stale". In cases similar to this, you should inform interested components by calling `dataProvider.refreshItem(newInstance)`. This works out of the box, if your beans have equals and hashCode implementations that check if the objects represent the same data. Since this is not always the case, when using `CallbackDataProvider` you can give it a `ValueProvider` that will provide a stable ID for the data objects. This is usually a method reference, for example `Person::getId`.
+
+*Example*: `PersonService` interface with an update method that returns a new instance of the item. _(Other functionality omitted. )_
+
+[source, java]
+----
+public interface PersonService {
+    Person save(Person person);
+}
+----
+
+*Example*: Data provider to update a persons name and save it to the backend.
+
+[source, java]
+----
+DataProvider<Person, String> allPersonsWithId = new CallbackDataProvider<>(
+        fetchCallback, sizeCallback, Person::getId);
+
+Grid<Person> persons = new Grid<>();
+persons.setDataProvider(allPersonsWithId);
+persons.addColumn(Person::getName).setHeader("Name");
+
+Button modifyPersonButton = new Button("", event -> {
+    Person personToChange = service.fetchById(128);
+    personToChange.setName("Changed person");
+    Person newInstance = service.save(personToChange);
+    allPersonsWithId.refreshItem(newInstance);
+});
+----
 
 == Using a ListDataProvider for Advanced In-memory Data Handling
 
@@ -513,38 +547,4 @@ Button modifyPersonButton = new Button("Modify person",
             personToChange.setName("Changed person");
             dataProvider.refreshItem(personToChange);
         });
-----
-
-=== Refreshing Data from a Backend Service
-
-`DataProvider` has two methods, `refreshAll` and `refreshItems`, that you can use to ensure that backend changes reflect in all parts of you application. 
-
-Whether refreshing is required depends on your implementation and environment. Spring Data, for example, gives new instances with every request, and changes to the repository make old instances of the same object "stale". In cases similar to this, you should inform interested components by calling `dataProvider.refreshItem(newInstance)`. This works out of the box, if your beans have equals and hashCode implementations that check if the objects represent the same data. Since this is not always the case, when using `CallbackDataProvider` you can give it a `ValueProvider` that will provide a stable ID for the data objects. This is usually a method reference, for example `Person::getId`.
-
-*Example*: `PersonService` interface with an update method that returns a new instance of the item. _(Other functionality omitted. )_
-
-[source, java]
-----
-public interface PersonService {
-    Person save(Person person);
-}
-----
-
-*Example*: Data provider to update a persons name and save it to the backend.
-
-[source, java]
-----
-DataProvider<Person, String> allPersonsWithId = new CallbackDataProvider<>(
-        fetchCallback, sizeCallback, Person::getId);
-
-Grid<Person> persons = new Grid<>();
-persons.setDataProvider(allPersonsWithId);
-persons.addColumn(Person::getName).setHeader("Name");
-
-Button modifyPersonButton = new Button("", event -> {
-    Person personToChange = service.fetchById(128);
-    personToChange.setName("Changed person");
-    Person newInstance = service.save(personToChange);
-    allPersonsWithId.refreshItem(newInstance);
-});
 ----
