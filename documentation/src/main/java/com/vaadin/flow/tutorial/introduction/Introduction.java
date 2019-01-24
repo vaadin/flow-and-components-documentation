@@ -22,7 +22,7 @@ public class Introduction {
 
     public Introduction() {
         TextField textField = new TextField();
-        Span greeting = new Span("Hello stranger");
+        Span greeting = new Span("Hello stranger"); // Simple HTML inline text
 
         textField.addValueChangeListener(event ->
                 greeting.setText("Hello " + event.getValue()));
