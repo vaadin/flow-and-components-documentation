@@ -16,16 +16,14 @@ A listing component, is a component that:
 
 There are a number of officially-supported listing components, such as `ListBox` and `ComboBox`. Each component has its own API to configure exactly how the data is represented and manipulated. 
 
-All list components share a common mechanism - a `DataProvider` - that fetches the items to display.
+All list components have a method called `setItems` to define what items are to be displayed and they have an interface called `DataProvider` for more finegrained control of the displayed data.
 
-== Displaying List Items
+== Changing how items are displayed
 
-. The first step in displaying list items is to define how the data displays.  
-+
-Items are generally loaded directly from memory or lazily from some kind of backend. Regardless of the location, all components are configured with one or more callbacks that define how to display the items. 
-+
+Most components by default use `toString()` method to display items. If that don't suite for you, you can change the behaviour by configuring the component. Components are configured with one or more callbacks that define how to display the items.
+
 *Example*: A `ComboBox` component that lists status items and and uses the `Status.getLabel()` method to represent each status. There is also a `Grid` with two columns, Name and Year of birth. .
-+
+
 [source, java]
 ----
 ComboBox<Status> comboBox = new ComboBox<>();
@@ -36,14 +34,13 @@ grid.addColumn(Person::getName).setHeader("Name");
 grid.addColumn(person -> Integer.toString(person.getYearOfBirth()))
         .setHeader("Year of birth");
 ----
-* It is not necessary to define an item caption provider if `Status.toString()` is implemented to return suitable text. `ComboBox` is configured to use `toString()` to find a caption to display, by default. 
-+
-. The next step is to provide data to display in the component. 
-+
-The easiest way to do this is to directly pass the values to show to `setItems`.
-+
+
+== Showing in memory data
+
+The easiest way to pass data to listing components is to use `setItems` method. It accepts a collection, an array or a stream of items.
+
 *Example*: Passing data values to `setItems`. 
-+
+
 [source, java]
 ----
 // Sets items as a collection
