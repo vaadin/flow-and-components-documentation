@@ -9,11 +9,11 @@ Vaadin Flow connects the Java ecosystem to your web platform. Flow is an integra
 
 In this section we provide an overview of Vaadin Flow architecture and introduce basic Flow concepts.
 
-== Flow Architecture
+== Vaadin Flow Architecture
 
 Working with front-end web technologies, such as HTML, CSS and JavaScript, can be challenging and time-consuming for Java developers. In Flow, all UI elements are componentized into https://www.webcomponents.org/[Web Components]. This makes development easier than ever before, because each element is decoupled and sandboxed. 
 
-Flow includes:
+Vaadin Flow includes:
 
 * A type-safe Java UI Component API on the server side that facilitates the use of the Web Components. 
 
@@ -27,7 +27,7 @@ Flow includes:
 
 image:images/v10-architecture.png[Vaadin 10 Architecture,1200,430]
 
-Flow allows you to access browser APIs, Web Components, and even simple DOM elements, directly from the server-side Java. It is not necessary to understand how the client-to-server communication or Web Components work. This leaves you free to focus on creating components that work at a higher-abstraction level. 
+Vaadin Flow allows you to access browser APIs, Web Components, and even simple DOM elements, directly from the server-side Java. It is not necessary to understand how the client-to-server communication or Web Components work. This leaves you free to focus on creating components that work at a higher-abstraction level. 
 
 image:images/dom-to-java.png[dom-to-java,500,432]
 
@@ -38,7 +38,7 @@ In addition, Flow provides powerful abstraction layers that you can use to creat
 
 === Vaadin Components
 
-The high abstraction layers provided by Flow's Java Web Components API allow you to build UIs in an extremely productive way. You do not need any HTML or JavaScript knowledge, and only enough CSS experience to style the look and feel of your app. 
+The high abstraction layers provided by Vaadin Flow's Java Web Components API allow you to build UIs in an extremely productive way. You do not need any HTML or JavaScript knowledge, and only enough CSS experience to style the look and feel of your app. 
 
 *Example*: Using the `TextField` component. 
 
@@ -61,7 +61,7 @@ See https://vaadin.com/components/browse[Components], for a full set of availabl
 
 On the higher abstraction layers, you can easily create custom components by adapting or combining existing components to meet your requirements. 
 
-The light-weight component architecture and the ability to access the DOM and browser APIs from the server side, simplifies component customization. While staying on the server side you can  perfect customizations and eliminate bugs, by leveraging Flow’s automated communication layer between the browser and the server. 
+The light-weight component architecture and the ability to access the DOM and browser APIs from the server side, simplifies component customization. While staying on the server side you can  perfect customizations and eliminate bugs, by leveraging Vaadin Flow’s automated communication layer between the browser and the server. 
 
 *Example*: Extending `Component` to create a custom component.
 
@@ -84,7 +84,7 @@ See the tutorials in <<../creating-components/tutorial-component-basic#,Creating
 
 === Integrating a Web Component
 
-Flow allows you to create a Java API for any available Web Component and then use the API in your projects.
+Vaadin Flow allows you to create a Java API for any available Web Component and then use the API in your projects.
 
 *Example*: Importing the `game-card` Web Component into the `GameCard` Java class.
 
@@ -106,7 +106,7 @@ You can also find prebuilt Java APIs for Web Components that have been published
 
 Another way to create components is to separate the layout from the UI logic. The best way to do this is to use HTML templates together with Java classes. The HTML files contain the layout and (if needed) pure client-side logic, while the Java classes takes care of the server-side logic, like event handling. 
 
-You can use these components in the same way as any other component in your Java environment. Flow does not distinguish between pure Java or HTML/Java combined components.
+You can use these components in the same way as any other component in your Java environment. Vaadin Flow does not distinguish between pure Java or HTML/Java combined components.
 
 *Example*: @Id injection in a component.
 [source,html]
@@ -143,7 +143,7 @@ See the tutorials in <<../polymer-templates/tutorial-template-basic#,Creating Po
 
 == Routing and Navigation
 
-Flow provides the `Router` class to structure the navigation of your web app or site into logical parts.
+Vaadin Flow provides the `Router` class to structure the navigation of your web app or site into logical parts.
 
 You can use the `@Route` annotation to register navigation targets. You can specify a path, and optionally a parent layout class to display the component. 
 
@@ -164,9 +164,9 @@ public class MainLayout extends Div implements RouterLayout {
 See the tutorials in <<../routing/tutorial-routing-annotation#,Routing and Navigation>> for more.
 
 
-== How Flow Components Work
+== How Vaadin Flow Components Work
 
-Flow allows Java code to control the DOM in the web browser, with a server-side Java representation of the same DOM tree.
+Vaadin Flow allows Java code to control the DOM in the web browser, with a server-side Java representation of the same DOM tree.
 All changes are automatically synchronized to the real DOM tree in the browser.
 
 The DOM tree is built up from `Element` instances: each instance represents a DOM element in the browser.
