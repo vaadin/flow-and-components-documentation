@@ -4,10 +4,9 @@ order: 8
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
 = Getting Registered Routes
 
-To retrieve all registered Routes in the application, you can use:
+To retrieve all registered `Routes`, use:
 
 [source,java]
 ----
@@ -15,11 +14,11 @@ Router router = UI.getCurrent().getRouter();
 List<RouteData> routes = router.getRoutes();
 ----
 
-The `RouteData` object contains all relevant information about the defined route, such as URL, parameters and parent layout.
+* The `RouteData` object contains all the relevant information about the defined route, such as the URL, parameters, and parent layout.
 
-== Getting Registered Routes By Parent Layout
+== Getting Registered Routes by Parent Layout
 
-To get all the routes defined by parent layout, you can use instead:
+To retrieve all the routes defined by parent layout, use:
 
 [source,java]
 ----
@@ -27,8 +26,3 @@ Router router = UI.getCurrent().getRouter();
 Map<Class<? extends RouterLayout>, List<RouteData>> routesByParent = router.getRoutesByParent();
 List<RouteData> myRoutes = routesByParent.get(MyParentLayout.class);
 ----
-
-See also:
-
-* <<tutorial-routing-annotation#,Defining Routes With @Route>>
-* <<tutorial-router-layout#,Router Layouts and Nested Router Targets>>
