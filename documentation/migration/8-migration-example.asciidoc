@@ -329,12 +329,7 @@ need to call `Design.read`.
 associated polymer template.
 * In `ComboBox`, `setEmptySelectionAllowed` method is renamed to
 `setAllowCustomValue`.
-* `CheckboxGroup` is not available in Vaadin 10 and will be released with
-Vaadin 12. However, there is a `CheckboxGroup` available in
-https://vaadin.com/directory/component/checkboxgroup-multiselect-component-for-java[Vaadin
-Directory] that can be used for now. Since this component is Java-only,
-a placeholder is added to design file to make it easier to add the
-`CheckboxGroup`.
+* `CheckboxGroup` is available in Vaadin 12+.
 
 The commit showing the changes for a migrated product form is
 https://github.com/vaadin/bookstore-starter-flow/commit/c909f99c0a483ab4b6b5a83534be1c8de8a5d5b2#diff-042374cce356a88330ea33c5223aae7b[here].
