@@ -6,29 +6,36 @@ layout: page
 
 = Upload
 
-// this seems to be a complex component that requires more information 
-
-The `Upload` component allows the user to upload files. The component supports single or multiple-file uploads and drag and drop.
+The `Upload` component allows the user to upload files to the server-side. The component supports single or multiple-file uploads and drag and drop.
 
 == Using Upload
 
-=== Setting Maximum Files
-
-You can limit the number of files that can be uploaded at a time using the  `setMaxFiles` method.
-
 === Defining a Receiver Instance
 
-A `Receiver` instance should be specified to receive uploaded data.
+A `Receiver` instance should be specified to receive uploaded data. Receiver provides an `OutputStream` for the framework, where it writes the content of the received file. You can implement the interface directly, or use some of the built-in helpers that buffer the file content for later access.
+
+The built-in implementations for `Receiver`are:
+
+ * FileBuffer
+ * MemoryBuffer
+ * MultiFileBuffer 
+ * MultiFileMemoryBuffer
+
+The last two implement `MultiFileReceiver` and can be used to upload multiple files at once.
 
 *Example*: Simple `Receiver` instance that allows uploading of one file. 
 [source, java]
 ----
 FileBuffer fileBuffer = new FileBuffer();
 Upload upload = new Upload(fileBuffer);
+upload.addFinishedListener(e -> {
+    InputStream inputStream = fileBuffer.getInputStream();
+    // read the contents of the buffered file from inputStream
+});
 ----
 
 * The uploaded data is stored in a file on the file system. 
-* You can get the data from the file using the `getInputStream()` method.
+* You can read the data using the `getInputStream()` method in FileBuffer, when the upload is finished.
 
 You can use a `MultiFileReceiver` to allow uploading of more than one file. 
 
@@ -43,3 +50,6 @@ Upload upload = new Upload(multiFileBuffer);
 * The `MultiFileBuffer` class is a ready-made implementation of `MultiFileReceiver`.
 * The data is stored in files on the file system and you can get the data using a file name and the `getInputStream(String)` method.
 
+=== Setting Maximum Files
+
+You can limit the number of files that can be uploaded at a time using the `setMaxFiles` method.
