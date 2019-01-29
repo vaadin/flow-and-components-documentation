@@ -38,6 +38,8 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.QuerySortOrder;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
+import com.vaadin.flow.data.selection.MultiSelect;
+import com.vaadin.flow.data.selection.SingleSelect;
 import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.databinding.Person;
@@ -62,6 +64,24 @@ public class GridBasic {
                 .setHeader("Year of birth");
 
         layout.add(grid);
+    }
+
+    public void gridWithHasValueInterface() {
+        Grid<Person> grid = new Grid<>();
+
+        grid.setSelectionMode(SelectionMode.SINGLE);
+        SingleSelect<Grid<Person>, Person> personSelect = grid.asSingleSelect();
+        // personSelect can now be used with Binder or HasValue interface
+        personSelect.addValueChangeListener(e -> {
+            Person selectedPerson = e.getValue();
+        });
+
+        grid.setSelectionMode(SelectionMode.MULTI);
+        MultiSelect<Grid<Person>, Person> multiSelect = grid.asMultiSelect();
+        multiSelect.addValueChangeListener(e -> {
+            Set<Person> selectedPersons = e.getValue();
+        });
+
     }
 
     public void handlingSelection() {
