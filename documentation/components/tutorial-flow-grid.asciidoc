@@ -935,7 +935,7 @@ grid.addColumn(new ComponentRenderer<>(person -> {
 
 === Styling with the Theme Property
 
-The default Lumo theme includes different variations that you can use to style the grid. To use these, all you need to do is provide one or more variations. 
+The default Lumo theme includes different variations that you can use to style the grid. You can provide one or more variations. 
 
 *Example*: Using the `addThemeNames` method to define theme variations for the grid. 
 
