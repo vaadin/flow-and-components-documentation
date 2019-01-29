@@ -961,7 +961,7 @@ vaadin-grid vaadin-grid-cell-content img {
 
 You can also use a classes to apply styles to a specific component instance. 
 
-*Example*: Using a "styled" class for centered images with rounded borders.
+*Example*: Applying rounded borders and centering images in a Grid with "styled" class name.
 
 [source, css]
 ----
