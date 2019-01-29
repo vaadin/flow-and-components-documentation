@@ -947,7 +947,7 @@ grid.addThemeNames("no-border", "no-row-borders", "row-stripes");
 
 === Styling with CSS
 
-You can use normal CSS styling for the content in the grid cells. While the `Grid` component itself is in the shadow DOM, the actual values (cell contents) are in the light DOM. 
+You can use normal CSS styling for the content in the grid cells. While the `Grid` component itself is in the shadow DOM, the actual values (cell contents) are in slots and therefore the light DOM. 
 
 *Example*: Setting the maximum size for images in the grid. 
 
