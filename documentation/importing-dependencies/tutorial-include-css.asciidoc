@@ -90,7 +90,7 @@ To prevent global styles leaking into the local DOM of Web Components, you can u
 </custom-style>
 ----
 
-You can also do this using the `@HtmlImport` annotation:
+If you don't have a natural template for the custom-style declaration, you can create a separate file and import that using the `@HtmlImport` annotation:
 
 . Put the import and custom styles in the same file. 
 +
