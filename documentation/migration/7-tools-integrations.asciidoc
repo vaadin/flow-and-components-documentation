@@ -29,7 +29,7 @@ The Bakery App Starter for Flow and Spring shows an example of this.
 
 == CDI Support
 
-There is a https://github.com/vaadin/cdi[CDI Add-on] enabling JEE features. This is currently part of Vaadin platform starting with V12 and also compatible with V10.
+There is a https://github.com/vaadin/cdi[CDI Add-on] for easier CDI integration and to help using other Java EE features. This is currently part of Vaadin platform starting with V12 and also compatible with V10.
 
 == Vaadin Designer
 
