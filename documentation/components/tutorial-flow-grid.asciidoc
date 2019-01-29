@@ -730,7 +730,7 @@ If multi-sorting is enabled, the user can sort by multiple columns. The first cl
 
 The difference between in-memory and backend sorting is key to understanding the sorting mechanism: 
 
-* *In-memory sorting* is sorting that is applied to items fetched from the backend, before returning them to the client.
+* *In-memory sorting* is sorting that is applied by the framework to items fetched from the backend, before returning them to the client.
 
 * *Backend sorting* is a list of `QuerySortOrder` objects used to implement your own fetching logic within a `DataProvider`. See <<../binding-data/tutorial-flow-data-provider#Sorting,Data Providers>> for more.
 
