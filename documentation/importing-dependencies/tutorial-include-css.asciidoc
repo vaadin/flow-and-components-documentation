@@ -73,7 +73,7 @@ Web Component normally uses their own styles that are specifically scoped for ea
 
 To prevent global styles leaking into the local DOM of Web Components, you can use the `<custom-style>` extension:
 
-. Add an import for Polymer `custom-style.html`, for example `<link rel="import" href="bower_components/polymer/lib/elements/custom-style.html">`. 
+. Add an HTML import for Polymer `custom-style.html`, for example `<link rel="import" href="bower_components/polymer/lib/elements/custom-style.html">`. 
 
 . Add a `<custom-style>` declaration that includes the CSS styles you want to add in the `<head>` element.
 +
