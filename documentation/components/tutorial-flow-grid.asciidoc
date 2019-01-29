@@ -959,7 +959,7 @@ vaadin-grid vaadin-grid-cell-content img {
 ----
 * `vaadin-grid-cell-content` is in the light DOM, and the selector `vaadin-grid vaadin-grid-cell-content` points to the grid's cells.
 
-You can also use a "styled" class to apply more advanced styles. 
+You can also use a classes to apply styles to a specific component instance. 
 
 *Example*: Using a "styled" class for centered images with rounded borders.
 
