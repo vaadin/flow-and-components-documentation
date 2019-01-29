@@ -372,7 +372,7 @@ grid.addColumn("address.postalCode");
 * The column's key is "address.postalCode" and its header is "Postal Code". 
 * To use these `String` properties in `addColumn`, you need to use the `Grid` constructor that takes a bean-class parameter.
 
-==== Ordering Automatic Columns
+==== Defining and Ordering Automatically Added Columns
 
 You can define which columns appear, and the order in which they appear, in the grid, using the `setColumns` method.
 
