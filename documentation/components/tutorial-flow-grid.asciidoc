@@ -191,7 +191,7 @@ grid.setSelectionMode(SelectionMode.MULTI);
 grid.addItemDoubleClickListener(event -> copy(grid.getSelectedItems()));
 ----
 
-* A copy of the selected items is used for a double click.
+* In the example code we call a local `copy` method with the currently selected items when user double clicks on a row.
 
 == Configuring Columns
 
