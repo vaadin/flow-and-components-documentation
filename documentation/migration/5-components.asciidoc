@@ -13,6 +13,9 @@ While all the components have been rebuilt based on Web Components, there are so
 
 The following table lists the existing Vaadin 8 components and their direct replacements in the Vaadin platform. Note that the replacement component might not have 1-1 feature parity. If no replacement is yet available, current plans or options for replacement is mentioned.
 
+[NOTE]
+The mentioned components are available starting from Vaadin 10 or from the specifically mentioned platform version.
+
 .Comparison Matrix
 [width="80%",cols=">4,4,10",options="header"]
 |=========================================================
