@@ -740,7 +740,7 @@ The sections that follow detail options you can use to setup sorting for your gr
 
 ==== Using a Sort Property Name 
  
-This option includes both in-memory and backend sorting. Sorting is defined at the time of column construction and uses a sort property name.
+Using sort property, you can override or customise the property or multiple properties that are used for sorting the column. This option includes both in-memory and backend sorting. Properties is defined at the time of column construction and uses a sort property name.
 
 You can use the `addColumn` method to set a sort property to be used for backend sorting when the column is added to the grid. 
 
