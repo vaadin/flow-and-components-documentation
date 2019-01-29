@@ -58,7 +58,7 @@ You can use the `context://` protocol, with the `Page.addStyleSheet` method, for
 
 When you configure an element, for example setting the `src` attribute for an `<img>`, you cannot use the `context://` protocol. Your options are:
 
-* Cancel out the servlet path, for example `../images/logo.png`.
+* Take the servlet path into account with your relative URL, for example `../images/logo.png`.
 * Use an absolute URL, for example `/myapp/images/logo.png`
 * Deploy your static resources in a directory that matches your servlet path, for example `/myservlet/`.
 
