@@ -21,6 +21,7 @@ import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.FileBuffer;
 import com.vaadin.flow.component.upload.receivers.MultiFileBuffer;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
+import java.io.InputStream;
 
 @CodeFor("components/tutorial-flow-upload.asciidoc")
 public class UploadBasic {
@@ -29,6 +30,10 @@ public class UploadBasic {
     public void singleFileUpload() {
         FileBuffer fileBuffer = new FileBuffer();
         Upload upload = new Upload(fileBuffer);
+        upload.addFinishedListener(e -> {
+            InputStream inputStream = fileBuffer.getInputStream();
+            // read the contents of the buffered file from inputStream
+        });
     }
 
     @Test
