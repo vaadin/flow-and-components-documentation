@@ -40,7 +40,7 @@ grid.addColumn(person -> Integer.toString(person.getYearOfBirth()))
 layout.add(grid);
 ----
 
-`Grid` is normally bound to a data provider. See <<../binding-data/tutorial-flow-data-provider#,Data Providers>> for more.
+Behind the scenes `Grid` always uses an interface called `DataProvider` to communicate with the backend.  The `setItems` method is a shorthand to create a ListDataProvider. For a large amount of data or other advanced use cases you should probably use `DataProvider` interface and lazy loading. See <<../binding-data/tutorial-flow-data-provider#,Data Providers>> for more.
 
 == Handling Selection Changes
 
