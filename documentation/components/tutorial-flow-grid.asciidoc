@@ -889,7 +889,6 @@ grid.addSortListener(event -> {
 
 == Styling the Grid
 
-// I found the original content here difficult to understand and have interpreted as best I can
 
 Styling the `Grid` component (or any Flow component) is straightforward, but requires some Web Component and shadow-DOM knowledge. Styling depends on the components position in the DOM:
 
