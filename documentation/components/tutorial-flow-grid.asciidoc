@@ -390,19 +390,9 @@ Columns can be hidden by calling `setVisible()` in `Column`.
 A hidden column still sends the data required for its rendering to the client side. 
 Best practice is to remove (or not add) columns, if the data is not needed on the client side. This reduces the amount of data sent and lessens the load on the client.
   
-
-////
-NOT IMPLEMENTED YET
-
-Furthermore, you can set the columns user hidable using method `setHidable()`.
-
 === Removing Columns
-Columns can be removed with `removeColumn()` and
-`removeAllColumns()`. To restore a previously removed column,
-you can call `addColumn()`.
 
-////
-
+A sigle Column can be removed with `removeColumn(Column)` and `removeColumnByKey(String)` methods. You can also remove all currently configured columns using `removeAllColumns()` method.
 
 === Setting Column Widths
 
