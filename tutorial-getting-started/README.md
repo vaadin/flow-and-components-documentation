@@ -3,7 +3,7 @@
 This project contains a getting started tutorial for [Vaadin Flow](https://vaadin.com/flow).
 
 This project has the end state of the tutorial, for implementing it step-by-step,
-see the [getting started tutorial](https://vaadin.com/docs/v10/flow/introduction/tutorial-get-started.html).
+see the [getting started tutorial](https://vaadin.com/tutorials/getting-started-with-flow).
 
 Import it to the IDE of your choice as a Maven project.
 
