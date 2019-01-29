@@ -3,7 +3,7 @@
 This is the documentation for Vaadin Flow, the new Java web framework available in Vaadin platform.
 It also contains documentation on the Java APIs for Vaadin's web components.
 
-This documentation is available in [vaadin.com/docs](https://vaadin.com/docs/v10/flow/Overview.html).
+This documentation is available in [vaadin.com/docs](https://vaadin.com/docs/flow/Overview.html).
 Any issues and contributions can be added here, or in vaadin.com/docs via the _report issues_ or _edit page_ actions.
 
 This branch is Flow version 1.1 compatible (Vaadin 12). See other branches for other framework versions:

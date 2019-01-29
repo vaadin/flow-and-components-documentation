@@ -6,7 +6,7 @@ layout: page
 
 = Creating an In-project Web Component
 
-To integrate existing, public web components it typically makes sense to do as described above in "Integrating a Polymer Web component". If you want to create a UI component which is specific to the application project you are working on, you can integrate and develop it within your application project instead. Assuming you have an existing project, here the https://vaadin.com/start/v10-project-base project is used as an example, you need to
+To integrate existing, public web components it typically makes sense to do as described above in "Integrating a Polymer Web component". If you want to create a UI component which is specific to the application project you are working on, you can integrate and develop it within your application project instead. Assuming you have an existing project, here the https://vaadin.com/start/lts/project-base project is used as an example, you need to
 
 1. Install Polymer CLI if you do not have it installed
 2. Use Polymer CLI to create a new Polymer element in the `src/main/webapp/frontend/bower_components` in your project
@@ -19,7 +19,7 @@ In short you need to install:
 1. Node / npm
 2. Git
 3. Bower
-4. Polymer-cli 
+4. Polymer-cli
 
 If you have node, npm and git installed, you can install bower and polymer-cli as
 [source, sh]

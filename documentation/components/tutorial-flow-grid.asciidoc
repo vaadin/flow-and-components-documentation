@@ -181,8 +181,8 @@ selectionModel.addMultiSelectionListener(event -> {
 
 == Handling Item Click Events
 
-In addition to selection events there is a way to handle item click or 
-double click events. The events may be used along with selection or completely 
+In addition to selection events there is a way to handle item click or
+double click events. The events may be used along with selection or completely
 without selection.
 
 E.g. you may disable selection via `SelectionMode.NONE` but still get events
@@ -201,8 +201,8 @@ information about click.
 In the example above you won't get any selection events and there will be
 no visual selection shown once you click on a row.
 
-Another example is to use `Grid` in the multi-selection mode and also add a click 
-(or double click) listener, so it's possible to know a selection and 
+Another example is to use `Grid` in the multi-selection mode and also add a click
+(or double click) listener, so it's possible to know a selection and
 separately get a click event.
 
 [source, java]
@@ -286,10 +286,10 @@ the `removeColumn()`, as described later.
 Columns can be hidden by calling `setVisible()` in `Column`.
 
 [NOTE]
-A hidden column still sends data required for its rendering to the client side. 
-It is recommended to remove (or not add) a column if the data is not needed on the client side. 
+A hidden column still sends data required for its rendering to the client side.
+It is recommended to remove (or not add) a column if the data is not needed on the client side.
 This reduces the sent data and lessens the load on the client.
-  
+
 
 ////
 NOT IMPLEMENTED YET
