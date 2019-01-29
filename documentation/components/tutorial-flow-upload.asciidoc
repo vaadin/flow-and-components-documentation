@@ -12,14 +12,14 @@ The `Upload` component allows the user to upload files to the server-side. The c
 
 === Defining a Receiver Instance
 
-A `Receiver` instance should be specified to receive uploaded data. Receiver provides an `OutputStream` for the framework, where it writes the content of the received file. You can implement the interface directly, or use some of the built-in helpers that buffer the file content for later access.
+A `Receiver` instance should be specified to receive uploaded data. The receiver provides an `OutputStream` for the framework, where it writes the content of the received file. You can implement the interface directly, or use the prebuilt helpers that buffer the file content for later access.
 
-The built-in implementations for `Receiver`are:
+The built-in implementations of `Receiver`are:
 
- * FileBuffer
- * MemoryBuffer
- * MultiFileBuffer 
- * MultiFileMemoryBuffer
+ * `FileBuffer`
+ * `MemoryBuffer`
+ * `MultiFileBuffer` 
+ * `MultiFileMemoryBuffer`.
 
 The last two implement `MultiFileReceiver` and can be used to upload multiple files at once.
 
