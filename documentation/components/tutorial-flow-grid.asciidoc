@@ -7,7 +7,7 @@ layout: page
 
 The `Grid` component allows you to display and edit tabular data, set out in rows and columns.
 
-The component included in this documentation as a good example of a complex component, which is highly flexible yet simple to use, and offers a lot of functionality out of the box.  
+The component is included in this documentation as a good example of a complex component, which is highly flexible yet simple to use, and offers a lot of functionality out of the box.  
 
 `Grid` features include:
 
@@ -40,14 +40,13 @@ grid.addColumn(person -> Integer.toString(person.getYearOfBirth()))
 layout.add(grid);
 ----
 
-Behind the scenes `Grid` always uses an interface called `DataProvider` to communicate with the backend.  The `setItems` method is a shorthand to create a ListDataProvider. For a large amount of data or other advanced use cases you should probably use `DataProvider` interface and lazy loading. See <<../binding-data/tutorial-flow-data-provider#,Data Providers>> for more.
+Behind the scenes `Grid` uses the `DataProvider` interface to communicate with the backend.  The `setItems` method is a shorthand to create a `ListDataProvider`. For a large amount of data or other advanced use cases you should probably use the `DataProvider` interface and lazy loading. See <<../binding-data/tutorial-flow-data-provider#,Data Providers>> for more.
 
 == Handling Selection Changes
 
-The `Grid` doesn't directly implement the `HasValue` interface, which is typically implemented by other selection components and other input fields. For this reason, selection handling is different from typical selection components. This is because `Grid` supports three selection options: single selection, multiple selection, and no selection. Each option is defined by a specific selection model.
+The `Grid` doesn't implement the `HasValue` interface directly. Other selection components and many input fields typically do implement this interface. For this reason, selection handling in the `Grid` is different from typical selection components. The `Grid` supports three selection options: single selection, multiple selection, and no selection. Each option is defined by a specific selection model.
 
-
-For basic switching between selection models, you can use the `setSelectionMode(SelectionMode)` method. Possible options are `++SINGLE++` (default), `++MULTI++`, or `++NONE++`.
+For basic switching between selection models, you can use the `setSelectionMode(SelectionMode)` method. Possible options are `SINGLE` (default), `MULTI`, or `NONE`.
 
 To get the selected value or values in any selection model, you can use a `SelectionListener`, with the provided generic `SelectionEvent` to get the selected value or values. 
 
@@ -213,126 +212,6 @@ Column<Person> nameColumn = grid.addColumn(Person::getName)
     .setResizable(false);
 ----
 
-=== Column Headers and Footers
-
-By default, columns do not have a header or footer. These need to be set explicitly using the `setHeader` and `setFooter` methods. Both methods have two overloads: one accepts a plain text string and the other a `TemplateRenderer`.
-
-*Examples*: Setting headers and footers.
-
-[source, java]
-----
-// Sets a simple text header
-nameColumn.setHeader("Name");
-// Sets a header using Html component,
-// in this case simply bolding the caption "Name"
-nameColumn.setHeader(new Html("<b>Name</b>"));
-
-// Similarly for the footer
-nameColumn.setFooter("Name");
-nameColumn.setFooter(new Html("<b>Name</b>"));
-----
-
-See <<Using Template renderers>> for more. 
-
-=== Column Reordering
-
-Column reordering is not enabled by default. You can use the `setColumnReorderingAllowed()` method to allow drag and drop column reordering.
-
-*Example*: Enabling column reordering.
-
-[source, java]
-----
-grid.setColumnReorderingAllowed(true);
-----
-
-////
-NOT IMPLEMENTED YET
-
-You can set the order of columns with `setColumnOrder()` for the
-grid. Columns that are not given for the method are placed after the specified
-columns in their natural order.
-
-
-[source, java]
-----
-grid.setColumnOrder(firstnameColumn, lastnameColumn,
-                    bornColumn, birthplaceColumn,
-                    diedColumn);
-----
-
-Note that the method can not be used to hide columns. You can hide columns with
-the `
-Column()`, as described later.
-////
-
-=== Hiding Columns
-
-Columns can be hidden by calling `setVisible()` in `Column`.
-
-[NOTE]
-A hidden column still sends the data required for its rendering to the client side. 
-Best practice is to remove (or not add) columns, if the data is not needed on the client side. This reduces the amount of data sent and lessens the load on the client.
-  
-
-////
-NOT IMPLEMENTED YET
-
-Furthermore, you can set the columns user hidable using method `setHidable()`.
-
-=== Removing Columns
-Columns can be removed with `removeColumn()` and
-`removeAllColumns()`. To restore a previously removed column,
-you can call `addColumn()`.
-
-////
-
-
-=== Setting Column Widths
-
-By default, columns do not have a defined width. They resize automatically based on the data displayed.
-
-You can set column the width:
-
-* Relatively, using flex grow ratios, by using the `setFlexGrow()` method, or 
-* Explicitly, using a CSS string value with `setWidth()` (with flex grow set to `0`).
-
-You can also enable user column resizing using the `setResizable()` method. The column is resized by dragging the column separator.
-
-
-=== Setting Frozen Columns
-
-You can freeze a number of columns using the `setFrozen()` method. This ensures that the set number of columns on the left remain static (and visible) when the user scrolls horizontally. 
-
-When columns are frozen, user reordering is limited to only among other frozen columns.
-
-*Example*: Setting a column as frozen. 
-[source, java]
-----
-nameColumn.setFrozen(true);
-----
-
-=== Grouping Columns
-
-You can group multiple columns together by adding them in the `HeaderRow` of the grid. 
-
-When you retrieve the `HeaderRow`, using the `prependHeaderRow` or `appendHeaderRow` methods, you can then group the columns using the `join` method. In addition, you can use the `setText` and `setComponent` methods on the join result to set the text or component for the joined columns.
-
-*Example*: Grouping columns 
-
-[source, java]
-----
-// Create a header row
-HeaderRow topRow = grid.prependHeaderRow();
-
-// group two columns under the same label
-topRow.join(nameColumn, ageColumn)
-        .setComponent(new Label("Basic Information"));
-
-// group the other two columns in the same header row
-topRow.join(streetColumn, postalCodeColumn)
-        .setComponent(new Label("Address Information"));
-----
-
 === Column Keys
 
 You can set an identifier key for a column using  the `setKey()` method. This allows you to retrieve the column from the grid at any time.
@@ -430,6 +309,126 @@ You can also define a list of columns as sortable, using the `setSortableColumns
 ----
 // All columns except "name" and "yearOfBirth" will be not sortable
 grid.setSortableColumns("name", "yearOfBirth");
+----
+
+
+=== Column Headers and Footers
+
+By default, columns do not have a header or footer. These need to be set explicitly using the `setHeader` and `setFooter` methods. Both methods have two overloads: one accepts a plain text string and the other a `TemplateRenderer`.
+
+*Examples*: Setting headers and footers.
+
+[source, java]
+----
+// Sets a simple text header
+nameColumn.setHeader("Name");
+// Sets a header using Html component,
+// in this case simply bolding the caption "Name"
+nameColumn.setHeader(new Html("<b>Name</b>"));
+
+// Similarly for the footer
+nameColumn.setFooter("Name");
+nameColumn.setFooter(new Html("<b>Name</b>"));
+----
+
+See <<Using Template renderers>> for more. 
+
+=== Column Reordering
+
+Column reordering is not enabled by default. You can use the `setColumnReorderingAllowed()` method to allow drag and drop column reordering.
+
+*Example*: Enabling column reordering.
+
+[source, java]
+----
+grid.setColumnReorderingAllowed(true);
+----
+
+////
+NOT IMPLEMENTED YET
+
+You can set the order of columns with `setColumnOrder()` for the
+grid. Columns that are not given for the method are placed after the specified
+columns in their natural order.
+
+
+[source, java]
+----
+grid.setColumnOrder(firstnameColumn, lastnameColumn,
+                    bornColumn, birthplaceColumn,
+                    diedColumn);
+----
+
+Note that the method can not be used to hide columns. You can hide columns with
+the `Column()`, as described later.
+////
+
+=== Hiding Columns
+
+Columns can be hidden by calling `setVisible()` in `Column`.
+
+[NOTE]
+A hidden column still sends the data required for its rendering to the client side. 
+Best practice is to remove (or not add) columns, if the data is not needed on the client side. This reduces the amount of data sent and lessens the load on the client.
+  
+
+////
+NOT IMPLEMENTED YET
+
+Furthermore, you can set the columns user hidable using method `setHidable()`.
+
+=== Removing Columns
+Columns can be removed with `removeColumn()` and
+`removeAllColumns()`. To restore a previously removed column,
+you can call `addColumn()`.
+
+////
+
+
+=== Setting Column Widths
+
+By default, columns do not have a defined width. They resize automatically based on the data displayed.
+
+You can set column the width:
+
+* Relatively, using flex grow ratios, by using the `setFlexGrow()` method, or 
+* Explicitly, using a CSS string value with `setWidth()` (with flex grow set to `0`).
+
+You can also enable user column resizing using the `setResizable()` method. The column is resized by dragging the column separator.
+
+
+=== Setting Frozen Columns
+
+You can freeze a number of columns using the `setFrozen()` method. This ensures that the set number of columns on the left remain static (and visible) when the user scrolls horizontally. 
+
+When columns are frozen, user reordering is limited to only among other frozen columns.
+
+*Example*: Setting a column as frozen. 
+[source, java]
+----
+nameColumn.setFrozen(true);
+----
+
+=== Grouping Columns
+
+You can group multiple columns together by adding them in the `HeaderRow` of the grid. 
+
+When you retrieve the `HeaderRow`, using the `prependHeaderRow` or `appendHeaderRow` methods, you can then group the columns using the `join` method. In addition, you can use the `setText` and `setComponent` methods on the join result to set the text or component for the joined columns.
+
+*Example*: Grouping columns 
+
+[source, java]
+----
+// Create a header row
+HeaderRow topRow = grid.prependHeaderRow();
+
+// group two columns under the same label
+topRow.join(nameColumn, ageColumn)
+        .setComponent(new Label("Basic Information"));
+
+// group the other two columns in the same header row
+topRow.join(streetColumn, postalCodeColumn)
+        .setComponent(new Label("Address Information"));
 ----
 
 == Using Renderers in Columns
