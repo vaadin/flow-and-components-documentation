@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLayout;
@@ -22,6 +23,11 @@ public class ReadyMadeThemes {
 
     @Theme(MyTheme.class)
     public class MainLayout extends Div implements RouterLayout {
+    }
+
+    @HtmlImport("frontend://bower_components/vaadin-lumo-styles/presets/compact.html")
+    @Theme(Lumo.class)
+    public class CompactMainLayout extends Div implements RouterLayout {
     }
 
     @Route(value = "", layout = MainLayout.class)
