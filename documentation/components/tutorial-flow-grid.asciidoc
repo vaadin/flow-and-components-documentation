@@ -392,7 +392,7 @@ Best practice is to remove (or not add) columns, if the data is not needed on th
   
 === Removing Columns
 
-A sigle Column can be removed with `removeColumn(Column)` and `removeColumnByKey(String)` methods. You can also remove all currently configured columns using `removeAllColumns()` method.
+You can remove a single column using the `removeColumn(Column)` and `removeColumnByKey(String)` methods. You can also remove all currently configured columns using the `removeAllColumns()` method.
 
 === Setting Column Widths
 
