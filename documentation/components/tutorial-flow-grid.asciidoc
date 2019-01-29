@@ -46,7 +46,6 @@ Behind the scenes `Grid` always uses an interface called `DataProvider` to commu
 
 The `Grid` doesn't directly implement the `HasValue` interface, which is typically implemented by other selection components and other input fields. For this reason, selection handling is different from typical selection components. This is because `Grid` supports three selection options: single selection, multiple selection, and no selection. Each option is defined by a specific selection model.
 
-`Grid` supports three selection options: single selection, multiple selection, and no selection. Each option is defined by a specific selection model. 
 
 For basic switching between selection models, you can use the `setSelectionMode(SelectionMode)` method. Possible options are `++SINGLE++` (default), `++MULTI++`, or `++NONE++`.
 
