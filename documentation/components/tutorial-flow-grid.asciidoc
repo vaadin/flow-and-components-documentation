@@ -797,7 +797,6 @@ grid.addColumn(Person::getName)
         .setHeader("Name");
 ----
 
-* When a comparator is set for a column, it is executed for all the items sent to the client.
 [NOTE]
 A comparator that performs poorly impacts the overall grid performance.
 
