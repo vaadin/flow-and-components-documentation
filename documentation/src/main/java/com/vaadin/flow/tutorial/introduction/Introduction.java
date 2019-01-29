@@ -6,6 +6,7 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
@@ -21,7 +22,7 @@ public class Introduction {
 
     public Introduction() {
         TextField textField = new TextField();
-        Label greeting = new Label("Hello stranger");
+        Span greeting = new Span("Hello stranger"); // Simple HTML inline text
 
         textField.addValueChangeListener(event ->
                 greeting.setText("Hello " + event.getValue()));

@@ -6,16 +6,19 @@ layout: page
 
 = Component Enabled State
 
-A component that allows user interaction (such as an TextField or a Button) can have three different enabled states:
+Components that allow user interaction, such as `TextField` or `Button`, can have three different enabled states:
 
-* enabled: this is the default. An enabled component allows the user to interact with it;
-* explicitly disabled: a component is explicitly disabled when the `setEnabled(false)` is called directly on it.
-Any communication from the client to the server is blocked, and the user can't interact with the component in any way;
-* implicitly disabled: a component is implicitly disabled when it is a child of a explicitly disabled container.
-The component behaves exactly like a explicitly disabled one, but when it gets detached from the disabled container, it gets
-enabled again.
+* *Enabled*: An enabled component allows the user to interact with it. This is the default state.
 
-Any component that implements the `HasEnabled` interface can be explicitly enabled/disabled. For example:
+* *Explicitly disabled*: A component is explicitly disabled when `setEnabled(false)` is called directly on it. The user cannot interact with the component, and communication from the client to the server is blocked. 
+
+* *Implicitly disabled*: A component is implicitly disabled when it is a child of a explicitly disabled container. The component behaves exactly like an explicitly disabled component, except it is automatically enabled again as soon as it detaches from the disabled container.
+
+== Explicitly Enabling and Disabling Components
+
+Any component that implements the `HasEnabled` interface can be explicitly enabled or disabled. 
+
+*Example*: Disabling a component using the `component.setEnabled` method. 
 
 [source,java]
 ----
@@ -23,11 +26,13 @@ TextField name = new TextField("Name");
 name.setEnabled(false);
 ----
 
-The `name` field on this example is disabled, so the user can't interact with it, and any events from the client to server
-are blocked. The server doesn't handle any status updates from the component, even if the component is changed manually on
-the browser (by a client-side script or via developer console, for example).
+* This disables the `name` field:
+** Users cannot interact with it, and 
+** Events from the client to the server are blocked. 
+* The server does not handle status updates from the component, even if the component is changed manually on the browser, for example by a client-side script or via a developer console.
 
-When you have a container, you can disable all components inside it by using the same API:
+
+*Example*: Disabling all components in a container by using the same API: 
 
 [source,java]
 ----
@@ -42,8 +47,11 @@ form.setEnabled(false); // all children are implicitly disabled
 System.out.println(name.isEnabled()); // prints false
 ----
 
-When an implicitly disabled component is detached from a disabled container, it gets enabled again. Likewise, if an enabled
-component is attached to a disabled container, the component gets implicitly disabled. For example:
+== Implicitly Enabled and Disabled Components
+
+When an implicitly disabled component is detached from a disabled container, it is automatically enabled again. Similarly, if an enabled component is attached to a disabled container, it is automatically implicitly disabled. 
+
+*Examples*: Implicitly enabled and disabled components
 
 [source,java]
 ----
@@ -69,17 +77,19 @@ form.remove(submit); // the submit button gets detached
 System.out.println(submit.isEnabled()); // prints false, since it was explicitly disabled
 ----
 
-== Override default disabled behavior
+== Overriding Default Disabled Behavior
 
-By default disabled components don't allow any user interaction from the client side.
-Complicated (composite) components sometimes should stay partly functional even in disabled state.
-In this case it should be possible to enable some RPC client side calls which
-are blocked for disabled component.
+By default, disabled components do not allow user interaction from the client side. 
+However, it is sometimes necessary for complex (composite) components to remain partially functional, even in the disabled state. For example, you may want to only fully enable a registration form after a user selects a checkbox to accept a license agreement. 
 
-In the following example the Polymer template component controls its enabled state
-by itself via the checkbox. E.g. it may be a registration form which becomes
-enabled only when user accepts a license agreement. The checkbox should
-not ever be disabled and it should enable/disable the component.
+=== Enabling Property Changes
+
+You can override the default disabled behavior by enabling certain RPC-client-side calls that would normally be blocked for disabled components.
+
+The first way to do this is to use the `synchronizeProperty` method with the `DisabledUpdateMode.ALWAYS` argument value.
+
+*Example*: This Polymer template component controls its own enabled state
+itself via the checkbox. The checkbox is never disabled, and it enables and disables the component.
 
 [source, java]
 ----
@@ -141,27 +151,20 @@ Here is its template file:
 </dom-module>
 ----
 
-In this example the checkbox is implicitly disabled if the template (which is its parent)
-is disabled. As a result no RPC will be allowed for the checkbox. The method
-`synchronizeProperty` with extra argument is used to synchronize `checked`
-property. The argument value is `DisabledUpdateMode.ALWAYS`  enum value which
-instructs to allow updates for this property even if the element is disabled.
+* The checkbox is implicitly disabled if the template (which is its parent) is disabled. As a result, no RPC is allowed for the checkbox. 
+* The `synchronizeProperty` method (with extra arguments) is used to synchronize the `checked` property. 
+** The argument, `DisabledUpdateMode.ALWAYS`, is an enum value that allows updates for this property, even if the element is disabled.
 
-Here is the list of RPC communications which are blocked for the disabled element:
-- Property changes
-- DOM events
-- Event handler methods (methods annotated with `@EventHandler`)
-- Client delegate methods (methods annotated with `@ClientCallable`)
+* The folowing RPC communications are blocked for the disabled element:
+** Property changes.
+** DOM events.
+** Event handler methods (annotated with `@EventHandler`). For example, the `register()` method is an event handler method that is blocked when the component is disabled.
+** Client delegate methods (annotated with `@ClientCallable`).
 
-E.g. the `register()` method is an event handler method which is blocked when the component
-is disabled.
 
-=== Enable property changes
+As an alternative, you can use the `@Synchronize` annotation with the `DisabledUpdateMode.ALWAYS` argument value.
 
-Similarly to the `synchronizeProperty` API method which allows to receive property updates
-for disabled components if it's called with `DisabledUpdateMode.ALWAYS` argument value, you may
-use declarative way to do the same via `@Synchronize` annotation for the property getter
-in your component:
+*Example*: Using the `@Synchronize` annotation for the property getter in your component.
 
 [source, java]
 ----
@@ -171,13 +174,14 @@ public String getProp(){
 }
 ----
 
-=== Enable DOM events
+=== Enabling DOM Events
 
-You may use two ways to receive DOM events: `Element` API method `addEventListener` and
-`@DomEvent` annotation.
+There are two ways to enable DOM events. You can use:
 
-To unblock DOM event for a disabled element using API method you may use
-`addEventListener` overload which accepts extra parameter with value `DisabledUpdateMode.ALWAYS`.
+. An `addEventListener` overload method in the `Element` API, or 
+. The `@DomEvent` annotation.
+
+*Example*: Unblocking a DOM event for a disabled element using the `addEventListener` overload method that accepts the `DisabledUpdateMode.ALWAYS` parameter.
 
 [source, java]
 ----
@@ -188,9 +192,7 @@ public Notification() {
 }
 ----
 
-To unblock DOM event for a disabled component via `@DomEvent` annotation you may
-use the extra parameter value `DisabledUpdateMode.ALWAYS` :
-`@DomEvent(value="input", allowUpdates = DisabledUpdateMode.ALWAYS )`.
+*Example*: Unblocking a DOM event for a disabled component using the `@DomEvent` annotation with the parameter value `allowUpdates = DisabledUpdateMode.ALWAYS )`:
 
 [source, java]
 ----
@@ -199,11 +201,11 @@ public class CustomEvent extends ComponentEvent<Component> {
 }
 ----
 
-=== Enable server handler methods
+=== Enabling Server-Handler Methods
 
-If you have server handler methods annotation with `@ClientCallable` or
-`@EventHandler` then you may unblock them for the disabled component specifying
- `DisabledUpdateMode.ALWAYS` as a value: `@EventHandler(DisabledUpdateMode.ALWAYS)`.
+If there are server-handler methods annotated with `@ClientCallable` or `@EventHandler`, you can unblock them for disabled components by specifying `DisabledUpdateMode.ALWAYS` as a value. 
+
+*Example*: Specifying `DisabledUpdateMode.ALWAYS`
 
 [source, java]
 ----
