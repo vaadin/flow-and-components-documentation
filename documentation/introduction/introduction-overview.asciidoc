@@ -206,4 +206,4 @@ Possible benefits of this approach include:
 * A clearer overview of the structure of the component.
 * Improved performance. Because the same template definition is used for all component instances using the same template file, less memory is used on the server and less data needs to be sent to the browser.
 
-*NEXT*: *<<tutorial-get-started-first-part#,Part 1 - Getting Started with Vaadin Flow>>*
+*NEXT*: Follow the tutorial to build your first Vaadin application: *https://vaadin.com/tutorials/getting-started-with-flow[Getting started with Vaadin Flow]*

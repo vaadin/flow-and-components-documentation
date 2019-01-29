@@ -22,8 +22,8 @@ The power of Vaadin Flow comes from the following concepts:
 This is the documentation for Vaadin Flow. It is divided into the following subsections in recommended reading order.
 
 == Introduction and Getting Started
-** <<introduction/introduction-overview#,Introduction to Vaadin Flow>>
-** <<introduction/tutorial-get-started-first-part#,Getting Started>>
+* <<introduction/introduction-overview#,Introduction to Vaadin Flow>>
+* https://vaadin.com/tutorials/getting-started-with-flow[Getting started with Vaadin Flow]
 
 == Router and Navigation
 Router is a core concept in Vaadin Flow, enabling Navigation for your website or web app.
