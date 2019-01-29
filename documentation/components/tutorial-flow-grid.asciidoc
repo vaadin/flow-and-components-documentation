@@ -197,7 +197,7 @@ grid.addItemDoubleClickListener(event -> copy(grid.getSelectedItems()));
 
 The `addColumn()` method allows you to add columns to the `Grid`.
 
-The column configuration is defined in `Grid.Column` objects that are returned by the `addColumn` method. 
+The column configuration is defined in `Grid.Column` objects that are returned by the `addColumn` method. The `getColumns()` method returns a list of currently configured columns.
 
 
 The setter methods in `Column` have _fluent API_ functionality, making it easy to chain configuration calls for columns.
