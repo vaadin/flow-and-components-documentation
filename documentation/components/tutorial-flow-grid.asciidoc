@@ -796,8 +796,6 @@ grid.addColumn(Person::getName)
         .setHeader("Name");
 ----
 
-[NOTE]
-
 ==== Setting Backend Sort Properties 
 
 This option is for backend sorting only, and uses a sort property name. It is similar to <<Using a Sort Property Name>>, but excludes in-memory sorting. 
