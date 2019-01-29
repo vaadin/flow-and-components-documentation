@@ -3,6 +3,7 @@ package com.vaadin.flow.tutorial.components;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
+import com.vaadin.flow.component.ShortcutEventListener;
 import com.vaadin.flow.component.ShortcutRegistration;
 import com.vaadin.flow.component.Shortcuts;
 import com.vaadin.flow.component.UI;
@@ -13,7 +14,6 @@ import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.Command;
-import com.vaadin.flow.shared.Registration;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("components/tutorial-flow-shortcut.asciidoc")
@@ -97,18 +97,18 @@ public class ShortcutBasic {
 
     public void configuringShortcuts_modifiers() {
         Input input = new Input();
-        input.registerFocusShortcut(Key.KEY_F).withAlt().withShift();
+        input.addFocusShortcut(Key.KEY_F).withAlt().withShift();
     }
 
     private Div anotherComponent = new Div();
     public void configuringShortcuts_lifecycleOwner() {
-        UI.getCurrent().registerShortcut(() -> {/* do a thing*/}, Key.KEY_F)
+        UI.getCurrent().addShortcutListener(() -> {/* do a thing*/}, Key.KEY_F)
                 .bindLifecycleTo(anotherComponent);
     }
 
     public void configuringShortcuts_clientsideEventBehavior() {
         Input input = new Input();
-        input.registerFocusShortcut(Key.KEY_F)
+        input.addFocusShortcut(Key.KEY_F)
                 // other handlers can now catch this event
                 .allowEventPropagation()
                 // the character 'f' will be written out, if a text field is focused

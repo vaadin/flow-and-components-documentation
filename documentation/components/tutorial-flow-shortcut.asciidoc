@@ -217,7 +217,7 @@ shortcut:
 [source, java]
 ----
 Input input = new Input();
-input.registerFocusShortcut(Key.KEY_F).withAlt().withShift();
+input.addFocusShortcut(Key.KEY_F).withAlt().withShift();
 ----
 
 The focus shortcut is triggered with _Alt+Shift+F_.
@@ -233,7 +233,7 @@ the shortcut.
 
 [source, java]
 ----
-UI.getCurrent().registerShortcut(() -> {/* do a thing*/}, Key.KEY_F)
+UI.getCurrent().addShortcutListener(() -> {/* do a thing*/}, Key.KEY_F)
         .bindLifecycleTo(anotherComponent);
 ----
 
@@ -255,7 +255,7 @@ To change this behavior, use the methods `allowEventPropagation()` and
 [source, java]
 ----
 Input input = new Input();
-input.registerFocusShortcut(Key.KEY_F)
+input.addFocusShortcut(Key.KEY_F)
         // other handlers can now catch this event
         .allowEventPropagation()
         // the character 'f' will be written out, if a text field is focused
