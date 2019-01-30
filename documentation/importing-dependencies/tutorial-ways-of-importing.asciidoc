@@ -127,8 +127,3 @@ public class MainLayout extends Component {
 
 
 * Dependencies with the same load mode are guaranteed to load in the order defined in the component. This is true for all load modes.
-
-* No guarantees are made on the order of dependencies between groups. For example, if your component has both lazy and inline dependencies, both groups of dependencies will be loaded simultaneously. 
-
-// Doesn't this last statement contradict what is stated in the inline and lazy explanations above? Thoese imply that inline is loaded before lazy?? 
-// shouldn't we also add what happens between the file types (css, js, html) when different modes are used. 
