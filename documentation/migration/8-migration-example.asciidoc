@@ -6,19 +6,19 @@ layout: page
 
 = Migration example - Bookstore Starter
 
-This document shows an example migration from a V8 app to V10. The
+This document shows an example migration from a V8 app to Vaadin Flow. The
 migration process is done step-by-step and can be seen through the history
 of its https://github.com/vaadin/bookstore-starter-flow[GitHub repository].
 The idea is to keep the application compilable in
 order to be able to see the result of migrating steps.
 
-== Step 1 - Initial Vaadin 10 configuration
+== Step 1 - Initial Vaadin Flow configuration
 
 === Maven
 
 First of all, required maven dependency must be added to pom.xml. The
 Vaadin 8 dependencies, except `vaadin-themes`, are kept for now and will be eliminated after the
-whole application is migrated. The only Vaadin 10 dependency is the
+whole application is migrated. The only Vaadin platform dependency is the
 following:
 [source, xml]
 ....
@@ -38,20 +38,20 @@ is removed.
 
 === UI class and Servlet configuration
 
-* Both `UI` class and Servlet configuration are optional in Vaadin 10.
+* Both `UI` class and Servlet configuration are optional in Vaadin Flow.
 However, we can keep them to leverage them in some cases e.g.
 controlling user access.
 * Since the components are different, the DOM structure has changed. The
 new components are based on web components and a new theme. Thus the
 theming is discussed later.
-* In V10  the locale is set automatically based on user preferred
+* In Vaadin Flow the locale is set automatically based on user preferred
 locale. So, `setLocale` can be removed.
 * Best practice for setting page title is using `PageTitle` annotation on
 each view. So, `getPage().setTitle` is removed from `MyUI::init`.
-* All packages names in Vaadin 10 start with `com.vaadin.flow`. One way
+* All packages names in Vaadin Flow start with `com.vaadin.flow`. One way
 to correct them is to remove all `import` statements starting
-by `com.vaadin` and reimport Vaadin 10 classes. For example some
-equivalent classes in Vaadin 10 are:
+by `com.vaadin` and reimport Vaadin Flow classes. For example some
+equivalent classes in Vaadin Flow are:
 
 * `com.vaadin.ui.UI` → `com.vaadin.flow.component.UI`
 * `com.vaadin.server.VaadinRequest` → `com.vaadin.flow.server.VaadinRequest`
@@ -62,7 +62,7 @@ equivalent classes in Vaadin 10 are:
 
 === Test page
 
-In order to verify that Vaadin 10 setup has been done correctly, a
+In order to verify that Vaadin Flow setup has been done correctly, a
 simple `HelloWorldPage` like the following can be added.
 
 [source, java]
@@ -93,7 +93,7 @@ the link to the repository after the first step.
 
 === VaadinServletConfiguration and UI class
 
-In Vaadin 10, defining a Servlet class is optional. So, we don’t have to
+In Vaadin Flow, defining a Servlet class is optional. So, we don’t have to
 create an extended class of `VaadinServlet`, unless we need to change some
 configuration. Having a `UI` class is optional too and this class can be
 removed as well, because the `UI` class is created by the framework.
@@ -107,7 +107,7 @@ suitable place which is described in the following section.
 there is another event named `UIInit` in `VaadinService` class that is fired
 whenever a `UI` is created. In order to leverage these events, we can
 create a class extended from
-https://vaadin.com/docs/v10/flow/advanced/tutorial-service-init-listener.html[VaadinServiceInitListener] and
+https://vaadin.com/docs/flow/advanced/tutorial-service-init-listener.html[VaadinServiceInitListener] and
 add required code in `serviceInit` method. The result looks like the
 following piece of code:
 
@@ -131,19 +131,18 @@ another provider for `AccessControl` implementation. The selected solution
 here is using a factory class (`AccessControlFactory`).
 
 `CurrentUser` class is also needed to change because it is used in
-`BasicAccessControl` class. We need to apply new packages names of Vaadin
-10 that start with `com.vaadin.flow`. The same should be done in next
+`BasicAccessControl` class. We need to apply new packages names of Flow that start with `com.vaadin.flow`. The same should be done in next
 steps of migration.
 
 === LoginScreen
 
-This is the first `UI` screen migrated to Vaadin 10. The following items
+This is the first `UI` screen migrated to Flow. The following items
 describe what needs to be done in migration process:
 
 * Instead of `CssLayout` another equivalent component must be used e.g.
 `FlexLayout` or a simple `Div`.
 * Equivalent of `addComponent` method is `add` method.
-* `setWidth` method in Vaadin 10 has only one `String` parameter that
+* `setWidth` method in Flow has only one `String` parameter that
 includes both measurement unit and width as a number e.g. “15em” or
 “310px”.
 * `Route` annotation determines the url associated with this screen.
@@ -151,12 +150,13 @@ includes both measurement unit and width as a number e.g. “15em” or
 `getElement().getThemeList().add(String)` is used. Although theme variant is
 different from style name, the former can be considered as the successor of the
 latter. So, `addStyleName(String)` can be replaced with
-`getElement().getThemeList().add(String)`. Changes in theming from V8 to V10 is
-described link:6-theming.html[here].
+`getElement().getThemeList().add(String)`. However, in V12 `addThemeVariants(...)`
+API was reintroduced for generated components. Changes in theming from V8 to Vaadin
+platform is described link:6-theming.html[here].
 * New `FormLayout` has a method named `addFormItem` takes a component as a
 parameter and in addition to adding it to the form, it adds a label
 beside the component as well.
-* In Vaadin 10, instead of `Button::setClickShortcut` that adds a shortcut key
+* In Flow, instead of `Button::setClickShortcut` that adds a shortcut key
 to a button, a keypress event listener should be added. For example, the
 following piece of code is equivalent to
 `login.setClickShortcut(ShortcutAction.KeyCode.ENTER);`.
@@ -167,6 +167,8 @@ following piece of code is equivalent to
         .addEventListener("keypress", event -> login())
         .setFilter("event.key == 'Enter'");
 ----
+
+An improved keyboard shortcuts API will be available in Vaadin 13.
 
 Some other changes that have been done are not related to Vaadin
 framework migration process; however, it is a good idea to do such
@@ -181,8 +183,8 @@ the link to see the changes in second migration step.
 
 As explained before, instead of `CssLayout`, `FlexLayout` is used.
 
-`Navigator` class is removed in Vaadin 10 and this is one of many changes
-in routing and navigation from Version 8 to version 10. So, `navigator`
+`Navigator` class is removed in Flow and this is one of many changes
+in routing and navigation since version 8. So, `navigator`
 field is removed from `Menu`. In `addView` method it can be seen that
 navigation is done by `RouterLink` component.
 
@@ -193,7 +195,7 @@ later steps.
 
 In Vaadin 8 version there is a `CssLayout` that acts as a view container
 and navigation between different views is done inside the `CssLayout`. In
-vaadin 10, parent layouts can be defined using a newly introduced
+Vaadin Flow, parent layouts can be defined using a newly introduced
 `RouterLayout` interface.  Since `MainScreen` is used as a layout for other
 views, it must implement `RouterLayout` interface.
 
@@ -205,7 +207,7 @@ Layout of views can be specified in `Route` annotation like this
 route to root path, `RouteAlias` annotation is used to add a secondary
 path for `AboutView`.
 
-Another thing worth mentioning here is that in Vaadin 10, a component
+Another thing worth mentioning here is that in Vaadin platform, a component
 named `Icon` is added and can be created by calling `create` method of
 `VaadinIcon` enum.
 
@@ -216,24 +218,24 @@ the link to see the changes in step 3.
 
 === DataProvider
 
-In Vaadin 10, when `DataProvider::fetch` method is overridden,
+In Vaadin platform, when `DataProvider::fetch` method is overridden,
 `query.getOffset()` and `query.getLimit()` must be used to fetch a specific
 chunk of data. If they are not used it shows that the returned data is
 incorrect and unexpected. To avoid such mistakes in implemented code,
-Vaadin 10 throws an `IllegalStateException` to show us what is wrong. So,
+Vaadin platform throws an `IllegalStateException` to show us what is wrong. So,
 `ProductDataProvider::fetch` is fixed in order to use specified offset
-and limit. The data provider documentation for Vaadin 10 can be found
-https://vaadin.com/docs/v10/flow/binding-data/tutorial-flow-data-provider.html[here].
+and limit. The data provider documentation for Vaadin platform can be found
+https://vaadin.com/docs/flow/binding-data/tutorial-flow-data-provider.html[here].
 
 === ProductGrid
 
 The following items briefly describe some of the changes in `ProductGrid`.
 
-* There is no `HtmlRenderer` in Vaadin 10 and it must be replaced by other
+* There is no `HtmlRenderer` in Vaadin platform and it must be replaced by other
 renderers such as `TemplateRenderer` or `ComponentRenderer`. In this
 migration, `TemplateRenderer` is used. More info and guidance about all
 kinds of renderers can be found in "Using Renderers" section of
-https://vaadin.com/docs/v10/flow/components/tutorial-flow-grid.html[Grid
+https://vaadin.com/docs/flow/components/tutorial-flow-grid.html[Grid
 document]. In `TemplateRenderer`, apart from HTML markup, Polymer data
 binding notation can also be used. In `ProductGrid`, there are three
 TemplateRenderers:
@@ -262,13 +264,13 @@ should be moved here. Other changes in `SampleCrudView` are the following
 items.
 
 * `getElement().getThemeList()::add` is used to add a theme variant to a
-component. A nicer API for this is coming to Vaadin 12.
+component. An improved API for this has been released in V12.
 * In Vaadin 8, in order to get the parameters passed via the URL, `View`
 interface must be implemented and the `enter` method must be overridden.
-In Vaadin 10, there is an interface named `HasUrlParameter` that does the
+In Vaadin platform, there is an interface named `HasUrlParameter` that does the
 job. It is generic, so parameters are safely converted to the given types.
 More information about URL parameters can be found
-https://vaadin.com/docs/v10/flow/routing/tutorial-router-url-parameters.html[here].
+https://vaadin.com/docs/flow/routing/tutorial-router-url-parameters.html[here].
 * Instead of using `HorizontalLayout::setExpandRatio`,
 `HorizontalLayout::expand` method is used.
 
@@ -277,7 +279,7 @@ is the link to see the changes in step four.
 
 == Step 5 - Product Form
 
-Since after this step, all Java code is migrated to Vaadin 10, it is time to
+Since after this step, all Java code is migrated to Vaadin platform, it is time to
 remove Vaadin 8 dependencies. Besides, keeping both versions may cause some
 conflicts in their dependencies e.g. `jsoup`. So, `vaadin-server` and
 `vaadin-push` are removed from pom.xml. Other changes in this step are as
@@ -285,13 +287,13 @@ follows.
 
 === ProductForm Design
 
-The following items are some of the changes from Vaadin 8 to Vaadin 10
+The following items are some of the changes from Vaadin 8 to Vaadin platform
 in design files.
 
 * In Vaadin 8, Vaadin Designer uses HTML markups to store designed views
 and they are stored in files with html extension. However, the tags that
 are used by Vaadin Designer are not standard HTML tags. So, these html
-files cannot be correctly shown and rendered by browsers. While in Vaadin 10,
+files cannot be correctly shown and rendered by browsers. While in Vaadin platform,
 Polymer template is used to define views and
 Vaadin Designer also uses it to store designed views.
 * Prefix of the Vaadin components names is changed from `v` to `vaadin`.
@@ -305,7 +307,7 @@ Vaadin 8 version:
 <v-button style-name="primary" _id="save">Save</v-button>
 ----
 
-Vaadin 10 version:
+Vaadin platform version:
 
 [source, html]
 ----
@@ -315,8 +317,8 @@ Vaadin 10 version:
 === ProductForm Java Class
 
 `ProductFormDesign` class is removed and its content is moved to
-`ProductForm` class. Actually, this is the recommended pattern in Vaadin
-10 and it is also supported by Vaadin Designer. In Vaadin 8, Vaadin
+`ProductForm` class. Actually, this is the recommended pattern in Vaadin platform
+and it is also supported by Vaadin Designer. In Vaadin 8, Vaadin
 Designer keeps two classes, a superclass for designer generated code and
 an inherited class for the code implemented by developer. The following
 items are some of the changes in `ProductForm`.
@@ -336,14 +338,13 @@ https://github.com/vaadin/bookstore-starter-flow/commit/c909f99c0a483ab4b6b5a835
 
 === ErrorView
 
-Router Exception Handling in Vaadin 10 is described
-https://vaadin.com/docs/v10/flow/routing/tutorial-routing-exception-handling.html[here].
+Router Exception Handling in Vaadin Flow is described
+https://vaadin.com/docs/flow/routing/tutorial-routing-exception-handling.html[here].
 Applications can have different views for catching different exceptions.
 For example, `ErrorView` catches `NotFoundException` that is thrown when
 something goes wrong while resolving navigation routes. And unlike
 Vaadin 8, there is no need to register `ErrorView` in a `navigator` or
-something like that. It is automatically detected and is used by Vaadin
-10.
+something like that. It is automatically detected and is used by Flow.
 
 The commit showing the migration of the error view is
 https://github.com/vaadin/bookstore-starter-flow/commit/c909f99c0a483ab4b6b5a83534be1c8de8a5d5b2#diff-c0d70f19c05c81ab072bb1d2e9c659e2[here].
@@ -353,7 +354,7 @@ https://github.com/vaadin/bookstore-starter-flow/commit/c909f99c0a483ab4b6b5a835
 Apart from some cleaning, a small change that is worth mentioning is the
 change in how the URL of the browser is updated. In Vaadin 8,
 `page.setUriFragment` is called and the new URL must be constructed and
-passed as a parameter. While in Vaadin 10, it is done in a more elegant
+passed as a parameter. While in Vaadin Flow, it is done in a more elegant
 way; `navigate` method of `UI` class is called and the view parameter is
 passed as a parameter to `navigate` method.
 
@@ -361,12 +362,12 @@ https://github.com/vaadin/bookstore-starter-flow/commit/87823b61d53137963cfc84fa
 the link to see all changes in step five.
 
 == Step 6 - Production Mode
-The best practice to have the production mode in Vaadin 10 is adding a profile
+The best practice to have the production mode in Vaadin Flow is adding a profile
 to pom.xml. So, the production module is no longer needed and is removed and a
-profile named `production-mode` is added to pom.xml of ui module. In terms of
-production mode, there are some differences between V8 and V10. The new
-production mode of V10 is fully described
-https://vaadin.com/docs/v10/flow/production/tutorial-production-mode-basic.html[Here].
+profile named `productionMode` is added to pom.xml of ui module. In terms of
+production mode, there are some differences between Vaadin 8 and Flow. The new
+production mode of Flow is fully described
+https://vaadin.com/docs/flow/production/tutorial-production-mode-basic.html[Here].
 
 https://github.com/vaadin/bookstore-starter-flow/commit/d62fb258da9e651b2ef23355d1ec28341cee0c27[Here]
 is the link to see all changes in step six.

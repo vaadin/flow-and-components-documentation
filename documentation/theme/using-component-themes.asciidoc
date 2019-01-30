@@ -84,7 +84,7 @@ Different themes and different components may have different sets of variants (o
 
 == Available Themes and Customizations
 
-In Vaadin 10 there are two ready-made component themes: _Lumo_ (which is the main theme for all Vaadin components) and _Material_ one.
+In Vaadin Platform there are two ready-made component themes: _Lumo_ (which is the main theme for all Vaadin components) and _Material_ one.
 Both themes give you a full set of building blocks to build a modern looking web application that works just as well on desktop and on mobile.
 
 The Flow integration for both Lumo and Material themes are a part of the `vaadin-core` dependency. The previous chapter shows how to take those to use.
