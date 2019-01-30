@@ -4,7 +4,7 @@ order: 2
 layout: page
 ---
 
-= Ways of Importing Dependencies
+= Advanced configuration of CSS, JavaScript and HTML imports
 
 You can import resource files using:
 
