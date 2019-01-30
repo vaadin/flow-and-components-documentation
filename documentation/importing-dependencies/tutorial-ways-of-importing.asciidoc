@@ -11,7 +11,7 @@ As discussed in <<tutorial-include-css#,Including Style Sheets>> and <<tutorial-
 * Annotations (`@StyleSheet`, `@JavaScript` and `@HtmlImport`) and 
 * Methods provided by the `Page` class (`addStyleSheet`, `addHtmlImport)` and `addJavaScript)`.
 
-See <<tutorial-include-css#,Including Style Sheets>> and <<tutorial-importing#,Importing HTML and JavaScript>> for more.
+Sometimes the way how these client side resources are loaded to the browser affects the functionality of the application. Vaadin Flow provides advanced methods to configure the loading of these resources.```
 
 == Dependency Loading Order
 
