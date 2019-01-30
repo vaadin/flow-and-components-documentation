@@ -74,7 +74,7 @@ webjars.org contains "Bower Original WebJars" and "Bower GitHub WebJars". Always
 
 == Step 2. Creating the Java Integration
 
-While you can start from scratch and do all the things manually, it's easiest to start with the component project available at https://vaadin.com/start/v10-component. This will give you a project with Flow dependencies, import for the webjar for the selected component and a stub Java class for your web component integration. It also contains a Maven profile which will handle all things needed to deploy it to Vaadin Directory.
+While you can start from scratch and do all the things manually, it's easiest to start with the component project available at https://vaadin.com/start/lts/component. This will give you a project with Flow dependencies, import for the webjar for the selected component and a stub Java class for your web component integration. It also contains a Maven profile which will handle all things needed to deploy it to Vaadin Directory.
 
 As an example, if you create a starter project for https://github.com/PolymerElements/paper-slider, the relevant parts of the generated project is
 
@@ -119,7 +119,7 @@ The main test/demo Java class `src/test/java/…/DemoView.java`
 public class DemoView extends VerticalLayout {
 ----
 
-The project is set up in a slightly unconventional way so it can be a single-module Maven project. The test folder is used for a test/demo application in addition to actual test files. When you run 
+The project is set up in a slightly unconventional way so it can be a single-module Maven project. The test folder is used for a test/demo application in addition to actual test files. When you run
 
 [source, sh]
 ----
@@ -150,7 +150,7 @@ When you are satisfied with the API, you can make the add-on available to the wo
 mvn clean install -Pdirectory
 ----
 
-This creates a zip file in the `target` directory. 
+This creates a zip file in the `target` directory.
 
 Go to https://vaadin.com/directory, log in or register, and upload this zip file. Be sure to write an overview for your add-on to let others know what you can do with it, what browsers it supports etc. Then publish it and others can take your add-on into use by copying the dependency information from the add-on page in the directory.
 

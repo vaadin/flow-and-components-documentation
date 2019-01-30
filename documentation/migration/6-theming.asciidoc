@@ -15,16 +15,16 @@ Since introducing Sass as a helper to Vaadin Application theming,
 browsers have started to support https://developer.mozilla.org/en-US/docs/Web/CSS/--*[CSS Custom Properties]
 (IE11 is polyfilled for production mode.), which brings the customizability gains from Sass to basic CSS, without the overhead of needing to compile the Sass to CSS.
 
-Thus, Vaadin 10 itself isn't using Sass, but you can of course use it for your own application theming if you want to.
+Thus, Vaadin platform itself isn't using Sass, but you can of course use it for your own application theming if you want to.
 You’ll have to setup the sass-compiler workflow yourself, but there are Maven Plugins available for this.
 
-None of the old themes are available for V10. By customizing the new V10 themes you can easily achieve the same the look
+None of the old themes are available for Vaadin platform. By customizing the new Vaadin platform themes you can easily achieve the same look
 and feel your application you had before. The DOM is, however, different for the new components,
 so this is not a copy-paste step.
 
-== Theming in Vaadin 10
+== Theming in Vaadin platform
 
-In Vaadin 10 the theming is built inside the Web Components. There is a different variant of the Web Component for each available theme.
+In Vaadin platform the theming is built inside the Web Components. There is a different variant of the Web Component for each available theme.
 Themes cannot typically be mixed and matched, and for coherent user experience you should always use the same theme for all of the components.
 
 The following example shows all the tricks for theming applications, covered in the next topics:
@@ -43,7 +43,7 @@ public class MainLayout extends Div implements RouterLayout,
 
 === @Theme Annotation
 
-Flow needs to know which theme it should use for the components in Vaadin 10.
+Flow needs to know which theme it should use for the components in Vaadin platform.
 Similarly to Vaadin 8 and previously, this is done with a `@Theme` annotation.
 This should be applied on the root layout of the application.
 It can also be in an abstract class if you have multiple root layouts.
@@ -53,7 +53,7 @@ When no `@Theme` is used, the Lumo theme is used by default (if present in the c
 
 Instead of a magic string, you need to provide a `Class` reference to an theme class that extends `AbstractTheme`.
 There is one ready-made theme available for V10: *Lumo*. Another theme, _Material_,
-is also in progress, but not yet available in V10. It will be possible to use it with the Vaadin components in 10 once it is released.
+is available for V12.
 You should always use a theme, since the unthemed versions of the components are only meant as a baseline for creating a new theme from scratch!
 
 The theme class will handle two things:
@@ -91,8 +91,8 @@ In the previous Vaadin versions, the `@Viewport` styling was applied to the `UI`
 @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
 ```
 
-V10 maps the `UI` directly to the `<body>` element and gives you more fine grained control easily on what styles it gets with the `@BodyStyles` annotation.
-In V10 the body has only the `margin: 0;` style applied, whereas in V8 there was the following styles:
+Vaadin platform maps the `UI` directly to the `<body>` element and gives you more fine grained control easily on what styles it gets with the `@BodyStyles` annotation.
+In Vaadin platform the body has only the `margin: 0;` style applied, whereas in V8 there was the following styles:
 [source,css]
 ----
 overflow: hidden;
