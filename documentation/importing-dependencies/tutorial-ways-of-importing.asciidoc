@@ -1,69 +1,105 @@
 ---
-title: Ways of Importing the Dependencies
+title: Storing and Loading Resources
 order: 2
 layout: page
 ---
+= Storing and Loading Resources
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
-= Ways of Importing the Dependencies
+== Storing Resources
 
-Sections <<tutorial-include-css#,Including Style Sheets>> and <<tutorial-importing#,Importing html/javascript>>
-are describing ways to include style sheets and import HTML/JavaScript.
+You can place your resource files (CSS style sheets, JavaScript and HTML files, and other static resources) in any folder in your WAR file, except `/VAADIN`, which is reserved for internal framework use.
 
-Every annotation `@StyleSheet`, `@JavaScript` and `@HtmlImport` has a `loadMode`
-parameter which is `LoadMode.EAGER` by default, but can be changed to any other possible value.
+`VaadinServlet` handles static resource requests, if you have mapped it to `/*`.
+If not, the servlet container takes care of static resource requests.
 
-The same can be done programmatically via the overloaded methods of the `Page` class:
+If you use relative URLs, it is irrelevant whether your application is deployed in the root context (for example  `\http://mysite.com/`) or in a sub context (for example `\http://mysite.com/myapp/`). Relative URLs are resolved using the page base URI, which is always set to match the servlet URL.
 
- * `addStyleSheet(String url, LoadMode loadMode)`
- * `addHtmlImport(String url, LoadMode loadMode)`
- * `addJavaScript(String url, LoadMode loadMode)`
+=== Using a Servlet Path
 
-Currently, Flow allows the following ways of importing the dependencies:
+If you use a servlet path for the servlet, for example `\http://mysite.com/myapp/myservlet/`, you need to take the servlet path into account when including resources. This is because the base URI is `\http://mysite.com/myapp/myservlet/`, but static resources are deployed at `\http://mysite.com/myapp/`.
 
-* `LoadMode.EAGER`
+You can use the `context://` protocol, with the `Page.addStyleSheet` method, for example. This ensures the URL is relative to the context path. This protocol is only supported when including resources.
 
-Used for all dependencies by default. If you don't know which mode to use to load the dependency, most probably this
- will be the most suitable.
+When you configure an element, for example setting the `src` attribute for an `<img>`, you cannot use the `context://` protocol. Your options are:
 
-This mode guarantees that every eager dependency for the corresponding component is loaded as soon as possible and before
-the page is fully initialized by the framework.
+* Take the servlet path into account with your relative URL, for example `../images/logo.png`.
+* Use an absolute URL, for example `/myapp/images/logo.png`.
+* Deploy your static resources in a directory that matches your servlet path, for example `/myservlet/`.
 
-* `LoadMode.INLINE`
+== Advanced configuration of CSS, JavaScript and HTML imports
 
-This mode has the same guarantees as eager does, but instead of adding urls to dependencies, this mode
-tries to fetch the dependencies and inline those in the body of the corresponding web page.
-This eliminates the roundtrip needed to get the dependency.
-If it's impossible to fetch the contents to be inlined, an exception is thrown and the loading is stopped.
+As discussed in <<tutorial-include-css#,Including Style Sheets>> and <<tutorial-importing#,Importing HTML and JavaScript>>, you can import client side dependencies or resource files using:
 
+* Annotations (`@StyleSheet`, `@JavaScript` and `@HtmlImport`), and 
+* Methods provided by the `Page` class (`addStyleSheet`, `addHtmlImport)` and `addJavaScript)`.
+
+Sometimes the way client-side resources are loaded to the browser affects the functionality of the application. Vaadin Flow provides advanced methods to configure the loading of these resources.
+
+=== Dependency Loading Order
+
+Imported dependency files of the same type load in the order they are defined in the class. For example, CSS files load in the `@StyleSheet` annotation definition order, JavaScript files in the `@JavaScript` annotation definition order, and HTML files in the `@HtmlImport` annotation definition order.  
+
+The loading order of imported dependencies is only guaranteed for one file type, in one class. There are no other loading-order guarantees. Specifically, loading order is not guaranteed between classes or files types. 
+
+*Example*: Imported dependencies of different file types in a single class. 
+
+[source, java]
+----
+@JavaScript("1.js")
+@StyleSheet("1.css")
+@HtmlImport("1.html")
+@JavaScript("2.js")
+@StyleSheet("2.css")
+@HtmlImport("2.html")
+static class OrderedDependencies extends Div {
+}
+----
+* `1.js` will be imported before `2.js`, `1.css` before `2.css`, `1.html` before `2.html`, but there are no other guarantees.
+
+You can control the load order of dependencies of different file types, by adding imports within an HTML import. 
+
+
+*Example*: Ensuring `htmlimport4.html` runs before `htmlimport4-js.js`.
+[source, html]
+----
+<link rel="import" href="htmlimport4.html">
+<script src="htmlimport4-js.js"></script>
+----
+
+=== Using the loadMode Parameter
+
+All annotations and methods in the `Page` class without explicit `LoadMode` parameter use `LoadMode.EAGER`, by default.
+
+The `LoadMode` can be given as a parameter for the annotations or you can use the following methods in the `Page` class: 
+
+* `addStyleSheet(String url, LoadMode loadMode)`
+* `addHtmlImport(String url, LoadMode loadMode)`
+* `addJavaScript(String url, LoadMode loadMode)`
+
+
+There are three available lode modes:
+
+* `LoadMode.EAGER` is the default load mode for all dependencies. This mode ensures that the dependency is loaded as soon as possible, and before the initial page load. 
++
+Eager mode is suitable in most cases. Use it if you are unsure which mode to use. 
+
+* `LoadMode.INLINE` inlines dependencies in the body of the page. This mode eliminates round trips when fetching dependencies. If the contents cannot be fetched, an exception is thrown and loading stops. 
++
 [NOTE]
-====
-Please pay attention to urls that are used in inlined dependencies: those would not be changed and, most probably, they will be
- incorrect after inlining.
-====
+Pay attention to URLs used for inlined dependencies: the URLS may change and could be incorrect after inlining. 
 
-* `LoadMode.LAZY`
+* `LoadMode.LAZY` loads dependencies in the background, after all eager and inline dependencies have loaded. Lazy dependency loading is independent of page initialization. 
++ 
+Lazy mode is suitable when you need to load the dependency, but it is not important when it is loaded. 
 
-This mode is suitable when you need to load the dependency, but you don't care when.
-Dependencies loaded with this mode, are loaded in background, after all eager and inline dependencies are loaded.
+=== Load-Order Guarantees
 
-[NOTE]
-====
-It is guaranteed, that all eager and inline dependencies are loaded before any of the lazy dependencies.
-For the dependencies with the same load mode, the order is guaranteed too: each eager dependency is applied in the order they were added to the component,
-same is true for inline and lazy dependencies.
-
-But no guarantees are made on the order of dependencies between groups: for instance, if your component has both lazy and inline dependencies,
-both groups of dependencies will be loaded simultaneously.
-====
-
-=== An example
-Let's assume you have some additional functionality for your component which is optional
-and is not required for your application. For instance it can be a JavaScript which
-adds some animation to the component: `/js/animation.js`. This animation may be applied
-at any time later on for the component so that we can postpone its loading. Then
-the component can be declared as:
-
+* All eager and inline dependencies are guaranteed to load before lazy dependencies.
++
+Assume a component uses additional JavaScript animation, `/js/animation.js`, that is optional and not required, in your application. You can postpone its loading, giving priority to other resources. 
++
+*Example*: Using annotations to add resource files.
++
 [source,java]
 ----
 @Tag("div")
@@ -74,11 +110,9 @@ public class MainLayout extends Component {
     // implementation omitted
 }
 ----
-
-In this example the `/html/layout.html` will be loaded and injected before the client side
-structure is created for the `MainLayout` component regardless of availability of the
-`/js/animation.js` script.
-
++
+*Example*: Using `Page` class overload methods to add resource files. 
++
 [source,java]
 ----
   public MainLayout() {
@@ -88,7 +122,8 @@ structure is created for the `MainLayout` component regardless of availability o
   }
 }
 ----
++
+** In the examples, `/html/layout.html` is loaded and injected before creating the client-side structure for the `MainLayout` component, regardless of the availability of the `/js/animation.js` script.
 
-[NOTE]
-See corresponding tutorials <<tutorial-include-css#,Including Style Sheets>> and <<tutorial-importing#,Importing html/javascript>>
-about static resource paths and URLs.
+
+* Dependencies with the same load mode are guaranteed to load in the order defined in the component. This is true for all load modes.

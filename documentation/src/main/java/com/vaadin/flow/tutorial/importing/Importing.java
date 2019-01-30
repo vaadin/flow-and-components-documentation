@@ -42,12 +42,4 @@ public class Importing {
         UI.getCurrent().getPage().addJavaScript("/js/script.js");
     }
 
-    @JavaScript("1.js")
-    @StyleSheet("1.css")
-    @HtmlImport("1.html")
-    @JavaScript("2.js")
-    @StyleSheet("2.css")
-    @HtmlImport("2.html")
-    static class OrderedDependencies extends Div {
-    }
 }
