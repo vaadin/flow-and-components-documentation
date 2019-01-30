@@ -46,7 +46,7 @@ You can control the load order of dependencies of different file types, by addin
 
 == Using the loadMode Parameter
 
-All annotations and relevant `Page` class overload methods have a `loadMode` parameter that is set to `LoadMode.EAGER`, by default.
+All annotations and methods in `Page` class without explicit `LoadMode` parameter use `LoadMode.EAGER`, by default.
 
 Here are the relevant `Page` class overload methods: 
 
