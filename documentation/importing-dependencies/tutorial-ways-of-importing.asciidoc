@@ -62,7 +62,6 @@ There are three available lode modes:
 Eager mode is suitable in most cases. Use it if you are unsure which mode to use. 
 
 * `LoadMode.INLINE` inlines dependencies in the body of the page. This mode eliminates round trips when fetching dependencies. If the contents cannot be fetched, an exception is thrown and loading stops. 
-// When is it best to use inline mode?
 +
 [NOTE]
 Pay attention to URLs used for inlined dependencies: the URLS may change and could be incorrect after inlining. 
