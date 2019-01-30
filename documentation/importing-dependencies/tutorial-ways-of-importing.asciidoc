@@ -36,7 +36,6 @@ static class OrderedDependencies extends Div {
 
 You can control the load order of dependencies of different file types, by adding imports within an HTML import. 
 
-// https://developer.mozilla.org/en-US/docs/Web/Web_Components/HTML_Imports suggests this is obsolete
 
 *Example*: Ensuring `htmlimport4.html` runs before `htmlimport4-js.js`.
 [source, html]
