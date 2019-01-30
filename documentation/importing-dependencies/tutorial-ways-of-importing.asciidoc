@@ -48,7 +48,7 @@ You can control the load order of dependencies of different file types, by addin
 
 All annotations and methods in `Page` class without explicit `LoadMode` parameter use `LoadMode.EAGER`, by default.
 
-Here are the relevant `Page` class overload methods: 
+The `LoadMode` can be given as a parameter for the annotations or you can use the following methods in the `Page` class: 
 
 * `addStyleSheet(String url, LoadMode loadMode)`
 * `addHtmlImport(String url, LoadMode loadMode)`
