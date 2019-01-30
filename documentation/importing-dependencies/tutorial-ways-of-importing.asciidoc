@@ -103,7 +103,6 @@ public class MainLayout extends Component {
 +
 ** In the examples, `/html/layout.html` is loaded and injected before creating the client-side structure for the `MainLayout` component, regardless of the availability of the `/js/animation.js` script.
 
-// What about the html vs css load order?
 
 * Dependencies with the same load mode are guaranteed to load in the order defined in the component. This is true for all load modes.
 
