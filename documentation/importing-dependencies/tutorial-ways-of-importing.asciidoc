@@ -7,7 +7,7 @@ layout: page
 
 == Storing Resources
 
-You can place resource files (CSS style sheets, JavaScript and HTML files, and other static resources) in any folder in your WAR file, except `/VAADIN`, which is reserved for internal framework use.
+You can place your resource files (CSS style sheets, JavaScript and HTML files, and other static resources) in any folder in your WAR file, except `/VAADIN`, which is reserved for internal framework use.
 
 `VaadinServlet` handles static resource requests, if you have mapped it to `/*`.
 If not, the servlet container takes care of static resource requests.
@@ -23,23 +23,23 @@ You can use the `context://` protocol, with the `Page.addStyleSheet` method, for
 When you configure an element, for example setting the `src` attribute for an `<img>`, you cannot use the `context://` protocol. Your options are:
 
 * Take the servlet path into account with your relative URL, for example `../images/logo.png`.
-* Use an absolute URL, for example `/myapp/images/logo.png`
+* Use an absolute URL, for example `/myapp/images/logo.png`.
 * Deploy your static resources in a directory that matches your servlet path, for example `/myservlet/`.
 
 == Advanced configuration of CSS, JavaScript and HTML imports
 
 As discussed in <<tutorial-include-css#,Including Style Sheets>> and <<tutorial-importing#,Importing HTML and JavaScript>>, you can import client side dependencies or resource files using:
 
-* Annotations (`@StyleSheet`, `@JavaScript` and `@HtmlImport`) and 
+* Annotations (`@StyleSheet`, `@JavaScript` and `@HtmlImport`), and 
 * Methods provided by the `Page` class (`addStyleSheet`, `addHtmlImport)` and `addJavaScript)`.
 
-Sometimes the way how these client side resources are loaded to the browser affects the functionality of the application. Vaadin Flow provides advanced methods to configure the loading of these resources.```
+Sometimes the way client-side resources are loaded to the browser affects the functionality of the application. Vaadin Flow provides advanced methods to configure the loading of these resources.
 
 === Dependency Loading Order
 
 Imported dependency files of the same type load in the order they are defined in the class. For example, CSS files load in the `@StyleSheet` annotation definition order, JavaScript files in the `@JavaScript` annotation definition order, and HTML files in the `@HtmlImport` annotation definition order.  
 
-The loading order of imported dependencies is only guaranteed for one file type, in one class. There are no other loading order guarantees. Specifically, load order is not guaranteed between classes or files types. 
+The loading order of imported dependencies is only guaranteed for one file type, in one class. There are no other loading-order guarantees. Specifically, loading order is not guaranteed between classes or files types. 
 
 *Example*: Imported dependencies of different file types in a single class. 
 
@@ -68,7 +68,7 @@ You can control the load order of dependencies of different file types, by addin
 
 === Using the loadMode Parameter
 
-All annotations and methods in `Page` class without explicit `LoadMode` parameter use `LoadMode.EAGER`, by default.
+All annotations and methods in the `Page` class without explicit `LoadMode` parameter use `LoadMode.EAGER`, by default.
 
 The `LoadMode` can be given as a parameter for the annotations or you can use the following methods in the `Page` class: 
 
@@ -96,7 +96,7 @@ Lazy mode is suitable when you need to load the dependency, but it is not import
 
 * All eager and inline dependencies are guaranteed to load before lazy dependencies.
 +
-Assume a component uses additional JavaScript animation, `/js/animation.js`, that is optional, and not required, in your application. You can postpone its loading, giving priority to other resources. 
+Assume a component uses additional JavaScript animation, `/js/animation.js`, that is optional and not required, in your application. You can postpone its loading, giving priority to other resources. 
 +
 *Example*: Using annotations to add resource files.
 +
