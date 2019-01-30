@@ -6,7 +6,7 @@ layout: page
 
 = Advanced configuration of CSS, JavaScript and HTML imports
 
-You can import resource files using:
+As discussed in <<tutorial-include-css#,Including Style Sheets>> and <<tutorial-importing#,Importing HTML and JavaScript>>, you can import client side dependencies or resource files using:
 
 * Annotations (`@StyleSheet`, `@JavaScript` and `@HtmlImport`) and 
 * Methods provided by the `Page` class (`addStyleSheet`, `addHtmlImport)` and `addJavaScript)`.
