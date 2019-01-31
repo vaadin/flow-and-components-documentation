@@ -103,10 +103,8 @@ components, `Scope`. If the user is typing something in one of the inputs and
 presses _Escape_, both input fields will be cleared and focus returned to the
 first field.
 
-This is useful in situations where the application has multiple
-instances of
-the same component visible at the same time on the screen and each component has
-the same shortcut.
+This is useful in situations where the same action needs to be triggered
+by a shortcut configured on all fields contained inside the same scope.
 
 The shortcut is created using the factory class `Shortcuts` which offers the
 most generic method for creating shortcuts.
@@ -165,7 +163,7 @@ add(paragraph);
 
 The first parameter of `Shortcuts.addShortcutListener(Component, Command, Key,
 KeyModifier...);` is the `lifecycleOwner`. The shortcut _ALT+G_ is now bound
-the the lifecycle of _paragraph_ and is only valid when _paragraph_ is
+to the lifecycle of _paragraph_ and is only valid when _paragraph_ is
 attached and visible.
 
 === Listening for `ShortcutEvent`
@@ -204,10 +202,7 @@ comparing which shortcut might be in question. For further comparisons, use `
 which returns the `lifecycleOwner` component.
 
 === Configuring shortcuts
-The previously used methods for adding shortcuts have all began with "`add--`"
-and returned a `Registration`. If the user wants more freedom to configure
-shortcuts, the shortcut API has a second class of methods which start with
-"`register--`". These methods return an instance of `ShortcutRegistration`
+All methods adding a shortcut return an instance of `ShortcutRegistration`
 which provides a fluent API for further configuring the shortcuts.
 
 ==== Modifiers
