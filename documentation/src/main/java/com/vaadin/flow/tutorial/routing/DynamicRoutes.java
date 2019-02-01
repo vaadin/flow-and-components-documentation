@@ -22,7 +22,6 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.router.DynamicRoute;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.router.RouteConfiguration;
@@ -112,8 +111,7 @@ public class DynamicRoutes {
         }
     }
 
-    @Route(value = "info", layout = MainLayout.class)
-    @DynamicRoute
+    @Route(value = "info", layout = MainLayout.class, registerAtStartup = false)
     public class Info extends Div {
         public Info() {
             add(new Span("This page contains info about the application"));
