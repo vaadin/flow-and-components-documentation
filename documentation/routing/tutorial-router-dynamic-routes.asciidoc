@@ -113,8 +113,8 @@ well understood that it will have an impact on every user of the system.
 To utilise the features that `@Route` brings for static registration the `RouteConfiguration`
 class contains methods to add routes that have been annotated with `@Route`.
 
-To skip the static registration on servlet initialization just add `@DynamicRoute`
-to the `@Route` annotated class and it will not be registered on startup to the application scoped registry.
+To skip the static registration on servlet initialization just add the parameter `registerAtStartup = false`
+to the `@Route` annotation and it will not be registered on startup to the application scoped registry.
 This makes it easy to use existing parent chains and paths that get modified from the parent.
 
 ==== Example: Adding a new view on user login
@@ -123,7 +123,7 @@ Our application contains the statically registered route "" which maps to the
 login used for user authentication.
 
 We also have the "info" route that will not be statically registered
-as it's marked with `@DynamicRoute`.
+as it has the `registerAtStartup = false`.
 
 [[Login.class]]
 .Login.class
@@ -162,8 +162,7 @@ public class MainLayout extends Div implements RouterLayout {
 .Info.class
 [source, java]
 ----
-@Route(value = "info", layout = MainLayout.class)
-@DynamicRoute
+@Route(value = "info", layout = MainLayout.class, registerAtStartup = false)
 public class Info extends Div {
     public Info() {
         add(new Span("This page contains info about the application"));
