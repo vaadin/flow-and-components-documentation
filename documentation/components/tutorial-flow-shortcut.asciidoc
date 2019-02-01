@@ -104,7 +104,8 @@ presses _Escape_, both input fields will be cleared and focus returned to the
 first field.
 
 This is useful in situations where the same action needs to be triggered
-by a shortcut configured on all fields contained inside the same scope.
+by a shortcut configured on all fields contained inside the same scope
+but not outside of the enveloping component.
 
 The shortcut is created using the factory class `Shortcuts` which offers the
 most generic method for creating shortcuts.
