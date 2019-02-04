@@ -20,12 +20,19 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.BeforeEvent;
+import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.router.RouteBaseData;
 import com.vaadin.flow.router.RouteConfiguration;
+import com.vaadin.flow.router.RouteData;
 import com.vaadin.flow.router.RouterLayout;
+import com.vaadin.flow.server.ServiceInitEvent;
+import com.vaadin.flow.server.VaadinServiceInitListener;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("routing/tutorial-router-dynamic-routes.asciidoc")
@@ -40,37 +47,90 @@ public class DynamicRoutes {
             RouteConfiguration configuration = RouteConfiguration
                     .forSessionScope();
 
-            RouteConfiguration.forSessionScope().setRoute("home", Home.class);
-            RouteConfiguration.forSessionScope().setRoute("home", Home.class, MainLayout.class);
+            RouteConfiguration.forSessionScope().setRoute("admin", AdminView.class);
+
+            // parent layouts can be given as a vargargs parameter
+            RouteConfiguration.forSessionScope().setRoute("home", HomeView.class, MainLayout.class);
 
             configuration.setRoute("main", MyRoute.class);
             configuration.setRoute("info", MyRoute.class);
             configuration.setRoute("version", MyRoute.class);
-            // No path "users" should be available
-            configuration.removeRoute("users");
+            // No path "admin" will be available
+            configuration.removeRoute("admin");
 
-            // No navigationTarget Users should be available
-            configuration.removeRoute(Users.class);
+            // No view AdminView will be available
+            configuration.removeRoute(AdminView.class);
 
-            // Only the Users navigationTarget should be removed from "users"
-            configuration.removeRoute("users", Users.class);
+            // Remove the "/users" path but keep e.g. "/users/123"
+            configuration.removeRoute("users", UsersView.class);
 
-            configuration.setRoute("home", Home.class);
+            // register the above view during runtime
+            if (getCurrentUser().hasAccessToReporting()) {
+                RouteConfiguration.forSessionScope().setAnnotatedRoute(ReportView.class);
+            }
 
-            configuration.setRoute("home", Home.class, MainLayout.class);
+            Menu menu = new Menu();
+
+            // add all currently available views
+            configuration.getAvailableRoutes().forEach(menu::addMenuItem);
+
+            // add and remove menu items when routes are added and removed
+            configuration.addRoutesChangeListener(event -> {
+                // ignoring any route alias changes
+                event.getAddedRoutes().stream()
+                        .filter(route -> (route instanceof RouteData))
+                        .forEach(menu::addMenuItem);
+                event.getRemovedRoutes().stream()
+                        .filter(route -> (route instanceof RouteData))
+                        .forEach(menu::removeMenuItem);
+            });
         }
     }
 
-    public class Admin extends Div {
+    public static class User {
+        boolean hasAccessToReporting() {
+            return true;
+        }
     }
 
-    public class User extends Div {
+    User getCurrentUser() {
+        return new User();
     }
 
-    private static class Home extends Div {
+    public static class Menu {
+        public void addMenuItem(RouteBaseData routeData) {
+
+        }
+
+        public void removeMenuItem(RouteBaseData routeData) {
+
+        }
     }
 
-    private static class Users extends Div {
+    public class AdminView extends Div {
+    }
+
+    public class UserView extends Div {
+    }
+
+    private static class HomeView extends Div {
+    }
+
+    private static class UsersView extends Div {
+    }
+
+    private static class DBCrudView extends Div {
+    }
+
+    @Route(value = "quarterly-report", layout = MainLayout.class, registerAtStartup = false)
+    @RouteAlias("qr")
+    public class ReportView extends VerticalLayout implements HasUrlParameter<String> {
+        // implementation omitted
+
+        @Override
+        public void setParameter(BeforeEvent beforeEvent, String s) {
+
+        }
     }
 
     public class MainLayout extends Div implements RouterLayout {
@@ -80,12 +140,12 @@ public class DynamicRoutes {
     }
 
     @Route("")
-    public class Login extends Div {
+    public class LoginPage extends Div {
 
         private TextField login;
         private PasswordField password;
 
-        public Login() {
+        public LoginPage() {
             login = new TextField("Login");
             password = new PasswordField("Password");
 
@@ -100,21 +160,35 @@ public class DynamicRoutes {
             RouteConfiguration configuration = RouteConfiguration.forSessionScope();
 
             if ("admin".equals(login.getValue())) {
-                configuration.setRoute("", Admin.class, MainLayout.class);
+                configuration.setRoute("", AdminView.class, MainLayout.class);
             } else if ("user".equals(login.getValue())) {
-                configuration.setRoute("", User.class, MainLayout.class);
+                configuration.setRoute("", UserView.class, MainLayout.class);
             }
 
-            configuration.setAnnotatedRoute(Info.class);
+            configuration.setAnnotatedRoute(InfoView.class);
 
             UI.getCurrent().getPage().reload();
         }
     }
 
     @Route(value = "info", layout = MainLayout.class, registerAtStartup = false)
-    public class Info extends Div {
-        public Info() {
+    public class InfoView extends Div {
+        public InfoView() {
             add(new Span("This page contains info about the application"));
         }
+    }
+
+    public class ApplicationServiceInitListener implements VaadinServiceInitListener {
+
+        @Override
+        public void serviceInit(ServiceInitEvent event) {
+            // add view only during development time
+            if (!event.getSource().getDeploymentConfiguration().isProductionMode()) {
+                RouteConfiguration configuration = RouteConfiguration.forApplicationScope();
+
+                configuration.setRoute("crud", DBCrudView.class);
+            }
+        }
+
     }
 }
