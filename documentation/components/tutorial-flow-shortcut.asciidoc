@@ -19,13 +19,26 @@ the `ClickNotifier` interface, such as the `Button`.
 
 [source, java]
 ----
-Button button = new Button();
-button.addClickListener(event -> {/* do the click */});
-button.addClickShortcut(Key.ENTER);
+TextField userName = new TextField("User name");
+PasswordField password = new PasswordField("Password");
+
+Button login = new Button("Login");
+login.addClickListener(event -> this.login());
+login.addClickShortcut(Key.ENTER)
+        // need to allow default, otherwise pressing enter in text fields
+        // won't update the value to the server
+        .allowBrowserDefault();
 ----
 
 Instead of clicking on the _button_, the user can hit _Enter_ on the keyboard
 to perform the action tied to the _button_'s click.
+
+[NOTE]
+When using the _ENTER_ key as a shortcut, you should allow the browser default
+action by calling `allowBrowserDefault()` for the registration object, because
+otherwise inputs will not update their value to the server side when pressing
+enter and the default value change mode of `ON_CHANGE` is in use. More details
+about client side behavior <<clientside.behavior,later>>.
 
 === Adding a "`focus`" shortcut
 Focus shortcuts _focuses_ the `Focusable` component, such as an `Input` field.
@@ -239,6 +252,7 @@ UI.getCurrent().addShortcutListener(() -> {/* do a thing*/}, Key.KEY_F)
 
 The lifecycle of the global shortcut is now bond to _anotherComponent_.
 
+[[clientside.behavior]]
 ==== Client-side event behavior
 `ShortcutRegistration` provides methods for defining how the event should
 behave on the client-side. DOM events provide the developer with the tools to
