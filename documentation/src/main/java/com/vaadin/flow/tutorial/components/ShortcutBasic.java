@@ -20,9 +20,15 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class ShortcutBasic {
 
     public void clickShortcut() {
-        Button button = new Button();
-        button.addClickListener(event -> {/* do the click */});
-        button.addClickShortcut(Key.ENTER);
+        TextField userName = new TextField("User name");
+        PasswordField password = new PasswordField("Password");
+
+        Button login = new Button("Login");
+        login.addClickListener(event -> this.login());
+        login.addClickShortcut(Key.ENTER)
+        // need to allow default, otherwise pressing enter in text fields
+        // won't update the value to the server
+                .allowBrowserDefault();
     }
 
     public void focusShortcut() {
