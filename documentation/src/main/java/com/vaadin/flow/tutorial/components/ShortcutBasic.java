@@ -130,4 +130,6 @@ public class ShortcutBasic {
     private void openCustomerCreation() {}
 
     private void add(Component... components) {}
+
+    private void login() {}
 }
