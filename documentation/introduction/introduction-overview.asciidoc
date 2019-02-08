@@ -194,6 +194,4 @@ it's also possible to use an HTML template file to define the overall DOM struct
 In addition to giving a clearer overview of the structure of a Component, the template functionality does also help to improve performance –
 the same template definition is reused for all component instances using the same template file. This means that less memory is used on the server and less data needs to be sent to the browser.
 
-== NEXT: Getting Started with Vaadin Flow
-
-<<tutorial-get-started-first-part#,The next chapter>> shows how to build your first application with Vaadin Flow.
+*NEXT*: Follow the tutorial to build your first Vaadin application: *https://vaadin.com/tutorials/getting-started-with-flow[Getting started with Vaadin Flow]* 
