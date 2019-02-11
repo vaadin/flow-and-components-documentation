@@ -1,13 +1,16 @@
 ---
-title: Using API Helpers for Defining Component Properties
+title: Using API Helpers to Define Component Properties
 order: 3
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
-= Using API Helpers for Defining Component Properties
+= Using API Helpers to Define Component Properties
 
-The framework provides a helper called `PropertyDescriptor` which makes managing attributes and properties in a component easy. You can use `PropertyDescriptor` to define the property name and the default value in a single place and use the descriptor from the setter and getter methods:
+The `PropertyDescriptor` interface (and associated `PropertyDescriptors` helper class) simplifies managing attributes and properties in a component. 
+
+You can use `PropertyDescriptors` to define a property name and default value in a single place, and then use the descriptor from the setter and getter methods.
+
+*Example*: Using the `PropertyDescriptors.propertyWithDefault` method to define the default property value.
 
 [source,java]
 ----
@@ -25,21 +28,27 @@ public class TextField extends Component {
 }
 ----
 
-In your component API for a given property, e.g. `value` of an input field, you want to ensure a couple of things are always true:
+For your component API for a given property, for example the `value` of an input field, to function correctly:
 
-* The getter and setter use the same property or attribute
-* The default value is handled properly
-* The getter return value is either the type used by the setter, e.g. `String` for an input `value` or an optional version of it, i.e. `Optional<String>` if the property is not mandatory.
+* The getter and setter should use the same property or attribute.
+* The default value should be handled correctly.
+* The getter return value should be either:
+** The type used by the setter, for example `String` for an input `value`, or
+** An optional version of the type used by the setter, that is `Optional<String>` if the property is not mandatory.
 
-PropertyDescriptors will automatically take these points into consideration for you.
+`PropertyDescriptors` automatically take the above into consideration.
 
-`PropertyDescriptor` instances are created using the helpers available in the `PropertyDescriptors` class. There are different helper methods depending on how you want your property to work:
+== PropertyDescriptor Interface
 
-* `PropertyDescriptors.propertyWithDefault` for mapping to an element property with a given default value
-* `PropertyDescriptors.attributeWithDefault` for mapping to an element attribute with a given default value
-* `PropertyDescriptors.optionalAttributeWithDefault` for mapping to an element attribute with a given default value but returning an empty `Optional` when the default value is set
+`PropertyDescriptor` instances are created using the the helper methods available in the `PropertyDescriptors` class. 
 
-You can use the `optionalAttributeWithDefault` e.g. for a `placeholder` in a TextField as the placeholder is not mandatory:
+Different helper methods, depending on how you want your component to work, are available: 
+
+* `PropertyDescriptors.propertyWithDefault` maps to an element property with a given default value.
+* `PropertyDescriptors.attributeWithDefault` maps to an element attribute with a given default value.
+* `PropertyDescriptors.optionalAttributeWithDefault` maps to an element attribute with a given default value, but returns an empty `Optional` when the default value is set.
+
+*Example*: Using `PropertyDescriptors.optionalAttributeWithDefault` method for a non-mandatory `placeholder` in a `TextField`.
 
 [source,java]
 ----
@@ -58,4 +67,4 @@ public class TextField extends Component {
 ----
 
 [NOTE]
-The default value used in the `PropertyDescriptors` methods should match what the value becomes in the browser when the attribute or property is not set. Otherwise the value will not be correctly sent to the browser when the user sets the value to the default value.
+The default value used in all `PropertyDescriptors` methods should match the value in the browser when the attribute or property is NOT set. Otherwise, when the user sets the value to the default value, the value will not be correctly sent to the browser.
