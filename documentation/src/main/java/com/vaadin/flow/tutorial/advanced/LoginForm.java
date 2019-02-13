@@ -5,13 +5,13 @@ import java.util.Optional;
 import com.vaadin.flow.component.WebComponent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.webcomponent.WebComponentMethod;
 import com.vaadin.flow.component.webcomponent.WebComponentProperty;
 import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
+import com.vaadin.flow.tutorial.webcomponent.Div;
 
 @CodeFor("advanced/tutorial-sswc.asciidoc")
 @WebComponent("login-form")
