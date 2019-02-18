@@ -19,13 +19,26 @@ the `ClickNotifier` interface, such as the `Button`.
 
 [source, java]
 ----
-Button button = new Button();
-button.addClickListener(event -> {/* do the click */});
-button.addClickShortcut(Key.ENTER);
+TextField userName = new TextField("User name");
+PasswordField password = new PasswordField("Password");
+
+Button login = new Button("Login");
+login.addClickListener(event -> this.login());
+login.addClickShortcut(Key.ENTER)
+        // need to allow default, otherwise pressing enter in text fields
+        // won't update the value to the server
+        .allowBrowserDefault();
 ----
 
 Instead of clicking on the _button_, the user can hit _Enter_ on the keyboard
 to perform the action tied to the _button_'s click.
+
+[NOTE]
+When using the _ENTER_ key as a shortcut, you should allow the browser default
+action by calling `allowBrowserDefault()` for the registration object, because
+otherwise inputs will not update their value to the server side when pressing
+enter and the default value change mode of `ON_CHANGE` is in use. More details
+about client side behavior <<clientside.behavior,later>>.
 
 === Adding a "`focus`" shortcut
 Focus shortcuts _focuses_ the `Focusable` component, such as an `Input` field.
@@ -103,10 +116,9 @@ components, `Scope`. If the user is typing something in one of the inputs and
 presses _Escape_, both input fields will be cleared and focus returned to the
 first field.
 
-This is useful in situations where the application has multiple
-instances of
-the same component visible at the same time on the screen and each component has
-the same shortcut.
+This is useful in situations where the same action needs to be triggered
+by a shortcut configured on all fields contained inside the same scope
+but not outside of the enveloping component.
 
 The shortcut is created using the factory class `Shortcuts` which offers the
 most generic method for creating shortcuts.
@@ -165,7 +177,7 @@ add(paragraph);
 
 The first parameter of `Shortcuts.addShortcutListener(Component, Command, Key,
 KeyModifier...);` is the `lifecycleOwner`. The shortcut _ALT+G_ is now bound
-the the lifecycle of _paragraph_ and is only valid when _paragraph_ is
+to the lifecycle of _paragraph_ and is only valid when _paragraph_ is
 attached and visible.
 
 === Listening for `ShortcutEvent`
@@ -204,10 +216,7 @@ comparing which shortcut might be in question. For further comparisons, use `
 which returns the `lifecycleOwner` component.
 
 === Configuring shortcuts
-The previously used methods for adding shortcuts have all began with "`add--`"
-and returned a `Registration`. If the user wants more freedom to configure
-shortcuts, the shortcut API has a second class of methods which start with
-"`register--`". These methods return an instance of `ShortcutRegistration`
+All methods adding a shortcut return an instance of `ShortcutRegistration`
 which provides a fluent API for further configuring the shortcuts.
 
 ==== Modifiers
@@ -239,6 +248,7 @@ UI.getCurrent().addShortcutListener(() -> {/* do a thing*/}, Key.KEY_F)
 
 The lifecycle of the global shortcut is now bond to _anotherComponent_.
 
+[[clientside.behavior]]
 ==== Client-side event behavior
 `ShortcutRegistration` provides methods for defining how the event should
 behave on the client-side. DOM events provide the developer with the tools to
