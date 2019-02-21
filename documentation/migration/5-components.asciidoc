@@ -23,13 +23,13 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | AbsoluteLayout | - | Not planned. Similar functionality in Vaadin platform can be achieved using eg. https://vaadin.com/api/platform/11.0.1/com/vaadin/flow/component/html/Div.html[`<div>`] elements and CSS positioning.
 
-| Accordion | - | Not planned. Available as a web component (https://vaadin.com/directory/component/htmlelementssmart-accordion[an example]).
+| Accordion | Accordion (V13) | https://vaadin.com/components/vaadin-accordion/java-examples[Demo]
 
 | Audio | - | Not planned. Use the native `<audio>` element.
 
 | Button | Button | https://vaadin.com/components/vaadin-button/java-examples[Demo]
 
-| BrowserFrame | - | Use `iframe` directly via `@Tag("iframe")` and `Element` API
+| BrowserFrame | IFrame (V13) |
 
 | Checkbox | Checkbox | https://vaadin.com/components/vaadin-checkbox/java-examples[Demo]
 
@@ -77,13 +77,13 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | ListSelect | ListBox | https://vaadin.com/components/vaadin-list-box/java-examples[Demo]
 
-| LoginForm | Login | In development, see https://github.com/vaadin/vaadin-login-flow[GitHub project]
+| LoginForm | LoginForm or LoginOverlay (v13) | https://vaadin.com/components/login/java-examples[Demo]
 
 | MenuBar | - | Planned for Vaadin 14. Can be made currently by combining `Select` (V12) and `ContextMenu` (V12)
 
 | NativeButton | NativeButton | -
 
-| NativeSelect | - | Planned, by new component `Select`. Timeline is Q4 2018. As a temporary workaround, low level element API can be used with `<select>` element.
+| NativeSelect | Select (V13) | https://vaadin.com/components/select/java-examples[Demo]
 
 | Notification | Notification | https://vaadin.com/components/vaadin-notification/java-examples[Demo]
 
@@ -97,7 +97,7 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | RadioButtonGroup | RadioButtonGroup | https://vaadin.com/components/vaadin-radio-button/java-examples[Demo]
 
-| RichTextArea | - | Planned for Vaadin 12 (12/2018).
+| RichTextArea | RichTextEditor (V13) | https://vaadin.com/components/rich-text-editor/java-examples[Demo]
 
 | Slider | - | Not planned. There are Web Components available, check https://vaadin.com/directory[vaadin.com/directory]. You can also use DOM API and `<input type=”range”>`
 
