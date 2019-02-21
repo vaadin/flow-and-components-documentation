@@ -129,7 +129,7 @@ public class ClickEvent extends ComponentEvent<NativeButton> {
 
 * The `@EventData` definition runs as JavaScript in the browser.
 * The DOM event is available as `event` and the element to which the listener was added is available as `element`. 
-* See https://vaadin.com/api/platform/12.0.6/com/vaadin/flow/dom/DomListenerRegistration.html[`DomListenerRegistration.addEventData`] in the Javadoc for more about how event data is collected and sent to the server.
+* See https://vaadin.com/api/platform/com/vaadin/flow/dom/DomListenerRegistration.html[`DomListenerRegistration.addEventData`] in the Javadoc for more about how event data is collected and sent to the server.
 
 [TIP]
 See https://developer.mozilla.org/en-US/docs/Web/API/Event[Event] in the MDN web docs for an overview of standard DOM events and properties.
@@ -152,7 +152,7 @@ public class EnterPressEvent extends ComponentEvent<TextField> {
 
 * The `filter` definition runs as JavaScript in the browser. 
 * The DOM event is available as `event` and the element to which the listener was added is available as `element`.
-* See https://vaadin.com/api/platform/12.0.6/com/vaadin/flow/dom/DomListenerRegistration.html[`DomListenerRegistration.setFilter`] in the Javadoc for more about how the filter is used.
+* See https://vaadin.com/api/platform/com/vaadin/flow/dom/DomListenerRegistration.html[`DomListenerRegistration.setFilter`] in the Javadoc for more about how the filter is used.
 
 === Limiting Event Frequency
 
@@ -213,7 +213,7 @@ public class ContiniousInputEvent extends ComponentEvent<TextField> {
 }
 ----
 
-* See https://vaadin.com/api/platform/12.0.6/com/vaadin/flow/dom/DomListenerRegistration.html[`DomListenerRegistration.debouncer`] in the Javadoc for more about debouncing events.
+* See https://vaadin.com/api/platform/com/vaadin/flow/dom/DomListenerRegistration.html[`DomListenerRegistration.debouncer`] in the Javadoc for more about debouncing events.
 
 
 [NOTE]
