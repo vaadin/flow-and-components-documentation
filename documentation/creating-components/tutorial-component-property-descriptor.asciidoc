@@ -40,7 +40,7 @@ For your component API for a given property, for example the `value` of an input
 
 == PropertyDescriptor Interface
 
-`PropertyDescriptor` instances are created using the the helper methods available in the `PropertyDescriptors` class. 
+`PropertyDescriptor` instances are created using the helper methods available in the `PropertyDescriptors` class. 
 
 Different helper methods, depending on how you want your component to work, are available: 
 
