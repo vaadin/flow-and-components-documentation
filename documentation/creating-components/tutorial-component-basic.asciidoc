@@ -4,17 +4,11 @@ order: 1
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
 = Creating a Simple Component Using the Element API
 
-There are multiple ways you can create a component. This tutorial uses the `Element` API and a single DOM element. For other component tutorials, see:
+In this section we demonstrate how to create a simple component using the `Element` API and a single DOM element. 
 
-* <<tutorial-component-many-elements#,Creating a Component Based on Many Elements>>
-* <<tutorial-component-composite#,Creating a Component Using Existing Components>>
-* <<tutorial-component-container#,Creating a Component Which Can Contain Other Components>>
-* <<../polymer-templates/tutorial-template-basic#,Creating a Simple Component Using the Template API>>
-
-You can create a simple TextField component based on an `<input>` element as follows:
+*Example*: Creating a `TextField` component based on an `<input>` element.
 
 [source,java]
 ----
@@ -27,12 +21,19 @@ public class TextField extends Component {
 }
 ----
 
-The Component class will automatically create its root element based on the `@Tag` annotation, which can then be accessed using `getElement()`. The root element in the text field is in this example used to set the initial value of the field.
+* The root element is:
+** Created automatically (by the `Component` class) based on the `@Tag` annotation.
+** Accessed using the `getElement()` method. 
+** Used to set the initial value of the field.
 
 [TIP]
-You can use predefined constants in the `@Tag` annotation. E.g. the annotation `@Tag("input")` is equivalent to `@Tag(Tag.INPUT)`. But those constants don't cover all possible tag names.
+You can use predefined constants in the `@Tag` annotation. For example, the `@Tag("input")` annotation is equivalent to `@Tag(Tag.INPUT)`. There are constants for most, but not all, tag names. 
 
-To make the component easier to use, you can add an API for getting and setting the value:
+== Adding an API
+
+To make the component easier to use, you can add an API to get and set the value.
+
+*Example*: Adding an API using the `@Synchronize` annotation. 
 
 [source,java]
 ----
@@ -45,27 +46,29 @@ To make the component easier to use, you can add an API for getting and setting 
   }
 ----
 
-To make the framework send property changes from the browser to the server, an `@Synchronize` annotation is added to the getter. The annotation defines the name of DOM event which triggers synchronization, i.e. in this case a `change` event from the input element will cause the updated `value` property (deduced from the getter name) to be sent to the server.
+* Adding the `@Synchronize` annotation to the getter ensures that the browser sends property changes to the server. 
+* The annotation defines the name of the DOM event that triggers synchronization, in this case a `change` event. 
+* Changes to the input element cause the updated `value` property (deduced from the getter name) to be sent to the server.
 
 [TIP]
-The `@Synchronize` annotation can specify multiple events and override the name of the property if needed.
+The `@Synchronize` annotation can specify multiple events and override the name of the property, if necessary.
 
 [NOTE]
-The `@Synchronize` annotation maps events _originated from the root element of the webcomponent only_ (or events bubbled to the root element). If you have a `<div>` as the root element and an `<input>` inside it, the only events that can be mapped using `@Synchronize` are the events from the `<div>` element.
+The `@Synchronize` annotation only maps events that originate from the root element, or are bubbled to the root element. For example, if you have an `<input>` element inside  a `<div>` element, `@Synchronize` only maps events from the `<div>` element.  
 
-[TIP]
-For an easier way to address properties and attributes, see <<tutorial-component-property-descriptor#,Using API Helpers for Defining Component Properties>>
+See <<tutorial-component-property-descriptor#,Using API Helpers to Define Component Properties>> for an alternative, and simpler, way to address properties and attributes. 
 
-== Component Enabled
 
-The setEnabled method will be available for any component implementing the `HasEnabled` interface
-(which comes also with `HasValue`, `HasComponents` and `Focusable`).
+== Overriding Default Disabled Behavior 
 
-By default disabling the component will add a `disabled` property to the client element, but this
-can be modified by overriding `Component:onEnabledStateChanged(boolean)` method.
+The `setEnabled` method is available for all components that implement the `HasEnabled` interface. 
 
-For instance if the component requires a custom disabled marking and that its items
-get updated the override could be created as:
+[NOTE]
+The `setEnabled` method is also available for all components that implement the `HasValue`, `HasComponents` or `Focusable` interfaces. 
+
+By default, disabling a component adds a `disabled` property to the client element. You can modify this by overriding the `Component:onEnabledStateChanged(boolean)` method.
+
+*Example*: Overriding the default disabled behavior to ensure items are updated in a component requiring a custom disabled marking.
 
 [source, java]
 ----

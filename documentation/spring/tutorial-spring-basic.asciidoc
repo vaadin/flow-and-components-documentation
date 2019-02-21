@@ -72,6 +72,15 @@ in your classpath and no Flow classes are needed in the class declaration. For `
             </exclusion>
         </exclusions>
     </dependency>
+
+    <!-- other -->
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>3.1.0</version>
+        <scope>provided</scope>
+    </dependency>
+</dependencies>
 ----
 
 [NOTE] 

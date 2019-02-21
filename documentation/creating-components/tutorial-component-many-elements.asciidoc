@@ -1,20 +1,14 @@
 ---
-title: Creating a Component Based on Many Elements
+title: Creating a Component with Multiple Elements
 order: 2
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
-= Creating a Component Based on Many Elements
+= Creating a Component with Multiple Elements
 
-There are multiple ways you can create a component. This tutorial uses the `Element` API and multiple DOM elements. For other component tutorials, see:
+In this section we demonstrate how to create a component using the `Element` API and multiple DOM elements. We create a `TextField` component that supports a label.
 
-* <<tutorial-component-basic#,Creating a Simple Component Using the Element API>>
-* <<tutorial-component-composite#,Creating a Component Using Existing Components>>
-* <<tutorial-component-container#,Creating a Component Which Can Contain Other Components>>
-* <<../polymer-templates/tutorial-template-basic#,Creating a Simple Component Using the Template API>>
-
-You can create a TextField component with support for a label using the following DOM structure:
+*Example*: DOM structure of the component. 
 
 [source,html]
 ----
@@ -24,7 +18,7 @@ You can create a TextField component with support for a label using the followin
 </div>
 ----
 
-The component class looks like:
+*Example*: `TextField` component with `<input>` and `<label>` elements
 
 [source,java]
 ----
@@ -41,10 +35,17 @@ public class TextField extends Component {
 }
 ----
 
-The DOM structure is set up by marking the root element as a `<div>` using `@Tag("div")` and creating and appending a label and an input element to the root element. Value synchronization is set up using the input element,
-this is an alternative way of synchronisation, the other one can be seen in <<tutorial-component-basic#,the basic component tutorial>>.
+* The DOM structure is set up by marking the root element as a `<div>` in the `@Tag` annotation. 
+* The label and input elements are appended to the root element. 
+* Value synchronization is set up using the input element.
 
-You can add API for setting the value of the input and the text of the label, using the corresponding elements:
+See <<tutorial-component-basic#,Creating a Simple Component Using the Element API>> for an alternative way to synchronize.
+
+== Adding an API
+
+To make the component easier to use, you can add an API to set the input value and label text.
+
+*Example*: Adding an API to get and set values for the input and label elements.
 
 [source,java]
 ----

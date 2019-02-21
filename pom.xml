@@ -18,6 +18,9 @@
         <repository>
             <id>vaadin-prereleases</id>
             <url>https://maven.vaadin.com/vaadin-prereleases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
 
         <repository>
@@ -33,6 +36,9 @@
         <pluginRepository>
             <id>vaadin-prereleases</id>
             <url>https://maven.vaadin.com/vaadin-prereleases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </pluginRepository>
 
         <pluginRepository>
@@ -50,7 +56,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <flow.version>1.3-SNAPSHOT</flow.version>
+        <flow.version>1.5-SNAPSHOT</flow.version>
         <vaadin.version>13.0-SNAPSHOT</vaadin.version>
     </properties>
 </project>
