@@ -6,7 +6,7 @@ layout: page
 
 = Creating Components Overview
 
-Vaadin Flow is extremely flexible and there are many ways to create components. 
+There are many ways to create components in Vaadin Flow . 
 
 In this part of the documentation we demonstrate the numerous ways to create components:
 
