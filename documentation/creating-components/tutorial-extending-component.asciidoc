@@ -6,33 +6,31 @@ layout: page
 
 = Extending Components
 
-Extending a component is an easy way of creating a new component.
+You can create a new component by extending any existing component.
 
-Vaadin flow applications are formed of many web components.
-In most of the cases, those components have a client-side component and a server-side component.
+For most components, there is a client-side component and a corresponding server-side component: 
 
-The client-side component contains the HTML, CSS, and JavaScript.
-This client component defines a set of properties that define the behaviour of the component.
+* *Client-side component*: Contains the HTML, CSS, and JavaScript, and defines a set of properties that determine the behavior of the component on the client side.
 
-The server-side component allows modifying those properties to manage the component's behaviour from Java (server side).
+* *Server-side component*: Contains Java code that allows for changing of the client-side properties, and manages the component behavior on the server side.
 
-== Server Side Extension
+You can extend a component on either the server or client side. Note that these are alternative approaches that are mutually exclusive. 
 
-Extending a component in flow is useful if it is planned to add a new functionality that does not add any visual aspects to the existing component.
+In this section we demonstrate the two different approaches to achieve the *same changes* to the prebuilt text field component.
 
-Examples of those new functionalities are automatically processing data, adding default validators, combining multiple simpler components to a field that manages complex data, etc.
+== Extending a Component Using the Server-side Approach
 
-[WARNING]
-If you plan on adding many new features or changing any visual aspects in the component, it is better to extend the component to the client side.
-Using the Flow Element API excessively creates an extra load in the application.
+Extending a server-side component is useful when you want to add new functionality (as opposed to visual aspects) to an existing component. Suitable examples include automatically processing data, adding default validators, and combining multiple simple components into a field that manages complex data. 
 
-= Example
+[TIP]
+If your component contains a lot of logic that could easily be done on the client side, consider implementing it as a Web Component and creating a wrapper for it. This approach may offer a better user experience and result in less load on the server.
 
-The following example is a `NumericField` that extends from `TextField`.
+In this example, we create a `NumericField` component by extending the `TextField` component. The new component contains a default number that the user can change using *+* and *-* controls.
 
-image:images/vaadin-number-field-server-side-extension.png[vaadin-number-field]
+image:images/vaadin-number-field-server-side-extension.png[vaadin-numeric-field]
 
-.NumberField.java
+*Example*: Creating a `NumericField` component by extending the `TextField` component. 
+
 [source,java]
 ----
 public class NumericField extends TextField {
@@ -98,18 +96,15 @@ public class NumericField extends TextField {
 ----
 
 [NOTE]
-It is possible to hide the parent's API on the server side by extending the `Composite` class.
-The composite class has a minimal API. If `Composite` is not used, your component would expose all its methods, even those you might not want for a custom component.
+As an alternative, you can extend the `Composite` class that has a minimal API. This hides methods available in the more extensive API that is exposed when your custom components extends an implementation of `Component`. 
 
 [NOTE]
-`Element` API contains methods for updating and querying various parts of the element, such as attributes.
-Every component has a `getElement()` function that allows to access it.
-Learn more about the <<tutorial-component-many-elements#,`Element` API>>.
+The `Element` API contains methods to update and query various parts of the element, such as the attributes. Every component has a `getElement()` method that allows you to to access it. See <<tutorial-component-many-elements#,Creating a Component Using Multiple Elements>> for more.
 
-In addition to this, it is necessary to create a theme module to customize the appearance of the `vaadin-text-field` component.
-For further information, please refer to <<../theme/theming-overview#,theming documentation>>.
+It may also be necessary to add CSS styles for the new component.
 
-.vaadin-numeric-field-theme.html
+*Example*: Creating `vaadin-numeric-field-theme.html` to customize the appearance of the `vaadin-text-field` component.
+
 [source,html]
 ----
 <dom-module id="vaadin-numeric-field-theme" theme-for="vaadin-text-field">
@@ -135,48 +130,38 @@ For further information, please refer to <<../theme/theming-overview#,theming do
 ----
 
 [NOTE]
-Remember to import the theme-module in the view in which the component is used: `@HtmlImport("frontend://styles/vaadin-numeric-field-theme.html")`.
+Remember to import the new styles in the view in which the component is used, by adding `@HtmlImport("frontend://styles/vaadin-numeric-field-theme.html")`.
 
-== Client Side Extension
+See <<../theme/integrating-component-theme#,Integrating Your Own Component Theme>> for more.
 
-Vaadin components are based on Polymer, that also provides the possibility of extending components from existing ones.
-There is a `extends` property that can be used to extend an existing element on Polymer.
+== Extending a Component Using the Client-side Approach
 
-Inherit a template from another Polymer element can be done in several ways:
+Vaadin client-side components are based on https://polymer-library.polymer-project.org/2.0/docs/about_20[Polymer 2] that supports extending existing components. You can use the `extends` property to extend existing Polymer elements.
 
-* Inheriting a base class template without modifying it.
-* Overriding a base class template in a child class.
-* Modifying a copy of a superclass template.
-* Extending a base class template in a child class.
-* Providing template extension points in a base class for content from a child class.
+There are five ways to inherit a template from another Polymer element:
 
-This document focuses mainly on the 3rd option: *Modifying a copy of a superclass template*.
+. Inheriting a base class template without modifying it.
+. Overriding a base class template in a child class.
+. Modifying a copy of a superclass template.
+. Extending a base class template in a child class.
+. Providing template-extension points in a base class for content from a child class.
 
-It is important to remember when a component is extended its properties and its methods are available on its children.
 
-[NOTE]
-By default, a child component uses its parent's template, if the child component does not provide its own template.
+=== Extending by Modifying a Copy of a Superclass Template
 
-The parent's template can be accessed using `super.template`.
-
-== Example
-
-The following example is a `NumberFieldElement` that extends from `Vaadin.TextFieldElement`.
+In this example, we demonstrate how to create a new component by modifying a copy of a superclass template. We build a `NumberFieldElement` by extending `Vaadin.TextFieldElement`. The new component contains a default number that the user can change using *+* and *-* controls.
 
 image:images/vaadin-number-field-client-side-extension.png[vaadin-number-field]
 
-In this example, there are mainly 3 steps:
-
-. Child template definition.
-. Parent element extension e.g `class NumberFieldElement extends Vaadin.TextFieldElement`.
-. Overriding the `static get template` with the final component DOM.
-
-The first step is to define the child's DOM template.
+It is important to remember that when a component template is extended, the properties and methods of the parent template become available to the child template. 
 
 [NOTE]
-This template will be accessed inside the `static get template` method.
+By default, a child component uses the template of the parent component, unless the child component provides its own template. The parent's template is accessed using `super.template`.
 
-.vaadin-number-field.html
+. Define the child's DOM template, by creating a child template definition. This template will be accessed inside the `static get template` method.
++
+*Example*: Creating `vaadin-number-field.html`. 
++
 [source,html]
 ----
 <template>
@@ -206,10 +191,10 @@ This template will be accessed inside the `static get template` method.
 </template>
 ----
 
-After that, it is necessary to specify elements that the child component is going to inherit from.
-In this case, `NumberFieldElement` inherits from `Vaadin.TextFieldElement`, inheriting its properties and methods.
-
-.vaadin-number-field.html
+. Specify the element from which the child component inherits. 
++
+*Example*: Specifying that `NumberFieldElement` inherits (including its properties and methods) from `Vaadin.TextFieldElement` .
++
 [source,html]
 ----
 class NumberFieldElement extends Vaadin.TextFieldElement {
@@ -241,9 +226,10 @@ class NumberFieldElement extends Vaadin.TextFieldElement {
 }
 ----
 
-The superclass template can be overridden by defining a template getter that returns a modified template element.
-
-.vaadin-number-field.html
+. Override the `static get template` method with the DOM of the new component. 
++
+*Example*: Overriding the superclass template by defining a template getter that returns a modified template element.
++
 [source,html]
 ----
 static get template() {
@@ -286,11 +272,8 @@ _valueChanged(newVal, oldVal) {
     super._valueChanged(this.value, oldVal);
 }
 ----
+* Cloning prevents modifying the superclass template.
+* In addition to cloning, the modified template is memoized (`memoizedTemplate = super.template.cloneNode(true);`) to prevent creating it again when the getter is called.
 
-[WARNING]
-Cloning can be done to avoid modifying the superclass template.
-In addition to this, the modified template should be memoized to avoid creating it again when the getter is called.
-It can be done in the following way: `memoizedTemplate = super.template.cloneNode(true);`
 
-[NOTE]
-For more information about inheritance in Polymer, please consult the https://polymer-library.polymer-project.org/2.0/docs/devguide/dom-template#inherit[Polymer documentation].
+See https://polymer-library.polymer-project.org/2.0/docs/devguide/dom-template#inherit[Inherit a template from another Polymer element] in the Polymer documentation for more.
