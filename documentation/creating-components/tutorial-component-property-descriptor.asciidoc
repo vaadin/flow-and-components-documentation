@@ -1,6 +1,6 @@
 ---
 title: Using API Helpers to Define Component Properties
-order: 3
+order: 4
 layout: page
 ---
 

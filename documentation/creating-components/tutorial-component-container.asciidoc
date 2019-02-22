@@ -1,6 +1,6 @@
 ---
 title: Creating a Component Container
-order: 7
+order: 8
 layout: page
 ---
 
