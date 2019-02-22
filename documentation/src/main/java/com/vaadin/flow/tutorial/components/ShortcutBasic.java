@@ -26,10 +26,7 @@ public class ShortcutBasic {
 
         Button login = new Button("Login");
         login.addClickListener(event -> this.login());
-        login.addClickShortcut(Key.ENTER)
-        // need to allow default, otherwise pressing enter in text fields
-        // won't update the value to the server
-                .allowBrowserDefault();
+        login.addClickShortcut(Key.ENTER);
     }
 
     public void focusShortcut() {
