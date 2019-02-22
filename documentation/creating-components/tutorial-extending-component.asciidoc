@@ -19,7 +19,7 @@ For most components, there is a client-side component and a corresponding server
 Extending a server-side component is useful when you want to add new functionality (as opposed to visual aspects) to an existing component. Suitable examples include automatically processing data, adding default validators, and combining multiple simple components into a field that manages complex data. 
 
 [WARNING]
-If you plan to add many new features or change visual aspects in the component, it is better to extend the component on the client side. Overusing the Flow Element API can create excessive load in the application.
+If your component contains a lot of logic that could easily be done on the client side, consider implementing it as a Web Component and creating a wrapper for it. This approach may offer a better user experience and result in less load on the server.
 
 In this example, we create a `NumericField` component by extending the `TextField` component. The new component contains a default number that the user can change using *+* and *-* controls.
 
