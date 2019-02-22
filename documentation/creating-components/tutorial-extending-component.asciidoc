@@ -1,6 +1,6 @@
 ---
 title: Extending Components
-order: 5
+order: 6
 layout: page
 ---
 
