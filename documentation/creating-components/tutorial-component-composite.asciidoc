@@ -37,7 +37,7 @@ public class TextField extends Composite<Div> {
 ----
 
 * The `Composite` automatically creates the root component (specified using generics (`Composite<Div>`)).
-* The composite is available through the `getContent()` method. 
+* The root component is available through the `getContent()` method. 
 * In the constructor, it is only necessary to create the child components and add them to the root `Div`. 
 * The value is set using the `setValue` method in the `Input` component.
 
