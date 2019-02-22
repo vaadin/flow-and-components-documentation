@@ -1,6 +1,6 @@
 ---
 title: Using Vaadin Mixin Interfaces
-order: 9
+order: 10
 layout: page
 ---
 
