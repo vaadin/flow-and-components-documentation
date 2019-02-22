@@ -52,7 +52,7 @@ Methods available in the `HasStyle` interface:
 * `void addClassNames(String... classNames)`
 * `void removeClassNames(String... classNames)``
 
-== Implementing Mixin Interfaces
+== Using Mixin Interfaces
 
 *Example*: Creating a custom `Tooltip` component that implements the `HasComponents` and `HasStyle` interfaces. 
 
