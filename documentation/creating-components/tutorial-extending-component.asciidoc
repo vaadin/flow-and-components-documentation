@@ -14,9 +14,11 @@ For most components, there is a client-side component and a corresponding server
 
 * *Server-side component*: Contains Java code that allows for changing of the client-side properties, and manages the component behavior on the server side.
 
-You can extend a components either using server-side or client-side approaches. In this chapter we'll present two different approaches to do the same modification for the built-in text field component.
+You can extend a component on either the server or client side. Note that these are alternative approaches that are mutually exclusive. 
 
-== Extending a component using server-side approach
+In this section we demonstrate the two different approaches to achieve the *same changes* to the prebuilt text field component.
+
+== Extending a Component Using the Server-side Approach
 
 Extending a server-side component is useful when you want to add new functionality (as opposed to visual aspects) to an existing component. Suitable examples include automatically processing data, adding default validators, and combining multiple simple components into a field that manages complex data. 
 
@@ -97,8 +99,7 @@ public class NumericField extends TextField {
 As an alternative, you can extend the `Composite` class that has a minimal API. This hides methods available in the more extensive API that is exposed when your custom components extends an implementation of `Component`. 
 
 [NOTE]
-The `Element` API contains methods to update and query various parts of the element, such as the attributes. Every component has a `getElement()` method that allows you to to access it. See 
- <<tutorial-component-many-elements#,Creating a Component Using Multiple Elements>> for more.
+The `Element` API contains methods to update and query various parts of the element, such as the attributes. Every component has a `getElement()` method that allows you to to access it. See <<tutorial-component-many-elements#,Creating a Component Using Multiple Elements>> for more.
 
 It may also be necessary to add CSS styles for the new component.
 
@@ -133,7 +134,7 @@ Remember to import the new styles in the view in which the component is used, by
 
 See <<../theme/integrating-component-theme#,Integrating Your Own Component Theme>> for more.
 
-== Extending a component using client-side approach
+== Extending a Component Using the Client-side Approach
 
 Vaadin client-side components are based on https://polymer-library.polymer-project.org/2.0/docs/about_20[Polymer 2] that supports extending existing components. You can use the `extends` property to extend existing Polymer elements.
 
