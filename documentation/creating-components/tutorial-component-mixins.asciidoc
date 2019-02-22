@@ -88,7 +88,7 @@ tooltip.add(new H5("Tooltip"));
 tooltip.add(new Paragraph("I am a paragraph"));
 ----
 
-== Other Useful Interfaces
+== Other Useful Mixin Interfaces
 
 Vaadin Flow provides many additional useful interfaces:
 
