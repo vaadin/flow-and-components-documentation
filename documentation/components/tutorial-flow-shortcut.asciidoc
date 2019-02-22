@@ -24,21 +24,18 @@ PasswordField password = new PasswordField("Password");
 
 Button login = new Button("Login");
 login.addClickListener(event -> this.login());
-login.addClickShortcut(Key.ENTER)
-        // need to allow default, otherwise pressing enter in text fields
-        // won't update the value to the server
-        .allowBrowserDefault();
+login.addClickShortcut(Key.ENTER);
 ----
 
 Instead of clicking on the _button_, the user can hit _Enter_ on the keyboard
 to perform the action tied to the _button_'s click.
 
 [NOTE]
-When using the _ENTER_ key as a shortcut, you should allow the browser default
-action by calling `allowBrowserDefault()` for the registration object, because
-otherwise inputs will not update their value to the server side when pressing
-enter and the default value change mode of `ON_CHANGE` is in use. More details
-about client side behavior <<clientside.behavior,later>>.
+In this case _ENTER_ works out of the box as _click shortcuts_ allow normal
+browser behavior by default (Input field receives the _ENTER_ as well). Inputs
+update their value to the server side when pressing _ENTER_ and the default
+value change mode of `ON_CHANGE` is in use. More details about client side
+behavior <<clientside.behavior,later>>.
 
 === Adding a "`focus`" shortcut
 Focus shortcuts _focuses_ the `Focusable` component, such as an `Input` field.
@@ -259,8 +256,13 @@ By default, the shortcuts created by Flow consume the event (it does not
 propagate upwards in the DOM tree) and prevent default behavior (e.g. an
 input field does type out the characters used in the shortcut).
 
-To change this behavior, use the methods `allowEventPropagation()` and
-`allowBrowserDefault()`.
+To change this behavior, use the methods `allowEventPropagation()` (fluent),
+`allowBrowserDefault()` (fluent), `setEventPropagationAllowed(boolean)`, and
+`setBrowserDefaultAllowed(boolean)`.
+
+The exception to these rules is click shortcuts created by
+`ClickNotifier::addClickShortcut(Key, KeyModifier...)` - these shortcuts
+allow browser default behavior without the user having to do anything.
 
 [source, java]
 ----

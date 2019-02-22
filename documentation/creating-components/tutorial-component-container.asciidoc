@@ -1,22 +1,16 @@
 ---
-title: Creating a Component Which Can Contain Other Components
+title: Creating a Component Container
 order: 7
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
-= Creating a Component Which Can Contain Other Components
+= Creating a Component Container 
 
-There are multiple ways you can create a component. This tutorial describes how to create a `Component` container. For other component tutorials, see:
+In this section we demonstrate how to create a `Component` container.
 
-* <<tutorial-component-basic#,Creating a Simple Component Using the Element API>>
-* <<tutorial-component-many-elements#,Creating a Component Based on Many Elements>>
-* <<tutorial-component-composite#,Creating a Component Using Existing Components>>
-* <<../polymer-templates/tutorial-template-basic#,Creating a Simple Component Using the Template API>>
+A component container is a component to which you can add other components. A container is typically created through a generic public API.
 
-A Component container is a Component to which you can add other components. Typically this is done through a generic public API.
-
-The simplest possible component container you can create looks like this:
+*Example*: Simple component container.
 
 [source,java]
 ----
@@ -25,9 +19,13 @@ public class MyComponentContainer extends Component implements HasComponents {
 }
 ----
 
-The `HasComponents` interface contains an `add(Component...)` method and a `remove(Component...)` method and default implementations of these which handles attaching of the components' elements to `MyComponentContainer` root element (a `<div>` in this case).
+* The `HasComponents` interface provides `add(Component...)` and `remove(Component...)` methods to handle attaching component elements to the `MyComponentContainer` root element ( `<div>` in this example).
 
-If you want another kind of API or have a more complex internal element hierarchy, you can implement the add method yourself:
+== Implementing a Custom Add Method
+
+If necessary, you can implement your own add method. For example if you need a different kind of API or have a complex internal element hierarchy.
+
+*Example*: Implementing a custom method to add components to a container. 
 
 [source,java]
 ----
@@ -40,7 +38,13 @@ public class MyComponentContainer extends Component {
 }
 ----
 
-When adding a component as a child to another component the only thing a component container absolutely must do is to attach the element of the child component to the DOM. In the case above the child element is attached to the root element,  like `HasComponents` does. You can instead choose to add a wrapper element around each child or do a more complex element hierarchy if needed:
+== Attaching Child Components to the DOM 
+
+When a child component is added to a container component, the container must attach the child to the DOM. This is the only absolute requirement for a container component. 
+
+In the previous example, the child element attaches to the root element (like `HasComponents` does). As an alternative, you can wrap each child in a wrapper element or use a more complex element hierarchy, where necessary. 
+
+*Example*: Wrapping a child component in an element wrapper. 
 
 [source,java]
 ----
@@ -55,9 +59,13 @@ public class MyComponentContainer extends Component {
 }
 ----
 
-Component hierarchy methods such as `getChildren` and `getParent` will work automatically for the component because they are implemented based on the element hierarchy. They will work even if you add wrapper elements in between.
+== Using Component Hierarchy Methods
 
-To allow removal of components, you can add a similar method:
+Component hierarchy methods, such as `getChildren` and `getParent`, work automatically for container components, because they are implemented based on the element hierarchy. Theses methods also work if you add wrapper elements in between.
+
+You can add a similar method to remove components.
+
+*Example*: Using the `removeFromParent` method to detach a component. 
 
 [source,java]
 ----
@@ -68,17 +76,20 @@ public void remove(Component child) {
 ----
 
 [NOTE]
-You should not assume that a component is always removed using the remove method. A child element can be detached either manually through `Element` API, e.g. `Element.removeFromParent()` or by adding it to another component (`Element.appendChild` moves the element from the old parent if it is attached).
+You cannot assume that a component will always be removed when using the `remove` method. A child element can be detached manually through the `Element` API (for example, using the `Element.removeFromParent()` method) or by adding it to another component (for example, the `Element.appendChild` method moves the element from the old parent, if it is still attached).
+
 [TIP]
-If you need to know when a child component is removed, add a detach listener to it using `Component.addDetachListener()`.
+If you need to know when a child component is removed, add a detach listener to it using the `Component.addDetachListener()` method.
 
-== Enabled/Disabled state
+== Enabling and Disabling Container Components
 
-When your container is set as disabled, all children are also set as disabled, which blocks all updates from the client to the server. Components that implement
-`HasEnabled` are updated accordingly to reflect the disabled state in the UI (which usually translates to setting the `disabled` attribute).
+When you set a container component as disabled, all child components are automatically also set as disabled, and updates from the client to the server are blocked. 
 
-But if your container contains Elements or Components that don't implement `HasEnabled` and you still want to visually update them to reflect the disabled state
-in the UI, you can override the `onEnabledStateChanged` method:
+Components that implement the `HasEnabled` interface are updated accordingly to reflect the disabled state in the UI (which usually means setting the `disabled` attribute).
+
+If your container includes elements or components that do not implement the `HasEnabled` interface, you can still *visually* update them to reflect the disabled state in the UI, by overriding the `onEnabledStateChanged` method.
+
+*Example*: Setting a component as `disabled` by overriding he `onEnabledStateChanged` method.
 
 [source,java]
 ----
@@ -92,14 +103,9 @@ public void onEnabledStateChanged(boolean enabled) {
     }
 }
 ----
-
-[NOTE]
-You only need to override the `onEnabledStateChanged` to update the visual aspect of the Elements (by setting the `disabled` attribute, for instance).
-When the container is disabled, the communication from the client to the server is blocked regardless of the method being overridden or not.
-[WARNING]
-Don't forget to call `super.onEnabledStateChanged(enabled)` when overriding it, since it handles common logic relevant to all components regarding to the enabled state.
-
-The `onEnabledStateChanged` method is called by the framework every time the enabled state changes, either by direct calls to `setEnabled`, by calling `setEnabled`
+* You only need to override the `onEnabledStateChanged` method to update the visual aspect of the element. When the container is disabled, communication from the client to the server is blocked, regardless of whether or not you override the method.
+* It is important to call `super.onEnabledStateChanged(enabled)` when overriding, because this is common logic and relevant to all components regarding the enabled state. 
+* The `onEnabledStateChanged` method is called every time the enabled state changes, whether by direct calls to `setEnabled`, by calling `setEnabled`
 on a parent container, or by attaching or detaching the component to a disabled container.
 
-Read the <<../components/tutorial-enabled-state#,Component Enabled State>> tutorial for more details and examples about the enabled state.
+See <<../components/tutorial-enabled-state#,Component Enabled State>> for more.
