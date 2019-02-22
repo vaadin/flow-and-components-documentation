@@ -60,7 +60,7 @@ interface ShopEventBus {
   void unregister(Consumer<EventObject> eventHandler);
 }
 ----
-* Using the `attachEvent` and `detachEvent` methods to get the UI or session is more convenient than using the `getUI()` method, because these methods are always available. The `getUI()` method returns an `Optional<UI>`, because a component is not always attached. 
+* Using methods in the `attachEvent` and `detachEvent` to get the UI or session is more convenient than using the `getUI()` method in Component, because these methods return values directly. The `getUI()` method in Component returns an `Optional<UI>`, because a component is not always attached. 
 * The default implementations of the `onAttach` and `onDetach` methods are empty, so you don't need to call `super.onAttach()` or `super.onDetach()` from your overridden methods. However, when extending other component implementations you may need to do this.
 
 [TIP]
