@@ -131,7 +131,7 @@ Remember to import the new styles in the view in which the component is used, by
 
 See <<../theme/integrating-component-theme#,Integrating Your Own Component Theme>> for more.
 
-== Extending Client-side Components
+== Extending a component using client-side approach
 
 Vaadin client-side components are based on https://polymer-library.polymer-project.org/2.0/docs/about_20[Polymer 2] that supports extending existing components. You can use the `extends` property to extend existing Polymer elements.
 
