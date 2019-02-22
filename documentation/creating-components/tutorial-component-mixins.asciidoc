@@ -6,11 +6,11 @@ layout: page
 
 = Using Vaadin Mixin Interfaces
 
-A mixin refers to a defined amount of functionality that can be added to a class. Traditionally Java has not supported this kind of multiple inheritance, but since Java 8, interfaces can also include default methods which allows them to work as mixins. 
+A mixin refers to a defined amount of functionality that can be added to a class. Traditionally, Java did not support this kind of multiple inheritance, but since Java 8 interfaces can also include default methods, which allows them to work as mixins. 
 
 Vaadin Flow uses the mixin concept to provide common APIs and default behavior for sets of functionalities found in most Web Components.
 
-The most important predefined mixins are provided by the `HasSize`, `HasComponents` and `HasStyle` interfaces. You can implement these interfaces to add typical functions to your Java components.
+The most important predefined mixins are provided by the `HasSize`, `HasComponents` and `HasStyle` interfaces. You can use these interfaces to add typical functions to your Java components.
 
 == HasSize Interface
 
@@ -74,7 +74,7 @@ public class Tooltip extends Component implements HasComponents, HasStyle {
 </dom-module>
 ----
 
-* A component that `HasComponents` needs to extend from a tag that supports having child components. `slot` tag is used in Web Components to define where child components should be put.
+* A component that `HasComponents` needs to extend from a tag that supports having child components. The `slot` tag is used in Web Components to define where child components should be put.
 
 When you implement the `HasComponents` interface, adding child components to the parent component is allowed automatically. 
 
@@ -90,7 +90,7 @@ tooltip.add(new Paragraph("I am a paragraph"));
 
 == Other Useful Mixin Interfaces
 
-Vaadin Flow provides many additional useful interfaces:
+Vaadin Flow provides many additional useful mixin interfaces:
 
 * `HasEnabled`: Generic interface for components and other UI objects that can be enabled or disabled.
 * `HasElement`: Marker interface for any class that is based on an `Element`.
