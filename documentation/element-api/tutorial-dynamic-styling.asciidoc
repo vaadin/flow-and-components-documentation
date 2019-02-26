@@ -1,12 +1,20 @@
 ---
-title: Dynamic Styling
+title: Dynamic Styling Using the Element API
 order: 5
 layout: page
 ---
 
-= Dynamic Styling
+= Dynamic Styling Using the Element API
 
-To change the look and feel of your application, you can style it by using dynamic class names or inline styles. Using `getClassList()` in `Element`, you can dynamically modify the class names of any element as follows:
+You can use the Element API to style elements using dynamic class names or inline styles.
+
+The Element API includes two methods that facilitate styling, 
+
+* `getClassList()`: Gets the set of CSS class names used for the element.
+* `getStyle()`: Gets the style instance to manage element inline styles.
+ 
+
+*Example*: CSS style rules. 
 
 [source,css]
 ----
@@ -16,6 +24,8 @@ To change the look and feel of your application, you can style it by using dynam
 }
 ----
 
+*Example*: Using the `getClassList()` method to dynamically modify the class names of an element.
+
 [source,java]
 ----
 button.setText("Change to blue");
@@ -23,8 +33,9 @@ button.addEventListener("click",
     e -> button.getClassList().add("blue"));
 ----
 
-In this case you are limited to the styles you have defined in advance. To get really dynamic styles, you can use the inline styling API `getStyle()`:
+* Using  `getClassList()` limits you to styles that have been defined in advance. 
 
+*Example*: Using the `getStyle()` method for dynamic inline styling. 
 [source,java]
 ----
 Element input = ElementFactory.createInput();
@@ -33,4 +44,4 @@ button.addEventListener("click",
     e -> button.getStyle().set("background",input.getProperty("value")));
 ----
 
-Using `getStyle()` you can set any style property supported by the browser.
+* You can use the `getStyle()` method to style any property supported by the browser.
