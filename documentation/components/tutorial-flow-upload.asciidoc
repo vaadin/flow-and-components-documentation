@@ -14,7 +14,7 @@ The `Upload` component allows the user to upload files to the server-side. The c
 
 A `Receiver` instance should be specified to receive uploaded data. The receiver provides an `OutputStream` for the framework, where it writes the content of the received file. You can implement the interface directly, or use the prebuilt helpers that buffer the file content for later access.
 
-The built-in implementations of `Receiver`are:
+There are a number of built-in implementations of `Receiver`:
 
  * `FileBuffer`
  * `MemoryBuffer`
@@ -35,7 +35,7 @@ upload.addFinishedListener(e -> {
 ----
 
 * The uploaded data is stored in a file on the file system. 
-* You can read the data using the `getInputStream()` method in FileBuffer, when the upload is finished.
+* You can read the data using the `getInputStream()` method in `FileBuffer` when the upload is finished.
 
 You can use a `MultiFileReceiver` to allow uploading of more than one file. 
 
