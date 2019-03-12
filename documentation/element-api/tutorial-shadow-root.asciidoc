@@ -1,17 +1,16 @@
 ---
-title: Shadow root in server-side Element
+title: Using the Shadow Root in Server-side Elements
 order: 6
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
-= Shadow root in server-side Element
+= Using the Shadow Root in Server-side Elements
 
-Elements contain support for adding a shadow root for Element types that support it.
-This enables for the creation of serverside webcomponents.
-<<not-applicable-elements,Elements without shadow root support>>
+The Element API supports adding a shadow root to element types that support this. This allows you to create server-side Web Components.
 
-A shadow root can be created simply with the command:
+You can use the `element.attachShadow()` method to add a shadow root. 
+
+*Example*: Using the `element.attachShadow` method to add a shadow root node. 
 
 [source,java]
 ----
@@ -19,16 +18,17 @@ Element element = new Element("custom-element");
 ShadowRoot shadowRoot = element.attachShadow();
 ----
 
-A `ShadowRoot` is not an actual element and only supports child element handling
-and getting the host element which contains the shadow root.
+Note:
 
-[NOTE]
-When adding a shadow root, any element added to the `ShadowRoot` parent will not be visible if the `ShadowRoot`
-doesn't contain a `<slot></slot>` element. See <<../polymer-templates/tutorial-template-components-in-slot#,Components in slot>>
-for more information.
+* A `ShadowRoot` is not an actual element. Its purpose is to support handling of child elements and getting the host element that contains the shadow root.
 
-All new elements should be added to the `ShadowRoot` element so that they will be
-encapsulated in the shadow tree of the hosting element.
+* Elements added to a `ShadowRoot` parent are only visible if the `ShadowRoot` contains a `<slot></slot>` element. See <<../polymer-templates/tutorial-template-components-in-slot#,Server-side components in Polymer 2 templates>>
+for more.
+
+
+To ensure that new elements are encapsulated in the shadow tree of the hosting element, you should add all new elements to the `ShadowRoot` element.
+
+*Example*: Adding an element to the `ShadowRoot`. 
 
 [source,java]
 ----
@@ -43,7 +43,9 @@ public class MyLabel extends Component {
 }
 ----
 
-[[not-applicable-elements]]
-=== Missing shadow root support
-* The browser already hosts its own internal shadow DOM for the element (<textarea>, <input>).
-* It doesn't make sense for the element to host a shadow DOM (<img>).
+== Elements That Do Not Support a Shadow Root
+
+The https://dom.spec.whatwg.org/#dom-element-attachshadow[DOM specification] defines a list of elements that can't host a shadow tree. Typical reasons for this include: 
+
+* The browser already hosts its own internal shadow DOM for the element, for example. `<textarea>` and `<input>`.
+* It doesn't make sense for the element to host a shadow DOM, for example `<img>`.
