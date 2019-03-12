@@ -88,8 +88,7 @@ You can override the default disabled behavior by enabling certain RPC-client-si
 
 The first way to do this is to use the `synchronizeProperty` method with the `DisabledUpdateMode.ALWAYS` argument value.
 
-*Example*: This Polymer template component controls its own enabled state
-itself via the checkbox. The checkbox is never disabled, and it enables and disables the component.
+*Example*: This Polymer template component controls its own enabled state via the checkbox. The checkbox is never disabled, and it enables and disables the component.
 
 [source, java]
 ----
