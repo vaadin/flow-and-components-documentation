@@ -143,12 +143,6 @@ element.getStyle().remove("background-color");
 element.getStyle().has("cursor");
 ----
 
-Note:
-
-* You cannot set an element's `style` attribute using the `element.setAttribute` method. 
-* You can use the `element.getAttribute('style')` method to get all style rules in a single concatenated string.
-
-
 == Using the textContent Property
 
 You can set an element's `textContent` property using the `setText` method. This removes all children of the element and replaces them with a single text node with the given value.
