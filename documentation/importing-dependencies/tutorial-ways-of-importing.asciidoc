@@ -1,6 +1,6 @@
 ---
 title: Storing and Loading Resources
-order: 2
+order: 3
 layout: page
 ---
 = Storing and Loading Resources
@@ -37,7 +37,7 @@ Sometimes the way client-side resources are loaded to the browser affects the fu
 
 === Dependency Loading Order
 
-Imported dependency files of the same type load in the order they are defined in the class. For example, CSS files load in the `@StyleSheet` annotation definition order, JavaScript files in the `@JavaScript` annotation definition order, and HTML files in the `@HtmlImport` annotation definition order.  
+Imported dependency files of the same type, load in the order they are defined in the class. For example, CSS files load in the `@StyleSheet` annotation definition order, JavaScript files in the `@JavaScript` annotation definition order, and HTML files in the `@HtmlImport` annotation definition order.  
 
 The loading order of imported dependencies is only guaranteed for one file type, in one class. There are no other loading-order guarantees. Specifically, loading order is not guaranteed between classes or files types. 
 
