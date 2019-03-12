@@ -16,7 +16,9 @@ You can set an `Id` for any component:
 * The `Id` is transmitted to the client side as the `id` of the corresponding element.
 * An `Id` must be unique within the page.
 
-*Example*: Using the `Id` to select the element in JavaScript code or CSS rules.
+Ids can be used to select the element in JavaScript code or CSS rules, for example.
+
+*Example*: Using the `setId` method to set a component `Id`.
 
 [source,java]
 ----
@@ -27,7 +29,7 @@ component.setId("my-component");
 
 Every component is assosiated to a root `Element`.
 
-You can use the `Element` to access low-level functionality using `component.getElement()`.
+You can use the `Element` to access low-level functionality using the `component.getElement()` method.
 
 See <<../element-api/tutorial-properties-attributes#,Element Properties and Attributes>> for more.
 
@@ -56,6 +58,7 @@ Button makeVisible = new Button("Make visible", evt -> {
 });
 ----
 
+[NOTE]
 If you set a container (such as a `Div` or `Vertical/HorizontalLayout`) that has child components as invisible, all inner components also become invisible. No server-side updates are sent to them, and no client updates are received from them. When the container becomes visible again, transmission of updates to the children also resumes.
 
 === Client-side Consequences of the Invisible Setting
@@ -86,10 +89,10 @@ System.out.println("Number of children: "
 * If a component that has already been rendered is set as invisible, the corresponding element in the DOM is marked with the `hidden` attribute. The component is not removed from the DOM.
 
 +
-This is also true for components used in a `PolymerTemplate` mapped by `@Id`. When set as as invisible, the component is marked with the `hidden` attribute on the client-side. The DOM structure is not altered.
+This is also true for components used in a `PolymerTemplate` mapped by the `@Id` annotation. When set as as invisible, the component is marked with the `hidden` attribute on the client-side. The DOM structure is not altered.
 
 +
-*Example*: Setting a rendered component mapped by `@Id` as invisible.
+*Example*: Setting a rendered component mapped by the `@Id` annotation as invisible.
 +
 [source,java]
 ----
