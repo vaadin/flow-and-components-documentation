@@ -6,11 +6,12 @@ It also contains documentation on the Java APIs for Vaadin's web components.
 This documentation is available in [vaadin.com/docs](https://vaadin.com/docs/flow/Overview.html).
 Any issues and contributions can be added here, or in vaadin.com/docs via the _report issues_ or _edit page_ actions.
 
-This branch is Flow version 1.1 compatible (Vaadin 12). See other branches for other framework versions:
+Branching scheme for different platform and Flow versions:
 
- - `master` branch is for Flow version 1.3 (or 2.0) that will go into upcoming Vaadin 13
- - `V12` branch is for Flow version 1.2 (Vaadin 12)
- - `V10` branch is for Flow version 1.0 (Vaadin 10 & 11)
+ - `master` branch is for the latest Flow version in the platform snapshot
+ - `V13` branch is for Flow version 1.4 (Vaadin 13)
+ - `V12` branch is for Flow version 1.2 (Vaadin 12, deprecated)
+ - `V10` branch is for Flow version 1.0 (Vaadin 10 LTS & 11(deprecated))
 
 ## Structure
 
