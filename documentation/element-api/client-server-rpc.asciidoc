@@ -74,6 +74,7 @@ You can use it anywhere in your client-side Polymer class implementation, and ca
 this.$server.clickHandler()
 ----
 
+*Example*: Using the `@ClientCallable` annotation on the server side.
 [source, java]
 ----
     @ClientCallable
