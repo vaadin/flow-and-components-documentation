@@ -16,7 +16,7 @@ You can execute client-side methods from the server by accessing the `Element` A
 
 === callFunction Method
 
-The `callFunction` method allows you to execute a client-side component function on the server side. The method accepts two parameters: the name of the function to call, and the arguments to pass to the function. 
+The `callFunction` method allows you to execute a client-side component function from the server side. The method accepts two parameters: the name of the function to call, and the arguments to pass to the function. 
 
 The arguments passed to the function must be of a type supported by the communication mechanism. The supported types are `String`, `Boolean`, `Integer`, `Double`, `JsonValue`, `Element`, and `Component`.
 
