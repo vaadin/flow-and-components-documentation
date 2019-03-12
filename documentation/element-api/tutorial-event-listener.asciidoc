@@ -18,7 +18,7 @@ helloButton.addEventListener("click", e -> {
 });
 getElement().appendChild(helloButton);
 ----
-* Clicking the "Say hello" button in the browser sends the event to the server for processing, and a new `<Hello!>` element is added to the DOM.
+* Clicking the "Say hello" button in the browser sends the event to the server for processing, and a new `<div>Hello!</div>` element is added to the DOM.
 
 == Accessing Data from Events
 
