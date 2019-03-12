@@ -6,7 +6,7 @@ layout: page
 
 = Binding Data to Forms
 
-In many applications, the user provides structured data by completing fields in a form. This data is typically represented in code as an instance of a business object (JavaBean), for example a Person in an HR application.
+In many applications users provide structured data by completing fields in forms. This data is typically represented in code as an instance of a business object (JavaBean), for example a Person in an HR application.
 
 The `Binder` class allows you to define how the values in a business object are bound to fields in the UI.
 
@@ -20,7 +20,7 @@ It is also possible to validate user input and present the validation status to 
 
 == How to Bind Form Data
 
-The following steps include everything needed to load, edit and save values for a form, and use Java 8 method references.
+The following steps include everything needed to load, edit and save values for a form. Java 8 method references are used.
 
 To bind data to a form:
 
@@ -86,8 +86,6 @@ Button resetButton = new Button("Reset",
 
 It is also possible to use a Lambda expression, instead of a method reference. 
 
-
-
 [source, java]
 ----
 // With lambda expressions
@@ -99,7 +97,7 @@ binder.bind(titleField,
         });
 ----
 
-== Binding Read-Only Data
+== Binding Read-only Data
 
 To bind a component to read-only data, you can use a `null` value for the `setter`. 
 
