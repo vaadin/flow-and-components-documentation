@@ -23,7 +23,6 @@ textInput.setAttribute("placeholder", "Please enter your name");
 *Example*: Using the `synchronizeProperty` method to update the value of the text input element.
 +
 [source,java]
-
 ----
 textInput.synchronizeProperty("value","change");
 ----
