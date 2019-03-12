@@ -122,7 +122,7 @@ public class BlogList extends Div implements BeforeEnterObserver {
 There are several `rerouteTo` overload methods that can be used for different use cases.
 
 === Forward
-Using forwardTo will <<Reroute,reroute>> navigation and update the browser URL.
+Using forwardTo will <<Rerouting,reroute>> navigation and update the browser URL.
 Forwarding can be used during <<BeforeEnterEvent, BeforeEnter>> and <<BeforeLeaveEvent,BeforeLeave>> lifecycle states to dynamically redirect to a different URL.
 Calling `forwardTo` for the event will stop propagation of the event to other listeners not yet called.
 Instead, a new navigation phase will be triggered based on the new navigation target, and new lifecycle events will be fired for the new forward navigation target instead.
