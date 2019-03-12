@@ -74,7 +74,13 @@ You can use it anywhere in your client-side Polymer class implementation, and ca
 this.$server.clickHandler()
 ----
 
-// Can we insert an example that shows how to use the annotation?
+[source, java]
+----
+    @ClientCallable
+    public void clickHandler() {
+        // do your server side action here
+    }
+----
 
 [IMPORTANT]
 Property changes, DOM events, event-handler methods (methods annotated with `@EventHandler`) and client-delegate methods (methods annotated with `@ClientCallable`) are blocked for disabled components.
