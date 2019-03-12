@@ -8,7 +8,7 @@ layout: page
 
 There are many ways to create components in Vaadin Flow . 
 
-In this part of the documentation we demonstrate the numerous ways to create components:
+In this part of the documentation, we demonstrate the numerous ways to create components:
 
 * <<tutorial-component-basic#,Creating a Simple Component Using the Element API>>
 * <<tutorial-component-many-elements#,Creating a Component with Multiple Elements>>
