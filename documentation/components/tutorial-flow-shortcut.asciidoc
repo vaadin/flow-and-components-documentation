@@ -33,7 +33,6 @@ login.addClickShortcut(Key.ENTER);
 * Instead of clicking the button, the user can use the Enter key to perform the action tied to the button click.
 
 
-
 [NOTE]
 Input fields also allow the ENTER key to update their value to the server side, if the default value-change mode of `ON_CHANGE` is used. 
 
