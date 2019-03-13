@@ -38,7 +38,7 @@ login.addClickShortcut(Key.ENTER);
 
 == Adding Focus Shortcuts
 
-Focus shortcuts place focus on a `Focusable` component, like an input field
+Focus shortcuts place focus on a `Focusable` component, like an input field.
 
 You can add a focus shortcut using the `addFocusShortcut` method.
 
