@@ -34,7 +34,6 @@ login.addClickShortcut(Key.ENTER);
 
 
 [NOTE]
-In this example, the Enter key works out of the box, because this is default browser behavior. Unlike other Vaadin Flow shortcuts, click shortcuts added using the `addClickShortcut` method, allow the default browser behavior, by default. See <<Shortcut Event Behavior on the Client Side>> for more. 
 
 [NOTE]
 Input fields also allow the ENTER key to update their value to the server side, if the default value-change mode of `ON_CHANGE` is used. 
