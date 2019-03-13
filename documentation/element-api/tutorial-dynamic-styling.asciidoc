@@ -33,7 +33,6 @@ button.addEventListener("click",
     e -> button.getClassList().add("blue"));
 ----
 
-* Using  `getClassList()` limits you to styles that have been defined in advance. 
 
 *Example*: Using the `getStyle()` method for dynamic inline styling. 
 [source,java]
