@@ -14,7 +14,7 @@ A shortcut key combination consists of one primary key and 0 to 4 key modifiers 
 
 == Adding Click Shortcuts
 
-Click shortcuts define alternatives to the click action in a component that implement the `ClickNotifier` interface. 
+Click shortcuts define alternatives to the click action in components that implement the `ClickNotifier` interface. 
 
 You can add a click shortcut using the `addClickShortcut` method. 
 
