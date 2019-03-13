@@ -44,4 +44,3 @@ button.addEventListener("click",
     e -> button.getStyle().set("background",input.getProperty("value")));
 ----
 
-* You can use the `getStyle()` method to style any property supported by the browser.
