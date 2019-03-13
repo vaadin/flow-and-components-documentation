@@ -26,7 +26,7 @@ textInput.setAttribute("placeholder", "Please enter your name");
 ----
 textInput.synchronizeProperty("value","change");
 ----
-* Configures Flow to synchronize the `value` property to the server-side when `change` event occurs.
+* Configures Flow to synchronize the `value` property to the server-side when a `change` event occurs.
 +
 [NOTE]
 As an alternative, you can use the `addEventData` method to transfer the value from the input to the server. See <<tutorial-event-listener#,Using the Element API to Listen to User Events>> for more.
