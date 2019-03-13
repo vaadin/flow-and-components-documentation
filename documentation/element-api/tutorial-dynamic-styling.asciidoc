@@ -25,7 +25,6 @@ The Element API includes two methods that facilitate styling,
 ----
 
 *Example*: Using the `getClassList()` method to dynamically modify the class names of an element.
-
 [source,java]
 ----
 button.setText("Change to blue");
