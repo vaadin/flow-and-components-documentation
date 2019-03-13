@@ -58,7 +58,7 @@ You can set and get an element's `class` attribute using:
 
 == Using the Style Object
 
-You can set and remove inline styles for an element using the `Style` object returned by the `element.getStyle()` method. Style property names can be formatted in camelCase, for example `backgroundColor`, or kebab-case, for example `background-color`.
+You can set and remove inline styles for an element using the `Style` object returned by the `element.getStyle()` method. Style property names can be formatted in Camel case, for example `backgroundColor`, or Kebab case, for example `background-color`.
 
 *Example*: Using the `getStyle()` method for dynamic inline styling. 
 [source,java]
