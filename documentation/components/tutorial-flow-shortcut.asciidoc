@@ -33,9 +33,6 @@ login.addClickShortcut(Key.ENTER);
 * Instead of clicking the button, the user can use the Enter key to perform the action tied to the button click.
 
 
-[NOTE]
-
-
 == Adding Focus Shortcuts
 
 Focus shortcuts place focus on a `Focusable` component, like an input field.
