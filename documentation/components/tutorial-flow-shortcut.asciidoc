@@ -34,7 +34,6 @@ login.addClickShortcut(Key.ENTER);
 
 
 [NOTE]
-Input fields also allow the ENTER key to update their value to the server side, if the default value-change mode of `ON_CHANGE` is used. 
 
 
 == Adding Focus Shortcuts
