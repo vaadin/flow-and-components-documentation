@@ -184,7 +184,7 @@ An element can be added as a child of another element, using methods such as:
 * `element.appendChild(Element)` to add an element at the end of a parent's child list, or
 * `element.insertChild(int, Element)` to add an element to any position in a child list.
 
-You can use `element.getParent()` to navigate upwards in the element hierarchy, and `element.getChildCount()` to navigate downwards.
+You can use `element.getParent()` to navigate upwards in the element hierarchy, and `element.getChildren()` to navigate downwards.
 
 
 === Component Hierarchy
