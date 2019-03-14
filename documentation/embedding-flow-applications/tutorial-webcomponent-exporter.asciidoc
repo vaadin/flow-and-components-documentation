@@ -7,8 +7,8 @@ layout: page
 = Embedding a Flow Application
 
 It is possible to embed Vaadin components into a non-Vaadin application.
-To be able to do this you may use so-called web component exporter.
-The web components should be declared in a separate Vaadin application.
+To be able to do this you may use web component exporter. The exporter
+should be declared in a separate Vaadin application.
 
 You will need a `VaadinServlet` which handles requests to your web components.
 This servlet may be declared in the same non-Vaadin application
@@ -111,7 +111,7 @@ It consists of hardcoded `web-component` part and following `login-form.html`
 web component file part. The web component file will be generated for you
 by the Vaadin application based on its name. In this specific case the name
 of your web component has to be `"login-form"`. This name you should use
-in overwriting the `tag()` method (see web component exporter code example below) and in your HTML code where you want
+in the overriden `tag()` method (see web component exporter code example below) and in your HTML code where you want
 to put this web component. In our example this is done right in the `body` tag:
 
 [source, html]
@@ -191,14 +191,14 @@ public class LoginForm extends Div {
 ----
 
 In this example, the implementation uses several Vaadin components: `FormLayout`,
- `TextField`, `PasswordField` and `Button`. And the authentication is done inside the web component code
+ `TextField`, `PasswordField` and `Button`. The authentication is done inside the web component code
 and an authentication token is set to the `HttpSession` which makes it available
-while the session is alive. And since the main application servlet uses the
+while the session is alive. Since the main application servlet uses the
 same `HttpSession` instance it now changes its behavior. Once the user is
 authenticated we redirect to the main servlet which now shows the content
 specific for the authenticated user.
 
-Finally, here is the web component exporter:
+Finally, it is the step to export the `LoginForm` component as an embeddable web component using web component exporter:
 
 [source, java]
 ----
@@ -218,6 +218,6 @@ public class LoginFormExporter implements WebComponentExporter<LoginForm> {
 ----
 
 As you can see, the web component class is mapped to the `login-form` tag by overriding the `Tag()` method.
-`WebcomponentDefinition` field declaration is used to receive values from the HTML element to the web component instance.
+`WebComponentDefinition` instance is used to define the component properties (`userlbl` and `pwdlbl` in this case) to receive values from the HTML element to the web component instance.
 In this example we have declared the labels for user name field and password field
-via HTML instead of hardcoding them in the Java class.
+via HTML instead of hardcoding them in the `LoginForm` component class.
