@@ -89,9 +89,9 @@ private ComboBox<Gender> gender = new ComboBox<>("Gender");
 
 === Configuring Converters and Validators
 
-When using the automatic `bindInstanceFields` method to bind fields, all converters and validators must be configured beforehand using a special `forMemberField` configurator. It works similar to the `forField` method, but it requires no explicit call to a bind method. If the `bindInstanceFields` method finds incompatible property-field pair, it will throw an `IllegalStateException`.
+When using the automatic `bindInstanceFields` method to bind fields, all converters and validators must be configured beforehand using a special `forMemberField` configurator. It works similar to the `forField` method, but it requires no explicit call to a bind method. If the `bindInstanceFields` method finds incompatible property-field pairs, it throws an `IllegalStateException`.
 
-Alternatively, you can bind properties that need validators manually and then bind all remaining fields using the `bindInstanceFields` method. `bindInstaceFields` method will skip the properties already bound manually.
+Alternatively, you can bind properties that need validators manually and then bind all remaining fields using the `bindInstanceFields` method. This method skips the properties that have already been bound manually.
 
 *Example*: Manually specifying `StringToIntegerConverter` before calling the `bindInstanceFields` method. 
 
@@ -108,13 +108,13 @@ binder.bindInstanceFields(this);
 
 ----
 
-If you are using JSR-303 validators, you should use BeanValidationBinder, that picks validators automatically when using bindInstanceFields`. See next paragraph for more details.
+If you use JSR-303 validators, you should use `BeanValidationBinder` that picks validators automatically when using `bindInstanceFields`. 
 
 == Using JSR 303 Bean Validation
 
 You can use `BeanValidationBinder` if you prefer to use JSR 303 Bean Validation annotations such as `Max`, `Min`, `Size`, etc.
 
-`BeanValidationBinder` extends `Binder`, and therefore has the same API, but its implementation automatically adds validators based on some JSR 303 constraints.
+`BeanValidationBinder` extends `Binder` (and therefore has the same API), but its implementation automatically adds validators based on JSR 303 constraints.
 
 To use Bean Validation annotations, you need a JSR 303 implementation like Hibernate Validator available in your classpath. If your environment, such as Java EE container, does not provide the implementation, you can use the following dependency in Maven:
 
@@ -175,11 +175,11 @@ binder.forField(yearOfBirthField)
 ----
 
 [NOTE]
-As an alternative to defining constraint annotations for specific properties, you can define constraints on the bean level. Currently the BeanValidationBinder in Vaadin don't support those and simply ignore all JSR 303 validations that are not assigned directly to properties.
+As an alternative to defining constraint annotations for specific properties, you can define constraints on the bean level, but Vaadin's `BeanValidationBinder` does not currently support them. It simply ignores all JSR 303 validations that are not assigned directly to properties.
 
 === Automatically Marking Form Fields as Required
 
-Some built-in validators in bean validation API suggest that the value is required in input field. BeanValidationBinder automatically enables the visual "required" indicator using `HasValue.setRequiredIndicatorVisible(true)` for properties annotated with such validators. By default `@NotNull`, `@NotEmpty` and `@Size` (if `min()` value is greater than 0) configures the field as required. You can change this behavior using the `BeanValidationBinder.setRequiredConfigurator` method.
+Some built-in validators in the bean validation API suggest that a value is required in input field. `BeanValidationBinder` automatically enables the visual "required" indicator using the `HasValue.setRequiredIndicatorVisible(true)` method for properties annotated with such validators. By default, `@NotNull`, `@NotEmpty` and `@Size` (if `min()` value is greater than 0) configures the field as required. You can change this behavior using the `BeanValidationBinder.setRequiredConfigurator` method.
 
 *Example*: Overriding the default `@Size` behavior. 
 

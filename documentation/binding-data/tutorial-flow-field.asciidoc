@@ -25,13 +25,13 @@ You can use the following helper classes as a base class for custom components t
 * `AbstractSinglePropertyField` is suitable when the the value is based on a single-element property of the component's only element. This base class simplifies a common use case found in many Web Components that are similar in design to the native `<input>` element.
 
 
-== Using a Single-Element Property As the Value
+== Using a Single-element Property as the Value
 
 Many components are based on Web Components that have a property that contains the component's value. The property name is typically `value`, and it fires a `value-changed` event when changed.
 
 When the property type is a string, number or boolean, all you need to do is to extend `AbstractSinglePropertyField` and call its constructor with the name of the property, the default value, and whether null values are allowed.
 
-The `<paper-slider>` Web Component is a compliant example. It has an integer property named `value`, displays the slider at the 0 position if no value is set, and does not support showing no value at all.
+The `paper-slider` Web Component is a compliant example. It has an integer property named `value`, displays the slider at the 0 position if no value is set, and does not support showing no value at all.
 
 *Example*: `PaperSlider` component that extends `AbstractSinglePropertyField` and works perfectly with `Binder`.
 
@@ -53,7 +53,7 @@ public class PaperSlider
 * The default value of `0` is automatically used by the `clear()` and `isEmpty()` methods: `clear()` sets the field value to the default value, and `isEmpty()` returns `true` if the field value is the default value.
 
 [NOTE]
-Flow uses Polymer 2. This version provides the best compatibility for integrating third-party Web Components.
+Flow uses https://polymer-library.polymer-project.org/2.0/docs/about_20[Polymer 2]. This version provides the best compatibility for integrating third-party Web Components.
 
 === Converting Property Values
 
@@ -63,7 +63,7 @@ It is possible to configure `AbstractSinglePropertyField` to apply a converter w
 
 For example, the `value` property of `<input type="date">` is an ISO 8601 formatted string (YYYY-MM-DD). You can convert this into a `DatePicker` component for selecting a `LocalDate`.
 
-*Example*: `DatePicker` component that allows the selection of a `LocalDate`. It extends `AbstractSinglePropertyField` and provides a callbacks to convert from `LocalDate` to `String`, and a callback in the opposite direction.
+*Example*: `DatePicker` component that allows the selection of a `LocalDate`. It extends `AbstractSinglePropertyField` and provides a callback to convert from `LocalDate` to `String`, and a callback in the opposite direction.
 [source, java]
 ----
 @Tag("input")
@@ -88,7 +88,7 @@ public class DatePicker
 
 * In this scenario, the convention of listening for an event named `<propertyName>-changed` is inappropriate. Instead, the `setSynchronizedEvent("change")` call overrides the default configuration, and listens for the change event in the browser.
 
-* Overriding the `hasValidValue` method, validates the element value before it is passed to the `LocalDate.parse` method that is defined in the constructor. In this way, invalid values are ignored, instead of causing exceptions.
+* Overriding the `hasValidValue` method validates the element value before it is passed to the `LocalDate.parse` method that is defined in the constructor. In this way, invalid values are ignored, instead of causing exceptions.
 
 == Combining Multiple Properties Into One Value
 
@@ -101,7 +101,7 @@ When you extend `AbstractField`, there are two different value representations t
 
 Both values need to be kept in sync, except when the value is in the process of changing, or when the element properties are in an invalid state that cannot, or should not, be represented through `getValue()`.
 
-To demonstrate, we build a `<simple-date-picker>` Web Component that has separate integer properties for the selected date: `year`, `month` and `dayOfMonth`. For each property there is a corresponding event when the user makes a change: `year-changed`, `month-changed` and `day-of-month-changed`.
+To demonstrate, we build a `simple-date-picker` Web Component that has separate integer properties for the selected date: `year`, `month` and `dayOfMonth`. For each property there is a corresponding event when the user makes a change: `year-changed`, `month-changed` and `day-of-month-changed`.
 
 . Start by implementing a `SimpleDatePicker` component that extends `AbstractField` and passes the default value to its constructor.
 +
@@ -219,7 +219,7 @@ protected void setPresentationValue(Integer value) {
 * Calling `setModelValue` from the `setPresentationValue` implementation does not fire a value-change event.
 * If `setModelValue` is called multiple times, the value of the last invocation is  used, and it is not necessary to worry about causing infinite loops. 
 
-== Creating Fields From Other Fields
+== Creating Fields from Other Fields
 
 `AbstractCompositeField` makes it possible to create a field component that has a value based on the value of one or more internal fields.
 
