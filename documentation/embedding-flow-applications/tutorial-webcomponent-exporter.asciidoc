@@ -111,7 +111,7 @@ It consists of hardcoded `web-component` part and following `login-form.html`
 web component file part. The web component file will be generated for you
 by the Vaadin application based on its name. In this specific case the name
 of your web component has to be `"login-form"`. This name you should use
-in the overriden `tag()` method (see web component exporter code example below) and in your HTML code where you want
+in the `@Tag` annotation (see web component exporter code example below) and in your HTML code where you want
 to put this web component. In our example this is done right in the `body` tag:
 
 [source, html]
@@ -202,22 +202,18 @@ Finally, it is the step to export the `LoginForm` component as an embeddable web
 
 [source, java]
 ----
+@Tag("login-form")
 public class LoginFormExporter implements WebComponentExporter<LoginForm> {
 
     @Override
-    public String tag(){
-        return "login-form";
-    }
-
-    @Override
-    public void define(WebComponentDefinition<LoginForm> definition){
+    public void define(WebComponentDefinition<LoginForm> definition) {
         definition.addProperty("userlbl", "").onChange(LoginForm::setUserNameLabel);
         definition.addProperty("pwdlbl", "").onChange(LoginForm::setPasswordLabel);
     }
 }
 ----
 
-As you can see, the web component class is mapped to the `login-form` tag by overriding the `Tag()` method.
-`WebComponentDefinition` instance is used to define the component properties (`userlbl` and `pwdlbl` in this case) to receive values from the HTML element to the web component instance.
+As you can see, the web component class is mapped to the `login-form` tag via the `@Tag("login-form")` annotation.
+`WebComponentDefinition` instance is used to define the component properties, `userlbl='Username' pwdlbl='Password'`, to receive values from the HTML element to the web component instance.
 In this example we have declared the labels for user name field and password field
 via HTML instead of hardcoding them in the `LoginForm` component class.
