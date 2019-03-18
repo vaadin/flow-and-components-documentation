@@ -132,6 +132,9 @@ and keep the page state intact. The following tutorials explain how to use the R
 * <<production/tutorial-production-mode-customising#,Customising Bundling>>
 * <<production/tutorial-production-mode-advanced#,Advanced production mode topics>>
 
+== Embedding Flow Applications
+* <<embedding-flow-applications/tutorial-webcomponent-exporter#,Embedding a Flow Application>>
+
 == Progressive Web Applications
 * <<pwa/tutorial-pwa-introduction#,Introduction>>
 * <<pwa/tutorial-pwa-pwa-with-flow#,Creating PWA with Flow>>
@@ -167,4 +170,3 @@ and keep the page state intact. The following tutorials explain how to use the R
 * <<advanced/tutorial-history-api#,History API>>
 * <<advanced/tutorial-stream-resources#,Using stream resources>>
 * <<advanced/tutorial-ui-init-listener#,UIInitListener>>
-* <<advanced/tutorial-sswc#,Embedding a Flow Application>>
