@@ -1,4 +1,4 @@
-package com.vaadin.flow.tutorial.advanced;
+package com.vaadin.flow.tutorial.embeddingflowapplications;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-sswc.asciidoc")
+@CodeFor("embedding-flow-applications/tutorial-webcomponent-exporter.asciidoc")
 @WebServlet(urlPatterns = { "/*" })
 public class MainAppServlet extends HttpServlet {
 

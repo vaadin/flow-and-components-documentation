@@ -1,10 +1,10 @@
-package com.vaadin.flow.tutorial.advanced;
+package com.vaadin.flow.tutorial.embeddingflowapplications;
 
 import java.util.Optional;
 
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-sswc.asciidoc")
+@CodeFor("embedding-flow-applications/tutorial-webcomponent-exporter.asciidoc")
 public final class UserService {
 
     private static final UserService INSTANCE = new UserService();

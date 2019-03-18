@@ -11,6 +11,8 @@ layout: page
 
 While all the components have been rebuilt based on Web Components, there are some components that don’t yet have a replacement with server side Java API. The ones that have, might have gone through some changes. Some older features might have been removed.
 
+TIP: Watch the https://vaadin.com/training/course/view/v10-intro[Vaadin 10+: Intro] free training video to learn more about the Vaadin platform terminology and what Vaadin components are.
+
 The following table lists the existing Vaadin 8 components and their direct replacements in the Vaadin platform. Note that the replacement component might not have 1-1 feature parity. If no replacement is yet available, current plans or options for replacement is mentioned.
 
 [NOTE]

@@ -13,6 +13,8 @@ In this section we provide an overview of Vaadin Flow architecture and introduce
 
 Working with front-end web technologies, such as HTML, CSS and JavaScript, can be challenging and time-consuming for Java developers. In Flow, all UI elements are componentized into https://www.webcomponents.org/[Web Components]. This makes development easier than ever before, because each element is decoupled and sandboxed.
 
+TIP: Watch the https://vaadin.com/training/course/view/v10-intro[Vaadin 10+: Intro] free training video to learn more about the Vaadin platform, basic Vaadin application architecture and how Vaadin components work.
+
 Vaadin Flow includes:
 
 * A type-safe Java UI Component API on the server side that facilitates the use of the Web Components.
@@ -184,7 +186,7 @@ An element can be added as a child of another element, using methods such as:
 * `element.appendChild(Element)` to add an element at the end of a parent's child list, or
 * `element.insertChild(int, Element)` to add an element to any position in a child list.
 
-You can use `element.getParent()` to navigate upwards in the element hierarchy, and `element.getChildCount()` to navigate downwards.
+You can use `element.getParent()` to navigate upwards in the element hierarchy, and `element.getChildren()` to navigate downwards.
 
 
 === Component Hierarchy

@@ -1,5 +1,6 @@
 package com.vaadin.flow.tutorial.element;
 
+import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.page.Page;
@@ -27,5 +28,10 @@ public class RPC extends Component {
 
         // Vaadin 12
         getElement().executeJavaScript("$0.complete()", this);
+    }
+    
+    @ClientCallable
+    public void clickHandler() {
+        // do your server side action here
     }
 }

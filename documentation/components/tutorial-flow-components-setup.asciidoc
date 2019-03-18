@@ -8,15 +8,17 @@ layout: page
 
 The Vaadin platform includes a set of https://vaadin.com/components/browse[components], with server-side Java APIs, that you can use to build your UI.
 
-The components are included, together with Flow, as dependencies in platform.
+The components, together with Flow, are included as platform dependencies.
 
-The _vaadin-core_ module includes all open source components, such as TextField, Button and Grid. The _vaadin_ module extends this set with all officially supported components in Vaadin platform, like Vaadin Charts.
+TIP: Watch the https://vaadin.com/training/course/view/v10-intro[Vaadin 10+: Intro] free training video to learn more about the Vaadin platform terminology and what Vaadin components are.
+
+The `vaadin-core` module includes all open-source components, such as TextField, Button and Grid. The `vaadin` module extends this set to include all officially-supported components in the Vaadin platform, like Vaadin Charts.
 
 == Vaadin Platform Dependency
 
 The components are part of the Vaadin platform and are included as dependencies, together with Flow. Each component has a Java API.
 
-Using the platform dependency (com.vaadin:vaadin) ensures that all available components, both open source and commercial, are included automatically. You are guaranteed to get compatible versions of both Flow and the components.
+Using the platform dependency (`com.vaadin:vaadin`) ensures that all available components, both open source and commercial, are included automatically. You are guaranteed to get compatible versions of both Flow and the components.
 
 *Example*: Declaring the `vaadin.platform` dependency.
 
@@ -44,7 +46,7 @@ You can find additional prebuilt Web Components (with Java APIs) contributed by 
 
 As an alternative to using the platform dependency, you can declare single components as dependencies.
 
-You should add both the Vaadin `bom` and the relevant Flow component package, for example `vaadin-button-flow`, to your project dependencies. The Vaadin `bom` fixes all vaadin-related dependencies to a tested combination, so that the individual components can be added safely. Without the BOM some https://www.webjars.org/ generated dependencies may change in the future because new releases, because of their use of version ranges.
+You should add both the Vaadin `bom` and the relevant Flow component package, for example `vaadin-button-flow`, to your project dependencies. The Vaadin `bom` fixes all vaadin-related dependencies to a tested combination, so that the individual components can be added safely. Without the BOM, some https://www.webjars.org/ generated dependencies may change in the future, because of new releases, or because of their use of version ranges.
 
 *Example*: Adding the Button component in your `pom.xml` using Maven.
 
