@@ -13,7 +13,7 @@ layout: page
 
 These concepts go hand in hand, because validation can be based on a converted value, and the ability to convert a value is a kind of validation in itself.
 
-There are several validators and converters that come with the framework, or you can implement them yourself.
+Vaadin Flow includes several validators and converters that you can implement.
 
 == Validating User Input
 
@@ -21,14 +21,11 @@ It is typical for applications to restrict the kind of value the user is allowed
 
 === Defining Validators
 
-`Binder` allows you to define validators for each bound field. 
-
-* By default, validators run whenever the user changes the field value. 
-* The validation status is also checked when writing to the bean.
+`Binder` allows you to define validators for each bound field. By default, validators run whenever the user changes the field value. The validation status is also checked when writing to the bean.
 
 You should define the field validator between the `forField` and `bind` code lines when creating the binding.
 
-*Example*: Defining a validator using a `Validator` instance or an inline Lambda expression.
+*Example*: Defining a validator using a `Validator` instance or an inline lambda expression.
 
 [source, java]
 ----
@@ -61,7 +58,7 @@ binder.forField(titleField)
 
 === Customizing Validation Messages
 
-You can customize the way error messages display, by defining a `ValidationStatusHandler` or configuring the `Label` for each binding. The label is used to show the status of the field. The label can be used for validation errors, as well as, confirmation and helper messages.
+You can customize the way error messages display by defining a `ValidationStatusHandler` or configuring the `Label` for each binding. The label is used to show the status of the field. The label can be used for validation errors, as well as confirmation and helper messages.
 
 *Example*: Configuring validation messages for email and minimum length validation. 
 
@@ -149,7 +146,7 @@ Examples where this is useful include an application-specific type for a postal 
 
 Like validators, each binding can have one or more converters, with an optional error message.  
 
-You can define converters using callbacks, typically Lambda expressions or method references, or by implementing the `Converter` interface.
+You can define converters using callbacks (typically lambda expressions), method references, or by implementing the `Converter` interface.
 
 *Examples*: Defining converters. 
 
@@ -206,7 +203,7 @@ Although it is possible to use a converter as a validator, best practice is to u
 
 You can define a custom error message to be used if a conversion throws an unchecked exception. 
 
-When using callbacks, you should provide one converter in each direction. If the callback used for converting the user-provided value throws an unchecked exception, the field will be marked as invalid, and the exception message used as the validation error message. Java runtime exception messages are typically written for developers, and may not be suitable for end users. 
+When using callbacks, you should provide one converter in each direction. If the callback used for converting the user-provided value throws an unchecked exception, the field is marked as invalid, and the exception message is used as the validation error message. Java runtime exception messages are typically written for developers, and may not be suitable for end users. 
 
 *Example*: Defining a custom conversion error message. 
 
