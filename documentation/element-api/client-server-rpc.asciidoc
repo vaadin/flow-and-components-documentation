@@ -4,22 +4,23 @@ order: 3
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
 = Remote Procedure Calls
 
-RPC (Remote Procedure Calls) is a way of executing a procedure or subroutine in a different address space, typically on another machine.
+Remote Procedure Calls (RPCs) are a way to execute procedures or subroutines in a different address space, typically on another machine.
 
-Flow handles server-client communication allowing to invoke RPC from the server to client side and from the client to the server side.
+Vaadin Flow handles server-client communication by allowing RPC calls from the server to the client, and _vice versa_. 
 
-== Call a client-side method from the server side
+== Calling Client-side Methods from the Server
 
-It is possible to execute a client-side method from the server side by accessing the Element API.
+You can execute client-side methods from the server by accessing the `Element` API.
 
-The Element API `callFunction` allows executing a client-side component function taking as arguments the name of the function to call and the arguments to pass to the function.
+=== callFunction Method
 
-[NOTE]
-The arguments to pass to the function must be of a type supported by the communication mechanism.
-The supported types are `String`, `Boolean`, `Integer`, `Double`, `JsonValue`, `Element` and `Component`.
+The `callFunction` method allows you to execute a client-side component function from the server side. The method accepts two parameters: the name of the function to call, and the arguments to pass to the function. 
+
+The arguments passed to the function must be of a type supported by the communication mechanism. The supported types are `String`, `Boolean`, `Integer`, `Double`, `JsonValue`, `Element`, and `Component`.
+
+*Example*: Using the `callFunction` method to execute the `clearSelection` function.
 
 [source, java]
 ----
@@ -32,15 +33,15 @@ public void setExpanded(Component component) {
 }
 ----
 
-In addition to this, `executeJavaScript` can be used to execute JavaScript asynchronously from the server side.
-`executeJavaScript` has 2 parameters, the JavaScript expression to invoke and the parameters to pass to the expression.
-Notice that the given parameters will be available as variables named `$0`, `$1`, and so on.
+=== executeJavaScript Method
 
-[NOTE]
-The arguments to pass to the function must be of a type supported by the communication mechanism.
-The supported types are `String`, `Integer`, `Double`, `Boolean` and `Element`.
+You can also use the `executeJavaScript` method to execute JavaScript asynchronously from the server side. You can use this method in addition to the `callFunction` method.
 
-It is also possible to call `executeJavaScript` method to access methods and fields of a web component:
+The `executeJavaScript` method accepts two parameters: the JavaScript expression to invoke, and the parameters to pass to the expression. Note that the given parameters are available as variables named `$0`, `$1`, and so on.
+
+The arguments passed to the expression must be of a type supported by the communication mechanism. The supported types are `String`, `Integer`, `Double`, `Boolean` and `Element`.
+
+*Example*: Using the `executeJavaScript` method.
 
 [source, java]
 ----
@@ -49,44 +50,38 @@ public void complete() {
 }
 ----
 
-Notice that `Element.executeJavaScript` method was introduced in Vaadin 12. For previous Vaadin Platform versions it is necessary to access the `Page`.
+It is also possible to call the `executeJavaScript` method to access methods and fields of a Web Component.
 
-[source, java]
-----
-public void complete() {
-    Page page = UI.getCurrent().getPage();
-    page.executeJavaScript("$0.complete()", this);
-}
-----
 
-[NOTE]
-Please consult and <<../creating-components/tutorial-component-basic#, Creating a Simple Component Using the Element API>> for creating a new component using element API.
+== Calling Server-side Methods from the Client
 
-== Call a server-side method from the client side
+You can call a server-side method from the client side using either the `@EventHandler` or `@ClientCallable` annotation.
 
-A method defined in the server side can be called from the client side in 2 different ways:
+=== @EventHandler Annotation
 
-. Using the `@EventHandler` annotation to register a server-side method as an event handler.
-. Using the `@ClientCallable` annotation to invoke a server-side method from the client side.
+The `@EventHandler` annotation allows you to register a server-side method as an event handler. It publishes the annotated method and allows it to be invoked from the client side as a template event handler. See <<../polymer-templates/tutorial-template-event-handlers#,Handling User Events in a PolymerTemplate>> for more.
 
-=== Event handler method
+=== @ClientCallable annotation
 
-The `@EventHandler` annotation publishes the annotated method so it can be invoked from the client side as template event handlers.
-For more information about `@EventHandler`, please consult <<../polymer-templates/tutorial-template-event-handlers",Handling User Events in a PolymerTemplate>>.
+The `@ClientCallable` annotation allows you to invoke a server-side method from the client side. It marks a template method as a method that can be called from the client side using the `this.$server.serverMethodName(args)` notation.
 
-=== Client delegate method
+You can use it anywhere in your client-side Polymer class implementation, and can pass your own arguments in the method. Note that the types should match the method declaration on the server side. 
 
-Another way to call a server side method is `@ClientCallable` annotation which marks a template method as the
-method which should be called from the client side code using notation `this.$server.serverMethodName(args)`.
-
-It can be used anywhere in your client-side Polymer class implementation. You can pass your own arguments in this method.
-Just make sure that their types match to method declaration on the server side.
+*Example*: Using `this.$server.clickHandler()` to mark a template method.
 
 [source, xml]
 ----
 this.$server.clickHandler()
 ----
 
-[IMPORTANT]
-Property changes, DOM events, Event handler methods (methods annotated with `@EventHandler`) and Client delegate methods (methods annotated with `@ClientCallable`) are blocked for disabled components.
+*Example*: Using the `@ClientCallable` annotation on the server side.
+[source, java]
+----
+    @ClientCallable
+    public void clickHandler() {
+        // do your server side action here
+    }
+----
 
+[IMPORTANT]
+Property changes, DOM events, event-handler methods (methods annotated with `@EventHandler`) and client-delegate methods (methods annotated with `@ClientCallable`) are blocked for disabled components.
