@@ -1,40 +1,26 @@
-package com.vaadin.flow.tutorial.advanced;
+package com.vaadin.flow.tutorial.embeddingflowapplications;
 
 import java.util.Optional;
 
-import com.vaadin.flow.component.WebComponent;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.component.webcomponent.WebComponentMethod;
-import com.vaadin.flow.component.webcomponent.WebComponentProperty;
 import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("advanced/tutorial-sswc.asciidoc")
-@WebComponent("login-form")
+@CodeFor("embedding-flow-applications/tutorial-webcomponent-exporter.asciidoc")
 public class LoginForm extends Div {
-
-    private WebComponentProperty<String> userlbl = new WebComponentProperty<>(
-            "", String.class);
-
-    private WebComponentProperty<String> pwdlbl = new WebComponentProperty<>("",
-            String.class);
-
     private TextField userName = new TextField();
     private PasswordField password = new PasswordField();
     private Div errorMsg = new Div();
-    private Div msg = new Div();
+    private String userLabel;
+    private String pwdLabel;
+    private FormLayout layout = new FormLayout();
 
     public LoginForm() {
-        FormLayout layout = new FormLayout();
-
-        updateForm(layout);
-
-        userlbl.addValueChangeListener(event -> updateForm(layout));
-        pwdlbl.addValueChangeListener(event -> updateForm(layout));
+        updateForm();
 
         add(layout);
 
@@ -42,11 +28,21 @@ public class LoginForm extends Div {
         add(login, errorMsg);
     }
 
-    private void updateForm(FormLayout layout) {
+    public void setUserNameLabel(String userNameLabelString) {
+        userLabel = userNameLabelString;
+        updateForm();
+    }
+
+    public void setPasswordLabel(String pwd) {
+        pwdLabel = pwd;
+        updateForm();
+    }
+
+    public void updateForm() {
         layout.removeAll();
 
-        layout.addFormItem(userName, userlbl.get());
-        layout.addFormItem(password, pwdlbl.get());
+        layout.addFormItem(userName, userLabel);
+        layout.addFormItem(password, pwdLabel);
     }
 
     private void login() {
@@ -61,10 +57,4 @@ public class LoginForm extends Div {
             errorMsg.setText("Authentication failure");
         }
     }
-
-    @WebComponentMethod("message")
-    public void setMessage(String message) {
-        msg.setText(message);
-    }
-
 }
