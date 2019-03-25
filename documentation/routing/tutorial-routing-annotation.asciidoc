@@ -30,8 +30,7 @@ public class SomePathComponent extends Div {
   }
 }
 ----
-
-So whenever the user navigates to `http://yourdomain.com/some/path` (assuming the app is running from the root context), either by clicking on links inside the application or by typing the address directly on the address bar, the `SomePathComponent` component would be shown at the page.
+* Assuming your app is running from the root context, when the user navigates to `\http://example.com/some/path`, either by clicking a link in the application or entering the address in the address bar, the `SomePathComponent` component is shown on the page.
 
 TIP: If you leave out the parameter to a Route annotation, the route target will be derived from the class name. For example MyEditor will become "myeditor", PersonView will become "person" and MainView will become "".
 
