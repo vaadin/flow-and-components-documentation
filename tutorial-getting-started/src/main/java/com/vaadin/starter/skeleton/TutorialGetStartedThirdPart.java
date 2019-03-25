@@ -15,45 +15,43 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class TutorialGetStartedThirdPart {
 
 
-    public class A {
-        /**
-         * The main view contains a button and a click listener.
-         */
-        @Route("")
-        public class MainView extends VerticalLayout {
+    /**
+     * The main view contains a button and a click listener.
+     */
+    @Route("3")
+    public static class MainView extends VerticalLayout {
 
-            private CustomerService service = CustomerService.getInstance();
-            private Grid<Customer> grid = new Grid<>();
-            private TextField filterText = new TextField();
+        private CustomerService service = CustomerService.getInstance();
+        private Grid<Customer> grid = new Grid<>();
+        private TextField filterText = new TextField();
 
-            public MainView() {
-                filterText.setPlaceholder("Filter by name...");
-                filterText.setValueChangeMode(ValueChangeMode.EAGER);
-                filterText.addValueChangeListener(e -> updateList());
-                Button clearFilterTextBtn = new Button(
-                        new Icon(VaadinIcon.CLOSE_CIRCLE));
-                clearFilterTextBtn.addClickListener(e -> filterText.clear());
-                HorizontalLayout filtering = new HorizontalLayout(filterText,
-                        clearFilterTextBtn);
+        public MainView() {
+            filterText.setPlaceholder("Filter by name...");
+            filterText.setValueChangeMode(ValueChangeMode.EAGER);
+            filterText.addValueChangeListener(e -> updateList());
+            Button clearFilterTextBtn = new Button(
+                    new Icon(VaadinIcon.CLOSE_CIRCLE));
+            clearFilterTextBtn.addClickListener(e -> filterText.clear());
+            HorizontalLayout filtering = new HorizontalLayout(filterText,
+                    clearFilterTextBtn);
 
-                grid.setSizeFull();
+            grid.setSizeFull();
 
-                grid.addColumn(Customer::getFirstName).setHeader("First name");
-                grid.addColumn(Customer::getLastName).setHeader("Last name");
-                grid.addColumn(Customer::getStatus).setHeader("Status");
+            grid.addColumn(Customer::getFirstName).setHeader("First name");
+            grid.addColumn(Customer::getLastName).setHeader("Last name");
+            grid.addColumn(Customer::getStatus).setHeader("Status");
 
-                add(filtering, grid);
-                setHeight("100vh");
-                updateList();
-            }
+            add(filtering, grid);
+            setHeight("100vh");
+            updateList();
+        }
 
-            public void updateList() {
-                /**
-                 * Note that filterText.getValue() might return null; in this case, the backend
-                 * takes care of it for us
-                 */
-                grid.setItems(service.findAll(filterText.getValue()));
-            }
+        public void updateList() {
+            /**
+             * Note that filterText.getValue() might return null; in this case, the backend
+             * takes care of it for us
+             */
+            grid.setItems(service.findAll(filterText.getValue()));
         }
     }
 }

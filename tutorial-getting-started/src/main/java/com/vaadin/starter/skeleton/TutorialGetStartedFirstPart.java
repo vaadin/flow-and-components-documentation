@@ -11,8 +11,8 @@ public class TutorialGetStartedFirstPart {
     /**
      * The main view contains a button and a click listener.
      */
-    @Route("")
-    public class MainView extends VerticalLayout {
+    @Route("1")
+    public static class MainView extends VerticalLayout {
 
         public MainView() {
             Button button = new Button("Click me",

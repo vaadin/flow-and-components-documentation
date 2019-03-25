@@ -9,8 +9,8 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class TutorialGetStartedSecondPart {
 
 
-    @Route("")
-    public class MainView extends VerticalLayout {
+    @Route("2")
+    public static class MainView extends VerticalLayout {
 
         private CustomerService service = CustomerService.getInstance();
         private Grid<Customer> grid = new Grid<>();
