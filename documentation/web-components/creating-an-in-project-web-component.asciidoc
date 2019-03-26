@@ -50,7 +50,7 @@ As an example, for the generated `my-test-element`, you could do
 [source, java]
 ----
 @Tag("my-test-element")
-@JavaScript("my-test-element/my-test-element.js")
+@JsModule("my-test-element/my-test-element.js")
 public class MyTest extends Component {
 
     public MyTest(String prop1) {
