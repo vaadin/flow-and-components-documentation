@@ -46,9 +46,9 @@ Standard links result in a page reload, but you can enable navigation without pa
 
 == Server-side Navigation
 
-You can trigger navigation from the server side using `UI.navigate(String)`, where the string parameter is the location to navigate to.
+You can trigger navigation from the server side using `UI.getCurrent().navigate(String)`, where the string parameter is the location to navigate to.
 
-You can also use `UI.navigate(Class<? extends Component> navigationTarget)` or `navigate(Class<? extends C> navigationTarget, T parameter)`. This avoids having to generate the route string manually and triggers the browser location update and the addition of a new history state entry.
+You can also use `UI.getCurrent().navigate(Class<? extends Component> navigationTarget)` or `navigate(Class<? extends C> navigationTarget, T parameter)`. This avoids having to generate the route string manually and triggers the browser location update and the addition of a new history state entry.
 
 *Example*: Navigation to the `company` route target when clicking a button:
 
