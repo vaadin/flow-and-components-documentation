@@ -113,7 +113,7 @@ The link URI starts with `/vaadin/`. This is the URI which we are going to
 map our Vaadin servlet (see below). The second part is
 `/web-component/login-form.html`.
 This is standard URI which you should use to address your web component.
-It consists of hardcoded `web-component` part and following `login-form.html`
+It consists of hard-coded `web-component` part and following `login-form.html`
 web component file part. The web component file will be generated for you
 by the Vaadin application based on its name. In this specific case the name
 of your web component has to be `"login-form"`. This name you should use
@@ -265,7 +265,7 @@ As you can see, the web component class is mapped to the `login-form` tag via th
 `userlbl='Username' pwdlbl='Password'`, to receive values from the HTML
 element to the web component instance.
 In this example we have declared the labels for user name field and password field
-via HTML instead of hardcoding them in the `LoginForm` component class.
+via HTML instead of hard-coding them in the `LoginForm` component class.
 
 `LoginFormExporter` class sets an instance configurator which register a login listener.
 The login listener fires a client side `logged-in` event. This event should
