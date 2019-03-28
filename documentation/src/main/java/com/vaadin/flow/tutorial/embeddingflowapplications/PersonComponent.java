@@ -11,6 +11,10 @@ import com.vaadin.flow.tutorial.webcomponent.Div;
 public class PersonComponent extends Div {
     private static final String INFO = "This is %s and they are %d years old.";
 
+    public void setAdultAge(int age) {
+
+    }
+
     public static class AgeChangedEvent extends ComponentEvent<PersonComponent> {
         private int age;
         public AgeChangedEvent(PersonComponent source, int age) {

@@ -22,6 +22,8 @@ public class PersonExporter implements WebComponentExporter<PersonComponent> {
                 definition.addProperty("is-adult", false);
 
         definition.setInstanceConfigurator((webComponent, component) -> {
+            component.setAdultAge(18); // initialization
+
             component.addAgeChangedListener(event -> {
                 webComponent.setProperty(isAdultProperty, component.isAdult());
             });
