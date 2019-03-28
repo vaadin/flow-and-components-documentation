@@ -44,6 +44,10 @@ public class MainAppServlet extends HttpServlet {
             out.println("<html><head>");
             out.println(
                     "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
+            out.println(
+                    "<script type='text/javascript' src='/frontend/bower_components/webcomponentsjs/webcomponents-loader.js'></script>");
+            out.println(
+                    "<script type='text/javascript' src='log-in.js'></script>");
             if (!isAuthenticated) {
                 out.println(
                         "<link rel='import' href='/vaadin/web-component/login-form.html'>");
@@ -153,6 +157,7 @@ public class LoginForm extends Div {
     private String userLabel;
     private String pwdLabel;
     private FormLayout layout = new FormLayout();
+    private List<SerializableRunnable> loginListeners = new CopyOnWriteArrayList<>();
 
     public LoginForm() {
         updateForm();
@@ -180,17 +185,24 @@ public class LoginForm extends Div {
         layout.addFormItem(password, pwdLabel);
     }
 
+    public void addLoginListener(SerializableRunnable loginListener) {
+        loginListeners.add(loginListener);
+    }
+
     private void login() {
         Optional<Object> authToken = UserService.getInstance()
                 .authenticate(userName.getValue(), password.getValue());
         if (authToken.isPresent()) {
             VaadinRequest.getCurrent().getWrappedSession()
                     .setAttribute("auth_token", authToken.get());
-            getUI().get().getPage()
-                    .executeJavaScript("window.location.href='/'");
+            fireLoginEvent();
         } else {
             errorMsg.setText("Authentication failure");
         }
+    }
+
+    private void fireLoginEvent() {
+        loginListeners.forEach(SerializableRunnable::run);
     }
 }
 ----
@@ -199,9 +211,18 @@ In this example, the implementation uses several Vaadin components: `FormLayout`
  `TextField`, `PasswordField` and `Button`. The authentication is done inside the web component code
 and an authentication token is set to the `HttpSession` which makes it available
 while the session is alive. Since the main application servlet uses the
-same `HttpSession` instance it now changes its behavior. Once the user is
-authenticated we redirect to the main servlet which now shows the content
-specific for the authenticated user.
+same `HttpSession` instance it now changes its behavior.
+Once the user is authenticated we should redirect to the main servlet
+which will show the content specific for the authenticated user.
+ 
+There are various ways to do this:
+- we may execute JS directly from Java code and set location to `"/"` : `getUI().get().getPage().executeJavaScript("window.location.href='/'");`
+- design the component code so that its logic isolated and doesn't know anything about the application where it's embedded.
+
+The second way allows to completely decouple the embedded component logic from 
+the application which uses it. This way is shown in this example: 
+the `addLoginListener` method allows to register a listener which is called  
+in the `fireLoginEvent` method.
 
 Finally, it is the step to export the `LoginForm` component as an embeddable web component using web component exporter:
 
@@ -212,13 +233,44 @@ public class LoginFormExporter implements WebComponentExporter<LoginForm> {
 
     @Override
     public void define(WebComponentDefinition<LoginForm> definition) {
-        definition.addProperty("userlbl", "").onChange(LoginForm::setUserNameLabel);
-        definition.addProperty("pwdlbl", "").onChange(LoginForm::setPasswordLabel);
+        definition.addProperty("userlbl", "")
+                .onChange(LoginForm::setUserNameLabel);
+        definition.addProperty("pwdlbl", "")
+                .onChange(LoginForm::setPasswordLabel);
+
+        definition.setInstanceConfigurator(this::initialize);
+    }
+
+    private void initialize(WebComponent<LoginForm> webComponent,
+            LoginForm form) {
+        form.addLoginListener(() -> webComponent.fireEvent("logged-in"));
     }
 }
 ----
 
 As you can see, the web component class is mapped to the `login-form` tag via the `@Tag("login-form")` annotation.
-`WebComponentDefinition` instance is used to define the component properties, `userlbl='Username' pwdlbl='Password'`, to receive values from the HTML element to the web component instance.
+`WebComponentDefinition` instance is used to define the component properties, 
+`userlbl='Username' pwdlbl='Password'`, to receive values from the HTML 
+element to the web component instance.
 In this example we have declared the labels for user name field and password field
 via HTML instead of hardcoding them in the `LoginForm` component class.
+
+`LoginFormExporter` class sets an instance configurator which register a login listener.
+The login listener fires a client side `logged-in` event. This event should
+be handled somehow by the main application.
+
+The custom event is handled by the JS file declared via the line 
+`<script type='text/javascript' src='log-in.js'></script>`. Here is the 
+`log-in.js` file content:
+
+[source, html]
+----
+var editor = document.querySelector("login-form");
+editor.addEventListener("logged-in" , function(event){
+    window.location.href='/';
+});
+----
+
+The embedding servlet uses "API" provided by the `LoginForm` via a custom event
+and adds an event listener for the event. The listener just redirects the page to 
+the `"/"`  location.
