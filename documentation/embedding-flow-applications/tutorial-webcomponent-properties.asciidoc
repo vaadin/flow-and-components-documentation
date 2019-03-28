@@ -7,14 +7,14 @@ layout: page
 = Properties of Embedded Web Components
 
 The tutorial <<tutorial-webcomponent-exporter#,Embedding a Flow Application>>
-showed how to exporter a Vaadin `Component` as embeddable web component and
-use that web component on a non-Vaadin page. In this chapter we will take a
-closer look at how we can control the properties of exported web components.
+showed how to export a Vaadin `Component` as embeddable web component and use
+that web component on a non-Vaadin page. In this chapter we will take a closer
+look at how we can control the properties of exported web components.
 
 === Defining Web Component Properties
-The properties exposed as part of the web components public API are defined
-by the `WebComponentExporter` by calling `addProperty` methods provided by
-the `WebComponentDefinition`.
+`WebComponentExporter` defines the properties exposed as part of the web
+components public API. Calling `WebComponentDefinition#addProperty` defines
+a property and adds it to the public API of the web component.
 
 [source, java]
 ----
