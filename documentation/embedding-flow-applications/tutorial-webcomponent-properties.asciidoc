@@ -162,6 +162,5 @@ Expanding on our previous client-side example, we now update our information
     personComponent.addEventListener("retirement-age-reached", function(event) {
         document.querySelector("#designator").innerText = "is allowed to retire!";
     });
-
 </script>
 ----
