@@ -24,5 +24,5 @@ We also cover cover these topics that apply generally when creating components:
 
 * <<tutorial-component-property-descriptor#,Using API Helpers to Define Component Properties>>
 * <<tutorial-component-events#,Using Events with Components>>
-* <<tutorial-component-lifecycle-callback#,Using Component Lifecycle Callbacks>>
+* <<tutorial-component-lifecycle-callbacks#,Using Component Lifecycle Callbacks>>
 * <<tutorial-component-mixins#,Implementing Vaadin Mixin Interfaces>>
