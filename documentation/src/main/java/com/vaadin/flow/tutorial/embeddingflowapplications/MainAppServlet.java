@@ -28,6 +28,10 @@ public class MainAppServlet extends HttpServlet {
             out.println("<html><head>");
             out.println(
                     "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
+            out.println(
+                    "<script type='text/javascript' src='/frontend/bower_components/webcomponentsjs/webcomponents-loader.js'></script>");
+            out.println(
+                    "<script type='text/javascript' src='log-in.js'></script>");
             if (!isAuthenticated) {
                 out.println(
                         "<link rel='import' href='/vaadin/web-component/login-form.html'>");
