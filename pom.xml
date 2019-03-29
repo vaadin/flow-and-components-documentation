@@ -8,7 +8,6 @@
     <version>1.1-SNAPSHOT</version>
     <modules>
         <module>docs-helpers</module>
-        <module>tutorial-getting-started</module>
         <module>tutorial-binder-with-templates</module>
         <module>tutorial-servlet-spring-boot</module>
         <module>documentation</module>
@@ -57,6 +56,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <flow.version>1.5-SNAPSHOT</flow.version>
-        <vaadin.version>13.0-SNAPSHOT</vaadin.version>
+        <vaadin.version>14.0-SNAPSHOT</vaadin.version>
     </properties>
 </project>
