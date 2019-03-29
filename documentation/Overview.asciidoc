@@ -134,6 +134,7 @@ and keep the page state intact. The following tutorials explain how to use the R
 
 == Embedding Flow Applications
 * <<embedding-flow-applications/tutorial-webcomponent-exporter#,Embedding a Flow Application>>
+* <<embedding-flow-applications/tutorial-webcomponent-properties#,Properties of Embedded Web Components>>
 * <<embedding-flow-applications/tutorial-webcomponent-theming#,Theming an Embedded Application>>
 * <<embedding-flow-applications/tutorial-webcomponent-push#,Embedded Application Push Configuration>>
 
