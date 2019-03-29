@@ -69,15 +69,11 @@ public class TestTutorialCodeCoverage {
     private static final String HTML_BLOCK_IDENTIFIER = "[source,html]";
     private static final String CSS_BLOCK_IDENTIFIER = "[source,css]";
 
-    private static final Path TUTORIAL_GETTING_STARTED_LOCATION = new File("..").toPath().resolve(Paths.get("tutorial-getting-started", "src", "main"));
-    private static final Path TUTORIAL_GETTING_STARTED_HTML_LOCATION = TUTORIAL_GETTING_STARTED_LOCATION.resolve(Paths.get("webapp", "frontend"));
-    private static final Path TUTORIAL_GETTING_STARTED_JAVA_LOCATION = TUTORIAL_GETTING_STARTED_LOCATION.resolve(Paths.get("java"));
-
     private static final Path TUTORIAL_BINDER_WITH_TEMPLATES_LOCATION = new File("..").toPath().resolve(Paths.get("tutorial-binder-with-templates", "src", "main"));
     private static final Path TUTORIAL_BINDER_WITH_TEMPLATES_HTML_LOCATION = TUTORIAL_BINDER_WITH_TEMPLATES_LOCATION.resolve(Paths.get("webapp", "frontend"));
     private static final Path TUTORIAL_BINDER_WITH_TEMPLATES_JAVA_LOCATION = TUTORIAL_BINDER_WITH_TEMPLATES_LOCATION.resolve(Paths.get("java"));
 
-    private static final Path[] JAVA_LOCATIONS = new Path[]{JAVA_LOCATION, TUTORIAL_GETTING_STARTED_JAVA_LOCATION, TUTORIAL_BINDER_WITH_TEMPLATES_JAVA_LOCATION};
+    private static final Path[] JAVA_LOCATIONS = new Path[]{JAVA_LOCATION, TUTORIAL_BINDER_WITH_TEMPLATES_JAVA_LOCATION};
 
     private final StringBuilder documentationErrors = new StringBuilder();
     private int documentationErrorsCount;
@@ -89,7 +85,7 @@ public class TestTutorialCodeCoverage {
                 new CodeFileChecker(CSS_BLOCK_IDENTIFIER,
                         gatherWebFilesCode("css", CSS_LOCATION)),
                 new CodeFileChecker(HTML_BLOCK_IDENTIFIER,
-                        gatherWebFilesCode("html", HTML_LOCATION, TUTORIAL_GETTING_STARTED_HTML_LOCATION, TUTORIAL_BINDER_WITH_TEMPLATES_HTML_LOCATION)),
+                        gatherWebFilesCode("html", HTML_LOCATION, TUTORIAL_BINDER_WITH_TEMPLATES_HTML_LOCATION)),
                 new AsciiDocLinkWithDescriptionChecker("image:",
                         Pattern.compile("image:(.*?)\\[(.*?)]")),
                 new AsciiDocLinkWithDescriptionChecker("#,",

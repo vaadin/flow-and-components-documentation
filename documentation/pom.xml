@@ -15,7 +15,7 @@
     <description>Module containing tutorials' code</description>
 
     <properties>
-        <jetty.version>9.3.24.v20180605</jetty.version>
+        <jetty.version>9.4.15.v20190215</jetty.version>
     </properties>
 
     <dependencyManagement>
@@ -115,14 +115,6 @@
             <groupId>com.vaadin</groupId>
             <artifactId>docs-helpers</artifactId>
             <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>tutorial-getting-started</artifactId>
-            <version>${project.version}</version>
-            <classifier>classes</classifier>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
