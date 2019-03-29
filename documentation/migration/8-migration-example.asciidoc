@@ -339,8 +339,7 @@ https://github.com/vaadin/bookstore-starter-flow/commit/c909f99c0a483ab4b6b5a835
 === ErrorView
 
 Router Exception Handling in Vaadin Flow is described
-https://vaadin.com/docs/v10/flow/routing/tutorial-routing-exception-handling.html[here].
-Applications can have different views for catching different exceptions.
+<<../routing/tutorial-routing-exception-handling#,here>>. Applications can have different views for catching different exceptions.
 For example, `ErrorView` catches `NotFoundException` that is thrown when
 something goes wrong while resolving navigation routes. And unlike
 Vaadin 8, there is no need to register `ErrorView` in a `navigator` or
