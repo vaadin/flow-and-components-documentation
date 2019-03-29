@@ -1,21 +1,24 @@
 ---
-title: Shortcuts
-order: 7
+title: Using Shortcuts in Components
+order: 4
 layout: page
 ---
 
-= Shortcuts
+= Using Shortcuts in Components
 
-Shortcut feature gives the developer an ability to create custom
-keyboard shortcuts and react when those shortcuts are triggered.
+Shortcuts allow you to assign keyboard shortcuts to your components to improve end-user experience.
 
-== Using the Shortcut API
-Shortcut's key combination consists of one _primary key_ and from 0 to 4 _key
-modifiers_ (alt, ctrl, meta, shift).
+You can add available shortcuts, create your own custom shortcuts, and configure the reaction when a shortcut is triggered. 
 
-=== Adding a "`click`" shortcut
-Click shortcuts perform the _click_ action on a component which implements
-the `ClickNotifier` interface, such as the `Button`.
+A shortcut key combination consists of one primary key and 0 to 4 key modifiers (Alt, Ctrl, Meta, Shift).
+
+== Adding Click Shortcuts
+
+Click shortcuts define alternatives to the click action in components that implement the `ClickNotifier` interface. 
+
+You can add a click shortcut using the `addClickShortcut` method. 
+
+*Example*: Using the `addClickShortcut` method to add a click shortcut to a `Button` component. 
 
 [source, java]
 ----
@@ -27,18 +30,16 @@ login.addClickListener(event -> this.login());
 login.addClickShortcut(Key.ENTER);
 ----
 
-Instead of clicking on the _button_, the user can hit _Enter_ on the keyboard
-to perform the action tied to the _button_'s click.
+* Instead of clicking the button, the user can use the Enter key to perform the action tied to the button click.
 
-[NOTE]
-In this case _ENTER_ works out of the box as _click shortcuts_ allow normal
-browser behavior by default (Input field receives the _ENTER_ as well). Inputs
-update their value to the server side when pressing _ENTER_ and the default
-value change mode of `ON_CHANGE` is in use. More details about client side
-behavior <<clientside.behavior,later>>.
 
-=== Adding a "`focus`" shortcut
-Focus shortcuts _focuses_ the `Focusable` component, such as an `Input` field.
+== Adding Focus Shortcuts
+
+Focus shortcuts place focus on a `Focusable` component, like an input field.
+
+You can add a focus shortcut using the `addFocusShortcut` method.
+
+*Example*: Using the `addFocusShortcut` method to add a focus shortcut to a `TextTield`.
 
 [source, java]
 ----
@@ -46,14 +47,15 @@ TextField textField = new TextField("Label");
 textField.addFocusShortcut(Key.KEY_F, KeyModifier.ALT);
 ----
 
-Now the user can focus the _textField_ by pressing _ALT+F_ on their keyboard.
+* The user can focus on the `Label` text field using the ALT+F keyboard shortcut.
 
-=== Adding a custom shortcut
-In addition to _focus_ and _click_ shortcuts, it is possible to add shortcuts
-that simply execute code as a response to a triggered shortcut.
+== Adding Custom Shortcuts
 
-Let's say there is a method for opening an input form for entering information
-about a new customer, `public void openCustomerCreation()`.
+You can use the `addShortcutListener` method to add a shortcut that executes custom code when the shortcut is triggered. 
+
+Assume you have a custom method, `public void openCustomerCreation()`, that opens an input form in which users can enter new customer information. 
+
+*Example*: Using the `addShortcutListener` method to add a custom shortcut that executes the `openCustomerCreation` method.
 
 [source, java]
 ----
@@ -61,11 +63,11 @@ UI.getCurrent().addShortcutListener(this::openCustomerCreation, Key.KEY_N,
         KeyModifier.CONTROL, KeyModifier.ALT);
 ----
 
-Now, when the user presses _Ctrl+Alt+N_ the form will open and allow the user
-to input the customer's details.
+* When the user presses Ctrl+Alt+N the form opens and the user can input the new customer information.
 
-The shortcut can run any code that conforms to the functional interface
-`Command`, which has a single zero arguments method called `execute`.
+You can configure a shortcut to run any code that complies with the `Command` functional interface. This interfaces has a single method called `execute` that accepts zero arguments.
+
+*Example*: Using the `addShortcutListener` method to `show` a notification 
 
 [source, java]
 ----
@@ -73,16 +75,16 @@ UI.getCurrent().addShortcutListener(
         () -> Notification.show("Shortcut triggered"), Key.SPACE);
 ----
 
-=== Configuring shortcut's active scope
-By default, every shortcut is registered to global scope. This means that
-when the user presses the correct keys, it does not matter where the user's
-cursor is and which element is focused on the screen; the shortcut will be
-triggered regardless.
+[NOTE]
+All methods that allow you to add shortcuts return an instance of `ShortcutRegistration` that provides a fluent API that you can use to further configure your shortcuts. 
 
-Sometimes it is useful that the shortcut is only available when the user has
-focused an element on the screen, such as a input field. Using the fluent API
-provided by the `ShortcutRegistration` returned by every method used to add a
-shortcut.
+== Configuring Shortcuts' Active Scope
+
+By default, shortcuts are registered to the global scope. This means the shortcut is triggered when the user presses the correct keys, regardless where their cursor is or which element is focused on the screen.
+
+You can configure when a shortcut is available, for example only when the user focuses an element, using the `addShortcutListener` method made available by the fluent `ShortcutRegistration` API. 
+
+*Example*: Using the `addShortcutListener` method to define the component to which the listener attaches. 
 
 [source, java]
 ----
@@ -108,25 +110,21 @@ public class Scope extends Div {
 }
 ----
 
-The shortcut in this example is tied to the parent component of the `Input`
-components, `Scope`. If the user is typing something in one of the inputs and
-presses _Escape_, both input fields will be cleared and focus returned to the
-first field.
+* The shortcut is tied to the parent component (`Scope`) of the input components. 
+* If the user enters input into either `TextField` and then presses Escape, both input fields are cleared and focus is returned to the first field.
+* This is useful where the same action should be triggered by a shortcut configured on all fields contained inside the same scope, but not outside of the enveloping component.
+* The shortcut is created using the factory class `Shortcuts` that offers the most generic method for creating shortcuts.
 
-This is useful in situations where the same action needs to be triggered
-by a shortcut configured on all fields contained inside the same scope
-but not outside of the enveloping component.
+See <<Shortcut Life Cycle Owners>> below for more.
 
-The shortcut is created using the factory class `Shortcuts` which offers the
-most generic method for creating shortcuts.
+== Removing Shortcuts
 
-[NOTE]
-See <<Shortcut lifecycle>> to learn more about `lifecycleOwner`.
+You can remove a registered shortcut using the `Registration.remove()` method.
 
-=== Removing a shortcut
-A registered  shortcut can be removed by calling `Registration.remove()`.
-Each method which adds/registers a shortcut returns either a `Registration`
+Each method that adds or registers a shortcut returns either a `Registration`
 or `ShortcutRegistration` object.
+
+*Example*: Using the `registration.remove` method to remove a shortcut.
 
 [source, java]
 ----
@@ -139,28 +137,20 @@ ShortcutRegistration registration = textField.addFocusShortcut(Key.KEY_F,
 registration.remove(); // shortcut removed!
 ----
 
-[NOTE]
-See <<Configuring shortcuts>> to learn more about `ShortcutRegistration`.
 
-=== Shortcut lifecycle
-In addition to `Keys`, `KeyModifiers`, `Action`, and _owner_, the shortcut also
-has a lifecycle which is controlled by an associated `Component`. The
-_component_ in called `lifecycleOwner`.
+== Shortcut Life Cycle Owners
 
-When the component acting as a `lifecycleOwner` is both *attached* and
-*visible*, the shortcut is active. If the component is in violation of either of
-those conditions, the shortcut cannot be triggered.
+Shortcuts have a life cycle that is controlled by an associated `Component`, called the `lifecycleOwner` component. 
 
-For _focus_ and _click_ shortcuts the lifecycle owner is the component itself.
-It would not make sense for the _click_ shortcut to be active if the button
-is not visible or if it is not on the layout at all.
+When the component acting as a `lifecycleOwner` is both *attached* and *visible*, the shortcut is active. If both conditions are not met, the shortcut cannot be triggered. 
 
-For shortcuts registered through `UI`, the `lifecycle` owner is the `UI` -
-this means that the shortcut will stop functioning only when the shortcut is
-removed (see <<Removing shortcuts>>).
+* For focus and click shortcuts, the life cycle owner is the component itself. It only makes sense for the click shortcut to be active when the button or input field is both in the layout and visible.
 
-To create a shortcut which has its lifecycle bound to a specific component, we
-can use `Shortcuts.addShortcutListener(...)`.
+* For shortcuts registered through `UI`, the life cycle owner is the `UI`. This means that the shortcut only stops functioning when it is <<Removing Shortcuts,removed>>.
+
+You can use the `Shortcuts.addShortcutListener(...)` method to create a shortcut with a life cycle bound to a specific component.
+
+*Example*: Binding a shortcut to the life cycle of the `Paragraph` component using the `Shortcuts.addShortcutListener(...)` method.
 
 [source, java]
 ----
@@ -172,20 +162,25 @@ Shortcuts.addShortcutListener(paragraph, () -> Notification.show("Well done!"),
 add(paragraph);
 ----
 
-The first parameter of `Shortcuts.addShortcutListener(Component, Command, Key,
-KeyModifier...);` is the `lifecycleOwner`. The shortcut _ALT+G_ is now bound
-to the lifecycle of _paragraph_ and is only valid when _paragraph_ is
-attached and visible.
+* The first parameter of the `Shortcuts.addShortcutListener(Component, Command, Key, KeyModifier...);` method is the `lifecycleOwner` component. 
+* This code binds the ALT+G shortcut to the life cycle of `paragraph` and is only active when the component is both attached and visible.
 
-=== Listening for `ShortcutEvent`
-In our previous examples, we have registered a `Command` to be executed when
-shortcut usage is detected. In order to facilitate more complex use cases, each
-`addShortcutListener` method has an overload which accepts
-`ShortcutEventListener` instead of a `Command`.
+You can also use the `bindLifecycleTo` method to reconfigure the `lifecycleOwner` component of shortcuts.
 
-When the shortcut is detected, the event listener receives a `ShortcutEvent`
-which contains the `Key`, `KeyModifiers`, and both `listenOn` and
-`lifecycleOwner` components.
+*Example*: Binding the life cycle of a global shortcut to `anotherComponent` using the `bindLifecycleTo` method.
+
+[source, java]
+----
+UI.getCurrent().addShortcutListener(() -> {/* do a thing*/}, Key.KEY_F)
+        .bindLifecycleTo(anotherComponent);
+----
+
+
+== Listening for Shortcut Events
+
+The `addShortcutListener` method has an overload method that accepts a `ShortcutEventListener` instead of the <<Adding Custom Shortcuts,`Command`>> parameter. When the shortcut is detected, the event listener receives a `ShortcutEvent` that contains the `Key`, `KeyModifiers`, and both `listenOn` and `lifecycleOwner` components.
+
+*Example*: Registering a `ShortcutEventListener` and using it with the `addShortcutListener` overload method.   
 
 [source, java]
 ----
@@ -203,22 +198,15 @@ UI.getCurrent().addShortcutListener(listener, Key.KEY_G, KeyModifier.ALT);
 UI.getCurrent().addShortcutListener(listener, Key.KEY_J, KeyModifier.ALT);
 ----
 
-In the example, the `listener` is responsible for handling events received
-from multiple shortcuts. Both _ALT+G_ and _ALT+J_ result into the invocation
-of the `listener`.
+* The `listener` is responsible for handling events triggered by multiple shortcuts: both ALT+G and ALT+J invoke the listener. 
+* The `ShortcutEvent` provides the `.matches(Key, KeyModifier...)` method to evaluate which shortcut is in question. For additional comparisons, you can use `.getSource()` (which returns the `listenOn` component), and `.getLifecycleOwner()` (which returns the `lifecycleOwner` component).
 
-The `ShortcutEvent` offers a method `.matches(Key, KeyModifier...)` for
-comparing which shortcut might be in question. For further comparisons, use `
-.getSource()` which returns the `listenOn` component, and `.getLifecycleOwner()`
-which returns the `lifecycleOwner` component.
 
-=== Configuring shortcuts
-All methods adding a shortcut return an instance of `ShortcutRegistration`
-which provides a fluent API for further configuring the shortcuts.
+== Shorthands for Shortcut Modifiers
 
-==== Modifiers
-`ShortcutRegistration` offers shorthands for assigning key modifiers to a
-shortcut:
+`ShortcutRegistration` includes shorthands for assigning key modifiers to a shortcut.
+
+*Example*: Using the `.withAlt()` and `.withShift()` key modifiers with the `addFocusShortcut` method.
 
 [source, java]
 ----
@@ -226,43 +214,23 @@ Input input = new Input();
 input.addFocusShortcut(Key.KEY_F).withAlt().withShift();
 ----
 
-The focus shortcut is triggered with _Alt+Shift+F_.
+* The focus shortcut is triggered with Alt+Shift+F.
 
-`ShortcutRegistration` also has a method `.withModifiers(KeyModifiers...
-modifiers)` which can be used to configure all modifiers simultaneously - or
-to remove all modifiers. Calling `withModifiers(...);` without parameters
-removes all modifiers from the shortcut.
+`ShortcutRegistration` also has the `.withModifiers(KeyModifiers...modifiers)` method that can be used to configure all modifiers simultaneously, or to remove all modifiers. Calling `withModifiers(...);` without parameters removes all modifiers from the shortcut.
 
-==== Lifecycle owner
-`ShortcutRegistration` offers a method for reconfiguring the `lifecycleOwner` of
-the shortcut.
 
-[source, java]
-----
-UI.getCurrent().addShortcutListener(() -> {/* do a thing*/}, Key.KEY_F)
-        .bindLifecycleTo(anotherComponent);
-----
+== Shortcut Event Behavior on the Client Side
 
-The lifecycle of the global shortcut is now bond to _anotherComponent_.
+`ShortcutRegistration` provides methods to define the behavior of events on the client side. With DOM events you can control if an event should propagate upwards in the DOM tree, and if it should allow default browser behavior.
 
-[[clientside.behavior]]
-==== Client-side event behavior
-`ShortcutRegistration` provides methods for defining how the event should
-behave on the client-side. DOM events provide the developer with the tools to
-control if the event should propagate upwards in the DOM tree, and if the
-event should allow browsers' default behavior to take place or not.
+By default, shortcuts created by Vaadin Flow consume the event. This means, by default:
 
-By default, the shortcuts created by Flow consume the event (it does not
-propagate upwards in the DOM tree) and prevent default behavior (e.g. an
-input field does type out the characters used in the shortcut).
+* Events do not  propagate upwards in the DOM tree, and 
+* Default browser behavior is prevented, for example the characters used in the shortcut are not inserted into the input field.
 
-To change this behavior, use the methods `allowEventPropagation()` (fluent),
-`allowBrowserDefault()` (fluent), `setEventPropagationAllowed(boolean)`, and
-`setBrowserDefaultAllowed(boolean)`.
+You can change the default behavior using the `allowEventPropagation()` (fluent), `allowBrowserDefault()` (fluent), `setEventPropagationAllowed(boolean)`, and `setBrowserDefaultAllowed(boolean)` methods.
 
-The exception to these rules is click shortcuts created by
-`ClickNotifier::addClickShortcut(Key, KeyModifier...)` - these shortcuts
-allow browser default behavior without the user having to do anything.
+*Example*: Using the `allowEventPropagation` method to change the default behavior of a focus shortcut.  
 
 [source, java]
 ----
@@ -274,10 +242,10 @@ input.addFocusShortcut(Key.KEY_F)
         .allowBrowserDefault();
 ----
 
-==== Inspection
-`ShortcutRegistration` offers a variety of methods for checking the internal
-state of the shortcut and all configurable values have corresponding _getter_
-methods.
+Note that there is one exception to these rules: click shortcuts created with the `ClickNotifier::addClickShortcut(Key, KeyModifier...)` method allow default browser behavior, by default. 
 
-One extra method is `boolean isShortcutActive()` which can be used to check,
-whether the shortcut is enabled on the client-side or not.
+== Checking Shortcut States
+
+`ShortcutRegistration` offers a variety of methods to check the internal state of a shortcut, and all configurable values that have corresponding getter methods.
+
+In addition, you can use the boolean `isShortcutActive()` method to check whether the shortcut is enabled on the client side.
