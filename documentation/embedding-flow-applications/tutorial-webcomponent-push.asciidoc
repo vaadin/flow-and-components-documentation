@@ -1,6 +1,6 @@
 ---
 title: Embedded Application Push Configuration
-order: 3
+order: 4
 layout: page
 ---
 
@@ -18,8 +18,8 @@ on the servlet level. You can see how to do it on the servlet level in the
 mentioned tutorial.
 
 Similarly to declaring `@Theme` annotation described in 
-<<tutorial-webcomponent-theming#,Theming an Embedded Application>> tutorial 
-you may declare `@Push`  annotation for `WebComponentExporter` class:
+<<tutorial-webcomponent-theming#,Theming an Embedded Application>> tutorial, 
+you may declare `@Push` annotation for `WebComponentExporter` class:
 
 [source, java]
 ----
@@ -30,5 +30,5 @@ public class PushComponentExporter implements WebComponentExporter<Div> {
 
 `@Push` annotation declaration has the same limitation as `@Theme` annotation:
 it's not possible to declare several different `@Push` annotations for different
-exporter classes. An exception will be thrown otherwise during the applicaiton
-startup. It's enough to configure Push only for one exporter.  
+exporter classes. An exception will be thrown otherwise during the application
+startup. It's enough to configure Push only for one exporter.
