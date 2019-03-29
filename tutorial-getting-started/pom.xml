@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>tutorial-binder-with-templates</artifactId>
+    <artifactId>tutorial-getting-started</artifactId>
     <packaging>war</packaging>
 
     <properties>
@@ -52,18 +52,17 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.4.1.Final</version>
+        </dependency>
+
         <!-- Only used for testing the documentation to match code -->
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>docs-helpers</artifactId>
             <version>${project.version}</version>
-        </dependency>
-
-        <!-- test-data generator to create random data -->
-        <dependency>
-            <groupId>org.jfairy</groupId>
-            <artifactId>jfairy</artifactId>
-            <version>0.3.0</version>
         </dependency>
     </dependencies>
 
@@ -95,7 +94,13 @@
     <profiles>
         <profile>
             <!-- Production mode can be activated with either property or profile -->
-            <id>production</id>
+            <id>production-mode</id>
+            <activation>
+                <property>
+                    <name>vaadin.productionMode</name>
+                </property>
+            </activation>
+
             <properties>
                 <vaadin.productionMode>true</vaadin.productionMode>
             </properties>
@@ -133,6 +138,67 @@
                                     <Implementation-Title>${project.name}</Implementation-Title>
                                     <Implementation-Version>${project.version}</Implementation-Version>
                                 </manifestEntries>
+                            </archive>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <!--
+            This profile is added just to add some xml parts from documents to
+            pass validation phase. So, it should not be enabled.
+            -->
+            <id>validation</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>biz.aQute.bnd</groupId>
+                        <artifactId>bnd-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>bnd-process</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <bnd><![CDATA[
+             Private-Package: foo.*
+             ]]>
+                            </bnd>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.felix</groupId>
+                        <artifactId>maven-bundle-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <executions>
+                            <execution>
+                                <id>bundle-manifest</id>
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>manifest</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <instructions>
+                                <Export-Package>org.foo.myproject.api</Export-Package>
+                                <Private-Package>org.foo.myproject.*</Private-Package>
+                                <Bundle-Activator>org.foo.myproject.impl1.Activator</Bundle-Activator>
+                            </instructions>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <configuration>
+                            <archive>
+                                <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
                             </archive>
                         </configuration>
                     </plugin>
