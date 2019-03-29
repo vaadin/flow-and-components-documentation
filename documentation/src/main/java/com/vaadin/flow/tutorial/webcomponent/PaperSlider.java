@@ -7,12 +7,15 @@ import com.vaadin.flow.component.PropertyDescriptors;
 import com.vaadin.flow.component.Synchronize;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.shared.Registration;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("web-components/creating-java-api-for-a-web-component.asciidoc")
+@CodeFor("web-components/integrating-a-web-component.asciidoc")
 @Tag("paper-slider")
-@HtmlImport("bower_components/paper-slider/paper-slider.html")
+@NpmPackage("@polymer/paper-slider")
+@JsModule("@polymer/paper-slider/paper-slider.js")
 public class PaperSlider
         extends AbstractSinglePropertyField<PaperSlider, Integer> {
 
