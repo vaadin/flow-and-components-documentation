@@ -218,13 +218,6 @@ the `HttpSession` which makes it available while the session is alive. Since
 the main application servlet uses the same `HttpSession` instance it now
 changes its behavior. Once the user is authenticated we redirect to the main
 servlet which now shows the content specific for the authenticated user.
-In this example, the implementation uses several Vaadin components: `FormLayout`,
- `TextField`, `PasswordField` and `Button`. The authentication is done inside the web component code
-and an authentication token is set to the `HttpSession` which makes it available
-while the session is alive. Since the main application servlet uses the
-same `HttpSession` instance it now changes its behavior.
-Once the user is authenticated we should redirect to the main servlet
-which will show the content specific for the authenticated user.
 
 There are various ways to do this:
 - we may execute JS directly from Java code and set location to `"/"` : `getUI().get().getPage().executeJavaScript("window.location.href='/'");`
@@ -249,11 +242,10 @@ public class LoginFormExporter implements WebComponentExporter<LoginForm> {
                 .onChange(LoginForm::setUserNameLabel);
         definition.addProperty("pwdlbl", "")
                 .onChange(LoginForm::setPasswordLabel);
-
-        definition.setInstanceConfigurator(this::initialize);
     }
 
-    private void initialize(WebComponent<LoginForm> webComponent,
+    @Override
+    public void configure(WebComponent<LoginForm> webComponent,
             LoginForm form) {
         form.addLoginListener(() -> webComponent.fireEvent("logged-in"));
     }
@@ -267,9 +259,14 @@ element to the web component instance.
 In this example we have declared the labels for user name field and password field
 via HTML instead of hard-coding them in the `LoginForm` component class.
 
-`LoginFormExporter` class sets an instance configurator which register a login listener.
+`LoginFormExporter` class configures the `webComponent` instance via a login listener registration.
 The login listener fires a client side `logged-in` event. This event should
 be handled somehow by the main application.
+
+[TIP]
+If there is no need to implement all of `WebComponentExporter` methods then
+you may extend `WebComponentExporterAdapter` class which implements 
+`WebComponentExporter` interface with empty methods.
 
 The custom event is handled by the JS file declared via the line
 `<script type='text/javascript' src='log-in.js'></script>`. Here is the
