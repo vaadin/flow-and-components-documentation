@@ -1,47 +1,44 @@
 ---
-title: Creating a Simple Component Using the Template API
+title: Creating a Simple Component Using the PolymerTemplate API
 order: 1
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
+= Creating a Simple Component Using the PolymerTemplate API
 
-= Creating a Simple Component Using the Template API
+In this section, we demonstrate how to use the `PolymerTemplate` API to create a simple component. 
 
-There are multiple ways you can create a component. This tutorial uses the `PolymerTemplate` API with no additional elements or components. For other component tutorials, see:
+Our example uses only a Polymer template, but it is also possible to create complex components using Polymer templates in conjunction with elements and components.
 
-* <<../creating-components/tutorial-component-basic#,Creating a Simple Component Using the Element API>>
-* <<../creating-components/tutorial-component-many-elements#,Creating a Component Based on Many Elements>>
-* <<../creating-components/tutorial-component-composite#,Creating a Component Using Existing Components>>
-* <<../creating-components/tutorial-component-container#,Creating a Component Which Can Contain Other Components>>
+We create a component with one input field for the user's name. The name is used to print a personalized greeting when the user clicks a button. 
 
-For tutorials about how to use different template features, see:
+[NOTE]
+The code used in the demo is based on the https://github.com/vaadin/flow-demo/tree/master/demo-hello-worlds[`demo-hello-worlds`] technical demo that shows three ways to achieve the same result: using components, the `Element` API and the `PolymerTemplate` API. 
 
-* <<tutorial-template-components-in-slot#,Using <slot> in PolymerTemplates>>
-* <<tutorial-template-event-handlers#,Handling User Events in a Template>>
+Vaadin Flow uses Polymer 2 and this demo assumes you are familiar with standard Polymer features. See the https://www.polymer-project.org/2.0/docs/about_20[Polymer 2 documentation] to learn more.
 
-This tutorial is based on the https://github.com/vaadin/flow-demo/tree/master/demo-hello-worlds[Hello Worlds technical demo].
-The demo shows three ways of achieving the same result: using components, element API and the template approach.
+To create a Polymer component:
 
-We'll create a demo, that will be asking a user to input a name and will print a greeting on button click, using the input.
-
-=== Client side
-
-First, we need to define a template with all components:
-
+. On the client side, create a Polymer template in HTML. 
++
+*Example*: `HelloWorld` Polymer template. 
++
 [source,html]
 ----
+<!-- Dependency resources -->
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 
+<!-- Defines the hello-world element -->
 <dom-module id="hello-world">
     <template>
-        <div>
-            <paper-input id="inputId" value="{{userInput}}"></paper-input>
-            <button id="helloButton" on-click="sayHello">Say hello</button>
-            <div id="greeting">[[greeting]]</div>
-        </div>
+        <!-- Input element that updates the name property in the model -->
+        <paper-input id="inputId" value="{{name}}" style="width: 200px"></paper-input>
+        <!-- Input element that shows the greeting from the model -->
+        <div id="greeting">[[greeting]]</div>
     </template>
+    
+    <!-- Polymer boilerplate to register the hello-world element -->
     <script>
         class HelloWorld extends Polymer.Element {
             static get is() {
@@ -52,149 +49,109 @@ First, we need to define a template with all components:
     </script>
 </dom-module>
 ----
-
-As you can see, this is a Polymer template. All features used in the example are standard Polymer features.
-If you're unfamiliar with any of them, please refer to
-https://www.polymer-project.org/2.0/docs/about_20[Polymer project documentation page].
-
+* Two dependencies are imported from the Polymer 2 library:
+** `polymer-element.html` is required to ensure correct functionality. You may need to install Polymer 2 (see below).
+** https://github.com/PolymerElements/paper-input.com[`paper-input.html`] is the imported Web Component. This template file must be available via URL.  
+* To comply with Polymer syntax rules, the following names must have at least one dash (`-`):
+** Template tag name (`hello-world`) defined in the `id` attribute of the `<dom-module>` element.
+** The return of the `is()` function (`hello-world`).
+* There are two bindings:
+** `\[[greeting]]` is a one-way binding (annotated with double square bracket delimiters).
+** `{{name}}` is a two-way binding (annotated with double curly bracket delimiters). 
+* `<script>` class is the basic declaration for a Polymer element.
+* No model is specified. It is propagated automatically from the server side (see 3. below). 
++
 [NOTE]
-The tag name of the template, which is defined by the `id` attribute on the `<dom-module>` element and the return of the function `is()`, should have at least one dash (`-`). The value `hello-world` is a valid tag name, but `helloworld` is not.
+To get `polymer-element.html` into your project, you can install Polymer 2 from Bower or use the Polymer CLI (see https://www.polymer-project.org/2.0/start/install-2-0[Polymer 2 documentation] for instructions) or you can use a Maven plugin, such as https://github.com/eirslett/frontend-maven-plugin[`frontend-maven-plugin`].
 
-In the current demo, we have defined a regular template with regular elements, have specified one-way binding (`\[[greeting]]`),
-two-way binding (`{{userInput}}`) and basic declaration for Polymer element in `<script>` class.
-
-Note that there is an event handler `sayHello` that is triggered on `helloButton` click.
-
-Notice that we have not specified the model at all, it will be propagated automatically from the server side.
-
-We've also imported some dependencies:
-
-* Polymer library
-
-The `../bower_components/polymer/polymer-element.html` is a link to Polymer library that should be imported in order to have the
-functionality working.
-
-[NOTE]
-You should take care about proper handling of the Polymer template file URL, it should be available via URL.
-
-[NOTE]
-To get `polymer-element.html` into your project, you can use one of the ways provided by
-https://www.polymer-project.org/2.0/start/install-2-0[official Polymer page] or use Maven plugins, such as
-https://github.com/eirslett/frontend-maven-plugin[frontend-maven-plugin]
-
-The latter way was used to create this example, you can reference
-https://github.com/vaadin/flow-demo/[GitHub page] of a demo for more details.
-
-* paper-input Polymer component
-
-For clarity and demonstration purposes, this example uses https://github.com/PolymerElements/paper-input[paper-input.html] component.
-
-[NOTE]
-In order to retrieve and use the component in the demo, same rules as for `polymer-element.html` apply.
-
-=== Server side
-
-To be able to use this template you need to create a Java class which extends `PolymerTemplate`,
-set its tag name matching the Polymer `dom-module` id attribute and add the html imports for Polymer library (`polymer-element.html`)
-and our template:
-
+. On the server side, create a matching Java class that extends `PolymerTemplate` and imports the HTML template created in the previous step.
++
+*Example*: `HelloWorldTemplate` Java class.
++
 [source,java]
 ----
 @Tag("hello-world")
 @HtmlImport("src/HelloWorld.html")
-public class HelloWorld extends PolymerTemplate<HelloWorldModel> {
-    private static final String EMPTY_NAME_GREETING = "Please enter your name";
+@PageTitle("Hello World with a template")
+@Route(value = "template", layout = MainLayout.class)
+public class HelloWorldTemplate extends PolymerTemplate<HelloWorldModel> {
 
     /**
-     * Creates the hello world template.
+     * Template constructor.
      */
-    public HelloWorld() {
+    public HelloWorldTemplate() {
+        // Set the initial greeting value
+        updateGreeting();
+
+        // Listen for value change events. The name property is updated by logic
+        // in the template.
+        getElement().addPropertyChangeListener("name",
+                event -> updateGreeting());
+
+        // Set up a DOM id value used for integration tests
         setId("template");
-        getModel().setGreeting(EMPTY_NAME_GREETING);
     }
 
-    @EventHandler
-    private void sayHello() {
-        // Called from the template click handler
-        getModel().setGreeting(Optional.ofNullable(getModel().getUserInput())
-                .filter(userInput -> !userInput.isEmpty())
-                .map(greeting -> String.format("Hello %s!", greeting))
-                .orElse(EMPTY_NAME_GREETING));
+    private void updateGreeting() {
+        String name = getModel().getName();
+
+        // Update the model based on the name
+        if (name == null || name.isEmpty()) {
+            getModel().setGreeting("Please enter your name");
+        } else {
+            getModel().setGreeting(String.format("Hello %s!", name));
+        }
     }
 }
 ----
+* The `"hello-world"` attribute in the `@Tag` annotation must match the `"id"` attribute in the `<dom-module>` element in the HTML template.  
+* The `@HtmlImport` annotation specifies the path to the Polymer template, `src/HelloWorld.html`, binding the Java class and the template. 
+* The `getElement().addPropertyChangeListener` method..... 
+* The `setId` .....
+* ......
++
+[NOTE]
+The Java class name and Polymer template file name do not need to match. The template file is just another resource file that you can store in any location, but it is important that it is accessible via the URL. 
 
-Here we have defined a class with imports, tag, model and event handler.
-
-There is also a model reference, that is defined the following way:
+. Add a model to the Java class. The model defines the properties passed to the HTML template.
++
+*Example*: Adding a model to the `HelloWorldTemplate` Java class.
++
 [source,java]
 ----
 /**
- * Model for the template.
- */
-public interface HelloWorldModel extends TemplateModel {
-    /**
-     * Gets user input from corresponding template page.
-     *
-     * @return user input string
+     * A model interface that defined the data that is communicated between the
+     * server and the client.
      */
-    String getUserInput();
+    public interface HelloWorldModel extends TemplateModel {
+        /**
+         * The name shown in the input is updated from the client.
+         * 
+         * @return current name in model
+         */
+        String getName();
 
-    /**
-     * Sets greeting that is displayed in corresponding template page.
-     *
-     * @param greeting
-     *            greeting string
-     */
-    void setGreeting(String greeting);
-}
+        /**
+         * The greeting is updated from Java code on the server.
+         * 
+         * @param greeting
+         *            greeting to set to the model
+         */
+        void setGreeting(String greeting);
+    }
 ----
+* The model is a simple Java interface that extends the `TemplateModel` class and has getter and/or setter methods for properties.
+* The model can be accessed via the `getModel()` method, provided it is specified as a generic type of `PolymerTemplate` class.
 
-====== Imports
-
-In order for a component to be processed correctly, we need to bind a Java class with the template, created earlier, by specifying `@HtmlImport` with path to a template
 
 [NOTE]
-Java class name and template file name doesn't have to match each other, this is just a resource file which you can put to any location.
-But you have to be sure that it's accessible via the web.
+An alternative way to call a server-side method is to use the `@ClientCallable` annotation. This marks a template method as the method to be called from the client side code, when the notation `this.$server.serverMethodName(args)` is used. Use it in your client-side Polymer class implementation and pass your own arguments in the method. Be sure to check that the types used match the method declaration on the server side.
 
-The `src/HelloWorld.html` is the URL of the Polymer template file declared earlier.
+== Executing Logic After Server Updates
 
-If needed, more html resources can be imported using the same approach.
+The `afterServerUpdate` method allows you to execute logic on the client side after a component is updated from the server during a round trip. This method is called each time the component is updated on the server side.
 
-====== Tag
-
-The tag corresponds to `<dom-module id="hello-world">` id attribute, it sets the tag value to current component.
-
-====== Model
-
-Model describes all properties that are passed to the html template and used on the client side.
-The model is simple Java interface, extending `TemplateModel` class and having getter and/or setter methods
-for properties.
-Model can be accessed via `getModel()` method after it's specified as a generic type of `PolymerTemplate` class.
-
-====== Event handler
-
-Server side has method, annotated with `@EventHandler` annotation, that is used to react on event form the client side, triggered
-by the `helloButton` button.
-
-====== Call the server side method from the client side
-
-Another way to call a server side method is `@ClientCallable` annotation which marks a template method as the
-method which should be called from the client side code using notation `this.$server.serverMethodName(args)`.
-It can be used somewhere in your client side Polymer class implementation. You can pass your own arguments in this method.
-Just make sure that their types matches to method declaration on the server side.
-
-====== Receiving "after server update" event
-
-In some cases you may want to execute some client-side logic after the component
-is updated from the server during a roundtrip.
-E.g. the component constructor is called to create a component on the client side but
-this component is not yet initialized by data from the server side. So it's too early
-to do anything with the component which is not yet ready.
-In this case you can use the method `afterServerUpdate`. If this method is defined
-for the component it will be called each time after the component is updated
-from the server side.
+*Example*: Using the `afterServerUpdate` method in a Polymer template.
 
 [source,html]
 ----
@@ -221,9 +178,11 @@ from the server side.
 </dom-module>
 ----
 
-=== Usage in code
+== Using Polymer Components
 
-You can use `HelloWorld` like any other component.
+You can use Polymer template components in the same way as any other component.
+
+*Example*: Using the `HelloWorld` component
 
 [source,java]
 ----
@@ -234,4 +193,4 @@ layout.add(hello);
 ----
 
 [NOTE]
-To make your template-based product supporting non-ES6 browers like IE 11 and Safari 9, you need to configure the `vaadin-maven-plugin` in your `pom.xml`. See the chapter https://github.com/vaadin/flow-and-components-documentation/blob/master/documentation/production/tutorial-production-mode-basic.asciidoc[Taking your Application into Production] for more information.
+You can to configure the `vaadin-maven-plugin` in your `pom.xml` to support non-ES6 browsers, like IE 11 and Safari 9. See <<../production/tutorial-production-mode-basic#,Taking your Application into Production>> for more.
