@@ -1,10 +1,10 @@
 ---
-title: Adding Components to a PolymerTemplate Using the @Id Annotation
+title: Adding Child Components to a PolymerTemplate Using the @Id Annotation
 order: 2
 layout: page
 ---
 
-= Adding Components to a PolymerTemplate Using the @Id Annotation
+= Adding Child Components to a PolymerTemplate Using the @Id Annotation
 
 You can add child components to Polymer templates using the `Component` or `Element` API.
 
