@@ -1,26 +1,19 @@
 ---
-title: Binding Components from a PolymerTemplate
+title: Adding Components to a PolymerTemplate Using the @Id Annotation
 order: 2
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
-= Binding Components from a PolymerTemplate
+= Adding Components to a PolymerTemplate Using the @Id Annotation
 
-You can add child components to templates using the `Component` or `Element` API.
-[NOTE]
-Added items to the PolymerTemplate only show up on screen if added to the `ShadowRoot` of
-the template if it doesn't have a `<slot>` see. <<tutorial-template-components-in-slot#,Using <slot> in PolymerTemplates>>
+You can add child components to Polymer templates using the `Component` or `Element` API.
 
-By using the `@Id` annotation, you can get a server-side `Component` or `Element`,
-for an element only defined in the PolymerTemplate html file for the client side to
-use on the server.
+The `@Id` annotation allows you to add a server-side `Component` or `Element` to a client-side element defined in a Polymer template.
 
 [NOTE]
-The `Component`/`Element` needs to have the same `@Tag` as the actual element that is wired.
-This means that you can not wire a `<span id="content"></span>` to a `@Id("content") Div content`
+Items added to a Polymer template only display if you add them to the `ShadowRoot` of the template, or if you use a `<slot>`. See <<tutorial-template-components-in-slot#,Using <slot> in Polymer Templates for more>> 
 
-Here is the content of the HTML template file which has a placeholder `div` element with a `"content"` identifier. This element is mapped to a `Div` component in Java code below to set a `Component` as a child for it.
+*Example*: Creating the `MainPage.html` Polymer template with a placeholder `div` element for the `"content"` identifier.
 
 [source,html]
 ----
@@ -45,7 +38,7 @@ Here is the content of the HTML template file which has a placeholder `div` elem
 </dom-module>
 ----
 
-You can implement the method that wires a `Component` to the content of your template element.
+*Example*: Mapping a `Div` component to the `"content"` identifier of the Polymer template using the `@id` annotation, and implementing methods to add and remove content.  
 
 [source,java]
 ----
@@ -63,47 +56,40 @@ public class MainPage extends PolymerTemplate<TemplateModel> {
 }
 ----
 
-The `@Id` annotation is used to map a component to an element created by the template
-on the client that has the identifier `"content"`.
+* The `@Id` annotation attribute (`"content"`) must match the `div` element identifier.
+* The `Component` or `Element` must have the same `@Tag` attribute as the Polymer element `id` (`"main-page"`). This means you cannot wire a `<span id="content"></span>` to a `@Id("content") Div content`.
 
-A component instance of the declared type is created automatically and
-wired to the actual dom element and injected into the 'container' field.
+A component instance of the declared type is created automatically and wired to the actual DOM element. The instance is then injected into the 'container' field. 
 
-Now you can set any `Component` as a content for the `MainPage` class:
+You can now set any `Component` as `content` for the `MainPage` class.
 
+*Example*: Setting a `Label` as `content` in the `MainPage` class. 
 [source,java]
 ----
 MainPage page = new MainPage();
 page.setContent(new Label("Hello!"));
 ----
 
-In the Polymer template class example above, the `div` element with
-`"footer"` identifier could also be mapped via `Div` component and
-`@Id("footer")` annotation. But neither its hierarchical
-structure nor attributes/properties are available on the server side via API.
-The injected `Div` instance doesn't have any server side child even though
-there is the anchor `a` element available on the client side. The injected instance
-`getChildren()` method returns an empty `Stream`.
-
-Similar to this the `getText()` method of the `Div` instance injected via
-`@Id("header")` returns an empty string.
-
-So server side `Component`/`Element` read methods are not always in sync
-with the client-side. But you still may use mutation API methods from the server side
-like `appendChild`/`setProperty`/`setAttribute`. Getter methods returns values
-which have been set from the server side only.
-
 [NOTE]
-The created `Element` is virtually mapped to be connected to the `ShadowRoot` of the
-`PolymerTemplate` even if it would be deeper in the shadow tree.
-The virtually mapped components can not be removed from the DOM by removing them on the
-server side.
-
-[NOTE]
-The declared type used in an `@Id` injection declaration must have a default constructor to be able to instantiate it.
+The declared type used in an `@Id` injection declaration must have a default constructor that is capable of instantiating it.
 
 [TIP]
-The `@Id` annotation can also be used to inject an `Element` instance instead of a `Component` instance in case you want to use low level API or there is no appropriate HTML component available.
+You can use the `@Id` annotation to inject an `Element` instance (instead of a `Component` instance), if you want to use a lower-level API, or if no appropriate HTML component is available.
+
+== Using Server-side Methods in Polymer Components
+
+Neither the hierarchical structure, nor the attributes or properties, of the Polymer template are available on the server side via the API. Getter methods only return values that are set on the server side. For this reason, server-side `Component` and `Element` read methods are not always in sync with the client side.
+
+*Examples*:
+
+* If you map the `"footer"` identifier of the `div` element in the Polymer template, using the `Div` component and `@Id("footer")` annotation, the injected `Div` instance will have no server-side child, even though there is an `a` anchor element available on the client side. In the injected `Div` instance, the `getChildren()` method returns an empty `Stream`. 
+* Similarly, if you map the `"header"` identifier of the `div` element, using the `Div` component and `@Id("header")`, the `getText()` method returns an empty string. 
+
+You can, however, still safely use mutation API methods, like `appendChild`, `setProperty` and `setAttribute`, from the server side. 
 
 [NOTE]
-You can detect whether a component is part of a Template by using the `isTemplateMapped` method. See the <<tutorial-component-integration#,Integrating components in a PolymerTemplate>> tutorial for more details.
+You can detect whether a component is part of a `Template` using the `isTemplateMapped` method. See <<tutorial-component-integration#,Checking for Component Mappings in PolymerTemplates>> for more.
+
+== Removing Items Mapped to Polymer Templates
+
+A `Component` or `Element` that is virtually mapped to a Polymer template is connected to the `ShadowRoot` of the Polymer element. Virtually mapped items cannot be removed from the DOM by removing them on the server side. 
