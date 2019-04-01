@@ -24,14 +24,15 @@ You can leave out `'event-name'` to log all events but be prepared to see a lot 
 
 If you need to debug what the web component does, use the browser debugger to set breakpoints at suitable places.
 In more problematic cases, e.g. if the problem occurs on initial setup, you can add a `debugger;` statement to the web component code to make the browser always and automatically break at that point.
-To do that, you need to edit the web component included in your project. All the web components used in the project are located in the project root `node_modules` directory.
+To do that, you need to edit the web component included in your project.
+All the components used in this project will be downloaded by `npm` and located in the `node_modules` folder under the project root folder.
 
 To debug the `increment()` function in `paper-slider` you can thus do:
 
-1. Launch the project in a dev mode so that any frontend file change is automatically used after the page reload
+1. Launch the project in dev mode so that any frontend file change is automatically used after the page reload
 2. Find a `paper-slider` in the `node_modules` directory: `node_modules/@polymer/paper-slider`
 3. Add a `debugger` statement to the `increment: function() {` function
-4. Reload the page, if not reloaded automatically, click on the "Increment" button when the inspector window is open
+4. Reload the page, click on the "Increment" button when the inspector window is open
 
 [TIP]
 Disable the cache in the browser network tab to avoid getting old versions of the files you are debugging.
