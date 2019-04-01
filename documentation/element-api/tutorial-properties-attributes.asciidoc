@@ -95,54 +95,6 @@ Be cautious when using attributes and properties:
 
 You should always check the specific documentation for the element you’re using to find out whether a feature should be configured using a property or an attribute.
 
-== Using classLists and classNames
-
-You can use the `getClassList` method to get a collection of CSS class names used for the element. The returned set can be modified to add or remove class names. 
-
-*Example*: Using the `getClassList` method to add and remove classes.
-
-[source,java]
-----
-element.getClassList().add("error");
-element.getClassList().add("critical");
-element.getClassList().remove("primary");
-
-element.getProperty("className"); // will return "error critical".
-----
-
-* The `element.getProperty("className")` method gets a set of all classes as a concatenated string. 
-
-You cannot modify `classList` or `className` properties directly using the `setProperty` methods. 
-
-You can set and get an element's `class` attribute using:
-
-* `element.setAttribute("class", "foo bar");`: This clears any previously set `classList` property.
-
-* `element.getAttribute('class')`: This returns the contents of the `classList` property as a single concatenated string.
-
-
-== Using the Style Object
-
-You can set and remove inline styles for an element using the `Style` object returned by the `element.getStyle()` method. Style property names can be formatted in camelCase, for example `backgroundColor`, or kebab-case, for example `background-color`.
-
-*Example*: Setting and removing style objects using the `element.getStyle()` method. 
-
-[source,java]
-----
-element.getStyle().set("color", "red");
-//camelCase
-element.getStyle().set("fontWeight", "bold");
-//kebab-case
-element.getStyle().set("font-weight", "bold");
-
-//camelCase
-element.getStyle().remove("backgroundColor");
-//kebab-case
-element.getStyle().remove("background-color");
-
-element.getStyle().has("cursor");
-----
-
 == Using the textContent Property
 
 You can set an element's `textContent` property using the `setText` method. This removes all children of the element and replaces them with a single text node with the given value.
