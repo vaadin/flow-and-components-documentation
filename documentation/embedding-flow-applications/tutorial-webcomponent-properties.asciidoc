@@ -65,11 +65,11 @@ In order to update the client-side property values, we need a reference to
 the web component which contains our exported component, and a reference to the
 instance of the exported component itself.
 
-Use `WebComponentDefinition#setInstanceConfigurator` to register a callback
-which receives references to `WebComponent<PersonComponent>` and
-`PersonComponent`, where "PersonComponent" is the exported component.
-`WebComponent` offers methods for both updating client-side property values
-and firing custom events (more on that later).
+Provide an implementation for the `WebComponentExporter#configure()` method
+to update properties and fire client-side events (more on that later). `configure()`
+receives references to `WebComponent<PersonComponent>` and
+`PersonComponent`, where `PersonComponent` is the exported component.
+WebComponent is used to communicate with the client-side.
 
 In the following example we show how we can update boolean property
 "is-adult" every time the age changes in the instance of our `PersonComponent`.

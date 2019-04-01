@@ -259,9 +259,9 @@ element to the web component instance.
 In this example we have declared the labels for user name field and password field
 via HTML instead of hard-coding them in the `LoginForm` component class.
 
-`LoginFormExporter` class configures the `webComponent` instance via a login listener registration.
-The login listener fires a client side `logged-in` event. This event should
-be handled somehow by the main application.
+The `LoginFormExporter` registers a login listener in its `configure()` 
+method and uses the `webcomponent.fireEvent()` to fire a client-side 
+`"logged-in"` event. This event should be handled somehow by the main application.
 
 [TIP]
 If there is no need to implement all of `WebComponentExporter` methods then
