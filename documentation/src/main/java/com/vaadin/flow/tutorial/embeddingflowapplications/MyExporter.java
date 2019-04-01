@@ -18,6 +18,7 @@ package com.vaadin.flow.tutorial.embeddingflowapplications;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.WebComponentExporter;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.webcomponent.WebComponent;
 import com.vaadin.flow.component.webcomponent.WebComponentDefinition;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.material.Material;
@@ -32,4 +33,7 @@ public class MyExporter implements WebComponentExporter<Div> {
     public void define(WebComponentDefinition<Div> definition) {
     }
 
+    @Override
+    public void configure(WebComponent<Div> webComponent, Div component) {
+    }
 }

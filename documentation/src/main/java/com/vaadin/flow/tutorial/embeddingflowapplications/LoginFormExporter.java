@@ -16,11 +16,10 @@ public class LoginFormExporter implements WebComponentExporter<LoginForm> {
                 .onChange(LoginForm::setUserNameLabel);
         definition.addProperty("pwdlbl", "")
                 .onChange(LoginForm::setPasswordLabel);
-
-        definition.setInstanceConfigurator(this::initialize);
     }
 
-    private void initialize(WebComponent<LoginForm> webComponent,
+    @Override
+    public void configure(WebComponent<LoginForm> webComponent,
             LoginForm form) {
         form.addLoginListener(() -> webComponent.fireEvent("logged-in"));
     }
