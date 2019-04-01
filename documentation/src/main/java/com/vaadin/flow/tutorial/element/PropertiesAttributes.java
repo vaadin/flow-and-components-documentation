@@ -48,25 +48,6 @@ public class PropertiesAttributes {
 
         // 42, string is parsed to a JS number and truncated to an int
         int helloInt = element.getProperty("value", 0);
-
-        element.getClassList().add("error");
-        element.getClassList().add("critical");
-        element.getClassList().remove("primary");
-
-        element.getProperty("className"); // will return "error critical".
-
-        element.getStyle().set("color", "red");
-        // camelCase
-        element.getStyle().set("fontWeight", "bold");
-        //kebab-case
-        element.getStyle().set("font-weight", "bold");
-
-        // camelCase
-        element.getStyle().remove("backgroundColor");
-        // kebab-case
-        element.getStyle().remove("background-color");
-
-        element.getStyle().has("cursor");
     }
 
     public void moreTutorialCode() {

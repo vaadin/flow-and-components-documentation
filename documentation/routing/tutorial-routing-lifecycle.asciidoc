@@ -74,14 +74,14 @@ This event is delivered to any component instance implementing `BeforeEnterObser
 
 The event is fired:
 
-* Only after a `postpone` (called during a `BeforeLeaveEvent`) has been continued.
+* Only after a <<Postpone method,`postpone`>> (called during a `BeforeLeaveEvent`) has been continued.
 * Before detaching and attaching components to make the UI match the location being navigated to.
 
 It is also possible to register a standalone listener for this event using the `addBeforeEnterListener(BeforeEnterListener)` method in `UI`.
 
 === Rerouting
 
-Both `BeforeLeaveEvent` and `BeforeEnterEvent` can be used to reroute dynamically.
+Both <<BeforeLeaveEvent,`BeforeLeaveEvent`>> and <<BeforeEnterEvent,`BeforeEnterEvent`>> can be used to reroute dynamically.
 
 Rerouting is typically used when there is a need to show completely different information in a particular state. 
 
@@ -122,12 +122,14 @@ public class BlogList extends Div implements BeforeEnterObserver {
 There are several `rerouteTo` overload methods that can be used for different use cases.
 
 === Forward
-Using forwardTo will <<Rerouting,reroute>> navigation and update the browser URL.
-Forwarding can be used during <<BeforeEnterEvent, BeforeEnter>> and <<BeforeLeaveEvent,BeforeLeave>> lifecycle states to dynamically redirect to a different URL.
-Calling `forwardTo` for the event will stop propagation of the event to other listeners not yet called.
-Instead, a new navigation phase will be triggered based on the new navigation target, and new lifecycle events will be fired for the new forward navigation target instead.
 
-In this example, the forwarding would happen when viewing `BlogList` without a right permission.
+The `forwardTo` method <<Rerouting,reroutes>> navigation and updates the browser URL.
+
+Forwarding can be used during <<BeforeEnterEvent,BeforeEnter>> and <<BeforeLeaveEvent,BeforeLeave>> lifecycle states to dynamically redirect to a different URL.
+
+Calling `forwardTo` for the event stops propagation of the event to other listeners that have not yet been called. Instead, the method triggers a new navigation phase, based on the new navigation target, and fires new lifecycle events for the new forward navigation target.
+
+*Example*: Forwarding when viewing `BlogList` without the required permissions.
 [source,java]
 ----
 @Route("no-permission")
@@ -153,7 +155,7 @@ public class BlogPost extends Div implements BeforeEnterObserver {
 }
 ----
 [NOTE]
-`forwardTo` has several overloads to serve different use cases.
+`forwardTo` has several overloads that serve different use cases.
 
 == AfterNavigationEvent
 
@@ -163,11 +165,10 @@ This event is typically used to update various parts of the UI after the actual 
 
 The event is fired:
 
-* After `BeforeEnterEvent`, and 
+* After <<BeforeEnterEvent,`BeforeEnterEvent`>>, and 
 * After updating which components are attached to the UI.
 
 At this point, the current navigation state is actually shown to the user, and further reroutes and similar changes are no longer possible. 
-
 
 The event is delivered to any component instance implementing `AfterNavigationObserver` that is attached after completing the navigation.
 
