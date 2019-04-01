@@ -1,6 +1,6 @@
 ---
 title: Theming an Embedded Application
-order: 2
+order: 3
 layout: page
 ---
 
