@@ -11,7 +11,7 @@ You can add child components to Polymer templates using the `Component` or `Elem
 The `@Id` annotation allows you to add a server-side `Component` or `Element` to a client-side element defined in a Polymer template.
 
 [NOTE]
-Items added to a Polymer template only display if you add them to the `ShadowRoot` of the template, or if you use a `<slot>`. See <<tutorial-template-components-in-slot#,Using <slot> in Polymer Templates for more>> 
+Items added to a Polymer template only display if you add them to the `ShadowRoot` of the template, or if you use a `<slot>`. See <<tutorial-template-components-in-slot#,Using <slot> in Polymer Templates>> for more.
 
 *Example*: Creating the `MainPage.html` Polymer template with a placeholder `div` element for the `"content"` identifier.
 
