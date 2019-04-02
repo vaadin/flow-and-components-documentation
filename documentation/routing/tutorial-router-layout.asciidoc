@@ -95,9 +95,9 @@ public class SomeParent extends Div implements RouterLayout {
 
 === Absolute Routes
 
-You can use same parent component in many parts, without using a `@ParentPrefix` from the parent chain, or by only using it in defined parts. 
+You can use same parent component in many parts, without using a `@RoutePrefix` from the parent chain, or by only using it in defined parts. 
 
-This is done by adding `absolute = true` to either the `@Route` or `@ParentPrefix` annotations.
+This is done by adding `absolute = true` to either the `@Route` or `@RoutePrefix` annotations.
 
 *Example*: Building a `MyContent` class to add "something" to multiple places in the `SomeParent` layout, without adding the route prefix to the navigation path:
 
