@@ -1,15 +1,19 @@
 ---
-title: Using sub-template from PolymerTemplate
+title: Using the @Uses Annotation to include Child Templates in a PolymerTemplate 
 order: 3
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
-= Using sub-template from PolymerTemplate
+= Using the @Uses Annotation to include Child Templates in a PolymerTemplate 
 
-You can configure Java instances to be created for custom elements inside your HTML template file with the `@Uses` annotation.
+You can configure Java instances to be created for custom elements in your Polymer template, and include them using the `@Uses` annotation.
 
-Here is an example of parent HTML template file:
+[NOTE]
+Server-side instances are also created when you use the `@Id` annotation to connect elements. You don't need `@Uses` for elements that are already connected by `@Id`, and _vice versa_. See <<tutorial-template-components#,Adding Child Components to a PolymerTemplate Using the @Id Annotation>> for how to use the `@Id` annotation. 
+
+The following examples demonstrate how to include a child template using the `@Uses` annotation, and include parent and child Polymer templates and matching parent and child server classes. 
+
+*Example* `ParentTemplate.html` parent Polymer template.
 
 [source,html]
 ----
@@ -30,8 +34,9 @@ Here is an example of parent HTML template file:
     </script>
 </dom-module>
 ----
+* The Polymer template has a `<child-template>` element that is a custom element defined in `ChildTemplate.html` (see below), and imported into this template. 
 
-The Java counterpart defines that `ChildTemplate` should be instantiated for any template element with a matching tag name (i.e. `child-template`).
+*Example*: `ParentTemplate.java` server class.
 
 [source,java]
 ----
@@ -47,30 +52,11 @@ public interface Model extends TemplateModel {
     String getName();
 }
 ----
+* The `@Uses` annotation defines  that `ChildTemplate` is instantiated for any template element with a matching `child-template` tag name.
+* The `ChildTemplate` instance is created automatically and hooked into the `<child-template>` element in the parent template, based on the `"child-template"` attribute in the `@Tag` annotation.
+* Because the client-side implementation of `child-template` depends on a click handler defined from server-side Java (see `ChildTemplate.java` below), an instance of `ChildTemplate` must be created on the server.
 
-The HTML template uses a `child-template` element, which is a custom element defined in `ChildTemplate.html`.
-Since the client-side implementation of `child-template` depends on a click handler defined from server-side Java, an instance of `ChildTemplate` must be created on the server.
-By using `@Uses(ChildTemplate.class)`, this instance will automatically be created and hooked up with the `<child-template>` element in the parent template based on the `@Tag("child-template")` annotation value.
-
-[NOTE]
-Server-side instances are also created when using `@Id` to connect elements together. You don't need `@Uses` for elements that are already covered by `@Id`, and vice versa.
-
-Here is the child template Java code:
-
-[source,java]
-----
-@Tag("child-template")
-@HtmlImport("/com/example/ChildTemplate.html")
-public  class ChildTemplate extends PolymerTemplate<TemplateModel> {
-
-    @EventHandler
-    private void handleClick() {
-        System.out.println("Click on Button in the child template");
-    }
-}
-----
-
-And it's the HTML template counterpart:
+*Example*: `ChildTemplate.html` Polymer template.
 
 [source,html]
 ----
@@ -89,8 +75,23 @@ And it's the HTML template counterpart:
 </dom-module>
 ----
 
-This template delegates a click handler to the server side and the method `handleClick`
-will be called on the `ChildTemplate` instance (not `ParentTemplate` instance).
+* This template delegates a click handler to the server side.
+* The `handleClick` method is called on the `ChildTemplate` instance (not the `ParentTemplate` instance).
+
+*Example*: `ChildTemplate.java` server class.
+
+[source,java]
+----
+@Tag("child-template")
+@HtmlImport("/com/example/ChildTemplate.html")
+public  class ChildTemplate extends PolymerTemplate<TemplateModel> {
+
+    @EventHandler
+    private void handleClick() {
+        System.out.println("Click on Button in the child template");
+    }
+}
+----
 
 [NOTE]
-You can detect whether a component is part of a Template by using the `isTemplateMapped` method. See the <<tutorial-component-integration#,Integrating components in a PolymerTemplate>> tutorial for more details.
+You can detect whether a component is part of a template using the `isTemplateMapped` method. See <<tutorial-component-integration#,Checking for Component Mappings in Polymer Templates>> for more.
