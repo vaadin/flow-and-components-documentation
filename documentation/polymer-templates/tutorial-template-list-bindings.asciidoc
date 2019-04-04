@@ -1,14 +1,15 @@
 ---
-title: Creating Template Contents Dynamically Based on a List of Items
+title: Binding List-based Content in a PolymerTemplate
 order: 7
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
-= Creating Template Contents Dynamically Based on a List of Items
+= Binding List-based Content in a PolymerTemplate
 
-Polymer provides you a way to generate elements based on a list of items
-using template repeater (dom-repeat).
+You can generate elements based on a list of items in a Polymer template using the template repeater (`<dom repeat>`).
+
+*Example*: Using the `<dom repeat>` element to generate multiple items. 
 
 [source,html]
 ----
@@ -37,10 +38,13 @@ using template repeater (dom-repeat).
     </script>
 </dom-module>
 ----
+* The `<dom-repeat>` element marks the content that is generated for each item in a list. 
+* In this example, a table row and everything inside the row element (`<tr>...</tr>`) is created for each item in the list.
+* The value of the `items` attribute declares which items to loop. The `item` property is set on the binding scope of each instance, resulting in subproperty bindings.
 
-The above template might look like this once populated with a list of employees:
+The template representation in the browser is similar to:
 
-[cols=">s,^m,e",options="header"]
+[options="header"]
 |==========================
 |Name   |Title     |Email
 |John D |Developer | jd@foo.bar
@@ -48,19 +52,13 @@ The above template might look like this once populated with a list of employees:
 |Mike D |Architect | mikey@foo.bar
 |==========================
 
-The `dom-repeat` element marks the content that is generated for each item in a list.
-In the above example the table's rows and everything inside the row element `<tr>...</tr>` is created for each item in the list.
+See https://www.polymer-project.org/2.0/docs/api/elements/Polymer.DomRepeat[Element <dom-repeat>] in the Polymer 2 documentation for more. 
 
-The value of the `items` attribute declares the items to loop. The `item` property will be set
-on each instance's binding scope so that sub-properties binding should be used.
+== Populating Lists of Items
 
-[NOTE]
-Refer to https://www.polymer-project.org/2.0/docs/api/elements/Polymer.DomRepeat[dom-repeat element documentation] for details.
+To set the list of beans to display in the Polymer component, you need to declare a method in your template model. The name of the method should match the name in the `<dom-repeat>` definition. For example, data for `\[[employees]]` is set by the `setEmployees` method.
 
-== Populating the List of Items
-
-You should declare a method in the template's model interface for setting the list of beans that should be shown.
-The name of the method should match the name in the `dom-repeat` definition; data for `\[[employees]]` is set by a method named `setEmployees`.
+*Example*: Declaring the `setEmployees` method in the template model. 
 
 [source,java]
 ----
@@ -81,12 +79,11 @@ public class EmployeesTable extends PolymerTemplate<EmployeesModel> {
   }
 }
 ----
+* The `@Include` annotation limits the properties imported into the model. The listed attributes are included, and the `id` property that has an unsupported type (see below), is excluded. In this case, you could use the `@Exclude("id")` annotation as an alternative. 
 
-[NOTE]
-The `@Include` annotation is used here to limit which properties to import into the model.
-This is done to exclude the `id` property whose type is unsupported. Alternatively you can use a `@Exclude("id")` in this specific case.
+The `Employee` bean must have getters that correspond with the properties used in the `<dom-repeat>` definition in the template, for example `getName()` for `employee.name`.
 
-The `Employee` bean should have getters corresponding the properties used inside the `dom-repeat` definition in the template, e.g. `getName()` for `employee.name`.
+*Example*: Defining getters that correspond with the template `<dom-repeat>` definition.
 
 [source,java]
 ----
@@ -135,16 +132,11 @@ public class Employee {
     }
 }
 ----
+* Setters are not required. The template engine only uses getters to fetch values from employee beans.
 
-[NOTE]
-Setters are not required here. The template engine will use only the getter to fetch values from employee beans.
+The list property updates are propagated only from the server side to the client side. Two-way data binding doesn't work with the list property. This means that client-side changes in the list property are not sent to the server.
 
-The list property updates are propagated only from the server side to the client side.
-The two-way data binding doesn't work with the list property. It means that 
-client side changes in the list property are not sent to the server.
-
-In the example below the update in the `messages` property won't be sent to the server side
-if method `addItem`  is called.
+*Example*: Client-side updates to the `messages` property are not sent to server when the `addItem` method  is called.
 
 [source,javascript]
 ----
@@ -164,14 +156,13 @@ class MyTemplate extends Polymer.Element {
 }
 ----
 
-== Updating the Items
+== Updating Template Model Items
 
-The beans that you add to the model using the `setEmployees()` method are used to populate the model only.
-It means that any update made to the bean will not update the model.
-To be able to update the model items you should use `getEmployees()` which returns bean proxies which are connected to the model.
-Any change made to the proxy instance will be reflected to the model.
+Beans added to the template model using the `setEmployees()` method, populate the model only. This means that updates to the beans do not update the model.
 
-Here is the way to update the title for all items:
+To update the model items, you need to use the `getEmployees()` method. This method returns bean proxies connected to the model, and changes made to proxy instances are reflected in the model.
+
+*Example*: Using the `getEmployees()` method to update the employee `title`.
 
 [source,java]
 ----
@@ -181,15 +172,13 @@ public void updateTitle() {
 ----
 
 [NOTE]
-You can also use `setEmployees()` method with a new list of updated beans to repopulate the model. This is not very convenient if you want to update only a single item or a single property.
+You can also use the `setEmployees()` method with a new list of updated beans to repopulate the model, but this is not convenient if you only want to update a single item or a single property.
 
-== Accessing item indices
-As you may have noticed, there is an event handler in the demo.
-If you're unfamiliar with event handlers, please reference the tutorial:
-<<tutorial-template-event-handlers#,Handling User Events in a Template>>
+== Accessing Item Indices
 
-This event handler is used to demonstrate a shorthand that allows us to access current item index, by annotating the event handler
- with `@RepeatIndex` annotation:
+You can access the current item index using the `@RepeatIndex` annotation. 
+
+*Example*: Using the `@RepeatIndex` annotation in an event handler to access the current item index.
 
 [source,java]
 ----
@@ -198,6 +187,6 @@ public void processElement(@RepeatIndex int itemIndex) {
     System.out.println(getEmployees().get(itemIndex).getName());
 }
 ----
+* The parameter type should be either `int` or `Integer`.
 
-[NOTE]
-There is a limitation: parameter type should be either `int` or `Integer`.
+See <<tutorial-template-event-handlers#,Handling User Events in a PolymerTemplate>> for more. 
