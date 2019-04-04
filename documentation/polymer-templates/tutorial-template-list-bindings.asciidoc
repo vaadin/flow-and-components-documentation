@@ -40,7 +40,7 @@ You can generate elements based on a list of items in a Polymer template using t
 ----
 * The `<dom-repeat>` element marks the content that is generated for each item in a list. 
 * In this example, a table row and everything inside the row element (`<tr>...</tr>`) is created for each item in the list.
-* The value of the `items` attribute declares which items to loop. The `item` property is set on the binding scope of each instance, resulting in subproperty bindings.
+* The value of the `items` attribute declares which items to loop. The `item` property is set on the binding scope of each instance, resulting in sub-property bindings.
 
 The template representation in the browser is similar to:
 
