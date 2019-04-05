@@ -36,43 +36,53 @@ The theme attribute is an exception to the above, and it is copied to the overla
 
 To style an overlay component it is necessary to create a style/theme module, in the same way that is done for other components, and target the stylable parts, optionally scoped with a theme variant selector:
 
-[source,html]
+
+.frontend/styles/my-overlay-theme.css
+[source,css]
 ----
-<dom-module id="..." theme-for="vaadin-*-overlay">
-    <template>
-        <style>
-            :host([theme~="custom-theme-variant"]) [part~="overlay"] {
-                ...
-            }
-        </style>
-    </template>
-</dom-module>
+:host([theme~="custom-theme-variant"]) [part~="overlay"] {
+    ...
+}
+----
+
+
+.MyApplication.java
+[source,java]
+----
+@Route(value = "")
+@CssImport("./styles/my-overlay-theme.css", themeFor = "vaadin-*-overlay")
+public class MyApplication extends Div {
+}
 ----
 
 In the case of vaadin-dialog-overlay
 
-[source,html]
+.frontend/styles/my-dialog-overlay-theme.css
+[source,css]
 ----
-<dom-module id="my-vaadin-dialog-theme" theme-for="vaadin-dialog-overlay">
-    <template>
-        <style>
+[part="backdrop"] {
+    ...
+}
 
-            [part="backdrop"] {
-                ...
-            }
+[part="overlay"] {
+    ...
+}
 
-            [part="overlay"] {
-                ...
-            }
-
-            [part="content"] {
-                ...
-            }
-
-        </style>
-    </template>
-</dom-module>
+[part="content"] {
+    ...
+}
 ----
+
+
+.MyApplication.java
+[source,java]
+----
+@Route(value = "")
+@CssImport("./styles/my-overlay-theme.css", themeFor = "vaadin-dialog-overlay")
+public class MyApplication extends Div {
+}
+----
+
 
 [NOTE]
 ThemableMixin does not guarantee the order in which the style modules are applied.
