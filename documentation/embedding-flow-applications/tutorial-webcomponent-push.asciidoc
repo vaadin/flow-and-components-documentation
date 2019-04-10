@@ -23,9 +23,8 @@ you may declare `@Push` annotation for `WebComponentExporter` class:
 
 [source, java]
 ----
-@Tag("push-component")
 @Push
-public class PushComponentExporter implements WebComponentExporter<Div> {
+public class PushComponentExporter extends WebComponentExporter<Div> {
 ----
 
 `@Push` annotation declaration has the same limitation as `@Theme` annotation:
