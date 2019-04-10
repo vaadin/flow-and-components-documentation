@@ -8,15 +8,17 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Embedded Application in Production
 
-The general information about production mode is available in <<../production/tutorial-production-mode-basic#,Taking your Application into Production>> tutorial.
+Embedding Vaadin applications in production mode requires two steps:
 
-Just package the embedded application for production and you may use it in
-an embedding application.
+* Package application for production in the normal way
+* Import the packaged application onto the target page
 
-The only thing you should be aware of is the web component import into 
-your embedding application page.
+For the first step see the general information about production mode which is available in 
+<<../production/tutorial-production-mode-basic#,Taking your Application into Production>> 
+tutorial.
 
-As you can see two lines of code are used to do it in the 
+The second step differs a bit from the application in dev mode. As you can 
+see two lines of code are used to import an embedded application in the 
 <<tutorial-webcomponent-exporter#,Embedding a Flow Application>> tutorial:
 
 [source, html]
@@ -25,10 +27,8 @@ As you can see two lines of code are used to do it in the
 <link rel='import' href='/vaadin/web-component/login-form.html'>
 ----
 
-The first line loads polyfills library which allows to handle properly the second line 
- `link` import tag in the browsers that don't support it.
-The library is available as a part of embedded Vaadin application and you 
-should just take care about proper path to it.
+The first line loads a polyfill library for browsers that do 
+not have native support for `rel="import` on a `link` element.
 
 In the production mode this library is in a different folder which depends
 on the browser. To be able to avoid this boilerplate line in the production 
