@@ -137,6 +137,7 @@ and keep the page state intact. The following tutorials explain how to use the R
 * <<embedding-flow-applications/tutorial-webcomponent-properties#,Properties of Embedded Web Components>>
 * <<embedding-flow-applications/tutorial-webcomponent-theming#,Theming an Embedded Application>>
 * <<embedding-flow-applications/tutorial-webcomponent-push#,Embedded Application Push Configuration>>
+* <<embedding-flow-applications/tutorial-webcomponent-production#,Embedded Application in Production>>
 
 == Progressive Web Applications
 * <<pwa/tutorial-pwa-introduction#,Introduction>>
