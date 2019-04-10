@@ -8,7 +8,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @CodeFor("embedding-flow-applications/tutorial-webcomponent-properties" +
         ".asciidoc")
 public class PersonExporter extends WebComponentExporter<PersonComponent> {
-    private PropertyConfiguration<PersonComponent, Boolean> propertyIsAdult;
+    private PropertyConfiguration<PersonComponent, Boolean> isAdultProperty;
 
     public PersonExporter() {
         super("person-display");
@@ -17,7 +17,7 @@ public class PersonExporter extends WebComponentExporter<PersonComponent> {
         addProperty("age", 0)
                 .onChange(PersonComponent::setAge);
 
-        propertyIsAdult = addProperty("is-adult", false);
+        isAdultProperty = addProperty("is-adult", false);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class PersonExporter extends WebComponentExporter<PersonComponent> {
         component.setAdultAge(18); // initialization
 
         component.addAgeChangedListener(event -> {
-            webComponent.setProperty(propertyIsAdult, component.isAdult());
+            webComponent.setProperty(isAdultProperty, component.isAdult());
         });
 
         component.addAgeChangedListener(event -> {
