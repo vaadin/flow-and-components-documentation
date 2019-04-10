@@ -18,9 +18,8 @@ do that:
 
 [source, java]
 ----
-@Tag("my-component")
 @Theme(Material.class)
-public class MyExporter implements WebComponentExporter<Div> {
+public class MyExporter extends WebComponentExporter<Div> {
 ----
 
 The annotation `@Theme(Material.class)` declared for the `MyExporter` class

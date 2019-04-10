@@ -233,40 +233,33 @@ component using web component exporter:
 
 [source, java]
 ----
-@Tag("login-form")
-public class LoginFormExporter implements WebComponentExporter<LoginForm> {
-
-    @Override
-    public void define(WebComponentDefinition<LoginForm> definition) {
-        definition.addProperty("userlbl", "")
+public class LoginFormExporter extends WebComponentExporter<LoginForm> {
+    public LoginFormExporter() {
+        super("login-form");
+        addProperty("userlbl", "")
                 .onChange(LoginForm::setUserNameLabel);
-        definition.addProperty("pwdlbl", "")
+        addProperty("pwdlbl", "")
                 .onChange(LoginForm::setPasswordLabel);
     }
 
     @Override
-    public void configure(WebComponent<LoginForm> webComponent,
-            LoginForm form) {
+    public void configureInstance(WebComponent<LoginForm> webComponent, LoginForm form) {
         form.addLoginListener(() -> webComponent.fireEvent("logged-in"));
     }
 }
 ----
 
-As you can see, the web component class is mapped to the `login-form` tag via the `@Tag("login-form")` annotation.
-`WebComponentDefinition` instance is used to define the component properties,
-`userlbl='Username' pwdlbl='Password'`, to receive values from the HTML
-element to the web component instance.
-In this example we have declared the labels for user name field and password field
-via HTML instead of hard-coding them in the `LoginForm` component class.
+The exporter defines its tag name as "login-form" by calling the super
+constructor `super("login-form");` Method `addProperty` is used to define the
+component properties, `userlbl='Username' pwdlbl='Password'`, to receive
+values from the HTML element to the web component instance. In this example
+we have declared the labels for user name field and password field via HTML
+instead of hard-coding them in the `LoginForm` component class.
 
-The `LoginFormExporter` registers a login listener in its `configure()` 
-method and uses the `webcomponent.fireEvent()` to fire a client-side 
-`"logged-in"` event. This event should be handled somehow by the main application.
-
-[TIP]
-If there is no need to implement all of `WebComponentExporter` methods then
-you may extend `WebComponentExporterAdapter` class which implements 
-`WebComponentExporter` interface with empty methods.
+`LoginFormExporter` class implements abstract method `configureInstance` which
+registers a login listener. The login listener fires a client-side `"logged-in"`
+event using `webcomponent.fireEvent()`. This event should be handled somehow by
+the main application.
 
 The custom event is handled by the JS file declared via the line
 `<script type='text/javascript' src='log-in.js'></script>`. Here is the
