@@ -19,7 +19,7 @@ a property and adds it to the public API of the web component.
 [source, java]
 ----
 public class PersonExporter extends WebComponentExporter<PersonComponent> {
-    private PropertyConfiguration<PersonComponent, Boolean> propertyIsAdult;
+    private PropertyConfiguration<PersonComponent, Boolean> isAdultProperty;
 
     public PersonExporter() {
         super("person-display");
@@ -28,7 +28,7 @@ public class PersonExporter extends WebComponentExporter<PersonComponent> {
         addProperty("age", 0)
                 .onChange(PersonComponent::setAge);
 
-        propertyIsAdult = addProperty("is-adult", false);
+        isAdultProperty = addProperty("is-adult", false);
     }
 ----
 
@@ -83,7 +83,7 @@ In the following example we show how we can update boolean property
         component.setAdultAge(18); // initialization
 
         component.addAgeChangedListener(event -> {
-            webComponent.setProperty(propertyIsAdult, component.isAdult());
+            webComponent.setProperty(isAdultProperty, component.isAdult());
         });
 ----
 

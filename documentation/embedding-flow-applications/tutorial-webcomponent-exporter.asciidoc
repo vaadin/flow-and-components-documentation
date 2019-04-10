@@ -250,7 +250,7 @@ public class LoginFormExporter extends WebComponentExporter<LoginForm> {
 ----
 
 The exporter defines its tag name as "login-form" by calling the super
-constructor `super("login-form");` Method `addProperty` is used to define the
+constructor `super("login-form");`. Method `addProperty` is used to define the
 component properties, `userlbl='Username' pwdlbl='Password'`, to receive
 values from the HTML element to the web component instance. In this example
 we have declared the labels for user name field and password field via HTML
