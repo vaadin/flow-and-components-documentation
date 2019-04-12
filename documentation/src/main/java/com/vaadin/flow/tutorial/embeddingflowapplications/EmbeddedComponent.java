@@ -1,5 +1,6 @@
 package com.vaadin.flow.tutorial.embeddingflowapplications;
 
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("embedding-flow-applications/tutorial-webcomponent-security.asciidoc")
