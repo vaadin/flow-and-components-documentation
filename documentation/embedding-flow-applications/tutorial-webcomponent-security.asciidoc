@@ -9,14 +9,13 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 = Securing an Embedded Application
 
 You may want to restrict access to an embedded web application from 
-embedding web applications. To be able to do that you may use embedded 
-web component properties.
+embedding web applications. To be able to do that, use properties of 
+the embedded web component.
 
-Note that the web component will be instantiated anyway regardless of 
-restricted access since you may check the property value only when it's 
-updated from the client side in your listener on the server side. It means 
-that you should avoid initialization of your component with a sensible data
-in its constructor.
+Note that the web component will be instantiated regardless of 
+restricted access since the property value can only be checked when it is 
+updated from the client side in your listener on the server side. It means that you 
+should avoid sensitive data in the component's constructor.
 
 Here is an example how to set a property from the embedding page and
 check it inside the embedded application:
@@ -50,8 +49,8 @@ check it inside the embedded application:
 </body>
 ----
 
-Here is the element `my-comp` is embedded into the static page and the `token` 
-property is set from a JS function which retrieves it somehow within `login` 
+Here the element `my-comp` is embedded into the static page and the `token` 
+property is set from a JavaScript function which retrieves it somehow within `login` 
 function (which is invoked on Login button click).
 
 The web component and its exporter class may look like this:
@@ -88,7 +87,7 @@ public class EmbeddedComponentExporter
 public class EmbeddedComponent extends Div {
 
     public EmbeddedComponent() {
-        // Don't retrieve any sensible data here without granted access
+        // Don't retrieve any sensitive data here without granted access
         // (via security token)
     }
 
@@ -100,11 +99,11 @@ public class EmbeddedComponent extends Div {
 
 The embedded web component will be instantiated before the exporter instance
 receives the token value and you should not retrieve
-/initialize the component with any sensible data in its constructor.
+/initialize the component with any sensitive data in its constructor.
 Do your initialization only when the valid token value is received.
 
 [NOTE]
-It might be that you don't have a control over embedding web component to 
+It might be that you do not have a control over embedding web component to 
 prevent its initialization inside the constructor. In this case you may wrap
 the embedding web component inside a container like `Div`: just create a
 `Div` subclass and use it instead `EmbeddedComponent`. In this case you may 

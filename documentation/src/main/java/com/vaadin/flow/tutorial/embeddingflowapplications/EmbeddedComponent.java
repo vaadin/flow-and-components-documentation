@@ -7,7 +7,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class EmbeddedComponent extends Div {
 
     public EmbeddedComponent() {
-        // Don't retrieve any sensible data here without granted access
+        // Don't retrieve any sensitive data here without granted access
         // (via security token)
     }
 
