@@ -29,16 +29,18 @@ Here we describe the maven plugin goals and their usage.
 
 === validate
 
-The intention of the goal is to validate whether `node` and `npm` are installed. In case they are missing an exception is thrown and the build 
-process terminates. `npm` is needed to automatically install dependencies while `node` is used to start `webpack` server which bundles the 
-frontend files served to client.
+The intention of the goal is to validate whether `node` and `npm` tools are installed. Node.js is needed to run npm for installing
+frontend dependencies and webpack which bundles the frontend files served to client. In case they are missing an exception is thrown and the build process terminates.
 
 
 === build-frontend
 The intention of the goal is to prepare the frontend files. This is a complex process involving several steps:
-- installs `npm` dependencies which also updates `package.json` file used by `npm`.
-- updates a javascript file with available imports throughout the application.
-- creates and configures `webpack.config.js` so that `webpack` server can bundle the frontend files, transpile to ES5 and generate proper chunks.
+- updates `package.json` with all `@NpmPackage` annotation values found in the classpath and automatically install these dependencies.
+- updates the JavaScript files containing code for importing everything used in the application. This files are generated in the `target/frontend` folder,
+and will be used as entry point of the application.
+- creates `webpack.config.js` if not found, or updates it in case some project parameters have changed.
+- generates JavaScript bundles, chunks and transpile to ES5 using `webpack` server. Target folder in case of `war` packaging is `target/${artifactId}-${version}/build`
+and in case of `jar` packaging is `target/classes/META-INF/resources/build`.
 
 ==== Goal parameters
 
@@ -48,7 +50,7 @@ The intention of the goal is to prepare the frontend files. This is a complex pr
 
 * *npmFolder* `default: ${project.basedir}`
 
-    The folder where `package.json` file is located. Default is current dir.
+    The folder where `package.json` file is located. Default is project root folder.
 
 * *nodeModulesPath* `default: ${project.basedir}/node_modules/`
 
@@ -56,11 +58,11 @@ The intention of the goal is to prepare the frontend files. This is a complex pr
 
 * *generatedFlowImports* `default: ${project.build.directory}/frontend/generated-flow-imports.js`
 
-    A Flow JavaScript file with all project's imports to update.
+    The JavaScript file used as entry point of the application, and which is automatically updated by flow by reading java annotations.
 
 * *frontendDirectory* `default: ${project.basedir}/frontend`
 
-    A directory with project's frontend files.
+    A directory with project's frontend source files.
 
 * *generateBundle* `default: true`
 
