@@ -11,17 +11,9 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 == Production mode issues
 
 ===  After adding the `flow-server-production-mode` dependency the application no longer starts.
-This is a problem when you run the application in development mode using `mvn jetty:run`, but due to the
-production mode dependency the application tries to get the resources from the
-production mode folder.
+This is a problem when you didn't run the `build-frontend` goal of the `flow-maven-plugin`
 
-To fix this you have a couple choices:
-
- - Use the defined profile from <<tutorial-production-mode-basic#,Basic production mode>>, with the jetty plugin.
- - running the application with `mvn jetty:run-exploded` or `mvn jetty:run-war`.
- - disable production mode using the servlet parameter `original.frontend.resources=true`.
- - compile the frontend resources by adding the `vaadin-maven-plugin` see: <<tutorial-production-mode-basic#,Basic production mode>>.
- - remove the `flow-server-production-mode` dependency.
+To fix this simply add the `flow-maven-plugin` to your maven `build` block, and enable the `build-frontend` goal.
 
 == Plugin goals and goal parameters
 
@@ -36,7 +28,7 @@ frontend dependencies and webpack which bundles the frontend files served to cli
 === build-frontend
 The intention of the goal is to prepare the frontend files. This is a complex process involving several steps:
 - updates `package.json` with all `@NpmPackage` annotation values found in the classpath and automatically install these dependencies.
-- updates the JavaScript files containing code for importing everything used in the application. This files are generated in the `target/frontend` folder,
+- updates the JavaScript files containing code for importing everything used in the application. These files are generated in the `target/frontend` folder,
 and will be used as entry point of the application.
 - creates `webpack.config.js` if not found, or updates it in case some project parameters have changed.
 - generates JavaScript bundles, chunks and transpile to ES5 using `webpack` server. Target folder in case of `war` packaging is `target/${artifactId}-${version}/build`
@@ -67,6 +59,10 @@ and in case of `jar` packaging is `target/classes/META-INF/resources/build`.
 * *generateBundle* `default: true`
 
     Whether to generate a bundle from the project frontend sources or not.
+
+* *runNpmInstall* `default: true`
+
+    Whether to run `npm install` after updating dependencies.
 
 * *webpackTemplate* `default: webpack.config.js`
 
