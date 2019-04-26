@@ -24,6 +24,21 @@ Here we describe the maven plugin goals and their usage.
 The intention of the goal is to validate whether `node` and `npm` tools are installed. Node.js is needed to run npm for installing
 frontend dependencies and webpack which bundles the frontend files served to client. In case they are missing an exception is thrown and the build process terminates.
 
+==== Goal parameters
+
+* *nodeModulesPath* `default: ${project.basedir}/node_modules/`
+
+    The path to the {@literal node_modules} directory of the project.
+
+* *jarResourcePathsToCopy* `default: META-INF/resources/frontend`
+
+    Comma separated values for the paths that should be analyzed in every project dependency jar and,
+    if files suitable for copying present in those paths, those should be copied.
+
+* *includes* `default: **/*.js,**/*.css`
+
+    Comma separated wildcards for files and directories that should be copied. Default is only .js and .css files.
+
 
 === build-frontend
 The intention of the goal is to prepare the frontend files. This is a complex process involving several steps:
@@ -68,13 +83,4 @@ and in case of `jar` packaging is `target/classes/META-INF/resources/build`.
 
     Copy the `webapp.config.js` from the specified URL if missing. Default is the template provided by this plugin. 
     Set it to empty string to disable the feature.
-
-* *jarResourcePathsToCopy* `default: META-INF/resources/frontend`
-
-    Comma separated values for the paths that should be analyzed in every project dependency jar and, 
-    if files suitable for copying present in those paths, those should be copied.
-
-* *includes* `default: **/*.js,**/*.css`
-
-    Comma separated wildcards for files and directories that should be copied. Default is only .js and .css files.
 
