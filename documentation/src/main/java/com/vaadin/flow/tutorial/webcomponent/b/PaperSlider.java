@@ -14,7 +14,7 @@ import com.vaadin.flow.tutorial.webcomponent.ClickEvent;
 @CodeFor("web-components/creating-java-api-for-a-web-component.asciidoc")
 //@formatter:off
 @Tag("paper-slider")
-@NpmPackage("@polymer/paper-slider")
+@NpmPackage(value = "@polymer/paper-slider", version = "3.0.1")
 @JsModule("@polymer/paper-slider/paper-slider.js")
 public class PaperSlider extends AbstractSinglePropertyField<PaperSlider, Integer> {
 
