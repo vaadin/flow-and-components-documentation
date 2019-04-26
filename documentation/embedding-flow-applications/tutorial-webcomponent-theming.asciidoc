@@ -1,0 +1,38 @@
+---
+title: Theming an Embedded Application
+order: 3
+layout: page
+---
+
+= Theming an Embedded Application
+
+By default embedded Vaadin components don't use any theme at all or 
+use `Lumo` theme if it's in the classpath.
+
+[TIP]
+See <<../theme/theming-overview#,Theming Overview>> tutorial about theming.
+
+It's possible to specify any theme (e.g. `Material`)  which you want to use 
+for the embedded Vaadin components. The example below shows how you may 
+do that:
+
+[source, java]
+----
+@Theme(Material.class)
+public class MyExporter extends WebComponentExporter<Div> {
+----
+
+The annotation `@Theme(Material.class)` declared for the `MyExporter` class
+applies the `Material` theme for the embedded application and it works just like
+in the normal Flow application.
+
+It's enough to specify a theme only for one exporter in your application.
+If there is no any theme declaration then `Lumo` theme is used if it's in 
+the project classpath as mentioned above.
+
+It's not possible to define several various themes in one embedded application:
+themes are discovered at the application startup and an exception will be thrown
+if you did this mistake. The application should be split out to the 
+several embedded applications to be able to use different themes for components.
+In this case every embedded application may use its own theme and the main
+application just embeds several themed applications instead of one.
