@@ -23,6 +23,7 @@ Here we describe the maven plugin goals and their usage.
 
 The intention of the goal is to validate whether `node` and `npm` tools are installed. Node.js is needed to run npm for installing
 frontend dependencies and webpack which bundles the frontend files served to client. In case they are missing an exception is thrown and the build process terminates.
+In addition, it visits all resources used by the application and copies them under `node_modules` folder so as they are available when `webpack` builds the frontend.
 
 ==== Goal parameters
 
