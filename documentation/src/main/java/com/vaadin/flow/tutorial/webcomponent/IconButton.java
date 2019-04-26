@@ -12,9 +12,9 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("web-components/creating-java-api-for-a-web-component.asciidoc")
 @Tag("vaadin-button")
-@NpmPackage("@vaadin/vaadin-button")
+@NpmPackage(value = "@vaadin/vaadin-button", version = "2.1.5")
 @JsModule("@vaadin/vaadin-button/vaadin-button.js")
-@NpmPackage("@vaadin/vaadin-icons")
+@NpmPackage(value = "@vaadin/vaadin-icons", version = "4.3.1")
 @JsModule("@vaadin/vaadin-icons/vaadin-icons.js")
 public class IconButton extends Component {
 
