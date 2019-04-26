@@ -21,11 +21,11 @@ As an example, if you create a starter project for https://github.com/PolymerEle
 [source, java]
 ----
 @Tag("paper-slider")
-@NpmPackage("@polymer/paper-slider")
+@NpmPackage(value = "@polymer/paper-slider", version = "3.0.1")
 @JsModule("@polymer/paper-slider/paper-slider.js")
 ----
 
-The name of the HTML element is defined using `@Tag("paper-slider")` and the JS import for the component is defined using `@JsModule("@polymer/paper-slider/paper-slider.js")` and `@NpmPackage("@polymer/paper-slider")`.
+The name of the HTML element is defined using `@Tag("paper-slider")` and the JS import for the component is defined using `@JsModule("@polymer/paper-slider/paper-slider.js")` and `@NpmPackage(value = "@polymer/paper-slider", version = "3.0.1")`.
 
 This will automatically install the NPM package in node_modules and import the JS module file into the document provided to the browser. The magic happens when using `mvn clean install` and it's implemented inside Maven Vaadin plugin. Moveover, if Jetty webserver is running, executed from Maven using `mvn jetty:run`, your project's source code is monitored for changes to these types of annotations. So any change to `@NpmPackage` or `@JsModule` annotations will trigger instalation of those packages and hot deployment of your app including the new JS module imports.
 
