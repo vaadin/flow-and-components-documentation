@@ -48,8 +48,8 @@ This servlet is required in the development mode to serve the WebJar contents
 and is only registered when the application is started in the development mode.
 
 In addition to the rules mentioned above, a servlet won't be registered, if
-  * there is a servlet that had been mapped to the same path already
-  * or if `disable.automatic.servlet.registration` system property is set to `true`
+  *there is a servlet that had been mapped to the same path already*
+  or if `disable.automatic.servlet.registration` system property is set to `true`
 
 [[application.lifecycle.deployment.redeployment]]
 === Undeploying and Redeploying
