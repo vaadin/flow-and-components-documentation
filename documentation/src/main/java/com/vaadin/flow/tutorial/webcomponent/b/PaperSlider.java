@@ -37,7 +37,7 @@ public class PaperSlider extends AbstractSinglePropertyField<PaperSlider, Intege
     }
 
     public void increment() {
-        getElement().callFunction("increment");
+        getElement().callJsFunction("increment");
     }
 }
 //@formatter:on

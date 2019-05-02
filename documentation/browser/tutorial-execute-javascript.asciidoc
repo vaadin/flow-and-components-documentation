@@ -15,7 +15,7 @@ The framework automatically serializes and escapes the parameter values.
 public static void logElementSize(String name, Element element) {
     Page page = UI.getCurrent().getPage();
 
-    page.executeJavaScript(
+    page.executeJs(
             "console.log($0 + ' size:', $1.offsetWidth, $1.offsetHeight)",
             name, element);
 }
@@ -26,7 +26,7 @@ The script is executed after the DOM tree has been updated based on server-side 
 The parameter value will be `null` for an element parameter that is not attached after the update (according to the server-side DOM).
 
 [NOTE]
-The script is executed asynchronously, so you can't directly pass values back to the server.
+The script is executed asynchronously, so `executeJs` cannot directly return the result of the execution. Instead, the returned `PendingJavaScriptResult` instance can be used to add a callback that is run when the result is available. 
 
 There is already ready made solution for listening browser window resize events
 from the server side without custom JavaScript execution, 
