@@ -6,7 +6,6 @@ import com.vaadin.flow.component.PropertyDescriptor;
 import com.vaadin.flow.component.PropertyDescriptors;
 import com.vaadin.flow.component.Synchronize;
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.shared.Registration;
@@ -37,7 +36,7 @@ public class PaperSlider
     }
 
     public void increment() {
-        getElement().callFunction("increment");
+        getElement().callJsFunction("increment");
     }
 
     @Override
