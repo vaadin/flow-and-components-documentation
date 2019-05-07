@@ -6,69 +6,50 @@ layout: page
 
 = Application Theming Basics
 
-Theming is an important part of every web application.
-It provides a website with a consistent appearance in all the views, providing the
-feeling of uniformity and professionality.
+Theming ensures that an application has a consistent and professional look and feel throughout. 
 
-Application specific theming specifies styles that only affect one application.
-Whenever you have styles that are shared across multiple applications,
-you should make the theming as a separate module and resource that can be shared as a dependency for multiple applications.
-This chapter focuses only on theming a single application.
-
-== Application Theme - Approaches
-
-Most Vaadin developers style their applications on top of a predefined theme, such as *Lumo*.
-Vaadin provides Lumo as a default theme for Vaadin applications.
-This theme is loaded automatically, if no `@Theme` or `@NoTheme` annotation is specified.
-
-Another alternative is to base your custom themes on top of other themes, such as *Material theme*.
+The content in this section focuses on theming a single application, i.e. specifying styles that apply to one application. 
 
 [NOTE]
-Vaadin Material is a complete theme for Vaadin components, inspired by Google’s Material
-Design guidelines.
+If you want to share styles across multiple applications, the best practice is to create a dedicated theming module that can be shared as a dependency by multiple applications. 
 
-Vaadin developers follow 2 approaches:
+== Application Theming Approaches
 
-. *Not using the @Theme annotation, Lumo as default:*
-In this approach, theme modules are imported for the component which shadow dom
-you want to customize. When the component, e.g. vaadin-button, is rendered, the corresponding
-Lumo file will be loaded on top.
-
-. *Using the @Theme annotation to load your own theme class that uses specific Lumo modules:*
-This approach uses the `@Theme` annotation to switch to a custom theme class,
-e.g. MyTheme.class. In that class, imports are defined for global HTML files
-(i.e. your Lumo variable overrides, global css, ...), and the path from which to load the component styles.
-
-
-The last approach has the disadvantage that it is necessary to create an HTML file for every single Vaadin component
-that you want to be supported by the custom theme (MyTheme.class), and importing the Lumo theme for the component from there.
-In this approach, the existing Lumo implementation for that Vaadin component is replaced
-with the new one (new theme).
-
-=== Which approach is better?
-
-Although using Lumo as a default application theme is more convenient and faster,
-the second option (Use the `@Theme` annotation to switch to your own theme class, e.g. `MyTheme.class`)
-allows to select the Lumo styles/themes that you want to be loaded for each component,
-reducing the number of styles loaded and giving more control. It also provides a better encapsulation
-of the custom themes with the components.
-
-Option 2 is recommended for full-fledged custom themes.
+Most developers use a prebuilt Vaadin theme, such as https://vaadin.com/themes/lumo[Lumo] or https://vaadin.com/themes/material[Material], as the starting point to customize styling in their application. See <<using-component-themes#customizing-prebuilt-themes,Customizing Prebuilt Themes>> for more. 
 
 [NOTE]
-Lumo only loads the styles/themes required for the components that you use.
+The Material theme is fully compliant with Google’s https://material.io/[Material Design guidelines].
 
-== Application Theme - What and Where?
+When starting with a prebuilt theme, you can follow either of the following approaches: 
 
-The application can be themed with using pure CSS, but to be able to theme Polymer web components,
-you should put the CSS in a HTML file. The recommended convention is to always put the application wide shared styles inside the
-`frontend` folder to subdirectory `styles` with the file name `shared-styles.html`,
-thus the full path should be `src/main/webapp/frontend/styles/shared-styles.html`.
+* Use the default Lumo theme and only add styling to customize the shadow DOM of specific components. 
+** Specifically, this means you:
+*** Do not use the `@Theme` annotation. The Lumo theme is used by default, as long as it exists in your classpath.
+*** Import only component-specific CSS to style the shadow DOM of the components you want to customize. 
+** *Advantages*: This is the fastest and simplest approach.  
 
-This file needs to be imported by using `@HtmlImport` annotation. For CSS files,
-the `@StyleSheet` annotation can be used.
 
-.Sample of a importing the application theme file
+* Use a custom theme class. 
+** Specifically, this means you:
+*** Use the `@Theme` annotation to specify your custom theme class, for example `MyTheme.class`. See <<integrating-component-theme#,Creating a Custom Theme>> for more.
+*** Define imports in the theme class for global HTML files and the path from which to load the <<theming-crash-course#using-style-modules,style modules>>. The imports are replacements for Lumo implementations for Vaadin components.
+** *Advantages*: 
+*** You can select and customize only the Lumo styles that you need to load for each component. This reduces the number of styles loaded and gives you more control. 
+*** You can achieve better encapsulation of the custom component stying.
+** *Disadvantages*: It is necessary to create an HTML file for every Vaadin component that you want the custom theme class to support. 
+
+[NOTE]
+Lumo only loads the styles for the components that you use. 
+
+== Theming File Types and File Storage
+
+The only way to style <<../polymer-templates/tutorial-template-basic#,Polymer components>> is to include the CSS styles in an HTML file. While it is possible to style other components using pure CSS, the prebuilt Vaadin themes use HTML files that are suitable for all components. 
+
+We recommend that you name your application-wide styles `shared-styles.html` and store them in the `/frontend/styles` folder (full path: `src/main/webapp/frontend/styles/shared-styles.html`). You should include all global and view-specific styles in this file. 
+
+You can import `shared-styles.html` using the `@HtmlImport` annotation. For CSS files, you can use the `@StyleSheet` annotation. See <<../importing-dependencies/tutorial-include-css#,Including Style Sheets>> and <<../importing-dependencies/tutorial-importing#,Importing HTML and JavaScript>> for more. 
+
+*Example*: Using the `@HtmlImport` annotation to import `shared-styles.html`.  
 [source,java]
 ----
 @HtmlImport("frontend://styles/shared-styles.html")
@@ -77,59 +58,31 @@ public class MainLayout extends Div implements RouterLayout {
 }
 ----
 
-[NOTE]
-As seen on the <<using-component-themes#,Using Component Themes>> tutorial, the Lumo theme is used by
-default if it is available in the classpath and no other `@Theme` is defined.
+For Polymer components, you can also include your styles directly in the HTML Polymer template file. This makes it easier to develop stand-alone, reusable and distributable components. See <<theming-crash-course#styling-polymer-components,Styling Polymer Components>> for more. 
 
-The contents of the `shared-styles.html` are discussed further in <<theming-crash-course#,the next chapter>>.
-The recommendation is that the file contains all the application global and view specific theming.
+== Polymer Component Styling Issues
 
-For any HTML template based components, it is fine to have the styling that only applies to the HTML in that template, inside that template file.
-This is because of the ease of development when you have just one HTML file when creating the HTML and CSS.
-And it also allows you to more easily make that template a stand-alone component that you can reuse and distribute to others,
-since the styling is already coupled to the component HTML and you don't have to look for it from elsewhere.
-There is an example of this in the <<theming-crash-course#,Theming Crash Course>> chapter too.
+Regardless of the approach you follow, Polymer components can be problematic, because there is no guarantee that component-specific styles will override global styles. See <<../importing-dependencies/tutorial-ways-of-importing#dependency-loading-order,Dependency Loading Order>> for more. 
 
-== Application Theme - Issues
+The main reason for this issue is the way Polymer 2 makes DOM modules available for browser-CSS evaluation.  
+ 
+The only workaround is to declare CSS rules for Polymer components with greater specificity than the global properties you want to override. 
 
-Unfortunately, there is a temporal override issue present in both approaches.
-
-The problem is that depending on various factors, the styles that you are overriding in your theme modules for the Vaadin
-components may or may not override Lumo styles.
-
-[WARNING]
-ThemableMixin does not guarantee the order in which the style modules are applied.
-
-This behaviour is nondeterministic, due to the way Polymer makes dom modules available for the browser's css evaluation.
-
-=== Workaround
-
-The only available solution for this override issue is to declare CSS rules
-whose specificity is greater than the Lumo properties that are being overridden.
-
-Notice that trying to increase the specificity of a CSS rule like this
-`:host(vaadin-button)` will not change the selection in any way,
-since the theme-for attribute probably already limits the styles to vaadin-button.
-
-[WARNING]
-`:host(vaadin-button)` only works in Chrome. In other browsers that need shimming,
-it does not work (e.g. FF62).
+Note that attempting to increase the specificity of a CSS rule using `:host(vaadin-button)`, for example, does not generally change the selection in any way, because the `theme-for` attribute probably already limits the styles to `vaadin-button`.
 
 [NOTE]
-Use the `:host` pseudo-class selector to target styles in the element that hosts the
-component (as opposed to targeting elements inside the component's template).
+`:host(vaadin-button)` works in Chrome, but does not work in browsers that need shimming, for example Firefox 62.
 
-The `:host` selector is the only way to target the host element.
+[NOTE]
+You can use the `:host` pseudo-class selector to target styles in the element that hosts the component, but not elements inside the Polymer template.  
 
-There are other ways to increase the specificity than just the tag selector.
-For example, you could use :host([tabindex]), as all buttons have a tabindex.
-That works in all supported browsers but not for all components.
+Depending on the component, there are also other ways to increase specificity. For example, you can use `:host([tabindex])`, as all buttons have a `tabindex`. This works in all supported browsers, but not for all components.
 
-Trying to increase the specificity of the CSS rules to override Lumo has the disadvantage
-that it requires developers to go through the implementation of the component.
+Increasing the specificity of the CSS rules also has disadvantages in that it requires that you implement the component. 
 
-Another alternative, and the only one that currently works for all browsers and components,
-is to use `!important` to override Vaadin components' Lumo styles.
+Another alternative is to use `!important` to override global styles. This is the only method that currently works for all browsers and components.
+
+*Example*: Using `!important` to increase the specificity of a CSS selector.
 
 [source,html]
 ----
@@ -143,3 +96,8 @@ is to use `!important` to override Vaadin components' Lumo styles.
     </template>
 </dom-module>
 ----
+
+See the following related documentation for more:  
+
+* <<theming-crash-course#styling-polymer-components,Theming Polymer Components>> .
+* https://vaadin.recipes/styling-internals-of-a-vaadin-component/[Styling Internals of a Vaadin component] for a tutorial on styling Polymer components. 
