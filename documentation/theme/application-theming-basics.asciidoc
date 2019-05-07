@@ -58,7 +58,8 @@ public class MainLayout extends Div implements RouterLayout {
 }
 ----
 
-For Polymer components, you can also include your styles directly in the HTML Polymer template file. This makes it easier to develop stand-alone, reusable and distributable components. See <<theming-crash-course#styling-polymer-components,Styling Polymer Components>> for more. 
+For Polymer components, you can also include your styles directly in the HTML Polymer template file. This makes it easier to develop stand-alone, reusable and distributable components. See <<theming-crash-course#applying-scoped-styles,Applying Scoped Styles>> for more. 
+
 
 == Polymer Component Styling Issues
 
@@ -99,5 +100,5 @@ Another alternative is to use `!important` to override global styles. This is th
 
 See the following related documentation for more:  
 
-* <<theming-crash-course#styling-polymer-components,Theming Polymer Components>> .
+* <<theming-crash-course#styling-polymer-components,Theming Polymer Components>>.
 * https://vaadin.recipes/styling-internals-of-a-vaadin-component/[Styling Internals of a Vaadin component] for a tutorial on styling Polymer components. 
