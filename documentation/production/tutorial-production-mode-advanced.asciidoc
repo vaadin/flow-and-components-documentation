@@ -31,6 +31,10 @@ In addition, it visits all resources used by the application and copies them und
 
     The path to the {@literal node_modules} directory of the project.
 
+* *frontendResourcesDirectory* `default: ${project.basedir}/src/main/resources/META-INF/resources/frontend`
+
+    Path to frontend resources which should be copied into ${project.basedir}/node_modules/@vaadin/flow-frontend/.
+
 * *jarResourcePathsToCopy* `default: META-INF/resources/frontend`
 
     Comma separated values for the paths that should be analyzed in every project dependency jar and,
