@@ -1,21 +1,50 @@
 ---
-title: Integrating Your Own Component Theme
+title: Creating a Custom Theme
 order: 5
 layout: page
 ---
 
-= Integrating Your Own Component Theme
+= Creating a Custom Theme
 
-To create your own component theme to be used with the wrapped Vaadin components
-you need to create a theme class that informs flow how to translate the base un-themed
-component html import to use your themed version.
+You can create your own custom theme. 
 
-The `getBaseUrl` should return the part of the htmlImport that can be used to determine if
-it is an import that could be changed to a theme import. (for Vaadin components that is `/src/`)
+At a minimum, a theme is consists of a:
 
-The `getThemeUrl` should return what the base url part should be changed to to get the
-correct theme import. (for Vaadin components that `/theme/[themeName]` is used)
+* <<Creating a Theme Class,Theme class>>.
+* Theme definition.
+* Collection of <<theming-crash-course#Using-style-modules,style modules>>.
 
+== Creating a Theme Class
+
+The theme class tells Vaadin Flow how to transform the base un-themed component HTML into the themed version. 
+
+=== Setting Required Elements and Properties
+
+Your theme class should:
+
+* Import all style modules using the `@HtmlImport` annotation. 
+
++
+*Example*: Import section of the `Lumo` theme class.
++
+[source,java]
+----
+@HtmlImport("frontend://bower_components/vaadin-lumo-styles/color.html")
+@HtmlImport("frontend://bower_components/vaadin-lumo-styles/typography.html")
+@HtmlImport("frontend://bower_components/vaadin-lumo-styles/sizing.html")
+@HtmlImport("frontend://bower_components/vaadin-lumo-styles/spacing.html")
+@HtmlImport("frontend://bower_components/vaadin-lumo-styles/style.html")
+@HtmlImport("frontend://bower_components/vaadin-lumo-styles/icons.html")
+----
+** Each HTML import is added to the `<head>` element of the bootstrap page.
+
+* Implement `AbstractTheme`.
+
+* Define the URL of the base component and the URL for the themed components
+
++
+*Example*: Implementing `AbstractTheme` and using the `getBaseUrl` and `getThemeUrl` methods.
++
 [source,java]
 ----
 @HtmlImport("frontend://bower_components/vaadin-lumo-styles/color.html")
@@ -32,9 +61,19 @@ public class MyTheme implements AbstractTheme {
 }
 ----
 
-For more control there is `getBodyInlineContents()` that returns a collection of html
-that will be inlined to the BootstrapPage body. For instance, it can be used to add a
-custom style to have the correct typography:
+** The `getBaseUrl` method returns the URL for the base component implementation. It is typically `/src/`. This should return the part of the `HtmlImport` that can be used to determine if it is an import that can be changed to a theme import. 
+
+** The `getThemeUrl` method returns the URL for the component's themed version implementation. 
+
+=== Setting Optional Elements and Properties
+
+In your theme class, you can also optionally define:
+
+* *Inline header content*: Use the `getHeaderInlineContents` method to return a list of content to inline to `<head>` element the initial bootstrap page. This content is handled as "no-wrap as is". This method is usually used to include `<custom-style>` declarations that are imported using the `HtmlImport` annotation. See <<../importing-dependencies/tutorial-include-css#using-global-styles,Using Global Styles>> for more.
+
++
+*Example*: Using the `getHeaderInlineContents` method to include custom styles. 
++
 [source,java]
 ----
 @Override
@@ -45,8 +84,18 @@ public List<String> getHeaderInlineContents() {
 }
 ----
 
-Your theme can also support variants. For instance, Lumo theme supports both light and dark variants.
-To add support for variants, you can override the `getBodyAttributes`  method:
+* *Body attributes*: Use the `getBodyAttributes` method to get attributes to be inserted into the `<body>` element of the initial page. This is usually used for <<Using Variants,variants>> (see below).
+
+
+* *Translate URL*: Use the `translateUrl (String url)` method to define the translate URL. The method uses the result of the  `getThemeUrl` method. If translation is possible the translated URL is returned. 
+
+== Using Variants
+
+Your theme can support variants. The Lumo theme, for example, supports light and dark variants. 
+
+To add support for variants, you can override the `getBodyAttributes`  method.
+
+*Example*: Setting the `theme` attribute to the `dark` variant. 
 [source,java]
 ----
 @Override
@@ -60,24 +109,16 @@ public Map<String, String> getBodyAttributes(String variant) {
 }
 ----
 
-Then you need to create the themed .html files for the elements for an example see:
-https://github.com/vaadin/vaadin-button/blob/master/theme/lumo/vaadin-button.html[Themed Vaadin Button]
+You also need to create themed HTML files for the variant. See, https://github.com/vaadin/vaadin-button/blob/master/theme/lumo/vaadin-button.html[Themed Vaadin Button], for example. 
 
 [NOTE]
-The themed files should be stored to
-`${frontend.working.directory}/bower_components/{component}/theme/myTheme` which would by default for vaadin-button be `src/main/webapp/frontend/bower_components/vaadin-button/theme/myTheme/vaadin-button.html`
+Themed HTML files should be stored in
+`${frontend.working.directory}/bower_components/{component}/theme/myTheme`. By default, for `vaadin-button`  this would be `src/main/webapp/frontend/bower_components/vaadin-button/theme/myTheme/vaadin-button.html`
 
-If you need to import some theme-specific files, use `@HtmlImport` as shown in the example above:
- `@HtmlImport("frontend://bower_components/vaadin-lumo-styles/color.html")`
-
-Each of those html imports will be added to the BootstrapPage head.
 
 [NOTE]
-In the case where an exception navigation chain doesn't get the used `Theme` the
-exception navigation target can be annotated with `@NoTheme` so that
-a warning is not logged for missing theme.
+If an exception navigation chain does not get the used `Theme`, the exception navigation target can be annotated with `@NoTheme` so that a warning is not logged.
 
-== Creating Your Own Component Theme
+== Creating Custom Themes for Polymer Components 
 
-The theming for the Vaadin components is built using `Vaadin.ThemableMixin`.
-See link:https://github.com/vaadin/vaadin-themable-mixin/wiki[vaadin-themable-mixin wiki] to learn how theming of Vaadin components is done.
+Individaul Polymer components are themed using `Vaadin.ThemableMixin`. See https://github.com/vaadin/vaadin-themable-mixin/wiki[vaadin-themable-mixin documentation] for comprehensive documentation on how to theme these components. 
