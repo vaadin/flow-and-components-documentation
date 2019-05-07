@@ -60,7 +60,6 @@ public class MainLayout extends Div implements RouterLayout {
 
 For Polymer components, you can also include your styles directly in the HTML Polymer template file. This makes it easier to develop stand-alone, reusable and distributable components. See <<theming-crash-course#applying-scoped-styles,Applying Scoped Styles>> for more. 
 
-
 == Polymer Component Styling Issues
 
 Regardless of the approach you follow, Polymer components can be problematic, because there is no guarantee that component-specific styles will override global styles. See <<../importing-dependencies/tutorial-ways-of-importing#dependency-loading-order,Dependency Loading Order>> for more. 
