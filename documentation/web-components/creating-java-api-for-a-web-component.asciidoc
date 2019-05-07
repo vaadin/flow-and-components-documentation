@@ -67,10 +67,10 @@ The setter and getter code then only invokes the descriptor with the component i
 
 == Synchronizing the Value
 
-`paper-slider` is an input type component where the user can decide the what the value is.
+`paper-slider` is an input type component where the user can decide what the value is.
 These kind of components should be integrated using the `HasValue` interface so they can automatically work in forms where you use `Binder`.
 
-The value should be synchronized automatically from the client to the server, when the user changes it, and from the server to the client, when changing it form code.
+The value should be synchronized automatically from the client to the server, when the user changes it, and from the server to the client, when changing it from code.
 Additionally a value change event should be emitted on the server whenever the value changes.
 For the most common case where `getValue()` is based on a single element property, the `AbstractSinglePropertyField` base class can be used to take care of everything related to the value.
 
@@ -86,7 +86,7 @@ public class PaperSlider extends AbstractSinglePropertyField<PaperSlider, Intege
 ----
 
 The type parameters define the component type (`PaperSlider`) returned by `getSource()` in value change events and the value type (`Integer`).
-The constructor parameters define the name of the element property that contains the value (`value`), the default value to use if there property isn't set (`0`)
+The constructor parameters define the name of the element property that contains the value (`value`), the default value to use if the property isn't set (`0`)
 and whether `setValue(null)` should be allowed or throw an exception (`false`, meaning that `null` is not allowed).
 
 [NOTE]
@@ -122,17 +122,8 @@ Some web components also update other properties that are not related to `HasVal
 
 == Listening to Events
 
-All web elements emit a `click` event when the user click on them.
-To allow the user of your component to listen to the `click` event, you can use a `ComponentEvent` together with the `@DomEvent` and `@EventData` annotations:
-
-[source, java]
-----
-public Registration addClickListener(ComponentEventListener<ClickEvent> listener) {
-    return addListener(ClickEvent.class, listener);
-}
-----
-
-The `addListener` method in the super class will set up everything related to the event based on the annotations in the `ClickEvent` class that also need to be created:
+All web elements emit a `click` event when the user clicks on them.
+To allow the user of your component to listen to the `click` event, you can extend `ComponentEvent` together with the `@DomEvent` and `@EventData` annotations:
 
 [source, java]
 ----
@@ -154,10 +145,21 @@ public class ClickEvent extends ComponentEvent<PaperSlider> {
 }
 ----
 
-The `ClickEvent` uses `@DomEvent` to define the name of the DOM event to listen for, `click` in this case.
+Then use `ClickEvent` class as an argument when invoking `addListener` method on your `PaperSlider` component.
+
+[source, java]
+----
+public Registration addClickListener(ComponentEventListener<ClickEvent> listener) {
+    return addListener(ClickEvent.class, listener);
+}
+----
+
+The `addListener` method in the super class will set up everything related to the event based on the annotations in the `ClickEvent` class that also need to be created:
+
+The `ClickEvent` defined above uses `@DomEvent` to define the name of the DOM event to listen for, `click` in this case.
 Like all other events fired by a `Component`, it extends `ComponentEvent` which provides a typed `getSource()` method.
 
-The click event defined above uses two additional constructor parameter annotated with `@EventData` to get the click coordinates from the browser.
+It uses two additional constructor parameters annotated with `@EventData` to get the click coordinates from the browser.
 The expression inside the `@EventData` is evaluated when the event is handled in the browser and can access DOM event properties using a `event.` prefix and element properties using the `element.` prefix, e.g. `event.offsetX`.
 
 Finally, you can test the event integration in the demo e.g. by adding to `DemoView.java`:
@@ -178,7 +180,7 @@ The click event here is used as an example. You should use the `ClickEvent` alre
 
 [TIP]
 As the event data expression is evaluated as JavaScript, you can control propagation behavior using e.g. `@EventData("event.preventDefault()") String ignored`.
-Don't do this. It ain't right. But as long as there is no other API to control this, you can do this.
+This is only a workaround. But since there is no other API to control this behaviour, you can use it.
 
 == Calling Element Functions
 
@@ -193,11 +195,6 @@ public void increment() {
 }
 ----
 
-[TIP]
-In addition to the method name, `callJsFunction` takes an arbitrary number of parameters of certain supported types.
-Supported types are at the time of writing String, Boolean, Integer, Double, the corresponding primitive types, JsonValue, Element and Component references.
-See the method javadoc for more information about supported types.
-
 You can test this by adding a call to `DemoView.java`:
 
 [source, java]
@@ -208,13 +205,18 @@ Button incrementJSButton = new Button("Increment using JS", e -> {
 add(incrementJSButton);
 ----
 
-If you do this and added the value change listener described earlier, you will see that you get a notification with the new value after clicking on the button.
+If you do this and add also the value change listener described earlier, you will see that you get a notification with the new value after clicking on the button.
 The notification also indicates that the user changed the value because `isFromClient` checks that the change originates from the browser (as opposed to from the server)
 but does not differentiate between the cases when a user event changed the value and when a JavaScript call changed it.
 
 [NOTE]
-This particular example is quite artificial as you are doing a server visit from a button click only to call a Javascript method on another element.
-It makes more sense if you call `increment()` from some other business logic.
+This particular example is quite artificial as it is doing a server visit from a button click only to call a Javascript method on another element on client side.
+It makes more sense if you call `increment()` directly from client side or some other business logic.
+
+[TIP]
+In addition to the method name, `callJsFunction` takes an arbitrary number of parameters of certain supported types.
+Supported types are at the time of writing String, Boolean, Integer, Double, the corresponding primitive types, JsonValue, Element and Component references.
+See the method's javadoc for more information about supported types.
 
 == Final Slider Integration Result
 
