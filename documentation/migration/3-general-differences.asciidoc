@@ -20,11 +20,9 @@ In Vaadin 8 and 7, the `UI` referenced a `<div>` element which was a child of th
 
 The API in the `UI` class in Vaadin Flow has gone through a clean-up and some API that is not meant for application developers to access has been moved to internal classes. For using API that is still in `UI`, the same `UI.getCurrent()` call can still be used to obtain a reference to the UI for the currently active request.
 
+The `@PreserveOnRefresh` annotation in Vaadin 8 and 7 was added to the `UI` subclass. In Vaadin Flow, the  `@PreserveOnRefresh` annotation should be added to the view class or router layout class. For details see <<../advanced/tutorial-preserving-state-on-refresh#,preserving UI state on refresh>>.
+
 While migrating, you still might want to create your own `UI`, and you can see an example for that in the next topic.
-
-=== No @PreserveOnRefresh
-
-There is currently no support for the `@PreserveOnRefresh` functionality in Vaadin Flow. Each browser refresh will reload the UI. At the same time, reloading the UI is a smaller problem than before since the user's location will typically be preserved in the URL.
 
 == The Servlet Definition is Optional
 
