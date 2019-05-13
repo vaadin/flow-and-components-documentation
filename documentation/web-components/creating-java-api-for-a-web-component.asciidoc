@@ -215,7 +215,7 @@ It makes more sense if you call `increment()` directly from client side or some 
 
 [TIP]
 In addition to the method name, `callJsFunction` takes an arbitrary number of parameters of certain supported types.
-Supported types are at the time of writing String, Boolean, Integer, Double, the corresponding primitive types, JsonValue, Element and Component references.
+Supported types are at the time of writing `String`, `Boolean`, `Integer`, `Double`, the corresponding primitive types, `JsonValue`, `Element` and `Component` references.
 See the method's javadoc for more information about supported types.
 
 == Final Slider Integration Result
