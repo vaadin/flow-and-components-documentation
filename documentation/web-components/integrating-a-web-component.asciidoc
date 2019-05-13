@@ -74,4 +74,3 @@ Go to https://vaadin.com/directory, log in or register, and upload this zip file
 
 [NOTE]
 The metadata used by Vaadin Directory is defined in `assembly/MANIFEST.MF`, based on the project's metadata. If you do changes to the project such as removing `<name></name>`, make sure you update the metadata.
-
