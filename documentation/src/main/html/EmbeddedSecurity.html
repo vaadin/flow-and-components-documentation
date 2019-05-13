@@ -1,0 +1,26 @@
+tutorial::embedding-flow-applications/tutorial-webcomponent-security.asciidoc
+
+<!doctype html>
+
+<head>
+  <script type="text/javascript" src="./frontend/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+  <link rel="import" href="web-component/my-comp.html">
+  <script type="text/javascript">
+        function login(){
+            var token = "d9f6a737-b2b8-46a7-a834-209c8b214969"; // request token for the current user somehow
+            var comp = document.querySelector("#embedded-web-component");
+            comp.token = token;
+        }
+  </script>
+</head>
+
+<body>
+  <p>
+    Web components implemented using server side Java
+  </p>
+  
+  <button onclick="login()">Login</button>
+
+  <my-comp id="embedded-web-component"></my-comp>
+
+</body>
