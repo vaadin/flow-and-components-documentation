@@ -1,29 +1,26 @@
 ---
-title: Use Flow with Spring
+title: Using Vaadin Flow with Spring Boot
 order: 1
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Use Flow with Spring
+= Using Vaadin Flow with Spring Boot
 
-The `vaadin-spring` add-on allows you to use Flow with Spring in two ways: 
-as a Spring Boot application and as a Spring Web application.
+The https://vaadin.com/directory/component/vaadin-spring/[Vaadin Spring] add-on allows you to use Vaadin Flow with https://spring.io/projects/spring-boot[Spring Boot]. 
 
-== Spring Boot 
-The easiest way to use Spring is the Spring Boot application. 
-To use the add-on, you only need to write one very simple class.
+https://spring.io/projects/spring-boot[Spring Boot] speeds up the development process and provides a fast and efficient development environment. It is the easiest way to use the Spring framework. 
 
 [NOTE]
-Please refer to the https://projects.spring.io/spring-boot/[Spring Boot] 
-project and its https://spring.io/docs[documentation page] for information about Spring Boot.
+See <<tutorial-spring-basic-mvc#,Using Flow with Spring MVC>> to learn how to use https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html[Spring MVC] to create a Spring web application, without Spring Boot. 
 
-[NOTE]
-There is another section <<tutorial-spring-basic-mvc#,Use Flow with Spring MVC>> in the tutorial which
-describes how to write pure Spring Web application without Spring Boot.
 
-[[example-servlet]]
+== Enabling Spring Boot
+
+To enable Spring Boot under the hood in Vaadin Flow, all you need to do is write one simple servlet initializer class.
+
+*Example*: `ExampleServletInitializer` class.
+
 [source,java]
 ----
 @SpringBootApplication
@@ -32,12 +29,17 @@ public class ExampleServletInitializer extends SpringBootServletInitializer {
 }
 ----
 
-[NOTE]
-This code looks like magic and you may wonder why it works. The `@SpringBootApplication` 
-annotation makes all the job for you under the hood.
+* The `@SpringBootApplication` annotation enables Spring Boot under the hood. This includes Spring configuration, component scanning and auto-configuration.
+* Your class must extend the `SpringBootServletInitializer` interface. This interface facilitates running a Spring application from a WAR deployment. 
 
-Thanks to Spring Boot auto-configuration you only need the `vaadin-spring` add-on 
-in your classpath and no Flow classes are needed in the class declaration. For `vaadin-platform` user, what you need to do is adding the `vaadin-bom` dependency to the `dependencyManagement` section in your `pom.xml`:
+
+== Adding Dependencies
+
+Once the `vaadin-spring` add-on is available in your classpath, no further Vaadin Flow classes are needed in the class declaration. This is one of the major benefits of Spring Boot's auto-configuration feature.
+
+If you are a `vaadin-platform` user, you should add the dependencies shown below in your `pom.xml`.
+
+*Example* Spring Boot dependencies in `pom.xml`. 
 
 [source,xml]
 ----
@@ -82,18 +84,19 @@ in your classpath and no Flow classes are needed in the class declaration. For `
     </dependency>
 </dependencies>
 ----
+* The `vaadin-bom` dependency in the `dependencyManagement` section ensures ......
 
-[NOTE] 
-You can see the exclusion in the `spring-boot-starter-web` declaration. 
-It's not relevant for this example but if you want to run your application as a 
-deployable WAR then this helps you avoid classpath collisions.
+* The exclusion of `spring-boot-starter-web` in the `Spring` dependency section, helps to avoid classpath collisions when running your application as a deployable WAR. Other than this it has no relevance in this example.   
+
 
 [NOTE]
-The `vaadin-spring` add-on doesn't declare compile dependency to Spring Boot (it doesn't appear transitively) 
-so you should declare it by yourself. This is done to be able to use the add-on without Spring Boot.
+To make it possible to use the `vaadin-spring` add-on with Spring Boot, the add-on does not declare compile dependency to Spring Boot (it does not appear transitively). You need to declare it explicitly. 
 
-Of course you need at least one Flow related class in your application to be able to handle URLs.
-The minimal code would be:
+== Handling URLs 
+
+To handle URLs, you need at least one Vaadin Flow class in your application.
+
+*Example*: Using the `@Route` annotation to define `HelloComponent` as the default route target. 
 
 [source,java]
 ----
@@ -105,9 +108,12 @@ public class HelloComponent extends Div {
 }
 ----
 
-With the <<example-servlet,ExampleServletInitializer>> you can deploy the application as a WAR to a web server.
-Spring Boot lets you speed up the development process and run the Spring Boot application as a plain Java Application.
-For this you need to add a main method with the following content:
+== Adding a Main Method
+
+In order to run a Spring Boot application as a plain Java application, you need to add a main method to your <<enabling-spring-boot,servlet initializer class>>.
+
+*Example*: Adding a `main` method to `ExampleServletInitializer`. 
+
 
 [source,java]
 ----
@@ -119,18 +125,24 @@ public class ExampleServletInitializer extends SpringBootServletInitializer {
 }
 ----
 
-No need to do anything in addition to that. Once you start this Java application,
-Spring Boot will start its embedded web server and everything will work in the same way.
+== Running the Application
+
+Other than those detailed above, there are no other requirements. When you start the Java application, Spring Boot starts its embedded web server.
 
 [NOTE]
-You should remove exclusion from the `spring-boot-starter-web` dependency in 
-the `pom.xml` snippet above.
+You should remove the exclusion from the `spring-boot-starter-web` dependency in the `pom.xml` snippet above.
 
 
-=== Note
-Due to a bug when using `vaadin-upload-flow` component and use root mapping,
-then you need to disable the spring boot multipart upload by adding to
-`application.properties` the property `spring.servlet.multipart.enabled = false`.
+== Upload Component Issue
 
-This is already set in the spring starter, to follow the state of the problem
-see https://github.com/vaadin/spring/issues/381[vaadin/spring#381]
+When using the https://vaadin.com/components/vaadin-upload[Vaadin Upload component] and <<../routing/tutorial-routing-annotation#,root mapping>>, you need to disable the Spring Boot multipart upload resolver, by adding the `spring.servlet.multipart.enabled = false` property to your `application.properties` file. 
+
+You can follow this issue on https://github.com/vaadin/spring/issues/381[GitHub].
+
+== Getting Started with Spring Boot Tutorial
+
+https://github.com/vaadin/flow-spring-tutorial[Vaadin Spring Tutorial] is a prebuilt example application that showcases basic usage of  Vaadin Flow and Spring Boot. You can use it to test the concepts and features covered in this documentation.
+
+To start a new project with Spring Boot and Vaadin Flow, clone the https://github.com/vaadin/flow-spring-tutorial[flow-spring-tutorial] repository. This project template has the necessary configuration and dependencies to start building you own application.
+
+Commercial customers can use the https://vaadin.com/start/latest/full-stack-spring[Vaadin Bakery App Starter for Flow and Spring] that includes the fully-functional https://vaadin.com/docs/v13/bakeryflow/overview.html[Bakery app]. 
