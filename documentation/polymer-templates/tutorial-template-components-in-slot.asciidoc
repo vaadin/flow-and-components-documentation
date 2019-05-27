@@ -58,7 +58,7 @@ As we can see multiple components will show up in the slot when added to the tem
 [NOTE]
 Any element added to the light dom to be shown inside a `<slot>` can be removed from the dom and it will work as expected and disappear from the main element.
 
-=== Default content slots and named slots in templates
+== Default content slots and named slots in templates
 
 The `<slot>` tag can contain "default" content if nothing is set from the light dom.
 
@@ -123,7 +123,7 @@ public class NameElement extends PolymerTemplate<TemplateModel> {
 }
 ----
 
-=== Using a PolymerTemplate as a Parent Layout
+== Using a PolymerTemplate as a Parent Layout
 
 For general info about parent views, see <<../routing/tutorial-router-layout#,Router Layouts and Nested Router Targets>>. For general information about templates, see <<tutorial-template-basic#,Creating A Simple Component Using the Template API>>.
 

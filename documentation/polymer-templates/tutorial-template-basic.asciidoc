@@ -25,7 +25,7 @@ The demo shows three ways of achieving the same result: using components, elemen
 
 We'll create a demo, that will be asking a user to input a name and will print a greeting on button click, using the input.
 
-=== Client side
+== Client side
 
 First, we need to define a template with all components:
 
@@ -92,7 +92,7 @@ For clarity and demonstration purposes, this example uses https://github.com/Pol
 [NOTE]
 In order to retrieve and use the component in the demo, same rules as for `polymer-element.html` apply.
 
-=== Server side
+== Server side
 
 To be able to use this template you need to create a Java class which extends `PolymerTemplate`,
 set its tag name matching the Polymer `dom-module` id attribute and add the html imports for Polymer library (`polymer-element.html`)
@@ -150,7 +150,7 @@ public interface HelloWorldModel extends TemplateModel {
 }
 ----
 
-====== Imports
+=== Imports
 
 In order for a component to be processed correctly, we need to bind a Java class with the template, created earlier, by specifying `@HtmlImport` with path to a template
 
@@ -162,30 +162,30 @@ The `src/HelloWorld.html` is the URL of the Polymer template file declared earli
 
 If needed, more html resources can be imported using the same approach.
 
-====== Tag
+=== Tag
 
 The tag corresponds to `<dom-module id="hello-world">` id attribute, it sets the tag value to current component.
 
-====== Model
+=== Model
 
 Model describes all properties that are passed to the html template and used on the client side.
 The model is simple Java interface, extending `TemplateModel` class and having getter and/or setter methods
 for properties.
 Model can be accessed via `getModel()` method after it's specified as a generic type of `PolymerTemplate` class.
 
-====== Event handler
+=== Event handler
 
 Server side has method, annotated with `@EventHandler` annotation, that is used to react on event form the client side, triggered
 by the `helloButton` button.
 
-====== Call the server side method from the client side
+=== Call the server side method from the client side
 
 Another way to call a server side method is `@ClientCallable` annotation which marks a template method as the
 method which should be called from the client side code using notation `this.$server.serverMethodName(args)`.
 It can be used somewhere in your client side Polymer class implementation. You can pass your own arguments in this method.
 Just make sure that their types matches to method declaration on the server side.
 
-====== Receiving "after server update" event
+=== Receiving "after server update" event
 
 In some cases you may want to execute some client-side logic after the component
 is updated from the server during a roundtrip.
@@ -221,7 +221,7 @@ from the server side.
 </dom-module>
 ----
 
-=== Usage in code
+== Usage in code
 
 You can use `HelloWorld` like any other component.
 
