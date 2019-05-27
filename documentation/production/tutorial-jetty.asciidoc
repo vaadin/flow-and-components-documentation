@@ -183,11 +183,11 @@ The WAR file can be generated executing the following Maven goal:
 
 [source,ini]
 ----
-mvn package -Pproduction-mode
+mvn package -Pproduction
 ----
 
 [NOTE]
-The `production-mode` Maven profile performs a number of tasks to make sure the application performs optimally in production.
+The `production` Maven profile performs a number of tasks to make sure the application performs optimally in production.
 For more information about the process, please consult <<tutorial-production-mode-basic#,Taking your Application into Production>>.
 
 After copying the WAR file into the `webapps` directory, Jetty can be started by navigating to Jetty's folder and running the command:

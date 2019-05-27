@@ -363,7 +363,7 @@ the link to see all changes in step five.
 == Step 6 - Production Mode
 The best practice to have the production mode in Vaadin Flow is adding a profile
 to pom.xml. So, the production module is no longer needed and is removed and a
-profile named `productionMode` is added to pom.xml of ui module. In terms of
+profile named `production` is added to pom.xml of ui module. In terms of
 production mode, there are some differences between Vaadin 8 and Flow. The new
 production mode of Flow is fully described
 https://vaadin.com/docs/flow/production/tutorial-production-mode-basic.html[Here].
