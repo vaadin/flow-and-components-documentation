@@ -1,19 +1,21 @@
 ---
-title: Use Vaadin with CDI
+title: Using Vaadin Flow with CDI
 order: 1
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
+= Using Vaadin Flow with CDI
 
-= Use Vaadin with CDI
+The https://vaadin.com/directory/component/vaadin-cdi/[Vaadin CDI] add-on allows you to use Vaadin with https://tools.jboss.org/features/cdi.html[CDI].
 
-The `vaadin-cdi` add-on allows you to use Vaadin with CDI.
-You need to package the add-on in your application,
-and need to deploy it to a Java EE 7 (or newer) compliant application server.
-For `vaadin-platform` user, what you need to do is adding the `vaadin-bom` dependency
-to the `dependencyManagement` section in your `pom.xml`:
 
+== Adding Dependencies
+
+The `vaadin-cdi` add-on should be packaged in your appplication and deployed to an application server that is compliant with Java EE 7 (or newer).
+
+If you are a `vaadin-platform` user, add the following dependencies in your `pom.xml`.
+
+*Example* CDI dependencies in `pom.xml`. 
 [source,xml]
 ----
 <dependencyManagement>
@@ -42,23 +44,23 @@ to the `dependencyManagement` section in your `pom.xml`:
     </dependency>
 ----
 
-== Compatibility
+== Vaadin Version Compatibility
 
-Version 10 of the add-on works with Vaadin version 10, and 11.
+Version 10 of the https://vaadin.com/directory/component/vaadin-cdi/[Vaadin CDI] add-on is compatible with Vaadin Flow versions 10 (and later). https://docs.jboss.org/cdi/api/1.2/[CDI 1.2 API] is a minimum requirement for this implementation. 
 
-Minimum requirement is CDI 1.2 API, and a provided implementation.
-In practice other Java EE/Jakarta EE features are used together with CDI,
-so the most simple way is ensure you have a Java EE 7 container or newer.
+In practice, because other Java EE/Jakarta EE features are used together with CDI, the simplest way to ensure compatibility is to use a Java EE 7 (or newer) container. 
 
-== Configuration
+== Configuring the Vaadin CDI Add-on
 
-If you do not setup a Vaadin Servlet by `web.xml`, or by `@WebServlet` annotation,
-a CDI enabled Vaadin servlet `com.vaadin.cdi.CdiVaadinServlet` is deployed automatically.
+There are no specific CDI configuration options. 
 
-Otherwise you can customize it just like the original Vaadin Servlet.
-No special CDI config options exist.
+An instance of the CDI-enabled Vaadin servlet, `com.vaadin.cdi.CdiVaadinServlet`, is deployed automatically, provided you do not setup a Vaadin servlet in your `web.xml` or use the `@WebServlet` annotation. You can also customize `CdiVaadinServlet` to suit your setup.   
 
-[Note]
-Please refer to
-<<../advanced/tutorial-flow-runtime-configuration#,Changing Flow behavior with runtime configuration>>
-for details about Vaadin Servlet configuration.
+[NOTE]
+See <<../advanced/tutorial-flow-runtime-configuration#,Changing Vaadin Flow Behavior with Runtime Configuration>> for more about about Vaadin servlet configuration.
+
+= Getting Started with CDI and Vaadin Tutorial
+
+https://github.com/vaadin/flow-cdi-tutorial[Vaadin CDI tutorial] is a prebuilt example application that showcases basic usage of a Vaadin Flow and CDI. You can use it to test the concepts and features covered in this documentation.
+
+To start a new project with CDI and Vaadin Flow, clone the https://github.com/vaadin/skeleton-starter-flow-cdi[Project Base for Vaadin and CDI (Java EE)] repository. This project template includes the necessary configuration and dependencies to start building you own application.
