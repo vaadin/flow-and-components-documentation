@@ -36,8 +36,8 @@ and then create a production mode profile:
                     <executions>
                         <execution>
                             <goals>
-                                <goal>update-npm-dependencies</goal>
-                                <goal>update-imports</goal>
+                                <goal>copy-production-files</goal>
+                                <goal>package-for-production</goal>
                             </goals>
                         </execution>
                     </executions>
@@ -76,4 +76,4 @@ Minimisation is done to make the file smaller. When minifying the code of also o
 Bundling is an optimisation where we merge multiple files to a collection so that the browser doesn't need to
 request so many files making loading faster.
 
-Bundling can also be made to create multiple bundle chunks. For information on this see <<tutorial-production-mode-customising#,Customizing Bundling>>
+Bundling can also be made to create multiple bundle fragments. For information on this see <<tutorial-production-mode-customising#,Customizing Bundling>>
