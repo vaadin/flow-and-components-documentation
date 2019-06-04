@@ -220,7 +220,7 @@ changes its behavior. Once the user is authenticated we redirect to the main
 servlet which now shows the content specific for the authenticated user.
 
 There are various ways to do this:
-- we may execute JS directly from Java code and set location to `"/"` : `getUI().get().getPage().executeJavaScript("window.location.href='/'");`
+- we may execute JS directly from Java code and set location to `"/"` : `getUI().get().getPage().executeJs("window.location.href='/'");`
 - design the component code so that its logic isolated and doesn't know anything about the application where it's embedded.
 
 The second way allows to completely decouple the embedded component logic from
