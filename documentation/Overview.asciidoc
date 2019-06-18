@@ -133,7 +133,7 @@ and keep the page state intact. The following tutorials explain how to use the R
 * <<production/tutorial-production-mode-advanced#,Advanced production mode topics>>
 
 == Embedding Flow Applications
-* <<embedding-flow-applications/tutorial-webcomponent-into#,Embedding Introduction>>
+* <<embedding-flow-applications/tutorial-webcomponent-intro#,Embedding Introduction>>
 * <<embedding-flow-applications/tutorial-webcomponent-properties#,Properties of Embedded Web Components>>
 * <<embedding-flow-applications/tutorial-webcomponent-theming#,Theming an Embedded Application>>
 * <<embedding-flow-applications/tutorial-webcomponent-push#,Embedded Application Push Configuration>>
