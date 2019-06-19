@@ -29,4 +29,4 @@ The script is executed after the DOM tree has been updated based on server-side 
 The script is executed asynchronously, so you cannot directly pass values back to the server.
 Instead, the returned `PendingJavaScriptResult` instance can be used to add a callback that is run when the result is available. 
 
-Vaadin Flow provides a ready-made solution (without custom JavaScript execution) to listen to browser window-resize events for the from the server side. See see <<tutorial-flow-window-resize#,Browser Window Resize Events>> for more.
+Vaadin Flow provides a ready-made solution (without custom JavaScript execution) to listen to browser window-resize events for the from the server side. See <<tutorial-flow-window-resize#,Browser Window Resize Events>> for more.
