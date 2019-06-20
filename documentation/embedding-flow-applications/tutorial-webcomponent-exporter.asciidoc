@@ -6,7 +6,8 @@ layout: page
 
 = Embedding a Flow Application
 
-It is possible to embed Vaadin components into a non-Vaadin application.
+It is possible to embed Vaadin components onto web pages created with
+non-Vaadin technologies or even other Vaadin pages.
 To be able to do this you may use web component exporter. The exporter
 should be declared in a separate Vaadin application.
 
@@ -113,11 +114,11 @@ map our Vaadin servlet (see below). The second part is
 This is standard URI which you should use to address your web component.
 It consists of hard-coded `web-component` part and following `login-form.js`
 web component file part. The web component file will be generated for you
-by the Vaadin application based on its name. In this specific case the name
+by Vaadin based on the exporter's configuration. In this specific case the name
 of your web component has to be `"login-form"`. This name you should use
-in the `@Tag` annotation (see web component exporter code example below) and in
-your HTML code where you want to put this web component. In our example this
-is done right in the `body` tag:
+in the exporter's `super` constructor (see `WebComponentExporter` code
+example below) and in your HTML code where you want to put this web component.
+In our example this is done right under `<body>`:
 
 [source, html]
 ----
@@ -218,8 +219,10 @@ changes its behavior. Once the user is authenticated we redirect to the main
 servlet which now shows the content specific for the authenticated user.
 
 There are various ways to do this:
+
 - we may execute JS directly from Java code and set location to `"/"` : `getUI().get().getPage().executeJs("window.location.href='/'");`
-- design the component code so that its logic isolated and doesn't know anything about the application where it's embedded.
+- design the component code so that its logic is isolated and doesn't need to
+know anything about the embedding context.
 
 The second way allows to completely decouple the embedded component logic from
 the application which uses it. This way is shown in this example:
