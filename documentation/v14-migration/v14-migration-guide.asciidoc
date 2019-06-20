@@ -78,8 +78,8 @@ preferred package management system (Homebrew, dpkg, ...).
 
 ==== Miscellaneous
 
-* If you are using Java 9 or newer and `jetty-maven-plugin`, upgrade to a
-recent version such as `9.4.15.v20190215`.
+* If you are using Java 9 or newer and `jetty-maven-plugin`, upgrade the
+plugin to version `9.4.15.v20190215` or newer.
 
 === 2 - Update project configuration
 
