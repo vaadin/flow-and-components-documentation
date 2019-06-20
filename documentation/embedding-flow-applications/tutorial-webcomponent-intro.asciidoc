@@ -63,3 +63,5 @@ For more details please see the tutorials:
 
 The <<tutorial-webcomponent-exporter#,Embedding a Flow Application>> tutorial contains a full example how to create an embedded web
 component from scratch.
+
+There are some features limitations which you may find in <<tutorial-webcomponent-limitations#,Limitations in Embedded Application>> tutorial.
