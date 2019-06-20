@@ -5,11 +5,14 @@ layout: page
 ---
 
 = Properties of Embedded Web Components
+In this chapter we will take a look at how we can define web component
+properties for our embedded Vaadin application and how we can handle changes
+to those properties on the server-side. We will also take a look at firing
+client-side events from our embedded Vaadin application which can be caught by
+the embedding application.
 
-The tutorial <<tutorial-webcomponent-exporter#,Embedding a Flow Application>>
-showed how to export a Vaadin `Component` as embeddable web component and use
-that web component on a non-Vaadin page. In this chapter we will take a closer
-look at how we can control the properties of exported web components.
+A full example of embedding a Vaadin application can be found at
+<<tutorial-webcomponent-exporter#,Embedding a Vaadin Application>>.
 
 == Defining Web Component Properties
 `WebComponentExporter` defines the properties exposed as part of the web
