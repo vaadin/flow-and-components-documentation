@@ -67,11 +67,19 @@ as a long-term solution. Compatibility mode will be removed permanently in V15.
 
 == Migration steps
 
-=== 1 - Install npm
+=== 1 - Check prerequisites
 
-Install npm and Node.js on your development platform of choice. Either download
-the installer (https://nodejs.org/en/download/[https://nodejs.org/en/download/])
-or use your preferred package management system (Homebrew, dpkg, ...).
+==== Install NPM
+
+Install npm and Node.js on your development platform of choice if you don't
+already have them. Either download the installer
+(https://nodejs.org/en/download/[https://nodejs.org/en/download/]) or use your
+preferred package management system (Homebrew, dpkg, ...).
+
+==== Miscellaneous
+
+* If you are using Java 9 or newer and `jetty-maven-plugin`, upgrade to a
+recent version such as `9.4.15.v20190215`.
 
 === 2 - Update project configuration
 
