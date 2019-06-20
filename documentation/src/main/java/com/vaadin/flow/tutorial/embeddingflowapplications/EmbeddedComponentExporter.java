@@ -15,7 +15,8 @@ public class EmbeddedComponentExporter
     }
 
     @Override
-    public void configureInstance(WebComponent<EmbeddedComponent> webComponent,
+    protected void configureInstance(
+            WebComponent<EmbeddedComponent> webComponent,
             EmbeddedComponent component) {
     }
 

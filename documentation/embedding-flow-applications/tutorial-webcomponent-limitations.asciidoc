@@ -1,0 +1,8 @@
+---
+title: Limitations in Embedded Application
+order: 8
+layout: page
+---
+
+= Limitations in Embedded Application
+
