@@ -412,8 +412,8 @@ packages and pin their versions. You may want to add these to version control,
 in particular, if you added any local package directly with npm.
 * `node_modules` directory: npm package cache, do not add this to version
 control!
-* `webpack.config.js`: webpack configuration. Include in version control
-only if you have added custom webpack configuration to this file.
+* `webpack.config.js`: webpack configuration. Include in version control. You
+can add custom webpack configuration to this file.
 * `webpack.generated.js`: Auto-generated webpack configuration imported by
 `webpack.config.js`. Do not add to version control, as it is always overwritten
 by `vaadin-maven-plugin` during execution of the `prepare-frontend` goal.
