@@ -1,6 +1,6 @@
 ---
 title: Embedding a Flow Application
-order: 1
+order: 7
 layout: page
 ---
 
