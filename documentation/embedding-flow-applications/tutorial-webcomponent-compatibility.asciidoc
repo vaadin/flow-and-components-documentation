@@ -6,12 +6,12 @@ layout: page
 
 = Embedding Application in Compatibility mode
 
-There are differences between Embedding application in compatibility mode:
+These are the differences between Embedding application in compatibility mode:
 * `"webcomponents-loader.js"` polyfill library is required to be able to import 
 the web component via HTML import.
 * The web component URL resource is imported via HTML import.
 
-So here is an example how page may import the web component:
+Here is an example how page may import the web component:
 
 [source, html]
 ----
@@ -19,7 +19,7 @@ So here is an example how page may import the web component:
 <link rel='import' href='/vaadin/web-component/login-form.html'>
 ----
 
-All other aspects of embedding are the same. 
+The rest of the embedding process stays the same.
 
 == Embedded Application in Production
 
@@ -28,7 +28,7 @@ Embedding Vaadin applications in production mode requires two steps:
 * Package application for production in the normal way
 * Import the packaged application onto the target page
 
-The second step differs a bit from the application in dev mode. As you can 
+The second step differs a bit from the application in development mode. As you can 
 see above there are two lines of code are used to import an embedded application. 
 
 The first line loads a polyfill library for browsers that do 
