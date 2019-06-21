@@ -86,12 +86,12 @@ document.head.appendChild($_documentContainer.content);
 ----
 
 
-.MyApplication.java
+.MyApplicationWithDialog.java
 [source,java]
 ----
 @Route(value = "")
 @JsModule("./styles/my-dialog-overlay-theme.js")
-public class MyApplication extends Div {
+public class MyApplicationWithDialog extends Div {
 }
 ----
 
