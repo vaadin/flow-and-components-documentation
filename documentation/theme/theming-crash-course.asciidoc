@@ -50,7 +50,6 @@ public class MyApplication extends Div {
 }
 ----
 
-
 == Styling Polymer Templates
 
 Since Polymer templates are web components, their template contents end up in Shadow DOM.
