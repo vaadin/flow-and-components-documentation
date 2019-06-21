@@ -26,15 +26,26 @@ Do not add multiple `@Theme` annotations to your application, if you do, just th
 [source,java]
 ----
 @Route(value = "")
-public class LumpApplication extends Div {
+public class LumoApplication extends Div {
 }
 ----
 
 .Sample setup to get Custom themed components
 [source,java]
 ----
-public class MyTheme extends AbstractTheme {
+@JsModule("@vaadin/vaadin-lumo-styles/color.js")
+public class MyTheme implements AbstractTheme {
+    @Override
+    public String getBaseUrl() {
+        return "/src/";
+    }
+
+    @Override
+    public String getThemeUrl() {
+        return "/theme/myTheme/";
+    }
 }
+
 
 @Route(value = "")
 @Theme(MyTheme.class)

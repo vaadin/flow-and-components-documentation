@@ -19,14 +19,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.theme.AbstractTheme;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("theme/integrating-component-theme.asciidoc")
-public class ComponentTheme {
+public class IntegratingComponentTheme {
 
-    @HtmlImport("frontend://bower_components/vaadin-lumo-styles/color.html")
+    @JsModule("@vaadin/vaadin-lumo-styles/color.js")
     public class MyTheme implements AbstractTheme {
         @Override
         public String getBaseUrl() {
@@ -47,12 +47,12 @@ public class ComponentTheme {
 
         @Override
         public Map<String, String> getBodyAttributes(String variant) {
-            if ("dark".equals(variant)) {
-                // the <body> element will have the "theme" attribute set to
-                // "dark" when the dark variant is used
-                return Collections.singletonMap("theme", "dark");
-            }
-            return Collections.emptyMap();
+          if ("dark".equals(variant)) {
+            // the <body> element will have the "theme" attribute set to
+            // "dark" when the dark variant is used
+            return Collections.singletonMap("theme", "dark");
+          }
+          return Collections.emptyMap();
         }
     }
 }
