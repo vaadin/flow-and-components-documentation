@@ -36,13 +36,14 @@ Lumo file will be loaded on top.
 
 . *Using the @Theme annotation to load your own theme class that uses specific Lumo modules:*
 This approach uses the `@Theme` annotation to switch to a custom theme class,
-e.g. `MyTheme.class` which must extend `AbstractTheme`. In that class, imports are defined for global files
+e.g. `MyTheme.class`. In that class, imports are defined for global files
 (i.e. your Lumo variable overrides, global css, ...), and the path from which to load the component styles.
 
 
 The last approach has the disadvantage that it is necessary to create a file for every single Vaadin component
-that you want to be supported by the custom theme (MyTheme.class), optionally that file might import the Lumo theme
-for the component and override only the parts that you need.
+that you want to be supported by the custom theme (MyTheme.class), and importing the Lumo theme for the component from there.
+In this approach, the existing Lumo implementation for that Vaadin component is replaced
+with the new one (new theme).
 
 === Which approach is better?
 
