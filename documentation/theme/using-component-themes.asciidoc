@@ -20,7 +20,7 @@ In summary - if your project uses the `vaadin-core` dependency, and doesn't decl
 
 To use any custom themes, just add `@Theme` annotation to your root navigation level class, or to the `RouterLayout` component defined in its `@Route`.
 
-Do not add multiple `@Theme` annotations to your application, if you do, just the one at root level will be used.
+You must use an unique `@Theme` for the whole application. Flow does not support different `@Theme` values per route in your application, and will throw an exception.
 
 .Sample setup to get Lumo themed components
 [source,java]
