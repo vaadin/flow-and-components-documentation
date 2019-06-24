@@ -23,10 +23,8 @@ public class PersonExporter extends WebComponentExporter<PersonComponent> {
 
     public PersonExporter() {
         super("person-display");
-        addProperty("name", "John Doe")
-                .onChange(PersonComponent::setName);
-        addProperty("age", 0)
-                .onChange(PersonComponent::setAge);
+        addProperty("name", "John Doe").onChange(PersonComponent::setName);
+        addProperty("age", 0).onChange(PersonComponent::setAge);
 
         isAdultProperty = addProperty("is-adult", false);
     }
@@ -79,7 +77,8 @@ In the following example we show how we can update boolean property
 [source, java]
 ----
     @Override
-    public void configureInstance(WebComponent<PersonComponent> webComponent, PersonComponent component) {
+     protected void configureInstance(WebComponent<PersonComponent> webComponent,
+            PersonComponent component) {
         component.setAdultAge(18); // initialization
 
         component.addAgeChangedListener(event -> {
