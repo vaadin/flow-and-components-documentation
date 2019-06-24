@@ -30,7 +30,8 @@ public class MyExporter extends WebComponentExporter<Div> {
     }
 
     @Override
-    public void configureInstance(WebComponent<Div> webComponent, Div component) {
+    protected void configureInstance(WebComponent<Div> webComponent,
+            Div component) {
 
     }
 }

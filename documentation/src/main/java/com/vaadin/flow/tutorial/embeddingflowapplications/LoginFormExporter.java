@@ -8,14 +8,13 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class LoginFormExporter extends WebComponentExporter<LoginForm> {
     public LoginFormExporter() {
         super("login-form");
-        addProperty("userlbl", "")
-                .onChange(LoginForm::setUserNameLabel);
-        addProperty("pwdlbl", "")
-                .onChange(LoginForm::setPasswordLabel);
+        addProperty("userlbl", "").onChange(LoginForm::setUserNameLabel);
+        addProperty("pwdlbl", "").onChange(LoginForm::setPasswordLabel);
     }
 
     @Override
-    public void configureInstance(WebComponent<LoginForm> webComponent, LoginForm form) {
+    protected void configureInstance(WebComponent<LoginForm> webComponent,
+            LoginForm form) {
         form.addLoginListener(() -> webComponent.fireEvent("logged-in"));
     }
 }
