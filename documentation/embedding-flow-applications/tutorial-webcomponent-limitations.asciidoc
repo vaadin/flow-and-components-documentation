@@ -8,6 +8,7 @@ layout: page
 
 Some features are not available for embedded applications. Here is what you should
 be aware of:
+
 * Navigation and routing features are not available for embedded applications. 
 This means there is no sense in annotating your classes with `@Route` annotation: 
 you will not be able to navigate to the route target. 

@@ -138,7 +138,7 @@ and keep the page state intact. The following tutorials explain how to use the R
 * <<embedding-flow-applications/tutorial-webcomponent-theming#,Theming an Embedded Application>>
 * <<embedding-flow-applications/tutorial-webcomponent-push#,Embedded Application Push Configuration>>
 * <<embedding-flow-applications/tutorial-webcomponent-security#,Securing an Embedded Application>>
-* <<embedding-flow-applications/tutorial-webcomponent-exporter#,Embedding a Flow Application>>
+* <<embedding-flow-applications/tutorial-webcomponent-exporter#,Embedding a Vaadin Application>>
 * <<embedding-flow-applications/tutorial-webcomponent-compatibility#,Embedding Application in Compatibility mode>>
 * <<embedding-flow-applications/tutorial-webcomponent-limitations#,Limitations in Embedded Application>>
 
