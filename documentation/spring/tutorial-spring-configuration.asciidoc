@@ -16,6 +16,17 @@ You can still set those properties as system properties. But you can also
 use Spring properties. The Spring configuration properties have the same 
 names but they are prefixed with `"vaadin."`.
 
+=== Special configuration parameters
+
+`blacklisted.packages` is a comma separated string that can be used to blacklist packages from getting scanned in v14
+(NPM mode) projects. As the default set of packages doesn't cover everything that we shouldn't be interested in.
+
+.application.properties
+[source, properties]
+====
+blacklisted.packages=org/bouncycastle,com/my/db/package
+====
+
 == Spring Boot properties
 
 If you use Spring Boot then you can use `application.properties` file for
