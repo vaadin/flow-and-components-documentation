@@ -1,10 +1,10 @@
 ---
-title: Embedding a Flow Application
+title: Embedding a Vaadin Application
 order: 6
 layout: page
 ---
 
-= Embedding a Flow Application
+= Embedding a Vaadin Application
 
 It is possible to embed Vaadin components onto web pages created with
 non-Vaadin technologies or even other Vaadin pages.

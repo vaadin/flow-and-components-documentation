@@ -71,8 +71,8 @@ For more details please see the tutorials:
 * <<tutorial-webcomponent-exporter#,Embedding a Vaadin Application>>
 * <<tutorial-webcomponent-limitations#,Limitations in Embedded Application>>
 
-The tutorial <<tutorial-webcomponent-exporter#,Embedding a Flow Application>>
-contains a full example how to create an embedded web component from scratch
-and use it on a web page.
+The tutorial <<tutorial-webcomponent-exporter#,Embedding a Vaadin Application>>
+contains a full example how to create an embedded Vaadin application from
+scratch and use it on a web page.
 
 There are some features limitations which you may find in <<tutorial-webcomponent-limitations#,Limitations in Embedded Application>> tutorial.
