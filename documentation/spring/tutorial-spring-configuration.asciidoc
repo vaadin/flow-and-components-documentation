@@ -18,13 +18,13 @@ names but they are prefixed with `"vaadin."`.
 
 === Special configuration parameters
 
-`blacklisted.packages` is a comma separated string that can be used to blacklist packages from getting scanned in v14
+`blacklisted-packages` is a comma separated string that can be used to blacklist packages from getting scanned in v14
 (NPM mode) projects. As the default set of packages doesn't cover everything that we shouldn't be interested in.
 
 .application.properties
 [source, properties]
 ====
-blacklisted.packages=org/bouncycastle,com/my/db/package
+vaadin.blacklisted-packages=org/bouncycastle,com/my/db/package
 ====
 
 == Spring Boot properties
