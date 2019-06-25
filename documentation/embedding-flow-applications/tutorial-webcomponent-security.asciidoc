@@ -1,6 +1,6 @@
 ---
 title: Securing an Embedded Application
-order: 6
+order: 5
 layout: page
 ---
 
@@ -8,7 +8,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Securing an Embedded Application
 
-You may want to restrict access to an embedded web application from 
+You may want to restrict access to an embedded Vaadin application from
 embedding web applications. To be able to do that, use properties of 
 the embedded web component.
 
@@ -20,14 +20,12 @@ should avoid sensitive data in the component's constructor.
 Here is an example how to set a property from the embedding page and
 check it inside the embedded application:
 
-
 [source, html]
 ----
 <!doctype html>
 
 <head>
-  <script type="text/javascript" src="./frontend/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-  <link rel="import" href="web-component/my-comp.html">
+  <link rel="import" href="web-component/my-comp.js">
   <script type="text/javascript">
         function login(){
             var token = "d9f6a737-b2b8-46a7-a834-209c8b214969"; // request token for the current user somehow
@@ -67,7 +65,8 @@ public class EmbeddedComponentExporter
     }
 
     @Override
-    public void configureInstance(WebComponent<EmbeddedComponent> webComponent,
+    protected void configureInstance(
+            WebComponent<EmbeddedComponent> webComponent,
             EmbeddedComponent component) {
     }
 
