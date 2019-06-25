@@ -32,6 +32,18 @@ public class MyTheme implements AbstractTheme {
 }
 ----
 
+In addition, since your theme files are not published with the original components you need to adapt the default  `translateUrl()` to remove any reference to the original component package. For instance the button component `@vaadin/vaadin-button/src/vaadin-button.js` must not be translated to `@vaadin/vaadin-button/theme/MyTheme/vaadin-button.js` but to `./theme/MyTheme/vaadin-button.js` so as you can place the file in the `/frontend` folder of your application.
+
+[source,java]
+----
+@Override
+public String translateUrl(String url) {
+    String baseUrl = getBaseUrl();
+    String themeUrl = getThemeUrl();
+    return url.replaceFirst("^.*" + baseUrl, themeUrl);
+}
+----
+
 For more control there is `getBodyInlineContents()` that returns a collection of html
 that will be inlined to the BootstrapPage body. For instance, it can be used to add a
 custom style to have the correct typography:

@@ -39,6 +39,13 @@ public class IntegratingComponentTheme {
         }
 
         @Override
+        public String translateUrl(String url) {
+            String baseUrl = getBaseUrl();
+            String themeUrl = getThemeUrl();
+            return url.replaceFirst("^.*" + baseUrl, themeUrl);
+        }
+
+        @Override
         public List<String> getHeaderInlineContents() {
             return Collections.singletonList("<custom-style>\n"
                     + "    <style include=\"lumo-color lumo-typography\"></style>\n"
