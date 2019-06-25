@@ -63,15 +63,16 @@ public class Tooltip extends Component implements HasComponents, HasStyle {
 }
 ----
 
-[source,html]
+[source,js]
 ----
-<dom-module id="tooltip">
-  <template>
-    <div part="content" theme="dark">
-      <slot></slot>
-    </div>
-  </template>
-</dom-module>
+class Tooltip extends PolymerElement {
+    static get template() {
+        return html`
+            <div part="content" theme="dark">
+                <slot></slot>
+            </div>`;
+    }
+}
 ----
 
 * A component that `HasComponents` needs to extend from a tag that supports having child components. The `slot` tag is used in Web Components to define where child components should be put.

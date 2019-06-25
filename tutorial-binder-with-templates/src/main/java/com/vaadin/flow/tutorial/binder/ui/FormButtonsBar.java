@@ -4,7 +4,7 @@ import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.shared.Registration;
@@ -14,7 +14,7 @@ import com.vaadin.flow.templatemodel.TemplateModel;
  * Java wrapper of the polymer element `form-buttons-bar`
  */
 @Tag("form-buttons-bar")
-@HtmlImport("src/form-buttons-bar.html")
+@JsModule("./src/form-buttons-bar.js")
 public class FormButtonsBar extends PolymerTemplate<TemplateModel> {
 
 	@Id("save")
