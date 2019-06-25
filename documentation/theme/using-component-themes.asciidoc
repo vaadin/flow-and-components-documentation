@@ -22,11 +22,20 @@ To use any custom themes, just add `@Theme` annotation to your root navigation l
 
 You must use an unique `@Theme` for the whole application. Flow does not support different `@Theme` values per route in your application, and will throw an exception.
 
-.Sample setup to get Lumo themed components
+.Sample specifying Lumo themed components
 [source,java]
 ----
 @Route(value = "")
+@Theme(value = Lumo.class)
 public class LumoApplication extends Div {
+}
+----
+
+.Sample setup to get Lumo themed components if the `Lumo.class` is in the 'classpath'.
+[source,java]
+----
+@Route(value = "")
+public class DefaultLumoApplication extends Div {
 }
 ----
 

@@ -136,8 +136,11 @@ class MyView extends PolymerElement {
       <div class="my-view-title">My view title</div>
     `;
   }
+  static get is() {
+    return 'my-view';
+  }
 }
-customElements.define('my-view', MyView);
+customElements.define(MyView.is, MyView);
 ----
 
 == Using Style Modules
@@ -171,7 +174,6 @@ document.head.appendChild($_documentContainer.content);
 ----
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import styles from './my-view.css'
 
 class MyView extends PolymerElement {
   static get template() {
@@ -181,8 +183,11 @@ class MyView extends PolymerElement {
       <div class="my-view-title">My view title</div>
     `;
   }
+  static get is() {
+    return 'my-view';
+  }
 }
-customElements.define('my-view', MyView);
+customElements.define(MyView.is, MyView);
 ----
 
 

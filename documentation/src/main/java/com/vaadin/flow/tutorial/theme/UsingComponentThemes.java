@@ -38,6 +38,11 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class UsingComponentThemes {
 
     @Route(value = "")
+    public class DefaultLumoApplication extends Div {
+    }
+
+    @Route(value = "")
+    @Theme(value = Lumo.class)
     public class LumoApplication extends Div {
     }
 
@@ -49,11 +54,11 @@ public class UsingComponentThemes {
     @Theme(MyTheme.class)
     public class MainLayout extends Div implements RouterLayout {
     }
-    
+
     @Route(value = "", layout = MainLayout.class)
     public class HomeView extends Div {
     }
-    
+
     @Route(value = "blog", layout = MainLayout.class)
     public class BlogPost extends Div {
     }
@@ -61,25 +66,25 @@ public class UsingComponentThemes {
     @Route(value = "")
     @NoTheme
     public class UnThemedApplication extends Div {
-    }    
+    }
 
     @Route(value = "")
     @Theme(value = MyTheme.class, variant = "large")
     public class LargeThemedApplication extends Div {
-    }    
+    }
 
     @Route(value = "")
     @Theme(value = Lumo.class, variant = Lumo.DARK)
     public class DarkApplication extends Div {
-    }    
+    }
 
     @Route(value = "")
     @Theme(value = Material.class, variant = Material.DARK)
     public class DarkMaterialApplication extends Div {
-    }    
+    }
 
     public class Button extends Component {
-		public Button(String string) {
+        public Button(String string) {
         }
         public void addThemeVariants(ButtonVariant... vars) {
         }
@@ -91,7 +96,7 @@ public class UsingComponentThemes {
     {
         Button button = new Button("Themed button");
         button.addThemeVariants(ButtonVariant.LUMO_PRIMARY,
-                ButtonVariant.LUMO_CONTRAST);   
+                ButtonVariant.LUMO_CONTRAST);
     }
     {
         Button button = new Button("Themed button");
@@ -104,13 +109,13 @@ public class UsingComponentThemes {
         String variantsToAdd = "contrast primary";
         button.getElement().setAttribute(themeAttributeName,
                 oldValue == null || oldValue.isEmpty() ? variantsToAdd
-                        : ' ' + variantsToAdd);        
+                        : ' ' + variantsToAdd);
     }
 
     @JsModule("frontend://bower_components/vaadin-lumo-styles/presets/compact.js")
     @Theme(Lumo.class)
     public class CompactMainLayout extends Div implements RouterLayout {
-    }    
+    }
 
     @JsModule("@vaadin/vaadin-lumo-styles/color.js")
     public class MyTheme implements AbstractTheme {
