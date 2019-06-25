@@ -382,8 +382,8 @@ document.head.appendChild($_documentContainer.content);
 For more complex cases you can use
 https://polymer-library.polymer-project.org/3.0/docs/upgrade[Polymer 3 upgrade guide].
 You can also use polymer-modulizer tool that is described in the guide. Vaadin
-will also release a migration tool that helps you convert your Vaadin 14 compatibility mode
-applications to Vaadin 14 running the new toolset.
+will also release later a migration tool that helps convert a Vaadin 14 application running
+in the compatibility mode to Vaadin 14 running the new toolset.
 
 === 4 - Update Java annotations
 
