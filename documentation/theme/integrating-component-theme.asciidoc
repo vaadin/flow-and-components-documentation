@@ -27,7 +27,7 @@ public class MyTheme implements AbstractTheme {
 
     @Override
     public String getThemeUrl() {
-        return "./theme/myTheme/";
+        return "/theme/myTheme/";
     }
 }
 ----
@@ -88,6 +88,8 @@ const $_documentContainer = html`<dom-module id="my-lumo-button" theme-for="vaad
 document.head.appendChild($_documentContainer.content);
 ----
 
+[NOTE]
+Be aware that you need to provide theme files for all the components used in your application, otherwise they will be displayed without any style. This works in this way because all vaadin components are imported by using the `/src/` path, and it is responsability of the theme class to replace the `getBaseUrl()` pattern by the appropriate path to the themed elements as it is returned in the `getThemeUrl()`.
 
 == Creating Your Own Component Theme
 
