@@ -6,39 +6,64 @@ layout: page
 
 = Vaadin 14 Migration Guide
 
-As in previous Vaadin Platforms since V10, the client-side UI components of
-Vaadin 14 are based on Web Components. However, Vaadin 14 upgrades parts of the
-technology stack used to build and integrate these components into your Vaadin
-app to introduce more capabilities and potential for the future. In this
-document, we first give an overview of the new technologies and tools, and
-explain why they were chosen. Second, we describe the practicalities of the
-migration path from Platform V10-V13 to V14. This is not intended to be a
-complete change log, but rather a hands-on guide to resolving issues users
+For existing Vaadin platform projects (versions 10-13), using most Vaadin 14 new features
+requires just updating the Vaadin version and addressing any API changes in code, which can be backtracked
+from the https://github.com/vaadin/platform/releases[platform release notes].
+
+Vaadin 14 also introduces support for new frontend technologies and tools,
+which change the way the project is built and how frontend dependencies, like 
+web components, are integrated. This is the default starting point for new projects
+starting from Vaadin 14, and an optional migration to take for existing projects.
+
+First, this document introduces the new technologies and tooling.
+Second, there is an overview of the migration path from Platform V10-V13 to V14.
+This is not intended to be a complete change log, but rather a hands-on guide to help resolving issues users
 migrating their applications to V14 will be expected to encounter.
 
-== What’s new in Vaadin 14
+*For Vaadin Java users, many of the changes described here only have effect on what happens on behind the scenes.
+But in case you are using templates or are integrating 3rd party frontend dependencies, you will want to read this document.*
+
+*Note: there will be https://github.com/vaadin/flow/issues/5037[later] on a migration tool available for converting an
+existing project to use the new technologies, specially for automatic migration of Polymer 2
+Html templates into Polymer 3 JavaScript modules.*
+
+== New frontend tooling for Vaadin 14
+
+Since Vaadin 10, the client-side UI components have been built as web components. 
+In versions 10 to 13, the web components and their dependencies have been distributed
+using Bower, a package manager for frontend projects. For Vaadin Java projects, the Bower
+dependencies have been packaged into `.jar` files using https://www.webjars.org/[Webjars],
+allowing to use those directly with Maven.
+
+During time, Bower has been deprecated in favor of better frontend package managers.
+It does not support the latest web standars like https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules[JavaScript modules].
+
+To be able to bring all the latest frontend technologies available for the 
+Vaadin users, we have renewed the frontend technology stack and tooling
+in Vaadin 14.
 
 === Web Components: ES6 modules instead of HTML Imports
 
-The most significant change in V14 is that the Polymer library used for the
-front-end Web Components has been upgraded from version 2.0 to version 3.0
-(see https://polymer-library.polymer-project.org/3.0/docs/about_30[here] what's
-new in Polymer 3.0). In Polymer 3.0, templates are JavaScript modules that fully
-encapsulate the HTML structure of the component template. This replaces HTML
-imports used by earlier Polymer versions, a mechanism that was never fully
-standardized and that is now considered deprecated.
+EcmaScript 6 modules (or JS modules) is a web standard for modulizing and
+importing JavaScript code in the browser. Vaadin 14 adds support for JS modules
+as a replacement for the HTML imports which was used earlier for building web
+components with Polymer library. This means that the Polymer version has been
+upgraded from version 2 to version 3 (see https://polymer-library.polymer-project.org/3.0/docs/about_30[here] what's
+new in Polymer 3.0). In Polymer 3, templates are JavaScript modules that fully
+encapsulate the HTML structure of the component template.
 
 === Package management: npm instead of Bower
 
-V14 manages front-end dependencies using _npm_ , the mainstream JavaScript
-package manager (whereas V13 and older used _Bower_ ). Using npm means that
-all JavaScript dependencies will be downloaded to the `node_modules` directory
-in your project and that `package.json` and `package-lock.json` files will be
-created to record the dependencies and their versions respectively. Do not be
-alarmed if you are not familiar with these files or the npm way of doing things.
+Behind the scenes, Vaadin 14 manages front-end dependencies using _npm_ ,
+the de-facto standard JavaScript package manager (whereas V13 and older used _Bower_ & webjars).
+Using npm means that all JavaScript dependencies will be downloaded to the `node_modules` directory
+in the root of your project and that `package.json` and `package-lock.json` files will be
+created to record and resolve the dependencies and their versions respectively.
+
+*Do not be alarmed if you are not familiar with these files or the npm way of doing things.
 The invocation of npm is fully automated by `vaadin-maven-plugin`; the only
 thing you need to make sure is that _Node.js_ (version 10 or later) and npm
-(version 5.6 or later) are installed. If they are not installed,
+(version 5.6 or later) are installed.* If they are not installed,
 `vaadin-maven-plugin` will halt and present you with the possible installation
 alternatives.
 
@@ -47,23 +72,28 @@ alternatives.
 Another front-end tool utilized by V14 is the module bundler _webpack_. All
 front-end extensions in your V14 project (JavaScript modules containing
 components and stylesheets) are now expected to reside in the `frontend`
-directory immediately under the project root, which is the directory where
-webpack will look for them. When starting your app in development mode, webpack
-runs alongside as a development server. In production mode, we invoke webpack
+directory immediately under the project root, which is inspected by webpack.
+When starting your app in development mode, webpack will be 
+run alongside as a development server. In production mode, we invoke webpack
 to produce (transpiled and minified) bundles from the JavaScript modules. As
 long as your project file structure is as specified in this guide, these steps
 are fully automated by `vaadin-maven-plugin`.
 
 === Compatibility mode
 
-Projects with client-side Polymer templates must migrate these from Polymer 2.0
-syntax to Polymer 3.0 (see next section) before they can run on V14. We are
-working on a migration tool that can do this automatically, but until then it
-can be done manually with a few simple steps. Alternatively, V14 supports a
-_compatibility mode_ based on the Bower package manager that does not require
-template conversion or installation of npm. This mode is only intended to enable
-a smoother migration path, and should not be used in new projects or relied on
-as a long-term solution. Compatibility mode will be removed permanently in V15.
+As stated before, existing Vaadin 10-13 projects can switch to 14 without migrating
+to the new toolset. Behind the scenes, everything works just as before with using
+Bower & Webjars, Polymer 2 & Html Imports, and Polymer CLI for production build.
+This is called _the compatibility mode_ in Vaadin 14.
+
+This mode is only intended to enable a smoother migration path, and should not
+be used in new projects. The compatibility mode is supported for the full Vaadin
+14 support period, but it will be removed permanently in Vaadin 15.
+
+To use the new toolset, any existing Vaadin projects with client-side Polymer 2
+based web components must migrate these from 2 syntax to Polymer 3 (see next section)
+before they can run on V14. We are working on a migration tool that can do this
+automatically, but until then it can be done manually with a few simple steps.
 
 == Migration steps
 
@@ -162,7 +192,7 @@ under the `<PROJDIR>/frontend` folder as described in the next section.
 `<PROJDIR>/src/main/webapp/frontend` (or move anywhere else under `webapp`; see
 comments about updating annotations in section 5)
 
-=== 3 - Convert Polymer 2.0 to Polymer 3.0
+=== 3 - Convert Polymer 2 to Polymer 3
 
 ==== Templates
 
