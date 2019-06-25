@@ -39,17 +39,17 @@ During time, Bower has been deprecated in favor of better frontend package manag
 It does not support the latest web standars like https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules[JavaScript modules].
 
 To be able to bring all the latest frontend technologies available for the 
-Vaadin users, we have renewed the frontend technology stack and tooling
-in Vaadin 14.
+Vaadin users, the frontend technology stack and tooling
+has been renewed in Vaadin 14.
 
 === Web Components: ES6 modules instead of HTML Imports
 
-EcmaScript 6 modules (or JS modules) is a web standard for modulizing and
+_EcmaScript 6 modules_ (or JS modules) are a web standard for modulizing and
 importing JavaScript code in the browser. Vaadin 14 adds support for JS modules
-as a replacement for the HTML imports which was used earlier for building web
-components with Polymer library. This means that the Polymer version has been
+as a replacement for HTML imports which was used earlier for building web
+components with the Polymer library. This means that the Polymer version has been
 upgraded from version 2 to version 3 (see https://polymer-library.polymer-project.org/3.0/docs/about_30[here] what's
-new in Polymer 3.0). In Polymer 3, templates are JavaScript modules that fully
+new in Polymer 3). In Polymer 3, templates are JavaScript modules that fully
 encapsulate the HTML structure of the component template.
 
 === Package management: npm instead of Bower
@@ -69,30 +69,30 @@ alternatives.
 
 === Bundling: webpack
 
-Another front-end tool utilized by V14 is the module bundler _webpack_. All
-front-end extensions in your V14 project (JavaScript modules containing
+Another front-end tool utilized by Vaadin 14 behind the scenes is the module bundler _webpack_.
+All dynamic frontend resources in your project (JavaScript modules containing
 components and stylesheets) are now expected to reside in the `frontend`
 directory immediately under the project root, which is inspected by webpack.
 When starting your app in development mode, webpack will be 
-run alongside as a development server. In production mode, we invoke webpack
-to produce (transpiled and minified) bundles from the JavaScript modules. As
-long as your project file structure is as specified in this guide, these steps
+run alongside as a development server. In production mode, webpack creates
+(transpiled and minified) bundles from the resources inside the `frontend` folder.
+As long as your project file structure is as specified in this guide, these steps
 are fully automated by `vaadin-maven-plugin`.
 
 === Compatibility mode
 
 As stated before, existing Vaadin 10-13 projects can switch to 14 without migrating
 to the new toolset. Behind the scenes, everything works just as before with using
-Bower & Webjars, Polymer 2 & Html Imports, and Polymer CLI for production build.
+Bower & Webjars, Polymer 2 & Html Imports, and Polymer CLI for the production build.
 This is called _the compatibility mode_ in Vaadin 14.
 
-This mode is only intended to enable a smoother migration path, and should not
+The compatibility mode is only intended to enable a smoother migration path, and should not
 be used in new projects. The compatibility mode is supported for the full Vaadin
 14 support period, but it will be removed permanently in Vaadin 15.
 
 To use the new toolset, any existing Vaadin projects with client-side Polymer 2
 based web components must migrate these from 2 syntax to Polymer 3 (see next section)
-before they can run on V14. We are working on a migration tool that can do this
+before they can run on V14. Later on there will be a migration tool available that can do this
 automatically, but until then it can be done manually with a few simple steps.
 
 == Migration steps
@@ -174,7 +174,7 @@ production profile.
 
 ==== Move contents of src/main/webapp/frontend
 
-In V13 files related to front-end, such as HTML templates, stylesheets,
+In Vaadin 10-13, files related to front-end, such as HTML templates, stylesheets,
 JavaScript files and images are stored in the folder
 `<PROJDIR>/src/main/webapp/frontend`. Depending on the resource type, you may
 need to move some of these resource files to a new `frontend` folder _at the
@@ -380,10 +380,10 @@ document.head.appendChild($_documentContainer.content);
 ==== Polymer modulizer
 
 For more complex cases you can use
-https://polymer-library.polymer-project.org/3.0/docs/upgrade[Polymer 3.0 upgrade guide].
+https://polymer-library.polymer-project.org/3.0/docs/upgrade[Polymer 3 upgrade guide].
 You can also use polymer-modulizer tool that is described in the guide. Vaadin
-will also release a migration tool that helps you convert your V13 applications
-to V14.
+will also release a migration tool that helps you convert your Vaadin 14 compatibility mode
+applications to Vaadin 14 running the new toolset.
 
 === 4 - Update Java annotations
 
