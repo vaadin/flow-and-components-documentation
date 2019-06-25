@@ -35,7 +35,7 @@ Injection of a pseudo-scoped bean creates a direct reference to the object, but 
 
 Vaadin contexts are usable inside the `UI.access` method with any push transport.
 
-Incoming WebSocket messages do not count as requests in CDI: you need a HTTP request, session, and conversation context. You should, therefore, use `WEBSOCKET_XHR` (the default), or `LONG_POLLING` transport, to avoid losing the standard contexts.
+Certain default contexts from CDI, such as `RequestScoped` or `SessionScoped`, can be problematic. HttpServletRequest can't be resolved from a WebSocket connection in CDI and that is needed for HTTP request, session, and conversation contexts. You should, therefore, use `WEBSOCKET_XHR` (the default), or `LONG_POLLING` transport mode, to avoid losing the standard contexts.
 
 Background-thread contexts that depend on HTTP requests are not active, regardless of push.
 
@@ -138,7 +138,7 @@ public void edit() {
 
 == `@RouteScoped` and `@NormalRouteScoped` Contexts
 
-The lifecycle of the `@RouteScoped` and `@NormalRouteScoped` context is same as that of the UI context. Use `@RouteScoped` for components and `@NormalRouteScoped` for other beans.
+The `@RouteScoped` and `@NormalRouteScoped` manage the beans during the `Route` lifecycle. Use `@RouteScoped` for components and `@NormalRouteScoped` for other beans.
 
 Together with the `@RouteScopeOwner` annotation, both `@RouteScoped` and `@NormalRouteScoped` can be used to bind beans to router components (`@Route`, `RouteLayout`, `HasErrorParameter`). While the owner remains in the route chain, all beans owned by it remain in the scope.
 
