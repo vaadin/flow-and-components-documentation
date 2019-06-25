@@ -77,8 +77,7 @@ public class Lifecycle {
             UI ui = getUI().get();
             Button button = new Button("Logout", event -> {
                 // Redirect this page immediately
-                ui.getPage().executeJavaScript(
-                        "window.location.href='logout.html'");
+                ui.getPage().executeJs("window.location.href='logout.html'");
 
                 // Close the session
                 ui.getSession().close();
