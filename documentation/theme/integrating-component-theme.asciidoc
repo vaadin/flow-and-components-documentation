@@ -62,6 +62,33 @@ public Map<String, String> getBodyAttributes(String variant) {
 
 Then you need to create the themed `.js` files for the elements in the `/frontend/theme/myTheme/element-name.js`
 
+For instance, if you want to modify the `vaadin-button` component by adding some custom rules to the original Lumo ones, your themed file might look like this:
+
+.frontend/theme/myTheme/vaadin-button.js
+[source,js]
+----
+// import the non-themed component
+import '@vaadin/vaadin-button/src/vaadin-button.js';
+// optional: reuse lumo styles for button
+import '@vaadin/vaadin-button/theme/lumo/vaadin-button-styles.js';
+
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+
+// set your custom CSS rules for button. Use an unique id for the dom-module.
+const $_documentContainer = html`<dom-module id="my-lumo-button" theme-for="vaadin-button">
+  <template>
+    <style>
+      :host {
+        border-radius: 0;
+      }
+    </style>
+  </template>
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);
+----
+
+
 == Creating Your Own Component Theme
 
 The theming for the Vaadin components is built using `Vaadin.ThemableMixin`.
