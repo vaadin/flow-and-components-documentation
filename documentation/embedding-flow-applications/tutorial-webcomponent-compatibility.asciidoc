@@ -1,31 +1,35 @@
 ---
-title: Embedded Application in Production
-order: 5
+title: Embedding Application in Compatibility mode
+order: 7
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
+= Embedding Application in Compatibility mode
 
-= Embedded Application in Production
+These are the differences between Embedding application in compatibility mode:
+* `"webcomponents-loader.js"` polyfill library is required to be able to import 
+the web component via HTML import.
+* The web component URL resource is imported via HTML import.
 
-Embedding Vaadin applications in production mode requires two steps:
-
-* Package application for production in the normal way
-* Import the packaged application onto the target page
-
-For the first step see the general information about production mode which is available in 
-<<../production/tutorial-production-mode-basic#,Taking your Application into Production>> 
-tutorial.
-
-The second step differs a bit from the application in dev mode. As you can 
-see two lines of code are used to import an embedded application in the 
-<<tutorial-webcomponent-exporter#,Embedding a Flow Application>> tutorial:
+Here is an example how page may import the web component:
 
 [source, html]
 ----
 <script type='text/javascript' src='/frontend/bower_components/webcomponentsjs/webcomponents-loader.js'></script>
 <link rel='import' href='/vaadin/web-component/login-form.html'>
 ----
+
+The rest of the embedding process stays the same.
+
+== Embedded Application in Production
+
+Embedding Vaadin applications in production mode requires two steps:
+
+* Package application for production in the normal way
+* Import the packaged application onto the target page
+
+The second step differs a bit from the application in development mode. As you can 
+see above there are two lines of code are used to import an embedded application. 
 
 The first line loads a polyfill library for browsers that do 
 not have native support for `rel="import` on a `link` element.

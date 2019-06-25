@@ -25,7 +25,7 @@ public class ExecuteJavaScript {
     public static void logElementSize(String name, Element element) {
         Page page = UI.getCurrent().getPage();
 
-        page.executeJavaScript(
+        page.executeJs(
                 "console.log($0 + ' size:', $1.offsetWidth, $1.offsetHeight)",
                 name, element);
     }
