@@ -9,27 +9,39 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @CodeFor("element-api/client-server-rpc.asciidoc")
 public class RPC extends Component {
     public RPC() {
-        getElement().callFunction("remoteProcedure","Hello","World",1.0);
-        getElement().executeJavaScript("$0.remoteProcedure($1,$2,$3);",getElement(),"Hello","World",1.0);
+        getElement().callJsFunction("remoteProcedure", "Hello", "World", 1.0);
+        getElement().executeJs("$0.remoteProcedure($1,$2,$3);", getElement(),
+                "Hello", "World", 1.0);
     }
 
     public void clearSelection() {
-        getElement().callFunction("clearSelection");
+        getElement().callJsFunction("clearSelection");
     }
 
     public void setExpanded(Component component) {
-        getElement().callFunction("expand", component.getElement());
+        getElement().callJsFunction("expand", component.getElement());
     }
 
     public void complete() {
         // Previous Vaadin Platform versions
         Page page = UI.getCurrent().getPage();
-        page.executeJavaScript("$0.complete()", this);
+        page.executeJs("$0.complete($1)", this, true);
 
         // Vaadin 12
-        getElement().executeJavaScript("$0.complete()", this);
+        getElement().executeJs("this.complete($0)", true);
     }
-    
+
+    public void checkConstructableStylesheets() {
+        getElement().executeJs("return 'adoptedStyleSheets' in document")
+                .then(Boolean.class, supported -> {
+                    if (supported) {
+                        System.out.println("Feature is supported");
+                    } else {
+                        System.out.println("Feature is not supported");
+                    }
+                });
+    }
+
     @ClientCallable
     public void clickHandler() {
         // do your server side action here
