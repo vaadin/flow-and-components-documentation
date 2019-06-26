@@ -41,15 +41,15 @@ Given the following example for Polymer 2 in a V13 application:
 We need to follow the next steps to convert to Polymer 3, so as it is usable in a V14 application.
 
 1. At the beginning of the file import the `html-tag` utility library:
-
++
 [source, js]
 ----
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 ----
-
++
 
 2. Write the basic JavaScript code to dynamically create a template element to be appended to the `<head>` of the document.
-
++
 [source, js]
 ----
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
@@ -58,9 +58,10 @@ const $_documentContainer = document.createElement('template');
 $_documentContainer.innerHTML = ``;
 document.head.appendChild($_documentContainer.content);
 ----
-
++
 
 3. Enclose the Polymer 2 HTML code inside the `html` back-ticks block:
++
 [source, js]
 ----
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
@@ -88,9 +89,9 @@ $_documentContainer.innerHTML = `<dom-module id="my-app-layout-theme" theme-for=
 </custom-style>`;
 document.head.appendChild($_documentContainer.content);
 ----
-
++
 4. Replace the `@HtmlImport` annotation with `@JsModule` in your java code
-
++
 [source,java]
 ----
 @Route(value = "")
@@ -98,3 +99,4 @@ document.head.appendChild($_documentContainer.content);
 public class MyApplication extends Div {
 }
 ----
++
