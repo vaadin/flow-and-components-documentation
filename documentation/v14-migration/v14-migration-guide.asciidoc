@@ -299,8 +299,8 @@ customElements.define(TopBarElement.is, TopBarElement);
 ==== Styles
 
 Converting `<custom-style>` elements is straightforward. The containing HTML
-file should be converted to a js file and the content of the file imports
-excluded should be added to the head of the document in JavaScript code. Any
+file should be converted to a js file and the content of the file, imports
+excluded, should be added to the head of the document in JavaScript code. Any
 import should be converted from `<link>` tag to a javascript import statement
 the same way as for templates. The following example illustrates these steps in
 practice.
