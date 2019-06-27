@@ -278,7 +278,7 @@ static get template() {
         <vaadin-text-field id="search">
         </vaadin-text-field>
         <vaadin-button id="new">New
-        </vaadin-button>;`
+        </vaadin-button>`;
 }
 ----
 
@@ -346,8 +346,8 @@ customElements.define(TopBarElement.is, TopBarElement);
 ==== Styles
 
 Converting `<custom-style>` elements is straightforward. The containing HTML
-file should be converted to a js file and the content of the file imports
-excluded should be added to the head of the document in JavaScript code. Any
+file should be converted to a js file and the content of the file, imports
+excluded, should be added to the head of the document in JavaScript code. Any
 import should be converted from `<link>` tag to a javascript import statement
 the same way as for templates. The following example illustrates these steps in
 practice.
@@ -376,9 +376,9 @@ Polymer 3:
 [source, js]
 ----
 import '@polymer/polymer/lib/elements/custom-style.js';
-const $_documentContainer = document.createElement('template');
+const documentContainer = document.createElement('template');
 
-$_documentContainer.innerHTML = `
+documentContainer.innerHTML = `
     <custom-style>
         <style>
             .menu-header {
@@ -391,7 +391,7 @@ $_documentContainer.innerHTML = `
         </style>
     </custom-style>`;
 
-document.head.appendChild($_documentContainer.content);
+document.head.appendChild(documentContainer.content);
 ----
 
 ==== Polymer modulizer
