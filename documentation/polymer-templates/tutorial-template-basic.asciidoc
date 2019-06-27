@@ -27,38 +27,38 @@ We'll create a demo, that will be asking a user to input a name and will print a
 
 == Client side
 
-First, we need to define a template with all components:
+First, we need to define a template with all components in `frontend/src/hello-world.js`:
 
-[source,html]
+[source,js]
 ----
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../bower_components/paper-input/paper-input.html">
+import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
+import '@polymer/paper-input/paper-input.js';
 
-<dom-module id="hello-world">
-    <template>
-        <div>
-            <paper-input id="inputId" value="{{userInput}}"></paper-input>
-            <button id="helloButton" on-click="sayHello">Say hello</button>
-            <div id="greeting">[[greeting]]</div>
-        </div>
-    </template>
-    <script>
-        class HelloWorld extends Polymer.Element {
-            static get is() {
-                return 'hello-world'
-            }
-        }
-        customElements.define(HelloWorld.is, HelloWorld);
-    </script>
-</dom-module>
+class HelloWorld extends PolymerElement {
+
+    static get template() {
+        return html`
+            <div>
+                <paper-input id="inputId" value="{{userInput}}"></paper-input>
+                <button id="helloButton" on-click="sayHello">Say hello</button>
+                <div id="greeting">[[greeting]]</div>
+            </div>`;
+    }
+
+    static get is() {
+          return 'hello-world';
+    }
+}
+
+customElements.define(HelloWorld.is, HelloWorld);
 ----
 
-As you can see, this is a Polymer template. All features used in the example are standard Polymer features.
+As you can see, this is a JavaScript module describing a Polymer template. All features used in the example are standard Polymer features.
 If you're unfamiliar with any of them, please refer to
-https://www.polymer-project.org/2.0/docs/about_20[Polymer project documentation page].
+https://www.polymer-project.org/3.0/docs/about_30[Polymer project documentation page].
 
 [NOTE]
-The tag name of the template, which is defined by the `id` attribute on the `<dom-module>` element and the return of the function `is()`, should have at least one dash (`-`). The value `hello-world` is a valid tag name, but `helloworld` is not.
+The tag name of the template returned by the function `is` should have at least one dash (`-`). The value `hello-world` is a valid tag name, but `helloworld` is not.
 
 In the current demo, we have defined a regular template with regular elements, have specified one-way binding (`\[[greeting]]`),
 two-way binding (`{{userInput}}`) and basic declaration for Polymer element in `<script>` class.
@@ -69,39 +69,24 @@ Notice that we have not specified the model at all, it will be propagated automa
 
 We've also imported some dependencies:
 
-* Polymer library
+* The `PolymerElement` from the Polymer library is the required superclass of all Polymer templates.
+* The `html` import for inline DOM templating.
+* The `paper-input` Polymer component.
 
-The `../bower_components/polymer/polymer-element.html` is a link to Polymer library that should be imported in order to have the
-functionality working.
-
-[NOTE]
-You should take care about proper handling of the Polymer template file URL, it should be available via URL.
+For clarity and demonstration purposes, this example uses https://github.com/PolymerElements/paper-input[paper-input] component.
 
 [NOTE]
-To get `polymer-element.html` into your project, you can use one of the ways provided by
-https://www.polymer-project.org/2.0/start/install-2-0[official Polymer page] or use Maven plugins, such as
-https://github.com/eirslett/frontend-maven-plugin[frontend-maven-plugin]
-
-The latter way was used to create this example, you can reference
-https://github.com/vaadin/flow-demo/[GitHub page] of a demo for more details.
-
-* paper-input Polymer component
-
-For clarity and demonstration purposes, this example uses https://github.com/PolymerElements/paper-input[paper-input.html] component.
-
-[NOTE]
-In order to retrieve and use the component in the demo, same rules as for `polymer-element.html` apply.
+Earlier Vaadin versions used Polymer 2, HTML imports and the Bower package manager to manage component dependencies. Vaadin 14 can still use components created in this way in a special  *compatibility mode*. However, the documentation here covers only Polymer 3 and NPM; for guidance on building client-side components with Polymer 2 and HTML imports we refer to the https://vaadin.com/docs/v13/flow/polymer-templates/tutorial-template-basic.html[Vaadin 13 documentation].
 
 == Server side
 
 To be able to use this template you need to create a Java class which extends `PolymerTemplate`,
-set its tag name matching the Polymer `dom-module` id attribute and add the html imports for Polymer library (`polymer-element.html`)
-and our template:
+set its tag name to match the return value of the Polymer template's `is()`-function, and add the `@JsModule` annotation to connect the template class (`hello-world.js`):
 
 [source,java]
 ----
 @Tag("hello-world")
-@HtmlImport("src/HelloWorld.html")
+@JsModule("./src/hello-world.js")
 public class HelloWorld extends PolymerTemplate<HelloWorldModel> {
     private static final String EMPTY_NAME_GREETING = "Please enter your name";
 
@@ -152,19 +137,18 @@ public interface HelloWorldModel extends TemplateModel {
 
 === Imports
 
-In order for a component to be processed correctly, we need to bind a Java class with the template, created earlier, by specifying `@HtmlImport` with path to a template
+In order for a component to be processed correctly, we need to bind a Java class with the template, created earlier, by specifying `@JsModule` with the path to a template.
 
 [NOTE]
 Java class name and template file name doesn't have to match each other, this is just a resource file which you can put to any location.
-But you have to be sure that it's accessible via the web.
 
-The `src/HelloWorld.html` is the URL of the Polymer template file declared earlier.
+`./src/hello-world.js` is the file name of the template file declared earlier relative to the `frontend` directory in the project root.
 
-If needed, more html resources can be imported using the same approach.
+If needed, more JavaScript resources can be imported using the same approach.
 
 === Tag
 
-The tag corresponds to `<dom-module id="hello-world">` id attribute, it sets the tag value to current component.
+The tag corresponds to the value returned by the template's static getter `is`, it sets the tag value to current component.
 
 === Model
 
@@ -196,29 +180,29 @@ In this case you can use the method `afterServerUpdate`. If this method is defin
 for the component it will be called each time after the component is updated
 from the server side.
 
-[source,html]
+[source,js]
 ----
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
+import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
 
-<dom-module id="my-component">
-    <template>
-        <div>
-            <div>[[text]]</div>
-        </div>
-    </template>
-    <script>
-        class MyComponent extends Polymer.Element {
-            static get is() {
-                return 'my-component'
-            }
+class MyComponent extends PolymerElement {
 
-            afterServerUpdate(){
-                console.log("The new 'text' value is: "+this.text);
-            }
-        }
-        customElements.define(MyComponent.is, MyComponent);
-    </script>
-</dom-module>
+    static get template() {
+        return html`
+            <div>
+                <div>[[text]]</div>
+            </div>`;
+    }
+
+    static get is() {
+          return 'my-component';
+    }
+
+    afterServerUpdate(){
+        console.log("The new 'text' value is: "+this.text);
+    }
+}
+
+customElements.define(MyComponent.is, MyComponent);
 ----
 
 == Usage in code

@@ -38,7 +38,8 @@ The `paper-slider` Web Component is a compliant example. It has an integer prope
 [source, java]
 ----
 @Tag("paper-slider")
-@HtmlImport("bower_components/paper-slider/paper-slider.html")
+@NpmPackage(value = "@polymer/paper-slider", version = "3.0.1")
+@JsModule("@polymer/paper-slider/paper-slider.js")
 public class PaperSlider
         extends AbstractSinglePropertyField<PaperSlider, Integer> {
     public PaperSlider() {
@@ -53,7 +54,7 @@ public class PaperSlider
 * The default value of `0` is automatically used by the `clear()` and `isEmpty()` methods: `clear()` sets the field value to the default value, and `isEmpty()` returns `true` if the field value is the default value.
 
 [NOTE]
-Flow uses https://polymer-library.polymer-project.org/2.0/docs/about_20[Polymer 2]. This version provides the best compatibility for integrating third-party Web Components.
+Flow uses https://polymer-library.polymer-project.org/3.0/docs/about_30[Polymer 3]. This version provides the best compatibility for integrating third-party Web Components.
 
 === Converting Property Values
 
