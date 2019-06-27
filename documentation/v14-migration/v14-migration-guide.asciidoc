@@ -23,7 +23,8 @@ migrating their applications to V14 will be expected to encounter.
 *For Vaadin Java users, many of the changes described here only have effect on what happens on behind the scenes.
 But in case you are using templates / Vaadin Designer or are integrating 3rd party frontend dependencies, you will want to read this document.*
 
-[NOTE] There will be https://github.com/vaadin/flow/issues/5037[later] on a migration tool available for converting an
+[NOTE]
+There will be https://github.com/vaadin/flow/issues/5037[later] on a migration tool available for converting an
 existing project to use the new technologies, specially for automatic migration of Polymer 2
 Html templates into Polymer 3 JavaScript modules.
 
@@ -42,7 +43,8 @@ To be able to bring all the latest frontend technologies available to the
 Vaadin users, the frontend technology stack and tooling
 has been renewed in Vaadin 14.
 
-[NOTE] The old and the new toolset cannot be used at the same time!
+[NOTE]
+The old and the new toolset cannot be used at the same time!
 This means eg. `@HtmlImports` are completely ignored when running the project
 in _npm mode_, and wise versa `@JsModule` is ignored when running the project 
 in _Vaadin 13 in compatibility mode_.
