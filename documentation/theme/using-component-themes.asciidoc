@@ -18,12 +18,51 @@ If none the previous conditions are met, no theme is used.
 
 In summary - if your project uses the `vaadin-core` dependency, and doesn't declare any `@Theme` or `@NoTheme`, the Lumo theme will be used by default.
 
-To use any custom themes, just add `Theme` annotation to your root navigation level, `RouterLayout` or to the top level @Route (see below).
+To use any custom themes, just add `@Theme` annotation to your root navigation level class, or to the `RouterLayout` component defined in its `@Route`.
 
-Each root `RouterLayout` can define it's own theme. This is not recommended though as any bootstrap addition can cause theme not to be used.
-*We don't support nor recommend mixing different themes together* - the UX should be consistent in one application.
+You must use an unique `@Theme` for the whole application. Flow does not support different `@Theme` values per route in your application, and will throw an exception.
 
-.Sample setup for application with navigation hierarchy to get a custom theme
+.Sample specifying Lumo themed components
+[source,java]
+----
+@Route(value = "")
+@Theme(value = Lumo.class)
+public class LumoApplication extends Div {
+}
+----
+
+.Sample setup to get Lumo themed components if the `Lumo.class` is in the 'classpath'.
+[source,java]
+----
+@Route(value = "")
+public class DefaultLumoApplication extends Div {
+}
+----
+
+.Sample setup to get Custom themed components
+[source,java]
+----
+@JsModule("@vaadin/vaadin-lumo-styles/color.js")
+public class MyTheme implements AbstractTheme {
+    @Override
+    public String getBaseUrl() {
+        return "/src/";
+    }
+
+    @Override
+    public String getThemeUrl() {
+        return "/theme/myTheme/";
+    }
+}
+
+
+@Route(value = "")
+@Theme(MyTheme.class)
+public class MaterialApplication extends Div {
+}
+----
+
+.Sample setup using a custom @Theme in RouterLayout
 [source,java]
 ----
 @Theme(MyTheme.class)
@@ -36,15 +75,6 @@ public class HomeView extends Div {
 
 @Route(value = "blog", layout = MainLayout.class)
 public class BlogPost extends Div {
-}
-----
-
-.Sample setup for single view setup to get Lumo themed components
-[source,java]
-----
-@Route(value = "")
-@Theme(Lumo.class) // can be omitted for Lumo
-public class Application extends Div {
 }
 ----
 
@@ -67,7 +97,7 @@ If the Theme annotation is not on a `@Route` Component or a top `RouterLayout` a
 
 == Theme variants
 
-A variant is a special string value that can be placed in the `theme` attribute value of any html element.
+A variant is a special string value that can be placed in the `theme` attribute value of any custom element.
 When the corresponding theme enabled, those values change the components' visual appearance.
 
 Multiple variants can be applied to the element, if specified separated by whitespace:
@@ -196,7 +226,7 @@ dependency is present in the classpath, LumoTheme is used.
 The compact preset for Lumo defines values for the sizing and spacing properties to reduce the visual space required by components to better fit a large amount of content on the screen. Annotate the main layout as follows to enable the compact preset:
 [source,java]
 ----
-@HtmlImport("frontend://bower_components/vaadin-lumo-styles/presets/compact.html")
+@JsModule("frontend://bower_components/vaadin-lumo-styles/presets/compact.js")
 @Theme(Lumo.class)
 public class CompactMainLayout extends Div implements RouterLayout {
 }

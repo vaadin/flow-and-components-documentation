@@ -3,7 +3,7 @@ package com.vaadin.flow.tutorial.introduction;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.EventData;
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.Span;
@@ -42,7 +42,7 @@ public class Introduction {
     }
 
     @Tag("game-card")
-    @HtmlImport("bower_components/game-card/game-card.html")
+    @JsModule("./game-card.js")
     public class GameCard extends Component {
 
     }
