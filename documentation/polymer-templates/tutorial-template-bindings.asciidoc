@@ -18,19 +18,16 @@ To get started with using templates and learn how to set model values, see <<tut
 The value of a model property can be used as the text content of an element using `\[[propertyName]]` inside a tag.
 
 .Sample HTML Template
-[source,html]
+[source,js]
 ----
-<dom-module id="my-template">
-    <template>
-        <div>[[hostProperty]]</div>
-    </template>
-    <script>
-         class MyTemplate extends Polymer.Element {
-           static get is() {return 'my-template'}
-         }
-         customElements.define(MyTemplate.is, MyTemplate);
-    </script>
-</dom-module>
+class MyTemplate extends PolymerElement {
+    static get template() {
+        return html`<div>[[hostProperty]]</div>`;
+    }
+
+    static get is() {return 'my-template'}
+}
+customElements.define(MyTemplate.is, MyTemplate);
 ----
 
 For the server-side sample see: <<server-side-sample,Server-side model sample code>>
@@ -39,14 +36,9 @@ For the server-side sample see: <<server-side-sample,Server-side model sample co
 
 You can set an element property value based on a model by using the property name in attribute form (dash-case not camelCase):
 
-[source,html]
+[source,js]
 ----
-<dom-module id="my-template">
-<template>
-    <my-element my-property="[[hostProperty]]"></my-element>
-</template>
-...
-</dom-module>
+return html`<my-element my-property="[[hostProperty]]"></my-element>`;
 ----
 
 This example binds to the target property, myProperty on <my-element>.
@@ -58,7 +50,7 @@ defines that the element _attribute_ named `name` should have the value `binding
 regardless of any value in the model.
 
 There are a handful of common native element properties that Polymer can't data-bind to directly, because the binding causes issues on one or more browsers and you need to use attribute bindings instead.
-For more information on these properties see: https://www.polymer-project.org/2.0/docs/devguide/data-binding#native-binding[Native properties that don't support property binding]
+For more information on these properties see: https://www.polymer-project.org/3.0/docs/devguide/data-binding#native-binding[Native properties that don't support property binding]
 
 == Binding Attribute Values
 
@@ -66,26 +58,16 @@ A binding written as `<div something="\[[hostProperty]]"></div>` is bound to the
 
 When you want to explicitly bind to an attribute instead, use the attribute name followed by $:
 
-[source,html]
+[source,js]
 ----
-<dom-module id="my-template">
-    <template>
-        <div something$="[[hostProperty]]"></div>
-    </template>
-    ...
-</dom-module>
+return html`<div something$="[[hostProperty]]"></div>`;
 ----
 
 or
 
-[source,html]
+[source,js]
 ----
-<dom-module id="my-template">
-    <template>
-        <a href$="[[hostProperty]]"></a>
-    </template>
-    ...
-</dom-module>
+return html`<a href$="[[hostProperty]]"></a>`;
 ----
 
 [NOTE]
@@ -106,7 +88,7 @@ Here is the server-side sample for tutorial html templates.
 [source,java]
 ----
 @Tag("my-template")
-@HtmlImport("/com/example/PolymerBinding.html")
+@JsModule("./com/example/my-template.js")
 public class PolymerBindingTemplate extends PolymerTemplate<BindingModel> {
 
     public PolymerBindingTemplate() {
@@ -154,7 +136,7 @@ events `save` and `reset` as follows:
 [source,java]
 ----
 @Tag("two-way-template")
-@HtmlImport("/com/example/PolymerTwoWayBinding.html")
+@JsModule("./com/example/two-way-template.js")
 public class PolymerTwoWayBindingTemplate
         extends PolymerTemplate<TwoWayBindingModel> {
 
@@ -200,88 +182,85 @@ On the client we will use different methods to bind  binding the model data:
 
 [NOTE]
 --
-Native elements need to specify a custom change event name in the annotation using the syntax: `target-prop="{{hostProp::target-change-event}}"` see. https://www.polymer-project.org/2.0/docs/devguide/data-binding#two-way-native[Two-way binding to a non-Polymer element]
+Native elements need to specify a custom change event name in the annotation using the syntax: `target-prop="{{hostProp::target-change-event}}"` see. https://www.polymer-project.org/3.0/docs/devguide/data-binding#two-way-native[Two-way binding to a non-Polymer element]
 --
 
 .Polymer html template
-[source,html]
+[source,js]
 ----
-<!-- Import Polymer and Polymer components -->
-<link rel="import" href="/bower_components/polymer/polymer-element.html">
-<link href="/bower_components/paper-input/paper-input.html" rel="import">
-<link href="/bower_components/paper-radio-button/paper-radio-button.html" rel="import">
-<link href="/bower_components/paper-radio-group/paper-radio-group.html" rel="import">
-<link href="/bower_components/paper-checkbox/paper-checkbox.html" rel="import">
+import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
+import '@polymer/paper-input/paper-input.js';
+import '@polymer/paper-radio-button/paper-radio-button.js';
+import '@polymer/paper-radio-group/paper-radio-group.js';
+import '@polymer/paper-checkbox/paper-checkbox.js';
 
-<dom-module id="two-way-template">
-    <template>
-        <table>
-            <tr>
-                <td>Paper name:</td>
-                <td>
-                    <paper-input value="{{name}}"></paper-input>
-                </td>
-            </tr>
-            <tr>
-                <td>Input name:</td>
-                <td>
-                    <input value="{{name::input}}">
-                </td>
-            </tr>
-            <tr>
-                <td>Change name:</td>
-                <td>
-                    <input value="{{name::change}}">
-                </td>
-            </tr>
-            <tr>
-                <td>Input accepted:</td>
-                <td>
-                    <input type="checkbox" checked="{{accepted::change}}">
-                </td>
-            </tr>
-            <tr>
-                <td>Polymer accepted:</td>
-                <td>
-                    <paper-checkbox checked="{{accepted}}"></paper-checkbox>
-                </td>
-            </tr>
-            <tr>
-                <td>Size:</td>
-                <td>
-                    <paper-radio-group selected="{{size}}">
-                        <paper-radio-button name="small">Small</paper-radio-button>
-                        <paper-radio-button name="medium">Medium</paper-radio-button>
-                        <paper-radio-button name="large">Large</paper-radio-button>
-                    </paper-radio-group>
-                </td>
-            </tr>
-            <tr>
-                <td>Size:</td>
-                <td>
-                    <select value="{{size::change}}">
-                        <option value="small">Small</option>
-                        <option value="medium">Medium</option>
-                        <option value="large">Large</option>
-                    </select>
-                </td>
-            </tr>
-        </table>
-        <div>
-            <button on-click="reset">Reset values</button>
-        </div>
-        <slot></slot>
-    </template>
+class TwoWayBinding extends PolymerElement {
 
-    <script>
-        class TwoWayBinding extends Polymer.Element {
-            static get is() {
-                return 'two-way-template'
-            }
-        }
-        customElements.define(TwoWayBinding.is, TwoWayBinding);
-    </script>
-</dom-module>
+    static get template() {
+        return html`
+            <table>
+                <tr>
+                    <td>Paper name:</td>
+                    <td>
+                        <paper-input value="{{name}}"></paper-input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Input name:</td>
+                    <td>
+                        <input value="{{name::input}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Change name:</td>
+                    <td>
+                        <input value="{{name::change}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Input accepted:</td>
+                    <td>
+                        <input type="checkbox" checked="{{accepted::change}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Polymer accepted:</td>
+                    <td>
+                        <paper-checkbox checked="{{accepted}}"></paper-checkbox>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Size:</td>
+                    <td>
+                        <paper-radio-group selected="{{size}}">
+                            <paper-radio-button name="small">Small</paper-radio-button>
+                            <paper-radio-button name="medium">Medium</paper-radio-button>
+                            <paper-radio-button name="large">Large</paper-radio-button>
+                        </paper-radio-group>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Size:</td>
+                    <td>
+                        <select value="{{size::change}}">
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <button on-click="reset">Reset values</button>
+            </div>
+            <slot></slot>`;
+    }
+
+    static get is() {
+        return 'two-way-template';
+    }
+}
+customElements.define(TwoWayBinding.is, TwoWayBinding);
 ----
 
 Here's the template representation in the browser:
