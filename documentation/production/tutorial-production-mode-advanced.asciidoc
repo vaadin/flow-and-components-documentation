@@ -11,12 +11,13 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 == Production mode issues
 
 ===  After adding the `flow-server-production-mode` dependency the application no longer starts.
-This is a problem when you didn't run the `build-frontend` goal of the `flow-maven-plugin`. To fix this simply add the
-`flow-maven-plugin` to your maven `build` block, and enable the `build-frontend` goal.
+One likely cause of this problem is that the `build-frontend` of the `flow-maven-plugin` was not executed, either because the plugin
+is missing from the `pom.xml` or it is missing configuration. To fix this simply add the `flow-maven-plugin` to your maven `build` block
+(make sure it's visible in your production mode profile), and enable the `build-frontend` goal.
 
 == Splitting the Webpack bundle into multiple chunks
 
-This is an upcoming feature in Vaadin Platform 14. For information on defining fragments for bundling in applications running in Vaadin 14 in V13 compatibility mode, see the https://vaadin.com/docs/v13/flow/production/tutorial-production-mode-customising.html[Vaadin 13 documentation on Customizing Bundling].
+This is an upcoming feature in Vaadin Platform 14. For information on customizing bundling when using compatibility mode, see the https://vaadin.com/docs/v13/flow/production/tutorial-production-mode-customising.html[Vaadin 13 documentation on this topic].
 
 == Plugin goals and goal parameters
 
@@ -25,14 +26,11 @@ Here we describe the maven plugin goals and their usage.
 === prepare-frontend
 
 The intention of the goal is to validate whether `node` and `npm` tools are installed. Node.js is needed to run npm for installing
-frontend dependencies and webpack which bundles the frontend files served to client. In case they are missing an exception is thrown and the build process terminates.
+frontend dependencies and webpack which bundles the frontend files served to client. In case they are missing, an exception is thrown and the build process terminates.
 
-In addition, it visits all resources used by the application and copies them under `node_modules` folder so as they are available when `webpack` builds the frontend, and creates or updates `package.json`, `webpack.config.json` and `webpack.generated.json` files.
+In addition, it visits all resources used by the application and copies them under `node_modules` folder so they are available when `webpack` builds the frontend. It also creates or updates `package.json`, `webpack.config.json` and `webpack.generated.json` files.
 
 ==== Goal parameters
-
-* *frontendResourcesDirectory* (default: `${project.basedir}/src/main/resources/META-INF/resources/frontend`):
-    Path to frontend resources which should be copied into `${project.basedir}/node_modules/@vaadin/flow-frontend/`.
 
 * *jarResourcePathsToCopy* (default: `META-INF/resources/frontend`):
     Comma separated values for the paths that should be analyzed in every project dependency jar and, if files suitable
@@ -53,7 +51,7 @@ In addition, it visits all resources used by the application and copies them und
     Set it to empty string to disable the feature.
 
 * *generatedFolder* (default: `${project.build.directory}/frontend/`):
-    The folder where flow will put generated files that will be used by Webpack.
+    The folder where Flow will put generated files that will be used by Webpack.
 
 
 === build-frontend
@@ -71,7 +69,7 @@ and will be used as entry point of the application.
     The folder where `package.json` file is located. Default is project root folder.
 
 * *generatedFolder* (default: `${project.build.directory}/frontend/`):
-    The folder where flow will put generated files that will be used by Webpack.
+    The folder where Flow will put generated files that will be used by Webpack.
 
 * *frontendDirectory* (default: `${project.basedir}/frontend`):
     A directory with project's frontend source files.
