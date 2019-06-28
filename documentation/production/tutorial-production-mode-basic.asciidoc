@@ -19,7 +19,9 @@ the production-mode dependency.
 <profiles>
     <profile>
         <id>production</id>
-
+        <properties>
+            <vaadin.productionMode>true</vaadin.productionMode>
+        </properties>
         <dependencies>
             <dependency>
                 <groupId>com.vaadin</groupId>
@@ -39,7 +41,9 @@ to the plugin or define the whole plugin in the production profile:
 <profiles>
     <profile>
         <id>production</id>
-
+        <properties>
+            <vaadin.productionMode>true</vaadin.productionMode>
+        </properties>
         <dependencies>
             <dependency>
                 <groupId>com.vaadin</groupId>
