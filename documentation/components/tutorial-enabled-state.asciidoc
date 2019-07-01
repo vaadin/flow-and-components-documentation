@@ -93,7 +93,7 @@ The first way to do this is to use the `synchronizeProperty` method with the `Di
 [source, java]
 ----
 @Tag("registration-form")
-@HtmlImport("src/registration-form.html")
+@JsModule("./src/registration-form.js")
 public class RegistrationForm extends PolymerTemplate<TemplateModel>
         implements HasEnabled {
 
@@ -132,22 +132,24 @@ public class RegistrationForm extends PolymerTemplate<TemplateModel>
 
 Here is its template file:
 
-[source, html]
+[source, js]
 ----
-<dom-module id="registration-form">
-    <template>
-        <vaadin-text-field id='name'>{{name}}</vaadin-text-field>
-        <vaadin-text-field id='email'>{{email}}</vaadin-text-field>
-        <vaadin-button id='submit' on-click='register'>Register</vaadin-button>
-        <vaadin-checkbox id='enable'>Accept License Agreement</vaadin-checkbox>
-    </template>
-    <script>
-         class RegistrationForm extends Polymer.Element {
-           static get is() {return 'registration-form'}
-         }
-         customElements.define(RegistrationForm.is, RegistrationForm);
-    </script>
-</dom-module>
+class RegistrationForm extends PolymerElement {
+
+    static get template() {
+        return html`
+            <vaadin-text-field id='name'>{{name}}</vaadin-text-field>
+            <vaadin-text-field id='email'>{{email}}</vaadin-text-field>
+            <vaadin-button id='submit' on-click='register'>Register</vaadin-button>
+            <vaadin-checkbox id='enable'>Accept License Agreement</vaadin-checkbox>`;
+    }
+
+    static get is() {
+        return 'registration-form';
+    }
+}
+
+customElements.define(RegistrationForm.is, RegistrationForm);
 ----
 
 * The checkbox is implicitly disabled if the template (which is its parent) is disabled. As a result, no RPC is allowed for the checkbox.

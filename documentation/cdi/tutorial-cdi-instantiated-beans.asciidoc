@@ -69,24 +69,21 @@ public class DependentLabel extends Label {
 
 *Example*: `TestTemplate.html` Polymer template.
 
-[source,html]
+[source,js]
 ----
-<link rel="import" href="bower_components/polymer/polymer-element.html">
+import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
 
-<dom-module id="test-template">
-    <template>
-        <div>
-            <dependent-label id="label"/>
-        </div>
-    </template>
+class TestTemplate extends Polymer.Element {
+    static get template() {
+        return html`
+            <div>
+                <dependent-label id="label"/>
+            </div>`;
+    }
 
-    <script>
-        class TestTemplate extends Polymer.Element {
-            static get is() { return 'test-template' }
-        }
-        customElements.define(TestTemplate.is, TestTemplate);
-    </script>
-</dom-module>
+    static get is() { return 'test-template' }
+}
+customElements.define(TestTemplate.is, TestTemplate);
 ----
 
 [IMPORTANT]

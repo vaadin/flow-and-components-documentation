@@ -1,0 +1,18 @@
+---
+title: Limitations in Embedded Application
+order: 8
+layout: page
+---
+
+= Limitations in Embedded Application
+
+Some features are not available for embedded applications. Here is what you should
+be aware of:
+
+* Navigation and routing features are not available for embedded applications. 
+This means there is no sense in annotating your classes with `@Route` annotation: 
+you will not be able to navigate to the route target. 
+It implies also that you should avoid using router link 
+(via the `RouterLink` class or any other custom way).
+* Only one `Theme` annotation may be specified. This is explained in the <<tutorial-webcomponent-theming#,Theming an Embedded Application>>  tutorial.
+* Only one `Push` annotation may be used. This is explained in the <<tutorial-webcomponent-push#,Embedded Application Push Configuration>>  tutorial.

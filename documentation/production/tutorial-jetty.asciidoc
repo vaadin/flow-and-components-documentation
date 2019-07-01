@@ -52,9 +52,9 @@ To be able to deploy and run applications with it, it is only needed to add the 
         <plugin>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-maven-plugin</artifactId>
-            <version>9.4.11.v20180605</version>
+            <version>9.4.15.v20190215</version>
             <configuration>
-                <scanIntervalSeconds>1</scanIntervalSeconds>
+                <scanIntervalSeconds>2</scanIntervalSeconds>
             </configuration>
         </plugin>
     </plugins>

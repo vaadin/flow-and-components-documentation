@@ -4,15 +4,11 @@ order: 1
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
-
 = Browser Window Resize Events
 
-`Page` class allows to register listener for events concerning the web page 
-and browser window in which the Vaadin UI resides. The `Page` instance 
-corresponding to a given UI is accessed via the getPage() method of the `UI`.
+The `Page` class allows you to register a listener for events that affect the web page and the browser window in which the Vaadin UI resides. The `Page` instance corresponding to a given `UI` is accessed by the `getPage()` method of the `UI`.
 
-You can access the browser window size and add size change listeners:
+*Example*: Accessing the browser window size and adding a size-change listener. 
 
 [source,java]
 ----

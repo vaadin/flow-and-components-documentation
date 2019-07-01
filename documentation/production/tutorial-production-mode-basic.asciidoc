@@ -10,8 +10,8 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 == Simple steps for production mode build
 
-To get your application prepped for production you want to add the `vaadin-maven-plugin` into the pom.xml
-and then create a production mode profile:
+To get your application prepared for production you want to create a production mode profile which brings in
+the production-mode dependency.
 
 .pom.xml
 [source, xml]
@@ -19,14 +19,37 @@ and then create a production mode profile:
 <profiles>
     <profile>
         <id>production</id>
-
+        <properties>
+            <vaadin.productionMode>true</vaadin.productionMode>
+        </properties>
         <dependencies>
             <dependency>
                 <groupId>com.vaadin</groupId>
                 <artifactId>flow-server-production-mode</artifactId>
             </dependency>
         </dependencies>
+    </profile>
+</profiles>
+----
 
+If you only have the `prepare-frontend` goal in the `vaadin-maven-plugin` then you need to add the `build-frontend` goal
+to the plugin or define the whole plugin in the production profile:
+
+.pom.xml
+[source, xml]
+----
+<profiles>
+    <profile>
+        <id>production</id>
+        <properties>
+            <vaadin.productionMode>true</vaadin.productionMode>
+        </properties>
+        <dependencies>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>flow-server-production-mode</artifactId>
+            </dependency>
+        </dependencies>
         <build>
             <plugins>
                 <plugin>
@@ -36,8 +59,8 @@ and then create a production mode profile:
                     <executions>
                         <execution>
                             <goals>
-                                <goal>copy-production-files</goal>
-                                <goal>package-for-production</goal>
+                                <goal>prepare-frontend</goal>
+                                <goal>build-frontend</goal>
                             </goals>
                         </execution>
                     </executions>
@@ -55,14 +78,14 @@ production settings when running in development mode.
 For users who use `Vaadin Flow` only, you can use `flow-maven-plugin` as artifactId and match the version number with current Flow version
 
 After this all that is needed is to run `mvn clean package -Pproduction`.
-This will then do transpilation, minimisation and bundling on the application resources and build a production ready war.
 
 The simplest way to get a production ready setup is to get a project base from https://vaadin.com/start
 
-With this the server can be started with `mvn jetty:run-exploded -Pproduction`.
-
 [NOTE]
 If your environment(OS) is 64bit make sure to use JDK 64bit as well. There is a known issue when JDK 32bit is used on a 64bit environment.
+
+[NOTE]
+For an old project running with bower see V13 documentation about the production mode.
 
 == What is transpilation and bundling
 
@@ -75,5 +98,3 @@ Minimisation is done to make the file smaller. When minifying the code of also o
 
 Bundling is an optimisation where we merge multiple files to a collection so that the browser doesn't need to
 request so many files making loading faster.
-
-Bundling can also be made to create multiple bundle fragments. For information on this see <<tutorial-production-mode-customising#,Customizing Bundling>>
