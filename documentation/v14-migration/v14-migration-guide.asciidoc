@@ -41,12 +41,12 @@ While Bower still works and is maintained, it is lacking support for the latest 
 
 To be able to bring all the latest frontend technologies available to the 
 Vaadin users, the frontend technology stack and tooling
-has been renewed in Vaadin 14.
+have been renewed in Vaadin 14.
 
 [NOTE]
 The old and the new toolset cannot be used at the same time!
 This means eg. `@HtmlImports` are completely ignored when running the project
-in _npm mode_, and wise versa `@JsModule` is ignored when running the project 
+in _npm mode_, and vise versa `@JsModule` is ignored when running the project 
 in _Vaadin 13 in compatibility mode_.
 
 === Web Components: ES6 modules instead of HTML Imports

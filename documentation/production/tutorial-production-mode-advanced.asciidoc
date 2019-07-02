@@ -11,81 +11,74 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 == Production mode issues
 
 ===  After adding the `flow-server-production-mode` dependency the application no longer starts.
-This is a problem when you didn't run the `build-frontend` goal of the `flow-maven-plugin`
+One likely cause of this problem is that the `build-frontend` of the `flow-maven-plugin` was not executed, either because the plugin
+is missing from the `pom.xml` or it is missing configuration. To fix this simply add the `flow-maven-plugin` to your maven `build` block
+(make sure it's visible in your production mode profile), and enable the `build-frontend` goal.
 
-To fix this simply add the `flow-maven-plugin` to your maven `build` block, and enable the `build-frontend` goal.
+== Splitting the Webpack bundle into multiple chunks
+
+This is an upcoming feature in Vaadin Platform 14. For information on customizing bundling when using compatibility mode, see the https://vaadin.com/docs/v13/flow/production/tutorial-production-mode-customising.html[Vaadin 13 documentation on this topic].
 
 == Plugin goals and goal parameters
 
 Here we describe the maven plugin goals and their usage.
 
-=== validate
+=== prepare-frontend
 
 The intention of the goal is to validate whether `node` and `npm` tools are installed. Node.js is needed to run npm for installing
-frontend dependencies and webpack which bundles the frontend files served to client. In case they are missing an exception is thrown and the build process terminates.
-In addition, it visits all resources used by the application and copies them under `node_modules` folder so as they are available when `webpack` builds the frontend.
+frontend dependencies and webpack which bundles the frontend files served to client. In case they are missing, an exception is thrown and the build process terminates.
+
+In addition, it visits all resources used by the application and copies them under `node_modules` folder so they are available when `webpack` builds the frontend. It also creates or updates `package.json`, `webpack.config.json` and `webpack.generated.json` files.
 
 ==== Goal parameters
 
-* *nodeModulesPath* `default: ${project.basedir}/node_modules/`
+* *jarResourcePathsToCopy* (default: `META-INF/resources/frontend`):
+    Comma separated values for the paths that should be analyzed in every project dependency jar and, if files suitable
+    for copying present in those paths, those should be copied.
 
-    The path to the {@literal node_modules} directory of the project.
-
-* *frontendResourcesDirectory* `default: ${project.basedir}/src/main/resources/META-INF/resources/frontend`
-
-    Path to frontend resources which should be copied into ${project.basedir}/node_modules/@vaadin/flow-frontend/.
-
-* *jarResourcePathsToCopy* `default: META-INF/resources/frontend`
-
-    Comma separated values for the paths that should be analyzed in every project dependency jar and,
-    if files suitable for copying present in those paths, those should be copied.
-
-* *includes* `default: **/*.js,**/*.css`
-
+* *includes* (default: `&#42;&#42;/&#42;.js,&#42;&#42;/&#42;.css`):
     Comma separated wildcards for files and directories that should be copied. Default is only .js and .css files.
+
+* *npmFolder* (default: `${project.basedir}`):
+    The folder where `package.json` file is located. Default is project root folder.
+
+* *webpackTemplate* (default: `webpack.config.js`):
+    Copy the `webapp.config.js` from the specified URL if missing. Default is the template provided by this plugin.
+    Set it to empty string to disable the feature.
+
+* *webpackGeneratedTemplate* (default: `webpack.generated.js`):
+    Copy the `webapp.config.js` from the specified URL if missing. Default is the template provided by this plugin.
+    Set it to empty string to disable the feature.
+
+* *generatedFolder* (default: `${project.build.directory}/frontend/`):
+    The folder where Flow will put generated files that will be used by Webpack.
 
 
 === build-frontend
-The intention of the goal is to prepare the frontend files. This is a complex process involving several steps:
-- updates `package.json` with all `@NpmPackage` annotation values found in the classpath and automatically install these dependencies.
-- updates the JavaScript files containing code for importing everything used in the application. These files are generated in the `target/frontend` folder,
+This goal builds the frontend bundle. This is a complex process involving several steps:
+
+- update `package.json` with all `@NpmPackage` annotation values found in the classpath and automatically install these dependencies.
+- update the JavaScript files containing code for importing everything used in the application. These files are generated in the `target/frontend` folder,
 and will be used as entry point of the application.
-- creates `webpack.config.js` if not found, or updates it in case some project parameters have changed.
-- generates JavaScript bundles, chunks and transpile to ES5 using `webpack` server. Target folder in case of `war` packaging is `target/${artifactId}-${version}/build`
-and in case of `jar` packaging is `target/classes/META-INF/resources/build`.
+- create `webpack.config.js` if not found, or updates it in case some project parameters have changed.
+- generate JavaScript bundles, chunks and transpile to ES5 using `webpack` server. Target folder in case of `war` packaging is `target/${artifactId}-${version}/build` and in case of `jar` packaging is `target/classes/META-INF/resources/build`.
 
 ==== Goal parameters
 
-* *convertHtml* `default: true`
-
-    Enable or disable legacy components annotated only with {@link HtmlImport}.
-
-* *npmFolder* `default: ${project.basedir}`
-
+* *npmFolder* (default: `${project.basedir}`:
     The folder where `package.json` file is located. Default is project root folder.
 
-* *nodeModulesPath* `default: ${project.basedir}/node_modules/`
+* *generatedFolder* (default: `${project.build.directory}/frontend/`):
+    The folder where Flow will put generated files that will be used by Webpack.
 
-    The path to the {@literal node_modules} directory of the project.
-
-* *generatedFlowImports* `default: ${project.build.directory}/frontend/generated-flow-imports.js`
-
-    The JavaScript file used as entry point of the application, and which is automatically updated by flow by reading java annotations.
-
-* *frontendDirectory* `default: ${project.basedir}/frontend`
-
+* *frontendDirectory* (default: `${project.basedir}/frontend`):
     A directory with project's frontend source files.
 
-* *generateBundle* `default: true`
-
+* *generateBundle* (default: `true`):
     Whether to generate a bundle from the project frontend sources or not.
 
-* *runNpmInstall* `default: true`
-
+* *runNpmInstall* (default: `true`):
     Whether to run `npm install` after updating dependencies.
 
-* *webpackTemplate* `default: webpack.config.js`
-
-    Copy the `webapp.config.js` from the specified URL if missing. Default is the template provided by this plugin. 
-    Set it to empty string to disable the feature.
-
+* *generateEmbeddableWebComponents* (default: `true`):
+    Whether to generate embeddable web components from WebComponentExporter inheritors.
