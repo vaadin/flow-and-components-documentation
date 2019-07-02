@@ -1,5 +1,5 @@
 ---
-title: Using CDI Beans in Instantiated Components
+title: Using CDI Beans in Vaadin Applications
 order: 2
 layout: page
 ---
