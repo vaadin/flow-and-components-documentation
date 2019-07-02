@@ -6,7 +6,7 @@ layout: page
 
 = Using CDI Beans in Instantiated Components
 
-When instantiated by Vaadin Flow, most components become managed beans. This means they are fully-fledged CDI contextual instances: all CDI features are usable when they are queried from the CDI `BeanManager` by the https://vaadin.com/directory/component/vaadin-cdi/[Vaadin CDI] add-on.
+When using https://vaadin.com/directory/component/vaadin-cdi/[Vaadin CDI], most objects instantiated by framework become managed beans. The framework uses the CDI `BeanManager` to get references to beans. This means they are fully-fledged CDI contextual instances.
 
 The add-on looks up the CDI bean by type (component class) and `@Any`. 
 
