@@ -18,9 +18,8 @@ do that:
 
 [source, java]
 ----
-@Tag("my-component")
 @Theme(Material.class)
-public class MyExporter implements WebComponentExporter<Div> {
+public class MyExporter extends WebComponentExporter<Div> {
 ----
 
 The annotation `@Theme(Material.class)` declared for the `MyExporter` class
@@ -31,9 +30,10 @@ It's enough to specify a theme only for one exporter in your application.
 If there is no any theme declaration then `Lumo` theme is used if it's in 
 the project classpath as mentioned above.
 
-It's not possible to define several various themes in one embedded application:
-themes are discovered at the application startup and an exception will be thrown
-if you did this mistake. The application should be split out to the 
-several embedded applications to be able to use different themes for components.
-In this case every embedded application may use its own theme and the main
-application just embeds several themed applications instead of one.
+It's not possible to define several themes in one embedded application:
+themes are discovered during build time (or startup, in compatibility mode's
+development mode) and an exception will be thrown different themes are found.
+The application should be split out to several embedded applications by theme to
+be able to use different themes for different components. In this case every
+embedded application may use its own theme and the main application just embeds
+several themed applications instead of one.

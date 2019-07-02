@@ -17,7 +17,7 @@ package com.vaadin.flow.tutorial.polymer;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.polymertemplate.Id;
@@ -28,7 +28,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @CodeFor("polymer-templates/tutorial-template-components.asciidoc")
 public class PolymerComponents {
     @Tag("main-page")
-    @HtmlImport("/com/example/MainPage.html")
+    @JsModule("./com/example/main-page.js")
     public class MainPage extends PolymerTemplate<TemplateModel> {
 
         @Id("content")

@@ -20,7 +20,7 @@ import java.util.Locale;
 
 import com.vaadin.flow.component.EventData;
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.ModelItem;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
@@ -32,7 +32,7 @@ public class PolymerTemplateEvents {
 
     // @formatter:off
     @Tag("event-handler")
-    @HtmlImport("/com/example/EventHandler.html")
+    @JsModule("./com/example/event-handler.js")
     public class EventHandlerPolymerTemplate extends PolymerTemplate<TemplateModel> {
 
         @EventHandler
@@ -43,7 +43,7 @@ public class PolymerTemplateEvents {
 
 
     @Tag("event-handler")
-    @HtmlImport("/com/example/EventHandler.html")
+    @JsModule("./com/example/event-handler.js")
     public class EventDataHandlerPolymerTemplate extends PolymerTemplate<TemplateModel> {
 
         @EventHandler
@@ -83,7 +83,7 @@ public class PolymerTemplateEvents {
     }
 
     @Tag("model-item-handler")
-    @HtmlImport("/com/example/ModelItemHandler.html")
+    @JsModule("./com/example/model-item-handler.js")
     public class ModelItemHandlerPolymerTemplate
             extends PolymerTemplate<MessagesModel> {
 

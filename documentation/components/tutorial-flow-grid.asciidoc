@@ -566,7 +566,7 @@ grid.addColumn(TemplateRenderer.<Person> of("<b>[[item.name]]</b>")
 * The template string is passed for the static `TemplateRenderer.of()` method.
 * Every property in the template needs to be defined in the `withProperty()` method.
 * `\[[item.name]]` is Polymer syntax for binding properties for a list of items.
-See the https://www.polymer-project.org/2.0/docs/api/elements/Polymer.DomRepeat[Polymer 2 documentation] for more.
+See the https://polymer-library.polymer-project.org/3.0/api/elements/dom-repeat[Polymer 3 documentation] for more.
 
 ==== Creating Custom Properties
 

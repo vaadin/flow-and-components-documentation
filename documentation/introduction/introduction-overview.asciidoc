@@ -92,7 +92,7 @@ Vaadin Flow allows you to create a Java API for any available Web Component and 
 [source,java]
 ----
 @Tag("game-card")
-@HtmlImport("bower_components/game-card/game-card.html")
+@JsModule("./game-card.js")
 public class GameCard extends Component {
 
 }
@@ -105,22 +105,23 @@ You can also find prebuilt Java APIs for Web Components that have been published
 
 === Building Components with HTML Templates
 
-Another way to create components is to separate the layout from the UI logic. The best way to do this is to use HTML templates together with Java classes. The HTML files contain the layout and (if needed) pure client-side logic, while the Java classes takes care of the server-side logic, like event handling.
+Another way to create components is to separate the layout from the UI logic. The best way to do this is to use JavaScript modules and HTML templates together with Java classes. The JavaScript module contain the layout and (if needed) pure client-side logic, while the Java classes takes care of the server-side logic, like event handling.
 
 You can use these components in the same way as any other component in your Java environment. Vaadin Flow does not distinguish between pure Java or HTML/Java combined components.
 
 *Example*: @Id injection in a component.
-[source,html]
+[source,js]
 ----
-<template>
-    <vaadin-vertical-layout>
-        <vaadin-text-field id="textField"></vaadin-text-field>
-        <label id="greeting">Hello stranger</label>
+static get template() {
+    return html`
+        <vaadin-vertical-layout>
+            <vaadin-text-field id="textField"></vaadin-text-field>
+            <label id="greeting">Hello stranger</label>
 
-        <input type="color" on-input="updateFavoriteColor">
-        <label>Favorite color: </label>
-    </vaadin-vertical-layout>
-</template>
+            <input type="color" on-input="updateFavoriteColor">
+            <label>Favorite color: </label>
+        </vaadin-vertical-layout>`;
+}
 ----
 
 [source,java]

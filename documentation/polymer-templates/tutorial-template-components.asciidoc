@@ -13,36 +13,35 @@ Added items to the PolymerTemplate only show up on screen if added to the `Shado
 the template if it doesn't have a `<slot>` see. <<tutorial-template-components-in-slot#,Using <slot> in PolymerTemplates>>
 
 By using the `@Id` annotation, you can get a server-side `Component` or `Element`,
-for an element only defined in the PolymerTemplate html file for the client side to
+for an element only defined in the PolymerTemplate JavaScript file for the client side to
 use on the server.
 
 [NOTE]
 The `Component`/`Element` needs to have the same `@Tag` as the actual element that is wired.
 This means that you can not wire a `<span id="content"></span>` to a `@Id("content") Div content`
 
-Here is the content of the HTML template file which has a placeholder `div` element with a `"content"` identifier. This element is mapped to a `Div` component in Java code below to set a `Component` as a child for it.
+Here is the content of the JavaScript module creating the template with a placeholder `div` element with a `"content"` identifier. This element is mapped to a `Div` component in Java code below to set a `Component` as a child for it.
 
-[source,html]
+[source,js]
 ----
-<dom-module id="main-page">
-    <template>
-        <div id="header">Main page</div>
-        <div id="content"></div>
-        <hr>
-        <div id="footer">
-            <a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">Send Mail</a>
-        </div>
-    </template>
+class MainPage extends PolymerElement {
 
-    <script>
-        class MainPage extends Polymer.Element {
-            static get is() {
-                return 'main-page'
-            }
-        }
-        customElements.define(MainPage.is, MainPage);
-    </script>
-</dom-module>
+    static get template() {
+        return html`
+            <div id="header">Main page</div>
+            <div id="content"></div>
+            <hr>
+            <div id="footer">
+                <a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">Send Mail</a>
+            </div>`;
+    }
+
+    static get is() {
+          return 'main-page';
+    }
+}
+
+customElements.define(MainPage.is, MainPage);
 ----
 
 You can implement the method that wires a `Component` to the content of your template element.
@@ -50,7 +49,7 @@ You can implement the method that wires a `Component` to the content of your tem
 [source,java]
 ----
 @Tag("main-page")
-@HtmlImport("/com/example/MainPage.html")
+@JsModule("./com/example/main-page.js")
 public class MainPage extends PolymerTemplate<TemplateModel> {
 
     @Id("content")
