@@ -6,7 +6,7 @@ layout: page
 
 = Creating Java API for a Web Component
 
-The component class, e.g. `PaperSlider.java` you get when using the component starter, see <<integrating-a-web-component#,Integrating a Web Component>> is just a stub which handles the imports.
+The component class you get when using the component starter (see <<integrating-a-web-component#,Integrating a Web Component>>), e.g. `PaperSlider.java`, is only a stub which handles the imports.
 There are multiple ways to interact with a web component but the typical pattern is:
 
 * Use properties on the element to define how it should behave
@@ -16,9 +16,9 @@ There are multiple ways to interact with a web component but the typical pattern
 
 == Setting and reading properties
 
-You can typically find out what properties an element supports from its JS docs, e.g. for paper-slider: https://www.webcomponents.org/element/PolymerElements/paper-slider/elements/paper-slider.
-The slider has a boolean property called `pin` which defines if "numeric value label is shown when the slider thumb is pressed".
-To create a `setPin(boolean pin)` Java API for this, you can add:
+You can typically find out what properties an element supports from its JavaScript docs. E.g., for paper-slider: https://www.webcomponents.org/element/@polymer/paper-slider/elements/paper-slider.
+The slider has a boolean property called `pin` which defines if "a pin with numeric value label is shown when the slider thumb is pressed".
+To create the corresponding Java setter-getter API, you can add:
 
 [source, java]
 ----
@@ -42,9 +42,9 @@ public DemoView() {
 ----
 you will see the pin appear when dragging the slider knob.
 
-While you can use the `getElement` methods directly like above, you will end up in defining the property in two places: the getter and the setter.
-To avoid repeating the property name and to be able to define all properties in one place, there is a `PropertyDescriptor` helper.
-Using `PropertyDescriptor` and the factory methods in `PropertyDescriptors`, you can define the `pin` property as a static field in the component and use the `PropertyDescriptor` in the getter and the setter:
+A drawback of writing the `getElement` methods directly like above is that you end up repeating the property name in the getter and the setter.
+To avoid repeating the property name you can use the `PropertyDescriptor` helper.
+`PropertyDescriptor` and the factory methods in `PropertyDescriptors` allow defining the `pin` property as a single static field in the component that can be referenced from the getter and the setter:
 
 [source, java]
 ----
@@ -67,12 +67,12 @@ The setter and getter code then only invokes the descriptor with the component i
 
 == Synchronizing the Value
 
-`paper-slider` is an input type component where the user can decide what the value is.
-These kind of components should be integrated using the `HasValue` interface so they can automatically work in forms where you use `Binder`.
+`paper-slider` is a component that allows the user to input a single value.
+This kind of component should implement the `HasValue` interface so it will automatically work as a field in <<../binding-data/tutorial-flow-components-binder#,forms with data binding>>.
 
-The value should be synchronized automatically from the client to the server, when the user changes it, and from the server to the client, when changing it from code.
+The value should be synchronized automatically from the client to the server when the user changes it, as well from the server to the client when updated programmatically.
 Additionally a value change event should be emitted on the server whenever the value changes.
-For the most common case where `getValue()` is based on a single element property, the `AbstractSinglePropertyField` base class can be used to take care of everything related to the value.
+In the common case where `getValue()` is based on a single element property, the `AbstractSinglePropertyField` base class takes care of everything related to the value.
 
 [source, java]
 ----
@@ -86,8 +86,8 @@ public class PaperSlider extends AbstractSinglePropertyField<PaperSlider, Intege
 ----
 
 The type parameters define the component type (`PaperSlider`) returned by `getSource()` in value change events and the value type (`Integer`).
-The constructor parameters define the name of the element property that contains the value (`value`), the default value to use if the property isn't set (`0`)
-and whether `setValue(null)` should be allowed or throw an exception (`false`, meaning that `null` is not allowed).
+The constructor parameters define the name of the element property that contains the value (`"value"`), the default value to use if the property isn't set (`0`)
+and whether `setValue(null)` should be allowed or throw an exception (`false` means that `null` is not allowed).
 
 [NOTE]
 For more advanced cases that still rely on only one element property, there's an alternative constructor for defining callbacks that convert between the low-level element property type and the high level `getValue()` type.
@@ -154,15 +154,15 @@ public Registration addClickListener(ComponentEventListener<ClickEvent> listener
 }
 ----
 
-The `addListener` method in the super class will set up everything related to the event based on the annotations in the `ClickEvent` class that also need to be created:
+The `addListener` method in the superclass will set up everything related to the event based on the annotations in the `ClickEvent` class that also need to be created.
 
-The `ClickEvent` defined above uses `@DomEvent` to define the name of the DOM event to listen for, `click` in this case.
+The `ClickEvent` defined above uses `@DomEvent` to define the name of the DOM event to listen for (`click` in this case).
 Like all other events fired by a `Component`, it extends `ComponentEvent` which provides a typed `getSource()` method.
 
 It uses two additional constructor parameters annotated with `@EventData` to get the click coordinates from the browser.
-The expression inside the `@EventData` is evaluated when the event is handled in the browser and can access DOM event properties using a `event.` prefix and element properties using the `element.` prefix, e.g. `event.offsetX`.
+The expression inside the `@EventData` is evaluated when the event is handled in the browser, and can access DOM event properties using the `event.` prefix (e.g. `event.offsetX`) and element properties using the `element.` prefix.
 
-Finally, you can test the event integration in the demo e.g. by adding to `DemoView.java`:
+You can test the event integration in the demo, e.g., by adding to `DemoView.java`:
 
 [source, java]
 ----
@@ -172,15 +172,15 @@ paperSlider.addClickListener(e -> {
 ----
 
 [NOTE]
-The two first parameters to a `ComponentEvent` constructor must be `PaperSlider source, boolean fromClient` which are filled automatically.
-Any `@EventData` parameters must be added after those and all additional parameters must have an `@EventData` annotation.
+The two first parameters to a `ComponentEvent` constructor must be `PaperSlider source, boolean fromClient` and are filled automatically.
+All parameters following these two initial parameters must carry the `@EventData` annotation.
 
 [TIP]
-The click event here is used as an example. You should use the `ClickEvent` already provided in Flow instead, which will provide even more information to the server.
+The click event was used here for illustrative purposes. In a real use case, you should use the `ClickEvent` provided by Flow instead, which will also provide additional event details.
 
 [TIP]
-As the event data expression is evaluated as JavaScript, you can control propagation behavior using e.g. `@EventData("event.preventDefault()") String ignored`.
-This is only a workaround. But since there is no other API to control this behaviour, you can use it.
+As the event data expression is evaluated as JavaScript, you can control propagation behavior using, e.g., `@EventData("event.preventDefault()") String ignored`.
+This is a workaround for the lack of other API to control this behavior.
 
 == Calling Element Functions
 
@@ -211,12 +211,12 @@ but does not differentiate between the cases when a user event changed the value
 
 [NOTE]
 This particular example is quite artificial as it is doing a server visit from a button click only to call a Javascript method on another element on client side.
-It makes more sense if you call `increment()` directly from client side or some other business logic.
+In practice you would either call `increment()` directly from client side, or from some other server-side business logic.
 
 [TIP]
 In addition to the method name, `callJsFunction` takes an arbitrary number of parameters of certain supported types.
 Supported types are at the time of writing `String`, `Boolean`, `Integer`, `Double`, the corresponding primitive types, `JsonValue`, `Element` and `Component` references.
-See the method's javadoc for more information about supported types.
+It also returns a server-side promise for the JavaScript function's return value. See the method's javadoc for more information.
 
 == Final Slider Integration Result
 
@@ -317,7 +317,7 @@ public class IconButton extends Component {
 ----
 
 The relevant part here is in the `setIcon` method. As there happens to be a feature in `VaadinIcon` which creates a component for a given icon (the `create()` call),
-it is used to create the child element. What remains is then to attach the root element of the child component, done using `getElement().appendChild(iconComponent.getElement());`.
+it is used to create the child element. What remains is then to attach the root element of the child component by calling `getElement().appendChild(iconComponent.getElement());`.
 
 In case the `VaadinIcon.create()` method was not available, you would have to resort to either creating the component yourself or using the element API directly.
 If you use the element API, the `setIcon` method might look something like:
@@ -348,7 +348,7 @@ With this approach you must also ensure that the `vaadin-button.html` dependency
 public class IconButton extends Component {
 ----
 
-Regardless of the approach taken, you can test the icon button as e.g.
+With either approach, you can test the icon button, e.g., as
 [source, java]
 ----
 IconButton iconButton = new IconButton(VaadinIcon.CHECK);
@@ -362,4 +362,4 @@ add(iconButton);
 This will show the `CHECK` icon and then change the icon on every click of the button.
 
 [NOTE]
-You could extend `Button` directly instead of `Component` but then you would get all the public API of `Button` also
+You could extend `Button` directly instead of `Component` but then you would also inherit all the public API of `Button`.

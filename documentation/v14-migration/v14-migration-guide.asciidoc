@@ -118,7 +118,7 @@ automatically, but until then it can be done manually with a few simple steps.
 
 === 1 - Check prerequisites
 
-==== Install NPM
+==== Install npm
 
 Install npm and Node.js on your development platform of choice if you don't
 already have them. Either download the installer

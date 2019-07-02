@@ -18,14 +18,14 @@ If the property is not synchronized to an attribute, select the element in the i
 
 Select the element, and write `monitorEvents($0,'event-name');` in the console.
 You will now see a log row if the event is triggered and will know you have the correct event name and that the web component actually fires the event.
-You can leave out `'event-name'` to log all events but be prepared to see a lot of `mousemove` events. You can also use this to see which properties are defined for the event so that you can know what to include in `@EventData`
+You can leave out `'event-name'` to log all events but be prepared to see a lot of `mousemove` events. You can also use this to see which properties are defined for the event so that you can know what to include in `@EventData`.
 
 == Do you need to debug the Javascript?
 
 If you need to debug what the web component does, use the browser debugger to set breakpoints at suitable places.
-In more problematic cases, e.g. if the problem occurs on initial setup, you can add a `debugger;` statement to the web component code to make the browser always and automatically break at that point.
+In more problematic cases, e.g., if the problem occurs on initial setup, you can add a `debugger;` statement to the web component code to make the browser always and automatically break at that point.
 To do that, you need to edit the web component included in your project.
-All the components used in this project will be downloaded by `npm` and located in the `node_modules` folder under the project root folder.
+All the components used in this project will be downloaded by npm and located in the `node_modules` folder under the project root folder.
 
 To debug the `increment()` function in `paper-slider` you can thus do:
 
