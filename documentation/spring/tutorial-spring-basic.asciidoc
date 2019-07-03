@@ -9,37 +9,17 @@ layout: page
 
 The https://vaadin.com/directory/component/vaadin-spring/[Vaadin Spring] add-on allows you to use Vaadin Flow with https://spring.io/projects/spring-boot[Spring Boot]. 
 
-https://spring.io/projects/spring-boot[Spring Boot] speeds up the development process and provides a fast and efficient development environment. It is the easiest way to use the Spring framework. 
+https://spring.io/projects/spring-boot[Spring Boot] speeds up the development process and provides a fast and efficient development environment by emphasising . It is the easiest way to use the Spring framework. 
 
 [NOTE]
-See <<tutorial-spring-basic-mvc#,Using Flow with Spring MVC>> to learn how to use https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html[Spring MVC] to create a Spring web application, without Spring Boot. 
-
-
-== Enabling Spring Boot
-
-To enable Spring Boot under the hood in Vaadin Flow, all you need to do is write one simple servlet initializer class.
-
-*Example*: `ExampleServletInitializer` class.
-
-[source,java]
-----
-@SpringBootApplication
-public class ExampleServletInitializer extends SpringBootServletInitializer {
-
-}
-----
-
-* The `@SpringBootApplication` annotation enables Spring Boot under the hood. This includes Spring configuration, component scanning and auto-configuration.
-* Your class must extend the `SpringBootServletInitializer` interface. This interface facilitates running a Spring application from a WAR deployment. 
+See <<tutorial-spring-basic-mvc#,Using Flow with Spring MVC>> to learn how to use Vaadin in more traditional https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html[Spring MVC] web application, without Spring Boot. 
 
 
 == Adding Dependencies
 
-Once the `vaadin-spring` add-on is available in your classpath, no further Vaadin Flow classes are needed in the class declaration. This is one of the major benefits of Spring Boot's auto-configuration feature.
+Like many other tech stacks on Spring Boot, Vaadin provides a starter dependency that provide all essential modules and autoconfiguration. Only the `vaadin-spring-boot-starter` dependency is needed, but it is suggested to also declare the vaadin-bom if you need additional Vaadin dependencies. For production builds, it is also suggested to add the vaadin-maven-plugin, that generates the optimized JavaScript packages.
 
-If you are a `vaadin-platform` user, you should add the dependencies shown below in your `pom.xml`.
-
-*Example* Spring Boot dependencies in `pom.xml`. 
+*Example* Vaadin Spring Boot dependencies in `pom.xml`. 
 
 [source,xml]
 ----
@@ -48,6 +28,7 @@ If you are a `vaadin-platform` user, you should add the dependencies shown below
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-bom</artifactId>
+            <!-- declare the latest Vaadin version as a property or directly here -->
             <version>${vaadin.version}</version>
             <type>pom</type>
             <scope>import</scope>
@@ -61,83 +42,61 @@ If you are a `vaadin-platform` user, you should add the dependencies shown below
         <artifactId>vaadin-spring-boot-starter</artifactId>
         <version>${vaadin.version}</version>
     </dependency>
-
-    <!-- Spring -->
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-        <version>${spring-boot.version}</version>
-        <exclusions>
-            <exclusion>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-tomcat</artifactId>
-            </exclusion>
-        </exclusions>
-    </dependency>
-
-    <!-- other -->
-    <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet-api</artifactId>
-        <version>3.1.0</version>
-        <scope>provided</scope>
-    </dependency>
 </dependencies>
+<build>
+    <plugins>
+        <!-- The Spring Boot Maven plugin for easy execution from CLI and packaging -->
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+
+        <!--
+            Take care of synchronizing java dependencies and imports in
+            package.json and main.js files.
+            It also creates webpack.config.js if not exists yet.
+        -->
+        <plugin>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-maven-plugin</artifactId>
+            <version>${vaadin.version}</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>prepare-frontend</goal>
+                        <goal>build-frontend</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
 ----
-* The `vaadin-bom` dependency in the `dependencyManagement` section ensures ......
-
-* The exclusion of `spring-boot-starter-web` in the `Spring` dependency section, helps to avoid classpath collisions when running your application as a deployable WAR. Other than this it has no relevance in this example.   
+* The `vaadin-bom` dependency in the `dependencyManagement` section declares the versions of modules in current Vaadin release. 
 
 
-[NOTE]
-To make it possible to use the `vaadin-spring` add-on with Spring Boot, the add-on does not declare compile dependency to Spring Boot (it does not appear transitively). You need to declare it explicitly. 
+== Running Spring Boot applications
 
-== Handling URLs 
+Spring Boot applications are executed via traditional main method. If Vaadin Spring dependency is on your classpath, Spring Boot automatically starts a web server and configures Vaadin with Spring. If you created your project via vaadin.com/start or start.spring.io, an application class with the main method is already available for you.
 
-To handle URLs, you need at least one Vaadin Flow class in your application.
-
-*Example*: Using the `@Route` annotation to define `HelloComponent` as the default route target. 
-
-[source,java]
-----
-@Route("")
-public class HelloComponent extends Div {
-    public HelloComponent(){
-        setText("Hello world!");
-    }
-}
-----
-
-== Adding a Main Method
-
-In order to run a Spring Boot application as a plain Java application, you need to add a main method to your <<enabling-spring-boot,servlet initializer class>>.
-
-*Example*: Adding a `main` method to `ExampleServletInitializer`. 
-
+*Example*: `Application` class.
 
 [source,java]
 ----
 @SpringBootApplication
-public class ExampleServletInitializer extends SpringBootServletInitializer {
-    public static void main(String[] args) {
-        SpringApplication.run(ExampleServletInitializer.class, args);
-    }
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
 }
 ----
 
-== Running the Application
+* The `@SpringBootApplication` annotation enables Spring Boot under the hood. This includes Spring configuration, component scanning and auto-configuration.
 
-Other than those detailed above, there are no other requirements. When you start the Java application, Spring Boot starts its embedded web server.
-
-[NOTE]
-You should remove the exclusion from the `spring-boot-starter-web` dependency in the `pom.xml` snippet above.
-
-
-== Upload Component Issue
-
-When using the https://vaadin.com/components/vaadin-upload[Vaadin Upload component] and <<../routing/tutorial-routing-annotation#,root mapping>>, you need to disable the Spring Boot multipart upload resolver, by adding the `spring.servlet.multipart.enabled = false` property to your `application.properties` file. 
-
-You can follow this issue on https://github.com/vaadin/spring/issues/381[GitHub].
+[TIP]
+Follow the instructions on https://docs.spring.io/spring-boot/docs/current/reference/html/howto-traditional-deployment.html[Spring Boot documentation], if you want to deploy your Spring Boot application as a traditional WAR file.
 
 == Getting Started with Spring Boot Tutorial
 
