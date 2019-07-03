@@ -13,33 +13,30 @@ You can add child components to templates using the `Component` or `Element` API
 This means that the template needs to have a `<slot></slot>` to mark the place where the light DOM elements should be rendered.
 
 For example you could have the html template built something like this:
-[source,html]
+[source,js]
 ----
-<link rel="import" href="/bower_components/polymer/polymer-element.html">
+import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
 
-<dom-module id="component-container">
-    <template>
-        <div>
-            <slot></slot>
-        </div>
-    </template>
+class ComponentContainer extends PolymerElement {
+    static get template() {
+        return html`
+            <div>
+                <slot></slot>
+            </div>`;
+    }
 
-    <script>
-        class ComponentContainer extends Polymer.Element {
-            static get is() {
-                return 'component-container'
-            }
-        }
-        customElements.define(ComponentContainer.is, ComponentContainer);
-    </script>
-</dom-module>
+    static get is() {
+        return 'component-container';
+    }
+}
+customElements.define(ComponentContainer.is, ComponentContainer);
 ----
 
 and the server-side template as:
 [source,java]
 ----
 @Tag("component-container")
-@HtmlImport("/com/example/ComponentContainer.html")
+@JsModule("./com/example/component-container.js")
 public class ComponentContainer extends PolymerTemplate<TemplateModel> {
 
     public ComponentContainer() {
@@ -58,18 +55,16 @@ As we can see multiple components will show up in the slot when added to the tem
 [NOTE]
 Any element added to the light dom to be shown inside a `<slot>` can be removed from the dom and it will work as expected and disappear from the main element.
 
-=== Default content slots and named slots in templates
+== Default content slots and named slots in templates
 
 The `<slot>` tag can contain "default" content if nothing is set from the light dom.
 
 For example the template could be built as:
 [source,html]
 ----
-    <template>
-        <div style="border: 1px solid black; padding: 10px; margin: 10px;">
-            <slot>No components added</slot>
-        </div>
-    </template>
+<div style="border: 1px solid black; padding: 10px; margin: 10px;">
+    <slot>No components added</slot>
+</div>
 ----
 
 This would show at start 'No components added' in the slot which would then be replaced by the first added child element.
@@ -77,13 +72,11 @@ This would show at start 'No components added' in the slot which would then be r
 Slots can also be named so that only wanted content is added there. This is done by using the name attribute `<slot name="{name-here}">` for instance:
 [source,html]
 ----
-    <template>
-        <h1><slot name="title"></slot></h1>
+<h1><slot name="title"></slot></h1>
 
-        <div style="border: 1px solid black; margin: 5px;padding: 5px;">
-            <slot>No content given!</slot>
-        </div>
-    </template>
+<div style="border: 1px solid black; margin: 5px;padding: 5px;">
+    <slot>No content given!</slot>
+</div>
 ----
 
 Now an element that could be for instance: `<label slot="title">Main header</label>` would not be positioned in the
@@ -92,11 +85,9 @@ slot with the default "No content given!" but into the `<h1><slot name="title">.
 Named slots can also be used as default by nesting them inside the main slot like:
 [source,html]
 ----
-    <template>
-        <slot name="fullName">
-            <slot name="firstName"></slot>, <slot name="lastName"></slot>
-        </slot>
-    </template>
+<slot name="fullName">
+    <slot name="firstName"></slot>, <slot name="lastName"></slot>
+</slot>
 ----
 
 This will make the slot show data for light dom `slot="firstName"` `slot="lastName"` elements if no `slot="fullName"` is available and when a `<element slot="fullName">` is
@@ -107,7 +98,7 @@ The "default" slot and named slot can contain multiple elements.
 [source,java]
 ----
 @Tag("name-element")
-@HtmlImport("/com/example/NameElement.html")
+@JsModule("./com/example/name-element.js")
 public class NameElement extends PolymerTemplate<TemplateModel> {
     public NameElement() {
         Element firstName = ElementFactory.createSpan("Jack");
@@ -123,44 +114,40 @@ public class NameElement extends PolymerTemplate<TemplateModel> {
 }
 ----
 
-=== Using a PolymerTemplate as a Parent Layout
+== Using a PolymerTemplate as a Parent Layout
 
 For general info about parent views, see <<../routing/tutorial-router-layout#,Router Layouts and Nested Router Targets>>. For general information about templates, see <<tutorial-template-basic#,Creating A Simple Component Using the Template API>>.
 
 A `PolymerTemplate` class can be used as a parent layout by using the `<slot></slot>` in the position where the child view should be displayed.
 
 To define a parent layout that shows the actual view below a heading a and a menu, `MainLayout.html` could look like this:
-[source,html]
+[source,js]
 ----
-<link rel="import" href="/bower_components/polymer/polymer-element.html">
+import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
 
-<dom-module id="main-layout">
-    <template>
-        <h1>Site title</h1>
-        <div class="menu">...</div>
+class MainLayout extends PolymerElement {
+    static get template() {
+        return html`
+            <h1>Site title</h1>
+            <div class="menu">...</div>
+            <!-- child content comes here -->
+            <slot></slot>`;
+    }
 
-        <!-- child content comes here -->
-        <slot></slot>
-    </template>
-
-    <script>
-        class MainLayout extends Polymer.Element {
-            static get is() {
-                return 'main-layout'
-            }
-        }
-        customElements.define(MainLayout.is, MainLayout);
-    </script>
-</dom-module>
+    static get is() {
+        return 'main-layout'
+    }
+}
+customElements.define(MainLayout.is, MainLayout);
 ----
 
-To use the template file, you also need a basic template component class with an html import for the template file.
+To use the template file, you also need a basic template component class with a `@JsModule` annotation for the template file.
 Right now you need to also implement the `RouterLayout` interface:
 
 [source,java]
 ----
 @Tag("main-layout")
-@HtmlImport("/com/example/ComponentContainer.html")
+@JsModule("./com/example/main-layout.js")
 public class MainLayout extends PolymerTemplate<TemplateModel> 
         implements RouterLayout {
 }

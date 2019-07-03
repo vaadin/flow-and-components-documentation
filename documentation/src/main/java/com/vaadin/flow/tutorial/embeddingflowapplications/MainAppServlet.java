@@ -1,13 +1,13 @@
 package com.vaadin.flow.tutorial.embeddingflowapplications;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
@@ -28,9 +28,11 @@ public class MainAppServlet extends HttpServlet {
             out.println("<html><head>");
             out.println(
                     "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
+            out.println(
+                    "<script type='text/javascript' src='log-in.js'></script>");
             if (!isAuthenticated) {
                 out.println(
-                        "<link rel='import' href='/vaadin/web-component/login-form.html'>");
+                        "<script type='module' src='/vaadin/web-component/login-form.js'></script>");
             }
             out.println("<body>");
             if (isAuthenticated) {

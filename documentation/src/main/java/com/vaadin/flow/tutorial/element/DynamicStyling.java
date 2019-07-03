@@ -38,5 +38,27 @@ public class DynamicStyling {
                 e -> button.getStyle().set("background", input.getProperty("value")));
 
         //@formatter:on
+
+        Element element = ElementFactory.createInput();
+
+        element.getClassList().add("error");
+        element.getClassList().add("critical");
+        element.getClassList().remove("primary");
+
+        element.getProperty("className"); // will return "error critical".
+
+        element.getStyle().set("color", "red");
+        // camelCase
+        element.getStyle().set("fontWeight", "bold");
+        //kebab-case
+        element.getStyle().set("font-weight", "bold");
+
+        // camelCase
+        element.getStyle().remove("backgroundColor");
+        // kebab-case
+        element.getStyle().remove("background-color");
+
+        element.getStyle().has("cursor");
+        
     }
 }

@@ -6,7 +6,11 @@ layout: page
 
 = Importing HTML and JavaScript
 
-You can add HTML imports and JavaScript to your host page directly from your Java classes. 
+You can add HTML imports and JavaScript to your host page directly from your Java classes.
+
+[NOTE]
+Polymer 3 templates should be imported using `@JsModule` (see <<../polymer-templates/tutorial-template-basic#,Creating Polymer Templates>> for more information). Only use `@HtmlImport` for importing Polymer 2 templates if your application is running in compatibility mode, and `@JavaScript` for importing plain `.js` files.
+
  
 There are two ways to add HTML and JavaScript files. Both have the same effect and you can use whichever suits you best.
 
@@ -28,7 +32,7 @@ static class HtmlComponent extends Component implements HasText {
 
 . Using the `addHtmlImport(String url)` and `addJavaScript(String url)` methods from the `Page` class.
 +
-*Example*: Using the `addHtmlImport(String url)` and `addJavaScript(String url)` methods. to import HTML and JavaScript files. 
+*Example*: Using the `addHtmlImport(String url)` and `addJavaScript(String url)` methods to import HTML and JavaScript files.
 +
 [source,java]
 ----

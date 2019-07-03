@@ -105,38 +105,43 @@ It may also be necessary to add CSS styles for the new component.
 
 *Example*: Creating `vaadin-numeric-field-theme.html` to customize the appearance of the `vaadin-text-field` component.
 
-[source,html]
+[source,js]
 ----
-<dom-module id="vaadin-numeric-field-theme" theme-for="vaadin-text-field">
-    <template>
-        <style>
-            :host(vaadin-text-field) [part="input-field"] {
-                background-color: #FFFFFF;
-                border: solid 1px #E0E5E8;
-                box-sizing: border-box;
-            }
+const documentContainer = document.createElement('template');
 
-            :host(vaadin-text-field) [part="value"]{
-                --_lumo-text-field-overflow-mask-image: none;
-                text-align:center;
-            }
+documentContainer.innerHTML =
+    `<dom-module id="vaadin-numeric-field-theme" theme-for="vaadin-text-field">
+        <template>
+            <style>
+                :host(vaadin-text-field) [part="input-field"] {
+                    background-color: #FFFFFF;
+                    border: solid 1px #E0E5E8;
+                    box-sizing: border-box;
+                }
 
-            :host(vaadin-text-field) [part="input-field"] ::slotted(vaadin-button) {
-                background-color: transparent !important;
-            }
-        </style>
-    </template>
-</dom-module>
+                :host(vaadin-text-field) [part="value"]{
+                    --_lumo-text-field-overflow-mask-image: none;
+                    text-align:center;
+                }
+
+                :host(vaadin-text-field) [part="input-field"] ::slotted(vaadin-button) {
+                    background-color: transparent !important;
+                }
+            </style>
+        </template>
+    </dom-module>`;
+
+document.head.appendChild(documentContainer.content);
 ----
 
 [NOTE]
-Remember to import the new styles in the view in which the component is used, by adding `@HtmlImport("frontend://styles/vaadin-numeric-field-theme.html")`.
+Remember to import the new styles in the view in which the component is used, by adding `@JsModule("./styles/vaadin-numeric-field-theme.js")`.
 
 See <<../theme/integrating-component-theme#,Integrating Your Own Component Theme>> for more.
 
 == Extending a Component Using the Client-side Approach
 
-Vaadin client-side components are based on https://polymer-library.polymer-project.org/2.0/docs/about_20[Polymer 2] that supports extending existing components. You can use the `extends` property to extend existing Polymer elements.
+Vaadin client-side components are based on https://polymer-library.polymer-project.org/3.0/docs/about_30[Polymer 3] that supports extending existing components. You can use the `extends` property to extend existing Polymer elements.
 
 There are five ways to inherit a template from another Polymer element:
 
@@ -156,48 +161,42 @@ image:images/vaadin-number-field-client-side-extension.png[vaadin-number-field]
 It is important to remember that when a component template is extended, the properties and methods of the parent template become available to the child template. 
 
 [NOTE]
-By default, a child component uses the template of the parent component, unless the child component provides its own template. The parent's template is accessed using `super.template`.
+By default, a child component uses the template of the parent component, unless the child component provides its own template by overriding the static getter method `template`. The parent's template is accessed using `super.template`.
 
-. Define the child's DOM template, by creating a child template definition. This template will be accessed inside the `static get template` method.
-+
-*Example*: Creating `vaadin-number-field.html`. 
-+
-[source,html]
+Next, specify the element from which the child component inherits. In this case we specify that  `NumberFieldElement` inherits (including the properties and methods) from `Vaadin.TextFieldElement`:
+
+[source,js]
 ----
-<template>
-    <style>
+import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+import {TextFieldElement} from '@vaadin/vaadin-text-field/src/vaadin-text-field.js';
 
-      /* ... */
+let memoizedTemplate;
 
-      [part="decrease-button"]::before {
-        content: "−";
-      }
+class NumberFieldElement extends TextFieldElement {
 
-      [part="increase-button"]::before {
-        content: "+";
-      }
+    static get template() {
+        if (!memoizedTemplate) {
+            const superTemplate = super.template.cloneNode(true);
+            const inputField = superTemplate.content.querySelector('[part="input-field"]');
+            const prefixSlot = superTemplate.content.querySelector('[name="prefix"]');
+            const decreaseButton = html`<div part="decrease-button" on-click="_decreaseValue"></div>`;
+            const increaseButton = html`<div part="increase-button" on-click="_increaseValue"></div>`;
+            inputField.insertBefore(decreaseButton.content, prefixSlot);
+            inputField.appendChild(increaseButton.content);
+            memoizedTemplate = html`<style>
+                 [part="decrease-button"]::before {
+                   content: "−";
+                 }
 
-      /* ... */
+                 [part="increase-button"]::before {
+                   content: "+";
+                 }
+               </style>
+               ${superTemplate}`;
+        }
+        return memoizedTemplate;
+    }
 
-    </style>
-
-    <div part="decrease-button"
-         on-click="_decreaseValue">
-    </div>
-
-    <div part="increase-button"
-         on-click="_increaseValue">
-    </div>
-</template>
-----
-
-. Specify the element from which the child component inherits. 
-+
-*Example*: Specifying that `NumberFieldElement` inherits (including its properties and methods) from `Vaadin.TextFieldElement` .
-+
-[source,html]
-----
-class NumberFieldElement extends Vaadin.TextFieldElement {
     static get is() {
         return 'vaadin-number-field';
     }
@@ -219,61 +218,31 @@ class NumberFieldElement extends Vaadin.TextFieldElement {
 
             // Note: the value is stored in the TF's value property.
         };
+    }
 
+    _decreaseValue() {
+        this.__add(this.decrementValue);
+    }
+
+    _increaseValue() {
+        this.__add(this.incrementValue);
+    }
+
+    __add(value) {
+        this.value = parseInt(this.value, 10) + value;
+        this.dispatchEvent(new CustomEvent('change', {bubbles: true}));
+    }
+
+    _valueChanged(newVal, oldVal) {
+        this.value = this.focusElement.value;
+        super._valueChanged(this.value, oldVal);
     }
 
     /* ... */
 }
 ----
 
-. Override the `static get template` method with the DOM of the new component. 
-+
-*Example*: Overriding the superclass template by defining a template getter that returns a modified template element.
-+
-[source,html]
-----
-static get template() {
-    if (!memoizedTemplate) {
-        // Clone the superclass template
-        memoizedTemplate = super.template.cloneNode(true);
-
-        // Retrieve this element's dom-module template
-        const thisTemplate = Polymer.DomModule.import(this.is + '-template', 'template');
-        const decreaseButton = thisTemplate.content.querySelector('[part="decrease-button"]');
-        const increaseButton = thisTemplate.content.querySelector('[part="increase-button"]');
-        const styles = thisTemplate.content.querySelector('style');
-
-        // Add the buttons and styles to the text-field template
-        const inputField = memoizedTemplate.content.querySelector('[part="input-field"]');
-        const prefixSlot = memoizedTemplate.content.querySelector('[name="prefix"]');
-        inputField.insertBefore(decreaseButton, prefixSlot);
-        inputField.appendChild(increaseButton);
-        memoizedTemplate.content.appendChild(styles);
-
-        return memoizedTemplate;
-    }
-}
-
-_decreaseValue() {
-    this.__add(this.decrementValue);
-}
-
-_increaseValue() {
-    this.__add(this.incrementValue);
-}
-
-__add(value) {
-    this.value = parseInt(this.value, 10) + value;
-    this.dispatchEvent(new CustomEvent('change', {bubbles: true}));
-}
-
-_valueChanged(newVal, oldVal) {
-    this.value = this.focusElement.value;
-    super._valueChanged(this.value, oldVal);
-}
-----
-* Cloning prevents modifying the superclass template.
-* In addition to cloning, the modified template is memoized (`memoizedTemplate = super.template.cloneNode(true);`) to prevent creating it again when the getter is called.
+To modify the template we override the `template` static getter. Note that the expression `${super.template}` inserts the base class template into the newly constructed template. The newly constructed template is memoized for further invocations of `template`.
 
 
-See https://polymer-library.polymer-project.org/2.0/docs/devguide/dom-template#inherit[Inherit a template from another Polymer element] in the Polymer documentation for more.
+See https://polymer-library.polymer-project.org/3.0/docs/devguide/dom-template#inherit[Inherit a template from another Polymer element] in the Polymer documentation for more.
