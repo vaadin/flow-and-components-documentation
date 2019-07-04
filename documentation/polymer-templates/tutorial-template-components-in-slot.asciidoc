@@ -1,18 +1,18 @@
 ---
-title: Server-side components in Polymer2 template
+title: Using the <slot> Element in a Polymer Template
 order: 4
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Server-side components in Polymer2 template
+= Using the <slot> Element in a PolymerTemplate
 
-You can add child components to templates using the `Component` or `Element` API, but because PolymerTemplate uses the shadow DOM *the shadow tree is rendered instead of the elements children* that are in the light DOM.
+`PolymerTemplate` cannot not render child templates added using the `Component` or `Element` API. This is because it uses the shadow DOM that renders the *shadow tree*, instead of the element's children that are in the light DOM.
 
-This means that the template needs to have a `<slot></slot>` to mark the place where the light DOM elements should be rendered.
+To overcome this, you can add a `<slot>` element to mark the place where the light DOM elements should be rendered.
 
-For example you could have the html template built something like this:
+*Example*: `<slot>` element in `ComponentContainer.html` Polymer template.
+
 [source,js]
 ----
 import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
@@ -32,7 +32,8 @@ class ComponentContainer extends PolymerElement {
 customElements.define(ComponentContainer.is, ComponentContainer);
 ----
 
-and the server-side template as:
+*Example*: Server-side `ComponentContainer` Java counterpart.
+
 [source,java]
 ----
 @Tag("component-container")
@@ -48,18 +49,18 @@ public class ComponentContainer extends PolymerTemplate<TemplateModel> {
 }
 
 ----
-
-Without the *slot* tag in the template the added label and button would not be visible to the user even though it can be located in the DOM.
-As we can see multiple components will show up in the slot when added to the template element that has an open `<slot></slot>`
+* Without the `<slot>` tag in the template, the label and button would not be visible to the user, even though they can be located in the DOM.
+* You can add multiple components and they will display in the slot when added to the template element that has an open `<slot></slot>`.
 
 [NOTE]
-Any element added to the light dom to be shown inside a `<slot>` can be removed from the dom and it will work as expected and disappear from the main element.
+You can remove any element from a `<slot>` and it will work as expected, and no longer be displayed in the main element.
 
-== Default content slots and named slots in templates
+== Using Default Content in the <slot> Element
 
-The `<slot>` tag can contain "default" content if nothing is set from the light dom.
+The `<slot>` tag can contain default content that displays if nothing is set from the light DOM.
 
-For example the template could be built as:
+*Example*: `<slot>` element with default content.
+
 [source,html]
 ----
 <div style="border: 1px solid black; padding: 10px; margin: 10px;">
@@ -67,9 +68,14 @@ For example the template could be built as:
 </div>
 ----
 
-This would show at start 'No components added' in the slot which would then be replaced by the first added child element.
+* 'No components added' displays initially, and is then replaced by the first added child element.
 
-Slots can also be named so that only wanted content is added there. This is done by using the name attribute `<slot name="{name-here}">` for instance:
+== Naming <slot> Elements
+
+You can name `<slot>` elements using the `name` attribute to ensure that only wanted content is added to a particular slot.
+
+*Example* Using the `name` attribute in a `<slot>` element.
+
 [source,html]
 ----
 <h1><slot name="title"></slot></h1>
@@ -79,10 +85,12 @@ Slots can also be named so that only wanted content is added there. This is done
 </div>
 ----
 
-Now an element that could be for instance: `<label slot="title">Main header</label>` would not be positioned in the
-slot with the default "No content given!" but into the `<h1><slot name="title">...`
+* A `<label slot="title">Main header</label>` element, for example, will now NOT be positioned in the default "No content given!" slot, but rather in `<h1><slot name="title">…`​
 
-Named slots can also be used as default by nesting them inside the main slot like:
+You can also nest named slots inside the main slot.
+
+*Example*: Nested slot elements.
+
 [source,html]
 ----
 <slot name="fullName">
@@ -90,10 +98,11 @@ Named slots can also be used as default by nesting them inside the main slot lik
 </slot>
 ----
 
-This will make the slot show data for light dom `slot="firstName"` `slot="lastName"` elements if no `slot="fullName"` is available and when a `<element slot="fullName">` is
-added it will "override/replace" the `firstName, lastName` data.
+* This makes the slot show data for light DOM `<slot="firstName">` and `<slot="lastName">` elements, if no `<slot="fullName">` element is available. If you add the `<slot="fullName">` element, it overrides and replaces the `firstName and lastName` data.
 
-The "default" slot and named slot can contain multiple elements.
+The default slot and any named slot can contain multiple elements.
+
+*Example*: Defining multiple elements for the default slot and multiple named slots.
 
 [source,java]
 ----
@@ -106,7 +115,7 @@ public class NameElement extends PolymerTemplate<TemplateModel> {
         Element surName = ElementFactory.createSpan("Christobald");
 
         firstName.setAttribute("slot", "firstName");
-        middleName.setAttribute("slot", "firstName");
+        middleName.setAttribute("slot", "middleName");
         surName.setAttribute("slot", "lastName");
 
         getElement().appendChild(firstName, middleName, surName);
@@ -114,13 +123,12 @@ public class NameElement extends PolymerTemplate<TemplateModel> {
 }
 ----
 
-== Using a PolymerTemplate as a Parent Layout
 
-For general info about parent views, see <<../routing/tutorial-router-layout#,Router Layouts and Nested Router Targets>>. For general information about templates, see <<tutorial-template-basic#,Creating A Simple Component Using the Template API>>.
+=== Using a PolymerTemplate as a Parent Layout
 
-A `PolymerTemplate` class can be used as a parent layout by using the `<slot></slot>` in the position where the child view should be displayed.
+A `PolymerTemplate` can be used as a parent layout, by using the `<slot>` in the position where the child view should be displayed.
 
-To define a parent layout that shows the actual view below a heading a and a menu, `MainLayout.html` could look like this:
+*Example*: `main-layout.js` Polymer template that shows the actual view, `MainLayout`, below a heading and a menu.
 [source,js]
 ----
 import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
@@ -130,8 +138,10 @@ class MainLayout extends PolymerElement {
         return html`
             <h1>Site title</h1>
             <div class="menu">...</div>
+
             <!-- child content comes here -->
-            <slot></slot>`;
+            <slot></slot>
+        `;
     }
 
     static get is() {
@@ -141,8 +151,8 @@ class MainLayout extends PolymerElement {
 customElements.define(MainLayout.is, MainLayout);
 ----
 
-To use the template file, you also need a basic template component class with a `@JsModule` annotation for the template file.
-Right now you need to also implement the `RouterLayout` interface:
+
+*Example*: Basic `MainLayout` server class that imports the Polymer template and implements `RouterLayout`.
 
 [source,java]
 ----
@@ -154,12 +164,11 @@ public class MainLayout extends PolymerTemplate<TemplateModel>
 ----
 
 [NOTE]
-The method `showRouterLayoutContent(HasElement)` in the `RouterLayout` interface 
-has default implementation so you don't need to write anything in addition to that.
-But you may reimplement it as you wish.
+The `showRouterLayoutContent(HasElement)` method in the `RouterLayout` interface has default implementations. This makes it unnecessary to write additional code, but you can re-implement it, if necessary.
 
-Now you may use `MainLayout` as a parent layout via `@Route` annotation 
-or `@ParentLayout` annotation:
+You can now use `MainLayout` as a parent layout using the `@Route` or `@ParentLayout` annotation.
+
+*Example*: Using the `layout` parameter in the `@Route` annotation to mark `MainLayout` as the parent layout.
 
 [source,java]
 ----
@@ -172,6 +181,7 @@ public class MenuBar extends Div {
 }
 ----
 
-[NOTE]
-See <<../routing/tutorial-router-layout#,Router Layouts and Nested Router Targets>> for the details
-about using routing and the annotations mentioned here.
+See the following resources for related information:
+
+* <<../routing/tutorial-router-layout#,Router Layouts and Nested Router Targets>> for more about parent views.
+* <<tutorial-template-basic#,Creating A Simple Component Using the PolymerTemplate API>> for general information about the Template API.
