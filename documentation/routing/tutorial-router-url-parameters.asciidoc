@@ -111,14 +111,19 @@ A `Location` object represents a relative URL made up of path segments and query
 
 [source,java]
 ----
-@Override
-public void setParameter(BeforeEvent event,
+@Route(value = "greet")
+public class GreetingComponent extends Div
+        implements HasUrlParameter<String> {
+        
+    @Override
+    public void setParameter(BeforeEvent event,
         @OptionalParameter String parameter) {
 
-    Location location = event.getLocation();
-    QueryParameters queryParameters = location.getQueryParameters();
+        Location location = event.getLocation();
+        QueryParameters queryParameters = location.getQueryParameters();
 
-    Map<String, List<String>> parametersMap = queryParameters.getParameters();
+        Map<String, List<String>> parametersMap = queryParameters.getParameters();
+    }
 }
 ----
 
