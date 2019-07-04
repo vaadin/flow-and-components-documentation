@@ -59,7 +59,7 @@ Please consult <<tutorial-push-configuration#, Server Push Configuration>> docum
 |syncIdCheck |
 Returns whether sync id checking is enabled. The sync id is used to gracefully handle situations
 when the client sends a message to a connector that has recently been removed on the server.
-By the fault, it is true.
+By default, it is true.
 
 |sendUrlsAsParameters |
 Returns whether the sending of URL's as GET and POST parameters in requests with content-type
