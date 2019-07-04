@@ -11,28 +11,28 @@ layout: page
 
 To overcome this, you can add a `<slot>` element to mark the place where the light DOM elements should be rendered.
 
-*Example*: `<slot>` element in `ComponentContainer.html` Polymer template.
+*Example*: `<slot>` element in `component-container.js` Polymer template.
 
-[source,html]
+[source,js]
 ----
-<link rel="import" href="/bower_components/polymer/polymer-element.html">
+import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
 
-<dom-module id="component-container">
-    <template>
-        <div>
-            <slot></slot>
-        </div>
-    </template>
+class ComponentContainer extends Polymer.Element {
 
-    <script>
-        class ComponentContainer extends Polymer.Element {
-            static get is() {
-                return 'component-container'
-            }
-        }
-        customElements.define(ComponentContainer.is, ComponentContainer);
-    </script>
-</dom-module>
+    static get template() {
+        return html`
+            <div>
+                <slot></slot>
+            </div>
+        `;
+    }
+
+    static get is() {
+        return 'component-container';
+    }
+}
+
+customElements.define(ComponentContainer.is, ComponentContainer);
 ----
 
 *Example*: Server-side `ComponentContainer` Java counterpart.
@@ -40,7 +40,7 @@ To overcome this, you can add a `<slot>` element to mark the place where the lig
 [source,java]
 ----
 @Tag("component-container")
-@HtmlImport("/com/example/ComponentContainer.html")
+@JsModule("./com/example/component-container.js")
 public class ComponentContainer extends PolymerTemplate<TemplateModel> {
 
     public ComponentContainer() {
@@ -116,7 +116,7 @@ The default slot and any named slot can contain multiple elements.
 [source,java]
 ----
 @Tag("name-element")
-@HtmlImport("/com/example/NameElement.html")
+@JsModule("./com/example/name-element.js")
 public class NameElement extends PolymerTemplate<TemplateModel> {
     public NameElement() {
         Element firstName = ElementFactory.createSpan("Jack");
@@ -137,29 +137,27 @@ public class NameElement extends PolymerTemplate<TemplateModel> {
 
 A `PolymerTemplate` can be used as a parent layout, by using the `<slot>` in the position where the child view should be displayed.
 
-*Example*: `ComponentContainer.html` Polymer template that shows the actual view, `MainLayout`, below a heading and a menu.
-[source,html]
+*Example*: `component-container.js` Polymer template that shows the actual view, `MainLayout`, below a heading and a menu.
+[source,js]
 ----
-<link rel="import" href="/bower_components/polymer/polymer-element.html">
+import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
 
-<dom-module id="main-layout">
-    <template>
-        <h1>Site title</h1>
-        <div class="menu">...</div>
+class MainLayout extends PolymerElement {
+    static get template() {
+        return html`
+            <h1>Site title</h1>
+            <div class="menu">...</div>
 
-        <!-- child content comes here -->
-        <slot></slot>
-    </template>
+            <!-- child content comes here -->
+            <slot></slot>
+        `;
+    }
 
-    <script>
-        class MainLayout extends Polymer.Element {
-            static get is() {
-                return 'main-layout'
-            }
-        }
-        customElements.define(MainLayout.is, MainLayout);
-    </script>
-</dom-module>
+    static get is() {
+        return 'main-layout';
+    }
+}
+customElements.define(MainLayout.is, MainLayout);
 ----
 
 
@@ -168,7 +166,7 @@ A `PolymerTemplate` can be used as a parent layout, by using the `<slot>` in the
 [source,java]
 ----
 @Tag("main-layout")
-@HtmlImport("/com/example/ComponentContainer.html")
+@JsModule("./com/example/component-container.js")
 public class MainLayout extends PolymerTemplate<TemplateModel> 
         implements RouterLayout {
 }
