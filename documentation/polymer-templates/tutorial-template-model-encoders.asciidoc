@@ -165,17 +165,18 @@ public class DateToDateBeanEncoder implements ModelEncoder<Date, DateBean> {
 
 Now you can use the following HTML template file for your component (here is only the `template` snippet):
 
-[source,html]
+[source,js]
 ----
-<template>
-    <div style="width: 200px;">
-        <label>Birth date:</label>
-        <label for="day">Enter your birthday:</label><paper-input id="day" value="{{birthDate.day}}"></paper-input>
-        <label for="month">Enter the month of your birthday:</label><paper-input id="month" value="{{birthDate.month}}"></paper-input>
-        <label for="year">Enter the year of your birthday:</label><paper-input id="year" value="{{birthDate.year}}"></paper-input>
-        <button on-click="commit" id="commit">Commit</button>
-    </div>
-</template>
+static get template() {
+    return html`
+        <div style="width: 200px;">
+            <label>Birth date:</label>
+            <label for="day">Enter your birthday:</label><paper-input id="day" value="{{birthDate.day}}"></paper-input>
+            <label for="month">Enter the month of your birthday:</label><paper-input id="month" value="{{birthDate.month}}"></paper-input>
+            <label for="year">Enter the year of your birthday:</label><paper-input id="year" value="{{birthDate.year}}"></paper-input>
+            <button on-click="commit" id="commit">Commit</button>
+        </div>`;
+}
 ----
 
 So here one `Date` property is encoded to 3 sub-properties: the day, month and year.

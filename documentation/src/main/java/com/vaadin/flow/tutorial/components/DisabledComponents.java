@@ -23,7 +23,7 @@ import com.vaadin.flow.component.HasEnabled;
 import com.vaadin.flow.component.Synchronize;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
@@ -55,7 +55,7 @@ public class DisabledComponents extends Component {
     }
 
     @Tag("registration-form")
-    @HtmlImport("src/registration-form.html")
+    @JsModule("./src/registration-form.js")
     public class RegistrationForm extends PolymerTemplate<TemplateModel>
             implements HasEnabled {
 

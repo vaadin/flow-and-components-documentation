@@ -1,0 +1,54 @@
+---
+title: Limitations in Embedded Application
+order: 8
+layout: page
+---
+
+= Limitations in Embedded Application
+
+Some features are not available for embedded applications. Here is what you should
+be aware of:
+
+* Navigation and routing features are not available for embedded applications. 
+This means there is no sense in annotating your classes with `@Route` annotation: 
+you will not be able to navigate to the route target. 
+It implies also that you should avoid using router link 
+(via the `RouterLink` class or any other custom way).
+* Only one `Theme` annotation may be specified. This is explained in the <<tutorial-webcomponent-theming#,Theming an Embedded Application>>  tutorial.
+* Only one `Push` annotation may be used. This is explained in the <<tutorial-webcomponent-push#,Embedded Application Push Configuration>>  tutorial.
+* https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS[CORS] headers are not
+ defined automatically. If the Vaadin servlet providing embeddable
+ applications is outside of the servlet container providing the embedding
+ pages, the headers will need to be provided. The responses from the Vaadin
+ servlet will need to contain appropriate CORS headers. These can be added by
+ configuring the servlet container (see the documentation for your container
+ for adding HTTP headers to responses), or by packaging the embeddable
+ applications with a custom `VaadinServlet`.
+
+*Custom VaadinServlet with CORS Headers* +
+For this example we will assume that the embedding site is being served from
+the same host mapped to the port 80 (be it a servlet container or a custom
+Python HTTP server). Our servlet container with our Vaadin servlet is bound
+to, for example, 8080. We have configured a custom `VaadinServlet` which adds
+CORS headers for us:
+
+[source, java]
+----
+@WebServlet(urlPatterns = { "/*" }, asyncSupported = true)
+public class CustomServlet extends VaadinServlet {
+
+    @Override
+    public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+        setAccessControlHeaders((HttpServletResponse) res);
+        super.service(req, res);
+    }
+
+    private void setAccessControlHeaders(HttpServletResponse resp) {
+        resp.setHeader("Access-Control-Allow-Origin", "http://localhost:80");
+        resp.setHeader("Access-Control-Allow-Methods", "*");
+        resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        resp.setHeader("Access-Control-Allow-Credentials", "true");
+    }
+}
+----
+
