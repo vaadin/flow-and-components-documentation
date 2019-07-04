@@ -26,7 +26,7 @@ public class HelloWorld extends Div {
 }
 ----
 
-You can also define a separate component for a specific route:
+*Example*: Defining the `SomePathComponent` component as the target for the specific route, `some/path`.
 
 [source,java]
 ----

@@ -127,10 +127,3 @@ You should remove exclusion from the `spring-boot-starter-web` dependency in
 the `pom.xml` snippet above.
 
 
-=== Note
-Due to a bug when using `vaadin-upload-flow` component and use root mapping,
-then you need to disable the spring boot multipart upload by adding to
-`application.properties` the property `spring.servlet.multipart.enabled = false`.
-
-This is already set in the spring starter, to follow the state of the problem
-see https://github.com/vaadin/spring/issues/381[vaadin/spring#381]
