@@ -5,6 +5,7 @@ layout: page
 ---
 
 = Properties of Embedded Web Components
+
 In this chapter we will take a look at how we can define web component
 properties for our embedded Vaadin application and how we can handle changes
 to those properties on the server-side. We will also take a look at firing
