@@ -64,7 +64,7 @@ public class PolymerSlotView {
             Element surName = ElementFactory.createSpan("Christobald");
 
             firstName.setAttribute("slot", "firstName");
-            middleName.setAttribute("slot", "firstName");
+            middleName.setAttribute("slot", "middleName");
             surName.setAttribute("slot", "lastName");
 
             getElement().appendChild(firstName, middleName, surName);
