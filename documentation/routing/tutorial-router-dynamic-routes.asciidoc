@@ -129,7 +129,8 @@ RouteConfiguration configuration = RouteConfiguration
 configuration.getAvailableRoutes()
         .forEach(menu::addMenuItem);
 
-// add and remove menu items when routes are added and removed
+// add and remove menu items when routes are added and
+// removed
 configuration.addRoutesChangeListener(event -> {
     // ignoring any route alias changes
     event.getAddedRoutes().stream()
@@ -239,7 +240,8 @@ public class LoginPage extends Div {
 public class MainLayout extends Div
         implements RouterLayout {
     public MainLayout() {
-        // Implementation omitted, but could contain a menu.
+        // Implementation omitted, but could contain
+        // a menu.
     }
 }
 ----
