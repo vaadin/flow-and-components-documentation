@@ -190,7 +190,7 @@ To skip static registration on servlet initialization, add the `registerAtStartu
        registerAtStartup = false)
 @RouteAlias(value = "qr", layout = MainLayout.class)
 public class ReportView extends VerticalLayout
-        implements HasUrlParameter<String>{
+        implements HasUrlParameter<String> {
     // implementation omitted
 }
 
@@ -283,7 +283,7 @@ In the `LoginPage` class, we handle adding to only the user session as follows:
 
 [source, java]
 ----
-private void handeLogin(
+private void handleLogin(
         ClickEvent<Button> buttonClickEvent) {
     // Validation of credentials is skipped
 
