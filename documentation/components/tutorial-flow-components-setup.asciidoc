@@ -24,7 +24,7 @@ Using the platform dependency (`com.vaadin:vaadin`) ensures that all available c
 
 [source,xml]
 ----
-    <dependencies>
+<dependencies>
     <!-- other dependencies -->
     <!-- component dependency -->
     <dependency>
