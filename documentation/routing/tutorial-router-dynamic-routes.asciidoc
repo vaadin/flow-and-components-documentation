@@ -222,12 +222,12 @@ public class LoginPage extends Div {
         password = new PasswordField("Password");
 
         Button submit = new Button("Submit",
-                this::handeLogin);
+                this::handleLogin);
 
         add(login, password, submit);
     }
 
-    private void handeLogin(
+    private void handleLogin(
             ClickEvent<Button> buttonClickEvent) {
     }
 }
