@@ -13,8 +13,9 @@ Flow allows developers to be super productive: you can create UIs in Java, or us
 
 Vaadin Flow features:
 
+* An architecture that let's you concentrate on the UI. No need to think about client-server communication.
 * A set of beautiful UI components that focus on both the end-user and developer experience.
-* Powerful abstraction layers to bulid your own reusable UI components with either Java or HTML templates.
+* Powerful abstraction layers to build your own reusable UI components with either Java or HTML templates.
 * Data Binding API to connect UI components to any backend using type-safe Java.
 * Router API to create hierarchical page structures for the user to navigate.
 
