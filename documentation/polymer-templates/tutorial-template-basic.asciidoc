@@ -75,11 +75,12 @@ Earlier Vaadin versions used Polymer 2, HTML imports and the Bower package manag
 == Server side
 
 To be able to use this template you need to create a Java class which extends `PolymerTemplate`,
-set its tag name to match the return value of the Polymer template's `is()`-function, and add the `@JsModule` annotation to connect the template class (`hello-world.js`):
+set its tag name to match the return value of the Polymer template's `is()`-function, and add the `@JsModule` annotation to connect the template class (`hello-world.js`). You should also declare the dependency on the npm package you are using by adding `@NpmPackage` annotation. In this example, `@polymer/paper-input 3.0.2` is used.
 
 [source,java]
 ----
 @Tag("hello-world")
+@NpmPackage(value = "@polymer/paper-input", version = "3.0.2")
 @JsModule("./src/hello-world.js")
 public class HelloWorld extends PolymerTemplate<HelloWorldModel> {
     private static final String EMPTY_NAME_GREETING = "Please enter your name";
