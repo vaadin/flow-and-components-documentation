@@ -88,7 +88,9 @@ public class WildcardGreeting extends Div
         if (parameter.isEmpty()) {
             setText("Welcome anonymous.");
         } else {
-            setText(String.format("Handling parameter %s.", parameter));
+            setText(String.format(
+                  "Handling parameter %s.",
+                  parameter));
         }
     }
 }
@@ -118,9 +120,11 @@ public void setParameter(BeforeEvent event,
         @OptionalParameter String parameter) {
 
     Location location = event.getLocation();
-    QueryParameters queryParameters = location.getQueryParameters();
+    QueryParameters queryParameters = location
+            .getQueryParameters();
 
-    Map<String, List<String>> parametersMap = queryParameters.getParameters();
+    Map<String, List<String>> parametersMap =
+            queryParameters.getParameters();
 }
 ----
 

@@ -39,7 +39,8 @@ Alternatively, it is possible to add the `@PreserveOnRefresh` to a class that im
 [source, java]
 ----
 @PreserveOnRefresh
-public class PreservedLayout extends FlexLayout implements RouterLayout {
+public class PreservedLayout extends FlexLayout
+        implements RouterLayout {
 
     public PreservedLayout() {
         // ...

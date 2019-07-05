@@ -37,9 +37,9 @@ public class SignupForm extends Div
     public void beforeLeave(BeforeLeaveEvent event) {
         if (this.hasChanges()) {
             ContinueNavigationAction action =
-                  event.postpone();
+                    event.postpone();
             ConfirmDialog.build("Are you sure you want"+
-                  " to leave this page?")
+                    " to leave this page?")
                     .ifAccept(action::proceed)
                     .show();
         }

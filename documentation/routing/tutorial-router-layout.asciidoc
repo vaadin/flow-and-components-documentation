@@ -55,8 +55,8 @@ public class MenuBar extends Div
         addMenuElement(IconsView.class, "Icons");
     }
     private void addMenuElement(
-          Class<? extends Component> navigationTarget,
-          String name) {
+            Class<? extends Component> navigationTarget,
+            String name) {
         // implementation omitted
     }
 }
