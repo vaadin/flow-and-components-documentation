@@ -57,7 +57,7 @@ You can remove any element from a `<slot>` and it will work as expected, and no 
 
 == Using Default Content in the <slot> Element
 
-The `<slot>` tag can contain default content that displays if nothing is set from the light DOM.
+The `<slot>` tag can contain default content that is displayed only if nothing else is set from the light DOM.
 
 *Example*: `<slot>` element with default content.
 
@@ -68,7 +68,7 @@ The `<slot>` tag can contain default content that displays if nothing is set fro
 </div>
 ----
 
-* 'No components added' displays initially, and is then replaced by the first added child element.
+* 'No components added' displays initially, and is replaced when at least one child element is added.
 
 == Naming <slot> Elements
 
@@ -98,7 +98,7 @@ You can also nest named slots inside the main slot.
 </slot>
 ----
 
-* This makes the slot show data for light DOM `<slot="firstName">` and `<slot="lastName">` elements, if no `<slot="fullName">` element is available. If you add the `<slot="fullName">` element, it overrides and replaces the `firstName and lastName` data.
+* This makes the slot show data for light DOM `<slot="firstName">` and `<slot="lastName">` elements, if no `<slot="fullName">` element is available. If you add an element to the `<slot="fullName">` slot, it overrides and replaces the `firstName and lastName` data.
 
 The default slot and any named slot can contain multiple elements.
 
@@ -151,6 +151,7 @@ class MainLayout extends PolymerElement {
 customElements.define(MainLayout.is, MainLayout);
 ----
 
+To use the template file, you need a basic template component class with a `@JsModule` annotation for the template file, that also implements the `RouterLayout` interface:
 
 *Example*: Basic `MainLayout` server class that imports the Polymer template and implements `RouterLayout`.
 
@@ -164,7 +165,7 @@ public class MainLayout extends PolymerTemplate<TemplateModel>
 ----
 
 [NOTE]
-The `showRouterLayoutContent(HasElement)` method in the `RouterLayout` interface has default implementations. This makes it unnecessary to write additional code, but you can re-implement it, if necessary.
+The `showRouterLayoutContent(HasElement)` method in the `RouterLayout` interface has a default implementation. This makes it unnecessary to write additional code, but you can override and re-implement it, if necessary.
 
 You can now use `MainLayout` as a parent layout using the `@Route` or `@ParentLayout` annotation.
 
