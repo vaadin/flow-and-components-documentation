@@ -43,22 +43,23 @@ As an alternative, you can implement the `HasDynamicTitle` interface. This appro
 ----
 @Route(value = "blog")
 class BlogPost extends Component
-        implements HasDynamicTitle, HasUrlParameter<Long> {
-  private String title = "";
+        implements HasDynamicTitle,
+             HasUrlParameter<Long> {
+    private String title = "";
 
-  @Override
-  public String getPageTitle() {
-    return title;
-  }
-
-  @Override
-  public void setParameter(BeforeEvent event,
-        @OptionalParameter Long parameter) {
-    if (parameter != null) {
-      title = "Blog Post #" + parameter;
-    } else {
-      title = "Blog Home";
+    @Override
+    public String getPageTitle() {
+        return title;
     }
-  }
+
+    @Override
+    public void setParameter(BeforeEvent event,
+            @OptionalParameter Long parameter) {
+        if (parameter != null) {
+            title = "Blog Post #" + parameter;
+        } else {
+            title = "Blog Home";
+        }
+    }
 }
 ----

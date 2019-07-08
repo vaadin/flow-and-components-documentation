@@ -28,17 +28,19 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class RouterNavigation {
 
     void navigation() {
-        NativeButton button = new NativeButton("Navigate to company");
-        button.addClickListener(e -> {
-            button.getUI().ifPresent(ui -> ui.navigate("company"));
+        NativeButton button = new NativeButton(
+                "Navigate to company");
+        button.addClickListener( e-> {
+            button.getUI().ifPresent(ui ->
+                    ui.navigate("company"));
         });
-
     }
 
     void routerLink() {
         Div menu = new Div();
         menu.add(new RouterLink("Home", HomeView.class));
-        menu.add(new RouterLink("Greeting", GreetingComponent.class, "default"));
+        menu.add(new RouterLink("Greeting",
+                GreetingComponent.class, "default"));
     }
 
     @Route(value = "greet")

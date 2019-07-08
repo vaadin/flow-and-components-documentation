@@ -22,11 +22,13 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("browser/tutorial-execute-javascript.asciidoc")
 public class ExecuteJavaScript {
-    public static void logElementSize(String name, Element element) {
+    public static void logElementSize(String name,
+                                      Element element) {
         Page page = UI.getCurrent().getPage();
 
         page.executeJs(
-                "console.log($0 + ' size:', $1.offsetWidth, $1.offsetHeight)",
+                "console.log($0 + ' size:', "
+                        + "$1.offsetWidth, $1.offsetHeight)",
                 name, element);
     }
 }

@@ -23,7 +23,8 @@ public class RoutingViewTitles {
 
     @Route(value = "blog")
     class BlogPost extends Component
-            implements HasDynamicTitle, HasUrlParameter<Long> {
+            implements HasDynamicTitle,
+            HasUrlParameter<Long> {
         private String title = "";
 
         @Override

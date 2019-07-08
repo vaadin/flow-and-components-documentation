@@ -22,15 +22,20 @@ a property and adds it to the public API of the web component.
 
 [source, java]
 ----
-public class PersonExporter extends WebComponentExporter<PersonComponent> {
-    private PropertyConfiguration<PersonComponent, Boolean> isAdultProperty;
+public class PersonExporter
+        extends WebComponentExporter<PersonComponent> {
+    private PropertyConfiguration<PersonComponent,
+              Boolean> isAdultProperty;
 
     public PersonExporter() {
         super("person-display");
-        addProperty("name", "John Doe").onChange(PersonComponent::setName);
-        addProperty("age", 0).onChange(PersonComponent::setAge);
+        addProperty("name", "John Doe")
+                .onChange(PersonComponent::setName);
+        addProperty("age", 0)
+                .onChange(PersonComponent::setAge);
 
-        isAdultProperty = addProperty("is-adult", false);
+        isAdultProperty = addProperty("is-adult",
+                false);
     }
 ----
 
@@ -81,12 +86,14 @@ In the following example we show how we can update boolean property
 [source, java]
 ----
     @Override
-     protected void configureInstance(WebComponent<PersonComponent> webComponent,
+     protected void configureInstance(
+             WebComponent<PersonComponent> webComponent,
             PersonComponent component) {
         component.setAdultAge(18); // initialization
 
         component.addAgeChangedListener(event -> {
-            webComponent.setProperty(isAdultProperty, component.isAdult());
+            webComponent.setProperty(isAdultProperty,
+                    component.isAdult());
         });
 ----
 
@@ -103,9 +110,11 @@ we will update the `<span>` known as "designator" with the information.
 
 <script>
     function updateDesignator() {
-        var personComponent = document.querySelector("#person");
+        var personComponent = document
+                .querySelector("#person");
         if (personComponent["is-adult"]) {
-            document.querySelector("#designator").innerText = "is an adult!";
+            document.querySelector("#designator")
+                    .innerText = "is an adult!";
         } else {
             setTimeout(updateDesignator, 1000);
         }
@@ -128,7 +137,8 @@ fires the event with the given parameters.
 ----
         component.addAgeChangedListener(event -> {
             if (event.getAge() > 65) {
-                webComponent.fireEvent("retirement-age-reached");
+                webComponent.fireEvent(
+                        "retirement-age-reached");
             }
         });
     }
@@ -161,10 +171,13 @@ Expanding on our previous client-side example, we now update our information
 <span id="designator">is a child</span>
 
 <script>
-    var personComponent = document.querySelector("#person");
+    var personComponent = document
+            .querySelector("#person");
 
-    personComponent.addEventListener("retirement-age-reached", function(event) {
-        document.querySelector("#designator").innerText = "is allowed to retire!";
+    personComponent.addEventListener(
+            "retirement-age-reached", function(event) {
+        document.querySelector("#designator")
+                .innerText = "is allowed to retire!";
     });
 </script>
 ----
