@@ -108,7 +108,7 @@ public class GridBasic {
         // Select items 2-4
         people.subList(2, 3).forEach(grid::select);
 
-        // the default selection model
+        // the default selectionGridSingleSelectionModel<Person> singleSelect model
         GridSingleSelectionModel<Person> defaultModel =
                 (GridSingleSelectionModel<Person>) grid
                 .getSelectionModel();
@@ -121,7 +121,8 @@ public class GridBasic {
         // preselect value
         grid.select(defaultItem);
 
-        GridSingleSelectionModel<Person> singleSelect = (GridSingleSelectionModel<Person>) grid
+        GridSingleSelectionModel<Person> singleSelect =
+                (GridSingleSelectionModel<Person>) grid
                 .getSelectionModel();
         // disallow empty selection
         singleSelect.setDeselectAllowed(false);
@@ -135,18 +136,21 @@ public class GridBasic {
         // Grid in multi-selection mode
         Grid<Person> grid = new Grid<>();
         grid.setItems(people);
-        GridMultiSelectionModel<Person> selectionModel = (GridMultiSelectionModel<Person>) grid
+        GridMultiSelectionModel<Person> selectionModel =
+                (GridMultiSelectionModel<Person>) grid
                 .setSelectionMode(SelectionMode.MULTI);
 
         selectionModel.selectAll();
 
         selectionModel.addMultiSelectionListener(event -> {
-            message.setText(String.format("%s items added, %s removed.",
+            message.setText(String.format(
+                    "%s items added, %s removed.",
                     event.getAddedSelection().size(),
                     event.getRemovedSelection().size()));
 
             // Allow deleting only if there's any selected
-            deleteSelected.setEnabled(event.getNewSelection().isEmpty());
+            deleteSelected.setEnabled(
+                    event.getNewSelection().isEmpty());
         });
     }
 
@@ -162,14 +166,16 @@ public class GridBasic {
         Grid<Person> grid = new Grid<>();
 
         grid.setSelectionMode(SelectionMode.MULTI);
-        grid.addItemDoubleClickListener(event -> copy(grid.getSelectedItems()));
+        grid.addItemDoubleClickListener(event ->
+                copy(grid.getSelectedItems()));
     }
 
     public void gridConfiguringColumns() {
         Grid<Person> grid = new Grid<>();
 
         //@formatter:off
-        Column<Person> nameColumn = grid.addColumn(Person::getName)
+        Column<Person> nameColumn = grid
+                .addColumn(Person::getName)
                 .setHeader("Name")
                 .setFlexGrow(0)
                 .setWidth("100px")
@@ -190,7 +196,8 @@ public class GridBasic {
 
         grid.addColumn("address.postalCode");
 
-        grid.getColumnByKey("address.postalCode").setSortable(false);
+        grid.getColumnByKey("address.postalCode")
+                .setSortable(false);
 
         // All columns except "name" and "yearOfBirth" will be not sortable
         grid.setSortableColumns("name", "yearOfBirth");

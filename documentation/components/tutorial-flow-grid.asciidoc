@@ -154,7 +154,8 @@ In single-selection mode, it is possible to control whether the empty (null) sel
 // preselect value
 grid.select(defaultItem);
 
-GridSingleSelectionModel<Person> singleSelect = (GridSingleSelectionModel<Person>) grid
+GridSingleSelectionModel<Person> singleSelect =
+    (GridSingleSelectionModel<Person>) grid
         .getSelectionModel();
 
 // disallow empty selection
@@ -176,18 +177,21 @@ You can use the `addMultiSelectionListener(MultiSelectionListener)` method to ac
 // Grid in multi-selection mode
 Grid<Person> grid = new Grid<>();
 grid.setItems(people);
-GridMultiSelectionModel<Person> selectionModel = (GridMultiSelectionModel<Person>) grid
+GridMultiSelectionModel<Person> selectionModel =
+    (GridMultiSelectionModel<Person>) grid
         .setSelectionMode(SelectionMode.MULTI);
 
 selectionModel.selectAll();
 
 selectionModel.addMultiSelectionListener(event -> {
-    message.setText(String.format("%s items added, %s removed.",
+    message.setText(String.format(
+            "%s items added, %s removed.",
             event.getAddedSelection().size(),
             event.getRemovedSelection().size()));
 
     // Allow deleting only if there's any selected
-    deleteSelected.setEnabled(event.getNewSelection().isEmpty());
+    deleteSelected.setEnabled(
+            event.getNewSelection().isEmpty());
 });
 ----
 
@@ -214,7 +218,8 @@ It is possible to get separate selection and click events.
 [source, java]
 ----
 grid.setSelectionMode(SelectionMode.MULTI);
-grid.addItemDoubleClickListener(event -> copy(grid.getSelectedItems()));
+grid.addItemDoubleClickListener(event ->
+        copy(grid.getSelectedItems()));
 ----
 
 * In the example code, we call a local `copy` method with the currently selected items when user double clicks a row.
@@ -231,7 +236,8 @@ The setter methods in `Column` have fluent-API functionality, making it easy to 
 
 [source, java]
 ----
-Column<Person> nameColumn = grid.addColumn(Person::getName)
+Column<Person> nameColumn = grid
+    .addColumn(Person::getName)
     .setHeader("Name")
     .setFlexGrow(0)
     .setWidth("100px")
@@ -324,7 +330,8 @@ You can disable sorting for a specific column, using the `setSortable` method.
 
 [source, java]
 ----
-grid.getColumnByKey("address.postalCode").setSortable(false);
+grid.getColumnByKey("address.postalCode")
+        .setSortable(false);
 ----
 
 You can also define a list of columns as sortable using the `setSortableColumns` method. This makes all other columns unsortable.
@@ -468,8 +475,10 @@ Use `LocalDateRenderer` to render `LocalDate` objects in the cells.
 
 [source, java]
 ----
-grid.addColumn(new LocalDateRenderer<>(Item::getEstimatedDeliveryDate,
-        DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)))
+grid.addColumn(new LocalDateRenderer<>(
+        Item::getEstimatedDeliveryDate,
+        DateTimeFormatter.ofLocalizedDate(
+                FormatStyle.MEDIUM)))
         .setHeader("Estimated delivery date");
 ----
 
@@ -479,8 +488,10 @@ grid.addColumn(new LocalDateRenderer<>(Item::getEstimatedDeliveryDate,
 
 [source, java]
 ----
-grid.addColumn(new LocalDateRenderer<>(Item::getEstimatedDeliveryDate,
-        "dd/MM/yyyy")).setHeader("Estimated delivery date");
+grid.addColumn(new LocalDateRenderer<>(
+        Item::getEstimatedDeliveryDate,
+        "dd/MM/yyyy"))
+    .setHeader("Estimated delivery date");
 ----
 
 ==== LocalDateTimeRenderer

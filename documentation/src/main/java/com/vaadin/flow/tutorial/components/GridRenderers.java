@@ -53,12 +53,16 @@ public class GridRenderers {
     public void basicRenderers() {
         Grid<Item> grid = new Grid<>();
 
-        grid.addColumn(new LocalDateRenderer<>(Item::getEstimatedDeliveryDate,
-                DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)))
+        grid.addColumn(new LocalDateRenderer<>(
+                Item::getEstimatedDeliveryDate,
+                DateTimeFormatter.ofLocalizedDate(
+                        FormatStyle.MEDIUM)))
                 .setHeader("Estimated delivery date");
 
-        grid.addColumn(new LocalDateRenderer<>(Item::getEstimatedDeliveryDate,
-                "dd/MM/yyyy")).setHeader("Estimated delivery date");
+        grid.addColumn(new LocalDateRenderer<>(
+                Item::getEstimatedDeliveryDate,
+                "dd/MM/yyyy"))
+                .setHeader("Estimated delivery date");
 
         grid.addColumn(new LocalDateTimeRenderer<>(Item::getPurchaseDate,
                 DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT,
