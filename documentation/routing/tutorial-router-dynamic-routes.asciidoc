@@ -64,7 +64,8 @@ configuration.removeRoute("admin");
 +
 [source, java]
 ----
-// Remove the "/users" path but keep e.g. "/users/123"
+// Remove the "/users" path but keep e.g.
+// "/users/123"
 configuration.removeRoute("users", UsersView.class);
 ----
 

@@ -63,7 +63,8 @@ public class DynamicRoutes {
             // No view AdminView will be available
             configuration.removeRoute(AdminView.class);
 
-            // Remove the "/users" path but keep e.g. "/users/123"
+            // Remove the "/users" path but keep e.g.
+            // "/users/123"
             configuration.removeRoute("users", UsersView.class);
 
             // register the above view during runtime
