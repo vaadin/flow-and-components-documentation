@@ -1,0 +1,13 @@
+tutorial::theme/tutorial-theming-overlay.asciidoc
+
+/* Customize overlay part */
+:host([theme~="custom-theme-variant"]) [part~="overlay"] {
+}
+
+/* Customize dialog parts */
+[part="backdrop"] {
+}
+[part="overlay"] {
+}
+[part="content"] {
+}

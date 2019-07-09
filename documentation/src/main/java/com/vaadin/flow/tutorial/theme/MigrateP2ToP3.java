@@ -15,7 +15,7 @@
  */
 package com.vaadin.flow.tutorial.theme;
 
-import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
@@ -23,7 +23,10 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @CodeFor("theme/migrate-p2-to-p3.asciidoc")
 public class MigrateP2ToP3 {
     @Route(value = "")
-    @JsModule("./styles/shared-styles.js")
+    // will be imported as a <dom-module> tag for theming components
+    @CssImport(value = "./styles/my-app-layout-theme.css", themeFor = "vaadin-app-layout")
+    // will be imported as a <custom-style> tag
+    @CssImport(value = "./styles/my-custom-styles.css")
     public class MyApplication extends Div {
     }
 }
