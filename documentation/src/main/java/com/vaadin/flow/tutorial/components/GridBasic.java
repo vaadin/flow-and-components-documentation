@@ -60,7 +60,8 @@ public class GridBasic {
         Grid<Person> grid = new Grid<>();
         grid.setItems(people);
         grid.addColumn(Person::getName).setHeader("Name");
-        grid.addColumn(person -> Integer.toString(person.getYearOfBirth()))
+        grid.addColumn(person -> Integer.toString(
+                    person.getYearOfBirth()))
                 .setHeader("Year of birth");
 
         layout.add(grid);
@@ -108,11 +109,13 @@ public class GridBasic {
         people.subList(2, 3).forEach(grid::select);
 
         // the default selection model
-        GridSingleSelectionModel<Person> defaultModel = (GridSingleSelectionModel<Person>) grid
+        GridSingleSelectionModel<Person> defaultModel =
+                (GridSingleSelectionModel<Person>) grid
                 .getSelectionModel();
 
         // Use multi-selection mode
-        GridMultiSelectionModel<Person> selectionModel = (GridMultiSelectionModel<Person>) grid
+        GridMultiSelectionModel<Person> selectionModel =
+                (GridMultiSelectionModel<Person>) grid
                 .setSelectionMode(SelectionMode.MULTI);
 
         // preselect value

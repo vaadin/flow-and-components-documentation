@@ -191,7 +191,7 @@ As an alternative, you can use the `@Synchronize` annotation with the `DisabledU
 ----
 @Synchronize(property = "prop", value = "prop-changed",
              allowUpdates = DisabledUpdateMode.ALWAYS)
-public String getProp(){
+public String getProp() {
     return getElement().getProperty("prop");
 }
 ----
@@ -234,10 +234,10 @@ If there are server-handler methods annotated with `@ClientCallable` or `@EventH
 [source, java]
 ----
 @EventHandler(DisabledUpdateMode.ALWAYS)
-private void eventHandler(){
+private void eventHandler() {
 }
 
 @ClientCallable(DisabledUpdateMode.ALWAYS)
-private void clientRequest(){
+private void clientRequest() {
 }
 ----

@@ -108,7 +108,8 @@ public class DataProviders {
     public void grid() {
         Grid<Person> grid = new Grid<>();
         grid.addColumn(Person::getName).setHeader("Name");
-        grid.addColumn(person -> Integer.toString(person.getYearOfBirth()))
+        grid.addColumn(person -> Integer.toString(
+                    person.getYearOfBirth()))
                 .setHeader("Year of birth");
 
         // Sets items using varargs
@@ -123,8 +124,8 @@ public class DataProviders {
 
         grid.addColumn(Person::getName).setHeader("Name")
                 // Override default natural sorting
-                .setComparator(Comparator
-                        .comparing(person -> person.getName().toLowerCase()));
+                .setComparator(Comparator.comparing(person ->
+                        person.getName().toLowerCase()));
     }
 
     public void listDataProvider() {
@@ -285,7 +286,8 @@ public class DataProviders {
     }
 
     public void serviceDataProvider() {
-        DataProvider<Person, Void> dataProvider = DataProvider.fromCallbacks(
+        DataProvider<Person, Void> dataProvider =
+                DataProvider.fromCallbacks(
                 // First callback fetches items based on a query
                 query -> {
                     // The index of the first item to load
@@ -299,7 +301,8 @@ public class DataProviders {
 
                     return persons.stream();
                 },
-                // Second callback fetches the number of items for a query
+                // Second callback fetches the number of items
+                // for a query
                 query -> getPersonService().getPersonCount());
 
         Grid<Person> grid = new Grid<>();
