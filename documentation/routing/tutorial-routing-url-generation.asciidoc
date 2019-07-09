@@ -18,9 +18,9 @@ For standard navigation targets, the request is a simple call for `Router.getUrl
 ----
 @Route("path")
 public class PathComponent extends Div {
-  public PathComponent() {
-    setText("Hello @Route!");
-  }
+    public PathComponent() {
+        setText("Hello @Route!");
+    }
 }
 
 public class Menu extends Div {
