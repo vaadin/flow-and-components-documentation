@@ -15,7 +15,7 @@ public class RoutingViewTitles {
     @PageTitle("home")
     class HomeView extends Div {
 
-        HomeView() {
+        public HomeView() {
             setText("This is the home view");
         }
 

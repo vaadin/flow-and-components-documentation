@@ -31,8 +31,10 @@ public class UploadBasic {
         FileBuffer fileBuffer = new FileBuffer();
         Upload upload = new Upload(fileBuffer);
         upload.addFinishedListener(e -> {
-            InputStream inputStream = fileBuffer.getInputStream();
-            // read the contents of the buffered file from inputStream
+            InputStream inputStream =
+                    fileBuffer.getInputStream();
+            // read the contents of the buffered file
+            // from inputStream
         });
     }
 

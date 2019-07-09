@@ -136,7 +136,8 @@ public class ExceptionHandling {
                                  Long parameter) {
             removeAll();
 
-            Optional<BlogRecord> record = getRecord(parameter);
+            Optional<BlogRecord> record =
+                    getRecord(parameter);
 
             if (!record.isPresent()) {
                 event.rerouteToError(

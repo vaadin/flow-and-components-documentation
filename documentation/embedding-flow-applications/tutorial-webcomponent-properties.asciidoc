@@ -86,8 +86,8 @@ In the following example we show how we can update boolean property
 [source, java]
 ----
     @Override
-     protected void configureInstance(
-             WebComponent<PersonComponent> webComponent,
+    protected void configureInstance(
+            WebComponent<PersonComponent> webComponent,
             PersonComponent component) {
         component.setAdultAge(18); // initialization
 

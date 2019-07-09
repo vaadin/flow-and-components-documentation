@@ -18,7 +18,7 @@ You can define a parent layout using the `Route.layout()` method.
 [source,java]
 ----
 @Tag("div")
-@Route(value="company", layout=MainLayout.class)
+@Route(value = "company", layout = MainLayout.class)
 public class CompanyComponent extends Component {
 }
 ----
@@ -65,7 +65,7 @@ public class MenuBar extends Div
 public class TutorialView extends Div {
 }
 
-@Route(value="icons", layout = MenuBar.class)
+@Route(value = "icons", layout = MenuBar.class)
 public class IconsView extends Div {
 }
 ----

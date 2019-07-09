@@ -74,7 +74,7 @@ public class Introduction {
 
     // register the component to url/company and show it
     // inside the main layout
-    @Route(value="company", layout=MainLayout.class)
+    @Route(value = "company", layout = MainLayout.class)
     @Tag("div")
     public class CompanyComponent extends Component {
     }

@@ -25,9 +25,9 @@ to use the `@PageTitle` annotation on your `Component` class:
 @PageTitle("home")
 class HomeView extends Div {
 
-  HomeView(){
-    setText("This is the home view");
-  }
+    public HomeView() {
+        setText("This is the home view");
+    }
 }
 ----
 [NOTE]

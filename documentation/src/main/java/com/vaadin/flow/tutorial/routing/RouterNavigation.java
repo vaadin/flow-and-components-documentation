@@ -30,10 +30,10 @@ public class RouterNavigation {
     void navigation() {
         NativeButton button = new NativeButton(
                 "Navigate to company");
-        button.addClickListener( e-> {
+        button.addClickListener(e ->
             button.getUI().ifPresent(ui ->
-                    ui.navigate("company"));
-        });
+                    ui.navigate("company"))
+        );
     }
 
     void routerLink() {
