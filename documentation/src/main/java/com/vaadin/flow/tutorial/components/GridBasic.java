@@ -71,14 +71,17 @@ public class GridBasic {
         Grid<Person> grid = new Grid<>();
 
         grid.setSelectionMode(SelectionMode.SINGLE);
-        SingleSelect<Grid<Person>, Person> personSelect = grid.asSingleSelect();
-        // personSelect can now be used with Binder or HasValue interface
+        SingleSelect<Grid<Person>, Person> personSelect =
+                grid.asSingleSelect();
+        // personSelect can now be used with Binder or
+        // HasValue interface
         personSelect.addValueChangeListener(e -> {
             Person selectedPerson = e.getValue();
         });
 
         grid.setSelectionMode(SelectionMode.MULTI);
-        MultiSelect<Grid<Person>, Person> multiSelect = grid.asMultiSelect();
+        MultiSelect<Grid<Person>, Person> multiSelect =
+                grid.asMultiSelect();
         multiSelect.addValueChangeListener(e -> {
             Set<Person> selectedPersons = e.getValue();
         });
@@ -108,7 +111,7 @@ public class GridBasic {
         // Select items 2-4
         people.subList(2, 3).forEach(grid::select);
 
-        // the default selectionGridSingleSelectionModel<Person> singleSelect model
+        // the default selection model
         GridSingleSelectionModel<Person> defaultModel =
                 (GridSingleSelectionModel<Person>) grid
                 .getSelectionModel();

@@ -77,7 +77,8 @@ public class GridRenderers {
                 .setHeader("Purchase date and time");
 
         grid.addColumn(new NumberRenderer<>(Item::getPrice,
-                NumberFormat.getCurrencyInstance())).setHeader("Price");
+                NumberFormat.getCurrencyInstance()))
+                .setHeader("Price");
 
         grid.addColumn(new NumberRenderer<>(
                 Item::getPrice, "$ %(,.2f",
