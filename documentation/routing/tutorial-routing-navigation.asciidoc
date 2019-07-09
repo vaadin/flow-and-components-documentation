@@ -57,10 +57,10 @@ You can also use `UI.navigate(Class<? extends Component> navigationTarget)` or `
 ----
 NativeButton button = new NativeButton(
         "Navigate to company");
-button.addClickListener( e-> {
+button.addClickListener(e ->
      button.getUI().ifPresent(ui ->
-           ui.navigate("company"));
-});
+           ui.navigate("company"))
+);
 ----
 
 [NOTE]
