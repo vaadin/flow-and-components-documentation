@@ -56,7 +56,8 @@ public class ComponentBasicFeatures {
                 + container.getChildren().collect(
                 Collectors.counting()));
 
-        // sets the attribute "hidden" of the element on the client-side
+        // sets the attribute "hidden" of the element on the
+        // client-side
         mappedComponent.setVisible(false);
     }
 
