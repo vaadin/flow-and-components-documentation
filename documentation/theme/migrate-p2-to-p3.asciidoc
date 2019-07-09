@@ -8,7 +8,7 @@ layout: page
 
 The most significant change in Polymer 3.0 is that Html Imports are not used anymore, and instead we need to use ES6 modules.
 
-== Steps to migrate `.html` theming files to `.js`
+== Steps to migrate `.html` theming files to `.js` and `.css`
 
 Given the following example for Polymer 2 in a V13 application:
 
@@ -40,63 +40,40 @@ Given the following example for Polymer 2 in a V13 application:
 
 We need to follow the next steps to convert to Polymer 3, so as it is usable in a V14 application.
 
-1. At the beginning of the file import the `html-tag` utility library:
+1. Generate as many `.css` files as HTML blocks in the `.html` file
 +
-[source, js]
+.frontend/styles/my-app-layout-theme.css
+[source, css]
 ----
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-----
-+
-
-2. Write the basic JavaScript code to dynamically create a template element to be appended to the `<head>` of the document.
-+
-[source, js]
-----
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-
-const $_documentContainer = document.createElement('template');
-$_documentContainer.innerHTML = ``;
-document.head.appendChild($_documentContainer.content);
+:host {
+  background-color: var(--lumo-shade-5pct) !important;
+}
+[part="content"] {
+  height: 100%;
+}
 ----
 +
 
-3. Enclose the Polymer 2 HTML code inside the `html` back-ticks block:
-+
-[source, js]
+.frontend/styles/my-custom-styles.css
+[source, css]
 ----
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-
-const $_documentContainer = document.createElement('template');
-$_documentContainer.innerHTML = `<dom-module id="my-app-layout-theme" theme-for="vaadin-app-layout">
-  <template>
-    <style>
-      :host {
-        background-color: var(--lumo-shade-5pct) !important;
-      }
-      [part="content"] {
-        height: 100%;
-      }
-    </style>
-  </template>
-</dom-module>
-
-<custom-style>
-  <style>
-    .v-system-error {
-        color: red;
-    }
-  </style>
-</custom-style>`;
-document.head.appendChild($_documentContainer.content);
+.v-system-error {
+    color: red;
+}
 ----
 +
-4. Replace the `@HtmlImport` annotation with `@JsModule` in your java code
+
+2. Instruct Flow to import these css files in the appropriate way.
 +
-[source,java]
+[source, java]
 ----
 @Route(value = "")
-@JsModule("./styles/shared-styles.js")
+// will be imported as a <dom-module> tag for theming components
+@CssImport(value = "./styles/my-app-layout-theme.css", themeFor = "vaadin-app-layout")
+// will be imported as a <custom-style> tag
+@CssImport(value = "./styles/my-custom-styles.css")
 public class MyApplication extends Div {
 }
 ----
 +
+
