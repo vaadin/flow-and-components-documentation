@@ -64,27 +64,36 @@ public class GridRenderers {
                 "dd/MM/yyyy"))
                 .setHeader("Estimated delivery date");
 
-        grid.addColumn(new LocalDateTimeRenderer<>(Item::getPurchaseDate,
-                DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT,
+        grid.addColumn(new LocalDateTimeRenderer<>(
+                Item::getPurchaseDate,
+                DateTimeFormatter.ofLocalizedDateTime(
+                        FormatStyle.SHORT,
                         FormatStyle.MEDIUM)))
                 .setHeader("Purchase date and time");
 
-        grid.addColumn(new LocalDateTimeRenderer<>(Item::getPurchaseDate,
-                "dd/MM HH:mm:ss")).setHeader("Purchase date and time");
+        grid.addColumn(new LocalDateTimeRenderer<>(
+                Item::getPurchaseDate,
+                "dd/MM HH:mm:ss"))
+                .setHeader("Purchase date and time");
 
         grid.addColumn(new NumberRenderer<>(Item::getPrice,
                 NumberFormat.getCurrencyInstance())).setHeader("Price");
 
-        grid.addColumn(new NumberRenderer<>(Item::getPrice, "$ %(,.2f",
-                Locale.US, "$ 0.00")).setHeader("Price");
+        grid.addColumn(new NumberRenderer<>(
+                Item::getPrice, "$ %(,.2f",
+                Locale.US, "$ 0.00"))
+                .setHeader("Price");
 
         grid.addColumn(
-                new NativeButtonRenderer<>("Remove item", clickedItem -> {
+                new NativeButtonRenderer<>("Remove item",
+                        clickedItem -> {
                     // remove the item
                 }));
 
         //@formatter:off
-        grid.addColumn(new NativeButtonRenderer<>(item -> "Remove " + item, clickedItem -> {
+        grid.addColumn(new NativeButtonRenderer<>(
+                item -> "Remove " + item,
+                clickedItem -> {
             // remove the item
         }));
         //@formatter:on
@@ -94,15 +103,18 @@ public class GridRenderers {
         Grid<Person> grid = new Grid<>();
         grid.setItems(people);
 
-        grid.addColumn(TemplateRenderer.<Person> of("<b>[[item.name]]</b>")
-                .withProperty("name", Person::getName)).setHeader("Name");
+        grid.addColumn(TemplateRenderer
+                .<Person>of("<b>[[item.name]]</b>")
+                .withProperty("name", Person::getName)
+        ).setHeader("Name");
 
         //@formatter:off
-        grid.addColumn(TemplateRenderer.<Person> of("[[item.age]] years old")
-                        .withProperty("age",
-                                person -> Year.now().getValue()
-                                        - person.getYearOfBirth()))
-                .setHeader("Age");
+        grid.addColumn(TemplateRenderer
+                .<Person>of("[[item.age]] years old")
+                .withProperty("age",
+                        person -> Year.now().getValue()
+                                - person.getYearOfBirth())
+        ).setHeader("Age");
         //@formatter:on
 
         grid.addColumn(TemplateRenderer.<Person> of(

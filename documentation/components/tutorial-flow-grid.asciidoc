@@ -502,8 +502,10 @@ Use `LocalDateTimeRenderer` to render `LocalDateTime` objects in the cells.
 
 [source, java]
 ----
-grid.addColumn(new LocalDateTimeRenderer<>(Item::getPurchaseDate,
-        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT,
+grid.addColumn(new LocalDateTimeRenderer<>(
+        Item::getPurchaseDate,
+        DateTimeFormatter.ofLocalizedDateTime(
+                FormatStyle.SHORT,
                 FormatStyle.MEDIUM)))
         .setHeader("Purchase date and time");
 ----
@@ -514,8 +516,10 @@ grid.addColumn(new LocalDateTimeRenderer<>(Item::getPurchaseDate,
 
 [source, java]
 ----
-grid.addColumn(new LocalDateTimeRenderer<>(Item::getPurchaseDate,
-        "dd/MM HH:mm:ss")).setHeader("Purchase date and time");
+grid.addColumn(new LocalDateTimeRenderer<>(
+        Item::getPurchaseDate,
+        "dd/MM HH:mm:ss"))
+    .setHeader("Purchase date and time");
 ----
 
 ==== NumberRenderer
@@ -527,7 +531,8 @@ Use `NumberRenderer` to render any type of Number in the cells. It is especially
 [source, java]
 ----
 grid.addColumn(new NumberRenderer<>(Item::getPrice,
-        NumberFormat.getCurrencyInstance())).setHeader("Price");
+        NumberFormat.getCurrencyInstance()))
+        .setHeader("Price");
 ----
 
 It is possible to setup the `NumberRenderer` with a String format, and an optional null representation.
@@ -536,8 +541,10 @@ It is possible to setup the `NumberRenderer` with a String format, and an option
 
 [source, java]
 ----
-grid.addColumn(new NumberRenderer<>(Item::getPrice, "$ %(,.2f",
-        Locale.US, "$ 0.00")).setHeader("Price");
+grid.addColumn(new NumberRenderer<>(
+        Item::getPrice, "$ %(,.2f",
+        Locale.US, "$ 0.00"))
+        .setHeader("Price");
 ----
 
 ==== NativeButtonRenderer
@@ -549,7 +556,8 @@ Use `NativeButtonRenderer` to create a clickable button in the cells. It creates
 [source, java]
 ----
 grid.addColumn(
-    new NativeButtonRenderer<>("Remove item", clickedItem -> {
+    new NativeButtonRenderer<>("Remove item",
+       clickedItem -> {
         // remove the item
     }));
 ----
@@ -560,7 +568,9 @@ You can configure a custom label for each item.
 
 [source, java]
 ----
-grid.addColumn(new NativeButtonRenderer<>(item -> "Remove " + item, clickedItem -> {
+grid.addColumn(new NativeButtonRenderer<>(
+        item -> "Remove " + item,
+        clickedItem -> {
   // remove the item
 }));
 ----
@@ -576,8 +586,10 @@ Providing a `TemplateRenderer` for a column allows you to define the content of 
 Grid<Person> grid = new Grid<>();
 grid.setItems(people);
 
-grid.addColumn(TemplateRenderer.<Person> of("<b>[[item.name]]</b>")
-                .withProperty("name", Person::getName)).setHeader("Name");
+grid.addColumn(TemplateRenderer
+       .<Person>of("<b>[[item.name]]</b>")
+       .withProperty("name", Person::getName)
+).setHeader("Name");
 ----
 
 * The template string is passed for the static `TemplateRenderer.of()` method.
@@ -593,11 +605,12 @@ You can use a `TemplateRenderer` to create and display new properties (i.e. prop
 
 [source, java]
 ----
-grid.addColumn(TemplateRenderer.<Person> of("[[item.age]] years old")
+grid.addColumn(TemplateRenderer
+        .<Person>of("[[item.age]] years old")
         .withProperty("age",
                 person -> Year.now().getValue()
-                        - person.getYearOfBirth()))
-        .setHeader("Age");
+                        - person.getYearOfBirth())
+).setHeader("Age");
 ----
 
 ==== Binding Beans
