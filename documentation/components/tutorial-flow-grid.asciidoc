@@ -620,8 +620,11 @@ If an object contains a bean property that has sub properties, it is only necess
 *Example*: Using the `withProperty()` method to access numerous sub properties. Assumes `Person` has a field for the `Address` bean, which has `street`, `number` and `postalCode` fields with corresponding getter and setter methods.
 [source, java]
 ----
-grid.addColumn(TemplateRenderer.<Person> of(
-        "<div>[[item.address.street]], number [[item.address.number]]<br><small>[[item.address.postalCode]]</small></div>")
+grid.addColumn(TemplateRenderer.<Person>of(
+        "<div>[[item.address.street]], number " +
+        "[[item.address.number]]<br>" +
+        "<small>[[item.address.postalCode]]</small>" +
+        "</div>")
         .withProperty("address", Person::getAddress))
         .setHeader("Address");
 ----
@@ -634,17 +637,19 @@ You can define event handlers for the elements in your template, and hook them t
 
 [source, java]
 ----
-grid.addColumn(TemplateRenderer.<Person> of(
-                "<button on-click='handleUpdate'>Update</button><button on-click='handleRemove'>Remove</button>")
-                .withEventHandler("handleUpdate", person -> {
-                    person.setName(person.getName() + " Updated");
-                    grid.getDataProvider().refreshItem(person);
-                }).withEventHandler("handleRemove", person -> {
-                    ListDataProvider<Person> dataProvider = (ListDataProvider<Person>) grid
-                            .getDataProvider();
-                    dataProvider.getItems().remove(person);
-                    dataProvider.refreshAll();
-                })).setHeader("Actions");
+grid.addColumn(TemplateRenderer.<Person>of(
+     "<button on-click='handleUpdate'>Update</button>" +
+     "<button on-click='handleRemove'>Remove</button>")
+    .withEventHandler("handleUpdate", person -> {
+        person.setName(person.getName() + " Updated");
+        grid.getDataProvider().refreshItem(person);
+    }).withEventHandler("handleRemove", person -> {
+        ListDataProvider<Person> dataProvider =
+            (ListDataProvider<Person>) grid
+                .getDataProvider();
+        dataProvider.getItems().remove(person);
+        dataProvider.refreshAll();
+    })).setHeader("Actions");
 ----
 
 * When the server-side data used by the grid is edited, the grid's `DataProvider` is refreshed by calling the `refreshItem()` method. This ensures the changes show up in the element.
@@ -680,9 +685,10 @@ It is also possible to provide a separate `Supplier` to create the component, an
 *Example*: Using `ComponentRenderer` with a `Consumer`.
 [source, java]
 ----
-SerializableBiConsumer<Div, Person> consumer = (div, person) -> div
-                .setText(person.getName());
-grid.addColumn(new ComponentRenderer<>(Div::new, consumer))
+SerializableBiConsumer<Div, Person> consumer =
+        (div, person) -> div.setText(person.getName());
+grid.addColumn(
+        new ComponentRenderer<>(Div::new, consumer))
         .setHeader("Name");
 ----
 
@@ -692,7 +698,8 @@ If the component is the same for every item, you only need to provide the `Suppl
 [source, java]
 ----
 grid.addColumn(
-    new ComponentRenderer<>(() -> new Icon(VaadinIcon.ARROW_LEFT)));
+    new ComponentRenderer<>(
+            () -> new Icon(VaadinIcon.ARROW_LEFT)));
 ----
 
 You can create complex content for the grid cells by using the component APIs.
@@ -714,14 +721,17 @@ grid.addColumn(new ComponentRenderer<>(person -> {
 
     // button that removes the item
     Button remove = new Button("Remove", event -> {
-        ListDataProvider<Person> dataProvider = (ListDataProvider<Person>) grid
+        ListDataProvider<Person> dataProvider =
+            (ListDataProvider<Person>) grid
                 .getDataProvider();
         dataProvider.getItems().remove(person);
         dataProvider.refreshAll();
     });
 
-    // layouts for placing the text field on top of the buttons
-    HorizontalLayout buttons = new HorizontalLayout(update, remove);
+    // layouts for placing the text field on top
+    // of the buttons
+    HorizontalLayout buttons =
+            new HorizontalLayout(update, remove);
     return new VerticalLayout(name, buttons);
 })).setHeader("Actions");
 ----
@@ -739,12 +749,15 @@ You can enable expanding rows using the `setItemDetailsRenderer()` method, which
 
 [source, java]
 ----
-grid.setItemDetailsRenderer(new ComponentRenderer<>(person -> {
-    VerticalLayout layout = new VerticalLayout();
-    layout.add(new Label("Address: " + person.getAddress().getStreet()
-            + " " + person.getAddress().getNumber()));
-    layout.add(new Label("Year of birth: " + person.getYearOfBirth()));
-    return layout;
+grid.setItemDetailsRenderer(
+    new ComponentRenderer<>(person -> {
+        VerticalLayout layout = new VerticalLayout();
+        layout.add(new Label("Address: " +
+                person.getAddress().getStreet() + " " +
+                person.getAddress().getNumber()));
+        layout.add(new Label("Year of birth: " +
+                person.getYearOfBirth()));
+        return layout;
 }));
 ----
 
@@ -797,8 +810,9 @@ You can also define multiple properties.
 
 [source, java]
 ----
-grid.addColumn(person -> person.getName() + " " + person.getLastName(),
-                "name", "lastName").setHeader("Name");
+grid.addColumn(person -> person.getName() + " " +
+        person.getLastName(), "name", "lastName"
+).setHeader("Name");
 ----
 
 * With multiple properties, the `QuerySortOrder` objects are created in the order they are declared.
@@ -810,10 +824,12 @@ You can also use use properties created for your `TemplateRenderer`.
 [source, java]
 ----
 grid.addColumn(TemplateRenderer.<Person> of(
-        "<div>[[item.name]]<br><small>[[item.email]]</small></div>")
+        "<div>[[item.name]]<br>" +
+        "<small>[[item.email]]</small></div>")
         .withProperty("name", Person::getName)
-        .withProperty("email", Person::getEmail), "name", "email")
-        .setHeader("Person");
+        .withProperty("email", Person::getEmail),
+    "name", "email")
+    .setHeader("Person");
 ----
 * For in-memory sorting to work correctly, the values returned by the `ValueProviders` in the `TemplateRenderer`
 (`Person::getName` and `Person::getEmail` in this example) should implement `Comparable`.
@@ -829,9 +845,10 @@ If you need custom logic to compare items for sorting, or if your underlying dat
 [source, java]
 ----
 grid.addColumn(Person::getName)
-        .setComparator((person1, person2) -> person1.getName()
-                .compareToIgnoreCase(person2.getName()))
-        .setHeader("Name");
+    .setComparator((person1, person2) ->
+        person1.getName()
+            .compareToIgnoreCase(person2.getName()))
+    .setHeader("Name");
 ----
 
 
@@ -845,7 +862,8 @@ You can use the `setSortProperty` method to set strings describing backend prope
 
 [source, java]
 ----
-grid.addColumn(Person::getName).setSortProperty("name", "email")
+grid.addColumn(Person::getName)
+        .setSortProperty("name", "email")
         .setHeader("Person");
 ----
 * Unlike using the sorting properties in the `addColumn` method directly, calling `setSortProperty` does not configure any in-memory sorting.
@@ -862,11 +880,11 @@ If you need fine-grained control over how `QuerySortOrder` objects are created a
 [source, java]
 ----
 grid.addColumn(Person::getName)
-        .setSortOrderProvider(direction -> Arrays
-                .asList(new QuerySortOrder("name", direction),
-                        new QuerySortOrder("email", direction))
-                .stream())
-        .setHeader("Person");
+    .setSortOrderProvider(direction -> Arrays
+        .asList(new QuerySortOrder("name", direction),
+                new QuerySortOrder("email", direction))
+        .stream())
+    .setHeader("Person");
 ----
 
 === Enabling and Disabling Column Sorting
@@ -913,12 +931,12 @@ grid.addSortListener(event -> {
     String currentSortOrder = grid.getDataCommunicator()
             .getBackEndSorting().stream()
             .map(querySortOrder -> String.format(
-                    "{sort property: %s, direction: %s}",
-                    querySortOrder.getSorted(),
-                    querySortOrder.getDirection()))
+                   "{sort property: %s, direction: %s}",
+                   querySortOrder.getSorted(),
+                   querySortOrder.getDirection()))
             .collect(Collectors.joining(", "));
     System.out.println(String.format(
-            "Current sort order: %s. Sort originates from the client: %s.",
+            "Current sort order: %s. User-clicked: %s.",
             currentSortOrder, event.isFromClient()));
 });
 ----
@@ -942,7 +960,8 @@ grid.addClassName("styled");
 grid.addColumn(new ComponentRenderer<>(person -> {
     TextField textField = new TextField();
     textField.setValue(person.getName());
-    textField.addClassName("style-" + person.getGender());
+    textField.addClassName("style-" +
+            person.getGender());
     textField.addValueChangeListener(
         event -> person.setName(event.getValue()));
     return textField;
@@ -954,12 +973,14 @@ grid.addColumn(new ComponentRenderer<>(person -> {
     datePicker.addValueChangeListener(event -> {
         person.setDob(event.getValue());
     });
-    datePicker.addClassName("style-" + person.getGender());
+    datePicker.addClassName("style-" +
+            person.getGender());
     return datePicker;
 })).setHeader("DOB");
 
 grid.addColumn(new ComponentRenderer<>(person -> {
-    Image image = new Image(person.getImgUrl(), person.getName());
+    Image image = new Image(person.getImgUrl(),
+            person.getName());
     return image;
 })).setHeader("Image");
 
@@ -973,7 +994,8 @@ The default Lumo theme includes different variations that you can use to style t
 
 [source, java]
 ----
-grid.addThemeNames("no-border", "no-row-borders", "row-stripes");
+grid.addThemeNames("no-border", "no-row-borders",
+        "row-stripes");
 ----
 
 
@@ -1013,24 +1035,24 @@ You can use custom styles to style the grid itself. This is achieved by overridi
 [source, html]
 ----
 <dom-module id="custom-grid" theme-for="vaadin-grid">
-    <template>
-        <style>
-            :host(.styled) #table {
-                border-radius: 20px;
-                box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-                border: 1px solid rgba(81, 203, 238, 1);
-            }
-            :host(.styled) #header {
-                border: none;
-                border-bottom: 1px solid rgba(81, 203, 238, 1);
-            }
-            :host(.styled) #header tr {
-                text-align: center;
-                text-shadow: 0 0 3px rgba(81, 203, 238, 1);
-                text-transform: uppercase;
-            }
-        </style>
-    </template>
+  <template>
+    <style>
+      :host(.styled) #table {
+        border-radius: 20px;
+        box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+        border: 1px solid rgba(81, 203, 238, 1);
+      }
+      :host(.styled) #header {
+        border: none;
+        border-bottom: 1px solid rgba(81, 203, 238, 1);
+      }
+      :host(.styled) #header tr {
+        text-align: center;
+        text-shadow: 0 0 3px rgba(81, 203, 238, 1);
+        text-transform: uppercase;
+      }
+    </style>
+  </template>
 </dom-module>
 ----
 
@@ -1051,14 +1073,16 @@ The following example takes you through the process of styling the grid with tex
 +
 [source, html]
 ----
-<dom-module id="custom-text-field" theme-for="vaadin-text-field">
-    <template>
-        <style>
-            .vaadin-text-field-container [part="input-field"] {
-                background-color: var(--custom-text-field-bg, var(--lumo-contrast-10pct));
-            }
-        </style>
-    </template>
+<dom-module id="custom-text-field"
+        theme-for="vaadin-text-field">
+  <template>
+    <style>
+      .vaadin-text-field-container[part="input-field"] {
+          background-color: var(--custom-text-field-bg,
+                var(--lumo-contrast-10pct));
+      }
+    </style>
+  </template>
 </dom-module>
 ----
 

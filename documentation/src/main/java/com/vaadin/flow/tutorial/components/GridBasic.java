@@ -248,21 +248,26 @@ public class GridBasic {
 
         grid.addColumn(Person::getAge, "age").setHeader("Age");
 
-        grid.addColumn(person -> person.getName() + " " + person.getLastName(),
-                "name", "lastName").setHeader("Name");
+        grid.addColumn(person -> person.getName() + " " +
+                person.getLastName(), "name", "lastName"
+        ).setHeader("Name");
 
-        grid.addColumn(TemplateRenderer.<Person> of(
-                "<div>[[item.name]]<br><small>[[item.email]]</small></div>")
-                .withProperty("name", Person::getName)
-                .withProperty("email", Person::getEmail), "name", "email")
+        grid.addColumn(TemplateRenderer.<Person>of(
+                "<div>[[item.name]]<br>" +
+                        "<small>[[item.email]]</small></div>")
+                        .withProperty("name", Person::getName)
+                        .withProperty("email", Person::getEmail),
+                "name", "email")
                 .setHeader("Person");
 
         grid.addColumn(Person::getName)
-                .setComparator((person1, person2) -> person1.getName()
-                        .compareToIgnoreCase(person2.getName()))
+                .setComparator((person1, person2) ->
+                        person1.getName()
+                                .compareToIgnoreCase(person2.getName()))
                 .setHeader("Name");
 
-        grid.addColumn(Person::getName).setSortProperty("name", "email")
+        grid.addColumn(Person::getName)
+                .setSortProperty("name", "email")
                 .setHeader("Person");
 
         grid.addColumn(Person::getName)
@@ -281,7 +286,7 @@ public class GridBasic {
                             querySortOrder.getDirection()))
                     .collect(Collectors.joining(", "));
             System.out.println(String.format(
-                    "Current sort order: %s. Sort originates from the client: %s.",
+                    "Current sort order: %s. User-clicked: %s.",
                     currentSortOrder, event.isFromClient()));
         });
 
@@ -297,7 +302,8 @@ public class GridBasic {
         grid.addColumn(new ComponentRenderer<>(person -> {
             TextField textField = new TextField();
             textField.setValue(person.getName());
-            textField.addClassName("style-" + person.getGender());
+            textField.addClassName("style-" +
+                    person.getGender());
             textField.addValueChangeListener(
                     event -> person.setName(event.getValue()));
             return textField;
@@ -309,16 +315,19 @@ public class GridBasic {
             datePicker.addValueChangeListener(event -> {
                 person.setDob(event.getValue());
             });
-            datePicker.addClassName("style-" + person.getGender());
+            datePicker.addClassName("style-" +
+                    person.getGender());
             return datePicker;
         })).setHeader("DOB");
 
         grid.addColumn(new ComponentRenderer<>(person -> {
-            Image image = new Image(person.getImgUrl(), person.getName());
+            Image image = new Image(person.getImgUrl(),
+                    person.getName());
             return image;
         })).setHeader("Image");
 
-        grid.addThemeNames("no-border", "no-row-borders", "row-stripes");
+        grid.addThemeNames("no-border", "no-row-borders",
+                "row-stripes");
 
     }
 
