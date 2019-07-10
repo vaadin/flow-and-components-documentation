@@ -31,7 +31,8 @@ comboBox.setItemLabelGenerator(Status::getLabel);
 
 Grid<Person> grid = new Grid<>();
 grid.addColumn(Person::getName).setHeader("Name");
-grid.addColumn(person -> Integer.toString(person.getYearOfBirth()))
+grid.addColumn(person -> Integer.toString(
+               person.getYearOfBirth()))
         .setHeader("Year of birth");
 ----
 
@@ -67,8 +68,8 @@ You can also define a custom `Comparator` if you need to customize the way a spe
 ----
 grid.addColumn(Person::getName).setHeader("Name")
         // Override default natural sorting
-        .setComparator(Comparator
-                .comparing(person -> person.getName().toLowerCase()));
+        .setComparator(Comparator.comparing(person ->
+                    person.getName().toLowerCase()));
 ----
 [NOTE]
 This kind of sorting is only supported for in-memory data. See <<Sorting Lazy-loaded Data>> for how to sort data loaded from a backend service. 
@@ -103,7 +104,8 @@ To use this service with a listing component, you can create a data provider tha
 
 [source, java]
 ----
-DataProvider<Person, Void> dataProvider = DataProvider.fromCallbacks(
+DataProvider<Person, Void> dataProvider =
+    DataProvider.fromCallbacks(
         // First callback fetches items based on a query
         query -> {
             // The index of the first item to load
@@ -117,7 +119,8 @@ DataProvider<Person, Void> dataProvider = DataProvider.fromCallbacks(
 
             return persons.stream();
         },
-        // Second callback fetches the number of items for a query
+        // Second callback fetches the number of items
+        // for a query
         query -> getPersonService().getPersonCount());
 );
 

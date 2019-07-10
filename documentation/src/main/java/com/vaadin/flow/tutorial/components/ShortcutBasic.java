@@ -36,12 +36,14 @@ public class ShortcutBasic {
 
     public void generalPurposeShortcut()  {
         // ex 1
-        UI.getCurrent().addShortcutListener(this::openCustomerCreation, Key.KEY_N,
+        UI.getCurrent().addShortcutListener(
+                this::openCustomerCreation, Key.KEY_N,
                 KeyModifier.CONTROL, KeyModifier.ALT);
 
         // ex 2
         UI.getCurrent().addShortcutListener(
-                () -> Notification.show("Shortcut triggered"), Key.SPACE);
+                () -> Notification.show("Shortcut triggered"),
+                Key.SPACE);
     }
 
     public class Scope extends Div {
@@ -56,18 +58,20 @@ public class ShortcutBasic {
                 lastName.setValue("");
                 firstName.focus();
             };
-            // first parameter is the lifecycle owner of the shortcut and
-            // will be discussed later.
-            Shortcuts.addShortcutListener(this, command, Key.ESCAPE)
-                    // defines the component onto which the shortcuts listener
-                    // is attached:
+            // first parameter is the lifecycle owner
+            // of the shortcut and will be discussed later.
+            Shortcuts.addShortcutListener(this,
+                    command, Key.ESCAPE)
+                    // defines the component onto which
+                    // the shortcuts listener is attached:
                     .listenOn(this);
         }
     }
 
     public void removingShortcut() {
         TextField textField = new TextField("Label");
-        ShortcutRegistration registration = textField.addFocusShortcut(Key.KEY_F,
+        ShortcutRegistration registration =
+                textField.addFocusShortcut(Key.KEY_F,
                 KeyModifier.ALT);
 
         // something happens here
@@ -76,9 +80,11 @@ public class ShortcutBasic {
     }
 
     public void shortcutLifecycle() {
-        Paragraph paragraph = new Paragraph("When you see me, try ALT+G!");
+        Paragraph paragraph =
+                new Paragraph("When you see me, try ALT+G!");
 
-        Shortcuts.addShortcutListener(paragraph, () -> Notification.show("Well done!"),
+        Shortcuts.addShortcutListener(paragraph,
+                () -> Notification.show("Well done!"),
                 Key.KEY_G, KeyModifier.ALT);
 
         add(paragraph);
@@ -95,8 +101,10 @@ public class ShortcutBasic {
             }
         };
 
-        UI.getCurrent().addShortcutListener(listener, Key.KEY_G, KeyModifier.ALT);
-        UI.getCurrent().addShortcutListener(listener, Key.KEY_J, KeyModifier.ALT);
+        UI.getCurrent().addShortcutListener(listener,
+                Key.KEY_G, KeyModifier.ALT);
+        UI.getCurrent().addShortcutListener(listener,
+                Key.KEY_J, KeyModifier.ALT);
     }
 
     public void configuringShortcuts_modifiers() {
@@ -106,7 +114,8 @@ public class ShortcutBasic {
 
     private Div anotherComponent = new Div();
     public void configuringShortcuts_lifecycleOwner() {
-        UI.getCurrent().addShortcutListener(() -> {/* do a thing*/}, Key.KEY_F)
+        UI.getCurrent().addShortcutListener(
+                () -> {/* do a thing*/}, Key.KEY_F)
                 .bindLifecycleTo(anotherComponent);
     }
 
@@ -115,7 +124,8 @@ public class ShortcutBasic {
         input.addFocusShortcut(Key.KEY_F)
                 // other handlers can now catch this event
                 .allowEventPropagation()
-                // the character 'f' will be written out, if a text field is focused
+                // the character 'f' will be written out,
+                // if a text field is focused
                 .allowBrowserDefault();
     }
 

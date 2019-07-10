@@ -12,11 +12,13 @@ You can use server-side Java to execute simple JavaScript snippets in the browse
 
 [source,java]
 ----
-public static void logElementSize(String name, Element element) {
+public static void logElementSize(String name,
+        Element element) {
     Page page = UI.getCurrent().getPage();
 
     page.executeJs(
-            "console.log($0 + ' size:', $1.offsetWidth, $1.offsetHeight)",
+            "console.log($0 + ' size:', "
+            + "$1.offsetWidth, $1.offsetHeight)",
             name, element);
 }
 ----

@@ -36,7 +36,8 @@ public class ComponentEnabledState {
         Button submit = new Button("Submit");
 
         form.add(name, email, submit);
-        form.setEnabled(false); // all children are implicitly disabled
+        // all children are implicitly disabled
+        form.setEnabled(false);
         System.out.println(name.isEnabled()); // prints false
     }
 
@@ -46,10 +47,12 @@ public class ComponentEnabledState {
         form.setEnabled(false); // the entire form is disabled
 
         TextField name = new TextField("Name");
-        System.out.println(name.isEnabled()); // prints true, since it is not attached yet
+        // prints true, since it is not attached yet
+        System.out.println(name.isEnabled());
 
         Button submit = new Button("Submit");
-        submit.setEnabled(false); // the submit button is explicitly disabled
+        // the submit button is explicitly disabled
+        submit.setEnabled(false);
         System.out.println(submit.isEnabled()); // prints false
 
         form.add(name, submit); // attaches children
@@ -61,7 +64,9 @@ public class ComponentEnabledState {
         System.out.println(name.isEnabled()); // prints true
 
         form.remove(submit); // the submit button gets detached
-        System.out.println(submit.isEnabled()); // prints false, since it was explicitly disabled
+
+        // prints false, since it was explicitly disabled
+        System.out.println(submit.isEnabled());
         //@formatter:on
     }
 }

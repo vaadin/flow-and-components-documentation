@@ -62,7 +62,8 @@ public class NavigationEvents {
     }
 
     @Route("blog")
-    public class BlogList extends Div implements BeforeEnterObserver {
+    public class BlogList extends Div
+            implements BeforeEnterObserver {
         @Override
         public void beforeEnter(BeforeEnterEvent event) {
             // implementation omitted
@@ -87,7 +88,8 @@ public class NavigationEvents {
     }
 
     @Route("blog-post")
-    public class BlogPost extends Div implements BeforeEnterObserver {
+    public class BlogPost extends Div
+            implements BeforeEnterObserver {
         @Override
         public void beforeEnter(BeforeEnterEvent event) {
             if (!hasPermission()) {
@@ -101,13 +103,17 @@ public class NavigationEvents {
         }
     }
 
-    public class SignupForm extends Div implements BeforeLeaveObserver {
+    public class SignupForm extends Div
+            implements BeforeLeaveObserver {
         @Override
         public void beforeLeave(BeforeLeaveEvent event) {
             if (this.hasChanges()) {
-                ContinueNavigationAction action = event.postpone();
-                ConfirmDialog.build("Are you sure you want to leave this page?")
-                        .ifAccept(action::proceed).show();
+                ContinueNavigationAction action =
+                        event.postpone();
+                ConfirmDialog.build("Are you sure you want"+
+                        " to leave this page?")
+                        .ifAccept(action::proceed)
+                        .show();
             }
         }
 
@@ -117,14 +123,19 @@ public class NavigationEvents {
         }
     }
 
-    public class SideMenu extends Div implements AfterNavigationObserver {
+    public class SideMenu extends Div
+            implements AfterNavigationObserver {
         Anchor blog = new Anchor("blog", "Blog");
 
         @Override
-        public void afterNavigation(AfterNavigationEvent event) {
-            boolean active = event.getLocation().getFirstSegment()
+        public void afterNavigation(
+                AfterNavigationEvent event) {
+            boolean active = event.getLocation()
+                    .getFirstSegment()
                     .equals(blog.getHref());
-            blog.getElement().getClassList().set("active", active);
+            blog.getElement()
+                    .getClassList()
+                    .set("active", active);
         }
     }
 }

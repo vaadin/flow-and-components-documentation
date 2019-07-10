@@ -108,7 +108,8 @@ and add some styles to shared-styles.html
 
 
 === New `DrawerToggle` to open or close the drawer.
- To use it, add a instance to the component, tipically to the navbar. It will cause a button to appear that will toggle the navbar when clicked.
+
+To use it, add a instance to the component, tipically to the navbar. It will cause a button to appear that will toggle the navbar when clicked.
 
 ```java
 appLayout.addToNavbar(new DrawerToggle());
