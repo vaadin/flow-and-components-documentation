@@ -33,32 +33,43 @@ Here is how the main servlet code may look like:
 public class MainAppServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse response)
+    protected void doGet(HttpServletRequest req,
+            HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType(
+                "text/html;charset=UTF-8");
 
-        Object authToken = req.getSession().getAttribute("auth_token");
+        Object authToken = req.getSession()
+                .getAttribute("auth_token");
         boolean isAuthenticated = authToken != null;
 
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html><head>");
             out.println(
-                    "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
+                    "<meta http-equiv='Content-Type' "
+                    + "content='text/html; "
+                    + "charset=UTF-8'>");
             out.println(
-                    "<script type='text/javascript' src='log-in.js'></script>");
+                    "<script type='text/javascript' "
+                    + "src='log-in.js'></script>");
             if (!isAuthenticated) {
                 out.println(
-                        "<script type='module' src='/vaadin/web-component/login-form.js'></script>");
+                        "<script type='module' src="
+                        + "'/vaadin/web-component/"
+                        + "login-form.js'></script>");
             }
             out.println("<body>");
             if (isAuthenticated) {
                 out.println("<h1>Welcome "
-                        + UserService.getInstance().getName(authToken)
+                        + UserService.getInstance()
+                              .getName(authToken)
                         + "</h1>");
             } else {
                 out.println(
-                        "<login-form userlbl='Username' pwdlbl='Password'></login-form>");
+                      "<login-form userlbl='Username' "
+                      + "pwdlbl='Password'>"
+                      + "</login-form>");
             }
             out.println("</body>");
             out.println("</html>");
@@ -76,7 +87,8 @@ custom stub implementation just for a reference:
 ----
 public final class UserService {
 
-    private static final UserService INSTANCE = new UserService();
+    private static final UserService INSTANCE =
+            new UserService();
 
     private UserService(){
     }
@@ -89,8 +101,10 @@ public final class UserService {
         return "Joe";
     }
 
-    public Optional<Object> authenticate(String user, String passwd) {
-        if ("admin".equals(user) && "admin".equals(passwd)) {
+    public Optional<Object> authenticate(String user,
+            String passwd) {
+        if ("admin".equals(user) &&
+                "admin".equals(passwd)) {
             return Optional.of(new Object());
         } else {
             return Optional.empty();
@@ -105,7 +119,9 @@ which loads our web component:
 
 [source, html]
 ----
-<script type='module' src='/vaadin/web-component/login-form.js'></script>
+<script type='module'
+        src='/vaadin/web-component/login-form.js'>
+</script>
 ----
 
 The link URI starts with `/vaadin/`. This is the URI which we are going to
@@ -122,7 +138,8 @@ In our example this is done right under `<body>`:
 
 [source, html]
 ----
-<login-form userlbl='Username' pwdlbl='Password'></login-form>
+<login-form userlbl='Username' pwdlbl='Password'>
+</login-form>
 ----
 
 The web component has two properties (`userlbl` and `pwdlbl`) whose values we
@@ -133,7 +150,8 @@ Here is the `VaadinServlet` registration:
 [source, java]
 ----
 @WebServlet(urlPatterns = {"/vaadin/*", "/frontend/*" })
-public class WebComponentVaadinServlet extends VaadinServlet {
+public class WebComponentVaadinServlet
+        extends VaadinServlet {
 }
 ----
 
@@ -155,23 +173,27 @@ Here is the web component class:
 ----
 public class LoginForm extends Div {
     private TextField userName = new TextField();
-    private PasswordField password = new PasswordField();
+    private PasswordField password =
+            new PasswordField();
     private Div errorMsg = new Div();
     private String userLabel;
     private String pwdLabel;
     private FormLayout layout = new FormLayout();
-    private List<SerializableRunnable> loginListeners = new CopyOnWriteArrayList<>();
+    private List<SerializableRunnable> loginListeners =
+            new CopyOnWriteArrayList<>();
 
     public LoginForm() {
         updateForm();
 
         add(layout);
 
-        Button login = new Button("Login", event -> login());
+        Button login = new Button("Login",
+                event -> login());
         add(login, errorMsg);
     }
 
-    public void setUserNameLabel(String userNameLabelString) {
+    public void setUserNameLabel(
+            String userNameLabelString) {
         userLabel = userNameLabelString;
         updateForm();
     }
@@ -188,16 +210,21 @@ public class LoginForm extends Div {
         layout.addFormItem(password, pwdLabel);
     }
 
-    public void addLoginListener(SerializableRunnable loginListener) {
+    public void addLoginListener(
+            SerializableRunnable loginListener) {
         loginListeners.add(loginListener);
     }
 
     private void login() {
-        Optional<Object> authToken = UserService.getInstance()
-                .authenticate(userName.getValue(), password.getValue());
+        Optional<Object> authToken = UserService
+                .getInstance()
+                .authenticate(userName.getValue(),
+                    password.getValue());
         if (authToken.isPresent()) {
-            VaadinRequest.getCurrent().getWrappedSession()
-                    .setAttribute("auth_token", authToken.get());
+            VaadinRequest.getCurrent()
+                    .getWrappedSession()
+                    .setAttribute("auth_token",
+                            authToken.get());
             fireLoginEvent();
         } else {
             errorMsg.setText("Authentication failure");
@@ -205,7 +232,8 @@ public class LoginForm extends Div {
     }
 
     private void fireLoginEvent() {
-        loginListeners.forEach(SerializableRunnable::run);
+        loginListeners.forEach(
+                SerializableRunnable::run);
     }
 }
 ----
@@ -234,17 +262,22 @@ component using web component exporter:
 
 [source, java]
 ----
-public class LoginFormExporter extends WebComponentExporter<LoginForm> {
+public class LoginFormExporter
+        extends WebComponentExporter<LoginForm> {
     public LoginFormExporter() {
         super("login-form");
-        addProperty("userlbl", "").onChange(LoginForm::setUserNameLabel);
-        addProperty("pwdlbl", "").onChange(LoginForm::setPasswordLabel);
+        addProperty("userlbl", "")
+                .onChange(LoginForm::setUserNameLabel);
+        addProperty("pwdlbl", "")
+                .onChange(LoginForm::setPasswordLabel);
     }
 
     @Override
-    protected void configureInstance(WebComponent<LoginForm> webComponent,
+    protected void configureInstance(
+            WebComponent<LoginForm> webComponent,
             LoginForm form) {
-        form.addLoginListener(() -> webComponent.fireEvent("logged-in"));
+        form.addLoginListener(() ->
+                webComponent.fireEvent("logged-in"));
     }
 }
 ----

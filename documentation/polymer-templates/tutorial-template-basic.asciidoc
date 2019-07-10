@@ -53,39 +53,34 @@ class HelloWorld extends PolymerElement {
 customElements.define(HelloWorld.is, HelloWorld);
 ----
 
-As you can see, this is a JavaScript module describing a Polymer template. All features used in the example are standard Polymer features.
-If you're unfamiliar with any of them, please refer to
-https://www.polymer-project.org/3.0/docs/about_30[Polymer project documentation page].
+This is a JavaScript module describing a Polymer template. All features used in the example are standard Polymer features. If you're unfamiliar with any of them,
+please refer to https://www.polymer-project.org/3.0/docs/about_30[Polymer project documentation page].
+For clarity and demonstration purposes, this example uses https://github.com/PolymerElements/paper-input[paper-input] component.
 
 [NOTE]
-The tag name of the template returned by the function `is` should have at least one dash (`-`). The value `hello-world` is a valid tag name, but `helloworld` is not.
+The tag name of the template returned by the function `is()` should contain at least one dash (`-`). For example, `hello-world` is a valid tag name, but `helloworld` is not.
 
-In the current demo, we have defined a regular template with regular elements, have specified one-way binding (`\[[greeting]]`),
-two-way binding (`{{userInput}}`) and basic declaration for Polymer element in `<script>` class.
-
-Note that there is an event handler `sayHello` that is triggered on `helloButton` click.
-
-Notice that we have not specified the model at all, it will be propagated automatically from the server side.
+The template contains both a one-way binding (`\[[greeting]]`) and a two-way binding (`{{userInput}}`). There is also an event handler `sayHello` that is triggered on `helloButton` click. We have not specified the model at all, it will be propagated automatically from the server side.
 
 We've also imported some dependencies:
 
 * The `PolymerElement` from the Polymer library is the required superclass of all Polymer templates.
-* The `html` import for inline DOM templating.
+* `html` for inline DOM templating.
 * The `paper-input` Polymer component.
 
-For clarity and demonstration purposes, this example uses https://github.com/PolymerElements/paper-input[paper-input] component.
 
 [NOTE]
-Earlier Vaadin versions used Polymer 2, HTML imports and the Bower package manager to manage component dependencies. Vaadin 14 can still use components created in this way in a special  *compatibility mode*. However, the documentation here covers only Polymer 3 and NPM; for guidance on building client-side components with Polymer 2 and HTML imports we refer to the https://vaadin.com/docs/v13/flow/polymer-templates/tutorial-template-basic.html[Vaadin 13 documentation].
+Earlier Vaadin versions used Polymer 2, HTML imports and the Bower package manager to manage component dependencies. Vaadin 14 can still use components created in this way in a special *compatibility mode*. However, the documentation here covers only Polymer 3 and npm; for guidance on building client-side components with Polymer 2 and HTML imports we refer to the https://vaadin.com/docs/v13/flow/polymer-templates/tutorial-template-basic.html[Vaadin 13 documentation].
 
 == Server side
 
 To be able to use this template you need to create a Java class which extends `PolymerTemplate`,
-set its tag name to match the return value of the Polymer template's `is()`-function, and add the `@JsModule` annotation to connect the template class (`hello-world.js`):
+set its tag name to match the return value of the Polymer template's `is()`-function, and add the `@JsModule` annotation to connect the template class (`hello-world.js`). You should also declare the dependency on the npm package you are using by adding `@NpmPackage` annotation. In this example, `@polymer/paper-input 3.0.2` is used.
 
 [source,java]
 ----
 @Tag("hello-world")
+@NpmPackage(value = "@polymer/paper-input", version = "3.0.2")
 @JsModule("./src/hello-world.js")
 public class HelloWorld extends PolymerTemplate<HelloWorldModel> {
     private static final String EMPTY_NAME_GREETING = "Please enter your name";
@@ -109,9 +104,9 @@ public class HelloWorld extends PolymerTemplate<HelloWorldModel> {
 }
 ----
 
-Here we have defined a class with imports, tag, model and event handler.
+Here we have defined a class with the required annotations as well as a model and an event handler.
 
-There is also a model reference, that is defined the following way:
+The model for the component is defined the following way:
 [source,java]
 ----
 /**
@@ -135,16 +130,11 @@ public interface HelloWorldModel extends TemplateModel {
 }
 ----
 
-=== Imports
+=== JS
 
-In order for a component to be processed correctly, we need to bind a Java class with the template, created earlier, by specifying `@JsModule` with the path to a template.
+In order for a component to be processed correctly, we need to bind a Java class with the template, created earlier, by specifying `@JsModule` with the path to the JavaScript module relative to the `frontend` folder in the project root. In the above example, `./src/hello-world.js` is the file name of the template file declared earlier relative to `frontend`.
 
-[NOTE]
-Java class name and template file name doesn't have to match each other, this is just a resource file which you can put to any location.
-
-`./src/hello-world.js` is the file name of the template file declared earlier relative to the `frontend` directory in the project root.
-
-If needed, more JavaScript resources can be imported using the same approach.
+If needed, multiple JavaScript resources can be imported using the `@JsModule` annotation.
 
 === Tag
 
@@ -218,4 +208,4 @@ layout.add(hello);
 ----
 
 [NOTE]
-To make your template-based product supporting non-ES6 browers like IE 11 and Safari 9, you need to configure the `vaadin-maven-plugin` in your `pom.xml`. See the chapter https://github.com/vaadin/flow-and-components-documentation/blob/master/documentation/production/tutorial-production-mode-basic.asciidoc[Taking your Application into Production] for more information.
+To make your template-based product supporting non-ES6 browers like IE 11 and Safari 9, you need to configure the `vaadin-maven-plugin` in your `pom.xml`. See the chapter <<../production/tutorial-production-mode-basic#,Taking your Application into Production>> for more information.

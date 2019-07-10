@@ -18,7 +18,7 @@ You can define a parent layout using the `Route.layout()` method.
 [source,java]
 ----
 @Tag("div")
-@Route(value="company", layout=MainLayout.class)
+@Route(value = "company", layout = MainLayout.class)
 public class CompanyComponent extends Component {
 }
 ----
@@ -43,16 +43,19 @@ You can create a parent layout for a parent layout, where necessary.
 
 [source,java]
 ----
-public class MainLayout extends Div implements RouterLayout {
+public class MainLayout extends Div
+        implements RouterLayout {
 }
 
 @ParentLayout(MainLayout.class)
-public class MenuBar extends Div implements RouterLayout {
+public class MenuBar extends Div
+        implements RouterLayout {
     public MenuBar() {
         addMenuElement(TutorialView.class, "Tutorial");
         addMenuElement(IconsView.class, "Icons");
     }
-    private void addMenuElement(Class<? extends Component> navigationTarget,
+    private void addMenuElement(
+            Class<? extends Component> navigationTarget,
             String name) {
         // implementation omitted
     }
@@ -62,7 +65,7 @@ public class MenuBar extends Div implements RouterLayout {
 public class TutorialView extends Div {
 }
 
-@Route(value="icons", layout = MenuBar.class)
+@Route(value = "icons", layout = MenuBar.class)
 public class IconsView extends Div {
 }
 ----
@@ -87,7 +90,8 @@ public class PathComponent extends Div {
 }
 
 @RoutePrefix("some")
-public class SomeParent extends Div implements RouterLayout {
+public class SomeParent extends Div
+        implements RouterLayout {
     // Implementation omitted
 }
 ----
@@ -103,7 +107,8 @@ This is done by adding `absolute = true` to either the `@Route` or `@RoutePrefix
 
 [source, java]
 ----
-@Route(value = "content", layout = SomeParent.class, absolute = true)
+@Route(value = "content", layout = SomeParent.class,
+       absolute = true)
 public class MyContent extends Div {
     // Implementation omitted
 }
@@ -118,7 +123,8 @@ public class MyContent extends Div {
 ----
 @RoutePrefix(value = "framework", absolute = true)
 @ParentLayout(SomeParent.class)
-public class FrameworkSite extends Div implements RouterLayout {
+public class FrameworkSite extends Div
+        implements RouterLayout {
     // Implementation omitted
 }
 

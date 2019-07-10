@@ -19,7 +19,8 @@ do that:
 [source, java]
 ----
 @Theme(Material.class)
-public class MyExporter extends WebComponentExporter<Div> {
+public class MyExporter
+        extends WebComponentExporter<Div> {
 ----
 
 The annotation `@Theme(Material.class)` declared for the `MyExporter` class

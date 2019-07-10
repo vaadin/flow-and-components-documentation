@@ -20,21 +20,21 @@ You can use the `@Route` annotation to define any component as a route target fo
 ----
 @Route("")
 public class HelloWorld extends Div {
-  public HelloWorld() {
-    setText("Hello world");
-  }
+    public HelloWorld() {
+        setText("Hello world");
+    }
 }
 ----
 
-You can also define a separate component for a specific route:
+*Example*: Defining the `SomePathComponent` component as the target for the specific route, `some/path`.
 
 [source,java]
 ----
 @Route("some/path")
 public class SomePathComponent extends Div {
-  public SomePathComponent() {
-    setText("Hello @Route!");
-  }
+    public SomePathComponent() {
+        setText("Hello @Route!");
+    }
 }
 ----
 

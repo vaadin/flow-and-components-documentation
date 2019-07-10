@@ -16,23 +16,27 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @CodeFor("embedding-flow-applications/tutorial-webcomponent-exporter.asciidoc")
 public class LoginForm extends Div {
     private TextField userName = new TextField();
-    private PasswordField password = new PasswordField();
+    private PasswordField password =
+            new PasswordField();
     private Div errorMsg = new Div();
     private String userLabel;
     private String pwdLabel;
     private FormLayout layout = new FormLayout();
-    private List<SerializableRunnable> loginListeners = new CopyOnWriteArrayList<>();
+    private List<SerializableRunnable> loginListeners =
+            new CopyOnWriteArrayList<>();
 
     public LoginForm() {
         updateForm();
 
         add(layout);
 
-        Button login = new Button("Login", event -> login());
+        Button login = new Button("Login",
+                event -> login());
         add(login, errorMsg);
     }
 
-    public void setUserNameLabel(String userNameLabelString) {
+    public void setUserNameLabel(
+            String userNameLabelString) {
         userLabel = userNameLabelString;
         updateForm();
     }
@@ -49,16 +53,21 @@ public class LoginForm extends Div {
         layout.addFormItem(password, pwdLabel);
     }
 
-    public void addLoginListener(SerializableRunnable loginListener) {
+    public void addLoginListener(
+            SerializableRunnable loginListener) {
         loginListeners.add(loginListener);
     }
 
     private void login() {
-        Optional<Object> authToken = UserService.getInstance()
-                .authenticate(userName.getValue(), password.getValue());
+        Optional<Object> authToken = UserService
+                .getInstance()
+                .authenticate(userName.getValue(),
+                        password.getValue());
         if (authToken.isPresent()) {
-            VaadinRequest.getCurrent().getWrappedSession()
-                    .setAttribute("auth_token", authToken.get());
+            VaadinRequest.getCurrent()
+                    .getWrappedSession()
+                    .setAttribute("auth_token",
+                            authToken.get());
             fireLoginEvent();
         } else {
             errorMsg.setText("Authentication failure");
@@ -66,6 +75,7 @@ public class LoginForm extends Div {
     }
 
     private void fireLoginEvent() {
-        loginListeners.forEach(SerializableRunnable::run);
+        loginListeners.forEach(
+                SerializableRunnable::run);
     }
 }

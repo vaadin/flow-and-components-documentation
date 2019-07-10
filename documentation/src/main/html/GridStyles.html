@@ -22,11 +22,13 @@ tutorial::components/tutorial-flow-grid.asciidoc
 </dom-module>
 
 
-<dom-module id="custom-text-field" theme-for="vaadin-text-field">
+<dom-module id="custom-text-field"
+        theme-for="vaadin-text-field">
     <template>
         <style>
             .vaadin-text-field-container [part="input-field"] {
-                background-color: var(--custom-text-field-bg, var(--lumo-contrast-10pct));
+                background-color: var(--custom-text-field-bg,
+                    var(--lumo-contrast-10pct));
             }
         </style>
     </template>

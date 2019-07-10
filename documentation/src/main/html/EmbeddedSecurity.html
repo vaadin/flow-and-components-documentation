@@ -6,9 +6,13 @@ tutorial::embedding-flow-applications/tutorial-webcomponent-security.asciidoc
   <link rel="import" href="web-component/my-comp.js">
   <script type="text/javascript">
         function login(){
-            var token = "d9f6a737-b2b8-46a7-a834-209c8b214969"; // request token for the current user somehow
-            var comp = document.querySelector("#embedded-web-component");
-            comp.token = token;
+          // request token for the current user
+          // somehow
+          var token =
+                  "d9f6a737-b2b8-46a7-a834-209c8b214969";
+          var comp = document.querySelector(
+                  "#embedded-web-component");
+          comp.token = token;
         }
   </script>
 </head>

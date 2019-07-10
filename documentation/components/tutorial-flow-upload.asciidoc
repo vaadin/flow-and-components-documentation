@@ -29,8 +29,10 @@ The last two implement `MultiFileReceiver` and can be used to upload multiple fi
 FileBuffer fileBuffer = new FileBuffer();
 Upload upload = new Upload(fileBuffer);
 upload.addFinishedListener(e -> {
-    InputStream inputStream = fileBuffer.getInputStream();
-    // read the contents of the buffered file from inputStream
+    InputStream inputStream =
+            fileBuffer.getInputStream();
+    // read the contents of the buffered file
+    // from inputStream
 });
 ----
 

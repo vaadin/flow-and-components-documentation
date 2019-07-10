@@ -22,12 +22,14 @@ public class Introduction {
 
     public Introduction() {
         TextField textField = new TextField();
-        Span greeting = new Span("Hello stranger"); // Simple HTML inline text
+        // Simple HTML inline text
+        Span greeting = new Span("Hello stranger");
 
         textField.addValueChangeListener(event ->
                 greeting.setText("Hello " + event.getValue()));
 
-        VerticalLayout layout = new VerticalLayout(textField, greeting);
+        VerticalLayout layout = new VerticalLayout(
+                textField, greeting);
     }
 
     @Tag("my-label")
@@ -62,19 +64,22 @@ public class Introduction {
                     greeting.setText("Hello " + event.getValue()));
         }
 
-        // Instance method in the component published to the client
+        // Instance method in the component published to the
+        // client
         @EventHandler private void updateFavoriteColor(
                 @EventData("event.target.value") String color) {
             getModel().setColorCode(color);
         }
     }
 
-    // register the component to url /company and show it inside the main layout
-    @Route(value="company", layout=MainLayout.class)
+    // register the component to url/company and show it
+    // inside the main layout
+    @Route(value = "company", layout = MainLayout.class)
     @Tag("div")
     public class CompanyComponent extends Component {
     }
 
-    public class MainLayout extends Div implements RouterLayout {
+    public class MainLayout extends Div
+            implements RouterLayout {
     }
 }

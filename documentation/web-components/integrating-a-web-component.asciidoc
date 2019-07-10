@@ -10,13 +10,13 @@ Web Components are a collection of web standards allowing you to create new HTML
 
 To be able to use a web component from Flow you need two things: to load the HTML/JS/CSS files needed by the component and a Java API used to configure the component and to listen to events from it.
 
-The client-side files for a web component, typically JS module files, are available using https://www.npmjs.com/[NPM]. Flow 2.0 and above comes with NPM support. It will automatically install and use NPM packages and serve the static files to the browser.
+The client-side files for a web component, typically JS module files, are available using https://www.npmjs.com/[npm]. Flow 2.0 and above comes with npm support. It will automatically install and use npm packages and serve the static files to the browser.
 
 == Step 1. Integrating a JS module with Vaadin
 
-While you can start from scratch and do all the things manually, it's easiest to start with the component project available at https://vaadin.com/start/lts/component. This will give you a project with Flow dependencies, NPM import for the selected component and a stub Java class for your web component integration. It also contains a Maven profile which will handle all things needed to deploy it to Vaadin Directory.
+While you can start from scratch and do all the things manually, it's easiest to start with the component project available at https://vaadin.com/start/lts/component. This will give you a project with Flow dependencies, npm import for the selected component and a stub Java class for your web component integration. It also contains a Maven profile which will handle all things needed to deploy it to Vaadin Directory.
 
-As an example, if you create a starter project for https://github.com/PolymerElements/paper-slider, the relevant part of the generated project is
+As an example, if you create a starter project for https://github.com/PolymerElements/paper-slider, following annotations are attached to the server-side component:
 
 [source, java]
 ----
@@ -27,7 +27,7 @@ As an example, if you create a starter project for https://github.com/PolymerEle
 
 The name of the HTML element is defined using `@Tag("paper-slider")` and the JS import for the component is defined using `@JsModule("@polymer/paper-slider/paper-slider.js")` and `@NpmPackage(value = "@polymer/paper-slider", version = "3.0.1")`.
 
-This will automatically install the NPM package in node_modules and import the JS module file into the document provided to the browser. The magic happens when using `mvn clean install` and it's implemented inside Maven Vaadin plugin. Moveover, if Jetty webserver is running, executed from Maven using `mvn jetty:run`, your project's source code is monitored for changes to these types of annotations. So any change to `@NpmPackage` or `@JsModule` annotations will trigger installation of those packages and hot deployment of your app including the new JS module imports.
+The `vaadin-maven-plugin` will automatically install the npm package in `node_modules` and import the JS module file into the document provided to the browser when running  `mvn clean install`. Moreover, if the Jetty webserver is run from Maven (using `mvn jetty:run`), your project's source code is monitored for changes to these types of annotations. So any change to `@NpmPackage` or `@JsModule` annotations will trigger installation of the referenced packages and hot deployment of your app including the new JS module imports.
 
 The main test/demo Java class `src/test/java/…/DemoView.java`
 
@@ -49,10 +49,10 @@ in the project, it will deploy `DemoView` and show it at http://localhost:8080
 Now you are set to create the Java API, for more details see <<creating-java-api-for-a-web-component#,Creating Java API for a Web Component>>
 
 [NOTE]
-Some web components will not show any UI when they are just added as empty tags to the page. If the demo view is empty, check first using the browser inspector that all files were found (no 404s) and then check if you need to configure the component in some way to show up.
+Some web components will not show any UI when they are just added as empty tags to the page. If the demo view is empty, inspect first the browser browser console to verify that all files were found (no 404s) and then check if the component is correctly configured.
 
 [NOTE]
-While the project setup is easy to use for development/testing, it does not allow you to easily produce a demo war file for deployment. It's usually better to create a separate project (or convert the project into a multi-module project) for this as the "demo" files included in the addon itself tend to be more test UIs and a demo should be aimed at the end user.
+While the project setup is easy to use for development/testing, it does not allow you to easily produce a demo war file for deployment. It's usually better to create a separate project (or convert the project into a multi-module project) for this as the "demo" files included in the addon itself tend to be test UIs whereas a demo should be aimed at the end user.
 
 [NOTE]
 If you want to make your component OSGi compatible refer to the

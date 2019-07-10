@@ -40,14 +40,16 @@ public class DisabledComponents extends Component {
     public static class Notification extends Component {
 
         public Notification() {
-            getElement().addEventListener("opened-changed", event -> {
-                System.out.println("Notification is opened");})
-            .setDisabledUpdateMode(DisabledUpdateMode.ALWAYS);
+            getElement().addEventListener("opened-changed",
+                    event -> System.out.println("Opened"))
+                    .setDisabledUpdateMode(DisabledUpdateMode.ALWAYS);
         }
     }
 
-    @DomEvent(value = "click", allowUpdates = DisabledUpdateMode.ALWAYS)
-    public class CustomEvent extends ComponentEvent<Component> {
+    @DomEvent(value = "click",
+            allowUpdates = DisabledUpdateMode.ALWAYS)
+    public class CustomEvent
+            extends ComponentEvent<Component> {
 
         public CustomEvent(Component source, boolean fromClient) {
             super(source, fromClient);
@@ -56,7 +58,8 @@ public class DisabledComponents extends Component {
 
     @Tag("registration-form")
     @JsModule("./src/registration-form.js")
-    public class RegistrationForm extends PolymerTemplate<TemplateModel>
+    public class RegistrationForm
+            extends PolymerTemplate<TemplateModel>
             implements HasEnabled {
 
         @Id
@@ -72,13 +75,16 @@ public class DisabledComponents extends Component {
         private Element enable;
 
         public RegistrationForm() {
-            enable.synchronizeProperty("checked", "checked-changed",
+            enable.synchronizeProperty("checked",
+                    "checked-changed",
                     DisabledUpdateMode.ALWAYS);
-            enable.addPropertyChangeListener("checked", this::handleEnabled);
+            enable.addPropertyChangeListener("checked",
+                    this::handleEnabled);
             setEnabled(false);
         }
 
-        private void handleEnabled(PropertyChangeEvent event) {
+        private void handleEnabled(
+                PropertyChangeEvent event) {
             setEnabled((Boolean) event.getValue());
         }
 
@@ -86,12 +92,14 @@ public class DisabledComponents extends Component {
         private void register() {
             String userName = name.getValue();
             String userEmail = email.getValue();
-            System.out.println("Register user with name='" + userName
+            System.out.println("Register user with name='"
+                    + userName
                     + "' and email='" + userEmail + "'");
         }
     }
 
-    @Synchronize(property = "prop", value = "prop-changed", allowUpdates = DisabledUpdateMode.ALWAYS)
+    @Synchronize(property = "prop", value = "prop-changed",
+            allowUpdates = DisabledUpdateMode.ALWAYS)
     public String getProp() {
         return getElement().getProperty("prop");
     }
