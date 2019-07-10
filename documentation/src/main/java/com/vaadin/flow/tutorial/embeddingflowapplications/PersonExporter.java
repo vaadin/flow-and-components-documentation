@@ -7,29 +7,36 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("embedding-flow-applications/tutorial-webcomponent-properties"
         + ".asciidoc")
-public class PersonExporter extends WebComponentExporter<PersonComponent> {
-    private PropertyConfiguration<PersonComponent, Boolean> isAdultProperty;
+public class PersonExporter
+        extends WebComponentExporter<PersonComponent> {
+    private PropertyConfiguration<PersonComponent,
+            Boolean> isAdultProperty;
 
     public PersonExporter() {
         super("person-display");
-        addProperty("name", "John Doe").onChange(PersonComponent::setName);
-        addProperty("age", 0).onChange(PersonComponent::setAge);
+        addProperty("name", "John Doe")
+                .onChange(PersonComponent::setName);
+        addProperty("age", 0)
+                .onChange(PersonComponent::setAge);
 
-        isAdultProperty = addProperty("is-adult", false);
+        isAdultProperty = addProperty("is-adult",
+                false);
     }
 
     @Override
-    protected void configureInstance(WebComponent<PersonComponent> webComponent,
+    protected void configureInstance(
+            WebComponent<PersonComponent> webComponent,
             PersonComponent component) {
         component.setAdultAge(18); // initialization
 
         component.addAgeChangedListener(event -> {
-            webComponent.setProperty(isAdultProperty, component.isAdult());
+            webComponent.setProperty(isAdultProperty,
+                    component.isAdult());
         });
-
         component.addAgeChangedListener(event -> {
             if (event.getAge() > 65) {
-                webComponent.fireEvent("retirement-age-reached");
+                webComponent.fireEvent(
+                        "retirement-age-reached");
             }
         });
     }

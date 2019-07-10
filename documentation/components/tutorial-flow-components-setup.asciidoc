@@ -24,7 +24,7 @@ Using the platform dependency (`com.vaadin:vaadin`) ensures that all available c
 
 [source,xml]
 ----
-    <dependencies>
+<dependencies>
     <!-- other dependencies -->
     <!-- component dependency -->
     <dependency>
@@ -57,7 +57,9 @@ You should add both the Vaadin `bom` and the relevant Flow component package, fo
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-bom</artifactId>
-            <version>${vaadin.platform.version}</version>
+            <version>
+                ${vaadin.platform.version}
+            </version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>

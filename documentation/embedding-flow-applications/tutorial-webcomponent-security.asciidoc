@@ -28,8 +28,12 @@ check it inside the embedded application:
   <link rel="import" href="web-component/my-comp.js">
   <script type="text/javascript">
         function login(){
-            var token = "d9f6a737-b2b8-46a7-a834-209c8b214969"; // request token for the current user somehow
-            var comp = document.querySelector("#embedded-web-component");
+            // request token for the current user
+            // somehow
+            var token =
+                "d9f6a737-b2b8-46a7-a834-209c8b214969";
+            var comp = document.querySelector(
+                "#embedded-web-component");
             comp.token = token;
         }
   </script>
@@ -56,22 +60,24 @@ The web component and its exporter class may look like this:
 [source, java]
 ----
 public class EmbeddedComponentExporter
-        extends WebComponentExporter<EmbeddedComponent> {
+       extends WebComponentExporter<EmbeddedComponent> {
 
     public EmbeddedComponentExporter() {
         super("my-comp");
 
-        addProperty("token", "").onChange(this::authorize);
+        addProperty("token", "")
+                .onChange(this::authorize);
     }
 
     @Override
     protected void configureInstance(
-            WebComponent<EmbeddedComponent> webComponent,
-            EmbeddedComponent component) {
+           WebComponent<EmbeddedComponent> webComponent,
+           EmbeddedComponent component) {
     }
 
-    private void authorize(EmbeddedComponent component, String token) {
-        // check the {@code token}
+    private void authorize(EmbeddedComponent component,
+                           String token) {
+        // check the token
         if (isValidToken(token)) {
             component.init();
         }
@@ -86,8 +92,8 @@ public class EmbeddedComponentExporter
 public class EmbeddedComponent extends Div {
 
     public EmbeddedComponent() {
-        // Don't retrieve any sensitive data here without granted access
-        // (via security token)
+        // Don't retrieve any sensitive data here
+        // without granted access (via security token)
     }
 
     public void init() {
