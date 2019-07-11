@@ -32,14 +32,17 @@ public class Importing {
     @Tag("div")
     @JavaScript("/js/script.js")
     @HtmlImport("/html/htmlimport.html")
-    static class HtmlComponent extends Component implements HasText {
+    static class HtmlComponent extends Component
+            implements HasText {
         // implementation omitted
     }
     //@formatter:on
 
     private void addDependencies() {
-        UI.getCurrent().getPage().addHtmlImport("/html/htmlimport.html");
-        UI.getCurrent().getPage().addJavaScript("/js/script.js");
+        UI.getCurrent().getPage()
+                .addHtmlImport("/html/htmlimport.html");
+        UI.getCurrent().getPage()
+                .addJavaScript("/js/script.js");
     }
 
 }

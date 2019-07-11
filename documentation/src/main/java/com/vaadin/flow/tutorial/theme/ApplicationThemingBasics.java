@@ -11,6 +11,7 @@ public class ApplicationThemingBasics {
 
     @CssImport("./styles/shared-styles.css")
     @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
-    public class MainLayout extends Div implements RouterLayout {
+    public class MainLayout extends Div
+            implements RouterLayout {
     }
 }

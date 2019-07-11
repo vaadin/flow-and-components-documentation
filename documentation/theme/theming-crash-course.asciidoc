@@ -67,8 +67,10 @@ Flow allows that you can put your content in a separated `.css` file and use it 
 .frontend/src/my-view.js
 [source,js]
 ----
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from
+        '@polymer/polymer/polymer-element.js';
+import { html } from
+        '@polymer/polymer/lib/utils/html-tag.js';
 import styles from 'styles/my-view.css';
 
 class MyView extends PolymerElement {
@@ -180,8 +182,10 @@ document.head.appendChild($_documentContainer.content);
 .frontend/src/my-view.js
 [source,js]
 ----
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from
+        '@polymer/polymer/polymer-element.js';
+import { html } from
+        '@polymer/polymer/lib/utils/html-tag.js';
 import '../styles/common-styles.js'
 import styles from '../styles/specific-styles.css'
 
