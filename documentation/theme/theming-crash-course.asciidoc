@@ -30,7 +30,8 @@ The problem is that we cannot import directly HTML, thus we will write our HTML 
 .frontend/styles/shared-styles.js
 [source,js]
 ----
-const $_documentContainer = document.createElement('template');
+const $_documentContainer = document
+        .createElement('template');
 $_documentContainer.innerHTML = `<custom-style>
     <style>
       html {
@@ -60,16 +61,19 @@ Scoped styles, which are specific to a single template, can be added directly to
 .frontend/src/my-view.js
 [source,js]
 ----
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from
+        '@polymer/polymer/polymer-element.js';
+import { html } from
+        '@polymer/polymer/lib/utils/html-tag.js';
 
 class MyView extends PolymerElement {
   static get template() {
     return html`
       <style>
-        /* Example scoped styles, applied to <my-view> template contents only */
+        /* Example scoped styles, applied to
+           <my-view> template contents only */
         :host {
-          /* Styles for the `<my-view>` hosting element */
+          /* Styles for the <my-view> hosting element */
           display: block;
         }
 
@@ -103,11 +107,13 @@ Use global styles for `html` element to define a global custom CSS property:
 .frontend/styles/shared-styles.js
 [source,js]
 ----
-const $_documentContainer = document.createElement('template');
+const $_documentContainer = document
+        .createElement('template');
 $_documentContainer.innerHTML = `<custom-style>
     <style>
       html {
-        /* Example global custom CSS property definition */
+        /* Example global custom CSS property
+           definition */
         --my-theme-color: brown;
       }
     </style>
@@ -120,8 +126,10 @@ For referencing your custom CSS property, use ```var(--my-property)``` syntax. F
 .frontend/src/my-view.js
 [source,js]
 ----
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from
+        '@polymer/polymer/polymer-element.js';
+import { html } from
+        '@polymer/polymer/lib/utils/html-tag.js';
 
 class MyView extends PolymerElement {
   static get template() {
@@ -154,8 +162,10 @@ In order to import it in the application you need to provide an unique name for 
 .frontend/styles/shared-styles.js
 [source,js]
 ----
-const $_documentContainer = document.createElement('template');
-$_documentContainer.innerHTML = `<dom-module id="shared-styles">
+const $_documentContainer = document
+        .createElement('template');
+$_documentContainer.innerHTML = `
+<dom-module id="shared-styles">
   <template>
     <style>
       /* Example style module */
@@ -172,8 +182,10 @@ document.head.appendChild($_documentContainer.content);
 .frontend/src/my-view.js
 [source,js]
 ----
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from
+        '@polymer/polymer/polymer-element.js';
+import { html } from
+        '@polymer/polymer/lib/utils/html-tag.js';
 
 class MyView extends PolymerElement {
   static get template() {
@@ -200,7 +212,8 @@ Style modules can also be included in global styles:
 ----
 import './shared-styles.js'
 
-const $_documentContainer = document.createElement('template');
+const $_documentContainer = document
+        .createElement('template');
 $_documentContainer.innerHTML = `<custom-style>
     <style include="shared-styles">
     </style>
