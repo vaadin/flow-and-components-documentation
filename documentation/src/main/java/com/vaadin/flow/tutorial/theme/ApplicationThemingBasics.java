@@ -11,6 +11,7 @@ public class ApplicationThemingBasics {
 
     @JsModule("./styles/shared-styles.js")
     @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
-    public class MainLayout extends Div implements RouterLayout {
+    public class MainLayout extends Div
+            implements RouterLayout {
     }
 }
