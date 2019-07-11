@@ -39,18 +39,22 @@ public class SimpleDatePicker
         Element element = getElement();
 
         element.synchronizeProperty(name, event);
-        element.addPropertyChangeListener(name, this::propertyUpdated);
+        element.addPropertyChangeListener(name,
+                this::propertyUpdated);
     }
 
-    private void propertyUpdated(PropertyChangeEvent event) {
+    private void propertyUpdated(
+            PropertyChangeEvent event) {
         Element element = getElement();
 
         int year = element.getProperty("year", -1);
         int month = element.getProperty("month", -1);
-        int dayOfMonth = element.getProperty("dayOfMonth", -1);
+        int dayOfMonth = element.getProperty(
+                "dayOfMonth", -1);
 
         if (year != -1 && month != -1 && dayOfMonth != -1) {
-            LocalDate value = LocalDate.of(year, month, dayOfMonth);
+            LocalDate value = LocalDate.of(
+                    year, month, dayOfMonth);
             setModelValue(value, event.isUserOriginated());
         }
     }
@@ -66,7 +70,8 @@ public class SimpleDatePicker
         } else {
             element.setProperty("year", value.getYear());
             element.setProperty("month", value.getMonthValue());
-            element.setProperty("dayOfMonth", value.getDayOfMonth());
+            element.setProperty("dayOfMonth",
+                    value.getDayOfMonth());
         }
     }
 }
