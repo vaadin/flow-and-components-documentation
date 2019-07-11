@@ -69,7 +69,8 @@ public class SimpleDatePicker
             element.removeProperty("dayOfMonth");
         } else {
             element.setProperty("year", value.getYear());
-            element.setProperty("month", value.getMonthValue());
+            element.setProperty("month",
+                    value.getMonthValue());
             element.setProperty("dayOfMonth",
                     value.getDayOfMonth());
         }
