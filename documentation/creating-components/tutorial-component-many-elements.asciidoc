@@ -25,12 +25,14 @@ In this section we demonstrate how to create a component using the `Element` API
 @Tag("div")
 public class TextField extends Component {
 
-  Element labelElement = new Element("label");
-  Element inputElement = new Element("input");
+    Element labelElement = new Element("label");
+    Element inputElement = new Element("input");
 
-  public TextField() {
-      inputElement.synchronizeProperty("value", "change");
-      getElement().appendChild(labelElement, inputElement);
+    public TextField() {
+        inputElement
+               .synchronizeProperty("value", "change");
+        getElement()
+               .appendChild(labelElement, inputElement);
   }
 }
 ----

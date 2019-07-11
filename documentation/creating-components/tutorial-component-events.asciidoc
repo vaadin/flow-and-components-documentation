@@ -23,8 +23,10 @@ The second constructor parameter determines whether the event is triggered by a 
 
 [source,java]
 ----
-public class ChangeEvent extends ComponentEvent<TextField> {
-    public ChangeEvent(TextField source, boolean fromClient) {
+public class ChangeEvent
+        extends ComponentEvent<TextField> {
+    public ChangeEvent(TextField source,
+                       boolean fromClient) {
         super(source, fromClient);
     }
 }
@@ -43,8 +45,8 @@ In addition, the method for adding a listener returns a handle that can be used 
 @Tag("input")
 public class TextField extends Component {
     public Registration addChangeListener(
-            ComponentEventListener<ChangeEvent> listener) {
-        return addListener(ChangeEvent.class, listener);
+         ComponentEventListener<ChangeEvent> listener) {
+       return addListener(ChangeEvent.class, listener);
     }
 
     // Other component methods omitted
@@ -57,7 +59,8 @@ public class TextField extends Component {
 ----
 TextField textField = new TextField();
 Registration registration = textField
-        .addChangeListener(e -> System.out.println("Event fired"));
+        .addChangeListener(e ->
+                System.out.println("Event fired"));
 
 // In some other part of the code
 registration.remove();
@@ -94,8 +97,10 @@ To do this, use the `@DomEvent` annotation in your event class to specify the na
 [source,java]
 ----
 @DomEvent("change")
-public class ChangeEvent extends ComponentEvent<TextField> {
-    public ChangeEvent(TextField source, boolean fromClient) {
+public class ChangeEvent
+        extends ComponentEvent<TextField> {
+    public ChangeEvent(TextField source,
+                       boolean fromClient) {
         super(source, fromClient);
     }
 }
@@ -112,10 +117,12 @@ The `@DomEvent` annotation supports additional constructor parameters. You can u
 [source,java]
 ----
 @DomEvent("click")
-public class ClickEvent extends ComponentEvent<NativeButton> {
+public class ClickEvent
+        extends ComponentEvent<NativeButton> {
     private final int button;
 
-    public ClickEvent(NativeButton source, boolean fromClient,
+    public ClickEvent(NativeButton source,
+            boolean fromClient,
             @EventData("event.button") int button) {
         super(source, fromClient);
         this.button = button;
@@ -142,9 +149,12 @@ Instead of sending all DOM events to the server, you can filter events by defini
 
 [source,java]
 ----
-@DomEvent(value = "keypress", filter = "event.key == 'Enter'")
-public class EnterPressEvent extends ComponentEvent<TextField> {
-    public EnterPressEvent(TextField source, boolean fromClient) {
+@DomEvent(value = "keypress",
+          filter = "event.key == 'Enter'")
+public class EnterPressEvent
+        extends ComponentEvent<TextField> {
+    public EnterPressEvent(TextField source,
+                           boolean fromClient) {
         super(source, fromClient);
     }
 }
@@ -172,10 +182,12 @@ You can configure the rate at which events are sent to the server by defining di
           debounce = @DebounceSettings(
               timeout = 250,
               phases = DebouncePhase.TRAILING))
-public class InputEvent extends ComponentEvent<TextField> {
+public class InputEvent
+        extends ComponentEvent<TextField> {
     private String value;
 
-    public InputEvent(TextField source, boolean fromClient,
+    public InputEvent(TextField source,
+            boolean fromClient,
             @EventData("element.value") String value) {
         super(source, fromClient);
         this.value = value;
@@ -198,10 +210,12 @@ You can configure active events for several phases at the same time.
               timeout = 500,
               phases = {DebouncePhase.LEADING,
                         DebouncePhase.INTERMEDIATE }))
-public class ContiniousInputEvent extends ComponentEvent<TextField> {
+public class ContiniousInputEvent
+        extends ComponentEvent<TextField> {
     private String value;
 
-    public ContiniousInputEvent(TextField source, boolean fromClient,
+    public ContiniousInputEvent(TextField source,
+            boolean fromClient,
             @EventData("element.value") String value) {
         super(source, fromClient);
         this.value = value;
