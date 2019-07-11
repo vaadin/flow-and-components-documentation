@@ -208,12 +208,13 @@ public class DataProviders {
     }
 
     public void filterPart() {
-        DataProvider<Employee, String> employeeProvider = getEmployeeProvider();
+        DataProvider<Employee, String> employeeProvider =
+                getEmployeeProvider();
 
         TextField searchField = new TextField();
 
-        ConfigurableFilterDataProvider<Employee, Void, String> wrapper =
-                employeeProvider.withConfigurableFilter();
+        ConfigurableFilterDataProvider<Employee, Void, String>
+                wrapper = employeeProvider.withConfigurableFilter();
 
         Grid<Employee> grid = new Grid<>();
         grid.setDataProvider(wrapper);
@@ -280,7 +281,8 @@ public class DataProviders {
 
         Button addPersonButton = new Button("Add person",
                 clickEvent -> {
-                    persons.add(new Person("James Monroe", 1758));
+                    persons.add(new Person("James Monroe",
+                            1758));
 
                     dataProvider.refreshAll();
                 });
@@ -343,7 +345,7 @@ public class DataProviders {
                                     query.getOffset(),
                                     query.getLimit(),
                                     sortOrders
-                            );
+                            ).stream();
                         },
 
                         // The number of persons is the same
@@ -385,7 +387,8 @@ public class DataProviders {
         CountCallback<Person, String> sizeCallback = null;
         PersonService service = null;
 
-        DataProvider<Person, String> allPersonsWithId = new CallbackDataProvider<>(
+        DataProvider<Person, String> allPersonsWithId =
+                new CallbackDataProvider<>(
                 fetchCallback, sizeCallback, Person::getId);
 
         Grid<Person> persons = new Grid<>();

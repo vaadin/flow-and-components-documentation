@@ -183,7 +183,7 @@ DataProvider<Person, Void> dataProvider =
               query.getOffset(),
               query.getLimit(),
               sortOrders
-      );
+      ).stream();
   },
 
   // The number of persons is the same
@@ -437,10 +437,11 @@ All components that use the same data provider refresh their data when a new fil
 
 [source, java]
 ----
-DataProvider<Employee, String> employeeProvider = getEmployeeProvider();
+DataProvider<Employee, String> employeeProvider =
+        getEmployeeProvider();
 
-ConfigurableFilterDataProvider<Employee, Void, String> wrapper =
-        employeeProvider.withConfigurableFilter();
+ConfigurableFilterDataProvider<Employee, Void, String>
+    wrapper = employeeProvider.withConfigurableFilter();
 
 Grid<Employee> grid = new Grid<>();
 grid.setDataProvider(wrapper);
@@ -478,7 +479,8 @@ public interface PersonService {
 
 [source, java]
 ----
-DataProvider<Person, String> allPersonsWithId = new CallbackDataProvider<>(
+DataProvider<Person, String> allPersonsWithId =
+    new CallbackDataProvider<>(
         fetchCallback, sizeCallback, Person::getId);
 
 Grid<Person> persons = new Grid<>();
@@ -566,7 +568,8 @@ ListDataProvider<Person> dataProvider =
 
 Button addPersonButton = new Button("Add person",
         clickEvent -> {
-            persons.add(new Person("James Monroe", 1758));
+            persons.add(new Person("James Monroe",
+                    1758));
             dataProvider.refreshAll();
         });
 
