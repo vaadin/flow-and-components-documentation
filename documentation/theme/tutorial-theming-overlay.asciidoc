@@ -39,11 +39,14 @@ To style an overlay component it is necessary to create a style/theme module, in
 .frontend/styles/my-overlay-theme.js
 [source,js]
 ----
-const $_documentContainer = document.createElement('template');
-$_documentContainer.innerHTML = `<dom-module id="..." theme-for="vaadin-*-overlay">
+const $_documentContainer = document
+        .createElement('template');
+$_documentContainer.innerHTML = `
+<dom-module id="..." theme-for="vaadin-*-overlay">
     <template>
         <style>
-            :host([theme~="custom-theme-variant"]) [part~="overlay"] {
+            :host([theme~="custom-theme-variant"])
+                    [part~="overlay"] {
                 ...
             }
         </style>
@@ -67,7 +70,9 @@ In the case of vaadin-dialog-overlay
 [source,js]
 ----
 const $_documentContainer = document.createElement('template');
-$_documentContainer.innerHTML = `<dom-module id="my-vaadin-dialog-theme" theme-for="vaadin-dialog-overlay">
+$_documentContainer.innerHTML = `
+<dom-module id="my-vaadin-dialog-theme"
+            theme-for="vaadin-dialog-overlay">
     <template>
         <style>
             [part="backdrop"] {

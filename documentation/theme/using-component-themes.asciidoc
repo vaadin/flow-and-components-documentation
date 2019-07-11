@@ -231,7 +231,8 @@ dependency is present in the classpath, LumoTheme is used.
 The compact preset for Lumo defines values for the sizing and spacing properties to reduce the visual space required by components to better fit a large amount of content on the screen. Annotate the main layout as follows to enable the compact preset:
 [source,java]
 ----
-@JsModule("frontend://bower_components/vaadin-lumo-styles/presets/compact.js")
+@JsModule("frontend://bower_components/" +
+        "vaadin-lumo-styles/presets/compact.js")
 @Theme(Lumo.class)
 public class CompactMainLayout extends Div
         implements RouterLayout {
