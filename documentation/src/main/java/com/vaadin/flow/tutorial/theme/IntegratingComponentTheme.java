@@ -41,18 +41,21 @@ public class IntegratingComponentTheme {
         @Override
         public List<String> getHeaderInlineContents() {
             return Collections.singletonList("<custom-style>\n"
-                    + "    <style include=\"lumo-color lumo-typography\"></style>\n"
+                    + "<style include=\"lumo-color lumo-typography\">"
+                    + "</style>\n"
                     + "</custom-style>");
         }
 
         @Override
-        public Map<String, String> getBodyAttributes(String variant) {
-          if ("dark".equals(variant)) {
-            // the <body> element will have the "theme" attribute set to
-            // "dark" when the dark variant is used
-            return Collections.singletonMap("theme", "dark");
-          }
-          return Collections.emptyMap();
+        public Map<String, String> getBodyAttributes(
+                String variant) {
+            if ("dark".equals(variant)) {
+                // the <body> element will have the "theme"
+                // attribute set to "dark" when the dark variant
+                // is used
+                return Collections.singletonMap("theme", "dark");
+            }
+            return Collections.emptyMap();
         }
     }
 }
