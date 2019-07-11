@@ -31,7 +31,7 @@ public class LumoApplication extends Div {
 }
 ----
 
-.Sample setup to get Lumo themed components if the `Lumo.class` is in the 'classpath'.
+.Sample setup to get Lumo themed components if the 'Lumo.class' is in the 'classpath'.
 [source,java]
 ----
 @Route(value = "")
@@ -62,7 +62,7 @@ public class MaterialApplication extends Div {
 }
 ----
 
-.Sample setup using a custom @Theme in RouterLayout
+.Sample setup using a custom '@Theme' in 'RouterLayout'
 [source,java]
 ----
 @Theme(MyTheme.class)
@@ -187,7 +187,7 @@ and those representations are added to the `theme` attribute values.
 If the component implements `HasTheme` interface (which is true for every component that has `addThemeVariants` method),
 then the following API can be used:
 
-.Adding theme values for the component that implements `HasTheme` interface
+.Adding theme values for the component that implements 'HasTheme' interface
 [source,java]
 ----
 Button button = new Button("Themed button");

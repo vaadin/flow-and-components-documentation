@@ -7,29 +7,25 @@ layout: page
 ifdef::env-github[:outfilesuffix: .asciidoc]
 = Vaadin Flow
 
-Vaadin Flow is a new Java web framework for building modern web apps and websites.
-It is part of the Vaadin Platform and a successor for the Vaadin Framework bringing Web Component support to Java users.
-Flow allows developers to be super productive by creating UIs in Java or
-by using HTML Templates for composing the UI and binding it to any backend using Java.
+Vaadin Flow is a Java web framework for building modern web apps and websites. It is part of the Vaadin platform and the successor to the Vaadin Framework that brought Web Component support to Java users.
 
-The power of Vaadin Flow comes from the following concepts:
+Flow allows developers to be super productive: you can create UIs in Java, or use HTML templates to create the UI and then bind it to any backend using Java.
 
-* A set of beautiful UI components build with focus on end-user and developer experience
-* Powerful abstraction layers for easily building your own reusable UI components with either Java or HTML templates
-* Data Binding API for connecting the UI components to any backend using type safe Java
-* Router API for easily creating hierarchical page structures for the user to navigate
+Vaadin Flow features:
 
-This is the documentation for Vaadin Flow. It is divided into the following subsections in recommended reading order.
+* An architecture that let's you concentrate on the UI. No need to think about client-server communication.
+* A set of beautiful UI components that focus on both the end-user and developer experience.
+* Powerful abstraction layers to build your own reusable UI components with either Java or HTML templates.
+* Data Binding API to connect UI components to any backend using type-safe Java.
+* Router API to create hierarchical page structures for the user to navigate.
+
+The Vaadin Flow documentation is arranged in the following sections and we recommend reading it in this order.
 
 == Introduction and Getting Started
 * <<introduction/introduction-overview#,Introduction to Vaadin Flow>>
 * https://vaadin.com/tutorials/getting-started-with-flow[Getting started with Vaadin Flow]
 
 == Router and Navigation
-Router is a core concept in Vaadin Flow, enabling Navigation for your website or web app.
-It is based on HTML5 History API, and makes it possible for the user to navigate pages back and forward,
-and keep the page state intact. The following tutorials explain how to use the Router:
-
 * <<routing/tutorial-routing-annotation#,Defining Routes with @Route>>
 * <<routing/tutorial-routing-lifecycle#,Navigation Lifecycle>>
 * <<routing/tutorial-router-layout#,Router Layouts and Nested Router Targets>>
@@ -41,9 +37,6 @@ and keep the page state intact. The following tutorials explain how to use the R
 * <<routing/tutorial-routing-get-registered-routes#,Getting Registered Routes>>
 * <<routing/tutorial-router-dynamic-routes#,Dynamic Route Registration>>
 
-== Browser features and events
-* <<browser/tutorial-flow-window-resize#,Browser Window Resize Events>>
-* <<browser/tutorial-execute-javascript#,Executing JavaScript from Server Side>>
 
 == Using Vaadin Components
 * <<components/tutorial-flow-components-setup#,Using Vaadin Components>>
