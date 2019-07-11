@@ -46,12 +46,12 @@ public class ComponentBasicFeatures {
 
         Div container = new Div();
         // the label is not transmitted to the client side.
-        // The corresponding element will be created in the DOM
-        // only when it becomes visible
+        // The corresponding element will be created in the
+        // DOM only when it becomes visible
         container.add(label);
 
-        // prints 1 - the server-side structure is preserved no
-        // matter if the component is visible or not
+        // prints 1 - the server-side structure is preserved
+        // no matter if the component is visible or not
         System.out.println("Number of children: "
                 + container.getChildren().collect(
                 Collectors.counting()));

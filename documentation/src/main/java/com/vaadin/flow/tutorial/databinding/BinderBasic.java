@@ -41,16 +41,20 @@ public class BinderBasic {
 
 // Start by defining the Field instance to use
         binder.forField(titleField)
-                // Finalize by doing the actual binding to the Person class
+                // Finalize by doing the actual binding
+                // to the Person class
                 .bind(
-                        // Callback that loads the title from a person instance
+                        // Callback that loads the title
+                        // from a person instance
                         Person::getTitle,
-                        // Callback that saves the title in a person instance
+                        // Callback that saves the title
+                        // in a person instance
                         Person::setTitle);
         TextField nameField = new TextField();
 
 // Shorthand for cases without extra configuration
-        binder.bind(nameField, Person::getName, Person::setName);
+        binder.bind(nameField, Person::getName,
+                Person::setName);
     }
 
     public void readWriteBean() {
@@ -65,14 +69,16 @@ public class BinderBasic {
                 event -> {
                     try {
                         binder.writeBean(person);
-                        // A real application would also save the updated person
+                        // A real application would also save
+                        // the updated person
                         // using the application's backend
                     } catch (ValidationException e) {
                         notifyValidationException(e);
                     }
                 });
 
-// Updates the fields again with the previously saved values
+// Updates the fields again with the
+// previously saved values
         Button resetButton = new Button("Reset",
                 event -> binder.readBean(person));
     }
@@ -91,13 +97,15 @@ public class BinderBasic {
 
     public void readOnlyData() {
         TextField fullName = new TextField();
-        binder.forField(fullName).bind(Person::getFullName, null);
+        binder.forField(fullName)
+                .bind(Person::getFullName, null);
     }
 
     public void nonModifiableData() {
 
         Label fullNameLabel = new Label();
-        ReadOnlyHasValue<String> fullName = new ReadOnlyHasValue<>(
+        ReadOnlyHasValue<String> fullName =
+                new ReadOnlyHasValue<>(
                 text -> fullNameLabel.setText(text));
         binder.forField(fullName)
                 .bind(Person::getFullName, null);
