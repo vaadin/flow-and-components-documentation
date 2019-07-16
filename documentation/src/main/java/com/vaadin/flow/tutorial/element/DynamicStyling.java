@@ -35,7 +35,8 @@ public class DynamicStyling {
         Element input = ElementFactory.createInput();
         button.setText("Change to the entered value");
         button.addEventListener("click",
-                e -> button.getStyle().set("background", input.getProperty("value")));
+                e -> button.getStyle().set("background",
+                        input.getProperty("value")));
 
         //@formatter:on
 
@@ -45,7 +46,8 @@ public class DynamicStyling {
         element.getClassList().add("critical");
         element.getClassList().remove("primary");
 
-        element.getProperty("className"); // will return "error critical".
+        // will return "error critical".
+        element.getProperty("className");
 
         element.getStyle().set("color", "red");
         // camelCase

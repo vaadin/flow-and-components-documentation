@@ -25,14 +25,17 @@ public abstract class UserInput extends Div {
 
     void tutorialCode() {
         Element textInput = ElementFactory.createInput();
-        textInput.setAttribute("placeholder", "Please enter your name");
+        textInput.setAttribute("placeholder",
+                "Please enter your name");
 
         textInput.synchronizeProperty("value", "change");
 
         Element button = ElementFactory.createDiv();
         button.addEventListener("click", e -> {
-            String responseText = "Hello " + textInput.getProperty("value");
-            Element response = ElementFactory.createDiv(responseText);
+            String responseText = "Hello " +
+                    textInput.getProperty("value");
+            Element response = ElementFactory
+                    .createDiv(responseText);
             getElement().appendChild(response);
         });
     }
