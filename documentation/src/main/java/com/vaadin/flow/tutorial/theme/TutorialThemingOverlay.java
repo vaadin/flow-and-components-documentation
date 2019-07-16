@@ -26,19 +26,22 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @CodeFor("theme/tutorial-theming-overlay.asciidoc")
 public class TutorialThemingOverlay {
     @Route(value = "")
-    @CssImport(value = "./styles/my-overlay-theme.css", themeFor = "vaadin-*-overlay")
+    @CssImport(value = "./styles/my-overlay-theme.css",
+            themeFor = "vaadin-*-overlay")
     public class MyApplication extends Div {
     }
 
     @Route(value = "")
-    @CssImport(value = "./styles/my-dialog-overlay-theme.css", themeFor = "vaadin-dialog-overlay")
+    @CssImport(value="./styles/my-dialog-overlay-theme.css",
+            themeFor = "vaadin-dialog-overlay")
     public class MyApplicationWithDialog extends Div {
     }
 
     public class MyView extends VerticalLayout {
         public MyView() {
             Dialog dialog = new Dialog();
-            dialog.getElement().setAttribute("theme", "custom-theme-variant");
+            dialog.getElement().setAttribute("theme",
+                    "custom-theme-variant");
         }
     }
 }
