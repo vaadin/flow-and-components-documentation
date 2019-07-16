@@ -40,7 +40,8 @@ To style an overlay component it is necessary to create a style CSS module, targ
 [source,css]
 ----
 :host([theme~="custom-theme-variant"]) [part~="overlay"]
-{}
+{
+}
 ----
 
 .MyApplication.java
