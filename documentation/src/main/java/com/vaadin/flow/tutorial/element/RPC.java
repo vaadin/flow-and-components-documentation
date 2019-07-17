@@ -19,7 +19,8 @@ public class RPC extends Component {
     }
 
     public void setExpanded(Component component) {
-        getElement().callJsFunction("expand", component.getElement());
+        getElement().callJsFunction("expand",
+                component.getElement());
     }
 
     public void complete() {
@@ -32,12 +33,15 @@ public class RPC extends Component {
     }
 
     public void checkConstructableStylesheets() {
-        getElement().executeJs("return 'adoptedStyleSheets' in document")
+        getElement().executeJs(
+                "return 'adoptedStyleSheets' in document")
                 .then(Boolean.class, supported -> {
                     if (supported) {
-                        System.out.println("Feature is supported");
+                        System.out.println(
+                                "Feature is supported");
                     } else {
-                        System.out.println("Feature is not supported");
+                        System.out.println(
+                                "Feature is not supported");
                     }
                 });
     }

@@ -15,7 +15,8 @@ A component container is a component to which you can add other components. A co
 [source,java]
 ----
 @Tag("div")
-public class MyComponentContainer extends Component implements HasComponents {
+public class MyComponentContainer extends Component
+        implements HasComponents {
 }
 ----
 
@@ -32,9 +33,9 @@ If necessary, you can implement your own add method. For example if you need a d
 @Tag("div")
 public class MyComponentContainer extends Component {
 
-  public void add(Component child) {
-    getElement().appendChild(child.getElement());
-  }
+    public void add(Component child) {
+        getElement().appendChild(child.getElement());
+    }
 }
 ----
 
@@ -51,11 +52,12 @@ In the previous example, the child element attaches to the root element (like `H
 @Tag("div")
 public class MyComponentContainer extends Component {
 
-  public void add(Component child) {
-    Element childWrapper = ElementFactory.createDiv();
-    childWrapper.appendChild(child.getElement());
-    getElement().appendChild(childWrapper);
-  }
+    public void add(Component child) {
+        Element childWrapper = ElementFactory
+                .createDiv();
+        childWrapper.appendChild(child.getElement());
+        getElement().appendChild(childWrapper);
+    }
 }
 ----
 
@@ -97,9 +99,9 @@ If your container includes elements or components that do not implement the `Has
 public void onEnabledStateChanged(boolean enabled) {
     super.onEnabledStateChanged(enabled);
     if (enabled) {
-      childElement.removeAttribute("disabled");
+        childElement.removeAttribute("disabled");
     } else {
-      childElement.setAttribute("disabled", true);
+        childElement.setAttribute("disabled", true);
     }
 }
 ----

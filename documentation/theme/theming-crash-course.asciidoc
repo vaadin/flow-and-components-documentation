@@ -138,7 +138,8 @@ attribute in the `@CssImport` annotation
 [source,java]
 ----
 @Route(value = "")
-@CssImport(value = "./styles/common-styles.css", id = "common-styles")
+@CssImport(value = "./styles/common-styles.css",
+           id = "common-styles")
 public class MyApplication extends Div {
 }
 ----
@@ -159,7 +160,8 @@ Then you can re-use it when importing other style files by providing the `includ
 [source,java]
 ----
 @Route(value = "")
-@CssImport(value = "./styles/specific-styles.css", include = "common-styles")
+@CssImport(value = "./styles/specific-styles.css",
+           include = "common-styles")
 public class MyApplication extends Div {
 }
 ----
@@ -172,8 +174,10 @@ import modules by using JavaScript:
 [source,js]
 ----
 import styles from './common-styles.css'
-const $_documentContainer = document.createElement('template');
-$_documentContainer.innerHTML = `<dom-module id="common-styles">
+const $_documentContainer = document
+        .createElement('template');
+$_documentContainer.innerHTML = `
+<dom-module id="common-styles">
   <template><style>${styles}</style></template>
 </dom-module>`;
 document.head.appendChild($_documentContainer.content);
@@ -213,7 +217,8 @@ Style modules can also be included in global styles:
 [source,java]
 ----
 @Route(value = "")
-@CssImport(value = "./styles/shared-styles.css", include = "common-styles")
+@CssImport(value = "./styles/shared-styles.css",
+           include = "common-styles")
 public class MyApplication extends Div {
 }
 ----

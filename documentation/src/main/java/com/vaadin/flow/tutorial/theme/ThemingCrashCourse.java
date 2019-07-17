@@ -10,9 +10,12 @@ public class ThemingCrashCourse {
 
     @Route(value = "")
     @CssImport("./styles/shared-styles.css")
-    @CssImport(value = "./styles/shared-styles.css", include = "common-styles")
-    @CssImport(value = "./styles/common-styles.css", id = "common-styles")
-    @CssImport(value = "./styles/specific-styles.css", include = "common-styles")
+    @CssImport(value = "./styles/shared-styles.css",
+            include = "common-styles")
+    @CssImport(value = "./styles/common-styles.css",
+            id = "common-styles")
+    @CssImport(value = "./styles/specific-styles.css",
+            include = "common-styles")
     public class MyApplication extends Div {
     }
 

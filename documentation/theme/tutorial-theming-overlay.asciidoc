@@ -39,7 +39,8 @@ To style an overlay component it is necessary to create a style CSS module, targ
 .frontend/styles/my-overlay-theme.css
 [source,css]
 ----
-:host([theme~="custom-theme-variant"]) [part~="overlay"] {
+:host([theme~="custom-theme-variant"]) [part~="overlay"]
+{
 }
 ----
 
@@ -47,7 +48,8 @@ To style an overlay component it is necessary to create a style CSS module, targ
 [source,java]
 ----
 @Route(value = "")
-@CssImport(value = "./styles/my-overlay-theme.css", themeFor = "vaadin-*-overlay")
+@CssImport(value = "./styles/my-overlay-theme.css",
+           themeFor = "vaadin-*-overlay")
 public class MyApplication extends Div {
 }
 ----
@@ -57,7 +59,8 @@ public class MyApplication extends Div {
 public class MyView extends VerticalLayout {
     public MyView {
         Dialog dialog = new Dialog();
-        dialog.getElement().setAttribute("theme", "custom-theme-variant");
+        dialog.getElement().setAttribute("theme",
+                "custom-theme-variant");
     }
 }
 ----
@@ -80,7 +83,8 @@ If you want to be more specific, and target overlays of `vaadin-dialog`, do not 
 [source,java]
 ----
 @Route(value = "")
-@CssImport(value = "./styles/my-dialog-overlay-theme.css", themeFor = "vaadin-dialog-overlay")
+@CssImport(value="./styles/my-dialog-overlay-theme.css",
+           themeFor = "vaadin-dialog-overlay")
 public class MyApplicationWithDialog extends Div {
 }
 ----
