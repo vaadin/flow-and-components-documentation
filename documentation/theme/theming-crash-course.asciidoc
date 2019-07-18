@@ -3,6 +3,7 @@ title: Theming Crash Course
 order: 4
 layout: page
 ---
+
 = Theming Web Components
 
 This chapter gives an overview of everything you need to understand in order to master and be productive in theming modern web applications which are built with web components.
@@ -46,23 +47,8 @@ public class MyApplication extends Div {
 Since Polymer templates are web components, their template contents end up in Shadow DOM.
 By design, Shadow DOM defines a local style scope, isolated from global styles.
 
-Scoped styles, which are specific to a single template, can be added directly to the `<style>` tag inside the template getter.
-Flow allows that you can put your content in a separated `.css` file and use it with the ES6 `import` statement.
-
-.frontend/styles/my-view.css
-[source,css]
-----
-:host {
-  /* Styles for the `<my-view>` hosting element */
-  display: block;
-}
-
-.my-view-title {
-  font-weight: bold;
-  border-bottom: 1px solid gray;
-}
-----
-
+Scoped styles, which are specific to a single template, can be added directly
+to the `<style>` tag inside the template getter.
 
 .frontend/src/my-view.js
 [source,js]
@@ -71,12 +57,21 @@ import { PolymerElement } from
         '@polymer/polymer/polymer-element.js';
 import { html } from
         '@polymer/polymer/lib/utils/html-tag.js';
-import styles from 'styles/my-view.css';
 
 class MyView extends PolymerElement {
   static get template() {
     return html`
-      <style>${styles}</style>
+      <style>
+        :host {
+          /* Styles for the `<my-view>` hosting element */
+          display: block;
+        }
+
+        .my-view-title {
+          font-weight: bold;
+          border-bottom: 1px solid gray;
+        }
+      </style>
       <div class="my-view-title">My view title</div>
     `;
   }
@@ -166,7 +161,6 @@ public class MyApplication extends Div {
 }
 ----
 
-
 If you need to style your templates directly in the client modules, you can define and
 import modules by using JavaScript:
 
@@ -191,12 +185,15 @@ import { PolymerElement } from
 import { html } from
         '@polymer/polymer/lib/utils/html-tag.js';
 import '../styles/common-styles.js'
-import styles from '../styles/specific-styles.css'
 
 class MyView extends PolymerElement {
   static get template() {
     return html`
-      <style include="common-styles"> ${styles} </style>
+      <style include="common-styles">
+        .my-border-style {
+          border: 2px solid grey;
+        }
+      </style>
 
       <div class="my-view-title">My view title</div>
     `;
@@ -222,4 +219,3 @@ Style modules can also be included in global styles:
 public class MyApplication extends Div {
 }
 ----
-
