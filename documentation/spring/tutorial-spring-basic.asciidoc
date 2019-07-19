@@ -101,4 +101,4 @@ Follow the instructions on https://docs.spring.io/spring-boot/docs/current/refer
 
 == Vaadin Spring Boot examples
 
-https://github.com/vaadin/flow-spring-tutorial[Vaadin Spring Examples] is an example application that showcases basic usage of Vaadin and Spring Boot. You can use it to test the concepts and features covered in this documentation.
+https://github.com/vaadin/flow-spring-examples[Vaadin Spring Examples] is an example application that showcases basic usage of Vaadin and Spring Boot. You can use it to test the concepts and features covered in this documentation.
