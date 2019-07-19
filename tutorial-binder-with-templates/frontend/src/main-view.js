@@ -1,5 +1,5 @@
 import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
-import '@vaadin/vaadin-grid/vaadin-grid.js'
+import '@vaadin/vaadin-grid/vaadin-grid.js';
 import './user-form.js';
 
 class MainView extends PolymerElement {
