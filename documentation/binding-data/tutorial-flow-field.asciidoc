@@ -38,10 +38,12 @@ The `paper-slider` Web Component is a compliant example. It has an integer prope
 [source, java]
 ----
 @Tag("paper-slider")
-@NpmPackage(value = "@polymer/paper-slider", version = "3.0.1")
+@NpmPackage(value = "@polymer/paper-slider",
+            version = "3.0.1")
 @JsModule("@polymer/paper-slider/paper-slider.js")
 public class PaperSlider
-        extends AbstractSinglePropertyField<PaperSlider, Integer> {
+        extends AbstractSinglePropertyField<PaperSlider,
+            Integer> {
     public PaperSlider() {
         super("value", 0, false);
     }
@@ -69,10 +71,12 @@ For example, the `value` property of `<input type="date">` is an ISO 8601 format
 ----
 @Tag("input")
 public class DatePicker
-        extends AbstractSinglePropertyField<DatePicker, LocalDate> {
+        extends AbstractSinglePropertyField<DatePicker,
+            LocalDate> {
 
     public DatePicker() {
-        super("value", null, String.class, LocalDate::parse,
+        super("value", null, String.class,
+                LocalDate::parse,
                 LocalDate::toString);
 
         getElement().setAttribute("type", "date");
@@ -82,7 +86,8 @@ public class DatePicker
 
     @Override
     protected boolean hasValidValue() {
-        return isValidDateString(getElement().getProperty("value"));
+        return isValidDateString(getElement()
+                .getProperty("value"));
     }
 }
 ----
@@ -110,7 +115,8 @@ To demonstrate, we build a `simple-date-picker` Web Component that has separate 
 ----
 @Tag("simple-date-picker")
 public class SimpleDatePicker
-        extends AbstractField<SimpleDatePicker, LocalDate> {
+    extends AbstractField<SimpleDatePicker, LocalDate> {
+
     public SimpleDatePicker() {
         super(null);
     }
@@ -135,8 +141,10 @@ protected void setPresentationValue(LocalDate value) {
         element.removeProperty("dayOfMonth");
     } else {
         element.setProperty("year", value.getYear());
-        element.setProperty("month", value.getMonthValue());
-        element.setProperty("dayOfMonth", value.getDayOfMonth());
+        element.setProperty("month",
+                value.getMonthValue());
+        element.setProperty("dayOfMonth",
+                value.getDayOfMonth());
     }
 }
 ----
@@ -159,7 +167,8 @@ private void setupProperty(String name, String event) {
     Element element = getElement();
 
     element.synchronizeProperty(name, event);
-    element.addPropertyChangeListener(name, this::propertyUpdated);
+    element.addPropertyChangeListener(name,
+            this::propertyUpdated);
 }
 ----
 +
@@ -173,15 +182,18 @@ By default, `AbstractField` uses `Objects.equals` to determine whether a new val
 +
 [source, java]
 ----
-private void propertyUpdated(PropertyChangeEvent event) {
+private void propertyUpdated(
+        PropertyChangeEvent event) {
     Element element = getElement();
 
     int year = element.getProperty("year", -1);
     int month = element.getProperty("month", -1);
-    int dayOfMonth = element.getProperty("dayOfMonth", -1);
+    int dayOfMonth = element.getProperty(
+            "dayOfMonth", -1);
 
     if (year != -1 && month != -1 && dayOfMonth != -1) {
-        LocalDate value = LocalDate.of(year, month, dayOfMonth);
+        LocalDate value = LocalDate.of(
+                year, month, dayOfMonth);
         setModelValue(value, event.isUserOriginated());
     }
 }
@@ -236,9 +248,12 @@ Another use case for `AbstractCompositeField` is to create a field component tha
 [source, java]
 ----
 public class EmployeeField extends
-        AbstractCompositeField<HorizontalLayout, EmployeeField, Employee> {
-    private final ComboBox<Department> departmentSelect = new ComboBox<>("Department");
-    private final ComboBox<Employee> employeeSelect = new ComboBox<>("Employee");
+        AbstractCompositeField<HorizontalLayout,
+            EmployeeField, Employee> {
+    private ComboBox<Department> departmentSelect =
+            new ComboBox<>("Department");
+    private ComboBox<Employee> employeeSelect =
+            new ComboBox<>("Employee");
 }
 ----
 
@@ -253,17 +268,19 @@ public class EmployeeField extends
 public EmployeeField() {
     super(null);
 
-    departmentSelect.setItems(EmployeeService.getDepartments());
+    departmentSelect.setItems(
+            EmployeeService.getDepartments());
 
     departmentSelect.addValueChangeListener(event -> {
         Department department = event.getValue();
 
-        employeeSelect.setItems(EmployeeService.getEmployees(department));
+        employeeSelect.setItems(EmployeeService
+                .getEmployees(department));
         employeeSelect.setEnabled(department != null);
     });
 
-    employeeSelect.addValueChangeListener(
-            event -> setModelValue(event.getValue(), true));
+    employeeSelect.addValueChangeListener(event ->
+            setModelValue(event.getValue(), true));
 
     getContent().add(departmentSelect, employeeSelect);
 }
@@ -278,7 +295,8 @@ protected void setPresentationValue(Employee employee) {
     if (employee == null) {
         departmentSelect.clear();
     } else {
-        departmentSelect.setValue(employee.getDepartment());
+        departmentSelect.setValue(
+                employee.getDepartment());
         employeeSelect.setValue(employee);
     }
 }
@@ -292,8 +310,9 @@ In our case, we want to show the required indicator for the employee combo box.
 [source, java]
 ----
 @Override
-public void setRequiredIndicatorVisible(boolean required) {
-    employeeSelect.setRequiredIndicatorVisible(required);
+public void setRequiredIndicatorVisible(
+        boolean required) {
+   employeeSelect.setRequiredIndicatorVisible(required);
 }
 
 @Override

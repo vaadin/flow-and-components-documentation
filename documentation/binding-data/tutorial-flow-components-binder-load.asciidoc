@@ -21,18 +21,20 @@ You can bind the values directly to an instance, by allowing `Binder` to automat
 ----
 Binder<Person> binder = new Binder<>();
 
-// Field binding configuration omitted, it should be done here
+// Field binding configuration omitted,
+// it should be done here
 
 Person person = new Person("John Doe", 1957);
 
 // Loads the values from the person instance
-// Sets person to be updated when any bound field is updated
+// Sets person to be updated when any bound field
+// is updated
 binder.setBean(person);
 
 Button saveButton = new Button("Save", event -> {
     if (binder.validate().isOk()) {
-        // person is always up-to-date as long as there are no
-        // validation errors
+        // person is always up-to-date as long as
+        // there are no validation errors
 
         MyBackend.updatePersonInDatabase(person);
     }
@@ -69,10 +71,11 @@ You can explicitly validate the form or attempt to save the values to a business
 [source, java]
 ----
 // This will make all current validation errors visible
-BinderValidationStatus<Person> status = binder.validate();
+BinderValidationStatus<Person> status =
+        binder.validate();
 
 if (status.hasErrors()) {
-  notifyValidationErrors(status.getValidationErrors());
+   notifyValidationErrors(status.getValidationErrors());
 }
 ----
 
@@ -84,10 +87,10 @@ Writing the field values to a business object fails if any of the bound fields c
 [source, java]
 ----
 try {
-  binder.writeBean(person);
-  MyBackend.updatePersonInDatabase(person);
+    binder.writeBean(person);
+    MyBackend.updatePersonInDatabase(person);
 } catch (ValidationException e) {
-  notifyValidationErrors(e.getValidationErrors());
+    notifyValidationErrors(e.getValidationErrors());
 }
 ----
 
@@ -97,9 +100,10 @@ try {
 ----
 boolean saved = binder.writeBeanIfValid(person);
 if (saved) {
-  MyBackend.updatePersonInDatabase(person);
+    MyBackend.updatePersonInDatabase(person);
 } else {
-  notifyValidationErrors(binder.validate().getValidationErrors());
+    notifyValidationErrors(binder.validate()
+            .getValidationErrors());
 }
 ----
 
@@ -107,7 +111,9 @@ if (saved) {
 +
 [source, java]
 ----
-binder.withValidator(p -> p.getYearOfMarriage() > p.getYearOfBirth(), "Marriage  year must be bigger than birth year.");
+binder.withValidator(
+       p -> p.getYearOfMarriage() > p.getYearOfBirth(),
+       "Marriage year must be bigger than birth year.");
 ----
 +
 ** The `withValidator(Validator)` method runs on the bound bean after update of the values of the bound fields. 
@@ -126,10 +132,10 @@ For bean-level validators, the bean must be updated before the validator runs. I
 [source, java]
 ----
 binder.addStatusChangeListener(event -> {
-  boolean isValid = event.getBinder().isValid();
-  boolean hasChanges = event.getBinder().hasChanges();
+    boolean isValid = event.getBinder().isValid();
+    boolean hasChanges = event.getBinder().hasChanges();
 
-  saveButton.setEnabled(hasChanges && isValid);
-  resetButton.setEnabled(hasChanges);
+    saveButton.setEnabled(hasChanges && isValid);
+    resetButton.setEnabled(hasChanges);
 });
 ----

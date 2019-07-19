@@ -16,8 +16,10 @@ There are two ways to include a CSS style sheet in your Java classes. Both have 
 +
 [source,java]
 ----
-@StyleSheet("styles.css") // Relative to Servlet URL
-@StyleSheet("http://www.example.com/example.css") // Loaded from external location
+// Relative to Servlet URL
+@StyleSheet("styles.css")
+// Loaded from external location
+@StyleSheet("http://www.example.com/example.css")
 public class MainLayout extends Component {
   // implementation omitted
 }
@@ -35,8 +37,10 @@ public class MainLayout extends Component {
 [source,java]
 ----
   public MainLayout(){
-      // Loaded from "/root.css" regardless of how your application is deployed
-      UI.getCurrent().getPage().addStyleSheet("/root.css");
+      // Loaded from "/root.css" regardless of how
+      // your application is deployed
+      UI.getCurrent().getPage()
+            .addStyleSheet("/root.css");
   }
 }
 ----
@@ -80,7 +84,8 @@ If you don't have a natural template for the custom-style declaration, you can c
 ----
 import '@polymer/polymer/lib/elements/custom-style.js';
 
-const documentContainer = document.createElement('template');
+const documentContainer = document
+        .createElement('template');
 
 documentContainer.innerHTML = `<custom-style>
       <style>

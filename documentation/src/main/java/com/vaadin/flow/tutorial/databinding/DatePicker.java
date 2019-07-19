@@ -24,10 +24,12 @@ import java.time.LocalDate;
 @CodeFor("binding-data/tutorial-flow-field.asciidoc")
 @Tag("input")
 public class DatePicker
-        extends AbstractSinglePropertyField<DatePicker, LocalDate> {
+        extends AbstractSinglePropertyField<DatePicker,
+            LocalDate> {
 
     public DatePicker() {
-        super("value", null, String.class, LocalDate::parse,
+        super("value", null, String.class,
+                LocalDate::parse,
                 LocalDate::toString);
 
         getElement().setAttribute("type", "date");
@@ -37,7 +39,8 @@ public class DatePicker
 
     @Override
     protected boolean hasValidValue() {
-        return isValidDateString(getElement().getProperty("value"));
+        return isValidDateString(getElement()
+                .getProperty("value"));
     }
 
     private boolean isValidDateString(String property) {

@@ -58,7 +58,8 @@ Methods available in the `HasStyle` interface:
 
 [source,java]
 ----
-public class Tooltip extends Component implements HasComponents, HasStyle {
+public class Tooltip extends Component
+        implements HasComponents, HasStyle {
 
 }
 ----

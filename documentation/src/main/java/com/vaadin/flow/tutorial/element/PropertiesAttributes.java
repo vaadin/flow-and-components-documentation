@@ -30,7 +30,8 @@ public class PropertiesAttributes {
         nameField.setAttribute("autofocus", "");
 
         // "John Doe"
-        String placeholder = nameField.getAttribute("placeholder");
+        String placeholder = nameField
+                .getAttribute("placeholder");
 
         // true
         nameField.hasAttribute("autofocus");
@@ -43,30 +44,41 @@ public class PropertiesAttributes {
         Element element = ElementFactory.createInput();
         element.setProperty("value", "42.2");
 
-        // true, since any non-empty string is true in JavaScript
-        boolean helloBoolean = element.getProperty("value", true);
+        // true, since any non-empty string is
+        // true in JavaScript
+        boolean helloBoolean =
+                element.getProperty("value", true);
 
-        // 42, string is parsed to a JS number and truncated to an int
+        // 42, string is parsed to a JS number and
+        // truncated to an int
         int helloInt = element.getProperty("value", 0);
     }
 
     public void moreTutorialCode() {
         //@formatter:off - custom line wrapping
 
-        Element element = ElementFactory.createDiv("Hello world"); // <div>Hello world</div>
-        element.setText("Hello world");
+// <div>Hello world</div>
+        Element element = ElementFactory
+                .createDiv("Hello world");
 
-        element.appendChild(ElementFactory.createSpan()); // <div>Hello world<span></span></div>
+// <div>Hello world<span></span></div>
+        element.appendChild(ElementFactory.createSpan());
 
-        element.setText("Replacement text"); // <div>Replacement text</div>
+// <div>Replacement text</div>
+        element.setText("Replacement text");
 
         element.setText("Welcome back ");
 
-        Element name = ElementFactory.createStrong("Rudolph Reindeer");
-        element.appendChild(name); // <div>Welcome back <strong>Rudolph Reindeer</strong></div>
+        Element name = ElementFactory
+                .createStrong("Rudolph Reindeer");
+// <div>Welcome back <strong>Rudolph
+// Reindeer</strong></div>
+        element.appendChild(name);
 
-        element.getTextRecursively(); // will return "Welcome back Rudolph Reindeer"
-        element.getText(); // will return "Welcome back "
+// will return "Welcome back Rudolph Reindeer"
+        element.getTextRecursively();
+// will return "Welcome back "
+        element.getText();
 
         //@formatter:on
     }

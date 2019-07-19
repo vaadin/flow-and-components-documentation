@@ -25,7 +25,8 @@ import com.vaadin.flow.tutorial.databinding.EmployeeField.Employee;
 
 @CodeFor("binding-data/tutorial-flow-field.asciidoc")
 public class EmployeeField extends
-        AbstractCompositeField<HorizontalLayout, EmployeeField, Employee> {
+        AbstractCompositeField<HorizontalLayout,
+                EmployeeField, Employee> {
     static class Employee {
         public Department getDepartment() {
             return null;
@@ -46,24 +47,28 @@ public class EmployeeField extends
     }
 
     //@formatter:off
-    private final ComboBox<Department> departmentSelect = new ComboBox<>("Department");
-    private final ComboBox<Employee> employeeSelect = new ComboBox<>("Employee");
+    private ComboBox<Department> departmentSelect =
+            new ComboBox<>("Department");
+    private ComboBox<Employee> employeeSelect =
+            new ComboBox<>("Employee");
     //@formatter:on
 
     public EmployeeField() {
         super(null);
 
-        departmentSelect.setItems(EmployeeService.getDepartments());
+        departmentSelect.setItems(
+                EmployeeService.getDepartments());
 
         departmentSelect.addValueChangeListener(event -> {
             Department department = event.getValue();
 
-            employeeSelect.setItems(EmployeeService.getEmployees(department));
+            employeeSelect.setItems(EmployeeService
+                    .getEmployees(department));
             employeeSelect.setEnabled(department != null);
         });
 
-        employeeSelect.addValueChangeListener(
-                event -> setModelValue(event.getValue(), true));
+        employeeSelect.addValueChangeListener(event ->
+                setModelValue(event.getValue(), true));
 
         getContent().add(departmentSelect, employeeSelect);
     }
@@ -73,13 +78,15 @@ public class EmployeeField extends
         if (employee == null) {
             departmentSelect.clear();
         } else {
-            departmentSelect.setValue(employee.getDepartment());
+            departmentSelect.setValue(
+                    employee.getDepartment());
             employeeSelect.setValue(employee);
         }
     }
 
     @Override
-    public void setRequiredIndicatorVisible(boolean required) {
+    public void setRequiredIndicatorVisible(
+            boolean required) {
         employeeSelect.setRequiredIndicatorVisible(required);
     }
 

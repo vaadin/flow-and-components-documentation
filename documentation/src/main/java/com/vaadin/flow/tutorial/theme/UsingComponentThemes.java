@@ -52,7 +52,8 @@ public class UsingComponentThemes {
     }
 
     @Theme(MyTheme.class)
-    public class MainLayout extends Div implements RouterLayout {
+    public class MainLayout extends Div
+            implements RouterLayout {
     }
 
     @Route(value = "", layout = MainLayout.class)
@@ -100,21 +101,26 @@ public class UsingComponentThemes {
     }
     {
         Button button = new Button("Themed button");
-        button.getThemeNames().addAll(Arrays.asList("contrast", "primary"));
+        button.getThemeNames().addAll(
+                Arrays.asList("contrast", "primary"));
     }
     {
         Button button = new Button("Themed button");
         String themeAttributeName = "theme";
-        String oldValue = button.getElement().getAttribute(themeAttributeName);
+        String oldValue = button.getElement()
+                .getAttribute(themeAttributeName);
         String variantsToAdd = "contrast primary";
         button.getElement().setAttribute(themeAttributeName,
-                oldValue == null || oldValue.isEmpty() ? variantsToAdd
+                oldValue == null || oldValue.isEmpty() ?
+                        variantsToAdd
                         : ' ' + variantsToAdd);
     }
 
-    @JsModule("frontend://bower_components/vaadin-lumo-styles/presets/compact.js")
+    @JsModule("frontend://bower_components/" +
+            "vaadin-lumo-styles/presets/compact.js")
     @Theme(Lumo.class)
-    public class CompactMainLayout extends Div implements RouterLayout {
+    public class CompactMainLayout extends Div
+            implements RouterLayout {
     }
 
     @JsModule("@vaadin/vaadin-lumo-styles/color.js")
