@@ -4,7 +4,7 @@ import '@vaadin/vaadin-text-field/vaadin-text-field.js';
 import '@vaadin/vaadin-text-field/vaadin-text-area.js';
 import '@vaadin/vaadin-checkbox/vaadin-checkbox.js';
 
-import './form-buttons-bar.js'
+import './form-buttons-bar.js';
 
 class UserForm extends PolymerElement {
     static get template() {
