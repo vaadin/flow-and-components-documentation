@@ -19,10 +19,10 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @SpringBootApplication
 @CodeFor("spring/tutorial-spring-basic.asciidoc")
-public class ExampleServletInitializer extends SpringBootServletInitializer {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(ExampleServletInitializer.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }
