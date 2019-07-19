@@ -12,26 +12,38 @@ Templates are the recommended way of building UIs and binders are the recommende
 
 This process is almost the same as using binders with declared components.
 
-The first step is to declare an HTML template.
+The first step is to declare an HTML template as a JavaScript module.
 
-.user-form HTML Template
-[source,html]
+.user-form Polymer Template
+[source,js]
 ----
-<dom-module id="user-form">
-    <template>
-        <style>
+import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
+import '@vaadin/vaadin-form-layout/vaadin-form-layout.js';
+import '@vaadin/vaadin-text-field/vaadin-text-field.js';
+import '@vaadin/vaadin-text-field/vaadin-text-area.js';
+import '@vaadin/vaadin-checkbox/vaadin-checkbox.js';
+import './form-buttons-bar.js'
 
-        </style>
-        <vaadin-form-layout id="form">
-            <vaadin-text-field id="email" label="Email (login)" colspan="2"></vaadin-text-field>
-            <vaadin-text-field id="first-name" label="First Name"></vaadin-text-field>
-            <vaadin-text-field id="last-name" label="Last Name"></vaadin-text-field>
-            <vaadin-text-area id="comments" label="Comments"></vaadin-text-area>
-        </vaadin-form-layout>
-        <form-buttons-bar id="action-buttons"></form-buttons-bar>
-    </template>
+class UserForm extends PolymerElement {
+    static get template() {
+        return html`
+            <style>
+            </style>
+            <vaadin-form-layout id="form">
+                <vaadin-text-field id="email" label="Email (login)" colspan="2"></vaadin-text-field>
+                <vaadin-text-field id="first-name" label="First Name"></vaadin-text-field>
+                <vaadin-text-field id="last-name" label="Last Name"></vaadin-text-field>
+                <vaadin-text-area id="comments" label="Comments"></vaadin-text-area>
+            </vaadin-form-layout>
+            <form-buttons-bar id="action-buttons"></form-buttons-bar>`;
+    }
 
-</dom-module>
+    static get is() {
+          return 'user-form';
+    }
+}
+
+customElements.define(UserForm.is, UserForm);
 ----
 
 And the server side template as:
@@ -40,7 +52,7 @@ And the server side template as:
 [source,java]
 ----
 @Tag("user-form")
-@HtmlImport("src/user-form.html")
+@JsModule("./src/user-form.js")
 public class UserForm extends PolymerTemplate < UserForm.FormComponentModel > {
 
   @Id("email")
@@ -59,7 +71,7 @@ public class UserForm extends PolymerTemplate < UserForm.FormComponentModel > {
   private FormButtonsBar actionButtons;
 ----
 
-Once the mapping between Java and the HTML template is done, the process of binding can start.
+Once the mapping between Java and the Polymer template is done, the process of binding can start.
 
 The first step is to declare a binder as a class variable in the UserForm.class:
 
@@ -153,31 +165,36 @@ Now the UserForm component is ready to be used in other parts of our code.
 The MainView is a template that contains a grid of users and the user-form component of previous steps:
 
 .main-view HTML Template
-[source,html]
+[source,js]
 ----
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="user-form.html">
-<link rel="import" href="../bower_components/vaadin-grid/src/vaadin-grid.html">
+import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
+import '@vaadin/vaadin-grid/vaadin-grid.js'
+import './user-form.js';
 
-<dom-module id="main-view">
-    <template>
-        <style>
+class MainView extends PolymerElement {
+    static get template() {
+        return html`
+            <style>
+            </style>
+            <div id="main-container">
+                <vaadin-grid id="users-grid"></vaadin-grid>
+                <user-form id="user-form"></user-form>
+            </div>`;
+    }
 
-        </style>
-        <div id="main-container">
-            <vaadin-grid id="users-grid"></vaadin-grid>
-            <user-form id="user-form"></user-form>
-        </div>
-    </template>
+    static get is() {
+          return 'main-view';
+    }
+}
 
-</dom-module>
+customElements.define(MainView.is, MainView);
 ----
 
 .MainView.class
 [source,java]
 ----
 @Tag("main-view")
-@HtmlImport("src/main-view.html")
+@JsModule("./src/main-view.js")
 @Route("")
 public class MainView extends PolymerTemplate<TemplateModel> {
 

@@ -1,6 +1,6 @@
 ---
 title: Securing an Embedded Application
-order: 6
+order: 5
 layout: page
 ---
 
@@ -8,7 +8,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Securing an Embedded Application
 
-You may want to restrict access to an embedded web application from 
+You may want to restrict access to an embedded Vaadin application from
 embedding web applications. To be able to do that, use properties of 
 the embedded web component.
 
@@ -20,18 +20,20 @@ should avoid sensitive data in the component's constructor.
 Here is an example how to set a property from the embedding page and
 check it inside the embedded application:
 
-
 [source, html]
 ----
 <!doctype html>
 
 <head>
-  <script type="text/javascript" src="./frontend/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-  <link rel="import" href="web-component/my-comp.html">
+  <link rel="import" href="web-component/my-comp.js">
   <script type="text/javascript">
         function login(){
-            var token = "d9f6a737-b2b8-46a7-a834-209c8b214969"; // request token for the current user somehow
-            var comp = document.querySelector("#embedded-web-component");
+            // request token for the current user
+            // somehow
+            var token =
+                "d9f6a737-b2b8-46a7-a834-209c8b214969";
+            var comp = document.querySelector(
+                "#embedded-web-component");
             comp.token = token;
         }
   </script>
@@ -58,21 +60,24 @@ The web component and its exporter class may look like this:
 [source, java]
 ----
 public class EmbeddedComponentExporter
-        extends WebComponentExporter<EmbeddedComponent> {
+       extends WebComponentExporter<EmbeddedComponent> {
 
     public EmbeddedComponentExporter() {
         super("my-comp");
 
-        addProperty("token", "").onChange(this::authorize);
+        addProperty("token", "")
+                .onChange(this::authorize);
     }
 
     @Override
-    public void configureInstance(WebComponent<EmbeddedComponent> webComponent,
-            EmbeddedComponent component) {
+    protected void configureInstance(
+           WebComponent<EmbeddedComponent> webComponent,
+           EmbeddedComponent component) {
     }
 
-    private void authorize(EmbeddedComponent component, String token) {
-        // check the {@code token}
+    private void authorize(EmbeddedComponent component,
+                           String token) {
+        // check the token
         if (isValidToken(token)) {
             component.init();
         }
@@ -87,8 +92,8 @@ public class EmbeddedComponentExporter
 public class EmbeddedComponent extends Div {
 
     public EmbeddedComponent() {
-        // Don't retrieve any sensitive data here without granted access
-        // (via security token)
+        // Don't retrieve any sensitive data here
+        // without granted access (via security token)
     }
 
     public void init() {

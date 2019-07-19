@@ -16,7 +16,7 @@
 package com.vaadin.flow.tutorial.polymer;
 
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.dom.Element;
@@ -30,7 +30,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @CodeFor("polymer-templates/tutorial-template-components-in-slot.asciidoc")
 public class PolymerSlotView {
     @Tag("component-container")
-    @HtmlImport("/com/example/ComponentContainer.html")
+    @JsModule("./com/example/component-container.js")
     public class ComponentContainer extends PolymerTemplate<TemplateModel> {
 
         public ComponentContainer() {
@@ -42,7 +42,7 @@ public class PolymerSlotView {
     }
 
     @Tag("main-layout")
-    @HtmlImport("/com/example/ComponentContainer.html")
+    @JsModule("./com/example/main-layout.js")
     public class MainLayout extends PolymerTemplate<TemplateModel>
             implements RouterLayout {
     }
@@ -56,7 +56,7 @@ public class PolymerSlotView {
     }
 
     @Tag("name-element")
-    @HtmlImport("/com/example/NameElement.html")
+    @JsModule("./com/example/name-element.js")
     public class NameElement extends PolymerTemplate<TemplateModel> {
         public NameElement() {
             Element firstName = ElementFactory.createSpan("Jack");
@@ -64,7 +64,7 @@ public class PolymerSlotView {
             Element surName = ElementFactory.createSpan("Christobald");
 
             firstName.setAttribute("slot", "firstName");
-            middleName.setAttribute("slot", "firstName");
+            middleName.setAttribute("slot", "middleName");
             surName.setAttribute("slot", "lastName");
 
             getElement().appendChild(firstName, middleName, surName);

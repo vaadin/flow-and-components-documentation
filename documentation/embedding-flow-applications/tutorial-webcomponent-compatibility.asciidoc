@@ -1,0 +1,47 @@
+---
+title: Embedding Application in Compatibility mode
+order: 7
+layout: page
+---
+
+= Embedding Application in Compatibility mode
+
+These are the differences between Embedding application in compatibility mode:
+* `"webcomponents-loader.js"` polyfill library is required to be able to import 
+the web component via HTML import.
+* The web component URL resource is imported via HTML import.
+
+Here is an example how page may import the web component:
+
+[source, html]
+----
+<script type='text/javascript' src='/frontend/bower_components/webcomponentsjs/webcomponents-loader.js'></script>
+<link rel='import' href='/vaadin/web-component/login-form.html'>
+----
+
+The rest of the embedding process stays the same.
+
+== Embedded Application in Production
+
+Embedding Vaadin applications in production mode requires two steps:
+
+* Package application for production in the normal way
+* Import the packaged application onto the target page
+
+The second step differs a bit from the application in development mode. As you can 
+see above there are two lines of code are used to import an embedded application. 
+
+The first line loads a polyfill library for browsers that do 
+not have native support for `rel="import` on a `link` element.
+
+In the production mode this library is in a different folder which depends
+on the browser. To be able to avoid this boilerplate line in the production 
+mode you should just use `script` tag for the web component instead of `link`:
+
+[source, html]
+----
+<script type='text/javascript' src='/vaadin/web-component/login-form.html'></script>
+----
+
+In production mode the generated `login-form.html` content is just a JavaScript code
+which adds a proper polyfill library for your along with the required imports.

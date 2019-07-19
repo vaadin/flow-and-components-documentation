@@ -98,10 +98,6 @@ public class Application {
 [TIP]
 Follow the instructions on https://docs.spring.io/spring-boot/docs/current/reference/html/howto-traditional-deployment.html[Spring Boot documentation], if you want to deploy your Spring Boot application as a traditional WAR file.
 
-== Getting Started with Spring Boot Tutorial
+== Vaadin Spring Boot examples
 
-https://github.com/vaadin/flow-spring-tutorial[Vaadin Spring Tutorial] is a prebuilt example application that showcases basic usage of  Vaadin Flow and Spring Boot. You can use it to test the concepts and features covered in this documentation.
-
-To start a new project with Spring Boot and Vaadin Flow, clone the https://github.com/vaadin/flow-spring-tutorial[flow-spring-tutorial] repository. This project template has the necessary configuration and dependencies to start building you own application.
-
-Commercial customers can use the https://vaadin.com/start/latest/full-stack-spring[Vaadin Bakery App Starter for Flow and Spring] that includes the fully-functional https://vaadin.com/docs/v13/bakeryflow/overview.html[Bakery app]. 
+https://github.com/vaadin/flow-spring-tutorial[Vaadin Spring Examples] is an example application that showcases basic usage of Vaadin and Spring Boot. You can use it to test the concepts and features covered in this documentation.

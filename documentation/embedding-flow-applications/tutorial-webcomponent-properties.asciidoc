@@ -6,20 +6,26 @@ layout: page
 
 = Properties of Embedded Web Components
 
-The tutorial <<tutorial-webcomponent-exporter#,Embedding a Flow Application>>
-showed how to export a Vaadin `Component` as embeddable web component and use
-that web component on a non-Vaadin page. In this chapter we will take a closer
-look at how we can control the properties of exported web components.
+In this chapter we will take a look at how we can define web component
+properties for our embedded Vaadin application and how we can handle changes
+to those properties on the server-side. We will also take a look at firing
+client-side events from our embedded Vaadin application which can be caught by
+the embedding application.
 
-=== Defining Web Component Properties
+A full example of embedding a Vaadin application can be found at
+<<tutorial-webcomponent-exporter#,Embedding a Vaadin Application>>.
+
+== Defining Web Component Properties
 `WebComponentExporter` defines the properties exposed as part of the web
 components public API. Calling `WebComponentDefinition#addProperty` defines
 a property and adds it to the public API of the web component.
 
 [source, java]
 ----
-public class PersonExporter extends WebComponentExporter<PersonComponent> {
-    private PropertyConfiguration<PersonComponent, Boolean> isAdultProperty;
+public class PersonExporter
+        extends WebComponentExporter<PersonComponent> {
+    private PropertyConfiguration<PersonComponent,
+              Boolean> isAdultProperty;
 
     public PersonExporter() {
         super("person-display");
@@ -28,7 +34,8 @@ public class PersonExporter extends WebComponentExporter<PersonComponent> {
         addProperty("age", 0)
                 .onChange(PersonComponent::setAge);
 
-        isAdultProperty = addProperty("is-adult", false);
+        isAdultProperty = addProperty("is-adult",
+                false);
     }
 ----
 
@@ -55,7 +62,7 @@ fluent API for configuring the property. If the property needs to be referred
 later, the received `PropertyDefinition` is used to identify the property in
 question.
 
-=== Updating Properties on the Client-Side
+== Updating Properties on the Client-Side
 In previous section we learned how to define properties and handle value
 updates to those properties. In this section we explore how to update
 property values from server to the client and thus be able to communication
@@ -79,11 +86,14 @@ In the following example we show how we can update boolean property
 [source, java]
 ----
     @Override
-    public void configureInstance(WebComponent<PersonComponent> webComponent, PersonComponent component) {
+    protected void configureInstance(
+            WebComponent<PersonComponent> webComponent,
+            PersonComponent component) {
         component.setAdultAge(18); // initialization
 
         component.addAgeChangedListener(event -> {
-            webComponent.setProperty(isAdultProperty, component.isAdult());
+            webComponent.setProperty(isAdultProperty,
+                    component.isAdult());
         });
 ----
 
@@ -100,9 +110,11 @@ we will update the `<span>` known as "designator" with the information.
 
 <script>
     function updateDesignator() {
-        var personComponent = document.querySelector("#person");
+        var personComponent = document
+                .querySelector("#person");
         if (personComponent["is-adult"]) {
-            document.querySelector("#designator").innerText = "is an adult!";
+            document.querySelector("#designator")
+                    .innerText = "is an adult!";
         } else {
             setTimeout(updateDesignator, 1000);
         }
@@ -116,7 +128,7 @@ we will update the `<span>` known as "designator" with the information.
 As the first example shows, method `configureInstance` can also be used to do
 further initialization on the `component` instance.
 
-=== Firing Custom Events on the Client-Side
+== Firing Custom Events on the Client-Side
 In addition to wiring property updates, `WebComponent` instance can also be
 used to fire custom events on the client-side. `WebComponent#fireEvent()`
 fires the event with the given parameters.
@@ -125,7 +137,8 @@ fires the event with the given parameters.
 ----
         component.addAgeChangedListener(event -> {
             if (event.getAge() > 65) {
-                webComponent.fireEvent("retirement-age-reached");
+                webComponent.fireEvent(
+                        "retirement-age-reached");
             }
         });
     }
@@ -158,10 +171,13 @@ Expanding on our previous client-side example, we now update our information
 <span id="designator">is a child</span>
 
 <script>
-    var personComponent = document.querySelector("#person");
+    var personComponent = document
+            .querySelector("#person");
 
-    personComponent.addEventListener("retirement-age-reached", function(event) {
-        document.querySelector("#designator").innerText = "is allowed to retire!";
+    personComponent.addEventListener(
+            "retirement-age-reached", function(event) {
+        document.querySelector("#designator")
+                .innerText = "is allowed to retire!";
     });
 </script>
 ----

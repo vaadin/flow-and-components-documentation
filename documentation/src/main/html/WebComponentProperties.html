@@ -5,9 +5,11 @@ tutorial::embedding-flow-applications/tutorial-webcomponent-properties.asciidoc
 
 <script>
     function updateDesignator() {
-        var personComponent = document.querySelector("#person");
+        var personComponent = document
+            .querySelector("#person");
         if (personComponent["is-adult"]) {
-            document.querySelector("#designator").innerText = "is an adult!";
+            document.querySelector("#designator")
+                .innerText = "is an adult!";
         } else {
             setTimeout(updateDesignator, 1000);
         }
@@ -17,9 +19,12 @@ tutorial::embedding-flow-applications/tutorial-webcomponent-properties.asciidoc
 </script>
 
 <script>
-    var personComponent = document.querySelector("#person");
+    var personComponent = document
+        .querySelector("#person");
 
-    personComponent.addEventListener("retirement-age-reached", function(event) {
-        document.querySelector("#designator").innerText = "is allowed to retire!";
-    });
+    personComponent.addEventListener(
+        "retirement-age-reached", function(event) {
+            document.querySelector("#designator")
+                .innerText = "is allowed to retire!";
+        });
 </script>

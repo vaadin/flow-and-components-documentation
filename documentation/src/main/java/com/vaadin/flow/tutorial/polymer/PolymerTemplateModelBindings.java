@@ -16,7 +16,7 @@
 package com.vaadin.flow.tutorial.polymer;
 
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.templatemodel.TemplateModel;
@@ -26,7 +26,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class PolymerTemplateModelBindings {
 
     @Tag("my-template")
-    @HtmlImport("/com/example/PolymerBinding.html")
+    @JsModule("./com/example/my-template.js")
     public class PolymerBindingTemplate extends PolymerTemplate<BindingModel> {
 
         public PolymerBindingTemplate() {
@@ -41,7 +41,7 @@ public class PolymerTemplateModelBindings {
     }
 
     @Tag("two-way-template")
-    @HtmlImport("/com/example/PolymerTwoWayBinding.html")
+    @JsModule("./com/example/two-way-template.js")
     public class PolymerTwoWayBindingTemplate
             extends PolymerTemplate<TwoWayBindingModel> {
 

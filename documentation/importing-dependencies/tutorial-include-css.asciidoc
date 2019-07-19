@@ -16,8 +16,10 @@ There are two ways to include a CSS style sheet in your Java classes. Both have 
 +
 [source,java]
 ----
-@StyleSheet("styles.css") // Relative to Servlet URL
-@StyleSheet("http://www.example.com/example.css") // Loaded from external location
+// Relative to Servlet URL
+@StyleSheet("styles.css")
+// Loaded from external location
+@StyleSheet("http://www.example.com/example.css")
 public class MainLayout extends Component {
   // implementation omitted
 }
@@ -35,8 +37,10 @@ public class MainLayout extends Component {
 [source,java]
 ----
   public MainLayout(){
-      // Loaded from "/root.css" regardless of how your application is deployed
-      UI.getCurrent().getPage().addStyleSheet("/root.css");
+      // Loaded from "/root.css" regardless of how
+      // your application is deployed
+      UI.getCurrent().getPage()
+            .addStyleSheet("/root.css");
   }
 }
 ----
@@ -53,7 +57,7 @@ Web Component normally uses their own styles that are specifically scoped for ea
 
 To prevent global styles leaking into the local DOM of Web Components, you can use the `<custom-style>` extension:
 
-. Add an HTML import for Polymer `custom-style.html`, for example `<link rel="import" href="bower_components/polymer/lib/elements/custom-style.html">`. 
+. Add an import for Polymer `custom-style.js`, for example `import '@polymer/polymer/lib/elements/custom-style.js';`.
 
 . Add a `<custom-style>` declaration that includes the CSS styles you want to add in the `<head>` element.
 +
@@ -70,25 +74,30 @@ To prevent global styles leaking into the local DOM of Web Components, you can u
 </custom-style>
 ----
 
-If you don't have a natural template for the custom-style declaration, you can create a separate file and import that using the `@HtmlImport` annotation:
+If you don't have a natural template for the custom-style declaration, you can create a separate file and import it using the `@JsModule` annotation:
 
 . Put the import and custom styles in the same file. 
 +
-*Example*: `shared-styles.html`. 
+*Example*: `shared-styles.js`.
 +
-[source,html]
+[source,js]
 ----
-<link rel="import" href="bower_components/polymer/lib/elements/custom-style.html">
+import '@polymer/polymer/lib/elements/custom-style.js';
 
-<custom-style>
-  <style>
-    html {
-      color: red;
-    }
-  </style>
-</custom-style>
+const documentContainer = document
+        .createElement('template');
+
+documentContainer.innerHTML = `<custom-style>
+      <style>
+        html {
+          color: red;
+        }
+      </style>
+    </custom-style>`;
+
+document.head.appendChild(documentContainer.content);
 ----
 
-. Use the `@HtmlImport("shared-styles.html")` annotation in a component class, like your main layout class.
+. Use the `@JsModule("./shared-styles.js")` annotation in a component class, like your main layout class.
 
-See <<../theme/theming-crash-course#,Theming Web Components>> and https://www.polymer-project.org/2.0/docs/api/elements/Polymer.CustomStyle[Polymer.CustomStyle] for more.
+See <<../theme/theming-crash-course#,Theming Web Components>> and https://polymer-library.polymer-project.org/3.0/api/elements/custom-style[Polymer.CustomStyle] for more.

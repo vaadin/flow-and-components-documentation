@@ -40,7 +40,7 @@ automatically after `access()` finishes. With the manual mode, you can do the pu
 explicitly with `push()`, which allows more flexibility.
 
 Server push can use several transports: WebSockets, long polling, or combined WebSockets+XHR.
-WebSockets is the default transport.
+WebSockets+XHR is the default transport.
 
 [[push.configuration.annotation]]
 == The `@Push` annotation

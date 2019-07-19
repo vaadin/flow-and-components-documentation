@@ -11,7 +11,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 To use localization and translation strings the application only needs to implement
 `I18NProvider` and define the fully qualified class name in the property `i18n.provider`.
 
-==== Defining the i18n provider property
+== Defining the i18n provider property
 
 The `i18n.provider` property can be set from the command line as a system property,
 as a Servlet init parameter in the `web.xml` or using the `@WebServlet` annotation.
@@ -68,7 +68,7 @@ Spring add-on will automatically use it in case if it's available. See the class
 https://github.com/vaadin/flow-spring-tutorial/blob/master/src/main/java/org/vaadin/spring/tutorial/SimpleI18NProvider.java[SimpleI18NProvider.java] 
 implemented in the tutorial project as an example. 
 
-==== Locale selection for new session
+== Locale selection for new session
 The initial locale is decided by matching the locales provided by the `I18NProvider`
 against the `Accept-Language` header in the initial response from the client.
 

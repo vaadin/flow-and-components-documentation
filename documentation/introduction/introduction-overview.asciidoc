@@ -46,12 +46,14 @@ The high abstraction layers provided by Vaadin Flow's Java Web Components API al
 [source,java]
 ----
 TextField textField = new TextField();
-Span greeting = new Span("Hello stranger"); // Simple HTML inline text
+// Simple HTML inline text
+Span greeting = new Span("Hello stranger");
 
 textField.addValueChangeListener(event ->
       greeting.setText("Hello " + event.getValue()));
 
-VerticalLayout layout = new VerticalLayout(textField, greeting);
+VerticalLayout layout = new VerticalLayout(
+      textField, greeting);
 ----
 
 The API includes prebuilt server-side components and most native HTML elements.
@@ -92,7 +94,7 @@ Vaadin Flow allows you to create a Java API for any available Web Component and 
 [source,java]
 ----
 @Tag("game-card")
-@HtmlImport("bower_components/game-card/game-card.html")
+@JsModule("./game-card.js")
 public class GameCard extends Component {
 
 }
@@ -105,22 +107,25 @@ You can also find prebuilt Java APIs for Web Components that have been published
 
 === Building Components with HTML Templates
 
-Another way to create components is to separate the layout from the UI logic. The best way to do this is to use HTML templates together with Java classes. The HTML files contain the layout and (if needed) pure client-side logic, while the Java classes takes care of the server-side logic, like event handling.
+Another way to create components is to separate the layout from the UI logic. The best way to do this is to use JavaScript modules and HTML templates together with Java classes. The JavaScript module contain the layout and (if needed) pure client-side logic, while the Java classes takes care of the server-side logic, like event handling.
 
 You can use these components in the same way as any other component in your Java environment. Vaadin Flow does not distinguish between pure Java or HTML/Java combined components.
 
 *Example*: @Id injection in a component.
-[source,html]
+[source,js]
 ----
-<template>
-    <vaadin-vertical-layout>
-        <vaadin-text-field id="textField"></vaadin-text-field>
-        <label id="greeting">Hello stranger</label>
+static get template() {
+    return html`
+        <vaadin-vertical-layout>
+            <vaadin-text-field id="textField">
+            </vaadin-text-field>
+            <label id="greeting">Hello stranger</label>
 
-        <input type="color" on-input="updateFavoriteColor">
-        <label>Favorite color: </label>
-    </vaadin-vertical-layout>
-</template>
+            <input type="color"
+                  on-input="updateFavoriteColor">
+            <label>Favorite color: </label>
+        </vaadin-vertical-layout>`;
+}
 ----
 
 [source,java]
@@ -132,7 +137,8 @@ private @Id("greeting") Label greeting;
 textField.addValueChangeListener(event ->
       greeting.setText("Hello " + event.getValue()));
 
-// Instance method in the component published to the client
+// Instance method in the component published to the
+// client
 @EventHandler private void updateFavoriteColor(
       @EventData("event.target.value") String color) {
     getModel().setColorCode(color);
@@ -152,13 +158,15 @@ You can use the `@Route` annotation to register navigation targets. You can spec
 
 [source,java]
 ----
-// register the component to url/company and show it inside the main layout
+// register the component to url/company and show it
+// inside the main layout
 @Route(value="company", layout=MainLayout.class)
 @Tag("div")
 public class CompanyComponent extends Component {
 }
 
-public class MainLayout extends Div implements RouterLayout {
+public class MainLayout extends Div
+        implements RouterLayout {
 }
 ----
 

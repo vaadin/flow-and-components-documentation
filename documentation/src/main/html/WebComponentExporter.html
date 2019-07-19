@@ -1,7 +1,10 @@
 tutorial::embedding-flow-applications/tutorial-webcomponent-exporter.asciidoc
 
-<link rel='import' href='/vaadin/web-component/login-form.html'>
-<login-form userlbl='Username' pwdlbl='Password'></login-form>
+<script type='module'
+        src='/vaadin/web-component/login-form.js'>
+</script>
+<login-form userlbl='Username' pwdlbl='Password'>
+</login-form>
 
 <script type="text/javascript">
 var editor = document.querySelector("login-form");

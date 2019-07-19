@@ -20,10 +20,12 @@ public class NumericField extends TextField {
     private int decrementValue;
 
     public NumericField() {
-        this(DEFAULT_VALUE, DEFAULT_INCREMENT, -DEFAULT_INCREMENT);
+        this(DEFAULT_VALUE, DEFAULT_INCREMENT,
+                -DEFAULT_INCREMENT);
     }
 
-    public NumericField(int value, int incrementValue, int decrementValue) {
+    public NumericField(int value, int incrementValue,
+                        int decrementValue) {
         setNumericValue(value);
         this.incrementValue = incrementValue;
         this.decrementValue = decrementValue;
@@ -41,11 +43,13 @@ public class NumericField extends TextField {
         });
 
         substractBtn = new Button("-", event -> {
-            setNumericValue(numericValue + decrementValue);
+            setNumericValue(numericValue +
+                    decrementValue);
         });
 
         addBtn = new Button("+", event -> {
-            setNumericValue(numericValue + incrementValue);
+            setNumericValue(numericValue +
+                    incrementValue);
         });
 
         styleBtns();
@@ -56,8 +60,10 @@ public class NumericField extends TextField {
 
     private void styleBtns() {
         // Note: The same as addThemeVariants
-        substractBtn.getElement().setAttribute("theme", "icon");
-        addBtn.getElement().setAttribute("theme", "icon");
+        substractBtn.getElement()
+                .setAttribute("theme", "icon");
+        addBtn.getElement()
+                .setAttribute("theme", "icon");
     }
 
     public void setNumericValue(int value) {

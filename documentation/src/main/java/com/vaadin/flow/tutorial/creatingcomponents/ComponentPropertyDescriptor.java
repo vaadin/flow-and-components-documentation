@@ -27,10 +27,12 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class ComponentPropertyDescriptor {
 
     // @formatter:off
-    private static PropertyDescriptor<String, String> VALUE =
-            PropertyDescriptors.propertyWithDefault("value", "");
-    private static PropertyDescriptor<String, Optional<String>> PLACEHOLDER =
-            PropertyDescriptors.optionalAttributeWithDefault("placeholder", "");
+    private static PropertyDescriptor<String, String>
+            VALUE = PropertyDescriptors
+            .propertyWithDefault("value", "");
+    private static PropertyDescriptor<String,
+            Optional<String>> PLACEHOLDER = PropertyDescriptors
+            .optionalAttributeWithDefault("placeholder", "");
     // @formatter:on
 
     class A {

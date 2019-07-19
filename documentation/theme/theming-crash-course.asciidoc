@@ -10,7 +10,7 @@ This chapter gives an overview of everything you need to understand in order to 
 First, it is important to draw the line between global styles and scoped styles:
 
 * Before web components were introduced, the styles were global on the web, meaning that a selector in CSS can target any element in the document.
-*  Web components, and Shadow DOM in particular, introduce style scoping to the web platform.
+* Web components, and Shadow DOM in particular, introduce style scoping to the web platform.
 The contents of web components are isolated from global styles, and instead have scoped styles, which are specific to a particular web component only.
 
 This guide describes how to apply global and scoped styles, as well as how to share common styles between style scopes for the application theming purpose.
@@ -20,70 +20,74 @@ This guide describes how to apply global and scoped styles, as well as how to sh
 Global styles are styles defined in the document scope.
 Global styles can target document body and any regular DOM contents inside, including the application views,
 but can not target Shadow DOM contents, such as internals of Vaadin components, Polymer templates, and other web components.
-To define global styles, use `<custom-style><style>...</style><custom-style>` tags in HTML.
 
-[NOTE]
-Using the `<custom-style>` wrapper for global styles is required by Polymer to enable correct cross-browser scoping.
+To define global styles, we need to put our styles in a `.css` file and configure your application to import
+it using the `@CssImport` annotation. Flow will wrap the styles appropriatelly to instruct Polymer to enable correct cross-browser scoping.
 
-Place your global styles in a separate HTML file:
-
-.src/main/webapp/frontend/styles/shared-styles.html
-[source,html]
+.frontend/styles/shared-styles.css
+[source,css]
 ----
-<custom-style>
-  <style>
-    /* Example global style */
-    html {
-      font-size: 1em;
-    }
-  </style>
-</custom-style>
+html {
+  font-size: 1em;
+}
 ----
 
-As shown in the previous chapter, this file should be imported to the root layout level of your application.
-
-[WARNING]
-Remember to import the `<custom-style>` from `bower_components/polymer/lib/elements/custom-style.html`. Although the `<style>` element inside `<custom-style>` is always processed by the browser, its scope will not work in polyfilled browsers if `<custom-style>` is not imported. Note that `<custom-style>` is always loaded when a Vaadin component is imported.
+.MyApplication.java
+[source,java]
+----
+@Route(value = "")
+@CssImport("./styles/shared-styles.css")
+public class MyApplication extends Div {
+}
+----
 
 == Styling Polymer Templates
 
 Since Polymer templates are web components, their template contents end up in Shadow DOM.
 By design, Shadow DOM defines a local style scope, isolated from global styles.
 
-Scoped styles, which are specific to a single template, can be added directly to the `<style>` tag inside the template:
+Scoped styles, which are specific to a single template, can be added directly to the `<style>` tag inside the template getter.
+Flow allows that you can put your content in a separated `.css` file and use it with the ES6 `import` statement.
 
-.src/main/webapp/frontend/src/my-view.html
-[source,html]
+.frontend/styles/my-view.css
+[source,css]
 ----
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
+:host {
+  /* Styles for the `<my-view>` hosting element */
+  display: block;
+}
 
-<dom-module id="my-view">
-  <template>
-    <style>
-      /* Example scoped styles, applied to <my-view> template contents only */
+.my-view-title {
+  font-weight: bold;
+  border-bottom: 1px solid gray;
+}
+----
 
-      :host {
-        /* Styles for the `<my-view>` hosting element */
-        display: block;
-      }
 
-      .my-view-title {
-        font-weight: bold;
-        border-bottom: 1px solid gray;
-      }
-    </style>
+.frontend/src/my-view.js
+[source,js]
+----
+import { PolymerElement } from
+        '@polymer/polymer/polymer-element.js';
+import { html } from
+        '@polymer/polymer/lib/utils/html-tag.js';
+import styles from 'styles/my-view.css';
 
-    <div class="my-view-title">My view title</div>
-  </template>
-</dom-module>
-<script>
-  class MyView extends Polymer.Element {
-    static get is() { return 'my-view'; }
+class MyView extends PolymerElement {
+  static get template() {
+    return html`
+      <style>${styles}</style>
+      <div class="my-view-title">My view title</div>
+    `;
   }
 
-  customElements.define(MyView.is, MyView);
-</script>
+  static get is() {
+    return 'my-view';
+  }
+}
+customElements.define(MyView.is, MyView);
 ----
+
 
 == Using Custom CSS Properties
 
@@ -94,92 +98,128 @@ Polymer templates can reuse values defined by global styles, as well as override
 
 Use global styles for `html` element to define a global custom CSS property:
 
-.src/main/webapp/frontend/styles/shared-styles.html
-[source,html]
+.frontend/styles/shared-styles.css
+[source,css]
 ----
-<custom-style>
-  <style>
-    html {
-      /* Example global custom CSS property definition */
-      --my-theme-color: brown;
-    }
-  </style>
-</custom-style>
+html {
+  /* Example global custom CSS property definition */
+  --my-theme-color: brown;
+}
 ----
 
 For referencing your custom CSS property, use ```var(--my-property)``` syntax. For example, in your Polymer template styles:
 
-.src/main/webapp/frontend/src/my-view.html
-[source,html]
+.frontend/styles/my-view.css
+[source,css]
 ----
-<!-- ... -->
-
-<dom-module id="my-view">
-  <template>
-    <style>
-      /* ... */
-
-      .my-view-title {
-        /* Example referencing custom CSS property */
-        color: var(--my-theme-color);
-      }
-    </style>
-  </template>
-
-  <!-- ... -->
-</dom-module>
+.my-view-title {
+  /* Example referencing custom CSS property */
+  color: var(--my-theme-color);
+}
 ----
 
 == Using Style Modules
 
 Style modules allow sharing the same stylesheet between multiple Polymer templates and global styles.
 
-Style modules are defined in HTML using ```<dom-module id="my-styles"><template><style>/* ... */</style></template></dom-module>``` tag combination:
+In order to import it in the application as a module, you need to provide an unique name for the `id`
+attribute in the `@CssImport` annotation
 
-.src/main/webapp/frontend/styles/shared-styles.html
-[source,html]
+.frontend/styles/common-styles.css
+[source,css]
 ----
-<dom-module id="shared-styles">
-  <template>
-    <style>
-      /* Example style module */
-      .my-outline-style {
-        outline: 1px solid green;
-      }
-    </style>
-  </template>
-</dom-module>
+/* Example style module */
+.my-outline-style {
+  outline: 1px solid green;
+}
 ----
 
-To include a style module in a Polymer template, import the module file with HTML imports and use ```<style include="module-id">```:
-
-.src/main/webapp/frontend/src/my-view.html
-[source,html]
+.MyApplication.java
+[source,java]
 ----
-<!-- ... -->
-<link rel="import" href="../styles/shared-styles.html">
-
-<dom-module id="my-view">
-  <template>
-    <style include="shared-styles">
-      /*  */
-    </style>
-  </template>
-
-  <!-- ... -->
-</dom-module>
+@Route(value = "")
+@CssImport(value = "./styles/common-styles.css",
+           id = "common-styles")
+public class MyApplication extends Div {
+}
 ----
+
+Then you can re-use it when importing other style files by providing the `include` attribute.
+
+.frontend/styles/specific-styles.css
+[source,css]
+----
+/* Example style */
+.my-border-style {
+  border: 2px solid grey;
+}
+----
+
+
+.MyApplication.java
+[source,java]
+----
+@Route(value = "")
+@CssImport(value = "./styles/specific-styles.css",
+           include = "common-styles")
+public class MyApplication extends Div {
+}
+----
+
+
+If you need to style your templates directly in the client modules, you can define and
+import modules by using JavaScript:
+
+.frontend/styles/common-styles.js
+[source,js]
+----
+import styles from './common-styles.css'
+const $_documentContainer = document
+        .createElement('template');
+$_documentContainer.innerHTML = `
+<dom-module id="common-styles">
+  <template><style>${styles}</style></template>
+</dom-module>`;
+document.head.appendChild($_documentContainer.content);
+----
+
+.frontend/src/my-view.js
+[source,js]
+----
+import { PolymerElement } from
+        '@polymer/polymer/polymer-element.js';
+import { html } from
+        '@polymer/polymer/lib/utils/html-tag.js';
+import '../styles/common-styles.js'
+import styles from '../styles/specific-styles.css'
+
+class MyView extends PolymerElement {
+  static get template() {
+    return html`
+      <style include="common-styles"> ${styles} </style>
+
+      <div class="my-view-title">My view title</div>
+    `;
+  }
+  static get is() {
+    return 'my-view';
+  }
+}
+customElements.define(MyView.is, MyView);
+----
+
 
 NOTE: Use a space-separated list of style module ids to include multiple style modules into a single scope: ```<style include="shared-styles other-shared-styles"></style>```.
 
 Style modules can also be included in global styles:
 
-.src/main/webapp/frontend/styles/global-styles.html
-[source,html]
+.MyApplication.java
+[source,java]
 ----
-<link rel="import" href="./shared-styles.html">
+@Route(value = "")
+@CssImport(value = "./styles/shared-styles.css",
+           include = "common-styles")
+public class MyApplication extends Div {
+}
+----
 
-<custom-style>
-  <style include="shared-styles"></style>
-</custom-style>
-----
