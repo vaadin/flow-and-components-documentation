@@ -1072,7 +1072,7 @@ CSS variables only work with components that support them, such as `Grid`.
 The following example takes you through the process of styling the grid with text fields of different colors, depending on the user's gender.
 
 . Introduce CSS variable usage for the `TextField` component.
-+
+
 [source, html]
 ----
 <dom-module id="custom-text-field"
@@ -1092,7 +1092,7 @@ The following example takes you through the process of styling the grid with tex
 * The only change is the introduction of the `--custom-text-field-bg` variable.
 
 . Change the variable, based on the person's gender.
-+
+
 [source, css]
 ----
 .styled .style-female {
