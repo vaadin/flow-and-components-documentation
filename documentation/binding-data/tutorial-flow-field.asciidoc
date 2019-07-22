@@ -242,10 +242,11 @@ To demonstrate, we build an employee selector field that allows the user to firs
 [TIP]
 Another use case for `AbstractCompositeField` is to create a field component that is based directly on another field, while converting the value from that field.
 
-. The class declaration is a mix of `Composite` and `AbstractField`.
-.. The first type parameter defines the `Composite` content type, the second is for the value-change event `getSource()` type, and the third is the `getValue()` type of the field.
-.. We also initialize instance fields for each `ComboBox`.
-+
+The class declaration is a mix of `Composite` and `AbstractField`.
+
+. The first type parameter defines the `Composite` content type, the second is for the value-change event `getSource()` type, and the third is the `getValue()` type of the field.
+. We also initialize instance fields for each `ComboBox`.
+
 [source, java]
 ----
 public class EmployeeField extends
@@ -259,11 +260,12 @@ public class EmployeeField extends
 ----
 
 
-. In the constructor:
-.. Configure `departmentSelect` value changes to update the items in `employeeSelect`. 
-.. The employee selected in `employeeSelect` is set as the field's value. 
-.. Both combo boxes are added to the horizontal layout.
-+
+In the constructor:
+
+. Configure `departmentSelect` value changes to update the items in `employeeSelect`.
+. The employee selected in `employeeSelect` is set as the field's value.
+. Both combo boxes are added to the horizontal layout.
+
 [source, java]
 ----
 public EmployeeField() {
@@ -287,8 +289,8 @@ public EmployeeField() {
 }
 ----
 
-. Implement `setPresentationValue` to update the combo boxes according to a provided employee. 
-+
+Implement `setPresentationValue` to update the combo boxes according to a provided employee.
+
 [source, java]
 ----
 @Override
@@ -303,11 +305,11 @@ protected void setPresentationValue(Employee employee) {
 }
 ----
 
-. Change how the required indicator is shown for the field. 
-+
+Change how the required indicator is shown for the field.
+
 The default implementation assumes the component's root element reacts to a property named `required`, which works nicely for Web Components that mimic the API of `<input>`.
 In our case, we want to show the required indicator for the employee combo box.
-+
+
 [source, java]
 ----
 @Override
@@ -322,8 +324,8 @@ public boolean isRequiredIndicatorVisible() {
 }
 ----
 
-. Implement `readonly` handling to mark both combo boxes as read only. The default implementation is similar to how required indicators are handled, except that it uses the `readonly` property instead.
-+
+Implement `readonly` handling to mark both combo boxes as read only. The default implementation is similar to how required indicators are handled, except that it uses the `readonly` property instead.
+
 [source, java]
 ----
 @Override
