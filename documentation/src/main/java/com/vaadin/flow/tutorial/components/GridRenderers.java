@@ -77,26 +77,28 @@ public class GridRenderers {
                 .setHeader("Purchase date and time");
 
         grid.addColumn(new NumberRenderer<>(Item::getPrice,
-                NumberFormat.getCurrencyInstance()))
-                .setHeader("Price");
+                NumberFormat.getCurrencyInstance())
+        ).setHeader("Price");
 
         grid.addColumn(new NumberRenderer<>(
                 Item::getPrice, "$ %(,.2f",
-                Locale.US, "$ 0.00"))
-                .setHeader("Price");
+                Locale.US, "$ 0.00")
+        ).setHeader("Price");
 
         grid.addColumn(
                 new NativeButtonRenderer<>("Remove item",
                         clickedItem -> {
                     // remove the item
-                }));
+                })
+        );
 
         //@formatter:off
         grid.addColumn(new NativeButtonRenderer<>(
                 item -> "Remove " + item,
                 clickedItem -> {
-            // remove the item
-        }));
+                    // remove the item
+        })
+        );
         //@formatter:on
     }
 
