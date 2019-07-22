@@ -48,7 +48,7 @@ Example
 [source,java]
 ----
 @PWA(name = "My Progressive Web Application",
-     shortname = "MyPWA",
+     shortName = "MyPWA",
      iconPath = "img/icons/logo.png")
 ----
 
