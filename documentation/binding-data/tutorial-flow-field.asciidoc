@@ -289,7 +289,7 @@ public EmployeeField() {
 }
 ----
 
-Implement `setPresentationValue` to update the combo boxes according to a provided employee.
+As a next step, implement `setPresentationValue` to update the combo boxes according to a provided employee.
 
 [source, java]
 ----
@@ -305,7 +305,7 @@ protected void setPresentationValue(Employee employee) {
 }
 ----
 
-Change how the required indicator is shown for the field.
+Now we're going to change how the required indicator is shown for the field.
 
 The default implementation assumes the component's root element reacts to a property named `required`, which works nicely for Web Components that mimic the API of `<input>`.
 In our case, we want to show the required indicator for the employee combo box.
@@ -324,7 +324,7 @@ public boolean isRequiredIndicatorVisible() {
 }
 ----
 
-Implement `readonly` handling to mark both combo boxes as read only. The default implementation is similar to how required indicators are handled, except that it uses the `readonly` property instead.
+The last thing left is to implement `readonly` handling to mark both combo boxes as read only. The default implementation is similar to how required indicators are handled, except that it uses the `readonly` property instead.
 
 [source, java]
 ----
