@@ -199,10 +199,11 @@ binder.forField(yearOfBirthField)
     // with 4 characters
     .withConverter(new StringToIntegerConverter(
             "Must enter a number"))
-  // Validator will be run with the converted value
-  .withValidator(year -> year >= 1900 && year < 2000,
-    "Person must be born in the 20th century")
-  .bind(Person::getYearOfBirth, Person::setYearOfBirth);
+    // Validator will be run with the converted value
+    .withValidator(year -> year >= 1900 && year < 2000,
+            "Person must be born in the 20th century")
+    .bind(Person::getYearOfBirth,
+            Person::setYearOfBirth);
 ----
 
 When updating UI components, values from the business object are passed through each converter in reverse order (without validation).
