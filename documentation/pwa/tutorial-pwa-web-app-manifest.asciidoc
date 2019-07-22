@@ -38,9 +38,12 @@ https://developer.mozilla.org/en-US/docs/Web/Manifest[MDN web docs]
 
 The default name of web app manifest is "*manifest.webmanifest*", but it can be changed
 with `@PWA` -property *manifestPath*.
-```
-@PWA(name = "My Progressive Web Application", shortName="MyPWA", manifestPath = "manifest.json")
-```
+[source,java]
+----
+@PWA(name = "My Progressive Web Application",
+     shortName = "MyPWA",
+     manifestPath = "manifest.json")
+----
 
 == Overriding generated manifest
 

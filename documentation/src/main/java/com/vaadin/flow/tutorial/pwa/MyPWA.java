@@ -6,7 +6,8 @@ import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("pwa/tutorial-pwa-pwa-with-flow.asciidoc")
-@PWA(name = "My Progressive Web Application", shortName = "MyPWA")
+@PWA(name = "My Progressive Web Application",
+        shortName = "MyPWA")
 @Route("")
 public class MyPWA extends Div {
     public MyPWA(){
