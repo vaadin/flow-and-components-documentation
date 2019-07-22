@@ -114,7 +114,7 @@ To bind a component to read-only data, you can use a `null` value for the `sette
 ----
 TextField fullName = new TextField();
 binder.forField(fullName)
-        .bind(Person::getFullName,null);
+        .bind(Person::getFullName, null);
 ----
 
 To bind components that do not implement the `HasValue` interface to read-only data, you can use the `ReadOnlyHasValue` helper class. 
@@ -126,7 +126,7 @@ To bind components that do not implement the `HasValue` interface to read-only d
 Label fullNameLabel = new Label();
 ReadOnlyHasValue<String> fullName =
         new ReadOnlyHasValue<>(
-        text -> fullNameLabel.setText(text));
+            text -> fullNameLabel.setText(text));
 binder.forField(fullName)
         .bind(Person::getFullName, null);
 ----
