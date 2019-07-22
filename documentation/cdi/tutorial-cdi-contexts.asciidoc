@@ -149,9 +149,12 @@ See <<../routing/tutorial-routing-annotation#,Defining Routes With @Route>> and 
 ----
 @Route("")
 @RoutePrefix("parent")
-public class ParentView extends Div implements RouterLayout {
+public class ParentView extends Div
+        implements RouterLayout {
     @Inject
-    public ParentView(@RouteScopeOwner(ParentView.class) RouteService routeService) {
+    public ParentView(
+            @RouteScopeOwner(ParentView.class)
+            RouteService routeService) {
         setText(routeService.getText());
     }
 }
@@ -159,7 +162,9 @@ public class ParentView extends Div implements RouterLayout {
 @Route(value = "child-a", layout = ParentView.class)
 public class ChildAView extends Div {
     @Inject
-    public ChildAView(@RouteScopeOwner(ParentView.class) RouteService routeService) {
+    public ChildAView(
+            @RouteScopeOwner(ParentView.class)
+            RouteService routeService) {
         setText(routeService.getText());
     }
 }
@@ -167,7 +172,9 @@ public class ChildAView extends Div {
 @Route(value = "child-b", layout = ParentView.class)
 public class ChildBView extends Div {
     @Inject
-    public ChildBView(@RouteScopeOwner(ParentView.class) RouteService routeService) {
+    public ChildBView(
+            @RouteScopeOwner(ParentView.class)
+            RouteService routeService) {
         setText(routeService.getText());
     }
 }
@@ -195,7 +202,9 @@ Route components can also be `@RouteScoped`. In this case, `@RouteScopeOwner` sh
 @Route("scoped")
 @RouteScoped
 public class ScopedView extends Div {
-    private void onMessage(@Observes(notifyObserver = IF_EXISTS) MessageEvent message) {
+    private void onMessage(
+            @Observes(notifyObserver = IF_EXISTS)
+            MessageEvent message) {
         setText(message.getText());
     }
 }
