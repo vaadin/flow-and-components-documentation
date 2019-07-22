@@ -66,7 +66,8 @@ You can also define a custom `Comparator` if you need to customize the way a spe
 
 [source, java]
 ----
-grid.addColumn(Person::getName).setHeader("Name")
+grid.addColumn(Person::getName)
+        .setHeader("Name")
         // Override default natural sorting
         .setComparator(Comparator.comparing(person ->
                     person.getName().toLowerCase()));
@@ -206,8 +207,9 @@ grid.setDataProvider(dataProvider);
 // When sorting by this column, the query
 // will have a SortOrder
 // where getSorted() returns "name"
-grid.addColumn(Person::getName).setHeader("Name")
-                .setSortProperty("name");
+grid.addColumn(Person::getName)
+        .setHeader("Name")
+        .setSortProperty("name");
 
 // Will not be sortable since no sorting info is given
 grid.addColumn(Person::getYearOfBirth)
@@ -222,7 +224,8 @@ In some cases, providing a single property name is not enough. For example, if t
 ----
 grid.addColumn(person ->
         person.getName() + " " + person.getLastName())
-    .setHeader("Name").setSortOrderProvider(
+    .setHeader("Name")
+    .setSortOrderProvider(
         // Sort according to last name, then first name
         direction -> Stream.of(
            new QuerySortOrder("lastName", direction),
