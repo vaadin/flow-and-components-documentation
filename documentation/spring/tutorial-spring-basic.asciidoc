@@ -29,7 +29,8 @@ Like many other tech stacks on Spring Boot, Vaadin provides a starter dependency
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-bom</artifactId>
-            <!-- declare the latest Vaadin version as a property or directly here -->
+            <!-- declare the latest Vaadin version
+                 as a property or directly here -->
             <version>${vaadin.version}</version>
             <type>pom</type>
             <scope>import</scope>
@@ -40,22 +41,26 @@ Like many other tech stacks on Spring Boot, Vaadin provides a starter dependency
 <dependencies>
     <dependency>
         <groupId>com.vaadin</groupId>
-        <artifactId>vaadin-spring-boot-starter</artifactId>
+        <artifactId>
+            vaadin-spring-boot-starter
+        </artifactId>
         <version>${vaadin.version}</version>
     </dependency>
 </dependencies>
 <build>
     <plugins>
-        <!-- The Spring Boot Maven plugin for easy execution from CLI and packaging -->
+        <!-- The Spring Boot Maven plugin for easy
+             execution from CLI and packaging -->
         <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
         </plugin>
 
         <!--
-            Take care of synchronizing java dependencies and imports in
-            package.json and main.js files.
-            It also creates webpack.config.js if not exists yet.
+            Takes care of synchronizing java
+            dependencies and imports in package.json and
+            main.js files. It also creates
+            webpack.config.js if does not exist yet.
         -->
         <plugin>
             <groupId>com.vaadin</groupId>

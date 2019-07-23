@@ -12,10 +12,11 @@ annotate the root layout of your application with
 
 [source,java]
 ----
-@PWA(name = "My Progressive Web Application", shortName = "MyPWA")
+@PWA(name = "My Progressive Web Application",
+     shortName = "MyPWA")
 @Route("")
 public class MyPWA extends Div {
-    public MyPWA(){
+    public MyPWA() {
         setText("Welcome to my PWA");
     }
 }

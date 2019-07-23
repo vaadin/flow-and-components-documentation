@@ -41,12 +41,15 @@ public class MvcSpringUsage {
         @Override
         public void onStartup(ServletContext servletContext)
                 throws ServletException {
-            AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+            AnnotationConfigWebApplicationContext context =
+                    new AnnotationConfigWebApplicationContext();
             registerConfiguration(context);
-            servletContext.addListener(new ContextLoaderListener(context));
+            servletContext.addListener(
+                    new ContextLoaderListener(context));
 
-            ServletRegistration.Dynamic registration = servletContext
-                    .addServlet("dispatcher", new SpringServlet(context, true));
+            ServletRegistration.Dynamic registration =
+                    servletContext.addServlet("dispatcher",
+                            new SpringServlet(context, true));
             registration.setLoadOnStartup(1);
             registration.addMapping("/*");
         }
@@ -57,11 +60,14 @@ public class MvcSpringUsage {
         }
     }
 
-    public class SampleWebAppInitializer extends VaadinMVCWebAppInitializer {
+    public class SampleWebAppInitializer
+            extends VaadinMVCWebAppInitializer {
 
         @Override
-        protected Collection<Class<?>> getConfigurationClasses() {
-            return Collections.singletonList(SampleConfiguration.class);
+        protected Collection<Class<?>>
+                getConfigurationClasses() {
+            return Collections.singletonList(
+                    SampleConfiguration.class);
         }
     }
 

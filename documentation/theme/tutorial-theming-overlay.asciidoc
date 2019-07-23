@@ -55,9 +55,10 @@ public class MyApplication extends Div {
 ----
 
 .MyView.java
+[source,java]
 ----
 public class MyView extends VerticalLayout {
-    public MyView {
+    public MyView() {
         Dialog dialog = new Dialog();
         dialog.getElement().setAttribute("theme",
                 "custom-theme-variant");

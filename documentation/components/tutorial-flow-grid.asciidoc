@@ -103,7 +103,7 @@ grid.select(defaultItem);
 // switch to multi select, clears selection
 grid.setSelectionMode(SelectionMode.MULTI);
 // Select items 2-4
-people.subList(2,3).forEach(grid::select);
+people.subList(2, 3).forEach(grid::select);
 ----
 
 You can get the current selection from the `Grid` using the `getSelectedItems()` method. The returned `Set` contains one item in single-selection mode, or several items in multi-selection mode.
@@ -531,8 +531,8 @@ Use `NumberRenderer` to render any type of Number in the cells. It is especially
 [source, java]
 ----
 grid.addColumn(new NumberRenderer<>(Item::getPrice,
-        NumberFormat.getCurrencyInstance()))
-        .setHeader("Price");
+        NumberFormat.getCurrencyInstance())
+).setHeader("Price");
 ----
 
 It is possible to setup the `NumberRenderer` with a String format, and an optional null representation.
@@ -543,8 +543,8 @@ It is possible to setup the `NumberRenderer` with a String format, and an option
 ----
 grid.addColumn(new NumberRenderer<>(
         Item::getPrice, "$ %(,.2f",
-        Locale.US, "$ 0.00"))
-        .setHeader("Price");
+        Locale.US, "$ 0.00")
+).setHeader("Price");
 ----
 
 ==== NativeButtonRenderer
@@ -558,8 +558,9 @@ Use `NativeButtonRenderer` to create a clickable button in the cells. It creates
 grid.addColumn(
     new NativeButtonRenderer<>("Remove item",
        clickedItem -> {
-        // remove the item
-    }));
+           // remove the item
+    })
+);
 ----
 
 You can configure a custom label for each item.
@@ -571,8 +572,9 @@ You can configure a custom label for each item.
 grid.addColumn(new NativeButtonRenderer<>(
         item -> "Remove " + item,
         clickedItem -> {
-  // remove the item
-}));
+            // remove the item
+        })
+);
 ----
 
 === Using Template renderers
@@ -1070,7 +1072,7 @@ CSS variables only work with components that support them, such as `Grid`.
 The following example takes you through the process of styling the grid with text fields of different colors, depending on the user's gender.
 
 . Introduce CSS variable usage for the `TextField` component.
-+
+
 [source, html]
 ----
 <dom-module id="custom-text-field"
@@ -1090,7 +1092,7 @@ The following example takes you through the process of styling the grid with tex
 * The only change is the introduction of the `--custom-text-field-bg` variable.
 
 . Change the variable, based on the person's gender.
-+
+
 [source, css]
 ----
 .styled .style-female {

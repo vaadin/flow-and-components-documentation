@@ -189,7 +189,8 @@ public class BinderValidation {
                 // Validator will be run with the converted value
                 .withValidator(year -> year >= 1900 && year < 2000,
                         "Person must be born in the 20th century")
-                .bind(Person::getYearOfBirth, Person::setYearOfBirth);
+                .bind(Person::getYearOfBirth,
+                        Person::setYearOfBirth);
     }
 
     public void multipleConverter() {

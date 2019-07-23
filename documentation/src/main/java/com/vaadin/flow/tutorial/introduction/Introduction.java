@@ -66,7 +66,8 @@ public class Introduction {
 
         // Instance method in the component published to the
         // client
-        @EventHandler private void updateFavoriteColor(
+        @EventHandler
+        private void updateFavoriteColor(
                 @EventData("event.target.value") String color) {
             getModel().setColorCode(color);
         }
