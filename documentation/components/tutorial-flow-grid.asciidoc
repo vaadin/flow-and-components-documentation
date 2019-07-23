@@ -508,7 +508,7 @@ grid.addColumn(new LocalDateTimeRenderer<>(
         DateTimeFormatter.ofLocalizedDateTime(
                 FormatStyle.SHORT,
                 FormatStyle.MEDIUM)))
-        .setHeader("Purchase date and time");
+    .setHeader("Purchase date and time");
 ----
 
 `LocalDateTimeRenderer` also works with `DateTimeFormatter` (with separate style for date and time) or a String format to properly render `LocalDateTime` objects.
@@ -519,8 +519,8 @@ grid.addColumn(new LocalDateTimeRenderer<>(
 ----
 grid.addColumn(new LocalDateTimeRenderer<>(
         Item::getPurchaseDate,
-        "dd/MM HH:mm:ss"))
-    .setHeader("Purchase date and time");
+        "dd/MM HH:mm:ss")
+).setHeader("Purchase date and time");
 ----
 
 ==== NumberRenderer
@@ -629,7 +629,7 @@ grid.addColumn(TemplateRenderer.<Person>of(
         "<small>[[item.address.postalCode]]</small>" +
         "</div>")
         .withProperty("address", Person::getAddress))
-        .setHeader("Address");
+    .setHeader("Address");
 ----
 
 ==== Handling Events
@@ -692,7 +692,7 @@ SerializableBiConsumer<Div, Person> consumer =
         (div, person) -> div.setText(person.getName());
 grid.addColumn(
         new ComponentRenderer<>(Div::new, consumer))
-        .setHeader("Name");
+    .setHeader("Name");
 ----
 
 If the component is the same for every item, you only need to provide the `Supplier`.
