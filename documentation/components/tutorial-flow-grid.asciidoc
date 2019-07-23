@@ -480,7 +480,7 @@ grid.addColumn(new LocalDateRenderer<>(
         Item::getEstimatedDeliveryDate,
         DateTimeFormatter.ofLocalizedDate(
                 FormatStyle.MEDIUM)))
-        .setHeader("Estimated delivery date");
+    .setHeader("Estimated delivery date");
 ----
 
 `LocalDateRenderer` works with a `DateTimeFormatter` or a String format to properly render `LocalDate` objects.
