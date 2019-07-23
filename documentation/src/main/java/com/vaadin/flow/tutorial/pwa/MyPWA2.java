@@ -7,6 +7,6 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @PWA(name = "My Progressive Web Application",
         shortName = "MyPWA",
         offlineResources = { "styles/offline.css",
-                "js/jquery.js", "img/offline.jpg"})
+                "js/jquery.js", "img/offline.jpg" })
 public class MyPWA2 {
 }
