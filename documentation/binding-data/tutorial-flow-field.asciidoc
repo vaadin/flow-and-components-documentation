@@ -128,7 +128,7 @@ The type parameters are the same as for `AbstractSinglePropertyField`: the `getS
 
 When you call `setValue(T value)` with a new value, `AbstractField` invokes the `setPresentationValue(T value)` method with the new value.
 
-Implement the `setPresentationValue(T value)` method so that the component updates the element properties to match the values set.
+We will implement the `setPresentationValue(T value)` method so that the component updates the element properties to match the values set.
 
 [source, java]
 ----
@@ -152,7 +152,7 @@ protected void setPresentationValue(LocalDate value) {
 
 To handle value changes from the user's browser, the component must listen to appropriate internal events and pass a new value to the `setModelValue(T value, boolean fromClient)` method. `AbstractField` will then check if the provided value has actually changed, and if it has, it fires a value-change event to all listeners.
 
-Update the constructor to define each of the element properties as synchronized, and add the same property-change listener to each of them.
+We will update the constructor to define each of the element properties as synchronized, and add the same property-change listener to each of them.
 
 [source, java]
 ----
