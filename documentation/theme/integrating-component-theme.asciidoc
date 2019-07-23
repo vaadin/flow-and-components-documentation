@@ -81,16 +81,16 @@ import { html } from
 // set your custom CSS rules for button.
 // Use an unique id for the dom-module.
 const $_documentContainer = html`
-<dom-module id="my-lumo-button"
-            theme-for="vaadin-button">
-  <template>
-    <style>
-      :host {
-        border-radius: 0;
-      }
-    </style>
-  </template>
-</dom-module>`;
+  <dom-module id="my-lumo-button"
+              theme-for="vaadin-button">
+    <template>
+      <style>
+        :host {
+          border-radius: 0;
+        }
+      </style>
+    </template>
+  </dom-module>`;
 
 document.head.appendChild($_documentContainer.content);
 ----

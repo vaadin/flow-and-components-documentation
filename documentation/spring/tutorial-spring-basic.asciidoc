@@ -53,7 +53,9 @@ Like many other tech stacks on Spring Boot, Vaadin provides a starter dependency
              execution from CLI and packaging -->
         <plugin>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
+            <artifactId>
+                spring-boot-maven-plugin
+            </artifactId>
         </plugin>
 
         <!--
