@@ -78,7 +78,7 @@ public class SessionService {
     private String uid = UUID.randomUUID().toString();
 
     public String getText(){
-        return "session "+uid;
+        return "session " + uid;
     }
 }
 ----

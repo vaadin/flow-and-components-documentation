@@ -73,8 +73,8 @@ public class GridRenderers {
 
         grid.addColumn(new LocalDateTimeRenderer<>(
                 Item::getPurchaseDate,
-                "dd/MM HH:mm:ss"))
-                .setHeader("Purchase date and time");
+                "dd/MM HH:mm:ss")
+        ).setHeader("Purchase date and time");
 
         grid.addColumn(new NumberRenderer<>(Item::getPrice,
                 NumberFormat.getCurrencyInstance())
