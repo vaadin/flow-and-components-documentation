@@ -340,7 +340,8 @@ You can also define a list of columns as sortable using the `setSortableColumns`
 
 [source, java]
 ----
-// All columns except "name" and "yearOfBirth" will be not sortable
+// All columns except "name" and "yearOfBirth"
+// will be not sortable
 grid.setSortableColumns("name", "yearOfBirth");
 ----
 
