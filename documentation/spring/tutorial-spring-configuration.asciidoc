@@ -28,10 +28,10 @@ vaadin.blacklisted-packages=org/bouncycastle,com/my/db/package
 ----
 
 `whitelisted-packages` is a comma separated string that can be used to specify
-the only packages that need to scanned which are the packages that include UI
-components and views. In order to improve the performance during development,
-it's recommended to set this property especially in big applications. Note that
-`com/vaadin/flow/component` is implicitly included and is always scanned.
+the only packages that need to be scanned for UI components and views. In order
+to improve the performance during development, it's recommended to set this
+property especially in big applications. Note that `com/vaadin/flow/component`
+is implicitly included and is always scanned.
 
 .application.properties
 [source, properties]
@@ -40,9 +40,8 @@ vaadin.whitelisted-packages=com/foo/myapp/ui,com/foo/components
 ----
 
 [NOTE]
-To avoid any complexity, you should use either `whitelisted-packages` or
-`blacklisted-packages`. In case both of them have values, `blacklisted-packages`
-will be ignored.
+You should use either `whitelisted-packages` or `blacklisted-packages`. In case
+both of them have values, `blacklisted-packages` will be ignored.
 
 == Spring Boot properties
 
