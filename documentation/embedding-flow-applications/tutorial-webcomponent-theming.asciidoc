@@ -28,10 +28,6 @@ public class MyExporter
         extends WebComponentExporter<Div> {
 ----
 
-
-
-// what does this mean "It's enough to specify a theme only for one exporter in your application." ? If you have two exported components is it used automatically??
-
 == Using Multiple Themes
 
 It is not possible to use more than one theme in a single embedded application. Themes are detected during build time (or startup in compatibility mode's
