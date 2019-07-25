@@ -406,6 +406,13 @@ documentContainer.innerHTML = `
 document.head.appendChild(documentContainer.content);
 ----
 
+[NOTE]
+The migration tool takes care about style files and `@StyleSheet` annotations
+converting them into `@JsModule`. But there is `@CssImport` annotation available
+which is more convenient to use instead of `@JsModule` for CSS. The migration tool
+is not able to convert styles using `@CssImport` annotation. This requires manual 
+conversation.
+
 ==== Polymer modulizer
 
 For more complex cases you can use
