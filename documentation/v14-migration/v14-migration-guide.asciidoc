@@ -111,8 +111,9 @@ Read more about setting configuration parameters <<../advanced/tutorial-all-vaad
 
 To use the new toolset, any existing Vaadin projects with client-side Polymer 2
 based web components must migrate these from Polymer 2 syntax to Polymer 3 (see next section)
-before they can run on V14. Later on there will be a migration tool available that can do this
-automatically, but until then it can be done manually with a few simple steps.
+before they can run on V14. There is a migration tool available as a part of maven plugin.
+The goal "migrate-to-p3" converts P2 polymer templates to P3 templates and replaces `@HtmlImport` 
+annotations by `@JsModule` annotations, see <<migration-tool#,Migration Tool>> tutorial.
 
 == Migration steps
 
@@ -213,6 +214,8 @@ comments about updating annotations in section 5)
 
 === 3 - Convert Polymer 2 to Polymer 3
 
+There is a migration tool available which does this conversation. See <<migration-tool#,Migration Tool>> tutorial.
+
 ==== Templates
 
 Polymer templates defined in HTML files (extension `.html` ) should be converted
@@ -254,6 +257,10 @@ import '@vaadin/vaadin-button/src/vaadin-button.js';
 To see what’s the scope of the js module, for vaadin components it’s always
 @vaadin and for other components, you can search the name that comes after
 `bower_components` https://www.npmjs.com/search[here] to find the scope.
+
+[NOTE]
+The migration tool converts all vaadin imports using correct scope automatically for you.
+For other js modules you will need to do it manually.
 
 [loweralpha, start=4]
 . Move the template from HTML into a static getter named `template` inside
@@ -406,6 +413,8 @@ in the compatibility mode to Vaadin 14 running the new toolset.
 
 === 4 - Update Java annotations
 
+The migration tool is able to do this step for you automatically, see <<migration-tool#,Migration Tool>> tutorial. 
+
 After converting Polymer templates from HTML to JavaScript modules, every
 `HtmlImport` annotation in Java classes should be changed to a `JsModule`
 annotation. Moreover, you should not use a frontend protocol (`frontend://`)in
@@ -423,6 +432,14 @@ becomes
 ----
 @JsModule("./my-templates/top-bar.js")
 ----
+
+
+[NOTE]
+If you develop an add-on and/or use some existing web component from webjar in your project 
+then migration tool won't be able to rewrite correctly the `@HtmlImport` annotation 
+unless this is a vaadin web component. In this case the `@HtmlImport` will be replaces to `@JsImport` but you
+should correct the value by yourself since the migration tool is not able to detect the
+scope automatically for the JS module.
 
 === 5 - Remove frontend protocol
 
