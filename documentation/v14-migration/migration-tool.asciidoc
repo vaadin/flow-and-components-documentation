@@ -1,0 +1,59 @@
+---
+title: Migration Tool
+order: 2
+layout: page
+---
+
+= Migration Tool
+
+There are several steps that you need to do to be able to migrate your project
+to Vaadin 14 form Vaadin 13, see <<v14-migration-guide#,Vaadin 14 Migration Guide>> tutorial.
+
+Vaadin maven plugin provides `migrate-to-p3` goal to automate some steps for you.
+This goal does two things:
+* it uses resources directory (by default it is `src/main/webapp`) to locate
+Polymer 2 templates HTML files, convert them into Polymer 3 format and moves them
+into `frontend` folder inside your project root directory.
+* it finds all Java class declarations annotated with `@HtmlImport` and `@StyleSheet` 
+in the project source files and rewrite annotation to `@JsModule`  annotation along with path 
+(`value` parameter) update.
+
+The migration tool don't preserve HTML comments from your original template files.
+This is done because of some limitations in Modulizer tool which is used internally.
+If HTML comments are important then they should be added manually into the converted P3 files.
+To be able to do *keepOriginal* should be used to prevent removal of the original files.
+By default the original files are removed so there will be no chance to look into
+the source template files. See *keepOriginal* parameter description below.
+
+
+== Goal parameters
+
+Here we describe the maven plugin goal's parameters.
+
+* *resources* (default: `${project.basedir}/src/main/webapp`):
+    List of folder paths that should be used to locate the P2 resources to convert 
+    them into P3 modules. It's configured in the pom file via `<resources>` 
+    parent element and `<resource>` child elements inside it. 
+    
+* *migrateFolder* (default: `${project.build.directory}/migration`):
+    A temporary directory which is used internally to store copies of the resource 
+    files and their conversation to P3. The result files will be moved to the final destination from it.
+    
+* *frontendDirectory* (default: `${project.basedir}/frontend`):
+    The resulting directory which will contain converter resource files.
+    
+* *keepOriginal* (default: `false`):
+    Whether to keep original resource files or not. By default the converted 
+    resource files will be removed.
+    
+* *ignoreModulizerErrors* (default: `true`):
+    Whether fail the maven build if modulizer internal tool returns non zero exit status.
+    Even if modulizer exists with error it doesn't mean that conversation wasn't done. 
+    So by default the maven build won't fail even though there were errors.
+
+* *annotationsRewrite* (default: `ALWAYS`):
+    Defines a strategy to rewrite `@HtmlImport`/`@StyleSheet` annotations in Java source files.
+    There are three values are available: 
+    ** `ALWAY` means rewrite annotations regardless of resource conversation status
+    ** `SKIP`  means skip annotations rewrite
+    ** `SKIP_ON_ERROR` means rewrite ony if there are no errors during resource conversation

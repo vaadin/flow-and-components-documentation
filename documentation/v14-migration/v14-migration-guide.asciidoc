@@ -112,7 +112,7 @@ Read more about setting configuration parameters <<../advanced/tutorial-all-vaad
 To use the new toolset, any existing Vaadin projects with client-side Polymer 2
 based web components must migrate these from Polymer 2 syntax to Polymer 3 (see next section)
 before they can run on V14. There is a migration tool available as a part of maven plugin.
-The goal "migrate-to-p3" converts P2 polymer templates to P3 templates and replaces `@HtmlImport` 
+The goal `migrate-to-p3` converts P2 polymer templates to P3 templates and replaces `@HtmlImport` 
 annotations by `@JsModule` annotations, see <<migration-tool#,Migration Tool>> tutorial.
 
 == Migration steps
@@ -402,6 +402,13 @@ documentContainer.innerHTML = `
 
 document.head.appendChild(documentContainer.content);
 ----
+
+[NOTE]
+The migration tool takes care about style files and `@StyleSheet` annotations
+converting them into `@JsModule`. But there is `@CssImport` annotation available
+which is more convenient to use instead of `@JsModule` for CSS. The migration tool
+is not able to convert styles using `@CssImport` annotation. This requires manual 
+conversation.
 
 ==== Polymer modulizer
 
