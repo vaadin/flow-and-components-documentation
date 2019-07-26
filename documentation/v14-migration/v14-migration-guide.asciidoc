@@ -285,7 +285,7 @@ static get template() {
 ----
 
 [loweralpha, start=5]
-. Remove `<script>` tag.
+. Remove the `<dom-module>` and `<script>` tags.
 
 As a complete example, the following template
 
