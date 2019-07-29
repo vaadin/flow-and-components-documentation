@@ -84,14 +84,14 @@ public class MainLayout extends Div
 ----
 
 [NOTE]
-As seen on the <<using-component-themes#,Using Component Themes>> tutorial, the Lumo theme is used by
+As seen on the <<using-component-themes#,8.5. _Using Component Themes_>> tutorial, the Lumo theme is used by
 default if it is available in the classpath and no other `@Theme` is defined.
 
-The contents of the `shared-styles.css` are discussed further in <<theming-crash-course#,the next chapter>>.
+The contents of the `shared-styles.css` are discussed further in <<theming-crash-course#,8.3. _Theming Web Components_>>.
 The recommendation is that the file contains all the application global and view specific theming.
 
 For any custom components in your application, you might have the styling that only applies to the component,
 inside the `template` block in its `.js` file.
 
-There is an example of this in the <<theming-crash-course#,Theming Crash Course>> chapter too.
+There is an example of this in the <<theming-crash-course#,8.3. _Theming Web Components_>> chapter too.
 

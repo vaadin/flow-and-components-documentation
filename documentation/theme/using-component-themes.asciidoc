@@ -125,10 +125,10 @@ In order to use Lumo theme, you can explicitly declare `@Theme(Lumo.class)` on t
 If you want to use Material theme, explicitly declare `@Theme(Material.class)` on the navigation target.
 
 Both themes provide some customization points for the components, that allow you to fine tune the look and provide a better UX.
-It can be customized by using CSS custom properties, see link:https://vaadin.com/themes/lumo[the Lumo documentation]
-and link:https://vaadin.com/themes/material[the Material documentation] for more information.
+It can be customized by using CSS custom properties, see the Lumo documentation (https://vaadin.com/themes/lumo)
+and the Material documentation (https://vaadin.com/themes/material) for more information.
 The theming for the Vaadin components is built using `Vaadin.ThemableMixin`.
-See link:https://github.com/vaadin/vaadin-themable-mixin/wiki[vaadin-themable-mixin wiki] to learn how theming of Vaadin components is done.
+See vaadin-themable-mixin wiki (https://github.com/vaadin/vaadin-themable-mixin/wiki) to learn how theming of Vaadin components is done.
 
 === Using Vaadin theme variants
 
@@ -166,7 +166,7 @@ public class DarkMaterialApplication extends Div {
 
 Individual components have also variants available.
 Component variants are applied by using the element API to set the variant as the `theme` attribute.
-For example, to create a Button with https://vaadin.com/components/vaadin-button/html-examples/button-lumo-theme-demos[increased legibility],
+For example, to create a Button with increased legibility (https://vaadin.com/components/vaadin-button/html-examples/button-lumo-theme-demos),
 you can use `addThemeVariants` method:
 
 .Adding theme variants for the component
@@ -216,7 +216,7 @@ button.getElement().setAttribute(themeAttributeName,
 Each of the three examples above do the very same thing in the end:
 add `contrast` and `primary` Lumo Theme variants to the `theme` attribute value of the button component.
 
-For looking up all available component variants, https://vaadin.com/components/browse[see the component HTML examples]
+For looking up all available component variants, see the component HTML examples (https://vaadin.com/components/browse)
 and look under the _Lumo Theme_ tab for examples of the variants.
 
 [NOTE]

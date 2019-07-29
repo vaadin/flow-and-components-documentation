@@ -8,7 +8,7 @@ layout: page
 
 Some Vaadin service interfaces can be implemented as CDI beans. If you do this, the service interface becomes a managed bean with CDI features, and there is no need to register the implementation in Vaadin Flow. 
 
-The https://vaadin.com/directory/component/vaadin-cdi/[Vaadin CDI] add-on references the following interfaces:
+The Vaadin CDI (https://vaadin.com/directory/component/vaadin-cdi) add-on references the following interfaces:
 
 * `I18NProvider`.
 * `Instantiator`.

@@ -7,15 +7,15 @@ layout: page
 
 = Vaadin CDI Contexts
 
-In addition to standard CDI contexts, the https://vaadin.com/directory/component/vaadin-cdi/[Vaadin CDI] add-on introduces new contexts.
+In addition to standard CDI contexts, the Vaadin CDI (https://vaadin.com/directory/component/vaadin-cdi) add-on introduces new contexts.
 
-Vaadin CDI contexts are conceptually similar to <<../spring/tutorial-spring-scopes#,Vaadin Spring scopes>>.
+Vaadin CDI contexts are conceptually similar to <<../spring/tutorial-spring-scopes#,9.4. _Vaadin Spring Scopes_>>.
 
 == Normal Scopes
 
 In CDI, most scopes are normal scopes. This means that most calls to managed beans are delegated by a client proxy to the active instance. The active instance is provided by the context. 
 
-The https://vaadin.com/directory/component/vaadin-cdi/[Vaadin CDI] add-on introduces the `@VaadinServiceScoped`, `@VaadinSessionScoped`, `@NormalUIScoped`, `@NormalRouteScoped` normal scopes..
+The Vaadin CDI (https://vaadin.com/directory/component/vaadin-cdi) add-on introduces the `@VaadinServiceScoped`, `@VaadinSessionScoped`, `@NormalUIScoped`, `@NormalRouteScoped` normal scopes..
 
 [NOTE]
 The Vaadin component hierarchy does not work properly with CDI client proxies. As a precaution, the `vaadin-cdi` add-on does not deploy if managed beans are found. 
@@ -39,19 +39,19 @@ Certain default contexts from CDI, such as `RequestScoped` or `SessionScoped`, c
 
 Background-thread contexts that depend on HTTP requests are not active, regardless of push.
 
-See <<../advanced/tutorial-push-access#asynchronous-updates,Asynchronous Updates>> for more about using push.
+See Asynchronous Updates (<<../advanced/tutorial-push-access#asynchronous-updates,>>) for more about using push.
 
 === `@VaadinServiceScoped` Context
 
-The `@VaadinServiceScoped` context manages the beans during the Vaadin service lifecycle. The lifecycle of the service is the same as the lifecycle of its Vaadin servlet. See <<../advanced/tutorial-application-lifecycle#vaadin-servlet-and-service,Vaadin Servlet and Service>> for more about the Vaadin service.
+The `@VaadinServiceScoped` context manages the beans during the Vaadin service lifecycle. The lifecycle of the service is the same as the lifecycle of its Vaadin servlet. See Vaadin Servlet and Service (<<../advanced/tutorial-application-lifecycle#vaadin-servlet-and-service,>>) for more about the Vaadin service.
 
-For beans that are automatically picked up by `VaadinService`, you need to use the `@VaadinServiceEnabled` annotation, together with the `@VaadinServiceScoped` annotation. See <<tutorial-cdi-service-beans#,Vaadin Service Interfaces as CDI Beans>> for more.
+For beans that are automatically picked up by `VaadinService`, you need to use the `@VaadinServiceEnabled` annotation, together with the `@VaadinServiceScoped` annotation. See <<tutorial-cdi-service-beans#,10.5. _Vaadin Service Interfaces as CDI Beans_>> for more.
 
 === `@VaadinSessionScoped` Context
 
 The `@VaadinSessionScoped` context manages the beans during Vaadin session lifecycle. This means that the same bean instance is used within the whole Vaadin session.
 
-See <<../advanced/tutorial-application-lifecycle#user-session,User Session>> for more.
+See User Session (<<../advanced/tutorial-application-lifecycle#application.lifecycle.session,>>) for more.
 
 *Example*: Using the `@VaadinSessionScoped` annotation on route targets. 
 
@@ -90,7 +90,7 @@ public class SessionService {
 
 The `@UIScoped` and `@NormalUIScoped` contexts manage the beans during the `UI` lifecycle. Use `@UIScoped` for components and  `@NormalUIScoped` for other beans.
 
-See <<../advanced/tutorial-application-lifecycle#loading-a-ui,Loading a UI>> for more about the `UI` lifecycle.
+See Loading a UI (<<../advanced/tutorial-application-lifecycle#application.lifecycle.ui,>>) for more about the `UI` lifecycle.
 
 *Example*: Using the `@NormalUIScoped` annotation on route targets.
 
@@ -142,7 +142,7 @@ The `@RouteScoped` and `@NormalRouteScoped` manage the beans during the `Route` 
 
 Together with the `@RouteScopeOwner` annotation, both `@RouteScoped` and `@NormalRouteScoped` can be used to bind beans to router components (`@Route`, `RouteLayout`, `HasErrorParameter`). While the owner remains in the route chain, all beans owned by it remain in the scope.
 
-See <<../routing/tutorial-routing-annotation#,Defining Routes With @Route>> and <<../routing/tutorial-router-layout#,Router Layouts and Nested Router Targets>> for more about route targets, route layouts, and the route chain.
+See <<../routing/tutorial-routing-annotation#,6.1. _Using the @Route Annotation_>> and <<../routing/tutorial-router-layout#,6.3. _Router Layouts and Nested Router Targets_>> for more about route targets, route layouts, and the route chain.
 
 *Example*: Using the `@NormalRouteScoped` annotation on route targets. 
 [source,java]

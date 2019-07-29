@@ -22,7 +22,7 @@ public class RootComponent extends Div {
 ----
 
 In the same way you may define any other router path. See  
-<<../routing/tutorial-routing-annotation#,Defining Routes with @Route>> 
+<<../routing/tutorial-routing-annotation#,6.1. _Using the @Route Annotation_>> 
 tutorial and other router tutorials for more details about using router.
 
 The only thing that is new here for Spring is the possibility to use dependency injection in the

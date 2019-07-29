@@ -16,7 +16,7 @@ These approaches are mutually exclusive: using both in the same class will resul
 
 == Using @PageTitle Annotation
 
-The simplest way to update the https://developer.mozilla.org/en-US/docs/Web/API/Document/title[Page Title] is
+The simplest way to update the Page Title (https://developer.mozilla.org/en-US/docs/Web/API/Document/title) is
 to use the `@PageTitle` annotation on your `Component` class:
 
 *Example*: Using `@PageTitle`to update the page title:

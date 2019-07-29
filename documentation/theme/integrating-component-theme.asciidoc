@@ -101,4 +101,4 @@ Be aware that you need to provide theme files for all the components used in you
 == Creating Your Own Component Theme
 
 The theming for the Vaadin components is built using `Vaadin.ThemableMixin`.
-See link:https://github.com/vaadin/vaadin-themable-mixin/wiki[vaadin-themable-mixin wiki] to learn how theming of Vaadin components is done.
+See vaadin-themable-mixin wiki (https://github.com/vaadin/vaadin-themable-mixin/wiki) to learn how theming of Vaadin components is done.

@@ -13,7 +13,7 @@ installation flow.
 
 [NOTE]
 This documentation is about creating PWAs with Flow, for generic PWA information,
-please refer to to the https://vaadin.com/pwa[Progressive Web Applications] for
+please refer to Progressive Web Applications (https://vaadin.com/pwa) for
 more information about PWA.
 
 == Basic PWA Concepts

@@ -7,12 +7,12 @@ layout: page
 
 = Using Vaadin Flow with Spring Boot
 
-The https://vaadin.com/directory/component/vaadin-spring/[Vaadin Spring] add-on allows you to use Vaadin Flow with https://spring.io/projects/spring-boot[Spring Boot]. 
+The Vaadin Spring (https://vaadin.com/directory/component/vaadin-spring) add-on allows you to use Vaadin Flow with Spring Boot (https://spring.io/projects/spring-boot). 
 
-https://spring.io/projects/spring-boot[Spring Boot] speeds up the development process and provides a fast and efficient development environment by emphasising . It is the easiest way to use the Spring framework. 
+Spring Boot (https://spring.io/projects/spring-boot) speeds up the development process and provides a fast and efficient development environment by emphasising . It is the easiest way to use the Spring framework. 
 
 [NOTE]
-See <<tutorial-spring-basic-mvc#,Using Flow with Spring MVC>> to learn how to use Vaadin in more traditional https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html[Spring MVC] web application, without Spring Boot. 
+See <<tutorial-spring-basic-mvc#,9.2. _Use Flow with Spring MVC_>> to learn how to use Vaadin in more traditional Spring MVC (https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html) web application, without Spring Boot. 
 
 The easiest way to create an application with Spring Boot and Vaadin is to start with a template application created by https://vaadin.com/start or https://start.spring.io/, but you can also add required dependencies manually to your project.
 
@@ -104,8 +104,8 @@ public class Application {
 * The `@SpringBootApplication` annotation enables Spring Boot under the hood. This includes Spring configuration, component scanning and auto-configuration.
 
 [TIP]
-Follow the instructions on https://docs.spring.io/spring-boot/docs/current/reference/html/howto-traditional-deployment.html[Spring Boot documentation], if you want to deploy your Spring Boot application as a traditional WAR file.
+Follow the instructions on Spring Boot documentation (https://docs.spring.io/spring-boot/docs/current/reference/html/howto-traditional-deployment.html), if you want to deploy your Spring Boot application as a traditional WAR file.
 
 == Vaadin Spring Boot examples
 
-https://github.com/vaadin/flow-spring-examples[Vaadin Spring Examples] is an example application that showcases basic usage of Vaadin and Spring Boot. You can use it to test the concepts and features covered in this documentation.
+Vaadin Spring Examples (https://github.com/vaadin/flow-spring-examples) is an example application that showcases basic usage of Vaadin and Spring Boot. You can use it to test the concepts and features covered in this documentation.

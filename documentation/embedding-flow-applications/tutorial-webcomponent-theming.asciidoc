@@ -10,7 +10,7 @@ By default embedded Vaadin components don't use any theme at all or
 use `Lumo` theme if it's in the classpath.
 
 [TIP]
-See <<../theme/theming-overview#,Theming Overview>> tutorial about theming.
+See <<../theme/theming-overview#,8.4. _Theming Overview_>> tutorial about theming.
 
 It's possible to specify any theme (e.g. `Material`)  which you want to use 
 for the embedded Vaadin components. The example below shows how you may 

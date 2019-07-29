@@ -45,7 +45,7 @@ public abstract class ExampleWebAppInitializer
 
 You will need some Flow component annotated with `@Route` and you should register 
 the `VaadinScopesConfig` configuration class to be able to use Spring Vaadin scopes 
-(see the Flow application code examples in <<tutorial-spring-basic#,Use Flow with Spring>>).
+(see the Flow application code examples in <<tutorial-spring-basic#,9.1. _Using Vaadin Flow with Spring Boot_>>).
 
 [NOTE]
 Alternatively, you may add the `@EnableVaadin` annotation to your configuration class to

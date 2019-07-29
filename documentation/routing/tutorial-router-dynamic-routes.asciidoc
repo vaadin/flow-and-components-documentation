@@ -8,7 +8,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Registering Routes Dynamically
 
-In addition to registering routes using the <<tutorial-routing-annotation#,`@Route` annotation>>, you can add and remove routes dynamically during runtime. This is useful when a route should be added or removed based on changed business data or application configuration at startup, for example. 
+In addition to registering routes using the `@Route` annotation, you can add and remove routes dynamically during runtime. This is useful when a route should be added or removed based on changed business data or application configuration at startup, for example.
 
 The `RouteConfiguration` class allows you to configure routes to a specific scope. You can configure routes to:
 
@@ -71,8 +71,8 @@ configuration.removeRoute("users", UsersView.class);
 
 For more related information, see: 
 
-* <<Adding Route Aliases for Dynamic Routes>> (below).
-* <<tutorial-router-url-parameters#,Routing and URL Parameters>> (multiple navigation targets on a single path).
+* <<6.11.4. _Adding Route Aliases for Dynamic Routes_>> (below).
+* <<tutorial-router-url-parameters#,6.4. _Routing and URL Parameters_>> (multiple navigation targets on a single path).
 
 
 [NOTE]
@@ -109,7 +109,7 @@ public class ApplicationServiceInitListener
 }
 ----
 
-See <<../advanced/tutorial-service-init-listener#,VaadinServiceInitListener>> for more.
+See VaadinServiceInitListener (<<../advanced/tutorial-service-init-listener#,>>) for more.
 
 == Getting Registered Routes and Listening for Changes
 

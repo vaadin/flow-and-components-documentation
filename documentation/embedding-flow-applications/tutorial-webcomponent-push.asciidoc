@@ -9,7 +9,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 = Embedded Application Push Configuration
 
 You may configure and enable Push in your embedded application.
-See <<../advanced/tutorial-push-configuration#,Server Push Configuration>> tutorial 
+See Server Push Configuration (<<../advanced/tutorial-push-configuration#,>>) tutorial 
 for Push overview.
 
 There are two ways to configure Push for the embedded application: use 
@@ -18,7 +18,7 @@ on the servlet level. You can see how to do it on the servlet level in the
 mentioned tutorial.
 
 Similarly to declaring `@Theme` annotation described in 
-<<tutorial-webcomponent-theming#,Theming an Embedded Application>> tutorial, 
+<<tutorial-webcomponent-theming#,7.6. _Theming an Embedded Application_>> tutorial, 
 you may declare `@Push` annotation for `WebComponentExporter` class:
 
 [source, java]

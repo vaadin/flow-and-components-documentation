@@ -93,4 +93,4 @@ public class MyApplicationWithDialog extends Div {
 [NOTE]
 ThemableMixin does not guarantee the order in which the style modules are applied.
 It is important to declare CSS rules whose specificity is greater than the Lumo properties that are being overridden.
-For more information refer to <<application-theming-basics#, Application Theming Basics >>.
+For more information refer to <<application-theming-basics#,8.1. _Application Theming Basics_>>.

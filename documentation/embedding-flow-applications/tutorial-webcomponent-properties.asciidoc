@@ -13,7 +13,7 @@ client-side events from our embedded Vaadin application which can be caught by
 the embedding application.
 
 A full example of embedding a Vaadin application can be found at
-<<tutorial-webcomponent-exporter#,Embedding a Vaadin Application>>.
+<<tutorial-webcomponent-exporter#,7.1. _Embedding a Vaadin Application_>>.
 
 == Defining Web Component Properties
 `WebComponentExporter` defines the properties exposed as part of the web
@@ -158,8 +158,8 @@ The `fireEvent()` method has three variants:
 The first parameter (String) is the name, or `type` of the event. Second
 parameter `JsonValue` is a custom Json object set as the value of "detail"
 key in the client-side event. The final parameter, `EventOptions`, is used to
-configure the flags "bubbles", "cancelable", and "composed". See
-https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent[CustomEvent] for
+configure the flags "bubbles", "cancelable", and "composed". See CustomEvent
+(https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent) for
 more information about "detail" and `EventOptions` flags.
 
 Expanding on our previous client-side example, we now update our information

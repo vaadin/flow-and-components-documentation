@@ -31,8 +31,7 @@ Set in `@PWA` -property *startPath*.
 - *icons* - Automatically created from icons.
 
 [NOTE]
-For detailed information about Web App Manifest please refer to the
-https://developer.mozilla.org/en-US/docs/Web/Manifest[MDN web docs]
+For detailed information about Web App Manifest please refer to the MDN web docs (https://developer.mozilla.org/en-US/docs/Web/Manifest)
 
 == Renaming manifest
 

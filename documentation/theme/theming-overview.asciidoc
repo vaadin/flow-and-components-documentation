@@ -7,18 +7,18 @@ layout: page
 
 Vaadin Flow uses themes to separate the appearance of an application from its logic. 
 
-Themes allow you to customize the look and feel of your application and components. You can use https://www.w3.org/Style/CSS/[Cascading Style Sheets (CSS)] files in combination with the `@CssImport` java annotation to style any content.
+Themes allow you to customize the look and feel of your application and components. You can use Cascading Style Sheets (CSS) (https://www.w3.org/Style/CSS/) files in combination with the `@CssImport` java annotation to style any content.
 
 In this section we cover:
 
-* <<using-component-themes#,Using Themes>>.
-* <<application-theming-basics#,Theming Basics>>.
-* <<theming-crash-course#,Theming Polymer Components>>.
-* <<integrating-component-theme#,Creating a Custom Theme>>.
-* <<tutorial-theming-overlay#,Theming Overlay Components>>.
+* <<using-component-themes#,8.5. _Using Component Themes_>>.
+* <<application-theming-basics#,8.1. _Application Theming Basics_>>.
+* <<theming-crash-course#,8.3. _Theming Web Components_>>.
+* <<integrating-component-theme#,8.2. _Integrating Your Own Component Theme_>>.
+* <<tutorial-theming-overlay#,8.6. _Theming components - Overlay_>>.
 
 [NOTE]
 This content does not cover CSS basics. There are many external resources you can use for this purpose. 
 
 [NOTE]
-If your application includes <<../polymer-templates/tutorial-template-basic#,Polymer components>>, you need to use <<theming-crash-course#using-style-modules,style modules>> for theming.
+If your application includes Polymer components (<<../polymer-templates/tutorial-template-basic#,>>), you need to use style modules for theming. See <<theming-crash-course#,8.3. _Theming Web Components_>> for more.

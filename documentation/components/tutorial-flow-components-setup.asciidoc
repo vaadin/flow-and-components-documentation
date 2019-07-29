@@ -6,11 +6,11 @@ layout: page
 
 = Using Vaadin Components
 
-The Vaadin platform includes a set of https://vaadin.com/components/browse[components], with server-side Java APIs, that you can use to build your UI.
+The Vaadin platform includes a set of components (https://vaadin.com/components/browse), with server-side Java APIs, that you can use to build your UI.
 
 The components, together with Flow, are included as platform dependencies.
 
-TIP: Watch the https://vaadin.com/training/course/view/v10-intro[Vaadin 10+: Intro] free training video to learn more about the Vaadin platform terminology and what Vaadin components are.
+TIP: Watch the Vaadin 10+: Intro (https://vaadin.com/training/course/view/v10-intro) free training video to learn more about the Vaadin platform terminology and what Vaadin components are.
 
 The `vaadin-core` module includes all open-source components, such as TextField, Button and Grid. The `vaadin` module extends this set to include all officially-supported components in the Vaadin platform, like Vaadin Charts.
 
@@ -38,9 +38,9 @@ Using the platform dependency (`com.vaadin:vaadin`) ensures that all available c
 [NOTE]
 It is possible to include components individually by declaring a dependency for each component. See below for an example.
 
-The platform also includes theming for the components that you can edit to ensure the styling suits your UI. See <<../theme/using-component-themes#,Using Component Themes>> for more.
+The platform also includes theming for the components that you can edit to ensure the styling suits your UI. See <<../theme/using-component-themes#,8.5. _Using Component Themes_>> for more.
 
-You can find additional prebuilt Web Components (with Java APIs) contributed by the Vaadin community in the https://vaadin.com/directory/search[Vaadin Directory.]
+You can find additional prebuilt Web Components (with Java APIs) contributed by the Vaadin community in the Vaadin Directory (https://vaadin.com/directory).
 
 == Individual Component Dependencies
 
