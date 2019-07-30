@@ -56,4 +56,4 @@ Here we describe the maven plugin goal's parameters.
     There are three values are available: 
     ** `ALWAY` means rewrite annotations regardless of resource conversation status
     ** `SKIP`  means skip annotations rewrite
-    ** `SKIP_ON_ERROR` means rewrite ony if there are no errors during resource conversation
+    ** `SKIP_ON_ERROR` means rewrite only if there are no errors during resource conversation
