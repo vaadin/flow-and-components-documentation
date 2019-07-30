@@ -111,7 +111,7 @@ Read more about setting configuration parameters <<../advanced/tutorial-all-vaad
 
 To use the new toolset, any existing Vaadin projects with client-side Polymer 2
 based web components must migrate these from Polymer 2 syntax to Polymer 3 (see next section)
-before they can run on V14. There is a migration tool available as a part of maven plugin.
+before they can run on V14. There is a migration tool available as a part of Maven plugin.
 The goal `migrate-to-p3` converts P2 polymer templates to P3 templates and replaces `@HtmlImport` 
 annotations by `@JsModule` annotations, see <<migration-tool#,Migration Tool>> tutorial.
 
@@ -444,7 +444,7 @@ becomes
 [NOTE]
 If you develop an add-on and/or use some existing web component from webjar in your project 
 then migration tool won't be able to rewrite correctly the `@HtmlImport` annotation 
-unless this is a vaadin web component. In this case the `@HtmlImport` will be replaces to `@JsImport` but you
+unless this is a Vaadin web component. In this case the `@HtmlImport` will be replaced by `@JsImport` but you
 should correct the value by yourself since the migration tool is not able to detect the
 scope automatically for the JS module.
 
