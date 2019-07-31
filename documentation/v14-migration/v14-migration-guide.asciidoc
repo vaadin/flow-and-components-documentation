@@ -131,6 +131,9 @@ preferred package management system (Homebrew, dpkg, ...).
 * If you are using Java 9 or newer and `jetty-maven-plugin`, upgrade the
 plugin to version `9.4.15.v20190215` or newer.
 
+* If you are using Spring Boot, note that the minimum required version of 
+spring-boot-starter-parent is `2.1.0.RELEASE`.
+
 === 2 - Update project configuration
 
 ==== Update Platform version in `pom.xml`
@@ -151,8 +154,8 @@ change it to the following:
 ==== Add Vaadin Maven plugin
 
 Next, add the Vaadin Maven plugin to the `<build><plugins>` section of `pom.xml`
-(if your `pom.xml` already included this plugin, only update the goals in the
-`<execution><goals>` section):
+(if your `pom.xml` already included this plugin, update the goals in the
+`<execution><goals>` section and move it out of any profile like `production`):
 
 
 
@@ -292,7 +295,7 @@ static get template() {
 ----
 
 [loweralpha, start=5]
-. Remove `<script>` tag.
+. Remove the `<dom-module>` and `<script>` tags.
 
 As a complete example, the following template
 
