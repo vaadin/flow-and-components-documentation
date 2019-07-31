@@ -25,13 +25,11 @@ which is more convenient to use instead of `@JsModule` for CSS. The migration to
 is not able to convert styles using `@CssImport` annotation. This requires manual
 conversation.
 
-
 The migration tool doesn't preserve HTML comments from your original template files.
-This is done because of some limitations in Modulizer tool which is used internally.
-If HTML comments are important then they should be added manually into the converted P3 files.
-To be able to do *keepOriginal* should be used to prevent removal of the original files.
-By default the original files are removed so there will be no chance to look into
-the source template files. See *keepOriginal* parameter description below.
+Important HTML comments should therefore be manually transferred to the converted P3 files.
+To facilitate this, use the *keepOriginal* parameter to prevent removal of the 
+original template files (by default these are removed). 
+See *keepOriginal* parameter description below.
 
 == Goal parameters
 
