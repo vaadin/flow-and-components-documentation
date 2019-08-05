@@ -46,8 +46,8 @@ have been renewed in Vaadin 14.
 [NOTE]
 The old and the new toolset cannot be used at the same time!
 This means eg. `@HtmlImports` are completely ignored when running the project
-in _npm mode_, and vise versa `@JsModule` is ignored when running the project 
-in _Vaadin 13 in compatibility mode_.
+in _npm mode_, and vice versa `@JsModule` is ignored when running the project
+in _Vaadin 13 compatibility mode_.
 
 === Web Components: ES6 modules instead of HTML Imports
 
@@ -104,18 +104,27 @@ The compatibility mode is only intended to enable a smoother migration path, and
 be used in new projects. The compatibility mode is supported for the full Vaadin
 14 support period, but it will be removed permanently in Vaadin 15.
 
-The framework tries to automatically detect whether the project is in 13 compatibility mode,
-but in some corner cases, it might fail to do that. The compatibility mode can be enforced
-on or off by using the deployment configuration parameter `vaadin.compatibilityMode`.
+Compatibility mode must be enabled explicitly by including the `flow-server-compatibility-mode`
+jar. If using Maven, add the following dependency to `pom.xml`:
+
+[source, xml]
+----
+<dependency>
+    <groupId>com.vaadin</groupId>
+    <artifactId>flow-server-compatibility-mode</artifactId>
+</dependency>
+----
+
+Alternatively, set the deployment configuration parameter `vaadin.compatibilityMode`.
 Read more about setting configuration parameters <<../advanced/tutorial-all-vaadin-properties#,here>>.
+
+== Migration steps
 
 To use the new toolset, any existing Vaadin projects with client-side Polymer 2
 based web components must migrate these from Polymer 2 syntax to Polymer 3 (see next section)
 before they can run on V14. There is a migration tool available as a part of Maven plugin.
-The goal `migrate-to-p3` converts P2 polymer templates to P3 templates and replaces `@HtmlImport` 
+The goal `migrate-to-p3` converts P2 polymer templates to P3 templates and replaces `@HtmlImport`
 annotations by `@JsModule` annotations, see <<migration-tool#,Migration Tool>> tutorial.
-
-== Migration steps
 
 === 1 - Check prerequisites
 
