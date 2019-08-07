@@ -9,8 +9,8 @@ layout: page
 Several steps are required to migrate your project to Vaadin 14 from Vaadin 13, 
 see <<v14-migration-guide#,Vaadin 14 Migration Guide>> tutorial.
 
-Vaadin Maven plugin provides `migrate-to-p3` goal to automate some steps for you.
-This goal does two things:
+The Vaadin Maven plugin has a `migrate-to-p3` goal which automates two steps:
+
 * it uses resources directory (by default it is `src/main/webapp`) to locate
 Polymer 2 templates HTML files, converts them into Polymer 3 format and moves them
 into `frontend` folder inside your project root directory.
