@@ -120,7 +120,7 @@ Alternatively, enable compatibility mode by setting the deployment configuration
  <<../advanced/tutorial-all-vaadin-properties#,here>>.
 
 If using Spring Boot, setting the `vaadin.compatibilityMode` parameter is the mandatory solution
-as the `web.xml`-fragment added by the `flow-server-compatibility-mode` dependency is not read.
+as the `web-fragment.xml` added by the `flow-server-compatibility-mode` dependency is not read.
 Instead, add the following line to `application.properties`
 
 [source, text]
@@ -128,6 +128,15 @@ Instead, add the following line to `application.properties`
 vaadin.compatibilityMode=true
 ----
 
+or, if using Maven, set the property in `pom.xml`:
+
+[source, xml]
+----
+<properties>
+    ...
+    <vaadin.compatibilityMode>true</vaadin.compatibilityMode>
+</properties>
+----
 
 == Migration steps
 
