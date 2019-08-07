@@ -43,7 +43,8 @@ element.getClassList().add("error");
 element.getClassList().add("critical");
 element.getClassList().remove("primary");
 
-element.getProperty("className"); // will return "error critical".
+// will return "error critical".
+element.getProperty("className");
 ----
 
 * The `element.getProperty("className")` method gets a set of all classes as a concatenated string. 
@@ -66,7 +67,8 @@ You can set and remove inline styles for an element using the `Style` object ret
 Element input = ElementFactory.createInput();
 button.setText("Change to the entered value");
 button.addEventListener("click",
-    e -> button.getStyle().set("background",input.getProperty("value")));
+    e -> button.getStyle().set("background",
+            input.getProperty("value")));
 ----
 
 *Example*: Setting and removing style objects using the `element.getStyle()` method. 

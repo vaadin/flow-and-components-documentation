@@ -21,7 +21,8 @@ As an example, if you create a starter project for https://github.com/PolymerEle
 [source, java]
 ----
 @Tag("paper-slider")
-@NpmPackage(value = "@polymer/paper-slider", version = "3.0.1")
+@NpmPackage(value = "@polymer/paper-slider",
+            version = "3.0.1")
 @JsModule("@polymer/paper-slider/paper-slider.js")
 ----
 

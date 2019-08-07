@@ -46,8 +46,8 @@ have been renewed in Vaadin 14.
 [NOTE]
 The old and the new toolset cannot be used at the same time!
 This means eg. `@HtmlImports` are completely ignored when running the project
-in _npm mode_, and vise versa `@JsModule` is ignored when running the project 
-in _Vaadin 13 in compatibility mode_.
+in _npm mode_, and vice versa `@JsModule` is ignored when running the project
+in _Vaadin 13 compatibility mode_.
 
 === Web Components: ES6 modules instead of HTML Imports
 
@@ -104,17 +104,27 @@ The compatibility mode is only intended to enable a smoother migration path, and
 be used in new projects. The compatibility mode is supported for the full Vaadin
 14 support period, but it will be removed permanently in Vaadin 15.
 
-The framework tries to automatically detect whether the project is in 13 compatibility mode,
-but in some corner cases, it might fail to do that. The compatibility mode can be enforced
-on or off by using the deployment configuration parameter `vaadin.compatibilityMode`.
+Compatibility mode must be enabled explicitly by including the `flow-server-compatibility-mode`
+jar. If using Maven, add the following dependency to `pom.xml`:
+
+[source, xml]
+----
+<dependency>
+    <groupId>com.vaadin</groupId>
+    <artifactId>flow-server-compatibility-mode</artifactId>
+</dependency>
+----
+
+Alternatively, set the deployment configuration parameter `vaadin.compatibilityMode`.
 Read more about setting configuration parameters <<../advanced/tutorial-all-vaadin-properties#,here>>.
+
+== Migration steps
 
 To use the new toolset, any existing Vaadin projects with client-side Polymer 2
 based web components must migrate these from Polymer 2 syntax to Polymer 3 (see next section)
-before they can run on V14. Later on there will be a migration tool available that can do this
-automatically, but until then it can be done manually with a few simple steps.
-
-== Migration steps
+before they can run on V14. There is a migration tool available as a part of Maven plugin.
+The goal `migrate-to-p3` converts P2 polymer templates to P3 templates and replaces `@HtmlImport`
+annotations by `@JsModule` annotations, see <<migration-tool#,Migration Tool>> tutorial.
 
 === 1 - Check prerequisites
 
@@ -129,6 +139,9 @@ preferred package management system (Homebrew, dpkg, ...).
 
 * If you are using Java 9 or newer and `jetty-maven-plugin`, upgrade the
 plugin to version `9.4.15.v20190215` or newer.
+
+* If you are using Spring Boot, note that the minimum required version of 
+spring-boot-starter-parent is `2.1.0.RELEASE`.
 
 === 2 - Update project configuration
 
@@ -150,8 +163,8 @@ change it to the following:
 ==== Add Vaadin Maven plugin
 
 Next, add the Vaadin Maven plugin to the `<build><plugins>` section of `pom.xml`
-(if your `pom.xml` already included this plugin, only update the goals in the
-`<execution><goals>` section):
+(if your `pom.xml` already included this plugin, update the goals in the
+`<execution><goals>` section and move it out of any profile like `production`):
 
 
 
@@ -213,6 +226,8 @@ comments about updating annotations in section 5)
 
 === 3 - Convert Polymer 2 to Polymer 3
 
+There is a migration tool available which does this conversation. See <<migration-tool#,Migration Tool>> tutorial.
+
 ==== Templates
 
 Polymer templates defined in HTML files (extension `.html` ) should be converted
@@ -255,6 +270,10 @@ To see what’s the scope of the js module, for vaadin components it’s always
 @vaadin and for other components, you can search the name that comes after
 `bower_components` https://www.npmjs.com/search[here] to find the scope.
 
+[NOTE]
+The migration tool converts all vaadin imports using correct scope automatically for you.
+For other js modules you will need to do it manually.
+
 [loweralpha, start=4]
 . Move the template from HTML into a static getter named `template` inside
 the element class which extends `PolymerElement`.
@@ -285,7 +304,7 @@ static get template() {
 ----
 
 [loweralpha, start=5]
-. Remove `<script>` tag.
+. Remove the `<dom-module>` and `<script>` tags.
 
 As a complete example, the following template
 
@@ -323,8 +342,8 @@ becomes
 [source, js]
 ----
 import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
-import '@vaadin/vaadin-button/vaadin-button.js';
-import '@vaadin/vaadin-text-field/vaadin-text-field.js';
+import '@vaadin/vaadin-button/src/vaadin-button.js';
+import '@vaadin/vaadin-text-field/src/vaadin-text-field.js';
 
 class TopBarElement extends PolymerElement {
     static get template() {
@@ -396,6 +415,13 @@ documentContainer.innerHTML = `
 document.head.appendChild(documentContainer.content);
 ----
 
+[NOTE]
+The migration tool takes care about style files and `@StyleSheet` annotations
+converting them into `@JsModule`. But there is `@CssImport` annotation available
+which is more convenient to use instead of `@JsModule` for CSS. The migration tool
+is not able to convert styles using `@CssImport` annotation. This requires manual 
+conversation.
+
 ==== Polymer modulizer
 
 For more complex cases you can use
@@ -405,6 +431,8 @@ will also release later a migration tool that helps convert a Vaadin 14 applicat
 in the compatibility mode to Vaadin 14 running the new toolset.
 
 === 4 - Update Java annotations
+
+The migration tool is able to do this step for you automatically, see <<migration-tool#,Migration Tool>> tutorial. 
 
 After converting Polymer templates from HTML to JavaScript modules, every
 `HtmlImport` annotation in Java classes should be changed to a `JsModule`
@@ -423,6 +451,14 @@ becomes
 ----
 @JsModule("./my-templates/top-bar.js")
 ----
+
+
+[NOTE]
+If you develop an add-on and/or use some existing web component from webjar in your project 
+then migration tool won't be able to rewrite correctly the `@HtmlImport` annotation 
+unless this is a Vaadin web component. In this case the `@HtmlImport` will be replaced by `@JsImport` but you
+should correct the value by yourself since the migration tool is not able to detect the
+scope automatically for the JS module.
 
 === 5 - Remove frontend protocol
 

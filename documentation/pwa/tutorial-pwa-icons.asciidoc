@@ -45,9 +45,12 @@ src/main/webapp/icons/icons/icon-1125x2436.png
 To change the used icon path give custom path in `@PWA` -annotation property *iconPath*.
 
 Example
-```
-@PWA(name = "My Progressive Web Application", shortname = "MyPWA", iconPath = "img/icons/logo.png")
-```
+[source,java]
+----
+@PWA(name = "My Progressive Web Application",
+     shortName = "MyPWA",
+     iconPath = "img/icons/logo.png")
+----
 
 Then place the icon to
 ```

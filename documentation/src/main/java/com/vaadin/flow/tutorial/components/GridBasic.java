@@ -202,7 +202,8 @@ public class GridBasic {
         grid.getColumnByKey("address.postalCode")
                 .setSortable(false);
 
-        // All columns except "name" and "yearOfBirth" will be not sortable
+        // All columns except "name" and "yearOfBirth"
+        // will be not sortable
         grid.setSortableColumns("name", "yearOfBirth");
     }
 

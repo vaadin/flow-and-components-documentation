@@ -52,7 +52,8 @@ public class UsingComponentThemes {
     }
 
     @Theme(MyTheme.class)
-    public class MainLayout extends Div implements RouterLayout {
+    public class MainLayout extends Div
+            implements RouterLayout {
     }
 
     @Route(value = "", layout = MainLayout.class)
