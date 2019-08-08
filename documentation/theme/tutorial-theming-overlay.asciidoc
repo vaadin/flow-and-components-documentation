@@ -34,7 +34,7 @@ Attributes from the main component are not copied to the overlay component, e.g.
 
 The theme attribute is an exception to the above, and it is copied to the overlay component, allowing styling of individual overlays.
 
-To style an overlay component it is necessary to create a style CSS module, target the stylable parts, instruct flow to import it as a module targeting the specific component, and set the `theme` atribute to the main component in your view:
+To style an overlay component it is necessary to create a style CSS module, target the stylable parts, instruct flow to import it as a module targeting the specific component, and set the `theme` attribute to the main component in your view:
 
 .frontend/styles/my-overlay-theme.css
 [source,css]
