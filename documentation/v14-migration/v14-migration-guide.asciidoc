@@ -121,21 +121,11 @@ Alternatively, enable compatibility mode by setting the deployment configuration
 
 If using Spring Boot, setting the `vaadin.compatibilityMode` parameter is the mandatory solution
 as the `web-fragment.xml` added by the `flow-server-compatibility-mode` dependency is not read.
-Instead, add the following line to `application.properties`
+To set the property, you may add the following line to `application.properties`:
 
 [source, text]
 ----
 vaadin.compatibilityMode=true
-----
-
-or, if using Maven, set the property in `pom.xml`:
-
-[source, xml]
-----
-<properties>
-    ...
-    <vaadin.compatibilityMode>true</vaadin.compatibilityMode>
-</properties>
 ----
 
 == Migration steps
