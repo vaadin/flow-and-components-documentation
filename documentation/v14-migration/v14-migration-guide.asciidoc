@@ -104,7 +104,7 @@ The compatibility mode is only intended to enable a smoother migration path, and
 be used in new projects. The compatibility mode is supported for the full Vaadin
 14 support period, but it will be removed permanently in Vaadin 15.
 
-Compatibility mode must be enabled explicitly by including the `flow-server-compatibility-mode`
+Compatibility mode can be enabled explicitly by including the `flow-server-compatibility-mode`
 jar. If using Maven, add the following dependency to `pom.xml`:
 
 [source, xml]
@@ -115,8 +115,18 @@ jar. If using Maven, add the following dependency to `pom.xml`:
 </dependency>
 ----
 
-Alternatively, set the deployment configuration parameter `vaadin.compatibilityMode`.
-Read more about setting configuration parameters <<../advanced/tutorial-all-vaadin-properties#,here>>.
+Alternatively, enable compatibility mode by setting the deployment configuration parameter
+`vaadin.compatibilityMode` to `true`. Read more about setting configuration parameters
+ <<../advanced/tutorial-all-vaadin-properties#,here>>.
+
+If using Spring Boot, setting the `vaadin.compatibilityMode` parameter is the mandatory solution
+as the `web-fragment.xml` added by the `flow-server-compatibility-mode` dependency is not read.
+To set the property, you may add the following line to `application.properties`:
+
+[source, text]
+----
+vaadin.compatibilityMode=true
+----
 
 == Migration steps
 
