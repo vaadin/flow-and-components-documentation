@@ -1,5 +1,5 @@
 ---
-title: How to Run and Deploy and Flow Application on Jetty
+title: How to Run and Deploy a Flow Application on Jetty
 order: 4
 layout: page
 ---
