@@ -16,7 +16,7 @@ There are multiple ways to interact with a web component but the typical pattern
 
 == Setting and reading properties
 
-You can typically find out what properties an element supports from its JavaScript docs. E.g., for paper-slider: https://www.webcomponents.org/element/@polymer/paper-slider/elements/paper-slider.
+You can typically find out what properties an element supports from its JavaScript docs. E.g., for paper-slider: https://www.npmjs.com/package/@polymer/paper-slider.
 The slider has a boolean property called `pin` which defines if "a pin with numeric value label is shown when the slider thumb is pressed".
 To create the corresponding Java setter-getter API, you can add:
 
@@ -78,10 +78,19 @@ In the common case where `getValue()` is based on a single element property, the
 ----
 public class PaperSlider extends AbstractSinglePropertyField<PaperSlider, Integer> {
 
+    private static final PropertyDescriptor<Boolean, Boolean> pinProperty = PropertyDescriptors.propertyWithDefault("pin", false);
+
     public PaperSlider() {
         super("value", 0, false);
     }
 
+    public void setPin(boolean pin) {
+        pinProperty.set(this, pin);
+    }
+
+    public boolean isPin() {
+        return pinProperty.get(this);
+    }
 }
 ----
 
@@ -135,6 +144,7 @@ public class ClickEvent extends ComponentEvent<PaperSlider> {
     public ClickEvent(PaperSlider source, boolean fromClient, @EventData("event.offsetX") int x, @EventData("event.offsetY") int y) {
         super(source, fromClient);
         this.x = x;
+        this.y = y;
     }
     public int getX() {
         return x;
@@ -250,6 +260,23 @@ public class PaperSlider extends AbstractSinglePropertyField<PaperSlider, Intege
     public void increment() {
         getElement().callJsFunction("increment");
     }
+    @DomEvent("click")
+    public static class ClickEvent extends ComponentEvent<PaperSlider> {
+
+        private int x,y;
+
+        public ClickEvent(PaperSlider source, boolean fromClient, @EventData("event.offsetX") int x, @EventData("event.offsetY") int y) {
+            super(source, fromClient);
+            this.x = x;
+            this.y = y;
+        }
+        public int getX() {
+            return x;
+        }
+        public int getY() {
+            return y;
+        }
+    }
 }
 ----
 
@@ -337,7 +364,7 @@ public void setIcon(VaadinIcon icon) {
 The first part is the same but in the second part, the element with the correct tag name `<iron-icon>` is created manually
 and the `icon` attribute is set to the correct value, defined in `vaadin-icons.html`, e.g. `icon="vaadin:check"` for `VaadinIcon.CHECK`.
 The element is then attached to the `<vaadin-button>` element, after removing any previous content.
-With this approach you must also ensure that the `vaadin-button.html` dependency is loaded, otherwise handled by the `Icon` component class:
+With this approach you must also ensure that the `vaadin-button.js` dependency is loaded, otherwise handled by the `Icon` component class:
 
 [source, java]
 ----
