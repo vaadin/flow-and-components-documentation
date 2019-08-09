@@ -50,7 +50,7 @@ embedding application).
  of the exported component (e.g. add a listener to the original component).
 * Deploy your Vaadin application.
 * Embed a Vaadin application to your page
- ** Import web component URL resource from the embedded Vaadin application. Here is the example: `<link rel='import' href='YOUR_EMBEDDED_APPLICATION_URI/web-component/my-component.js'>`.
+ ** Import web component URL resource from the embedded Vaadin application. Here is the example: `<script type='module' src='YOUR_EMBEDDED_APPLICATION_URI/web-component/my-component.js'></script>`.
 * Use the embedded web component inside your HTML code via the tag name which you have assigned to it. E.g. `<my-component></my-component>`.
 
 Example notes:
