@@ -63,7 +63,7 @@ class MyView extends PolymerElement {
     return html`
       <style>
         :host {
-          /* Styles for the `<my-view>`
+          /* Styles for the <my-view>
              hosting element */
           display: block;
         }
