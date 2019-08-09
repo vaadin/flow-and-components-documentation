@@ -32,7 +32,7 @@ public class MyTheme implements AbstractTheme {
 }
 ----
 
-For more control there is `getBodyInlineContents()` that returns a collection of html
+For more control there is `getHeaderInlineContents()` that returns a collection of html
 that will be inlined to the BootstrapPage body. For instance, it can be used to add a
 custom style to have the correct typography:
 [source,java]
@@ -47,11 +47,11 @@ public List<String> getHeaderInlineContents() {
 ----
 
 Your theme can also support variants. For instance, Lumo theme supports both light and dark variants.
-To add support for variants, you can override the `getBodyAttributes`  method:
+To add support for variants, you can override the `getHtmlAttributes`  method:
 [source,java]
 ----
 @Override
-public Map<String, String> getBodyAttributes(
+public Map<String, String> getHtmlAttributes(
         String variant) {
     if ("dark".equals(variant)) {
        // the <body> element will have the "theme"
