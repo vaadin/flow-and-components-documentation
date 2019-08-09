@@ -174,9 +174,7 @@ change it to the following:
 
 Next, add the Vaadin Maven plugin to the `<build><plugins>` section of `pom.xml`
 (if your `pom.xml` already included this plugin, update the goals in the
-`<execution><goals>` section and move it out of any profile like `production`):
-
-
+`<execution><goals>` section):
 
 [source, xml]
 ----
@@ -191,7 +189,6 @@ Next, add the Vaadin Maven plugin to the `<build><plugins>` section of `pom.xml`
                 <execution>
                     <goals>
                         <goal>prepare-frontend</goal>
-                        <goal>build-frontend</goal>
                     </goals>
                 </execution>
             </executions>
@@ -200,19 +197,46 @@ Next, add the Vaadin Maven plugin to the `<build><plugins>` section of `pom.xml`
 </build>
 ----
 
-
 The `prepare-frontend` goal checks that Node.js and npm are installed and
 creates or updates `package.json` based on annotations in the project Java code.
 It also creates `webpack.config.js` if it doesn’t exist yet (if needed, you can
 add your own customized webpack configuration to this file, as it will not be
 overwritten by future invocations of `prepare-frontend`).
 
+[NOTE]
+In V14, you need the `vaadin-maven-plugin` also in development mode.
+So, make sure that you declare the plugin with `prepare-frontend` in your default Maven
+profile.
+
+For the production profile plugin you need to have the goal `build-frontend`:
+
+{source, xml]
+----
+<profile>
+    <id>production-mode</id>
+    ...
+    <build>
+        <plugins>
+            ...
+            <plugin>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-maven-plugin</artifactId>
+                <version>${vaadin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build-frontend</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</profile>
+----
+
 The goal `build-frontend` invokes npm to download and cache the npm packages
 (into directory node_modules) and webpack to process the JavaScript modules.
-Note that in V14, you need the `vaadin-maven-plugin` also in development mode.
-So, make sure that you declare the plugin dependency in your default Maven
-profile. This also means that you can remove the `vaadin-maven-plugin` from your
-production profile.
 
 ==== Move contents of src/main/webapp/frontend
 
