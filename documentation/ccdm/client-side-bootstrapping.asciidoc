@@ -5,29 +5,32 @@ layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
+
+WARNING: CCDM is a temporary internal name that might change in the definitive release. This documentation covers the concepts and API as it's being implemented in alpha or pre-beta period, and it might change without any advise.
+
 = Client-side Bootstrapping
 
-Client-side bootstrapping mode is not enabled by default. To turn it on, you need to provide the property `vaadin.clientSideMode=true` as a system property or maven plugin property while building/running an application, e.g. running in dev-mode with client-side bootstrapping enabled: `mvn jetty:run -Dvaadin.clientSideMode`.
+Client-side bootstrapping mode is not enabled by default. To turn it on, you need to provide the property `vaadin.clientSideMode=true` as a system property or maven plugin property while building/running an application, e.g. running in dev-mode with client-side bootstrapping enabled: `mvn jetty:run -Dvaadin.clientSideMode`. It can be also be provided as a servlet container deployment property with the name `clientSideMode`.
 
 === Bootstrap page template
 
-In this `clientSideMode`, instead of generating HTML content in on the server-side, the server uses `frontend/index.html` file as a template to generate the bootstrap page. It processes the template and injects the following additional information:
+In this `clientSideMode`, instead of generating the full HTML content of the host application page, the server uses `frontend/index.html` file as a template to generate the bootstrap page. It processes the template and injects the following additional information:
 
   - `<base href='./relative/to/root'>`: Flow calculates the relative path from the current request path to the root path of the application. So that all the relative links in the template should work correctly.
 
-  - Bundled scripts: Flow adds the bundled scripts which are generated from `frontend/index.js` (or `frontend/index.ts`) and other imported modules. Therefore, in the template `frontend/index.html`, there is no need to include the `index.js` (or `index.ts`) script manually. That will be done automatically by the server when serving the bootstrap page.
+  - Bundled script: Flow adds the bundled script which is generated from `frontend/index.js` (or `frontend/index.ts` if you prefer develop in TypeScript) by webpack (the module bundler used in Flow). Therefore, in the template `frontend/index.html`, there is no need to include the `index.js` (or `index.ts`) script manually. That will be done automatically by the server when serving the bootstrap page.
 
-By using this approach, you can optimize your application to load a minimal page which can quickly show to users. This might reduce the first-loading time compared to the old bootstrapping method which loads a full Vaadin application on the first request. As a result, the first request will load promptly and it will boost the first interaction experience.
+By using this approach, you can optimize your application to load the minimal content to be displayed to users at the first load. This might reduce the first-loading time compared to the old bootstrapping method which loads a full Vaadin application on the first request. As a result, the first request will load promptly ant it will boost the first interaction experience.
 
-NOTE: The frontend directory can be customized by providing the property `vaadin.frontend.frontend.folder` when running the Maven `prepare-frontend` task or `build-frontend`(from `vaadin-maven-plugin`).
+NOTE: The frontend directory can be customized by providing the property `vaadin.frontend.frontend.folder` when running the Maven goals `prepare-frontend`  or `build-frontend` from `vaadin-maven-plugin`.
 
-WARNING: The `index.html` template is always required in frontend directory when `clienSideMode` is active. An exception would be thrown when `index.html` is missing.
+WARNING: The `index.html` template is always required in frontend directory when `clienSideMode` is active. An exception would be thrown when the presence of `index.html` is missing from the frontend directory.
 
 === Modifying the bootstrap page on run-time
 
-Before sending the bootstrap page response to the browser, the content could be modified via a `ClientIndexBootstrapListener`. An implementation of the listener should be added via `ServiceInitEvent` when a VaadinService is initialized. Take a look on the <<../advanced/tutorial-service-init-listener#,ServiceInitListener tutorial>> on how to configure it.
+Before sending the bootstrap page response to the browser, the content can be modified via a `ClientIndexBootstrapListener`. An implementation of the listener should be added via `ServiceInitEvent` when a VaadinService is initialized. Take a look on the <<../advanced/tutorial-service-init-listener#,ServiceInitListener tutorial>> on how to configure it.
 
-Here is an example implmenetation of `ClientIndexBootstrapListener` to add additional meta tags into the head of the bootstrap page:
+Here is an example implementation of `ClientIndexBootstrapListener` to add additional meta tags into the head of the bootstrap page:
 
 [source,java]
 ----
