@@ -1,10 +1,10 @@
 ---
-title: Migration Tool
+title: P2 to P3 Template Migration Tool
 order: 2
 layout: page
 ---
 
-= Migration Tool
+= P2 to P3 Template Migration Tool
 
 Several steps are required to migrate your project to Vaadin 14 from Vaadin 13, 
 see <<v14-migration-guide#,Vaadin 14 Migration Guide>> tutorial.
@@ -17,6 +17,16 @@ into `frontend` folder inside your project root directory.
 * it finds all Java class declarations annotated with `@HtmlImport` and `@StyleSheet` 
 in the project source files and rewrites annotation to `@JsModule` annotation along with path 
 (`value` parameter) update.
+
+This goal can be executed from command line with
+
+```
+mvn vaadin:migrate-to-p3
+```
+
+or with most IDEs from a list of configured Maven plugin goals for a project.
+During August 2019 the template migration tool will also become available as a Java executable for
+non-Maven projects.
 
 [NOTE]
 The migration tool takes care about style files and `@StyleSheet` annotations
