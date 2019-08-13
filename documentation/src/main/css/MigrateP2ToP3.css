@@ -1,0 +1,12 @@
+tutorial::theme/migrate-p2-to-p3.asciidoc
+
+:host {
+  background-color: var(--lumo-shade-5pct) !important;
+}
+[part="content"] {
+  height: 100%;
+}
+
+.v-system-error {
+  color: red;
+}

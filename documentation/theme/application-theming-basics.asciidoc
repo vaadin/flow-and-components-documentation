@@ -60,25 +60,26 @@ Lumo only loads the styles/themes required for the components that you use.
 
 == Application Theme - What and Where?
 
-The application can be themed by using CSS, but to be able to theme Polymer web components,
-you should put the CSS content in a `.js` file that needs to be imported using ES6 `import` statement,
-and then wrapped with the appropriate HTML tags.
+The application can be themed with CSS, but to be able to theme Polymer Web Components,
+you need to instruct flow to import it by using the `@CssImport` annotation.
 
-The recommended convention is to always put the application wide shared styles inside the
-`frontend` folder to subdirectory `styles` with the file name `shared-styles.js`,
-thus the full path should be `frontend/styles/shared-styles.js`.
-
-This file needs to be imported by using the `@JsModule` annotation in the application.
+The recommendation is to always put the application wide shared styles in the
+`styles` subdiretory inside the `frontend` folder with the name `shared-styles.css`,
+thus the full path should be `frontend/styles/shared-styles.css`.
 
 [NOTE]
-Use the `@StyleSheet` annotation for those files that do not need to be imported as ES6 modules.
+In addition to `@CssImport`, you can use the `@StyleSheet` classic annotation for those
+files that do not need to be imported as ES6 modules, hence, instead of being added to the
+application bundle, those files will be loaded dynamically by using the `<style>` tag.
+Styles loaded in this way cannot target the internals of Polymer Web Components.
 
 .Sample of a importing the application theme file
 [source,java]
 ----
-@JsModule("./styles/shared-styles.js")
+@CssImport("./styles/shared-styles.css")
 @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
-public class MainLayout extends Div implements RouterLayout {
+public class MainLayout extends Div
+         implements RouterLayout {
 }
 ----
 
@@ -86,10 +87,11 @@ public class MainLayout extends Div implements RouterLayout {
 As seen on the <<using-component-themes#,Using Component Themes>> tutorial, the Lumo theme is used by
 default if it is available in the classpath and no other `@Theme` is defined.
 
-The contents of the `shared-styles.js` are discussed further in <<theming-crash-course#,the next chapter>>.
+The contents of the `shared-styles.css` are discussed further in <<theming-crash-course#,the next chapter>>.
 The recommendation is that the file contains all the application global and view specific theming.
 
-For any custom components in your application, you might have the styling that only applies to the component, inside its `.js` file.
+For any custom components in your application, you might have the styling that only applies to the component,
+inside the `template` block in its `.js` file.
 
 There is an example of this in the <<theming-crash-course#,Theming Crash Course>> chapter too.
 

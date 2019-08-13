@@ -13,7 +13,8 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("web-components/integrating-a-web-component.asciidoc")
 @Tag("paper-slider")
-@NpmPackage(value = "@polymer/paper-slider", version = "3.0.1")
+@NpmPackage(value = "@polymer/paper-slider",
+        version = "3.0.1")
 @JsModule("@polymer/paper-slider/paper-slider.js")
 public class PaperSlider
         extends AbstractSinglePropertyField<PaperSlider, Integer> {

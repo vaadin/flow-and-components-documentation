@@ -34,55 +34,49 @@ Attributes from the main component are not copied to the overlay component, e.g.
 
 The theme attribute is an exception to the above, and it is copied to the overlay component, allowing styling of individual overlays.
 
-To style an overlay component it is necessary to create a style/theme module, in the same way that is done for other components, and target the stylable parts, optionally scoped with a theme variant selector:
+To style an overlay component it is necessary to create a style CSS module, target the stylable parts, instruct flow to import it as a module targeting the specific component, and set the `theme` attribute to the main component in your view:
 
-.frontend/styles/my-overlay-theme.js
-[source,js]
+.frontend/styles/my-overlay-theme.css
+[source,css]
 ----
-const $_documentContainer = document.createElement('template');
-$_documentContainer.innerHTML = `<dom-module id="..." theme-for="vaadin-*-overlay">
-    <template>
-        <style>
-            :host([theme~="custom-theme-variant"]) [part~="overlay"] {
-                ...
-            }
-        </style>
-    </template>
-</dom-module>`;
-document.head.appendChild($_documentContainer.content);
+:host([theme~="custom-theme-variant"]) [part~="overlay"]
+{
+}
 ----
 
 .MyApplication.java
 [source,java]
 ----
 @Route(value = "")
-@JsModule("./styles/my-overlay-theme.js")
+@CssImport(value = "./styles/my-overlay-theme.css",
+           themeFor = "vaadin-*-overlay")
 public class MyApplication extends Div {
 }
 ----
 
-In the case of vaadin-dialog-overlay
-
-.frontend/styles/my-dialog-overlay-theme.js
-[source,js]
+.MyView.java
+[source,java]
 ----
-const $_documentContainer = document.createElement('template');
-$_documentContainer.innerHTML = `<dom-module id="my-vaadin-dialog-theme" theme-for="vaadin-dialog-overlay">
-    <template>
-        <style>
-            [part="backdrop"] {
-                ...
-            }
-            [part="overlay"] {
-                ...
-            }
-            [part="content"] {
-                ...
-            }
-        </style>
-    </template>
-</dom-module>`;
-document.head.appendChild($_documentContainer.content);
+public class MyView extends VerticalLayout {
+    public MyView() {
+        Dialog dialog = new Dialog();
+        dialog.getElement().setAttribute("theme",
+                "custom-theme-variant");
+    }
+}
+----
+
+If you want to be more specific, and target overlays of `vaadin-dialog`, do not use wildcards in the `themeFor` and target the `vaadin-dialog-overlay` element.
+
+.frontend/styles/my-dialog-overlay-theme.css
+[source,css]
+----
+[part="backdrop"] {
+}
+[part="overlay"] {
+}
+[part="content"] {
+}
 ----
 
 
@@ -90,7 +84,8 @@ document.head.appendChild($_documentContainer.content);
 [source,java]
 ----
 @Route(value = "")
-@JsModule("./styles/my-dialog-overlay-theme.js")
+@CssImport(value="./styles/my-dialog-overlay-theme.css",
+           themeFor = "vaadin-dialog-overlay")
 public class MyApplicationWithDialog extends Div {
 }
 ----

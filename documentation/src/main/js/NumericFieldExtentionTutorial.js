@@ -1,6 +1,8 @@
 // tutorial::creating-components/tutorial-extending-component.asciidoc
-import {html} from '@polymer/polymer/lib/utils/html-tag.js';
-import {TextFieldElement} from '@vaadin/vaadin-text-field/src/vaadin-text-field.js';
+import {html} from
+        '@polymer/polymer/lib/utils/html-tag.js';
+import {TextFieldElement} from
+        '@vaadin/vaadin-text-field/src/vaadin-text-field.js';
 
 let memoizedTemplate;
 
@@ -8,13 +10,22 @@ class NumberFieldElement extends TextFieldElement {
 
     static get template() {
         if (!memoizedTemplate) {
-            const superTemplate = super.template.cloneNode(true);
-            const inputField = superTemplate.content.querySelector('[part="input-field"]');
-            const prefixSlot = superTemplate.content.querySelector('[name="prefix"]');
-            const decreaseButton = html`<div part="decrease-button" on-click="_decreaseValue"></div>`;
-            const increaseButton = html`<div part="increase-button" on-click="_increaseValue"></div>`;
-            inputField.insertBefore(decreaseButton.content, prefixSlot);
-            inputField.appendChild(increaseButton.content);
+            const superTemplate = super.template
+                    .cloneNode(true);
+            const inputField = superTemplate.content
+                .querySelector('[part="input-field"]');
+            const prefixSlot = superTemplate.content
+                .querySelector('[name="prefix"]');
+            const decreaseButton = html`<div 
+part="decrease-button" 
+on-click="_decreaseValue"></div>`;
+            const increaseButton = html`<div 
+part="increase-button" 
+on-click="_increaseValue"></div>`;
+            inputField.insertBefore(
+                decreaseButton.content, prefixSlot);
+            inputField.appendChild(
+                increaseButton.content);
             memoizedTemplate = html`<style>
                  [part="decrease-button"]::before {
                    content: "−";
@@ -48,7 +59,8 @@ class NumberFieldElement extends TextFieldElement {
               observer: '_incrementChanged'
             }
 
-            // Note: the value is stored in the TF's value property.
+            // Note: the value is stored in the
+            // TF's value property.
         };
     }
 
@@ -62,7 +74,8 @@ class NumberFieldElement extends TextFieldElement {
 
     __add(value) {
         this.value = parseInt(this.value, 10) + value;
-        this.dispatchEvent(new CustomEvent('change', {bubbles: true}));
+        this.dispatchEvent(
+            new CustomEvent('change', {bubbles: true}));
     }
 
     _valueChanged(newVal, oldVal) {

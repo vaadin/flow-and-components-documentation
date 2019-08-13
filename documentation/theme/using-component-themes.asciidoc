@@ -31,7 +31,7 @@ public class LumoApplication extends Div {
 }
 ----
 
-.Sample setup to get Lumo themed components if the `Lumo.class` is in the 'classpath'.
+.Sample setup to get Lumo themed components if the 'Lumo.class' is in the 'classpath'.
 [source,java]
 ----
 @Route(value = "")
@@ -62,11 +62,12 @@ public class MaterialApplication extends Div {
 }
 ----
 
-.Sample setup using a custom @Theme in RouterLayout
+.Sample setup using a custom '@Theme' in 'RouterLayout'
 [source,java]
 ----
 @Theme(MyTheme.class)
-public class MainLayout extends Div implements RouterLayout {
+public class MainLayout extends Div
+        implements RouterLayout {
 }
 
 @Route(value = "", layout = MainLayout.class)
@@ -105,7 +106,9 @@ Multiple variants can be applied to the element, if specified separated by white
 .Html representation of the variants
 [source,html]
 ----
-<vaadin-button theme="contrast primary">Themed button</vaadin-button>
+<vaadin-button theme="contrast primary">
+    Themed button
+</vaadin-button>
 ----
 
 There are two types of variants: theme variants, specific for the current theme and working globally
@@ -170,8 +173,8 @@ you can use `addThemeVariants` method:
 [source,java]
 ----
 Button button = new Button("Themed button");
-        button.addThemeVariants(ButtonVariant.LUMO_PRIMARY,
-                ButtonVariant.LUMO_CONTRAST);
+button.addThemeVariants(ButtonVariant.LUMO_PRIMARY,
+        ButtonVariant.LUMO_CONTRAST);
 ----
 
 For each component, there is a predefined set of variants that you can use.
@@ -185,11 +188,12 @@ and those representations are added to the `theme` attribute values.
 If the component implements `HasTheme` interface (which is true for every component that has `addThemeVariants` method),
 then the following API can be used:
 
-.Adding theme values for the component that implements `HasTheme` interface
+.Adding theme values for the component that implements 'HasTheme' interface
 [source,java]
 ----
 Button button = new Button("Themed button");
-button.getThemeNames().addAll(Arrays.asList("contrast", "primary"));
+button.getThemeNames().addAll(
+        Arrays.asList("contrast", "primary"));
 ----
 
 If you want more flexibility (which may come in handy when adding non-standard theme variants to the component),
@@ -199,12 +203,14 @@ you can manipulate the value of the `theme` attribute directly:
 [source,java]
 ----
 Button button = new Button("Themed button");
-        String themeAttributeName = "theme";
-        String oldValue = button.getElement().getAttribute(themeAttributeName);
-        String variantsToAdd = "contrast primary";
-        button.getElement().setAttribute(themeAttributeName,
-                oldValue == null || oldValue.isEmpty() ? variantsToAdd
-                        : ' ' + variantsToAdd);
+String themeAttributeName = "theme";
+String oldValue = button.getElement()
+        .getAttribute(themeAttributeName);
+String variantsToAdd = "contrast primary";
+button.getElement().setAttribute(themeAttributeName,
+        oldValue == null || oldValue.isEmpty() ?
+            variantsToAdd
+            : ' ' + variantsToAdd);
 ----
 
 Each of the three examples above do the very same thing in the end:
@@ -226,8 +232,10 @@ dependency is present in the classpath, LumoTheme is used.
 The compact preset for Lumo defines values for the sizing and spacing properties to reduce the visual space required by components to better fit a large amount of content on the screen. Annotate the main layout as follows to enable the compact preset:
 [source,java]
 ----
-@JsModule("frontend://bower_components/vaadin-lumo-styles/presets/compact.js")
+@JsModule("frontend://bower_components/" +
+          "vaadin-lumo-styles/presets/compact.js")
 @Theme(Lumo.class)
-public class CompactMainLayout extends Div implements RouterLayout {
+public class CompactMainLayout extends Div
+        implements RouterLayout {
 }
 ----

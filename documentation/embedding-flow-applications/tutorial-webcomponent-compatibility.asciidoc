@@ -40,7 +40,9 @@ mode you should just use `script` tag for the web component instead of `link`:
 
 [source, html]
 ----
-<script type='text/javascript' src='/vaadin/web-component/login-form.html'></script>
+<script type='text/javascript'
+        src='/vaadin/web-component/login-form.html'>
+</script>
 ----
 
 In production mode the generated `login-form.html` content is just a JavaScript code
