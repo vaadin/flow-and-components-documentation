@@ -16,6 +16,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @NpmPackage(value = "@polymer/paper-slider",
         version = "3.0.1")
 @JsModule("@polymer/paper-slider/paper-slider.js")
+@JsModule("./my-local-module.js")
 public class PaperSlider
         extends AbstractSinglePropertyField<PaperSlider, Integer> {
 
