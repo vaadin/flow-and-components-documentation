@@ -24,7 +24,7 @@ By using this approach, you can optimize your application to load the minimal co
 
 NOTE: The frontend directory can be customized by providing the property `vaadin.frontend.frontend.folder` when running the Maven goals `prepare-frontend`  or `build-frontend` from `vaadin-maven-plugin`.
 
-WARNING: The `index.html` template is always required in frontend directory when `clienSideMode` is active. An exception would be thrown when the presence of `index.html` is missing from the frontend directory.
+WARNING: The presence of `index.html` template is always required in the frontend directory when `clienSideMode` is active. An exception would be thrown when `index.html` is missing.
 
 === Modifying the bootstrap page on run-time
 
