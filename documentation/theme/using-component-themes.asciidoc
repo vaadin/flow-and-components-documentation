@@ -99,7 +99,7 @@ If the Theme annotation is not on a `@Route` Component or a top `RouterLayout` a
 == Theme variants
 
 A variant is a special string value that can be placed in the `theme` attribute value of any custom element.
-When the corresponding theme enabled, those values change the components' visual appearance.
+When the corresponding theme is enabled, those values change the components' visual appearance.
 
 Multiple variants can be applied to the element, if specified separated by whitespace:
 
@@ -111,14 +111,14 @@ Multiple variants can be applied to the element, if specified separated by white
 </vaadin-button>
 ----
 
-There are two types of variants: theme variants, specific for the current theme and working globally
+There are two types of variants: theme variants, specific for the current theme and working globally,
 and component variants, specific to the current component and theme.
 Different themes and different components may have different sets of variants (or none).
 
 == Available Themes and Customizations
 
-In Vaadin Platform there are two ready-made component themes: _Lumo_ (which is the main theme for all Vaadin components) and _Material_ one.
-Both themes give you a full set of building blocks to build a modern looking web application that works just as well on desktop and on mobile.
+In Vaadin Platform there are two ready-made component themes: _Lumo_ (which is the main theme for all Vaadin components) and _Material._
+Both themes give you a full set of building blocks to build a modern-looking web application that works just as well on desktop as on mobile.
 
 The Flow integration for both Lumo and Material themes are a part of the `vaadin-core` dependency. The previous chapter shows how to take those to use.
 In order to use Lumo theme, you can explicitly declare `@Theme(Lumo.class)` on the navigation target or omit it completely, since the default behavior is to use Lumo if available in the classpath.
@@ -221,11 +221,10 @@ and look under the _Lumo Theme_ tab for examples of the variants.
 
 [NOTE]
 Theme variants for components work only when the corresponding theme is enabled.
-If a different theme or no theme is enabled, then with variants present in `theme` attribute of the corresponding component,
-no actual changes for the component's look and feel are made.
+If a different theme or no theme is enabled, no actual changes for the component's look and feel are made even if theme variants are set.
 
-As was mentioned earlier, by default, if no explicit theme configuration is done and `vaadin-lumo-theme`
-dependency is present in the classpath, LumoTheme is used.
+To reiterate an earlier point: by default, if no explicit theme configuration is done and `vaadin-lumo-theme`
+dependency is present in the classpath, Lumo theme is used.
 
 === Using Vaadin theme presets
 
