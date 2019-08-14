@@ -13,7 +13,7 @@ layout: page
 
 These concepts go hand in hand, because validation can be based on a converted value, and the ability to convert a value is a kind of validation in itself.
 
-Vaadin Flow includes several validators and converters that you can implement.
+Vaadin includes several validators and converters that you can implement.
 
 == Validating User Input
 
