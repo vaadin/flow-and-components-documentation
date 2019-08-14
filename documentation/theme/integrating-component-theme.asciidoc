@@ -7,7 +7,7 @@ layout: page
 = Integrating Your Own Component Theme
 
 To create your own component theme to be used with the wrapped Vaadin components
-you need to create a theme class that informs flow how to translate the base un-themed
+you need to create a theme class that informs Vaadin how to translate the base un-themed
 component html import to use your themed version.
 
 The `getBaseUrl` should return the part of the import that can be used to determine if
