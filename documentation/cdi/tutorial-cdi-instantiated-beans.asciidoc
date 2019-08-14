@@ -102,7 +102,7 @@ A dependent bean is safe.
 
 == Custom UI is not a managed bean
 
-As of Vaadin Flow no custom `UI` subclass is needed for the application.
+In Vaadin 14, no custom `UI` subclass is needed for the application.
 You can define one by the corresponding servlet parameter,
 but it is instantiated by the framework as a POJO.
 
