@@ -214,7 +214,7 @@ profile.
 
 For the production profile plugin you need to have the goal `build-frontend`:
 
-{source, xml]
+[source, xml]
 ----
 <profile>
     <id>production-mode</id>
