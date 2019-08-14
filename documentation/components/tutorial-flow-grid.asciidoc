@@ -946,7 +946,7 @@ grid.addSortListener(event -> {
 
 == Styling the Grid
 
-Styling the `Grid` component (or any Flow component) requires some Web Component and shadow-DOM knowledge. Styling depends on the components position in the DOM:
+Styling the `Grid` component (or any Vaadin component) requires some Web Component and shadow-DOM knowledge. Styling depends on the components position in the DOM:
 
 * If the component is in the shadow DOM, you can apply styling within the component or using variables.
 * If the component is in the "normal" DOM (not in the shadow DOM), normal CSS styling applies.
