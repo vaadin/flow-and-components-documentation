@@ -1,12 +1,12 @@
 ---
-title: Components instantiated by the framework
+title: Components Instantiated by the Framework
 order: 2
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Components instantiated by the framework
+= Components Instantiated by the Framework
 
 Most of the components instantiated by the Vaadin framework become managed beans ( full fledged CDI contextual instances ).
 They are queried from CDI `BeanManager` by the add-on, and all of the CDI features are usable.
