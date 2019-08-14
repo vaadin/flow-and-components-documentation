@@ -61,7 +61,7 @@ Lumo only loads the styles/themes required for the components that you use.
 == Application Theme - What and Where?
 
 The application can be themed with CSS, but to be able to theme Polymer Web Components,
-you need to instruct flow to import it by using the `@CssImport` annotation.
+you need to instruct Vaadin to import it by using the `@CssImport` annotation.
 
 The recommendation is to always put the application wide shared styles in the
 `styles` subdiretory inside the `frontend` folder with the name `shared-styles.css`,
