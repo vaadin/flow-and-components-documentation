@@ -25,8 +25,8 @@ But in case you are using templates / Vaadin Designer or are integrating 3rd par
 
 [NOTE]
 There will be https://github.com/vaadin/flow/issues/5037[later] on a migration tool available for converting an
-existing project to use the new technologies. Its most important part which is automatic migration of Polymer 2
-Html templates into Polymer 3 JavaScript modules is already ready and available to be used. See <<migration-tool#,Migration Tool document>> for more information.
+existing project to use the new technologies. Its most important part, which is automatic migration of Polymer 2
+Html templates into Polymer 3 JavaScript modules, is already ready and available to be used. See <<migration-tool#,Migration Tool document>> for more information.
 
 == New frontend tooling for Vaadin 14
 
