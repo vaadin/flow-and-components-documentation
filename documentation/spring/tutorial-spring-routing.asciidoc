@@ -8,7 +8,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Routing with Spring
 
-Routing works the same way with Spring as it does with a plain Flow application.
+Routing works the same way with Spring as it does with a plain Vaadin application.
 To be able to handle the default route you just define a component with `@Route("")` annotation:
 
 [source,java]
@@ -35,7 +35,7 @@ other Spring managed beans. Here is an example:
 @Route("")
 public class RootComponent extends Div {
     
-    public RootComponent(@Autowired DataBean dataBean){
+    public RootComponent(@Autowired DataBean dataBean) {
         setText(dataBean.getMessage());
     }
 }

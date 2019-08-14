@@ -5,7 +5,8 @@ html {
 }
 
 :host {
-  /* Styles for the `<my-view>` hosting element */
+  /* Styles for the `<my-view>`
+     hosting element */
   display: block;
 }
 

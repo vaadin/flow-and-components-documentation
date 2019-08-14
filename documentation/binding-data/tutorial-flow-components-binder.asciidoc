@@ -38,8 +38,8 @@ TextField titleField = new TextField();
 
 // Start by defining the Field instance to use
 binder.forField(titleField)
-  // Finalize by doing the actual binding
-  // to the Person class
+        // Finalize by doing the actual binding
+        // to the Person class
         .bind(
                 // Callback that loads the title
                 // from a person instance
@@ -63,7 +63,8 @@ binder.bind(nameField, Person::getName,
 [source, java]
 ----
 // The person to edit
-// Would be loaded from the backend in a real application
+// Would be loaded from the backend
+// in a real application
 Person person = new Person("John Doe", 1957);
 
 // Updates the value in each bound field component
@@ -72,10 +73,10 @@ binder.readBean(person);
 Button saveButton = new Button("Save",
     event -> {
         try {
-          binder.writeBean(person);
-          // A real application would also save
-          // the updated person
-          // using the application's backend
+            binder.writeBean(person);
+            // A real application would also save
+            // the updated person
+            // using the application's backend
         } catch (ValidationException e) {
             notifyValidationException(e);
         }
@@ -84,7 +85,7 @@ Button saveButton = new Button("Save",
 // Updates the fields again with the
 // previously saved values
 Button resetButton = new Button("Reset",
-    event -> binder.readBean(person));
+        event -> binder.readBean(person));
 ----
 
 * Every time `writeBean` is called, the data is validated and then copied from the UI to the business object. 
@@ -113,7 +114,7 @@ To bind a component to read-only data, you can use a `null` value for the `sette
 ----
 TextField fullName = new TextField();
 binder.forField(fullName)
-        .bind(Person::getFullName,null);
+        .bind(Person::getFullName, null);
 ----
 
 To bind components that do not implement the `HasValue` interface to read-only data, you can use the `ReadOnlyHasValue` helper class. 
@@ -125,7 +126,7 @@ To bind components that do not implement the `HasValue` interface to read-only d
 Label fullNameLabel = new Label();
 ReadOnlyHasValue<String> fullName =
         new ReadOnlyHasValue<>(
-        text -> fullNameLabel.setText(text));
+            text -> fullNameLabel.setText(text));
 binder.forField(fullName)
         .bind(Person::getFullName, null);
 ----

@@ -1,5 +1,6 @@
 // tutorial::cdi/tutorial-cdi-instantiated-beans.asciidoc
-import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
+import {PolymerElement,html} from
+        '@polymer/polymer/polymer-element.js';
 
 class TestTemplate extends Polymer.Element {
     static get template() {

@@ -18,7 +18,7 @@ You can use `PropertyDescriptors` to define a property name and default value in
 public class TextField extends Component {
     private static PropertyDescriptor<String, String>
         VALUE = PropertyDescriptors
-            .propertyWithDefault("value", "");
+                .propertyWithDefault("value", "");
 
     public String getValue() {
         return get(VALUE);

@@ -1,6 +1,6 @@
 import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
-import '@vaadin/vaadin-button/vaadin-button.js'
-import '@vaadin/vaadin-ordered-layout/vaadin-horizontal-layout.js'
+import '@vaadin/vaadin-button/vaadin-button.js';
+import '@vaadin/vaadin-ordered-layout/vaadin-horizontal-layout.js';
 
 class FormButtonsBarElement extends PolymerElement {
     static get template() {

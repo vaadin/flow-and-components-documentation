@@ -1,10 +1,10 @@
 ---
-title: Creating a Component That Has a Value
+title: Creating a Component that Has a Value
 order: 6
 layout: page
 ---
 
-= Creating a Component That Has a Value
+= Creating a Component that Has a Value
 
 To work with `Binder`, a component must implement the `HasValue` interface. 
 
@@ -56,7 +56,7 @@ public class PaperSlider
 * The default value of `0` is automatically used by the `clear()` and `isEmpty()` methods: `clear()` sets the field value to the default value, and `isEmpty()` returns `true` if the field value is the default value.
 
 [NOTE]
-Flow uses https://polymer-library.polymer-project.org/3.0/docs/about_30[Polymer 3]. This version provides the best compatibility for integrating third-party Web Components.
+Vaadin uses https://polymer-library.polymer-project.org/3.0/docs/about_30[Polymer 3]. This version provides the best compatibility for integrating third-party Web Components.
 
 === Converting Property Values
 
@@ -109,8 +109,8 @@ Both values need to be kept in sync, except when the value is in the process of 
 
 To demonstrate, we build a `simple-date-picker` Web Component that has separate integer properties for the selected date: `year`, `month` and `dayOfMonth`. For each property there is a corresponding event when the user makes a change: `year-changed`, `month-changed` and `day-of-month-changed`.
 
-. Start by implementing a `SimpleDatePicker` component that extends `AbstractField` and passes the default value to its constructor.
-+
+Start by implementing a `SimpleDatePicker` component that extends `AbstractField` and passes the default value to its constructor.
+
 [source, java]
 ----
 @Tag("simple-date-picker")
@@ -122,13 +122,14 @@ public class SimpleDatePicker
     }
 }
 ----
-+
-* The type parameters are the same as for `AbstractSinglePropertyField`: the `getSource()` type for the value-change event and the value type.
 
-. When you call `setValue(T value)` with a new value, `AbstractField` invokes the `setPresentationValue(T value)` method with the new value. 
-+
-Implement the `setPresentationValue(T value)` method so that the component updates the element properties to match the values set.
-+
+[NOTE]
+The type parameters are the same as for `AbstractSinglePropertyField`: the `getSource()` type for the value-change event and the value type.
+
+When you call `setValue(T value)` with a new value, `AbstractField` invokes the `setPresentationValue(T value)` method with the new value.
+
+We will implement the `setPresentationValue(T value)` method so that the component updates the element properties to match the values set.
+
 [source, java]
 ----
 @Override
@@ -149,10 +150,10 @@ protected void setPresentationValue(LocalDate value) {
 }
 ----
 
-. To handle value changes from the user's browser, the component must listen to appropriate internal events and pass a new value to the `setModelValue(T value, boolean fromClient)` method. `AbstractField` will then check if the provided value has actually changed, and if it has, it fires a value-change event to all listeners.
-+
-Update the constructor to define each of the element properties as synchronized, and add the same property-change listener to each of them.
-+
+To handle value changes from the user's browser, the component must listen to appropriate internal events and pass a new value to the `setModelValue(T value, boolean fromClient)` method. `AbstractField` will then check if the provided value has actually changed, and if it has, it fires a value-change event to all listeners.
+
+We will update the constructor to define each of the element properties as synchronized, and add the same property-change listener to each of them.
+
 [source, java]
 ----
 public SimpleDatePicker() {
@@ -171,15 +172,15 @@ private void setupProperty(String name, String event) {
             this::propertyUpdated);
 }
 ----
-+
+
 [TIP]
 By default, `AbstractField` uses `Objects.equals` to determine whether a new value is the same as the previous value. If the `equals` method of the value type is not appropriate, you can override the `valueEquals` method to implement your own comparison logic.
-+
+
 [WARNING]
 `AbstractField` should only be used with immutable-value instances. No value-change event is fired if the original `getValue()` instance is modified and passed to `setModelValue` or `setValue`.
 
-. The final step is to implement the property-change listener to create a new `LocalDate` based on the element property values, and pass it to `setModelValue`.
-+
+The final step is to implement the property-change listener to create a new `LocalDate` based on the element property values, and pass it to `setModelValue`.
+
 [source, java]
 ----
 private void propertyUpdated(
@@ -198,7 +199,7 @@ private void propertyUpdated(
     }
 }
 ----
-+
+
 * If any of the properties are not filled in, `setModelValue` is not called. This means that `getValue()` returns the same value it returned previously.
 
 * The component can call `setModelValue` from inside its `setPresentationValue` implementation. In this case, the value of the component is set to the value passed to `setModelValue`, which is used instead of the original value. This is useful to transform provided values, for example to make all strings uppercase.
@@ -241,10 +242,11 @@ To demonstrate, we build an employee selector field that allows the user to firs
 [TIP]
 Another use case for `AbstractCompositeField` is to create a field component that is based directly on another field, while converting the value from that field.
 
-. The class declaration is a mix of `Composite` and `AbstractField`.
-.. The first type parameter defines the `Composite` content type, the second is for the value-change event `getSource()` type, and the third is the `getValue()` type of the field.
-.. We also initialize instance fields for each `ComboBox`.
-+
+The class declaration is a mix of `Composite` and `AbstractField`.
+
+. The first type parameter defines the `Composite` content type, the second is for the value-change event `getSource()` type, and the third is the `getValue()` type of the field.
+. We also initialize instance fields for each `ComboBox`.
+
 [source, java]
 ----
 public class EmployeeField extends
@@ -258,11 +260,12 @@ public class EmployeeField extends
 ----
 
 
-. In the constructor:
-.. Configure `departmentSelect` value changes to update the items in `employeeSelect`. 
-.. The employee selected in `employeeSelect` is set as the field's value. 
-.. Both combo boxes are added to the horizontal layout.
-+
+In the constructor:
+
+. Configure `departmentSelect` value changes to update the items in `employeeSelect`.
+. The employee selected in `employeeSelect` is set as the field's value.
+. Both combo boxes are added to the horizontal layout.
+
 [source, java]
 ----
 public EmployeeField() {
@@ -286,8 +289,8 @@ public EmployeeField() {
 }
 ----
 
-. Implement `setPresentationValue` to update the combo boxes according to a provided employee. 
-+
+As a next step, implement `setPresentationValue` to update the combo boxes according to a provided employee.
+
 [source, java]
 ----
 @Override
@@ -302,11 +305,11 @@ protected void setPresentationValue(Employee employee) {
 }
 ----
 
-. Change how the required indicator is shown for the field. 
-+
+Now we're going to change how the required indicator is shown for the field.
+
 The default implementation assumes the component's root element reacts to a property named `required`, which works nicely for Web Components that mimic the API of `<input>`.
 In our case, we want to show the required indicator for the employee combo box.
-+
+
 [source, java]
 ----
 @Override
@@ -321,8 +324,8 @@ public boolean isRequiredIndicatorVisible() {
 }
 ----
 
-. Implement `readonly` handling to mark both combo boxes as read only. The default implementation is similar to how required indicators are handled, except that it uses the `readonly` property instead.
-+
+The last thing left is to implement `readonly` handling to mark both combo boxes as read only. The default implementation is similar to how required indicators are handled, except that it uses the `readonly` property instead.
+
 [source, java]
 ----
 @Override

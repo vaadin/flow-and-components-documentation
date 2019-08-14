@@ -81,9 +81,9 @@ if (status.hasErrors()) {
 
 Writing the field values to a business object fails if any of the bound fields contain an invalid value. You can deal with invalid values in a number of different ways:
 
-* *Example*: Handling a checked exception.
+*Example*: Handling a checked exception.
 
-+
+
 [source, java]
 ----
 try {
@@ -94,8 +94,8 @@ try {
 }
 ----
 
-* *Example*: Checking a return value.
-+
+*Example*: Checking a return value.
+
 [source, java]
 ----
 boolean saved = binder.writeBeanIfValid(person);
@@ -107,17 +107,17 @@ if (saved) {
 }
 ----
 
-* *Example*: Adding bean-level validators. 
-+
+*Example*: Adding bean-level validators.
+
 [source, java]
 ----
 binder.withValidator(
        p -> p.getYearOfMarriage() > p.getYearOfBirth(),
        "Marriage year must be bigger than birth year.");
 ----
-+
-** The `withValidator(Validator)` method runs on the bound bean after update of the values of the bound fields. 
-** Bean-level validators also run as part of `writeBean(Object)`, `writeBeanIfValid(Object)` and `validate(Object)`, if the content passes all field-level validators.
+
+* The `withValidator(Validator)` method runs on the bound bean after update of the values of the bound fields.
+* Bean-level validators also run as part of `writeBean(Object)`, `writeBeanIfValid(Object)` and `validate(Object)`, if the content passes all field-level validators.
 
 [NOTE]
 For bean-level validators, the bean must be updated before the validator runs. If a bean-level validator fails in `writeBean(Object)` or `writeBeanIfValid(Object)`, the bean reverts to the state it was in before returning from the method. Remember to check your `getters/setters` to ensure there are no unwanted side effects.

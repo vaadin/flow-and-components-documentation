@@ -59,7 +59,8 @@ public class BinderBasic {
 
     public void readWriteBean() {
 // The person to edit
-// Would be loaded from the backend in a real application
+// Would be loaded from the backend
+// in a real application
         Person person = new Person("John Doe", 1957);
 
 // Updates the value in each bound field component

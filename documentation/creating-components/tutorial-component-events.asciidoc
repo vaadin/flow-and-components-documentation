@@ -46,7 +46,7 @@ In addition, the method for adding a listener returns a handle that can be used 
 public class TextField extends Component {
     public Registration addChangeListener(
          ComponentEventListener<ChangeEvent> listener) {
-       return addListener(ChangeEvent.class, listener);
+        return addListener(ChangeEvent.class, listener);
     }
 
     // Other component methods omitted
@@ -227,7 +227,7 @@ public class ContinuousInputEvent
 }
 ----
 
-* See https://vaadin.com/api/platform/com/vaadin/flow/dom/DomListenerRegistration.html[`DomListenerRegistration.debouncer`] in the Javadoc for more about debouncing events.
+* See https://vaadin.com/api/platform/com/vaadin/flow/dom/DomListenerRegistration.html[`DomListenerRegistration.debounce`] in the Javadoc for more about debouncing events.
 
 
 [NOTE]

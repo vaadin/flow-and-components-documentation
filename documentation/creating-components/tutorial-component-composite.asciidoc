@@ -22,17 +22,17 @@ Creating the component based on a `Composite` is the best practice in these circ
 ----
 public class TextField extends Composite<Div> {
 
-  private Label label;
-  private Input input;
+    private Label label;
+    private Input input;
 
-  public TextField(String labelText, String value) {
-    label = new Label();
-    label.setText(labelText);
-    input = new Input();
-    input.setValue(value);
+    public TextField(String labelText, String value) {
+        label = new Label();
+        label.setText(labelText);
+        input = new Input();
+        input.setValue(value);
 
-    getContent().add(label, input);
-  }
+        getContent().add(label, input);
+    }
 }
 ----
 
@@ -49,19 +49,19 @@ To make the component easier to use, you can add an API to get and set the value
 
 [source,java]
 ----
-  public String getValue() {
+public String getValue() {
     return input.getValue();
-  }
-  public void setValue(String value) {
+}
+public void setValue(String value) {
     input.setValue(value);
-  }
+}
 
-  public String getLabel() {
+public String getLabel() {
     return label.getText();
-  }
-  public void setLabel(String labelText) {
+}
+public void setLabel(String labelText) {
     label.setText(labelText);
-  }
+}
 ----
 
 * The public API only exposes the defined methods, and a few generic methods defined in the `Component` interface.
