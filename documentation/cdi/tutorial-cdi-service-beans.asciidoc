@@ -6,7 +6,7 @@ layout: page
 
 = Vaadin Service Interfaces as CDI Beans
 
-Some Vaadin service interfaces can be implemented as CDI beans. If you do this, the service interface becomes a managed bean with CDI features, and there is no need to register the implementation in Vaadin.
+Some Vaadin service interfaces can be implemented as CDI beans. If you do this, the service interface becomes a managed bean with CDI features, and there is no need to register the implementation in Vaadin. 
 
 The https://vaadin.com/directory/component/vaadin-cdi/[Vaadin CDI] add-on references the following interfaces:
 

@@ -1,10 +1,10 @@
 ---
-title: Offline experience
+title: Offline Experience
 order: 6
 layout: page
 ---
 
-= Offline experience
+= Offline Experience
 
 Vaadin will automatically serve a generated offline page. The generated offline page
 is a simple page to communicate to the user that the application is offline

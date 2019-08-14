@@ -1,5 +1,5 @@
 ---
-title: Preserving state on refresh
+title: Preserving State on Refresh
 order: 15
 layout: page
 ---
@@ -7,7 +7,7 @@ layout: page
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
 
-= Preserving state on refresh
+= Preserving State on Refresh
 
 When a URL is entered in the browser, the routing subsystem of Vaadin resolves it into a view component by <<../routing/tutorial-routing-annotation#,inspecting `@Route` class annotations>>. When a matching class is found, the default behavior is to create a new instance, also when the user refreshes the page in the same browser tab.
 

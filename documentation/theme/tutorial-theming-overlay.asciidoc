@@ -1,10 +1,10 @@
 ---
-title: Theming components - Overlay
+title: Theming Components - Overlay
 order: 6
 layout: page
 ---
 
-= Theming components - Overlay
+= Theming Components - Overlay
 
 `<vaadin-overlay>` is a Web Component for creating overlays. It is an essential part of many components such as:
 

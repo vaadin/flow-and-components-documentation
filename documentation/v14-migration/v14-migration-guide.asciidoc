@@ -128,6 +128,10 @@ To set the property, you may add the following line to `application.properties`:
 vaadin.compatibilityMode=true
 ----
 
+Alternatively, add the property as a JVM parameter to the `spring-boot` plugin when running
+the application via Maven:
+`mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dvaadin.compatibilityMode=true"`
+
 == Migration steps
 
 To use the new toolset, any existing Vaadin projects with client-side Polymer 2
@@ -471,7 +475,7 @@ The migration tool is able to do this step for you automatically, see <<migratio
 After converting Polymer templates from HTML to JavaScript modules, every
 `HtmlImport` annotation in Java classes should be changed to a `JsModule`
 annotation. Moreover, you should not use a frontend protocol (`frontend://`)in
-the path of your resources anymore, and add the ./` prefix to the file path.
+the path of your resources anymore, and add the `./` prefix to the file path.
 E.g.
 
 [source, java]
