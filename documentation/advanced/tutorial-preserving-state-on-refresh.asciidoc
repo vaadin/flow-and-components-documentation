@@ -9,11 +9,11 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Preserving state on refresh
 
-When a URL is entered in the browser, the routing subsystem of Vaadin Flow resolves it into a view component by <<../routing/tutorial-routing-annotation#,inspecting `@Route` class annotations>>. When a matching class is found, the default behavior is to create a new instance, also when the user refreshes the page in the same browser tab.
+When a URL is entered in the browser, the routing subsystem of Vaadin resolves it into a view component by <<../routing/tutorial-routing-annotation#,inspecting `@Route` class annotations>>. When a matching class is found, the default behavior is to create a new instance, also when the user refreshes the page in the same browser tab.
 
 Occasionally it is desirable to keep the state of the view between such refreshes. For example, if the view contains a lot of data entry components, and we believe that the user may refresh the page (intentionally or unintentionally) before the data is persisted in the backend, ensuring that the entries are not lost makes for better UX. Another use case is to support browser tab-specific "sessions" as an alternative to the standard cookie-based session.
 
-The annotation `@PreserveOnRefresh` instructs Flow to re-use the view component of a route, whenever the route is reloaded in the same browser tab. The routed component instance will then be the same server-side object as was created in the first request, with all of its state (member fields, subcomponent hierarchy, and so on), is preserved.
+The annotation `@PreserveOnRefresh` instructs Vaadin to re-use the view component of a route, whenever the route is reloaded in the same browser tab. The routed component instance will then be the same server-side object as was created in the first request, with all of its state (member fields, subcomponent hierarchy, and so on), is preserved.
 
 == How-to
 
@@ -62,6 +62,6 @@ When using `@PreserveOnRefresh` the following conditions/limitations should be o
 
 * The component is persisted only when reloaded in the same browser tab (the `window.name` client-side property is used to identify the tab), and only if the URL stays the same (visiting another route or changing a URL parameter will discard the component state permanently).
 
-* In contrast to Vaadin 8, Vaadin Flow does not preserve the `UI` instance between refreshes. The view is detached from its previous `UI` and then attached to a fresh `UI` instance on refresh.
+* In contrast to Vaadin 8, Vaadin 10 and later does not preserve the `UI` instance between refreshes. The view is detached from its previous `UI` and then attached to a fresh `UI` instance on refresh.
 
 * `AttachEvent` and `DetachEvent` are generated also when a preserved component is moved to a new `UI`. This means for instance that your view component should expect multiple calls to `onAttach` and listeners registered through `addAttachListener` during its lifetime.
