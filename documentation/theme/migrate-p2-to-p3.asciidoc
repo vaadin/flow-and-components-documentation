@@ -63,7 +63,7 @@ We need to follow the next steps to convert to Polymer 3, so as it is usable in 
 ----
 +
 
-2. Instruct Flow to import these css files using the `CssImport`annotation.
+2. Instruct Vaadin to import these css files using the `CssImport`annotation.
 +
 [source, java]
 ----
