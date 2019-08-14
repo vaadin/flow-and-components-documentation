@@ -7,7 +7,7 @@ layout: page
 
 Vaadin Flow uses themes to separate the appearance of an application from its logic. 
 
-Themes allow you to customize the look and feel of your application and components. You can use https://www.w3.org/Style/CSS/[Cascading Style Sheets (CSS)] files in combination with the `@CssImport` java annotation to style any content.
+Themes allow you to customize the look and feel of your application and components. You can use https://www.w3.org/Style/CSS/[Cascading Style Sheets (CSS)] files in combination with the `@CssImport` Java annotation to style any content.
 
 In this section we cover:
 
