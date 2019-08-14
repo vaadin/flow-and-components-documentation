@@ -21,7 +21,7 @@ Most Vaadin developers style their applications on top of a predefined theme, su
 Lumo is provided as the default theme for Vaadin applications and gets loaded automatically if no `@Theme` or `@NoTheme` annotation is specified, as long as the theme files can be found on the classpath.
 
 [NOTE]
-Vaadin Material is a complete theme for Vaadin components, inspired by Google(TM)’s Material
+Vaadin Material is a complete theme for Vaadin components, inspired by Google's Material
 Design guidelines.
 
 There are two main approaches for using an application theme:
