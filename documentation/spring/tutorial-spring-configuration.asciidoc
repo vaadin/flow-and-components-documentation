@@ -8,7 +8,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Vaadin Spring Configuration
 
-There are a number of properties that you can use to configure your Flow application.
+There are a number of properties that you can use to configure your Vaadin application.
 See e.g. `com.vaadin.server.DeploymentConfiguration`
 and `com.vaadin.server.Constants` classes for property names.
 
