@@ -144,9 +144,9 @@ annotations with `@JsModule` annotations, see <<migration-tool#,Migration Tool>>
 
 ==== Install npm
 
-Install npm and Node.js on your development platform of choice if you don't
+Install npm, bower and Node.js on your development platform of choice if you don't
 already have them. Either download the installer
-(https://nodejs.org/en/download/[https://nodejs.org/en/download/]) or use your
+(https://nodejs.org/en/download/[https://nodejs.org/en/download/]), (https://bower.io/[https://bower.io/]) or use your
 preferred package management system (Homebrew, dpkg, ...).
 
 ==== Miscellaneous
