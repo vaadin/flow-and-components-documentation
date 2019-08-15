@@ -20,15 +20,15 @@ instead.
 
 == Embedding a Vaadin Application Overview
 
-Flow gives you a way to embed application via web components.
+Vaadin gives you a way to embed application via web components.
 To be able to do this you need:
 
-* write and declare a server-side Flow component in a special way using a custom element tag name. 
+* write and declare a server-side Vaadin component in a special way using a custom element tag name.
 * let your embedding page know about your Vaadin application
 * add an element with the specified custom tag name onto your page, embedding
  the application
 
-The embedded component will behave as a Flow component regardless of content
+The embedded component will behave as a Vaadin component regardless of content
 on your page. Due to its nature, there are some features that are not
 available for embedded Vaadin applications, navigation being one of them.
 
@@ -36,13 +36,13 @@ Please see the technical overview below.
 
 == Embedding a Vaadin Application in Action
 
-To be able to embed a Flow component onto your page, you will need to export your 
+To be able to embed a Vaadin component onto your page, you will need to export your
 component as an embeddable application.
 Here is what you need to do it:
 
 * Have a Vaadin application (which doesn't have to have any relation to your
 embedding application).
-* Have a Flow component. Let's assume the component name is `MyComponent` (it can be already existing component).
+* Have a Vaadin component. Let's assume the component name is `MyComponent` (it can be already existing component).
 * Create an exporter for the component. To do this, extend `WebComponentExporter<MyComponent>` class. 
  ** Implement its constructor providing the tag name which you will use on you page to embed the application.
  ** Configure properties in the constructor via the `addProperty` method.

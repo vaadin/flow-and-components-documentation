@@ -8,7 +8,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Using Component Themes
 
-Flow uses the following logic to determine which theme to use for the application:
+Vaadin uses the following logic to determine which theme to use for the application:
 
 1. If a `@Theme` annotation is found at the root navigation level, the theme defined by it is used;
 2. If a `@NoTheme` annotation is found at the root navigation level, theming is disabled;
@@ -20,7 +20,7 @@ In summary - if your project uses the `vaadin-core` dependency, and doesn't decl
 
 To use any custom themes, just add `@Theme` annotation to your root navigation level class, or to the `RouterLayout` component defined in its `@Route`.
 
-You must use an unique `@Theme` for the whole application. Flow does not support different `@Theme` values per route in your application, and will throw an exception.
+You must use an unique `@Theme` for the whole application. Vaadin does not support different `@Theme` values per route in your application, and will throw an exception.
 
 .Sample specifying Lumo themed components
 [source,java]
@@ -90,8 +90,8 @@ public class UnThemedApplication extends Div {
 
 The theme class automatically handles two things:
 
-* It tells Flow what theme it should use for the Vaadin Components and where the files can be found
-* It specifies a set of shared styles like fonts etc. that will be automatically loaded to the initial page by Flow for the theme.
+* It tells Vaadin what theme it should use for the Vaadin Components and where the files can be found
+* It specifies a set of shared styles like fonts etc. that will be automatically loaded to the initial page by Vaadin for the theme.
 
 [NOTE]
 If the Theme annotation is not on a `@Route` Component or a top `RouterLayout` an exception will be thrown on startup.
@@ -117,10 +117,10 @@ Different themes and different components may have different sets of variants (o
 
 == Available Themes and Customizations
 
-In Vaadin Platform there are two ready-made component themes: _Lumo_ (which is the main theme for all Vaadin components) and _Material._
+There are two ready-made component themes in Vaadin: _Lumo_ (which is the main theme for all Vaadin components) and _Material._
 Both themes give you a full set of building blocks to build a modern-looking web application that works just as well on desktop as on mobile.
 
-The Flow integration for both Lumo and Material themes are a part of the `vaadin-core` dependency. The previous chapter shows how to take those to use.
+The Vaadin integration for both Lumo and Material themes are a part of the `vaadin-core` dependency. The previous chapter shows how to take those to use.
 In order to use Lumo theme, you can explicitly declare `@Theme(Lumo.class)` on the navigation target or omit it completely, since the default behavior is to use Lumo if available in the classpath.
 If you want to use Material theme, explicitly declare `@Theme(Material.class)` on the navigation target.
 
@@ -132,7 +132,7 @@ See link:https://github.com/vaadin/vaadin-themable-mixin/wiki[vaadin-themable-mi
 
 === Using Vaadin theme variants
 
-In Flow, you can set a theme variant by defining it on the `@Theme` annotation:
+In Vaadin, you can set a theme variant by defining it on the `@Theme` annotation:
 [source,java]
 ----
 @Route(value = "")
@@ -179,7 +179,7 @@ button.addThemeVariants(ButtonVariant.LUMO_PRIMARY,
 
 For each component, there is a predefined set of variants that you can use.
 Those variants are theme-specific and different for each of the component (some may have none).
-For each component that has variants, Flow provides an api similar to the one in the example above to use it.
+For each component that has variants, Vaadin provides an api similar to the one in the example above to use it.
 
 When added, variants are converted to their html values
 (for a button variant, `ButtonVariant.LUMO_PRIMARY.getVariantName()` is used)
