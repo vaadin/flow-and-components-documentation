@@ -44,7 +44,7 @@ Some features of Designer are not available for all Vaadin versions. See the htt
 === Migrating from Vaadin 8 Designs
 
 As the underlying technology has been completely changed, Vaadin 8 designs are not compatible with Vaadin 14 applications.
-There are two paths to migration; either use the https://vaadin.com/docs/v14/mpr/Overview.html[Multiplatform Runtime] (available through Prime and Enterprise subscriptions) to run a Vaadin 8 application inside a Vaadin 14 application,
+There are two paths to migration; either use the https://vaadin.com/docs/mpr/Overview.html[Multiplatform Runtime] (available through Prime or Enterprise subscription) to run a Vaadin 8 application inside a Vaadin 14 application,
 or migrate the HTML files manually. When migrating manually, the declarative component tree should be copied inside the `<template>` in a blank Vaadin 14 design,
 and then modified to fit the new element API's.
 
