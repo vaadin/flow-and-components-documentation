@@ -58,7 +58,7 @@ The API includes prebuilt server-side components and most native HTML elements.
 
 See https://vaadin.com/components/browse[Components], for a full set of available Vaadin components.
 
-=== Creating New Components in 100% Java
+=== Creating New Components in Java
 
 On the higher abstraction layers, you can easily create custom components by adapting or combining existing components to meet your requirements.
 
