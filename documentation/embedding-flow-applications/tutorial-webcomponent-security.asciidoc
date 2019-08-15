@@ -102,8 +102,7 @@ public class EmbeddedComponent extends Div {
 receives the token value. For this reason, avoid retrieving or initializing components with sensitive date in the constructor. Do your initialization only after the valid token value is received.
 
 [NOTE]
-If you cannot control the embedding of the web component to prevent initialization, you can wrap the embedded web component a container, like `Div`. Create a `Div` subclass (instead of using `EmbeddedComponent`), and add an `EmbeddedComponent` instance into the `Div` subclass when the token is validated.
-
+If you cannot prevent the initialization of the web component in the constructor, you can wrap it in a container, like `Div`. Create a `Div` subclass (instead of using `EmbeddedComponent`), and add an `EmbeddedComponent` instance into the `Div` subclass when the token is validated.
 
 [NOTE]
 If you use a Dependency Injection (DI) framework, keep in mind that `EmbeddedComponentExporter` is instantiated directly without DI, and you may not use this instance to inject anything from DI context. As a workaround, you can create a a wrapper component that is instantiated within the DI context, and then use the wrapper instance to access the DI context.
