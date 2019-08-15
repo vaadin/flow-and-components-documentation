@@ -39,7 +39,7 @@ public class MainAppServlet extends HttpServlet {
             if (!isAuthenticated) {
                 out.println(
                         "<script type='text/javascript' "
-                                + "src='vaadin/VAADIN/build/webcomponentsjs/"
+                                + "src='/vaadin/VAADIN/build/webcomponentsjs/"
                                 + "webcomponents-loader.js'></script>");
                 out.println(
                         "<script type='module' src="

@@ -50,10 +50,14 @@ embedding application).
  of the exported component (e.g. add a listener to the original component).
 * Deploy your Vaadin application.
 * Embed a Vaadin application to your page
- ** Add `webcomponent-loader.js` polyfill to your page
-Here is the example: `<script type="text/javascript" src="YOUR_EMBEDDED_APPLICATION_URI/VAADIN/build/webcomponentsjs/webcomponents-loader.js"></script>`
- ** Import web component URL resource from the embedded Vaadin application.
-Here is the example: `<script type='module' src='YOUR_EMBEDDED_APPLICATION_URI/web-component/my-component.js'></script>`.
+ ** Add `webcomponent-loader.js` polyfill to your page. While the example
+below uses the polyfill provided with Vaadin, you can use any CDN (such as
+unpkg.com). +
+Example: `<script type="text/javascript"
+src="YOUR_EMBEDDED_APPLICATION_URI/VAADIN/build/webcomponentsjs/webcomponents-loader.js"></script>`
+ ** Import web component URL resource from the embedded Vaadin application. +
+Example: `<script type='module'
+src='YOUR_EMBEDDED_APPLICATION_URI/web-component/my-component.js'></script>`.
 * Use the embedded web component inside your HTML code via the tag name which you have assigned to it. E.g. `<my-component></my-component>`.
 
 Example notes:

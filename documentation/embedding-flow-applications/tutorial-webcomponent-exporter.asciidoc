@@ -56,7 +56,7 @@ public class MainAppServlet extends HttpServlet {
             if (!isAuthenticated) {
                 out.println(
                         "<script type='text/javascript' "
-                        + "src='vaadin/VAADIN/build/webcomponentsjs/"
+                        + "src='/vaadin/VAADIN/build/webcomponentsjs/"
                         + "webcomponents-loader.js'></script>");
                 out.println(
                         "<script type='module' src="
@@ -124,20 +124,17 @@ polyfill and script which loads our web component:
 [source, html]
 ----
 <script type='text/javascript'
-        src='vaadin/VAADIN/build/webcomponentsjs/webcomponents-loader.js'>
+        src='/vaadin/VAADIN/build/webcomponentsjs/webcomponents-loader.js'>
 </script>
 <script type='module'
         src='/vaadin/web-component/login-form.js'>
 </script>
 ----
 The first script is the polyfill which enables web components for browsers
-which do not offer native support. For example, Chrome and Firefox do not
-need to polyfill, while Edge does. The polyfill is loaded from the Vaadin
-application.
-
-Next script loads the web component. The link URI starts with `/vaadin/`. This
-is the URI which we are going to map our Vaadin servlet (see below). The second
-part is `/web-component/login-form.js`.
+which do not offer native support. The next script loads the web component. The
+link URIs starts with `/vaadin/`. This is the URI which we are going to map
+our Vaadin servlet (see below).
+The second part in web component URI is `/web-component/login-form.js`.
 This is standard URI which you should use to address your web component.
 It consists of hard-coded `web-component` part and following `login-form.js`
 web component file part. The web component file will be generated for you
@@ -146,6 +143,9 @@ of your web component has to be `"login-form"`. This name you should use
 in the exporter's `super` constructor (see `WebComponentExporter` code
 example below) and in your HTML code where you want to put this web component.
 In our example this is done right under `<body>`:
+
+NOTE: If page targets very specific browsers, the polyfill is not needed. For
+example Chrome and Firefox do not need the polyfill, while Edge does.
 
 [source, html]
 ----
