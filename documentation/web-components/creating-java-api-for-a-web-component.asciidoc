@@ -81,7 +81,7 @@ public class PaperSlider extends AbstractSinglePropertyField<PaperSlider, Intege
     public PaperSlider() {
         super("value", 0, false);
     }
-    
+
 }
 ----
 
