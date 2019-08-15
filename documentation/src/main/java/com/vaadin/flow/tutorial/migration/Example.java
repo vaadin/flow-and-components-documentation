@@ -36,9 +36,6 @@ public class Example {
         public LoginScreen() {
             FormLayout loginForm = new FormLayout();
 
-            loginForm.getElement()
-                    .addEventListener("keypress", event -> login())
-                    .setFilter("event.key == 'Enter'");
         }
 
         private void login() {
