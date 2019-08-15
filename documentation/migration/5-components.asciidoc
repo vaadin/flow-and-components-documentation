@@ -41,7 +41,7 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | ComboBox | ComboBox | https://vaadin.com/components/vaadin-combo-box/java-examples[Demo].
 
-| ContextMenu (official add-on) | ContextMenu (V12)
+| ContextMenu (official add-on) | ContextMenu (V12) | https://vaadin.com/components/vaadin-context-menu/java-examples[Demo] 
 
 | CssLayout | Div & FlexLayout | More details <<layouts,later in this chapter>>
 
