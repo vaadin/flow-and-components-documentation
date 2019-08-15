@@ -35,13 +35,13 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | Checkbox | Checkbox | https://vaadin.com/components/vaadin-checkbox/java-examples[Demo]
 
-| CheckBoxGroup | CheckBoxGroup (V12) | Not in V10, take `vaadin-radio-button-flow` 1.1. Included in Vaadin platform 12 (12/2018). Also available as an add-on in Directory for Vaadin platform
+| CheckBoxGroup | CheckBoxGroup (V12) | https://vaadin.com/components/vaadin-checkbox/java-examples[Demo]
 
 | ColorPicker | - | Not planned. See https://vaadin.com/directory[vaadin.com/directory] for alternatives. `<input type="color">` is supported in some browsers.
 
-| ComboBox | ComboBox | https://vaadin.com/components/vaadin-combo-box/java-examples[Demo]. Note that lazy-loading between server and client was only included in Vaadin platform V12 (12/2018).
+| ComboBox | ComboBox | https://vaadin.com/components/vaadin-combo-box/java-examples[Demo].
 
-| ContextMenu (official add-on) | ContextMenu (V12) | Not in V10, take `vaadin-context-menu-flow` 1.0 which is Vaadin platform compatible. Included in Vaadin platform V12 (12/2018)
+| ContextMenu (official add-on) | ContextMenu (V12) | https://vaadin.com/components/vaadin-context-menu/java-examples[Demo] 
 
 | CssLayout | Div & FlexLayout | More details <<layouts,later in this chapter>>
 
@@ -79,9 +79,9 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | ListSelect | ListBox | https://vaadin.com/components/vaadin-list-box/java-examples[Demo]
 
-| LoginForm | LoginForm or LoginOverlay (v13) | https://vaadin.com/components/login/java-examples[Demo]
+| LoginForm | LoginForm or LoginOverlay (V13) | https://vaadin.com/components/login/java-examples[Demo]
 
-| MenuBar | - | Planned for Vaadin 14. Can be made currently by combining `Select` (V12) and `ContextMenu` (V12)
+| MenuBar | MenuBar (V14) | https://vaadin.com/components/menu-bar/java-examples[Demo]
 
 | NativeButton | NativeButton | -
 
@@ -89,7 +89,7 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | Notification | Notification | https://vaadin.com/components/vaadin-notification/java-examples[Demo]
 
-| Panel | - | Planned with `vaadin-card` web component H1 2019. Also, it's possible to make any component scrollable with `component.getElement().getStyle().set("overflow", "auto")`
+| Panel | Planned H2/2019: VerticalLayout & HorizontalLayout | `setScrollable` API for VL & HL will be available in a minor release for 14 in 2019
 
 | PasswordField | PasswordField | https://vaadin.com/components/vaadin-text-field/java-examples[Demo]
 
@@ -109,9 +109,9 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | TextField | TextField | https://vaadin.com/components/vaadin-text-field/java-examples[Demo]
 
-| Tree | - | Planned for H1 2019
+| Tree | - | Planned, no timeline yet. Go vote https://github.com/vaadin/vaadin-grid-flow/issues/469[issue] if you need it.
 
-| TreeGrid | TreeGrid (V12) | Not in V10, `vaadin-grid-flow` 1.1.0 (or newer) is V10 compatible. Included in Vaadin 12 (12/2018)
+| TreeGrid | TreeGrid (V12) | https://vaadin.com/components/vaadin-treegrid/html-examples/grid-tree-demos[Demo]
 
 | TwinColSelect | - | Not planned. Can be built as a composite using `ListBox` and `Button`.
 
@@ -121,7 +121,7 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | VerticalSplitPanel | SplitLayout | https://vaadin.com/components/vaadin-split-layout/java-examples[Demo]
 
-| UI | UI | -
+| UI | UI | Not mandatory in 10+. Replaced with root layout and `PageConfigurator`.
 
 | Upload | Upload | https://vaadin.com/components/vaadin-upload/java-examples[Demo]
 
@@ -169,7 +169,7 @@ Adding icons is possible, it is just HTML5 after all. But as with caption there 
 
 === setEnabled(boolean enabled) is Still a Server Side Security Feature
 
-In Vaadin Flow, the `setEnabled` method is specific to components marked with the `HasEnabled` mixin interface (which comes also with `HasValue`, `HasComponents`, and `Focusable`).
+In Vaadin 10+, the `setEnabled` method is specific to components marked with the `HasEnabled` mixin interface (which comes also with `HasValue`, `HasComponents`, and `Focusable`).
 When a component is disabled, by default, any property changes and DOM events coming from the client side are ignored.
 However, it is possible to whitelist some properties and events to be allowed if necessary.
 
@@ -188,14 +188,14 @@ Most components will also update their visual status to indicate to the user tha
 
 === Tooltips are Component Specific
 
-In Vaadin 8 the framework made it possible to show a tooltip for any component if the user hovered the mouse on top of the component.
+In Vaadin 8 the legacy framework made it possible to show a tooltip for any component if the user hovered the mouse on top of the component.
 In Vaadin platform there is no automatic way for this; it is a component specific feature and possible using CSS.
 
 == [#layouts]#Layouts in Platform#
 
 In Vaadin 8 the layouting of components was managed by a `LayoutManager` on the client engine.
 This has its roots in a time when the differences between browsers were big,
-and the Framework still supported Internet Explorer versions that worked by their own rules.
+and the legacy Framework still supported Internet Explorer versions that worked by their own rules.
 Creating your own layouts was quite complex since it always required writing custom client side code with GWT.
 
 In Vaadin platform, there is no more LayoutManager to do calculations in browser. All layouts are self-contained and mostly just rely on the HTML5 and CSS3 standards,

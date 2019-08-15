@@ -134,7 +134,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<embedding-flow-applications/tutorial-webcomponent-compatibility#,Embedding Application in Compatibility mode>>
 * <<embedding-flow-applications/tutorial-webcomponent-limitations#,Limitations in Embedded Application>>
 
-== Progressive Web Applications
+== Progressive Web Applications (PWA)
 * <<pwa/tutorial-pwa-introduction#,Introduction>>
 * <<pwa/tutorial-pwa-pwa-with-flow#,Creating PWA with Flow>>
 * <<pwa/tutorial-pwa-icons#,Application Icons>>

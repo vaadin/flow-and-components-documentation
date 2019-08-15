@@ -7,7 +7,7 @@ layout: page
 = Vaadin 14 Migration Guide
 
 For existing Vaadin platform projects (versions 10-13), using most Vaadin 14 new features
-requires just updating the Vaadin version and addressing any API changes in code, which can be backtracked
+requires just updating the Vaadin version, adding a dependency for compatibility mode, and addressing any API changes in code, which can be backtracked
 from the https://github.com/vaadin/platform/releases[platform release notes].
 
 Vaadin 14 also introduces support for new frontend technologies and tools,
@@ -25,8 +25,8 @@ But in case you are using templates / Vaadin Designer or are integrating 3rd par
 
 [NOTE]
 There will be https://github.com/vaadin/flow/issues/5037[later] on a migration tool available for converting an
-existing project to use the new technologies, specially for automatic migration of Polymer 2
-Html templates into Polymer 3 JavaScript modules.
+existing project to use the new technologies. Its most important part, which is automatic migration of Polymer 2
+Html templates into Polymer 3 JavaScript modules, is already ready and available to be used. See <<migration-tool#,Migration Tool document>> for more information.
 
 == New frontend tooling for Vaadin 14
 
@@ -96,7 +96,9 @@ for advanced users there is also a possibility to customize the webpack build.
 === Compatibility mode
 
 Existing Vaadin 10-13 projects can update to 14 without migrating
-to the new toolset. Behind the scenes, everything works just as before with using
+to the new toolset. The only thing that you need to do is to upgrade your Vaadin
+version to `14.0.0` in your `pom.xml`. No more changes are needed in your
+project. Behind the scenes, everything works just as before with using
 Bower & Webjars, Polymer 2 & Html Imports, and Polymer CLI for the production build.
 This is called _the compatibility mode_ in Vaadin 14.
 
@@ -128,13 +130,17 @@ To set the property, you may add the following line to `application.properties`:
 vaadin.compatibilityMode=true
 ----
 
+Alternatively, add the property as a JVM parameter to the `spring-boot` plugin when running
+the application via Maven:
+`mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dvaadin.compatibilityMode=true"`
+
 == Migration steps
 
 To use the new toolset, any existing Vaadin projects with client-side Polymer 2
 based web components must migrate these from Polymer 2 syntax to Polymer 3 (see next section)
 before they can run on V14. There is a migration tool available as a part of Maven plugin.
-The goal `migrate-to-p3` converts P2 polymer templates to P3 templates and replaces `@HtmlImport`
-annotations by `@JsModule` annotations, see <<migration-tool#,Migration Tool>> tutorial.
+The goal `migrate-to-p3` converts P2 templates to P3 templates and replaces `@HtmlImport`
+annotations with `@JsModule` annotations, see <<migration-tool#,Migration Tool>> tutorial.
 
 === 1 - Check prerequisites
 
@@ -210,7 +216,7 @@ profile.
 
 For the production profile plugin you need to have the goal `build-frontend`:
 
-{source, xml]
+[source, xml]
 ----
 <profile>
     <id>production-mode</id>
@@ -471,7 +477,7 @@ The migration tool is able to do this step for you automatically, see <<migratio
 After converting Polymer templates from HTML to JavaScript modules, every
 `HtmlImport` annotation in Java classes should be changed to a `JsModule`
 annotation. Moreover, you should not use a frontend protocol (`frontend://`)in
-the path of your resources anymore, and add the ./` prefix to the file path.
+the path of your resources anymore, and add the `./` prefix to the file path.
 E.g.
 
 [source, java]
@@ -489,8 +495,8 @@ becomes
 
 [NOTE]
 If you develop an add-on and/or use some existing web component from webjar in your project 
-then migration tool won't be able to rewrite correctly the `@HtmlImport` annotation 
-unless this is a Vaadin web component. In this case the `@HtmlImport` will be replaced by `@JsImport` but you
+then the migration tool won't be able to rewrite correctly the `@HtmlImport` annotation
+unless it is a Vaadin web component. In this case the `@HtmlImport` will be replaced by `@JsImport` but you
 should correct the value by yourself since the migration tool is not able to detect the
 scope automatically for the JS module.
 
