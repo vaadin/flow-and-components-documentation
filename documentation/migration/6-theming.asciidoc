@@ -32,7 +32,7 @@ The following example shows all the tricks for theming applications, covered in 
 [source,java]
 ----
 @Theme(Lumo.class) // the theme for Vaadin Components. You can omit it for Lumo
-@HtmlImport("styles/shared-styles.html") // the application specific styles
+@CssImport("./styles/shared-styles.css") // the application specific styles
 @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
 public class MainLayout extends Div implements RouterLayout,
         AfterNavigationObserver, PageConfigurator {
@@ -52,8 +52,7 @@ It can also be in an abstract class if you have multiple root layouts.
 When no `@Theme` is used, the Lumo theme is used by default (if present in the classpath).
 
 Instead of a magic string, you need to provide a `Class` reference to an theme class that extends `AbstractTheme`.
-There is one ready-made theme available for V10: *Lumo*. Another theme, _Material_,
-is available for V12.
+There is two ready-made theme available for V10: *Lumo* and *Material*.
 You should always use a theme, since the unthemed versions of the components are only meant as a baseline for creating a new theme from scratch!
 
 The theme class will handle two things:
@@ -65,22 +64,22 @@ The Lumo theme can be customized, see <<../theme/using-component-themes#,documen
 
 === Application Theming
 
-`@HtmlImport("styles/shared-styles.html")` imports the application's style file.
+`@CssImport("./styles/shared-styles.css")` imports the application's style file.
 
 As the `@Theme` annotation only specifies the theme for the components,
 you should have a separate style module for the styling that only applies for the application.
-The recommended default is to have that inside the frontend folder, e.g. `src/main/webapp/frontend/shared-styles.html`.
+The recommended default is to have that inside the frontend folder, e.g. `/frontend/styles/shared-styles.css`.
 
-One reason why you should always use this location is that this style is automatically imported to templates when using Vaadin Designer to design UIs.
+You should always use this location for style files to
 
-The reason for using a HTML file with https://www.polymer-project.org/2.0/docs/api/elements/Polymer.CustomStyle[`<custom-style>`]
-element is that you can then theme the Web Components properly by taking advantage of Shady DOM for style encapsulation, custom properties, and custom mixins.
+* have the file included in the bundle file and allow it to override default theme specific styles
+* have the file automatically imported to templates when using Vaadin Designer to design UIs
 
-You can also use and import a CSS file with the `@StyleSheet` annotation.
-Note, that regular stylesheets are not processed by ShadyCSS, so you should avoid using custom properties or mixins in them if you want to support Internet Explorer 11.
+You can also use and import a CSS file with the `@StyleSheet` annotation, but this is not recommended (staring from V14).
+Regular stylesheets are not processed by ShadyCSS, so you should avoid using custom properties or mixins in them if you want to support Internet Explorer 11.
 
-When working with HTML templates in the application,
-it makes sense to apply the theming that only applies to that template directly in the template and scope it to only affect that.
+When creating the UI by defining html templates in JavaScript modules,
+it makes sense to apply the theming that only applies to a specific template directly in the template and scope it to only affect that.
 
 === Specifying the Viewport and <body> element styles
 
