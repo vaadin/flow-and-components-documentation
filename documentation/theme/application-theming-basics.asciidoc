@@ -7,37 +7,34 @@ layout: page
 = Application Theming Basics
 
 Theming is an important part of every web application.
-It provides a website with a consistent appearance in all the views, providing the
+It gives your website a consistent appearance in all the views, providing the
 feeling of uniformity and professionality.
 
-Application specific theming specifies styles that only affect one application.
+Application-specific theming specifies styles that only affect that one application.
 Whenever you have styles that are shared across multiple applications,
-you should make the theming as a separate module and resource that can be shared as a dependency for multiple applications.
+you should make the theme within a separate module to create a resource that can be shared as a dependency for multiple applications.
 This chapter focuses only on theming a single application.
 
 == Application Theme - Approaches
 
-Most Vaadin developers style their applications on top of a predefined theme, such as *Lumo*.
-Vaadin provides Lumo as a default theme for Vaadin applications.
-This theme is loaded automatically, if no `@Theme` or `@NoTheme` annotation is specified.
-
-Another alternative is to base your custom themes on top of other themes, such as *Material theme*.
+Most Vaadin developers style their applications on top of a predefined theme, such as https://vaadin.com/themes/lumo[Lumo] or https://vaadin.com/themes/material[Material].
+Lumo is provided as the default theme for Vaadin applications and gets loaded automatically if no `@Theme` or `@NoTheme` annotation is specified, as long as the theme files can be found on the classpath.
 
 [NOTE]
-Vaadin Material is a complete theme for Vaadin components, inspired by Google’s Material
+Vaadin Material is a complete theme for Vaadin components, inspired by Google's Material
 Design guidelines.
 
-Vaadin developers follow 2 approaches:
+There are two main approaches for using an application theme:
 
 . *Not using the @Theme annotation, Lumo as default:*
-In this approach, theme modules are imported for the component which shadow dom
+In this approach, theme modules are imported for the component whose shadow dom
 you want to customize. When the component, e.g. vaadin-button, is rendered, the corresponding
 Lumo file will be loaded on top.
 
 . *Using the @Theme annotation to load your own theme class that uses specific Lumo modules:*
 This approach uses the `@Theme` annotation to switch to a custom theme class,
 e.g. `MyTheme.class`. In that class, imports are defined for global files
-(i.e. your Lumo variable overrides, global css, ...), and the path from which to load the component styles.
+(i.e. your Lumo variable overrides, global css, ...), as is the path from which to load the component styles.
 
 
 The last approach has the disadvantage that it is necessary to create a file for every single Vaadin component
@@ -49,8 +46,8 @@ with the new one (new theme).
 
 Although using Lumo as a default application theme is more convenient and faster,
 the second option (Use the `@Theme` annotation to switch to your own theme class, e.g. `MyTheme.class`)
-allows to select the Lumo styles/themes that you want to be loaded for each component,
-reducing the number of styles loaded and giving more control. It also provides a better encapsulation
+allows you to select the Lumo styles/themes that you want to be loaded for each component.
+This reduces the overall number of styles loaded and gives you more control. It also provides a better encapsulation
 of the custom themes with the components.
 
 Option 2 is recommended for full-fledged custom themes.
@@ -60,20 +57,20 @@ Lumo only loads the styles/themes required for the components that you use.
 
 == Application Theme - What and Where?
 
-The application can be themed with CSS, but to be able to theme Polymer Web Components,
-you need to instruct flow to import it by using the `@CssImport` annotation.
+The application can be themed with CSS but to be able to theme Polymer Web Components,
+you need to instruct Vaadin to import the styles by using the `@CssImport` annotation.
 
-The recommendation is to always put the application wide shared styles in the
-`styles` subdiretory inside the `frontend` folder with the name `shared-styles.css`,
-thus the full path should be `frontend/styles/shared-styles.css`.
+The recommendation is to always put the application-wide shared styles in the
+`styles` subdiretory inside the `frontend` folder with the name `shared-styles.css`.
+Thus the full path should be `frontend/styles/shared-styles.css`.
 
 [NOTE]
-In addition to `@CssImport`, you can use the `@StyleSheet` classic annotation for those
-files that do not need to be imported as ES6 modules, hence, instead of being added to the
+In addition to `@CssImport`, you can use the classic `@StyleSheet` annotation for those
+files that do not need to be imported as ES6 modules. Hence, instead of being added to the
 application bundle, those files will be loaded dynamically by using the `<style>` tag.
 Styles loaded in this way cannot target the internals of Polymer Web Components.
 
-.Sample of a importing the application theme file
+.Sample of importing the application theme file
 [source,java]
 ----
 @CssImport("./styles/shared-styles.css")
@@ -84,14 +81,13 @@ public class MainLayout extends Div
 ----
 
 [NOTE]
-As seen on the <<using-component-themes#,Using Component Themes>> tutorial, the Lumo theme is used by
+As seen in the <<using-component-themes#,Using Component Themes>> tutorial, the Lumo theme is used by
 default if it is available in the classpath and no other `@Theme` is defined.
 
-The contents of the `shared-styles.css` are discussed further in <<theming-crash-course#,the next chapter>>.
-The recommendation is that the file contains all the application global and view specific theming.
+The expected contents of the `shared-styles.css` are discussed further in <<theming-crash-course#,the next chapter>>.
+The recommendation is that the file contains all the global and view-specific theming for your application.
 
-For any custom components in your application, you might have the styling that only applies to the component,
-inside the `template` block in its `.js` file.
+For any custom components in your application, you might put the component-specific styling inside the `template` block in its `.js` file.
 
 There is an example of this in the <<theming-crash-course#,Theming Crash Course>> chapter too.
 

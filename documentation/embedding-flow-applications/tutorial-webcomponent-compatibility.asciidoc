@@ -5,7 +5,6 @@ layout: page
 ---
 = Embedding Applications in Compatibility and Production Mode 
 
-
 == Compatibility Mode
 
 When embedding applications in compatibility mode, the following differences to development mode need to be taken into account: 
