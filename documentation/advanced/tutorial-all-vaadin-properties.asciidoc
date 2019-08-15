@@ -95,4 +95,6 @@ Please consult <<tutorial-i18n-localization#, I18N localization>> documentation.
 |disable.automatic.servlet.registration |
 Configuration name for the parameter that determines if Flow should automatically register servlets needed for the application to work.
 
-|==========================
+|compatibilityMode |
+When set to `true`, enables Vaadin 13 compatibility mode (Vaadin uses Bower and Webjars to handle frontend resources instead of npm and webpack). The purpose of this mode is to ease migration and it will no longer be supported in Vaadin 15.
+See <<../v14-migration/v14-migration-guide#compatibility-mode, Compatibility mode in Vaadin 14 Migration Guide>> for more information.
