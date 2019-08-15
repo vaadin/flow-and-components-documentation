@@ -1,9 +1,9 @@
 ---
-title: Importing Embedded Applications in Compatibility and Production Mode 
+title: Embedding Applications in Compatibility and Production Mode 
 order: 7
 layout: page
 ---
-= Importing Embedded Applications in Compatibility and Production Mode 
+= Embedding Applications in Compatibility and Production Mode 
 
 
 == Compatibility Mode
@@ -45,6 +45,4 @@ To avoid using the boilerplate line in production mode, you should use a `script
 </script>
 ----
 In production mode, the generated `login-form.html` content is simply JavaScript code that adds a proper polyfill library together with the required imports.
-
-// this doesn't make sense to me
 
