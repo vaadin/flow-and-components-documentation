@@ -1,10 +1,10 @@
 ---
-title: Changes in theming for Polymer 3 (npm)
+title: Changes in Theming for Polymer 3 (npm)
 order: 7
 layout: page
 ---
 
-= Migrating Theming files from Polymer 2 to Polymer 3
+= Migrating Theming Files from Polymer 2 to Polymer 3
 
 The most significant change in Polymer 3.0 is that Html Imports are not used anymore, and instead we need to use ES6 modules.
 
@@ -63,7 +63,7 @@ We need to follow the next steps to convert to Polymer 3, so as it is usable in 
 ----
 +
 
-2. Instruct Flow to import these css files using the `CssImport`annotation.
+2. Instruct Vaadin to import these css files using the `CssImport`annotation.
 +
 [source, java]
 ----
