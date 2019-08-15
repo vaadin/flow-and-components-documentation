@@ -8,7 +8,7 @@ layout: page
 
 == Compatibility Mode
 
-When importing embedded applications in compatibility mode, the following differences to development mode need to be taken into account: 
+When embedding applications in compatibility mode, the following differences to development mode need to be taken into account: 
 
 * The `"webcomponents-loader.js"` polyfill library is required to import web components using HTML import.
 * The web component URL resource is imported via HTML `import`.
@@ -27,7 +27,7 @@ The rest of the <<tutorial-webcomponent-intro#importing-an-embedded-application,
 
 == Production Mode
 
-Importing embedded applications in production mode is similar to development mode in that it requires these two steps:
+Embedding applications in production mode is similar to development mode in that it requires these two steps:
 
 . Package the application for production in the normal way.
 . Import the packaged application onto the target page.
