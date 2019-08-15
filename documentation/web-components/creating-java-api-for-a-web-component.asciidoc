@@ -83,14 +83,6 @@ public class PaperSlider extends AbstractSinglePropertyField<PaperSlider, Intege
     public PaperSlider() {
         super("value", 0, false);
     }
-
-    public void setPin(boolean pin) {
-        pinProperty.set(this, pin);
-    }
-
-    public boolean isPin() {
-        return pinProperty.get(this);
-    }
 }
 ----
 
@@ -139,19 +131,25 @@ To allow the user of your component to listen to the `click` event, you can exte
 @DomEvent("click")
 public class ClickEvent extends ComponentEvent<PaperSlider> {
 
-    private int x,y;
+    private int x, y;
 
-    public ClickEvent(PaperSlider source, boolean fromClient, @EventData("event.offsetX") int x, @EventData("event.offsetY") int y) {
+    public ClickEvent(PaperSlider source,
+                      boolean fromClient,
+                      @EventData("event.offsetX") int x,
+                      @EventData("event.offsetY") int y) {
         super(source, fromClient);
         this.x = x;
         this.y = y;
     }
+    
     public int getX() {
         return x;
     }
+    
     public int getY() {
         return y;
     }
+    
 }
 ----
 
@@ -262,20 +260,26 @@ public class PaperSlider extends AbstractSinglePropertyField<PaperSlider, Intege
     }
     @DomEvent("click")
     public static class ClickEvent extends ComponentEvent<PaperSlider> {
-
-        private int x,y;
-
-        public ClickEvent(PaperSlider source, boolean fromClient, @EventData("event.offsetX") int x, @EventData("event.offsetY") int y) {
+    
+        private int x, y;
+    
+        public ClickEvent(PaperSlider source,
+                          boolean fromClient,
+                          @EventData("event.offsetX") int x,
+                          @EventData("event.offsetY") int y) {
             super(source, fromClient);
             this.x = x;
             this.y = y;
         }
+        
         public int getX() {
             return x;
         }
+        
         public int getY() {
             return y;
         }
+        
     }
 }
 ----
