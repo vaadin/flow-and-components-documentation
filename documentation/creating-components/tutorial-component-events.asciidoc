@@ -227,7 +227,7 @@ public class ContinuousInputEvent
 }
 ----
 
-* See https://vaadin.com/api/platform/com/vaadin/flow/dom/DomListenerRegistration.html[`DomListenerRegistration.debouncer`] in the Javadoc for more about debouncing events.
+* See https://vaadin.com/api/platform/com/vaadin/flow/dom/DomListenerRegistration.html[`DomListenerRegistration.debounce`] in the Javadoc for more about debouncing events.
 
 
 [NOTE]
