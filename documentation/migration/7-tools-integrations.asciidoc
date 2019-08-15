@@ -34,10 +34,8 @@ There is a https://github.com/vaadin/cdi[CDI Add-on] for easier CDI integration 
 
 In Vaadin 8, Designer was used to edit declarative files with a `.html` suffix. Despite the file format suffix, the declarative format was a generic XML syntax that mapped directly into a tree of Vaadin components on the server side. The XML was read by Vaadin at runtime on the server, and was never sent to the client. It's important to note that the syntax only allowed component declarations.
 
-In Vaadin 14 the high level concept is the same. There are still HTML files that can be edited with Designer to declaratively compose views.
-But as with Vaadin 14 in general, the underlying technology has completely changed. In Vaadin 14 the HTML files are valid HTML. More specifically,
-they are https://www.polymer-project.org/2.0/docs/devguide/feature-overview[DOM modules]. The modules define templates and are rendered by the browser,
-and allow using encapsulated CSS, HTML, Web Components, and JavaScript. Using this new format allows Designer to do a couple of new things.
+In Vaadin 14 the high level concept is the same. There are still "html template" files that can be edited with Designer to declaratively compose views.
+But as with Vaadin 14 in general, the underlying technology has completely changed from what it was in Vaadin 8. Starting with Vaadin 14, the templates are written as https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules[JavaScript modules], which is a part of the web standard and works natively in modern browsers. The modules define templates and are rendered by the browser, and allow using encapsulated CSS, HTML, Web Components, and JavaScript. Using this new format allows Designer to do a couple of new things.
 As one major improvement, any template can be rendered inside one another. Furthermore, because templates are themselves Web Components,
 custom components are now fully supported by the Designer as well. On the other hand, HTML as a syntax is flexible enough that Designer might not work with all templates created in other ways.
 
@@ -45,7 +43,7 @@ Some features of Designer are not available for all Vaadin versions. See the htt
 
 === Migrating from Vaadin 8 Designs
 
-As the underlying technology has been completely changed, Vaadin 8 designs are not compatible with Vaadin Flow applications.
+As the underlying technology has been completely changed, Vaadin 8 designs are not compatible with Vaadin 14 applications.
 There are two paths to migration; either use the https://vaadin.com/docs/v14/mpr/Overview.html[Multiplatform Runtime] (available through Prime and Enterprise subscriptions) to run a Vaadin 8 application inside a Vaadin 14 application,
 or migrate the HTML files manually. When migrating manually, the declarative component tree should be copied inside the `<template>` in a blank Vaadin 14 design,
 and then modified to fit the new element API's.
