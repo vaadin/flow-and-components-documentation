@@ -78,8 +78,6 @@ In the common case where `getValue()` is based on a single element property, the
 ----
 public class PaperSlider extends AbstractSinglePropertyField<PaperSlider, Integer> {
 
-    private static final PropertyDescriptor<Boolean, Boolean> pinProperty = PropertyDescriptors.propertyWithDefault("pin", false);
-
     public PaperSlider() {
         super("value", 0, false);
     }
