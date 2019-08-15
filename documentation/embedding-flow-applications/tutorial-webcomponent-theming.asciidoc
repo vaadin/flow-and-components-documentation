@@ -25,7 +25,7 @@ public class MyExporter
 
 The annotation `@Theme(Material.class)` declared for the `MyExporter` class
 applies the `Material` theme for the embedded application and it works just like
-in the normal Flow application.
+in the normal Vaadin application.
 
 It's enough to specify a theme only for one exporter in your application.
 If there is no any theme declaration then `Lumo` theme is used if it's in 
