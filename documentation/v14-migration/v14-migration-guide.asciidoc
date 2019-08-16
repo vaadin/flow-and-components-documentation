@@ -96,7 +96,9 @@ for advanced users there is also a possibility to customize the webpack build.
 === Compatibility mode
 
 Existing Vaadin 10-13 projects can update to 14 without migrating
-to the new toolset. Behind the scenes, everything works just as before with using
+to the new toolset. The only thing that you need to do is to upgrade your Vaadin
+version to `14.0.0` in your `pom.xml`. No more changes are needed in your
+project. Behind the scenes, everything works just as before with using
 Bower & Webjars, Polymer 2 & Html Imports, and Polymer CLI for the production build.
 This is called _the compatibility mode_ in Vaadin 14.
 
