@@ -26,7 +26,7 @@ public class RootComponent extends Div {
 }
 ----
 
-You can also define all other possible routes in the same way as in standard Vaadin Flow applications. See  
+You can also define all other possible routes in the same way as in standard Vaadin applications. See  
 <<../routing/tutorial-routing-annotation#,Defining Routes with @Route>> for more about using the `Router` class. 
 
 == Using Dependency Injection and Spring Autowiring
