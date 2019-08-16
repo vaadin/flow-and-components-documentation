@@ -6,7 +6,7 @@ layout: page
 
 = Defining Routes with @Route
 
-Flow provides the `Router` class to structure the navigation of your web application into logical parts.
+Vaadin provides the `Router` class to structure the navigation of your web application into logical parts.
 
 The router takes care of serving content when the user navigates within an application. It includes support for nested routes, access to URL parameters and more. 
 

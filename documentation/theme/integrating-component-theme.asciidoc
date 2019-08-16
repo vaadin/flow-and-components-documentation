@@ -7,10 +7,10 @@ layout: page
 = Integrating Your Own Component Theme
 
 To create your own component theme to be used with the wrapped Vaadin components
-you need to create a theme class that informs flow how to translate the base un-themed
+you need to create a theme class that informs Vaadin how to translate the base un-themed
 component html import to use your themed version.
 
-The `getBaseUrl` should return the part of the htmlImport that can be used to determine if
+The `getBaseUrl` should return the part of the import that can be used to determine if
 it is an import that could be changed to a theme import. (for Vaadin components that is `/src/`)
 
 The `getThemeUrl` should return what the base url part should be changed to to get the
@@ -32,7 +32,7 @@ public class MyTheme implements AbstractTheme {
 }
 ----
 
-For more control there is `getBodyInlineContents()` that returns a collection of html
+For more control there is `getHeaderInlineContents()` that returns a collection of html
 that will be inlined to the BootstrapPage body. For instance, it can be used to add a
 custom style to have the correct typography:
 [source,java]
@@ -47,11 +47,11 @@ public List<String> getHeaderInlineContents() {
 ----
 
 Your theme can also support variants. For instance, Lumo theme supports both light and dark variants.
-To add support for variants, you can override the `getBodyAttributes`  method:
+To add support for variants, you can override the `getHtmlAttributes`  method:
 [source,java]
 ----
 @Override
-public Map<String, String> getBodyAttributes(
+public Map<String, String> getHtmlAttributes(
         String variant) {
     if ("dark".equals(variant)) {
        // the <body> element will have the "theme"

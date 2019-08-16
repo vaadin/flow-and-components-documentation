@@ -23,7 +23,7 @@ Global styles can target document body and any regular DOM contents inside, incl
 but can not target Shadow DOM contents, such as internals of Vaadin components, Polymer templates, and other web components.
 
 To define global styles, we need to put our styles in a `.css` file and configure your application to import
-it using the `@CssImport` annotation. Flow will wrap the styles appropriatelly to instruct Polymer to enable correct cross-browser scoping.
+it using the `@CssImport` annotation. Vaadin will wrap the styles appropriately to instruct Polymer to enable correct cross-browser scoping.
 
 .frontend/styles/shared-styles.css
 [source,css]
@@ -63,7 +63,7 @@ class MyView extends PolymerElement {
     return html`
       <style>
         :host {
-          /* Styles for the `<my-view>`
+          /* Styles for the <my-view>
              hosting element */
           display: block;
         }
