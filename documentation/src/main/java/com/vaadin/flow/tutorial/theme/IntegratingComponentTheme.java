@@ -47,7 +47,7 @@ public class IntegratingComponentTheme {
         }
 
         @Override
-        public Map<String, String> getBodyAttributes(
+        public Map<String, String> getHtmlAttributes(
                 String variant) {
             if ("dark".equals(variant)) {
                 // the <body> element will have the "theme"
