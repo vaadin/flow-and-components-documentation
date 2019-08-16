@@ -146,6 +146,9 @@ public final class UserService {
 ----
 *** The `"login-form"` web component has two properties, `userlbl` and `pwdlbl`. These values are passed from the HTML to a web component instance.
 
+[NOTE]
+If embedding applications is targeted towards very specific browsers, the polyfill is not needed. For example Chrome and Firefox do not need the polyfill while Edge does.
+
 . Register the `VaadinServlet`.
 +
 
