@@ -34,7 +34,8 @@ List<Person> people = Arrays.asList(
 Grid<Person> grid = new Grid<>();
 grid.setItems(people);
 grid.addColumn(Person::getName).setHeader("Name");
-grid.addColumn(person -> Integer.toString(person.getYearOfBirth()))
+grid.addColumn(person -> Integer.toString(
+               person.getYearOfBirth()))
         .setHeader("Year of birth");
 
 layout.add(grid);
@@ -56,14 +57,17 @@ To access the selection API or to use Grid as an input field with `Binder`, you 
 Grid<Person> grid = new Grid<>();
 
 grid.setSelectionMode(SelectionMode.SINGLE);
-SingleSelect<Grid<Person>, Person> personSelect = grid.asSingleSelect();
-// personSelect can now be used with Binder or HasValue interface
+SingleSelect<Grid<Person>, Person> personSelect =
+        grid.asSingleSelect();
+// personSelect can now be used with Binder or
+// HasValue interface
 personSelect.addValueChangeListener(e -> {
     Person selectedPerson = e.getValue();
 });
 
 grid.setSelectionMode(SelectionMode.MULTI);
-MultiSelect<Grid<Person>, Person> multiSelect = grid.asMultiSelect();
+MultiSelect<Grid<Person>, Person> multiSelect =
+        grid.asMultiSelect();
 multiSelect.addValueChangeListener(e -> {
     Set<Person> selectedPersons = e.getValue();
 });
@@ -80,8 +84,8 @@ Grid<Person> grid = new Grid<>();
 grid.setSelectionMode(SelectionMode.MULTI);
 
 grid.addSelectionListener(event -> {
-    Set<Person> selected = event.getAllSelectedItems();
-    message.setText(selected.size() + " items selected");
+   Set<Person> selected = event.getAllSelectedItems();
+   message.setText(selected.size() + " items selected");
 });
 ----
 [NOTE]
@@ -99,7 +103,7 @@ grid.select(defaultItem);
 // switch to multi select, clears selection
 grid.setSelectionMode(SelectionMode.MULTI);
 // Select items 2-4
-people.subList(2,3).forEach(grid::select);
+people.subList(2, 3).forEach(grid::select);
 ----
 
 You can get the current selection from the `Grid` using the `getSelectedItems()` method. The returned `Set` contains one item in single-selection mode, or several items in multi-selection mode.
@@ -125,11 +129,13 @@ You can also get the selection model using the `setSelectionMode(SelectionMode)`
 [source, java]
 ----
 // the default selection model
-GridSingleSelectionModel<Person> defaultModel = (GridSingleSelectionModel<Person>) grid
+GridSingleSelectionModel<Person> defaultModel =
+    (GridSingleSelectionModel<Person>) grid
         .getSelectionModel();
 
 // Use multi-selection mode
-GridMultiSelectionModel<Person> selectionModel = (GridMultiSelectionModel<Person>) grid
+GridMultiSelectionModel<Person> selectionModel =
+    (GridMultiSelectionModel<Person>) grid
         .setSelectionMode(SelectionMode.MULTI);
 ----
 
@@ -148,7 +154,8 @@ In single-selection mode, it is possible to control whether the empty (null) sel
 // preselect value
 grid.select(defaultItem);
 
-GridSingleSelectionModel<Person> singleSelect = (GridSingleSelectionModel<Person>) grid
+GridSingleSelectionModel<Person> singleSelect =
+    (GridSingleSelectionModel<Person>) grid
         .getSelectionModel();
 
 // disallow empty selection
@@ -170,18 +177,21 @@ You can use the `addMultiSelectionListener(MultiSelectionListener)` method to ac
 // Grid in multi-selection mode
 Grid<Person> grid = new Grid<>();
 grid.setItems(people);
-GridMultiSelectionModel<Person> selectionModel = (GridMultiSelectionModel<Person>) grid
+GridMultiSelectionModel<Person> selectionModel =
+    (GridMultiSelectionModel<Person>) grid
         .setSelectionMode(SelectionMode.MULTI);
 
 selectionModel.selectAll();
 
 selectionModel.addMultiSelectionListener(event -> {
-    message.setText(String.format("%s items added, %s removed.",
+    message.setText(String.format(
+            "%s items added, %s removed.",
             event.getAddedSelection().size(),
             event.getRemovedSelection().size()));
 
     // Allow deleting only if there's any selected
-    deleteSelected.setEnabled(event.getNewSelection().isEmpty());
+    deleteSelected.setEnabled(
+            event.getNewSelection().isEmpty());
 });
 ----
 
@@ -208,7 +218,8 @@ It is possible to get separate selection and click events.
 [source, java]
 ----
 grid.setSelectionMode(SelectionMode.MULTI);
-grid.addItemDoubleClickListener(event -> copy(grid.getSelectedItems()));
+grid.addItemDoubleClickListener(event ->
+        copy(grid.getSelectedItems()));
 ----
 
 * In the example code, we call a local `copy` method with the currently selected items when user double clicks a row.
@@ -225,7 +236,8 @@ The setter methods in `Column` have fluent-API functionality, making it easy to 
 
 [source, java]
 ----
-Column<Person> nameColumn = grid.addColumn(Person::getName)
+Column<Person> nameColumn = grid
+    .addColumn(Person::getName)
     .setHeader("Name")
     .setFlexGrow(0)
     .setWidth("100px")
@@ -318,7 +330,8 @@ You can disable sorting for a specific column, using the `setSortable` method.
 
 [source, java]
 ----
-grid.getColumnByKey("address.postalCode").setSortable(false);
+grid.getColumnByKey("address.postalCode")
+        .setSortable(false);
 ----
 
 You can also define a list of columns as sortable using the `setSortableColumns` method. This makes all other columns unsortable.
@@ -327,7 +340,8 @@ You can also define a list of columns as sortable using the `setSortableColumns`
 
 [source, java]
 ----
-// All columns except "name" and "yearOfBirth" will be not sortable
+// All columns except "name" and "yearOfBirth"
+// will be not sortable
 grid.setSortableColumns("name", "yearOfBirth");
 ----
 
@@ -462,9 +476,11 @@ Use `LocalDateRenderer` to render `LocalDate` objects in the cells.
 
 [source, java]
 ----
-grid.addColumn(new LocalDateRenderer<>(Item::getEstimatedDeliveryDate,
-        DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)))
-        .setHeader("Estimated delivery date");
+grid.addColumn(new LocalDateRenderer<>(
+        Item::getEstimatedDeliveryDate,
+        DateTimeFormatter.ofLocalizedDate(
+                FormatStyle.MEDIUM)))
+    .setHeader("Estimated delivery date");
 ----
 
 `LocalDateRenderer` works with a `DateTimeFormatter` or a String format to properly render `LocalDate` objects.
@@ -473,8 +489,10 @@ grid.addColumn(new LocalDateRenderer<>(Item::getEstimatedDeliveryDate,
 
 [source, java]
 ----
-grid.addColumn(new LocalDateRenderer<>(Item::getEstimatedDeliveryDate,
-        "dd/MM/yyyy")).setHeader("Estimated delivery date");
+grid.addColumn(new LocalDateRenderer<>(
+        Item::getEstimatedDeliveryDate,
+        "dd/MM/yyyy"))
+    .setHeader("Estimated delivery date");
 ----
 
 ==== LocalDateTimeRenderer
@@ -485,10 +503,12 @@ Use `LocalDateTimeRenderer` to render `LocalDateTime` objects in the cells.
 
 [source, java]
 ----
-grid.addColumn(new LocalDateTimeRenderer<>(Item::getPurchaseDate,
-        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT,
+grid.addColumn(new LocalDateTimeRenderer<>(
+        Item::getPurchaseDate,
+        DateTimeFormatter.ofLocalizedDateTime(
+                FormatStyle.SHORT,
                 FormatStyle.MEDIUM)))
-        .setHeader("Purchase date and time");
+    .setHeader("Purchase date and time");
 ----
 
 `LocalDateTimeRenderer` also works with `DateTimeFormatter` (with separate style for date and time) or a String format to properly render `LocalDateTime` objects.
@@ -497,8 +517,10 @@ grid.addColumn(new LocalDateTimeRenderer<>(Item::getPurchaseDate,
 
 [source, java]
 ----
-grid.addColumn(new LocalDateTimeRenderer<>(Item::getPurchaseDate,
-        "dd/MM HH:mm:ss")).setHeader("Purchase date and time");
+grid.addColumn(new LocalDateTimeRenderer<>(
+        Item::getPurchaseDate,
+        "dd/MM HH:mm:ss")
+).setHeader("Purchase date and time");
 ----
 
 ==== NumberRenderer
@@ -510,7 +532,8 @@ Use `NumberRenderer` to render any type of Number in the cells. It is especially
 [source, java]
 ----
 grid.addColumn(new NumberRenderer<>(Item::getPrice,
-        NumberFormat.getCurrencyInstance())).setHeader("Price");
+        NumberFormat.getCurrencyInstance())
+).setHeader("Price");
 ----
 
 It is possible to setup the `NumberRenderer` with a String format, and an optional null representation.
@@ -519,8 +542,10 @@ It is possible to setup the `NumberRenderer` with a String format, and an option
 
 [source, java]
 ----
-grid.addColumn(new NumberRenderer<>(Item::getPrice, "$ %(,.2f",
-        Locale.US, "$ 0.00")).setHeader("Price");
+grid.addColumn(new NumberRenderer<>(
+        Item::getPrice, "$ %(,.2f",
+        Locale.US, "$ 0.00")
+).setHeader("Price");
 ----
 
 ==== NativeButtonRenderer
@@ -532,9 +557,11 @@ Use `NativeButtonRenderer` to create a clickable button in the cells. It creates
 [source, java]
 ----
 grid.addColumn(
-    new NativeButtonRenderer<>("Remove item", clickedItem -> {
-        // remove the item
-    }));
+    new NativeButtonRenderer<>("Remove item",
+       clickedItem -> {
+           // remove the item
+    })
+);
 ----
 
 You can configure a custom label for each item.
@@ -543,9 +570,12 @@ You can configure a custom label for each item.
 
 [source, java]
 ----
-grid.addColumn(new NativeButtonRenderer<>(item -> "Remove " + item, clickedItem -> {
-  // remove the item
-}));
+grid.addColumn(new NativeButtonRenderer<>(
+        item -> "Remove " + item,
+        clickedItem -> {
+            // remove the item
+        })
+);
 ----
 
 === Using Template renderers
@@ -559,14 +589,16 @@ Providing a `TemplateRenderer` for a column allows you to define the content of 
 Grid<Person> grid = new Grid<>();
 grid.setItems(people);
 
-grid.addColumn(TemplateRenderer.<Person> of("<b>[[item.name]]</b>")
-                .withProperty("name", Person::getName)).setHeader("Name");
+grid.addColumn(TemplateRenderer
+       .<Person>of("<b>[[item.name]]</b>")
+       .withProperty("name", Person::getName)
+).setHeader("Name");
 ----
 
 * The template string is passed for the static `TemplateRenderer.of()` method.
 * Every property in the template needs to be defined in the `withProperty()` method.
 * `\[[item.name]]` is Polymer syntax for binding properties for a list of items.
-See the https://www.polymer-project.org/2.0/docs/api/elements/Polymer.DomRepeat[Polymer 2 documentation] for more.
+See the https://polymer-library.polymer-project.org/3.0/api/elements/dom-repeat[Polymer 3 documentation] for more.
 
 ==== Creating Custom Properties
 
@@ -576,11 +608,12 @@ You can use a `TemplateRenderer` to create and display new properties (i.e. prop
 
 [source, java]
 ----
-grid.addColumn(TemplateRenderer.<Person> of("[[item.age]] years old")
+grid.addColumn(TemplateRenderer
+        .<Person>of("[[item.age]] years old")
         .withProperty("age",
                 person -> Year.now().getValue()
-                        - person.getYearOfBirth()))
-        .setHeader("Age");
+                        - person.getYearOfBirth())
+).setHeader("Age");
 ----
 
 ==== Binding Beans
@@ -590,10 +623,13 @@ If an object contains a bean property that has sub properties, it is only necess
 *Example*: Using the `withProperty()` method to access numerous sub properties. Assumes `Person` has a field for the `Address` bean, which has `street`, `number` and `postalCode` fields with corresponding getter and setter methods.
 [source, java]
 ----
-grid.addColumn(TemplateRenderer.<Person> of(
-        "<div>[[item.address.street]], number [[item.address.number]]<br><small>[[item.address.postalCode]]</small></div>")
+grid.addColumn(TemplateRenderer.<Person>of(
+        "<div>[[item.address.street]], number " +
+        "[[item.address.number]]<br>" +
+        "<small>[[item.address.postalCode]]</small>" +
+        "</div>")
         .withProperty("address", Person::getAddress))
-        .setHeader("Address");
+    .setHeader("Address");
 ----
 
 ==== Handling Events
@@ -604,17 +640,19 @@ You can define event handlers for the elements in your template, and hook them t
 
 [source, java]
 ----
-grid.addColumn(TemplateRenderer.<Person> of(
-                "<button on-click='handleUpdate'>Update</button><button on-click='handleRemove'>Remove</button>")
-                .withEventHandler("handleUpdate", person -> {
-                    person.setName(person.getName() + " Updated");
-                    grid.getDataProvider().refreshItem(person);
-                }).withEventHandler("handleRemove", person -> {
-                    ListDataProvider<Person> dataProvider = (ListDataProvider<Person>) grid
-                            .getDataProvider();
-                    dataProvider.getItems().remove(person);
-                    dataProvider.refreshAll();
-                })).setHeader("Actions");
+grid.addColumn(TemplateRenderer.<Person>of(
+     "<button on-click='handleUpdate'>Update</button>" +
+     "<button on-click='handleRemove'>Remove</button>")
+    .withEventHandler("handleUpdate", person -> {
+        person.setName(person.getName() + " Updated");
+        grid.getDataProvider().refreshItem(person);
+    }).withEventHandler("handleRemove", person -> {
+        ListDataProvider<Person> dataProvider =
+            (ListDataProvider<Person>) grid
+                .getDataProvider();
+        dataProvider.getItems().remove(person);
+        dataProvider.refreshAll();
+    })).setHeader("Actions");
 ----
 
 * When the server-side data used by the grid is edited, the grid's `DataProvider` is refreshed by calling the `refreshItem()` method. This ensures the changes show up in the element.
@@ -650,10 +688,11 @@ It is also possible to provide a separate `Supplier` to create the component, an
 *Example*: Using `ComponentRenderer` with a `Consumer`.
 [source, java]
 ----
-SerializableBiConsumer<Div, Person> consumer = (div, person) -> div
-                .setText(person.getName());
-grid.addColumn(new ComponentRenderer<>(Div::new, consumer))
-        .setHeader("Name");
+SerializableBiConsumer<Div, Person> consumer =
+        (div, person) -> div.setText(person.getName());
+grid.addColumn(
+        new ComponentRenderer<>(Div::new, consumer))
+    .setHeader("Name");
 ----
 
 If the component is the same for every item, you only need to provide the `Supplier`.
@@ -662,7 +701,8 @@ If the component is the same for every item, you only need to provide the `Suppl
 [source, java]
 ----
 grid.addColumn(
-    new ComponentRenderer<>(() -> new Icon(VaadinIcon.ARROW_LEFT)));
+    new ComponentRenderer<>(
+            () -> new Icon(VaadinIcon.ARROW_LEFT)));
 ----
 
 You can create complex content for the grid cells by using the component APIs.
@@ -684,14 +724,17 @@ grid.addColumn(new ComponentRenderer<>(person -> {
 
     // button that removes the item
     Button remove = new Button("Remove", event -> {
-        ListDataProvider<Person> dataProvider = (ListDataProvider<Person>) grid
+        ListDataProvider<Person> dataProvider =
+            (ListDataProvider<Person>) grid
                 .getDataProvider();
         dataProvider.getItems().remove(person);
         dataProvider.refreshAll();
     });
 
-    // layouts for placing the text field on top of the buttons
-    HorizontalLayout buttons = new HorizontalLayout(update, remove);
+    // layouts for placing the text field on top
+    // of the buttons
+    HorizontalLayout buttons =
+            new HorizontalLayout(update, remove);
     return new VerticalLayout(name, buttons);
 })).setHeader("Actions");
 ----
@@ -709,12 +752,15 @@ You can enable expanding rows using the `setItemDetailsRenderer()` method, which
 
 [source, java]
 ----
-grid.setItemDetailsRenderer(new ComponentRenderer<>(person -> {
-    VerticalLayout layout = new VerticalLayout();
-    layout.add(new Label("Address: " + person.getAddress().getStreet()
-            + " " + person.getAddress().getNumber()));
-    layout.add(new Label("Year of birth: " + person.getYearOfBirth()));
-    return layout;
+grid.setItemDetailsRenderer(
+    new ComponentRenderer<>(person -> {
+        VerticalLayout layout = new VerticalLayout();
+        layout.add(new Label("Address: " +
+                person.getAddress().getStreet() + " " +
+                person.getAddress().getNumber()));
+        layout.add(new Label("Year of birth: " +
+                person.getYearOfBirth()));
+        return layout;
 }));
 ----
 
@@ -767,8 +813,9 @@ You can also define multiple properties.
 
 [source, java]
 ----
-grid.addColumn(person -> person.getName() + " " + person.getLastName(),
-                "name", "lastName").setHeader("Name");
+grid.addColumn(person -> person.getName() + " " +
+        person.getLastName(), "name", "lastName"
+).setHeader("Name");
 ----
 
 * With multiple properties, the `QuerySortOrder` objects are created in the order they are declared.
@@ -780,10 +827,12 @@ You can also use use properties created for your `TemplateRenderer`.
 [source, java]
 ----
 grid.addColumn(TemplateRenderer.<Person> of(
-        "<div>[[item.name]]<br><small>[[item.email]]</small></div>")
+        "<div>[[item.name]]<br>" +
+        "<small>[[item.email]]</small></div>")
         .withProperty("name", Person::getName)
-        .withProperty("email", Person::getEmail), "name", "email")
-        .setHeader("Person");
+        .withProperty("email", Person::getEmail),
+    "name", "email")
+    .setHeader("Person");
 ----
 * For in-memory sorting to work correctly, the values returned by the `ValueProviders` in the `TemplateRenderer`
 (`Person::getName` and `Person::getEmail` in this example) should implement `Comparable`.
@@ -799,9 +848,10 @@ If you need custom logic to compare items for sorting, or if your underlying dat
 [source, java]
 ----
 grid.addColumn(Person::getName)
-        .setComparator((person1, person2) -> person1.getName()
-                .compareToIgnoreCase(person2.getName()))
-        .setHeader("Name");
+    .setComparator((person1, person2) ->
+        person1.getName()
+            .compareToIgnoreCase(person2.getName()))
+    .setHeader("Name");
 ----
 
 
@@ -815,7 +865,8 @@ You can use the `setSortProperty` method to set strings describing backend prope
 
 [source, java]
 ----
-grid.addColumn(Person::getName).setSortProperty("name", "email")
+grid.addColumn(Person::getName)
+        .setSortProperty("name", "email")
         .setHeader("Person");
 ----
 * Unlike using the sorting properties in the `addColumn` method directly, calling `setSortProperty` does not configure any in-memory sorting.
@@ -832,11 +883,11 @@ If you need fine-grained control over how `QuerySortOrder` objects are created a
 [source, java]
 ----
 grid.addColumn(Person::getName)
-        .setSortOrderProvider(direction -> Arrays
-                .asList(new QuerySortOrder("name", direction),
-                        new QuerySortOrder("email", direction))
-                .stream())
-        .setHeader("Person");
+    .setSortOrderProvider(direction -> Arrays
+        .asList(new QuerySortOrder("name", direction),
+                new QuerySortOrder("email", direction))
+        .stream())
+    .setHeader("Person");
 ----
 
 === Enabling and Disabling Column Sorting
@@ -883,19 +934,19 @@ grid.addSortListener(event -> {
     String currentSortOrder = grid.getDataCommunicator()
             .getBackEndSorting().stream()
             .map(querySortOrder -> String.format(
-                    "{sort property: %s, direction: %s}",
-                    querySortOrder.getSorted(),
-                    querySortOrder.getDirection()))
+                   "{sort property: %s, direction: %s}",
+                   querySortOrder.getSorted(),
+                   querySortOrder.getDirection()))
             .collect(Collectors.joining(", "));
     System.out.println(String.format(
-            "Current sort order: %s. Sort originates from the client: %s.",
+            "Current sort order: %s. User-clicked: %s.",
             currentSortOrder, event.isFromClient()));
 });
 ----
 
 == Styling the Grid
 
-Styling the `Grid` component (or any Flow component) requires some Web Component and shadow-DOM knowledge. Styling depends on the components position in the DOM:
+Styling the `Grid` component (or any Vaadin component) requires some Web Component and shadow-DOM knowledge. Styling depends on the components position in the DOM:
 
 * If the component is in the shadow DOM, you can apply styling within the component or using variables.
 * If the component is in the "normal" DOM (not in the shadow DOM), normal CSS styling applies.
@@ -912,7 +963,8 @@ grid.addClassName("styled");
 grid.addColumn(new ComponentRenderer<>(person -> {
     TextField textField = new TextField();
     textField.setValue(person.getName());
-    textField.addClassName("style-" + person.getGender());
+    textField.addClassName("style-" +
+            person.getGender());
     textField.addValueChangeListener(
         event -> person.setName(event.getValue()));
     return textField;
@@ -924,12 +976,14 @@ grid.addColumn(new ComponentRenderer<>(person -> {
     datePicker.addValueChangeListener(event -> {
         person.setDob(event.getValue());
     });
-    datePicker.addClassName("style-" + person.getGender());
+    datePicker.addClassName("style-" +
+            person.getGender());
     return datePicker;
 })).setHeader("DOB");
 
 grid.addColumn(new ComponentRenderer<>(person -> {
-    Image image = new Image(person.getImgUrl(), person.getName());
+    Image image = new Image(person.getImgUrl(),
+            person.getName());
     return image;
 })).setHeader("Image");
 
@@ -943,7 +997,8 @@ The default Lumo theme includes different variations that you can use to style t
 
 [source, java]
 ----
-grid.addThemeNames("no-border", "no-row-borders", "row-stripes");
+grid.addThemeNames("no-border", "no-row-borders",
+        "row-stripes");
 ----
 
 
@@ -983,24 +1038,24 @@ You can use custom styles to style the grid itself. This is achieved by overridi
 [source, html]
 ----
 <dom-module id="custom-grid" theme-for="vaadin-grid">
-    <template>
-        <style>
-            :host(.styled) #table {
-                border-radius: 20px;
-                box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-                border: 1px solid rgba(81, 203, 238, 1);
-            }
-            :host(.styled) #header {
-                border: none;
-                border-bottom: 1px solid rgba(81, 203, 238, 1);
-            }
-            :host(.styled) #header tr {
-                text-align: center;
-                text-shadow: 0 0 3px rgba(81, 203, 238, 1);
-                text-transform: uppercase;
-            }
-        </style>
-    </template>
+  <template>
+    <style>
+      :host(.styled) #table {
+        border-radius: 20px;
+        box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+        border: 1px solid rgba(81, 203, 238, 1);
+      }
+      :host(.styled) #header {
+        border: none;
+        border-bottom: 1px solid rgba(81, 203, 238, 1);
+      }
+      :host(.styled) #header tr {
+        text-align: center;
+        text-shadow: 0 0 3px rgba(81, 203, 238, 1);
+        text-transform: uppercase;
+      }
+    </style>
+  </template>
 </dom-module>
 ----
 
@@ -1018,17 +1073,19 @@ CSS variables only work with components that support them, such as `Grid`.
 The following example takes you through the process of styling the grid with text fields of different colors, depending on the user's gender.
 
 . Introduce CSS variable usage for the `TextField` component.
-+
+
 [source, html]
 ----
-<dom-module id="custom-text-field" theme-for="vaadin-text-field">
-    <template>
-        <style>
-            .vaadin-text-field-container [part="input-field"] {
-                background-color: var(--custom-text-field-bg, var(--lumo-contrast-10pct));
-            }
-        </style>
-    </template>
+<dom-module id="custom-text-field"
+        theme-for="vaadin-text-field">
+  <template>
+    <style>
+      .vaadin-text-field-container[part="input-field"] {
+          background-color: var(--custom-text-field-bg,
+                var(--lumo-contrast-10pct));
+      }
+    </style>
+  </template>
 </dom-module>
 ----
 
@@ -1036,7 +1093,7 @@ The following example takes you through the process of styling the grid with tex
 * The only change is the introduction of the `--custom-text-field-bg` variable.
 
 . Change the variable, based on the person's gender.
-+
+
 [source, css]
 ----
 .styled .style-female {

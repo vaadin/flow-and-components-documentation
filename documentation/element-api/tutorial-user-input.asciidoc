@@ -15,7 +15,8 @@ In this section we demonstrate how to use the Element API to retrieve user input
 [source,java]
 ----
 Element textInput = ElementFactory.createInput();
-textInput.setAttribute("placeholder", "Please enter your name");
+textInput.setAttribute("placeholder",
+        "Please enter your name");
 ----
 
 . Transfer the value to the server, by asking the client to update the server-side input element every time the value changes in the browser.
@@ -24,7 +25,7 @@ textInput.setAttribute("placeholder", "Please enter your name");
 +
 [source,java]
 ----
-textInput.synchronizeProperty("value","change");
+textInput.synchronizeProperty("value", "change");
 ----
 * Configures Flow to synchronize the `value` property to the server-side when a `change` event occurs.
 +
@@ -38,8 +39,10 @@ As an alternative, you can use the `addEventData` method to transfer the value f
 [source,java]
 ----
 button.addEventListener("click", e -> {
-    String responseText = "Hello " + textInput.getProperty("value");
-    Element response = ElementFactory.createDiv(responseText);
+    String responseText = "Hello " +
+            textInput.getProperty("value");
+    Element response = ElementFactory
+            .createDiv(responseText);
     getElement().appendChild(response);
 });
 ----

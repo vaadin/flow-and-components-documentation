@@ -29,7 +29,8 @@ public class ShadowRootSamples {
     public class MyLabel extends Component {
 
         public MyLabel() {
-            ShadowRoot shadowRoot = getElement().attachShadow();
+            ShadowRoot shadowRoot = getElement()
+                    .attachShadow();
             Label textLabel = new Label("In the shadow");
             shadowRoot.appendChild(textLabel.getElement());
         }

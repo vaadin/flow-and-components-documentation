@@ -40,14 +40,16 @@ public class BinderBeans {
     public class Person {
 
         @Max(2000)
-        @Max(value = 2000, message = "Year of Birth must be less than or equal to 2000")
+        @Max(value = 2000, message =
+                "Year of Birth must be less than or equal to 2000")
         private int yearOfBirth;
 
-        // Non-standard constraint provided by Hibernate Validator
+        // Non-standard constraint provided by
+        // Hibernate Validator
         @NotEmpty
         private String name;
 
-        // + other fields, constructors, setters, and getters
+        // + other fields, constructors, setters and getters
 
         public int getYearOfBirth() {
             return yearOfBirth;
@@ -59,7 +61,7 @@ public class BinderBeans {
     }
 
 
-    public void bindProprties() {
+    public void bindProperties() {
 
         Binder<Person> binder = new Binder<>(Person.class);
 
@@ -74,11 +76,13 @@ public class BinderBeans {
 
     public void requiredConfigurator() {
         BeanValidationBinder<Person>  binder = new BeanValidationBinder<>(Person.class);
-        binder.setRequiredConfigurator(RequiredFieldConfigurator.NOT_EMPTY.chain(RequiredFieldConfigurator.NOT_NULL));
+        binder.setRequiredConfigurator(
+                RequiredFieldConfigurator.NOT_EMPTY
+                        .chain(RequiredFieldConfigurator.NOT_NULL));
    }
 
 
-    public void bindSubProprties() {
+    public void bindSubProperties() {
         Binder<Person> binder = new Binder<>(Person.class);
 
         // Bind based on property name
@@ -88,18 +92,20 @@ public class BinderBeans {
         // Bind using forField for additional configuration
         binder.forField(yearOfBirthField)
                 .withConverter(
-                        new StringToIntegerConverter("Please enter a number"))
+                        new StringToIntegerConverter(
+                                "Please enter a number"))
                 .bind("yearOfBirth");
     }
 
     public void beanBinder() {
         // @formatter:off
-        BeanValidationBinder<Person> binder = new BeanValidationBinder<>(Person.class);
+        BeanValidationBinder<Person> binder =
+                new BeanValidationBinder<>(Person.class);
 
         binder.bind(nameField, "name");
         binder.forField(yearOfBirthField)
                 .withConverter(
-                        new StringToIntegerConverter("Please enter a number"))
+                        new StringToIntegerConverter("Enter a number"))
                 .bind("yearOfBirth");
         // @formatter:on
     }
@@ -177,12 +183,16 @@ public class BinderBeans {
     public static class A {
 
         public class MyForm extends VerticalLayout {
-            private TextField firstName = new TextField("First name");
-            private TextField lastName = new TextField("Last name");
-            private ComboBox<Gender> gender = new ComboBox<>("Gender");
+            private TextField firstName =
+                    new TextField("First name");
+            private TextField lastName =
+                    new TextField("Last name");
+            private ComboBox<Gender> gender =
+                    new ComboBox<>("Gender");
 
             public MyForm() {
-                Binder<Person> binder = new Binder<>(Person.class);
+                Binder<Person> binder =
+                        new Binder<>(Person.class);
                 binder.bindInstanceFields(this);
 
                 binder.forField(firstName)
@@ -193,7 +203,8 @@ public class BinderBeans {
                         .bind(Person::getGender, Person::setGender);
 
 
-                TextField yearOfBirthField = new TextField("Year of birth");
+                TextField yearOfBirthField =
+                        new TextField("Year of birth");
 
                 binder.forField(yearOfBirthField)
                         .withConverter(
@@ -247,7 +258,8 @@ public class BinderBeans {
     public class B {
         public class MyForm extends VerticalLayout {
             @PropertyId("sex")
-            private ComboBox<Gender> gender = new ComboBox<>("Gender");
+            private ComboBox<Gender> gender =
+                    new ComboBox<>("Gender");
         }
 
     }

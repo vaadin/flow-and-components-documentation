@@ -10,8 +10,6 @@ Business objects are typically implemented as JavaBeans in an application. `Bind
 
 == Manual Data Binding
 
-=== Using Bean Property Names
-
 You can use reflection based on bean property names to bind values. This reduces the amount of code needed when binding to fields in the bean.
 
 *Examples*: Binding using reflection based on bean property names.
@@ -26,9 +24,10 @@ binder.bind(nameField, "name");
 binder.bind(streetAddressField, "address.street");
 // Bind using forField for additional configuration
 binder.forField(yearOfBirthField)
-  .withConverter(
-    new StringToIntegerConverter("Please enter a number"))
-  .bind("yearOfBirth");
+    .withConverter(
+        new StringToIntegerConverter(
+                "Please enter a number"))
+    .bind("yearOfBirth");
 ----
 
 [NOTE]
@@ -45,12 +44,16 @@ UI fields are typically defined as members of a UI Java class. This allows you t
 [source, java]
 ----
 public class MyForm extends VerticalLayout {
-    private TextField firstName = new TextField("First name");
-    private TextField lastName = new TextField("Last name");
-    private ComboBox<Gender> gender = new ComboBox<>("Gender");
+    private TextField firstName =
+            new TextField("First name");
+    private TextField lastName =
+            new TextField("Last name");
+    private ComboBox<Gender> gender =
+            new ComboBox<>("Gender");
 
     public MyForm() {
-        Binder<Person> binder = new Binder<>(Person.class);
+        Binder<Person> binder =
+                new Binder<>(Person.class);
         binder.bindInstanceFields(this);
     }
 }
@@ -84,7 +87,8 @@ If the field name does not match the corresponding property name in the business
 [source, java]
 ----
 @PropertyId("sex")
-private ComboBox<Gender> gender = new ComboBox<>("Gender");
+private ComboBox<Gender> gender =
+        new ComboBox<>("Gender");
 ----
 
 === Configuring Converters and Validators
@@ -97,12 +101,13 @@ Alternatively, you can bind properties that need validators manually and then bi
 
 [source, java]
 ----
-TextField yearOfBirthField = new TextField("Year of birth");
+TextField yearOfBirthField =
+        new TextField("Year of birth");
 
 binder.forField(yearOfBirthField)
-.withConverter(
-       new StringToIntegerConverter("Must enter a number"))
-.bind(Person::getYearOfBirth, Person::setYearOfBirth);
+  .withConverter(
+    new StringToIntegerConverter("Must enter a number"))
+  .bind(Person::getYearOfBirth, Person::setYearOfBirth);
 
 binder.bindInstanceFields(this);
 
@@ -137,20 +142,22 @@ public class Person {
     @Max(2000)
     private int yearOfBirth;
 
-    //Non-standard constraint provided by Hibernate Validator
+    // Non-standard constraint provided by
+    // Hibernate Validator
     @NotEmpty
     private String name;
 
-    // + other fields, constructors, setters, and getters
+    // + other fields, constructors, setters and getters
 }
 
-BeanValidationBinder<Person> binder = new BeanValidationBinder<>(Person.class);
+BeanValidationBinder<Person> binder =
+        new BeanValidationBinder<>(Person.class);
 
 binder.bind(nameField, "name");
 binder.forField(yearOfBirthField)
-  .withConverter(
-    new StringToIntegerConverter("Please enter a number"))
-  .bind("yearOfBirth");
+    .withConverter(
+        new StringToIntegerConverter("Enter a number"))
+    .bind("yearOfBirth");
 ----
 
 Constraints defined for properties in the bean, work in the same way as if configured programmatically when the binding is created. For example, the following code snippets have the same result:
@@ -160,7 +167,8 @@ Constraints defined for properties in the bean, work in the same way as if confi
 [source, java]
 ----
 public class Person {
-    @Max(value = 2000, message = "Year of Birth must be less than or equal to 2000")
+    @Max(value = 2000, message =
+     "Year of Birth must be less than or equal to 2000")
     private int yearOfBirth;
 ----
 *Example*: Programmatic validation using Binder specific API.
@@ -185,5 +193,7 @@ Some built-in validators in the bean validation API suggest that a value is requ
 
 [source, java]
 ----
-binder.setRequiredConfigurator(RequiredFieldConfigurator.NOT_EMPTY.chain(RequiredFieldConfigurator.NOT_NULL));
+binder.setRequiredConfigurator(
+        RequiredFieldConfigurator.NOT_EMPTY
+            .chain(RequiredFieldConfigurator.NOT_NULL));
 ----

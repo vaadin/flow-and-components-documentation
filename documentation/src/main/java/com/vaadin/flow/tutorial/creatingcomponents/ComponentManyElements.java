@@ -30,8 +30,10 @@ public class ComponentManyElements {
         Element inputElement = new Element("input");
 
         public TextField() {
-            inputElement.synchronizeProperty("value", "change");
-            getElement().appendChild(labelElement, inputElement);
+            inputElement
+                    .synchronizeProperty("value", "change");
+            getElement()
+                    .appendChild(labelElement, inputElement);
         }
 
         public String getLabel() {

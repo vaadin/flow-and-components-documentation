@@ -3,14 +3,16 @@ tutorial::theme/tutorial-theming-overlay.asciidoc
 <dom-module id="..." theme-for="vaadin-*-overlay">
     <template>
         <style>
-            :host([theme~="custom-theme-variant"]) [part~="overlay"] {
+            :host([theme~="custom-theme-variant"])
+                    [part~="overlay"] {
             ...
             }
         </style>
     </template>
 </dom-module>
 
-<dom-module id="my-vaadin-dialog-theme" theme-for="vaadin-dialog-overlay">
+<dom-module id="my-vaadin-dialog-theme"
+            theme-for="vaadin-dialog-overlay">
     <template>
         <style>
 

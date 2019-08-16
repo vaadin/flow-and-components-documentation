@@ -7,7 +7,7 @@ layout: page
 = Application Icons
 
 Icons are needed to give fav-icon for browser page, icon for device for installed apps and
-also to create splash screen for installed applications. By default, Flow will
+also to create splash screen for installed applications. By default, Vaadin will
 use a default icon and serve an it automatically.
 
 == Using a custom icon
@@ -17,10 +17,10 @@ To customize the application images, copy your image to the following location
 src/main/webapp/icons/icon.png
 ```
 
-Flow will automatically scan for an *icon.png* icon file from the */icons* folder
-inside the webapp resources folder. The icon should be in png format. Flow will
+Vaadin will automatically scan for an *icon.png* icon file from the */icons* folder
+inside the webapp resources folder. The icon should be in png format. Vaadin will
 automatically create different sizes of images from the given image for different
-devices. If no icon is found, then Flow will fall back to default image.
+devices. If no icon is found, then Vaadin will fall back to default image.
 
 Given image is resized to different sizes for different use cases, so use image
 with size of at least 512x512. The icon will be automatically resized - only
@@ -45,9 +45,12 @@ src/main/webapp/icons/icons/icon-1125x2436.png
 To change the used icon path give custom path in `@PWA` -annotation property *iconPath*.
 
 Example
-```
-@PWA(name = "My Progressive Web Application", shortname = "MyPWA", iconPath = "img/icons/logo.png")
-```
+[source,java]
+----
+@PWA(name = "My Progressive Web Application",
+     shortName = "MyPWA",
+     iconPath = "img/icons/logo.png")
+----
 
 Then place the icon to
 ```

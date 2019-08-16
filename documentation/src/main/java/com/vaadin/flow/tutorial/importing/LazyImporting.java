@@ -30,16 +30,23 @@ public class LazyImporting {
 
     //@formatter:off - custom line wrapping
     @Tag("div")
-    @HtmlImport("/html/layout.html") // same as @HtmlImport("/html/layout.html", loadMode = LoadMode.EAGER)
-    @StyleSheet(value = "/css/big_style_file.css", loadMode = LoadMode.INLINE)
-    @JavaScript(value = "/js/animation.js", loadMode = LoadMode.LAZY)
+// same as @HtmlImport("/html/layout.html",
+//                     loadMode = LoadMode.EAGER)
+    @HtmlImport("/html/layout.html")
+    @StyleSheet(value = "/css/big_style_file.css",
+            loadMode = LoadMode.INLINE)
+    @JavaScript(value = "/js/animation.js",
+            loadMode = LoadMode.LAZY)
     public class MainLayout extends Component {
         // implementation omitted
 
         public MainLayout() {
-            UI.getCurrent().getPage().addHtmlImport("/html/layout.html", LoadMode.EAGER);
-            UI.getCurrent().getPage().addStyleSheet("/css/big_style_file.css", LoadMode.INLINE);
-            UI.getCurrent().getPage().addJavaScript("/js/animation.js", LoadMode.LAZY);
+            UI.getCurrent().getPage().addHtmlImport(
+                    "/html/layout.html", LoadMode.EAGER);
+            UI.getCurrent().getPage().addStyleSheet(
+                    "/css/big_style_file.css", LoadMode.INLINE);
+            UI.getCurrent().getPage().addJavaScript(
+                    "/js/animation.js", LoadMode.LAZY);
         }
     }
     //@formatter:on

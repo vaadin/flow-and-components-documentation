@@ -39,23 +39,30 @@ public class BinderValidation {
     private Binder<Person> binder = new Binder<>();
 
     // @formatter:off
-    class MyConverter implements Converter<String, Integer> {
+    class MyConverter
+            implements Converter<String, Integer> {
         @Override
-        public Result<Integer> convertToModel(String fieldValue, ValueContext context) {
+        public Result<Integer> convertToModel(
+                String fieldValue, ValueContext context) {
             // Produces a converted value or an error
             try {
-                // ok is a static helper method that creates a Result
-                return Result.ok(Integer.valueOf(fieldValue));
+                // ok is a static helper method that
+                // creates a Result
+                return Result.ok(Integer.valueOf(
+                        fieldValue));
             } catch (NumberFormatException e) {
-                // error is a static helper method that creates a Result
-                return Result.error("Please enter a number");
+                // error is a static helper method
+                // that creates a Result
+                return Result.error("Enter a number");
             }
         }
 
         @Override
-        public String convertToPresentation(Integer integer, ValueContext context) {
-            // Converting to the field type should always succeed,
-            // so there is no support for returning an error Result.
+        public String convertToPresentation(
+                Integer integer, ValueContext context) {
+            // Converting to the field type should
+            // always succeed, so there is no support for
+            // returning an error Result.
             return String.valueOf(integer);
         }
     }
@@ -70,10 +77,11 @@ public class BinderValidation {
                 .bind(Person::getEmail, Person::setEmail);
 
         binder.forField(nameField)
-                // Validator defined based on a lambda and an error message
+                // Validator defined based on a lambda
+                // and an error message
                 .withValidator(
                         name -> name.length() >= 3,
-                        "Full name must contain at least three characters")
+                        "Name must contain at least three characters")
                 .bind(Person::getName, Person::setName);
 
         binder.forField(titleField)
@@ -90,7 +98,8 @@ public class BinderValidation {
         binder.forField(emailField)
                 .withValidator(new EmailValidator(
                         "This doesn't look like a valid email address"))
-                // Shorthand that updates the label based on the status
+                // Shorthand that updates the label based on the
+                // status
                 .withStatusLabel(emailStatus)
                 .bind(Person::getEmail, Person::setEmail);
 
@@ -100,10 +109,11 @@ public class BinderValidation {
                 // Define the validator
                 .withValidator(
                         name -> name.length() >= 3,
-                        "Full name must contain at least three characters")
+                        "Name must contain at least three characters")
                 // Define how the validation status is displayed
                 .withValidationStatusHandler(status -> {
-                    nameStatus.setText(status.getMessage().orElse(""));
+                    nameStatus.setText(status
+                            .getMessage().orElse(""));
                     nameStatus.setVisible(status.isError());
                 })
                 // Finalize the binding
@@ -130,8 +140,10 @@ public class BinderValidation {
         DatePicker returning = new DatePicker();
         returning.setLabel("Returning");
 
-// Store return date binding so we can revalidate it later
-        Binder.Binding<Trip, LocalDate> returningBinding = binder
+// Store return date binding so we can
+// revalidate it later
+        Binder.Binding<Trip, LocalDate> returningBinding =
+                binder
                 .forField(returning).withValidator(
                         returnDate -> !returnDate
                                 .isBefore(departing.getValue()),
@@ -139,39 +151,46 @@ public class BinderValidation {
                 .bind(Trip::getReturnDate, Trip::setReturnDate);
 
 // Revalidate return date when departure date changes
-        departing.addValueChangeListener(event -> returningBinding.validate());
+        departing.addValueChangeListener(
+                event -> returningBinding.validate());
     }
 
     public void conversion() {
-        TextField yearOfBirthField = new TextField("Year of birth");
+        TextField yearOfBirthField =
+                new TextField("Year of birth");
 
         binder.forField(yearOfBirthField)
                 .withConverter(
-                        new StringToIntegerConverter("Must enter a number"))
-                .bind(Person::getYearOfBirth, Person::setYearOfBirth);
+                        new StringToIntegerConverter("Not a number"))
+                .bind(Person::getYearOfBirth,
+                        Person::setYearOfBirth);
 
 // Checkbox for marital status
         Checkbox marriedField = new Checkbox("Married");
 
 
-        binder.forField(marriedField)
-                .withConverter(isMarried -> isMarried ? MaritalStatus.MARRIED : MaritalStatus.SINGLE,
-                        marritalStatus -> MaritalStatus.MARRIED.equals(marritalStatus))
-                .bind(Person::getMaritalStatus, Person::setMaritalStatus);
+        binder.forField(marriedField).withConverter(
+                        m -> m ? MaritalStatus.MARRIED : MaritalStatus.SINGLE,
+                        MaritalStatus.MARRIED::equals)
+                .bind(Person::getMaritalStatus,
+                        Person::setMaritalStatus);
     }
 
     public void multipleConverters() {
         binder.forField(yearOfBirthField)
-                // Validator will be run with the String value of the field
+                // Validator will be run with the String value
+                // of the field
                 .withValidator(text -> text.length() == 4,
                         "Doesn't look like a year")
-                // Converter will only be run for strings with 4 characters
-                .withConverter(
-                        new StringToIntegerConverter("Must enter a number"))
+                // Converter will only be run for strings
+                // with 4 characters
+                .withConverter(new StringToIntegerConverter(
+                        "Must enter a number"))
                 // Validator will be run with the converted value
                 .withValidator(year -> year >= 1900 && year < 2000,
                         "Person must be born in the 20th century")
-                .bind(Person::getYearOfBirth, Person::setYearOfBirth);
+                .bind(Person::getYearOfBirth,
+                        Person::setYearOfBirth);
     }
 
     public void multipleConverter() {
@@ -179,9 +198,11 @@ public class BinderValidation {
                 .withConverter(
                         Integer::valueOf,
                         String::valueOf,
-                        // Text to use instead of the NumberFormatException message
+                        // Text to use instead of the
+                        // NumberFormatException message
                         "Please enter a number")
-                .bind(Person::getYearOfBirth, Person::setYearOfBirth);
+                .bind(Person::getYearOfBirth,
+                        Person::setYearOfBirth);
     }
 
     public void callBackConverters() {
