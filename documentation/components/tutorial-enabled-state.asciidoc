@@ -43,7 +43,8 @@ TextField email = new TextField("E-mail");
 Button submit = new Button("Submit");
 
 form.add(name, email, submit);
-form.setEnabled(false); // all children are implicitly disabled
+// all children are implicitly disabled
+form.setEnabled(false);
 System.out.println(name.isEnabled()); // prints false
 ----
 
@@ -59,10 +60,12 @@ FormLayout form = new FormLayout();
 form.setEnabled(false); // the entire form is disabled
 
 TextField name = new TextField("Name");
-System.out.println(name.isEnabled()); // prints true, since it is not attached yet
+// prints true, since it is not attached yet
+System.out.println(name.isEnabled());
 
 Button submit = new Button("Submit");
-submit.setEnabled(false); // the submit button is explicitly disabled
+// the submit button is explicitly disabled
+submit.setEnabled(false);
 System.out.println(submit.isEnabled()); // prints false
 
 form.add(name, submit); // attaches children
@@ -74,7 +77,9 @@ form.remove(name); // the name field gets detached
 System.out.println(name.isEnabled()); // prints true
 
 form.remove(submit); // the submit button gets detached
-System.out.println(submit.isEnabled()); // prints false, since it was explicitly disabled
+
+// prints false, since it was explicitly disabled
+System.out.println(submit.isEnabled());
 ----
 
 == Overriding Default Disabled Behavior
@@ -93,8 +98,9 @@ The first way to do this is to use the `synchronizeProperty` method with the `Di
 [source, java]
 ----
 @Tag("registration-form")
-@HtmlImport("src/registration-form.html")
-public class RegistrationForm extends PolymerTemplate<TemplateModel>
+@JsModule("./src/registration-form.js")
+public class RegistrationForm
+        extends PolymerTemplate<TemplateModel>
         implements HasEnabled {
 
     @Id
@@ -110,13 +116,16 @@ public class RegistrationForm extends PolymerTemplate<TemplateModel>
     private Element enable;
 
     public RegistrationForm() {
-        enable.synchronizeProperty("checked", "checked-changed",
+        enable.synchronizeProperty("checked",
+                "checked-changed",
                 DisabledUpdateMode.ALWAYS);
-        enable.addPropertyChangeListener("checked", this::handleEnabled);
+        enable.addPropertyChangeListener("checked",
+                this::handleEnabled);
         setEnabled(false);
     }
 
-    private void handleEnabled(PropertyChangeEvent event) {
+    private void handleEnabled(
+            PropertyChangeEvent event) {
         setEnabled((Boolean) event.getValue());
     }
 
@@ -124,7 +133,8 @@ public class RegistrationForm extends PolymerTemplate<TemplateModel>
     private void register() {
         String userName = name.getValue();
         String userEmail = email.getValue();
-        System.out.println("Register user with name='" + userName
+        System.out.println("Register user with name='"
+                + userName
                 + "' and email='" + userEmail + "'");
     }
 }
@@ -132,22 +142,34 @@ public class RegistrationForm extends PolymerTemplate<TemplateModel>
 
 Here is its template file:
 
-[source, html]
+[source, js]
 ----
-<dom-module id="registration-form">
-    <template>
-        <vaadin-text-field id='name'>{{name}}</vaadin-text-field>
-        <vaadin-text-field id='email'>{{email}}</vaadin-text-field>
-        <vaadin-button id='submit' on-click='register'>Register</vaadin-button>
-        <vaadin-checkbox id='enable'>Accept License Agreement</vaadin-checkbox>
-    </template>
-    <script>
-         class RegistrationForm extends Polymer.Element {
-           static get is() {return 'registration-form'}
-         }
-         customElements.define(RegistrationForm.is, RegistrationForm);
-    </script>
-</dom-module>
+class RegistrationForm extends PolymerElement {
+
+    static get template() {
+        return html`
+            <vaadin-text-field id='name'>
+                {{name}}
+            </vaadin-text-field>
+            <vaadin-text-field id='email'>
+                {{email}}
+            </vaadin-text-field>
+            <vaadin-button id='submit'
+                on-click='register'>
+                Register
+            </vaadin-button>
+            <vaadin-checkbox id='enable'>
+                Accept License Agreement
+            </vaadin-checkbox>`;
+    }
+
+    static get is() {
+        return 'registration-form';
+    }
+}
+
+customElements.define(RegistrationForm.is,
+        RegistrationForm);
 ----
 
 * The checkbox is implicitly disabled if the template (which is its parent) is disabled. As a result, no RPC is allowed for the checkbox.
@@ -167,8 +189,9 @@ As an alternative, you can use the `@Synchronize` annotation with the `DisabledU
 
 [source, java]
 ----
-@Synchronize(property = "prop", value = "prop-changed", allowUpdates = DisabledUpdateMode.ALWAYS)
-public String getProp(){
+@Synchronize(property = "prop", value = "prop-changed",
+             allowUpdates = DisabledUpdateMode.ALWAYS)
+public String getProp() {
     return getElement().getProperty("prop");
 }
 ----
@@ -185,9 +208,9 @@ There are two ways to enable DOM events. You can use:
 [source, java]
 ----
 public Notification() {
-    getElement().addEventListener("opened-changed", event -> {
-       System.out.println("Notification is opened");})
-    .setDisabledUpdateMode(DisabledUpdateMode.ALWAYS);
+    getElement().addEventListener("opened-changed",
+            event -> System.out.println("Opened"))
+      .setDisabledUpdateMode(DisabledUpdateMode.ALWAYS);
 }
 ----
 
@@ -195,8 +218,10 @@ public Notification() {
 
 [source, java]
 ----
-@DomEvent(value = "click", allowUpdates = DisabledUpdateMode.ALWAYS)
-public class CustomEvent extends ComponentEvent<Component> {
+@DomEvent(value = "click",
+          allowUpdates = DisabledUpdateMode.ALWAYS)
+public class CustomEvent
+        extends ComponentEvent<Component> {
 }
 ----
 
@@ -209,10 +234,10 @@ If there are server-handler methods annotated with `@ClientCallable` or `@EventH
 [source, java]
 ----
 @EventHandler(DisabledUpdateMode.ALWAYS)
-private void eventHandler(){
+private void eventHandler() {
 }
 
 @ClientCallable(DisabledUpdateMode.ALWAYS)
-private void clientRequest(){
+private void clientRequest() {
 }
 ----

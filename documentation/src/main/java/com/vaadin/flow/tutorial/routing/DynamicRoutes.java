@@ -47,10 +47,12 @@ public class DynamicRoutes {
             RouteConfiguration configuration = RouteConfiguration
                     .forSessionScope();
 
-            RouteConfiguration.forSessionScope().setRoute("admin", AdminView.class);
+            RouteConfiguration.forSessionScope().setRoute("admin",
+                    AdminView.class);
 
             // parent layouts can be given as a vargargs parameter
-            RouteConfiguration.forSessionScope().setRoute("home", HomeView.class, MainLayout.class);
+            RouteConfiguration.forSessionScope().setRoute("home",
+                    HomeView.class, MainLayout.class);
 
             configuration.setRoute("main", MyRoute.class);
             configuration.setRoute("info", MyRoute.class);
@@ -61,27 +63,31 @@ public class DynamicRoutes {
             // No view AdminView will be available
             configuration.removeRoute(AdminView.class);
 
-            // Remove the "/users" path but keep e.g. "/users/123"
+            // Remove the "/users" path but keep e.g.
+            // "/users/123"
             configuration.removeRoute("users", UsersView.class);
 
             // register the above view during runtime
             if (getCurrentUser().hasAccessToReporting()) {
-                RouteConfiguration.forSessionScope().setAnnotatedRoute(ReportView.class);
+                RouteConfiguration.forSessionScope()
+                        .setAnnotatedRoute(ReportView.class);
             }
 
             Menu menu = new Menu();
 
             // add all currently available views
-            configuration.getAvailableRoutes().forEach(menu::addMenuItem);
+            configuration.getAvailableRoutes()
+                    .forEach(menu::addMenuItem);
 
-            // add and remove menu items when routes are added and removed
+            // add and remove menu items when routes are added and
+            // removed
             configuration.addRoutesChangeListener(event -> {
                 // ignoring any route alias changes
                 event.getAddedRoutes().stream()
-                        .filter(route -> (route instanceof RouteData))
+                        .filter(route -> route instanceof RouteData)
                         .forEach(menu::addMenuItem);
                 event.getRemovedRoutes().stream()
-                        .filter(route -> (route instanceof RouteData))
+                        .filter(route -> route instanceof RouteData)
                         .forEach(menu::removeMenuItem);
             });
         }
@@ -122,9 +128,12 @@ public class DynamicRoutes {
     private static class DBCrudView extends Div {
     }
 
-    @Route(value = "quarterly-report", layout = MainLayout.class, registerAtStartup = false)
+    @Route(value = "quarterly-report",
+            layout = MainLayout.class,
+            registerAtStartup = false)
     @RouteAlias(value = "qr", layout = MainLayout.class)
-    public class ReportView extends VerticalLayout implements HasUrlParameter<String> {
+    public class ReportView extends VerticalLayout
+            implements HasUrlParameter<String> {
         // implementation omitted
 
         @Override
@@ -133,9 +142,11 @@ public class DynamicRoutes {
         }
     }
 
-    public class MainLayout extends Div implements RouterLayout {
+    public class MainLayout extends Div
+            implements RouterLayout {
         public MainLayout() {
-            // Implementation omitted, but could contain a menu.
+            // Implementation omitted, but could contain
+            // a menu.
         }
     }
 
@@ -149,20 +160,25 @@ public class DynamicRoutes {
             login = new TextField("Login");
             password = new PasswordField("Password");
 
-            Button submit = new Button("Submit", this::handeLogin);
+            Button submit = new Button("Submit",
+                    this::handleLogin);
 
             add(login, password, submit);
         }
 
-        private void handeLogin(ClickEvent<Button> buttonClickEvent) {
+        private void handleLogin(
+                ClickEvent<Button> buttonClickEvent) {
             // Validation of credentials is skipped
 
-            RouteConfiguration configuration = RouteConfiguration.forSessionScope();
+            RouteConfiguration configuration =
+                    RouteConfiguration.forSessionScope();
 
             if ("admin".equals(login.getValue())) {
-                configuration.setRoute("", AdminView.class, MainLayout.class);
+                configuration.setRoute("", AdminView.class,
+                        MainLayout.class);
             } else if ("user".equals(login.getValue())) {
-                configuration.setRoute("", UserView.class, MainLayout.class);
+                configuration.setRoute("", UserView.class,
+                        MainLayout.class);
             }
 
             configuration.setAnnotatedRoute(InfoView.class);
@@ -171,24 +187,30 @@ public class DynamicRoutes {
         }
     }
 
-    @Route(value = "info", layout = MainLayout.class, registerAtStartup = false)
+    @Route(value = "info", layout = MainLayout.class,
+            registerAtStartup = false)
     public class InfoView extends Div {
         public InfoView() {
-            add(new Span("This page contains info about the application"));
+            add(new Span("This page contains info about "
+                    + "the application"));
         }
     }
 
-    public class ApplicationServiceInitListener implements VaadinServiceInitListener {
+    public class ApplicationServiceInitListener
+            implements VaadinServiceInitListener {
 
         @Override
         public void serviceInit(ServiceInitEvent event) {
             // add view only during development time
-            if (!event.getSource().getDeploymentConfiguration().isProductionMode()) {
-                RouteConfiguration configuration = RouteConfiguration.forApplicationScope();
+            if (!event.getSource()
+                    .getDeploymentConfiguration()
+                    .isProductionMode()) {
+                RouteConfiguration configuration =
+                        RouteConfiguration.forApplicationScope();
 
-                configuration.setRoute("crud", DBCrudView.class);
+                configuration.setRoute("crud",
+                        DBCrudView.class);
             }
         }
-
     }
 }

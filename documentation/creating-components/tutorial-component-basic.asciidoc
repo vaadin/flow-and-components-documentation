@@ -15,9 +15,9 @@ In this section, we demonstrate how to create a simple component using the `Elem
 @Tag("input")
 public class TextField extends Component {
 
-  public TextField(String value) {
-    getElement().setProperty("value",value);
-  }
+    public TextField(String value) {
+        getElement().setProperty("value",value);
+    }
 }
 ----
 
@@ -37,13 +37,13 @@ To make the component easier to use, you can add an API to get and set the value
 
 [source,java]
 ----
-  @Synchronize("change")
-  public String getValue() {
+@Synchronize("change")
+public String getValue() {
     return getElement().getProperty("value");
-  }
-  public void setValue(String value) {
+}
+public void setValue(String value) {
     getElement().setProperty("value", value);
-  }
+}
 ----
 
 * Adding the `@Synchronize` annotation to the getter ensures that the browser sends property changes to the server. 

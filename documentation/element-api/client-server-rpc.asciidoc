@@ -14,44 +14,73 @@ Vaadin Flow handles server-client communication by allowing RPC calls from the s
 
 You can execute client-side methods from the server by accessing the `Element` API.
 
-=== callFunction Method
+=== callJsFunction Method
 
-The `callFunction` method allows you to execute a client-side component function from the server side. The method accepts two parameters: the name of the function to call, and the arguments to pass to the function. 
+The `callJsFunction` method allows you to execute a client-side component function from the server side.
+The method accepts two parameters: the name of the function to call, and the arguments to pass to the function. 
 
 The arguments passed to the function must be of a type supported by the communication mechanism. The supported types are `String`, `Boolean`, `Integer`, `Double`, `JsonValue`, `Element`, and `Component`.
 
-*Example*: Using the `callFunction` method to execute the `clearSelection` function.
+*Example*: Using the `callJsFunction` method to execute the `clearSelection` function.
 
 [source, java]
 ----
 public void clearSelection() {
-    getElement().callFunction("clearSelection");
+    getElement().callJsFunction("clearSelection");
 }
 
 public void setExpanded(Component component) {
-    getElement().callFunction("expand", component.getElement());
+    getElement().callJsFunction("expand",
+            component.getElement());
 }
 ----
 
-=== executeJavaScript Method
+=== executeJs Method
 
-You can also use the `executeJavaScript` method to execute JavaScript asynchronously from the server side. You can use this method in addition to the `callFunction` method.
+You can also use the `executeJs` method to execute JavaScript asynchronously from the server side.
+You can use this method in addition to the `callJsFunction` method.
 
-The `executeJavaScript` method accepts two parameters: the JavaScript expression to invoke, and the parameters to pass to the expression. Note that the given parameters are available as variables named `$0`, `$1`, and so on.
+The `executeJs` method accepts two parameters: the JavaScript expression to invoke, and the parameters to pass to the expression.
+Note that the given parameters are available as variables named `$0`, `$1`, and so on.
 
 The arguments passed to the expression must be of a type supported by the communication mechanism. The supported types are `String`, `Integer`, `Double`, `Boolean` and `Element`.
 
-*Example*: Using the `executeJavaScript` method.
+*Example*: Using the `executeJs` method.
 
 [source, java]
 ----
 public void complete() {
-    getElement().executeJavaScript("$0.complete()", this);
+    getElement().executeJs("this.complete($0)", true);
 }
 ----
 
-It is also possible to call the `executeJavaScript` method to access methods and fields of a Web Component.
+It is also possible to call the `executeJs` method to access methods and fields of a Web Component.
 
+=== Return values
+
+The return value from the JavaScript function called using `callJsFunction` or the value from a `return` statement in an `executeJs` expression can be accessed by adding a listener to the `PendingJavaScriptResult` instance returned from either method.
+
+*Example*: Check if the browser supports Constructable Stylesheets. 
+
+[source, java]
+----
+public void checkConstructableStylesheets() {
+    getElement().executeJs(
+            "return 'adoptedStyleSheets' in document")
+            .then(Boolean.class, supported -> {
+                if (supported) {
+                    System.out.println(
+                            "Feature is supported");
+                } else {
+                    System.out.println(
+                            "Feature is not supported");
+                }
+            });
+}
+----
+
+[TIP]
+If the return value is a JavaScript `Promise`, then a return value will be sent to the server only when the `Promise` is resolved.
 
 == Calling Server-side Methods from the Client
 

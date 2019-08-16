@@ -1,18 +1,18 @@
 ---
-title: Use Flow with Spring MVC
+title: Use Vaadin with Spring MVC
 order: 2
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Use Flow with Spring MVC
+= Use Vaadin with Spring MVC
 
 In the previous section it has been shown the easiest way to use `vaadin-spring` add-on with Spring Boot.
 If you are not familiar with Spring Boot magic or it's just too magic for you 
 and you want to write pure Spring Web application then you can follow this section.
 
-You may create your own Spring Web application from scratch. To be able to use Flow in 
+You may create your own Spring Web application from scratch. To be able to use Vaadin in
 your Spring Web application you should register Vaadin servlet as a dispatcher servlet. 
 
 [source,java]
@@ -23,26 +23,29 @@ public abstract class ExampleWebAppInitializer
     @Override
     public void onStartup(ServletContext servletContext)
             throws ServletException {
-        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+        AnnotationConfigWebApplicationContext context =
+            new AnnotationConfigWebApplicationContext();
         registerConfiguration(context);
-        servletContext.addListener(new ContextLoaderListener(context));
+        servletContext.addListener(
+                new ContextLoaderListener(context));
 
-        ServletRegistration.Dynamic registration = servletContext
-                .addServlet("dispatcher", new SpringServlet(context, true));
+        ServletRegistration.Dynamic registration =
+            servletContext.addServlet("dispatcher",
+                new SpringServlet(context, true));
         registration.setLoadOnStartup(1);
         registration.addMapping("/*");
     }
 
     private void registerConfiguration(
-            AnnotationConfigWebApplicationContext context) {
+        AnnotationConfigWebApplicationContext context) {
         // register your configuration classes here
     }
 }
 ----
 
-You will need some Flow component annotated with `@Route` and you should register 
+You will need some Vaadin component annotated with `@Route` and you should register
 the `VaadinScopesConfig` configuration class to be able to use Spring Vaadin scopes 
-(see the Flow application code examples in <<tutorial-spring-basic#,Use Flow with Spring>>).
+(see the Vaadin application code examples in <<tutorial-spring-basic#,Use Vaadin with Spring>>).
 
 [NOTE]
 Alternatively, you may add the `@EnableVaadin` annotation to your configuration class to
@@ -53,11 +56,14 @@ may just extend and provide your configuration classes via implementing the `get
 
 [source,java]
 ----
-public class SampleWebAppInitializer extends VaadinMVCWebAppInitializer {
+public class SampleWebAppInitializer
+        extends VaadinMVCWebAppInitializer {
 
     @Override
-    protected Collection<Class<?>> getConfigurationClasses() {
-        return Collections.singletonList(SampleConfiguration.class);
+    protected Collection<Class<?>>
+            getConfigurationClasses() {
+        return Collections.singletonList(
+                SampleConfiguration.class);
     }
 }
 

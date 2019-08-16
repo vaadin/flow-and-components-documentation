@@ -53,36 +53,52 @@ public class GridRenderers {
     public void basicRenderers() {
         Grid<Item> grid = new Grid<>();
 
-        grid.addColumn(new LocalDateRenderer<>(Item::getEstimatedDeliveryDate,
-                DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)))
+        grid.addColumn(new LocalDateRenderer<>(
+                Item::getEstimatedDeliveryDate,
+                DateTimeFormatter.ofLocalizedDate(
+                        FormatStyle.MEDIUM)))
                 .setHeader("Estimated delivery date");
 
-        grid.addColumn(new LocalDateRenderer<>(Item::getEstimatedDeliveryDate,
-                "dd/MM/yyyy")).setHeader("Estimated delivery date");
+        grid.addColumn(new LocalDateRenderer<>(
+                Item::getEstimatedDeliveryDate,
+                "dd/MM/yyyy"))
+                .setHeader("Estimated delivery date");
 
-        grid.addColumn(new LocalDateTimeRenderer<>(Item::getPurchaseDate,
-                DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT,
+        grid.addColumn(new LocalDateTimeRenderer<>(
+                Item::getPurchaseDate,
+                DateTimeFormatter.ofLocalizedDateTime(
+                        FormatStyle.SHORT,
                         FormatStyle.MEDIUM)))
                 .setHeader("Purchase date and time");
 
-        grid.addColumn(new LocalDateTimeRenderer<>(Item::getPurchaseDate,
-                "dd/MM HH:mm:ss")).setHeader("Purchase date and time");
+        grid.addColumn(new LocalDateTimeRenderer<>(
+                Item::getPurchaseDate,
+                "dd/MM HH:mm:ss")
+        ).setHeader("Purchase date and time");
 
         grid.addColumn(new NumberRenderer<>(Item::getPrice,
-                NumberFormat.getCurrencyInstance())).setHeader("Price");
+                NumberFormat.getCurrencyInstance())
+        ).setHeader("Price");
 
-        grid.addColumn(new NumberRenderer<>(Item::getPrice, "$ %(,.2f",
-                Locale.US, "$ 0.00")).setHeader("Price");
+        grid.addColumn(new NumberRenderer<>(
+                Item::getPrice, "$ %(,.2f",
+                Locale.US, "$ 0.00")
+        ).setHeader("Price");
 
         grid.addColumn(
-                new NativeButtonRenderer<>("Remove item", clickedItem -> {
+                new NativeButtonRenderer<>("Remove item",
+                        clickedItem -> {
                     // remove the item
-                }));
+                })
+        );
 
         //@formatter:off
-        grid.addColumn(new NativeButtonRenderer<>(item -> "Remove " + item, clickedItem -> {
-            // remove the item
-        }));
+        grid.addColumn(new NativeButtonRenderer<>(
+                item -> "Remove " + item,
+                clickedItem -> {
+                    // remove the item
+        })
+        );
         //@formatter:on
     }
 
@@ -90,30 +106,38 @@ public class GridRenderers {
         Grid<Person> grid = new Grid<>();
         grid.setItems(people);
 
-        grid.addColumn(TemplateRenderer.<Person> of("<b>[[item.name]]</b>")
-                .withProperty("name", Person::getName)).setHeader("Name");
+        grid.addColumn(TemplateRenderer
+                .<Person>of("<b>[[item.name]]</b>")
+                .withProperty("name", Person::getName)
+        ).setHeader("Name");
 
         //@formatter:off
-        grid.addColumn(TemplateRenderer.<Person> of("[[item.age]] years old")
-                        .withProperty("age",
-                                person -> Year.now().getValue()
-                                        - person.getYearOfBirth()))
-                .setHeader("Age");
+        grid.addColumn(TemplateRenderer
+                .<Person>of("[[item.age]] years old")
+                .withProperty("age",
+                        person -> Year.now().getValue()
+                                - person.getYearOfBirth())
+        ).setHeader("Age");
         //@formatter:on
 
-        grid.addColumn(TemplateRenderer.<Person> of(
-                "<div>[[item.address.street]], number [[item.address.number]]<br><small>[[item.address.postalCode]]</small></div>")
+        grid.addColumn(TemplateRenderer.<Person>of(
+                "<div>[[item.address.street]], number " +
+                        "[[item.address.number]]<br>" +
+                        "<small>[[item.address.postalCode]]</small>" +
+                        "</div>")
                 .withProperty("address", Person::getAddress))
                 .setHeader("Address");
 
-        grid.addColumn(TemplateRenderer.<Person> of(
-                "<button on-click='handleUpdate'>Update</button><button on-click='handleRemove'>Remove</button>")
+        grid.addColumn(TemplateRenderer.<Person>of(
+                "<button on-click='handleUpdate'>Update</button>" +
+                        "<button on-click='handleRemove'>Remove</button>")
                 .withEventHandler("handleUpdate", person -> {
                     person.setName(person.getName() + " Updated");
                     grid.getDataProvider().refreshItem(person);
                 }).withEventHandler("handleRemove", person -> {
-                    ListDataProvider<Person> dataProvider = (ListDataProvider<Person>) grid
-                            .getDataProvider();
+                    ListDataProvider<Person> dataProvider =
+                            (ListDataProvider<Person>) grid
+                                    .getDataProvider();
                     dataProvider.getItems().remove(person);
                     dataProvider.refreshAll();
                 })).setHeader("Actions");
@@ -131,13 +155,15 @@ public class GridRenderers {
             }
         })).setHeader("Gender");
 
-        SerializableBiConsumer<Div, Person> consumer = (div, person) -> div
-                .setText(person.getName());
-        grid.addColumn(new ComponentRenderer<>(Div::new, consumer))
+        SerializableBiConsumer<Div, Person> consumer =
+                (div, person) -> div.setText(person.getName());
+        grid.addColumn(
+                new ComponentRenderer<>(Div::new, consumer))
                 .setHeader("Name");
 
         grid.addColumn(
-                new ComponentRenderer<>(() -> new Icon(VaadinIcon.ARROW_LEFT)));
+                new ComponentRenderer<>(
+                        () -> new Icon(VaadinIcon.ARROW_LEFT)));
 
         grid.addColumn(new ComponentRenderer<>(person -> {
 
@@ -153,14 +179,17 @@ public class GridRenderers {
 
             // button that removes the item
             Button remove = new Button("Remove", event -> {
-                ListDataProvider<Person> dataProvider = (ListDataProvider<Person>) grid
+                ListDataProvider<Person> dataProvider =
+                        (ListDataProvider<Person>) grid
                         .getDataProvider();
                 dataProvider.getItems().remove(person);
                 dataProvider.refreshAll();
             });
 
-            // layouts for placing the text field on top of the buttons
-            HorizontalLayout buttons = new HorizontalLayout(update, remove);
+            // layouts for placing the text field on top
+            // of the buttons
+            HorizontalLayout buttons =
+                    new HorizontalLayout(update, remove);
             return new VerticalLayout(name, buttons);
         })).setHeader("Actions");
     }
@@ -168,13 +197,16 @@ public class GridRenderers {
     public void showingItemDetails() {
         Grid<Person> grid = new Grid<>();
 
-        grid.setItemDetailsRenderer(new ComponentRenderer<>(person -> {
-            VerticalLayout layout = new VerticalLayout();
-            layout.add(new Label("Address: " + person.getAddress().getStreet()
-                    + " " + person.getAddress().getNumber()));
-            layout.add(new Label("Year of birth: " + person.getYearOfBirth()));
-            return layout;
-        }));
+        grid.setItemDetailsRenderer(
+                new ComponentRenderer<>(person -> {
+                    VerticalLayout layout = new VerticalLayout();
+                    layout.add(new Label("Address: " +
+                            person.getAddress().getStreet() + " " +
+                            person.getAddress().getNumber()));
+                    layout.add(new Label("Year of birth: " +
+                            person.getYearOfBirth()));
+                    return layout;
+                }));
     }
 
     public static class Person {

@@ -11,26 +11,22 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 `PolymerTemplate` defines a special syntax `on-_event_="methodName"` for attaching client side event handlers to elements.
 (*Note!* that the method should be without any arguments and have no parenthesis)
 
-To wire an event to a `Polymer.Element` method you can write a template as:
-[source,html]
+To wire an event to a `PolymerElement` method you can write a template as:
+[source,js]
 ----
-<dom-module id="x-custom">
-  <template>
-    <button on-click="handleClick">Say hello</button>
-  </template>
-  <script>
-    class XCustom extends Polymer.Element {
-
-      static get is() {return 'x-custom'}
-
-      handleClick() {
-        console.log('Button was clicked.');
-        window.alert('Hello');
-      }
+class XCustom extends PolymerElement {
+    static get template() {
+        return html`<button on-click="handleClick">Say hello</button>`;
     }
-    customElements.define(XCustom.is, XCustom);
-  </script>
-</dom-module>
+
+    static get is() {return 'x-custom'}
+
+    handleClick() {
+      console.log('Button was clicked.');
+      window.alert('Hello');
+    }
+}
+customElements.define(XCustom.is, XCustom);
 ----
 
 Clicking on the `<button>` will now show an alert in the browser.
@@ -40,26 +36,22 @@ You can listen to any event using the `on-_event_` syntax, it does not matter if
 To handle a DOM event in a template on the server side you can create a method with the event name and annotate it with `@EventHandler`.
 
 So to listen to the `handleClick` event on the server you could have the template as:
-[source,html]
+[source,js]
 ----
-<dom-module id="event-handler">
-  <template>
-    <button on-click="handleClick">Click me</button>
-  </template>
-  <script>
-    class EventHandler extends Polymer.Element {
-      static get is() { return 'event-handler' }
+class EventHandler extends PolymerElement {
+    static get template() {
+        return html`<button on-click="handleClick">Click me</button>`;
     }
-    customElements.define(EventHandler.is, EventHandler);
-  </script>
-</dom-module>
+    static get is() { return 'event-handler' }
+}
+customElements.define(EventHandler.is, EventHandler);
 ----
 
 And define the server class as:
 [source,java]
 ----
 @Tag("event-handler")
-@HtmlImport("/com/example/EventHandler.html")
+@JsModule("./com/example/event-handler.js")
 public class EventHandlerPolymerTemplate extends PolymerTemplate<TemplateModel> {
 
     @EventHandler
@@ -79,19 +71,19 @@ be executed before the server-side event handler method is called.
 An event can also include additional information about what has happened, e.g. which mouse button was used for a click event.
 When you use `@EventHandler` annotation, all constructor parameters should have an `@EventData` annotation that tells the framework what data to send from the browser.
 
-[source,html]
+[source,js]
 ----
-<!-- same template as for the server-side event handler -->
-  <template>
-    <button on-click="handleClick">Click me</button>
-  </template>
+// same template as for the server-side event handler
+static get template() {
+    return html`<button on-click="handleClick">Click me</button>`;
+}
 ----
 
 To get some extra data on event type and element tag name the server class definition could be built like:
 [source,java]
 ----
 @Tag("event-handler")
-@HtmlImport("/com/example/EventHandler.html")
+@JsModule("./com/example/event-handler.js")
 public class EventDataHandlerPolymerTemplate extends PolymerTemplate<TemplateModel> {
 
     @EventHandler
@@ -120,7 +112,7 @@ should define your model (see <<tutorial-template-model-bean#,Using Beans with a
 [source,java]
 ----
 @Tag("model-item-handler")
-@HtmlImport("/com/example/ModelItemHandler.html")
+@JsModule("./com/example/model-item-handler.js")
 public class ModelItemHandlerPolymerTemplate
             extends PolymerTemplate<MessagesModel> {
 
@@ -158,21 +150,18 @@ Now you can use the template repeater (dom-repeat) (see <<tutorial-template-list
 handle click events on the server side with `Message` as the parameter type.
 
 
-[source,html]
+[source,js]
 ----
-<dom-module id="model-item-handler">
-    <template>
-    <dom-repeat items="[[messages]]">
-      <template><div class='msg' on-click="handleClick">[[item.text]]</div></template>
-    </dom-repeat>
-  </template>
-  <script>
-    class ModelItemHandler extends Polymer.Element {
-      static get is() { return 'model-item-handler' }
+class ModelItemHandler extends PolymerElement {
+    static get template() {
+        return html`
+            <dom-repeat items="[[messages]]">
+                <template><div class='msg' on-click="handleClick">[[item.text]]</div></template>
+            </dom-repeat>`;
     }
-    customElements.define(ModelItemHandler.is, ModelItemHandler);
-  </script>
-</dom-module>
+    static get is() { return 'model-item-handler' }
+}
+customElements.define(ModelItemHandler.is, ModelItemHandler);
 ----
 
 The method `handleClick` will be called in the server side with the data identified by `event.model.item` once the item is clicked.
@@ -216,28 +205,26 @@ So if you have the following model definition and the event handler method:
 
 Then the client side code below won't update the name of the `UserInfo` bean instance.
 
-[source,html]
+[source,js]
 ----
-<dom-module id="contact-handler">
-    <template>
-        <input id="name" type="text">
-        <button on-click="onClick">Send the contact</button>
-    </template>
-</dom-module>
+class ContactHandler extends PolymerElement {
 
-<script>
-class ContactHandler extends Polymer.Element {
-      static get is() { return 'contact-handler' }
+    static get template() {
+        return html`
+            <input id="name" type="text">
+            <button on-click="onClick">Send the contact</button>`;
+    }
 
-        onClick(event) {
-            this.userInfo.name = this.$.name.value;
-            event.detail = {
-                userInfo: this.userInfo,
+    static get is() { return 'contact-handler' }
+
+    onClick(event) {
+        this.userInfo.name = this.$.name.value;
+        event.detail = {
+            userInfo: this.userInfo,
         };
     }
-    customElements.define(ContactHandler.is, ContactHandler);
-</script>
 }
+customElements.define(ContactHandler.is, ContactHandler);
 ----
 
 In this example the server-side model becomes desynchronized with the client side because client side model is updated incorrectly.

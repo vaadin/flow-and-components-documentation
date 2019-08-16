@@ -6,9 +6,9 @@ layout: page
 
 = Using Routing with Spring
 
-Routing works the same way with Spring as it does in standard Vaadin Flow applications. See <<../routing/tutorial-routing-annotation#,Routing and Navigation>> for more. 
+Routing works the same way with Spring as it does in plain Vaadin applications. See <<../routing/tutorial-routing-annotation#,Routing and Navigation>> for more. 
 
-This content applies to using Vaadin Flow with both <<tutorial-spring-basic#,Spring Boot>> and <<tutorial-spring-basic-mvc#,Spring MVC>>.
+This content applies to using Vaadin with both <<tutorial-spring-basic#,Spring Boot>> and <<tutorial-spring-basic-mvc#,Spring MVC>>.
 
 == Defining Routes
 
@@ -42,7 +42,7 @@ other Spring-managed beans.
 @Route("")
 public class RootComponent extends Div {
     
-    public RootComponent(@Autowired DataBean dataBean){
+    public RootComponent(@Autowired DataBean dataBean) {
         setText(dataBean.getMessage());
     }
 }

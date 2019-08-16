@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -12,7 +12,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("introduction/tutorial-get-started.asciidoc")
-@HtmlImport("styles/shared-styles.html")
+@JsModule("./styles/shared-styles.js")
 @Route("")
 public class MainView extends VerticalLayout {
 
