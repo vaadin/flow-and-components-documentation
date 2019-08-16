@@ -116,8 +116,7 @@ public class UsingComponentThemes {
                         : ' ' + variantsToAdd);
     }
 
-    @JsModule("frontend://bower_components/" +
-            "vaadin-lumo-styles/presets/compact.js")
+    @JsModule("@vaadin/vaadin-lumo-styles/presets/compact.js")
     @Theme(Lumo.class)
     public class CompactMainLayout extends Div
             implements RouterLayout {
