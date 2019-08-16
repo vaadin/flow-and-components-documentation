@@ -12,7 +12,7 @@ They give users a native-like experience with a user friendly opt-in
 installation flow.
 
 [NOTE]
-This documentation is about creating PWAs with Flow, for generic PWA information,
+This documentation is about creating PWAs with Vaadin, for generic PWA information,
 please refer to to the https://vaadin.com/pwa[Progressive Web Applications] for
 more information about PWA.
 

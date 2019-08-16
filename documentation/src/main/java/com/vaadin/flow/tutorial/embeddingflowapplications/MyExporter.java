@@ -24,13 +24,15 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("embedding-flow-applications/tutorial-webcomponent-theming.asciidoc")
 @Theme(Material.class)
-public class MyExporter extends WebComponentExporter<Div> {
+public class MyExporter
+        extends WebComponentExporter<Div> {
     public MyExporter() {
         super("my-component");
     }
 
     @Override
-    public void configureInstance(WebComponent<Div> webComponent, Div component) {
+    protected void configureInstance(WebComponent<Div> webComponent,
+            Div component) {
 
     }
 }

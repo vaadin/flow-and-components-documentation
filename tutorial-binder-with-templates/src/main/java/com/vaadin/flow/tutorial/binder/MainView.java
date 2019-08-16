@@ -3,7 +3,7 @@ package com.vaadin.flow.tutorial.binder;
 import java.util.Optional;
 
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.router.Route;
@@ -20,7 +20,7 @@ import com.vaadin.flow.tutorial.binder.ui.UsersGrid;
  * The main view of the application.
  */
 @Tag("main-view")
-@HtmlImport("src/main-view.html")
+@JsModule("./src/main-view.js")
 @Route("")
 public class MainView extends PolymerTemplate<TemplateModel> {
 

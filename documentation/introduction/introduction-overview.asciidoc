@@ -1,21 +1,19 @@
 ---
-title: Introduction to Vaadin Flow
+title: Understanding Vaadin
 order: 1
 layout: page
 ---
-= Introduction to Vaadin Flow
+= Understanding Vaadin
 
-Vaadin Flow connects the Java ecosystem to your web platform. Flow is an integral part of the Vaadin platform.
+Vaadin connects the Java ecosystem to your web platform. This section provides an overview of the architecture of Vaadin and introduces the key concepts in the framework.
 
-In this section we provide an overview of Vaadin Flow architecture and introduce basic Flow concepts.
+== Vaadin Architecture
 
-== Vaadin Flow Architecture
+Working with front-end web technologies, such as HTML, CSS and JavaScript, can be challenging and time-consuming for Java developers. In Vaadin, all UI elements are componentized into https://www.webcomponents.org/[Web Components]. This makes development easier than ever before, because each element is decoupled and sandboxed.
 
-Working with front-end web technologies, such as HTML, CSS and JavaScript, can be challenging and time-consuming for Java developers. In Flow, all UI elements are componentized into https://www.webcomponents.org/[Web Components]. This makes development easier than ever before, because each element is decoupled and sandboxed.
+TIP: Watch the https://vaadin.com/training/course/view/v10-intro[Vaadin 10+: Intro] free training video to learn more about the Vaadin framework, basic Vaadin application architecture and how Vaadin components work.
 
-TIP: Watch the https://vaadin.com/training/course/view/v10-intro[Vaadin 10+: Intro] free training video to learn more about the Vaadin platform, basic Vaadin application architecture and how Vaadin components work.
-
-Vaadin Flow includes:
+Vaadin includes:
 
 * A type-safe Java UI Component API on the server side that facilitates the use of the Web Components.
 
@@ -28,41 +26,43 @@ Vaadin Flow includes:
 
 image:images/v10-architecture.svg[Vaadin 10 Architecture,1200,430]
 
-Vaadin Flow allows you to access browser APIs, Web Components, and even simple DOM elements, directly from the server-side Java. It is not necessary to understand how the client-to-server communication or Web Components work. This leaves you free to focus on creating components that work at a higher-abstraction level.
+Vaadin allows you to access browser APIs, Web Components, and even simple DOM elements, directly from the server-side Java. It is not necessary to understand how the client-to-server communication or Web Components work. This leaves you free to focus on creating components that work at a higher-abstraction level.
 
 image:images/dom-to-java.svg[dom-to-java,500,432]
 
 == Building UIs with Components
 
-UI components that are designed to build interactive web apps are the core of Vaadin Flow.
-In addition, Flow provides powerful abstraction layers that you can use to create new components.
+UI components that are designed to build interactive web apps are the core of Vaadin.
+In addition, Vaadin provides powerful abstraction layers that you can use to create new components.
 
 === Vaadin Components
 
-The high abstraction layers provided by Vaadin Flow's Java Web Components API allow you to build UIs in an extremely productive way. You do not need any HTML or JavaScript knowledge, and only enough CSS experience to style the look and feel of your app.
+The high abstraction layers provided by Vaadin's Java Web Components API allow you to build UIs in an extremely productive way. You do not need any HTML or JavaScript knowledge, and only enough CSS experience to style the look and feel of your app.
 
 *Example*: Using the `TextField` component.
 
 [source,java]
 ----
 TextField textField = new TextField();
-Span greeting = new Span("Hello stranger"); // Simple HTML inline text
+// Simple HTML inline text
+Span greeting = new Span("Hello stranger");
 
 textField.addValueChangeListener(event ->
       greeting.setText("Hello " + event.getValue()));
 
-VerticalLayout layout = new VerticalLayout(textField, greeting);
+VerticalLayout layout = new VerticalLayout(
+      textField, greeting);
 ----
 
 The API includes prebuilt server-side components and most native HTML elements.
 
 See https://vaadin.com/components/browse[Components], for a full set of available Vaadin components.
 
-=== Creating New Components in 100% Java
+=== Creating New Components in Java
 
 On the higher abstraction layers, you can easily create custom components by adapting or combining existing components to meet your requirements.
 
-The light-weight component architecture and the ability to access the DOM and browser APIs from the server side, simplifies component customization. While staying on the server side you can perfect customizations and eliminate bugs, by leveraging Vaadin Flow’s automated communication layer between the browser and the server.
+The light-weight component architecture and the ability to access the DOM and browser APIs from the server side, simplifies component customization. While staying on the server side you can perfect customizations and eliminate bugs, by leveraging Vaadin’s automated communication layer between the browser and the server.
 
 *Example*: Extending `Component` to create a custom component.
 
@@ -85,14 +85,14 @@ See the tutorials in <<../creating-components/tutorial-component-basic#,Creating
 
 === Integrating a Web Component
 
-Vaadin Flow allows you to create a Java API for any available Web Component and then use the API in your projects.
+Vaadin allows you to create a Java API for any available Web Component and then use the API in your projects.
 
 *Example*: Importing the `game-card` Web Component into the `GameCard` Java class.
 
 [source,java]
 ----
 @Tag("game-card")
-@HtmlImport("bower_components/game-card/game-card.html")
+@JsModule("./game-card.js")
 public class GameCard extends Component {
 
 }
@@ -105,22 +105,25 @@ You can also find prebuilt Java APIs for Web Components that have been published
 
 === Building Components with HTML Templates
 
-Another way to create components is to separate the layout from the UI logic. The best way to do this is to use HTML templates together with Java classes. The HTML files contain the layout and (if needed) pure client-side logic, while the Java classes takes care of the server-side logic, like event handling.
+Another way to create components is to separate the layout from the UI logic. The best way to do this is to use JavaScript modules and HTML templates together with Java classes. The JavaScript module contain the layout and (if needed) pure client-side logic, while the Java classes takes care of the server-side logic, like event handling.
 
-You can use these components in the same way as any other component in your Java environment. Vaadin Flow does not distinguish between pure Java or HTML/Java combined components.
+You can use these components in the same way as any other component in your Java environment. Vaadin does not distinguish between pure Java or HTML/Java combined components.
 
 *Example*: @Id injection in a component.
-[source,html]
+[source,js]
 ----
-<template>
-    <vaadin-vertical-layout>
-        <vaadin-text-field id="textField"></vaadin-text-field>
-        <label id="greeting">Hello stranger</label>
+static get template() {
+    return html`
+        <vaadin-vertical-layout>
+            <vaadin-text-field id="textField">
+            </vaadin-text-field>
+            <label id="greeting">Hello stranger</label>
 
-        <input type="color" on-input="updateFavoriteColor">
-        <label>Favorite color: </label>
-    </vaadin-vertical-layout>
-</template>
+            <input type="color"
+                  on-input="updateFavoriteColor">
+            <label>Favorite color: </label>
+        </vaadin-vertical-layout>`;
+}
 ----
 
 [source,java]
@@ -132,8 +135,10 @@ private @Id("greeting") Label greeting;
 textField.addValueChangeListener(event ->
       greeting.setText("Hello " + event.getValue()));
 
-// Instance method in the component published to the client
-@EventHandler private void updateFavoriteColor(
+// Instance method in the component published to the
+// client
+@EventHandler
+private void updateFavoriteColor(
       @EventData("event.target.value") String color) {
     getModel().setColorCode(color);
 }
@@ -144,7 +149,7 @@ See the tutorials in <<../polymer-templates/tutorial-template-basic#,Creating Po
 
 == Routing and Navigation
 
-Vaadin Flow provides the `Router` class to structure the navigation of your web app or site into logical parts.
+Vaadin provides the `Router` class to structure the navigation of your web app or site into logical parts.
 
 You can use the `@Route` annotation to register navigation targets. You can specify a path, and optionally a parent layout class to display the component.
 
@@ -152,22 +157,24 @@ You can use the `@Route` annotation to register navigation targets. You can spec
 
 [source,java]
 ----
-// register the component to url/company and show it inside the main layout
-@Route(value="company", layout=MainLayout.class)
+// register the component to url/company and show it
+// inside the main layout
+@Route(value = "company", layout = MainLayout.class)
 @Tag("div")
 public class CompanyComponent extends Component {
 }
 
-public class MainLayout extends Div implements RouterLayout {
+public class MainLayout extends Div
+        implements RouterLayout {
 }
 ----
 
 See the tutorials in <<../routing/tutorial-routing-annotation#,Routing and Navigation>> for more.
 
 
-== How Vaadin Flow Components Work
+== How Vaadin Components Work
 
-Vaadin Flow allows Java code to control the DOM in the web browser, with a server-side Java representation of the same DOM tree.
+Vaadin allows Java code to control the DOM in the web browser, with a server-side Java representation of the same DOM tree.
 All changes are automatically synchronized to the real DOM tree in the browser.
 
 The DOM tree is built up from `Element` instances: each instance represents a DOM element in the browser.
@@ -208,4 +215,4 @@ Possible benefits of this approach include:
 * A clearer overview of the structure of the component.
 * Improved performance. Because the same template definition is used for all component instances using the same template file, less memory is used on the server and less data needs to be sent to the browser.
 
-*NEXT*: Follow the tutorial to build your first Vaadin application: *https://vaadin.com/tutorials/getting-started-with-flow[Getting started with Vaadin Flow]*
+*NEXT*: Follow the tutorial to build your first Vaadin application: *https://vaadin.com/tutorials/getting-started-with-flow[Getting started with Vaadin]*

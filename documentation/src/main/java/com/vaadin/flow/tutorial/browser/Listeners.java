@@ -27,7 +27,8 @@ public class Listeners {
         UI someUI = null;
         Page page = someUI.getPage();
         page.addBrowserWindowResizeListener(
-                event -> Notification.show("Window width=" + event.getWidth()
+                event -> Notification.show("Window width="
+                        + event.getWidth()
                         + ", height=" + event.getHeight()));
     }
 }

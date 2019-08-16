@@ -15,7 +15,7 @@ public class RoutingViewTitles {
     @PageTitle("home")
     class HomeView extends Div {
 
-        HomeView() {
+        public HomeView() {
             setText("This is the home view");
         }
 
@@ -23,7 +23,8 @@ public class RoutingViewTitles {
 
     @Route(value = "blog")
     class BlogPost extends Component
-            implements HasDynamicTitle, HasUrlParameter<Long> {
+            implements HasDynamicTitle,
+            HasUrlParameter<Long> {
         private String title = "";
 
         @Override

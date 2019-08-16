@@ -28,14 +28,14 @@ In addition to standard Spring scopes, the https://vaadin.com/directory/componen
 ----
 @Route("")
 public class MainLayout extends Div {
-    public MainLayout(@Autowired SessionService bean){
+    public MainLayout(@Autowired SessionService bean) {
         setText(bean.getText());
     }
 }
 
 @Route("editor")
 public class Editor extends Div {
-    public Editor(@Autowired SessionService bean){
+    public Editor(@Autowired SessionService bean) {
         setText(bean.getText());
     }
 }
@@ -46,7 +46,7 @@ public class SessionService {
     private String uid = UUID.randomUUID().toString();
     
     public String getText(){
-        return "session "+uid;
+        return "session " + uid;
     } 
 }
 ----
@@ -62,14 +62,14 @@ public class SessionService {
 ----
 @Route("")
 public class MainLayout extends Div {
-    public MainLayout(@Autowired UIService bean){
+    public MainLayout(@Autowired UIService bean) {
         setText(bean.getText());
     }
 }
 
 @Route("editor")
 public class Editor extends Div {
-    public Editor(@Autowired UIService bean){
+    public Editor(@Autowired UIService bean) {
         setText(bean.getText());
     }
 }
@@ -79,7 +79,7 @@ public class Editor extends Div {
 public class UIService {
     private String uid = UUID.randomUUID().toString();
     
-    public String getText(){
+    public String getText() {
         return "ui " + uid;
     } 
 }

@@ -32,30 +32,37 @@ public class ComponentAttach {
         protected void onAttach(AttachEvent attachEvent) {
             // user name can be stored to session after login
             //@formatter:off - custom line wrapping
-            String userName = (String) attachEvent.getSession().getAttribute("username");
-            getElement().setText("Hello " + userName + ", welcome back!");
+            String userName = (String) attachEvent.getSession()
+                    .getAttribute("username");
+            getElement().setText("Hello " + userName +
+                    ", welcome back!");
             //@formatter:on
         }
     }
 
     @Tag("div")
-    public class ShoppingCartSummaryLabel extends Component {
+    public class ShoppingCartSummaryLabel
+            extends Component {
 
-        private final Consumer<EventObject> eventHandler = this::onCartSummaryUpdate;
+        private final Consumer<EventObject> eventHandler =
+                this::onCartSummaryUpdate;
 
         @Override
         protected void onAttach(AttachEvent attachEvent) {
             //@formatter:off - custom line wrapping
-            ShopEventBus eventBus = attachEvent.getSession().getAttribute(ShopEventBus.class);
+            ShopEventBus eventBus = attachEvent.getSession()
+                    .getAttribute(ShopEventBus.class);
             //@formatter:on
-            // registering to event bus for updates from other components
+            // registering to event bus for updates
+            // from other components
             eventBus.register(eventHandler);
         }
 
         @Override
         protected void onDetach(DetachEvent detachEvent) {
             // @formatter:off
-            ShopEventBus eventBus = detachEvent.getSession().getAttribute(ShopEventBus.class);
+            ShopEventBus eventBus = detachEvent.getSession()
+                    .getAttribute(ShopEventBus.class);
             // @formatter:on
             // after detaching don't need any updates
             eventBus.unregister(eventHandler);

@@ -42,7 +42,8 @@ public class InstantiatedBeans {
 
     }
 
-    public class TestTemplate extends PolymerTemplate<TemplateModel> {
+    public class TestTemplate
+            extends PolymerTemplate<TemplateModel> {
 
         @Id
         private DependentLabel label;

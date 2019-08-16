@@ -8,13 +8,15 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("embedding-flow-applications/tutorial-webcomponent-push.asciidoc")
 @Push
-public class PushComponentExporter extends WebComponentExporter<Div> {
+public class PushComponentExporter
+        extends WebComponentExporter<Div> {
     public PushComponentExporter() {
         super("push-component");
     }
 
     @Override
-    public void configureInstance(WebComponent<Div> webComponent, Div component) {
+    protected void configureInstance(WebComponent<Div> webComponent,
+            Div component) {
 
     }
 }
