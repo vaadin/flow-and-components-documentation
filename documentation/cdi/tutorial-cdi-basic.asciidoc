@@ -34,7 +34,6 @@ If you are a `vaadin-platform` user, add the following dependencies in your `pom
     <dependency>
          <groupId>com.vaadin</groupId>
          <artifactId>vaadin-cdi</artifactId>
-         <version>10.0.0</version>
     </dependency>
     <dependency>
         <groupId>javax</groupId>
@@ -46,7 +45,7 @@ If you are a `vaadin-platform` user, add the following dependencies in your `pom
 
 == Vaadin Version Compatibility
 
-Version 10 of the https://vaadin.com/directory/component/vaadin-cdi/[Vaadin CDI] add-on is compatible with Vaadin Flow versions 10 (and later). https://docs.jboss.org/cdi/api/1.2/[CDI 1.2 API] is a minimum requirement for this implementation. 
+The version for `vaadin-cdi` is managed by `vaadin-bom`. For Vaadin 14, the CDI add-on version is 11.0.
 
 In practice, because other Java EE/Jakarta EE features are used together with CDI, the simplest way to ensure compatibility is to use a Java EE 7 (or newer) container. 
 
