@@ -6,7 +6,7 @@ layout: page
 
 = Introduction to Embedding Applications
 
-Embeddeding applications is a far better alternative to writing monolithic frontends for your applications. 
+Embeddeding applications is an alternative to writing monolithic frontends for your applications. 
 
 Embedded applications are also know as https://micro-frontends.org/[micro frontends]. They are isolated and self-contained pieces of code that can be maintained by different teams, using different frameworks. A simple example is an embedded calendar in a web page: the calendar functionality is isolated and has no relation to the logic of the main application. 
 
