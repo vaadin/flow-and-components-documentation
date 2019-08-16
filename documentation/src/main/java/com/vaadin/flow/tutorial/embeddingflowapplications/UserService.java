@@ -7,9 +7,10 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @CodeFor("embedding-flow-applications/tutorial-webcomponent-exporter.asciidoc")
 public final class UserService {
 
-    private static final UserService INSTANCE = new UserService();
+    private static final UserService INSTANCE =
+            new UserService();
 
-    private UserService() {
+    private UserService(){
     }
 
     public static UserService getInstance() {
@@ -20,8 +21,10 @@ public final class UserService {
         return "Joe";
     }
 
-    public Optional<Object> authenticate(String user, String passwd) {
-        if ("admin".equals(user) && "admin".equals(passwd)) {
+    public Optional<Object> authenticate(String user,
+                                         String passwd) {
+        if ("admin".equals(user) &&
+                "admin".equals(passwd)) {
             return Optional.of(new Object());
         } else {
             return Optional.empty();

@@ -1,12 +1,12 @@
 ---
-title: Components instantiated by the framework
+title: Components Instantiated by the Framework
 order: 2
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Components instantiated by the framework
+= Components Instantiated by the Framework
 
 Most of the components instantiated by the Vaadin framework become managed beans ( full fledged CDI contextual instances ).
 They are queried from CDI `BeanManager` by the add-on, and all of the CDI features are usable.
@@ -55,7 +55,8 @@ For example:
 
 [source,java]
 ----
-public class TestTemplate extends PolymerTemplate<TemplateModel> {
+public class TestTemplate
+        extends PolymerTemplate<TemplateModel> {
     @Id
     private DependentLabel label;
 }
@@ -78,7 +79,8 @@ public class DependentLabel extends Label {
 
 [source,js]
 ----
-import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
+import {PolymerElement,html} from
+        '@polymer/polymer/polymer-element.js';
 
 class TestTemplate extends Polymer.Element {
     static get template() {
@@ -100,7 +102,7 @@ A dependent bean is safe.
 
 == Custom UI is not a managed bean
 
-As of Vaadin Flow no custom `UI` subclass is needed for the application.
+In Vaadin 14, no custom `UI` subclass is needed for the application.
 You can define one by the corresponding servlet parameter,
 but it is instantiated by the framework as a POJO.
 

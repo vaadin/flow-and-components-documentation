@@ -26,11 +26,14 @@ public class Events {
 
     public class BootstrapCustomizer {
 
-        private void onServiceInit(@Observes ServiceInitEvent serviceInitEvent) {
-            serviceInitEvent.addBootstrapListener(this::modifyBootstrapPage);
+        private void onServiceInit(@Observes
+                ServiceInitEvent serviceInitEvent) {
+            serviceInitEvent.addBootstrapListener(
+                    this::modifyBootstrapPage);
         }
 
-        private void modifyBootstrapPage(BootstrapPageResponse response) {
+        private void modifyBootstrapPage(
+                BootstrapPageResponse response) {
             response.getDocument().body().append(
                     "<p>By CDI add-on</p>");
         }

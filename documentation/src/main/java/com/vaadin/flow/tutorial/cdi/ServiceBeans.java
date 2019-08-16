@@ -28,12 +28,16 @@ public class ServiceBeans {
 
     @VaadinServiceEnabled
     @VaadinServiceScoped
-    public class TestSystemMessagesProvider implements SystemMessagesProvider {
+    public class TestSystemMessagesProvider
+            implements SystemMessagesProvider {
 
         @Override
-        public SystemMessages getSystemMessages(SystemMessagesInfo systemMessagesInfo) {
-            CustomizedSystemMessages messages = new CustomizedSystemMessages();
-            messages.setInternalErrorMessage("Sorry, something went wrong :(");
+        public SystemMessages getSystemMessages(
+                SystemMessagesInfo systemMessagesInfo) {
+            CustomizedSystemMessages messages =
+                    new CustomizedSystemMessages();
+            messages.setInternalErrorMessage(
+                    "Sorry, something went wrong :(");
             return messages;
         }
 

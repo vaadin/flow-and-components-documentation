@@ -15,20 +15,33 @@
  */
 package com.vaadin.flow.tutorial.theme;
 
-import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.tutorial.advanced.BootstrapPage.MyView;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("theme/tutorial-theming-overlay.asciidoc")
 public class TutorialThemingOverlay {
     @Route(value = "")
-    @JsModule("./styles/my-overlay-theme.js")
+    @CssImport(value = "./styles/my-overlay-theme.css",
+            themeFor = "vaadin-*-overlay")
     public class MyApplication extends Div {
     }
 
     @Route(value = "")
-    @JsModule("./styles/my-dialog-overlay-theme.js")
+    @CssImport(value="./styles/my-dialog-overlay-theme.css",
+            themeFor = "vaadin-dialog-overlay")
     public class MyApplicationWithDialog extends Div {
+    }
+
+    public class MyView extends VerticalLayout {
+        public MyView() {
+            Dialog dialog = new Dialog();
+            dialog.getElement().setAttribute("theme",
+                    "custom-theme-variant");
+        }
     }
 }

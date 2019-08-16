@@ -5,10 +5,19 @@ class RegistrationForm extends PolymerElement {
 
     static get template() {
         return html`
-            <vaadin-text-field id='name'>{{name}}</vaadin-text-field>
-            <vaadin-text-field id='email'>{{email}}</vaadin-text-field>
-            <vaadin-button id='submit' on-click='register'>Register</vaadin-button>
-            <vaadin-checkbox id='enable'>Accept License Agreement</vaadin-checkbox>`;
+            <vaadin-text-field id='name'>
+                {{name}}
+            </vaadin-text-field>
+            <vaadin-text-field id='email'>
+                {{email}}
+            </vaadin-text-field>
+            <vaadin-button id='submit' 
+                on-click='register'>
+                Register
+            </vaadin-button>
+            <vaadin-checkbox id='enable'>
+                Accept License Agreement
+            </vaadin-checkbox>`;
     }
 
     static get is() {
@@ -16,4 +25,5 @@ class RegistrationForm extends PolymerElement {
     }
 }
 
-customElements.define(RegistrationForm.is, RegistrationForm);
+customElements.define(RegistrationForm.is,
+        RegistrationForm);

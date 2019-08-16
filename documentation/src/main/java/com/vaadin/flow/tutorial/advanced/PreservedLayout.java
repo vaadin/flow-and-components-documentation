@@ -7,7 +7,8 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("advanced/tutorial-preserving-state-on-refresh.asciidoc")
 @PreserveOnRefresh
-public class PreservedLayout extends FlexLayout implements RouterLayout {
+public class PreservedLayout extends FlexLayout
+        implements RouterLayout {
 
     public PreservedLayout() {
         // ...
