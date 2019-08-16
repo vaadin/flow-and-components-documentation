@@ -1,26 +1,23 @@
 ---
-title: Introduction to Embedded Applications
+title: Introduction to Embedding Applications
 order: 1
 layout: page
 ---
 
-= Introduction to Embedded Applications
+= Introduction to Embedding Applications
 
-Using embedded applications is a far better alternative to writing monolithic frontends for your applications. 
+Embeddeding applications is a far better alternative to writing monolithic frontends for your applications. 
 
 Embedded applications are also know as https://micro-frontends.org/[micro frontends]. They are isolated and self-contained pieces of code that can be maintained by different teams, using different frameworks. A simple example is an embedded calendar in a web page: the calendar functionality is isolated and has no relation to the logic of the main application. 
 
 Embedding an application is similar to adding a client-side widget to a page, except the embedded application has back-end logic and is a real application in its own right.
 
 
-== Creating Embeded Applications in Vaadin 
+== Embedding Applications in Vaadin 
 
 === Overview
 
-Vaadin allows you to embed application using web components and provides the `WebComponentExporter` class for this purpose. 
-
-[NOTE]
-Throughout this section of the documentation, any reference to an _embedded application_ means an application that is capable of being embedded in another page. We also refer to it as a _web component_ because it is produced by extending the `WebComponentExporter` class.  
+Vaadin allows you to embed applications using web components and provides the `WebComponentExporter` class for this purpose. 
 
 These are the basic steps to creating an embedded application:
 
@@ -46,10 +43,7 @@ To create an embedded application, you need to export a component as an embeddab
 
 See <<tutorial-webcomponent-exporter#,Creating an Embedded Vaadin Application Tutorial>> for a detailed example. 
 
-// Why don't we mention creating a servlet here ???
-// Can we include some basic code to match this section with the next one??
-
-=== Importing an Embedded Application 
+=== Importing an Embeddable Application 
 
 To embed the exported application in a page:
 
