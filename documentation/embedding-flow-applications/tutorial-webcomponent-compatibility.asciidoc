@@ -1,42 +1,41 @@
 ---
-title: Embedding Application in Compatibility Mode
+title: Embedding Applications in Compatibility and Production Mode 
 order: 7
 layout: page
 ---
+= Embedding Applications in Compatibility and Production Mode 
 
-= Embedding Application in Compatibility Mode
+== Compatibility Mode
 
-These are the differences between Embedding application in compatibility mode:
-* `"webcomponents-loader.js"` polyfill library is required to be able to import 
-the web component via HTML import.
-* The web component URL resource is imported via HTML import.
+When embedding applications in compatibility mode, the following differences to development mode need to be taken into account: 
 
-Here is an example how page may import the web component:
+* The `"webcomponents-loader.js"` polyfill library is required to import web components using HTML import.
+* The web component URL resource is imported via HTML `import`.
 
++
+*Example*: Importing a web component in compatibility mode.
++
 [source, html]
 ----
 <script type='text/javascript' src='/frontend/bower_components/webcomponentsjs/webcomponents-loader.js'></script>
 <link rel='import' href='/vaadin/web-component/login-form.html'>
 ----
 
-The rest of the embedding process stays the same.
+The rest of the <<tutorial-webcomponent-intro#importing-an-embedded-application, embedding process>> is the same. 
 
-== Embedded Application in Production
 
-Embedding Vaadin applications in production mode requires two steps:
+== Production Mode
 
-* Package application for production in the normal way
-* Import the packaged application onto the target page
+Embedding applications in production mode is similar to development mode in that it requires these two steps:
 
-The second step differs a bit from the application in development mode. As you can 
-see above there are two lines of code are used to import an embedded application. 
+. Package the application for production in the normal way.
+. Import the packaged application onto the target page.
 
-The first line loads a polyfill library for browsers that do 
-not have native support for `rel="import` on a `link` element.
+However, in production mode the second step differs slightly from in development mode. The reason is that the `"webcomponents-loader.js"` polyfill library is located in a different folder, which depends on the user's browser. This library provides support for browsers that do not have native support for `rel="import` on a `link` element.
 
-In the production mode this library is in a different folder which depends
-on the browser. To be able to avoid this boilerplate line in the production 
-mode you should just use `script` tag for the web component instead of `link`:
+To avoid using the boilerplate line in production mode, you should use a `script` tag, instead of a `link` element for the web component.
+
+*Example* Using the `<script>` tag for a web component in production mode.
 
 [source, html]
 ----
@@ -44,6 +43,5 @@ mode you should just use `script` tag for the web component instead of `link`:
         src='/vaadin/web-component/login-form.html'>
 </script>
 ----
+In production mode, the generated `login-form.html` content is simply JavaScript code that adds a proper polyfill library together with the required imports.
 
-In production mode the generated `login-form.html` content is just a JavaScript code
-which adds a proper polyfill library for your along with the required imports.
