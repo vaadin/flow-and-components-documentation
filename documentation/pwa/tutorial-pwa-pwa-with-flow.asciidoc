@@ -1,28 +1,29 @@
 ---
-title: Creating PWA with Flow
+title: Creating PWA with Vaadin
 order: 2
 layout: page
 ---
 
-= Creating PWA with Flow
+= Creating PWA with Vaadin
 
-Flow server can automatically serve the needed resources for PWA. To enable this,
+Vaadin server can automatically serve the needed resources for PWA. To enable this,
 annotate the root layout of your application with
 `@PWA(name = "My Progressive Web Application", shortName="MyPWA")`.
 
 [source,java]
 ----
-@PWA(name = "My Progressive Web Application", shortName = "MyPWA")
+@PWA(name = "My Progressive Web Application",
+     shortName = "MyPWA")
 @Route("")
 public class MyPWA extends Div {
-    public MyPWA(){
+    public MyPWA() {
         setText("Welcome to my PWA");
     }
 }
 ----
 
 
-By doing this Flow server will automatically serve *web manifest*, *service worker*,
+By doing this Vaadin server will automatically serve *web manifest*, *service worker*,
 *icons*, *offline page* and *installation prompt*. Also needed additions to
 headers are added to application.
 

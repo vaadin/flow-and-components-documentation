@@ -5,7 +5,8 @@ import com.vaadin.flow.component.webcomponent.WebComponent;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("embedding-flow-applications/tutorial-webcomponent-exporter.asciidoc")
-public class LoginFormExporter extends WebComponentExporter<LoginForm> {
+public class LoginFormExporter
+        extends WebComponentExporter<LoginForm> {
     public LoginFormExporter() {
         super("login-form");
         addProperty("userlbl", "")
@@ -15,7 +16,10 @@ public class LoginFormExporter extends WebComponentExporter<LoginForm> {
     }
 
     @Override
-    public void configureInstance(WebComponent<LoginForm> webComponent, LoginForm form) {
-        form.addLoginListener(() -> webComponent.fireEvent("logged-in"));
+    protected void configureInstance(
+            WebComponent<LoginForm> webComponent,
+            LoginForm form) {
+        form.addLoginListener(() ->
+                webComponent.fireEvent("logged-in"));
     }
 }

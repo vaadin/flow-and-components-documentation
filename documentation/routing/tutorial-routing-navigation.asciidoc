@@ -18,7 +18,8 @@ Navigation with `RouterLink` fetches the content of the new component without re
 void routerLink() {
     Div menu = new Div();
     menu.add(new RouterLink("Home", HomeView.class));
-    menu.add(new RouterLink("Greeting", GreetingComponent.class, "default"));
+    menu.add(new RouterLink("Greeting",
+            GreetingComponent.class, "default"));
 }
 ----
 
@@ -54,10 +55,12 @@ You can also use `UI.navigate(Class<? extends Component> navigationTarget)` or `
 
 [source,java]
 ----
-NativeButton button = new NativeButton("Navigate to company");
-button.addClickListener( e-> {
-     button.getUI().ifPresent(ui -> ui.navigate("company"));
-});
+NativeButton button = new NativeButton(
+        "Navigate to company");
+button.addClickListener(e ->
+     button.getUI().ifPresent(ui ->
+           ui.navigate("company"))
+);
 ----
 
 [NOTE]

@@ -43,7 +43,8 @@ public class BinderLoadSave {
 
     public void validate() {
         // This will make all current validation errors visible
-        BinderValidationStatus<Person> status = binder.validate();
+        BinderValidationStatus<Person> status =
+                binder.validate();
 
         if (status.hasErrors()) {
             notifyValidationErrors(status.getValidationErrors());
@@ -68,12 +69,15 @@ public class BinderLoadSave {
         if (saved) {
             MyBackend.updatePersonInDatabase(person);
         } else {
-            notifyValidationErrors(binder.validate().getValidationErrors());
+            notifyValidationErrors(binder.validate()
+                    .getValidationErrors());
         }
     }
 
     public void beanLevelValidation() {
-        binder.withValidator(p -> p.getYearOfMarriage() > p.getYearOfBirth(), "Marriage  year must be bigger than birth year.");
+        binder.withValidator(
+                p -> p.getYearOfMarriage() > p.getYearOfBirth(),
+                "Marriage  year must be bigger than birth year.");
     }
 
     public void statusChangeListener() {
@@ -92,18 +96,20 @@ public class BinderLoadSave {
     public void autoSave() {
         Binder<Person> binder = new Binder<>();
 
-// Field binding configuration omitted, it should be done here
+        // Field binding configuration omitted,
+        // it should be done here
 
         Person person = new Person("John Doe", 1957);
 
-// Loads the values from the person instance
-// Sets person to be updated when any bound field is updated
+        // Loads the values from the person instance
+        // Sets person to be updated when any bound field
+        // is updated
         binder.setBean(person);
 
         Button saveButton = new Button("Save", event -> {
             if (binder.validate().isOk()) {
-                // person is always up-to-date as long as there are no
-                // validation errors
+                // person is always up-to-date as long as
+                // there are no validation errors
 
                 MyBackend.updatePersonInDatabase(person);
             }

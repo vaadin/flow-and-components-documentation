@@ -27,7 +27,8 @@ public class ComponentContainer {
 
     @Tag("div")
     // @formatter:off
-    public class MyComponentContainer extends Component implements HasComponents {
+    public class MyComponentContainer extends Component
+            implements HasComponents {
     // @formatter:on
     }
 
@@ -47,7 +48,8 @@ public class ComponentContainer {
         public class MyComponentContainer extends Component {
 
             public void add(Component child) {
-                Element childWrapper = ElementFactory.createDiv();
+                Element childWrapper = ElementFactory
+                        .createDiv();
                 childWrapper.appendChild(child.getElement());
                 getElement().appendChild(childWrapper);
             }

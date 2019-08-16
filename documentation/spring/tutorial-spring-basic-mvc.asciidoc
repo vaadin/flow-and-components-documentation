@@ -1,19 +1,19 @@
 ---
-title: Using Vaadin Flow with Spring MVC
+title: Using Vaadin with Spring MVC
 order: 2
 layout: page
 ---
 
-= Using Vaadin Flow with Spring MVC
+= Using Vaadin with Spring MVC
 
-In this section we cover how to use Vaadin Flow with https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html[Spring MVC]. Spring MVC is the original Spring web framework built on the Servlet API. 
+In this section we cover how to use Vaadin with https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html[Spring MVC]. Spring MVC is the original Spring web framework built on the Servlet API. 
 
 [NOTE]
-See <<tutorial-spring-basic#,Using Vaadin Flow with Spring Boot>> to use Flow with https://spring.io/projects/spring-boot[Spring Boot]. 
+See <<tutorial-spring-basic#,Using Vaadin with Spring Boot>> to use Vaadin with https://spring.io/projects/spring-boot[Spring Boot]. 
 
 == Registering the Vaadin Serlet
 
-To use Vaadin Flow in your Spring web application you need to register the Vaadin `SpringServlet` as a dispatcher servlet. 
+To use Vaadin in your Spring web application you need to register the Vaadin `SpringServlet` as a dispatcher servlet.
 
 *Example*: Registering the `SpringServlet` as a dispatcher servlet.
 
@@ -25,18 +25,21 @@ public abstract class ExampleWebAppInitializer
     @Override
     public void onStartup(ServletContext servletContext)
             throws ServletException {
-        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+        AnnotationConfigWebApplicationContext context =
+            new AnnotationConfigWebApplicationContext();
         registerConfiguration(context);
-        servletContext.addListener(new ContextLoaderListener(context));
+        servletContext.addListener(
+                new ContextLoaderListener(context));
 
-        ServletRegistration.Dynamic registration = servletContext
-                .addServlet("dispatcher", new SpringServlet(context, true));
+        ServletRegistration.Dynamic registration =
+            servletContext.addServlet("dispatcher",
+                new SpringServlet(context, true));
         registration.setLoadOnStartup(1);
         registration.addMapping("/*");
     }
 
     private void registerConfiguration(
-            AnnotationConfigWebApplicationContext context) {
+        AnnotationConfigWebApplicationContext context) {
         // register your configuration classes here
     }
 }
@@ -51,11 +54,14 @@ The https://vaadin.com/directory/component/vaadin-spring/overview[Vaadin Spring 
 *Example*: Extending `VaadinMVCWebAppInitializer` and implementing the `getConfigurationClasses()` method.
 [source,java]
 ----
-public class SampleWebAppInitializer extends VaadinMVCWebAppInitializer {
+public class SampleWebAppInitializer
+        extends VaadinMVCWebAppInitializer {
 
     @Override
-    protected Collection<Class<?>> getConfigurationClasses() {
-        return Collections.singletonList(SampleConfiguration.class);
+    protected Collection<Class<?>>
+            getConfigurationClasses() {
+        return Collections.singletonList(
+                SampleConfiguration.class);
     }
 }
 
@@ -68,7 +74,7 @@ public class SampleConfiguration {
 
 == Handling URLs
 
-To handle URLs, you need at least one Vaadin Flow component, annotated with `@Route`. See <<tutorial-spring-basic#handling-urls,Handling URLs>> for an `@Route` annotation example. 
+To handle URLs, you need at least one Vaadin component, annotated with `@Route`. See <<tutorial-spring-basic#handling-urls,Handling URLs>> for an `@Route` annotation example. 
 
 == Declaring Dependencies
 
