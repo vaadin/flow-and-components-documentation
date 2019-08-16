@@ -16,15 +16,16 @@ You can use `PropertyDescriptors` to define a property name and default value in
 ----
 @Tag("input")
 public class TextField extends Component {
-  private static PropertyDescriptor<String, String> VALUE =
-    PropertyDescriptors.propertyWithDefault("value", "");
+    private static PropertyDescriptor<String, String>
+        VALUE = PropertyDescriptors
+                .propertyWithDefault("value", "");
 
-  public String getValue() {
-    return get(VALUE);
-  }
-  public void setValue(String value) {
-    set(VALUE, value);
-  }
+    public String getValue() {
+        return get(VALUE);
+    }
+    public void setValue(String value) {
+        set(VALUE, value);
+    }
 }
 ----
 
@@ -54,8 +55,9 @@ Different helper methods, depending on how you want your component to work, are 
 ----
 @Tag("input")
 public class TextField extends Component {
-  private static PropertyDescriptor<String, Optional<String>> PLACEHOLDER =
-    PropertyDescriptors.optionalAttributeWithDefault("placeholder", "");
+  private static PropertyDescriptor<String,
+    Optional<String>> PLACEHOLDER = PropertyDescriptors
+       .optionalAttributeWithDefault("placeholder", "");
 
   public Optional<String> getPlaceholder() {
     return get(PLACEHOLDER);

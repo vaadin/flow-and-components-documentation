@@ -31,7 +31,8 @@ comboBox.setItemLabelGenerator(Status::getLabel);
 
 Grid<Person> grid = new Grid<>();
 grid.addColumn(Person::getName).setHeader("Name");
-grid.addColumn(person -> Integer.toString(person.getYearOfBirth()))
+grid.addColumn(person -> Integer.toString(
+               person.getYearOfBirth()))
         .setHeader("Year of birth");
 ----
 
@@ -65,10 +66,11 @@ You can also define a custom `Comparator` if you need to customize the way a spe
 
 [source, java]
 ----
-grid.addColumn(Person::getName).setHeader("Name")
+grid.addColumn(Person::getName)
+        .setHeader("Name")
         // Override default natural sorting
-        .setComparator(Comparator
-                .comparing(person -> person.getName().toLowerCase()));
+        .setComparator(Comparator.comparing(person ->
+                    person.getName().toLowerCase()));
 ----
 [NOTE]
 This kind of sorting is only supported for in-memory data. See <<Sorting Lazy-loaded Data>> for how to sort data loaded from a backend service. 
@@ -103,7 +105,8 @@ To use this service with a listing component, you can create a data provider tha
 
 [source, java]
 ----
-DataProvider<Person, Void> dataProvider = DataProvider.fromCallbacks(
+DataProvider<Person, Void> dataProvider =
+    DataProvider.fromCallbacks(
         // First callback fetches items based on a query
         query -> {
             // The index of the first item to load
@@ -117,7 +120,8 @@ DataProvider<Person, Void> dataProvider = DataProvider.fromCallbacks(
 
             return persons.stream();
         },
-        // Second callback fetches the number of items for a query
+        // Second callback fetches the number of items
+        // for a query
         query -> getPersonService().getPersonCount());
 );
 
@@ -161,27 +165,31 @@ Sorting options set in the component are available using the `query.getSortOrder
 
 [source, java]
 ----
-DataProvider<Person, Void> dataProvider = DataProvider.fromCallbacks(
-          query -> {
-              List<PersonSort> sortOrders = new ArrayList<>();
-              for(SortOrder<String> queryOrder : query.getSortOrders()) {
-                  PersonSort sort = getPersonService().createSort(
-                          // The name of the sorted property
-                          queryOrder.getSorted(),
-                          // The sort direction for this property
-                                  queryOrder.getDirection() == SortDirection.DESCENDING);
-                  sortOrders.add(sort);
-              }
+DataProvider<Person, Void> dataProvider =
+  DataProvider.fromCallbacks(query -> {
+      List<PersonSort> sortOrders = new ArrayList<>();
+      for(SortOrder<String> queryOrder :
+            query.getSortOrders()) {
+          PersonSort sort = getPersonService()
+            .createSort(
+                 // The name of the sorted property
+                 queryOrder.getSorted(),
+                 // The sort direction for this property
+                 queryOrder.getDirection() ==
+                    SortDirection.DESCENDING);
+          sortOrders.add(sort);
+      }
 
-              return getPersonService().fetchPersons(
-                      query.getOffset(),
-                      query.getLimit(),
-                      sortOrders
-              );
-          },
+      return getPersonService().fetchPersons(
+              query.getOffset(),
+              query.getLimit(),
+              sortOrders
+      ).stream();
+  },
 
-          // The number of persons is the same regardless of ordering
-          query -> getPersonService().getPersonCount()
+  // The number of persons is the same
+  // regardless of ordering
+  query -> getPersonService().getPersonCount()
 );
 ----
 
@@ -196,13 +204,16 @@ Grid<Person> grid = new Grid<>();
 grid.setDataProvider(dataProvider);
 
 // Will be sortable by the user
-// When sorting by this column, the query will have a SortOrder
+// When sorting by this column, the query
+// will have a SortOrder
 // where getSorted() returns "name"
-grid.addColumn(Person::getName).setHeader("Name")
-                .setSortProperty("name");
+grid.addColumn(Person::getName)
+        .setHeader("Name")
+        .setSortProperty("name");
 
 // Will not be sortable since no sorting info is given
-grid.addColumn(Person::getYearOfBirth).setHeader("Year of birth");
+grid.addColumn(Person::getYearOfBirth)
+        .setHeader("Year of birth");
 ----
 
 In some cases, providing a single property name is not enough. For example, if the backend sorts by multiple properties for one column in the UI, or if the backend sort order needs to be inverted when compared to the sort order defined by the user. In these cases, you need to define a callback that generates suitable `SortOrder` values for the given column.
@@ -211,12 +222,14 @@ In some cases, providing a single property name is not enough. For example, if t
 
 [source, java]
 ----
-grid.addColumn(person -> person.getName() + " " + person.getLastName())
-        .setHeader("Name").setSortOrderProvider(
-                // Sort according to last name, then first name
-                direction -> Stream.of(
-                        new QuerySortOrder("lastName", direction),
-                        new QuerySortOrder("firstName", direction)));
+grid.addColumn(person ->
+        person.getName() + " " + person.getLastName())
+    .setHeader("Name")
+    .setSortOrderProvider(
+        // Sort according to last name, then first name
+        direction -> Stream.of(
+           new QuerySortOrder("lastName", direction),
+           new QuerySortOrder("firstName", direction)));
 ----
 
 === Filtering Lazy-loaded Data
@@ -236,7 +249,8 @@ Listing components that allow the user to control how displayed data is filtered
 [source, java]
 ----
 public interface DepartmentService {
-    List<Department> fetch(int offset, int limit, String filterText);
+    List<Department> fetch(int offset, int limit,
+            String filterText);
     int getCount(String filterText);
 }
 ----
@@ -245,15 +259,18 @@ public interface DepartmentService {
 *Example*: `DataProvider` that uses the `DepartmentService` interface service methods to fill a `ComboBox` component with data.
 [source, java]
 ----
-DataProvider<Department, String> createDepartmentDataProvider(DepartmentService service) {
-    return DataProvider.fromFilteringCallbacks(query -> {
-        // getFilter returns Optional<String>
-        String filter = query.getFilter().orElse(null);
-        return service.fetch(query.getOffset(), query.getLimit(), filter).stream();
-    }, query -> {
-        String filter = query.getFilter().orElse(null);
-        return service.getCount(filter);
-    });
+DataProvider<Department, String>
+createDepartmentDataProvider(DepartmentService service)
+{
+   return DataProvider.fromFilteringCallbacks(query -> {
+       // getFilter returns Optional<String>
+       String filter = query.getFilter().orElse(null);
+       return service.fetch(query.getOffset(),
+               query.getLimit(), filter).stream();
+   }, query -> {
+       String filter = query.getFilter().orElse(null);
+       return service.getCount(filter);
+   });
 }
 ----
 
@@ -261,8 +278,10 @@ DataProvider<Department, String> createDepartmentDataProvider(DepartmentService 
 
 [source, java]
 ----
-DataProvider<Department, String> dataProvider = createDepartmentDataProvider(service);
-ComboBox<Department> departmentComboBox = new ComboBox<>();
+DataProvider<Department, String> dataProvider =
+        createDepartmentDataProvider(service);
+ComboBox<Department> departmentComboBox =
+        new ComboBox<>();
 departmentComboBox.setDataProvider(dataProvider);
 ----
 
@@ -275,14 +294,16 @@ In this scenario, filtering is based on the value of a different component than 
 [source, java]
 ----
 public interface EmployeeService {
-    List<Employee> fetch(int offset, int limit, EmployeeFilter filter);
+    List<Employee> fetch(int offset, int limit,
+                         EmployeeFilter filter);
     int getCount(EmployeeFilter filter);
 }
 public class EmployeeFilter {
     private String filterText;
     private Department department;
 
-    public EmployeeFilter(String filterText, Department department) {
+    public EmployeeFilter(String filterText,
+                          Department department) {
         this.filterText = filterText;
         this.department = department;
     }
@@ -311,32 +332,36 @@ Because there are two different types of filters - one for the input text and on
 
 [source, java]
 ----
-ConfigurableFilterDataProvider<Employee, String, Department> 
-getDataProvider(EmployeeService service) {
-    DataProvider<Employee, EmployeeFilter> dataProvider = 
-    DataProvider.fromFilteringCallbacks(query -> {
-        // getFilter returns Optional<String>
-        EmployeeFilter filter = query.getFilter().orElse(null);
-        return service.fetch(query.getOffset(), query.getLimit(), filter).stream();
+ConfigurableFilterDataProvider<Employee, String,
+Department> getDataProvider(EmployeeService service) {
+  DataProvider<Employee, EmployeeFilter> dataProvider =
+  DataProvider.fromFilteringCallbacks(query -> {
+      // getFilter returns Optional<String>
+      EmployeeFilter filter = query.getFilter()
+              .orElse(null);
+      return service.fetch(query.getOffset(),
+              query.getLimit(), filter).stream();
     }, query -> {
-        EmployeeFilter filter = query.getFilter().orElse(null);
+        EmployeeFilter filter = query.getFilter()
+                .orElse(null);
         return service.getCount(filter);
     });
 
-ConfigurableFilterDataProvider<Employee, String, Department> 
-configurableFilterDataProvider = dataProvider
-        .withConfigurableFilter(
-                (String filterText, Department department) -> 
-                        new EmployeeFilter(filterText, department));
+  ConfigurableFilterDataProvider<Employee, String,
+  Department> configurableFilterDataProvider =
+      dataProvider.withConfigurableFilter(
+         (String filterText, Department department) ->
+            new EmployeeFilter(filterText, department));
 
-        return configurableFilterDataProvider;
+  return configurableFilterDataProvider;
 }
 ----
 
 *Example*: Using the DataProvider:
 [source, java]
 ----
-ConfigurableFilterDataProvider<Employee, String, Department> employeeDataProvider = 
+ConfigurableFilterDataProvider<Employee, String,
+Department> employeeDataProvider =
         getDataProvider(service);
 ComboBox<Employee> employeeComboBox = new ComboBox<>();
 employeeComboBox.setDataProvider(employeeDataProvider);
@@ -361,7 +386,8 @@ You can a predicate parameter in your service methods to implement flexible filt
 [source, java]
 ----
 public interface PersonService {
-    List<Person> fetch(int offset, int limit, Optional<Predicate<Person>> predicate);
+    List<Person> fetch(int offset, int limit,
+            Optional<Predicate<Person>> predicate);
     int getCount(Optional<Predicate<Person>> predicate);
 }
 ----
@@ -372,15 +398,20 @@ While it is still possible to use the `fromFilteringCallbacks` method to create 
 
 [source, java]
 ----
-DataProvider<Person, String> getDataProvider(PersonService service) {
-    DataProvider<Person, Predicate<Person>> predicateDataProvider = 
-    DataProvider.fromFilteringCallbacks(
-            query -> service.fetch(query.getOffset(), query.getLimit(), 
-                    query.getFilter()).stream(),
-            query -> service.getCount(query.getFilter()));
+DataProvider<Person, String> getDataProvider(
+        PersonService service) {
+    DataProvider<Person, Predicate<Person>>
+      predicateDataProvider =
+        DataProvider.fromFilteringCallbacks(
+          query -> service.fetch(query.getOffset(),
+                query.getLimit(),
+                query.getFilter()).stream(),
+          query -> service.getCount(query.getFilter()));
 
-    DataProvider<Person, String> dataProvider = predicateDataProvider
-            .withConvertedFilter(text -> (person -> person.getName().startsWith(text)));
+    DataProvider<Person, String> dataProvider =
+      predicateDataProvider.withConvertedFilter(
+        text -> (person -> person.getName()
+                .startsWith(text)));
 
     return dataProvider;
 }
@@ -393,7 +424,8 @@ DataProvider<Person, String> getDataProvider(PersonService service) {
 
 [source, java]
 ----
-DataProvider<Person, String> dataProvider = getDataProvider(service);
+DataProvider<Person, String> dataProvider =
+        getDataProvider(service);
 ComboBox<Person> comboBox = new ComboBox<>();
 comboBox.setDataProvider(dataProvider);
 ----
@@ -408,10 +440,11 @@ All components that use the same data provider refresh their data when a new fil
 
 [source, java]
 ----
-DataProvider<Employee, String> employeeProvider = getEmployeeProvider();
+DataProvider<Employee, String> employeeProvider =
+        getEmployeeProvider();
 
-ConfigurableFilterDataProvider<Employee, Void, String> wrapper =
-        employeeProvider.withConfigurableFilter();
+ConfigurableFilterDataProvider<Employee, Void, String>
+    wrapper = employeeProvider.withConfigurableFilter();
 
 Grid<Employee> grid = new Grid<>();
 grid.setDataProvider(wrapper);
@@ -449,7 +482,8 @@ public interface PersonService {
 
 [source, java]
 ----
-DataProvider<Person, String> allPersonsWithId = new CallbackDataProvider<>(
+DataProvider<Person, String> allPersonsWithId =
+    new CallbackDataProvider<>(
         fetchCallback, sizeCallback, Person::getId);
 
 Grid<Person> persons = new Grid<>();
@@ -537,7 +571,8 @@ ListDataProvider<Person> dataProvider =
 
 Button addPersonButton = new Button("Add person",
         clickEvent -> {
-            persons.add(new Person("James Monroe", 1758));
+            persons.add(new Person("James Monroe",
+                    1758));
             dataProvider.refreshAll();
         });
 

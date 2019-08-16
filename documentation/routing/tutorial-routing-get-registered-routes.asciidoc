@@ -23,6 +23,8 @@ To retrieve all the routes defined by parent layout, use:
 [source,java]
 ----
 Router router = UI.getCurrent().getRouter();
-Map<Class<? extends RouterLayout>, List<RouteData>> routesByParent = router.getRoutesByParent();
-List<RouteData> myRoutes = routesByParent.get(MyParentLayout.class);
+Map<Class<? extends RouterLayout>, List<RouteData>>
+        routesByParent = router.getRoutesByParent();
+List<RouteData> myRoutes =
+        routesByParent.get(MyParentLayout.class);
 ----

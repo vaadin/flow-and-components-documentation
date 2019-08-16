@@ -14,39 +14,36 @@ Using beans in models provides you with an easy way of defining your model or re
 A typical use case would be a form where you want to edit the contents of one or more entities. The template for a form for editing a `Person` bean might for instance look like:
 
 .MyForm html template
-[source,html]
+[source,js]
 ----
-<dom-module id="my-form">
-    <template>
-        <div>
+class MyForm extends PolymerElement {
+    static get template() {
+        return html`
             <div>
-                <span>First name</span>
-                <input value="[[person.firstName]]" />
+                <div>
+                    <span>First name</span>
+                    <input value="[[person.firstName]]" />
+                </div>
+                <div>
+                    <span>Last name</span>
+                    <input value="[[person.lastName]]" />
+                </div>
+                <div>
+                    <span>Age</span>
+                    <input value="[[person.age]]" />
+                </div>
             </div>
             <div>
-                <span>Last name</span>
-                <input value="[[person.lastName]]" />
-            </div>
-            <div>
-                <span>Age</span>
-                <input value="[[person.age]]" />
-            </div>
-        </div>
-        <div>
-            <button on-click="setNameToJeff">Set Name To Jeff</button>
-        </div>
-    </template>
+                <button on-click="setNameToJeff">Set Name To Jeff</button>
+            </div>`;
+    }
 
-    <script>
-        class MyForm extends Polymer.Element {
-            static get is() {
-                return 'my-form'
-            }
-        }
+    static get is() {
+        return 'my-form'
+    }
+}
 
-        customElements.define(MyForm.is, MyForm);
-    </script>
-</dom-module>
+customElements.define(MyForm.is, MyForm);
 ----
 
 If you have a Person bean that looks like:

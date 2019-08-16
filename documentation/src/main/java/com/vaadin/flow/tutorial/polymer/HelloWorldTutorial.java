@@ -18,7 +18,8 @@ package com.vaadin.flow.tutorial.polymer;
 import java.util.Optional;
 
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
@@ -49,7 +50,8 @@ public class HelloWorldTutorial {
     }
 
     @Tag("hello-world")
-    @HtmlImport("src/HelloWorld.html")
+    @NpmPackage(value = "@polymer/paper-input", version = "3.0.2")
+    @JsModule("./src/hello-world.js")
     public class HelloWorld extends PolymerTemplate<HelloWorldModel> {
         private static final String EMPTY_NAME_GREETING = "Please enter your name";
 

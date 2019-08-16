@@ -27,9 +27,11 @@ import elemental.json.JsonObject;
 public abstract class EventListener extends Div {
 
     void tutorialCode() {
-        Element helloButton = ElementFactory.createButton("Say hello");
+        Element helloButton = ElementFactory
+                .createButton("Say hello");
         helloButton.addEventListener("click", e -> {
-            Element response = ElementFactory.createDiv("Hello!");
+            Element response = ElementFactory
+                    .createDiv("Hello!");
             getElement().appendChild(response);
         });
         getElement().appendChild(helloButton);
@@ -41,8 +43,10 @@ public abstract class EventListener extends Div {
 
     private void handleClick(DomEvent event) {
         JsonObject eventData = event.getEventData();
-        boolean shiftKey = eventData.getBoolean("event.shiftKey");
-        double width = eventData.getNumber("element.offsetWidth");
+        boolean shiftKey = eventData
+                .getBoolean("event.shiftKey");
+        double width = eventData
+                .getNumber("element.offsetWidth");
 
         String text = "Shift " + (shiftKey ? "down" : "up");
         text += " on button whose width is " + width + "px";

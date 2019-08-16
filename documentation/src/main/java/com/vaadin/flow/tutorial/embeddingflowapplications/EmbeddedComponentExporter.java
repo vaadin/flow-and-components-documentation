@@ -11,16 +11,19 @@ public class EmbeddedComponentExporter
     public EmbeddedComponentExporter() {
         super("my-comp");
 
-        addProperty("token", "").onChange(this::authorize);
+        addProperty("token", "")
+                .onChange(this::authorize);
     }
 
     @Override
-    public void configureInstance(WebComponent<EmbeddedComponent> webComponent,
+    protected void configureInstance(
+            WebComponent<EmbeddedComponent> webComponent,
             EmbeddedComponent component) {
     }
 
-    private void authorize(EmbeddedComponent component, String token) {
-        // check the {@code token}
+    private void authorize(EmbeddedComponent component,
+                           String token) {
+        // check the token
         if (isValidToken(token)) {
             component.init();
         }

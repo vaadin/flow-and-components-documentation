@@ -6,13 +6,17 @@ import com.vaadin.flow.component.PropertyDescriptor;
 import com.vaadin.flow.component.PropertyDescriptors;
 import com.vaadin.flow.component.Synchronize;
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.shared.Registration;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("web-components/creating-java-api-for-a-web-component.asciidoc")
+@CodeFor("web-components/integrating-a-web-component.asciidoc")
 @Tag("paper-slider")
-@HtmlImport("bower_components/paper-slider/paper-slider.html")
+@NpmPackage(value = "@polymer/paper-slider",
+        version = "3.0.1")
+@JsModule("@polymer/paper-slider/paper-slider.js")
+@JsModule("./my-local-module.js")
 public class PaperSlider
         extends AbstractSinglePropertyField<PaperSlider, Integer> {
 
@@ -34,7 +38,7 @@ public class PaperSlider
     }
 
     public void increment() {
-        getElement().callFunction("increment");
+        getElement().callJsFunction("increment");
     }
 
     @Override
