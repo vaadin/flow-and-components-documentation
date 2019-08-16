@@ -69,8 +69,8 @@ add-on OSGi-compatible>> document.
 
 IMPORTANT: If the project you are using is configured as a multi-module
 project (the base project is an older version or you have done manual
-conversion), the source monitoring will not work and changes are not
-automatically reflected to your application!
+conversion), the source monitoring will not work and changes to the component
+are not automatically reflected to your demo application!
 
 == Step 3. Deploying the Add-on to Vaadin Directory
 
