@@ -491,12 +491,59 @@ becomes
 ----
 
 
-[NOTE]
-If you develop an add-on and/or use some existing web component from webjar in your project 
+==== WebJars
+If you develop an add-on and/or use some existing web component from a webjar
+like the following one in your project,
+```
+<dependency>
+    <groupId>org.webjars.bowergithub.polymerelements</groupId>
+    <artifactId>paper-slider</artifactId>
+</dependency>
+```
 then the migration tool won't be able to rewrite correctly the `@HtmlImport` annotation
-unless it is a Vaadin web component. In this case the `@HtmlImport` will be replaced by `@JsImport` but you
+unless it is a Vaadin web component. In this case the `@HtmlImport` will be replaced by `@JsModule` but you
 should correct the value by yourself since the migration tool is not able to detect the
-scope automatically for the JS module.
+scope of the JS module automatically. Here are the steps you need to do for each WebJar in your project:
+
+* Find the npm package of the web component. You should be able to find it via
+one of the following ways.
+** Go to the GitHub repository page of the component and most likely the package
+name is mentioned in the readme file. For the given example, the owner
+name of the component on GitHub is the last part of the groupId which is `polymerelements`,
+So, after adding the name of the component, the address of its GitHub repository
+can be determined as https://github.com/PolymerElements/paper-slider. Then the
+npm package name can be found under installation section in front of `npm install`
+command. So, the npm package is `@polymer/paper-slider`.
+
+** Search on [npmjs.com](https://www.npmjs.com). The name of the
+web component should be the same. The scope of the package, which should match
+the `groupId`, also helps you find the correct one. For the given example, you
+can search for `paper-slider` and among the results, you can see that one of
+them has the `@polymer` scope has the best match. So, the corresponding npm package is
+`@polymer/paper-slider`.
+
+* Add `@NpmPackage` annotation to your class. After finding the right npm
+package and choosing the version that you want to use, you should add `@NpmPackage`
+annotation with the package name (as `value` parameter) and package version
+It means that you should add the following annotation
+to your class. In this example
+
+```
+@NpmPackage(value = "@polymer/paper-slider", version = "3.0.1")
+```
+If you want to use the latest minor release of the npm package instead of a
+fixed version, then you should add a caret before the version. E.g. the above
+annotation would become like the following.
+```
+@NpmPackage(value = "@polymer/paper-slider", version = "^3.0.1")
+```
+For more information about the versioning of npm packages, see [this](https://docs.npmjs.com/files/package.json#dependencies).
+* Update the value of `@JsModule` annotation with the correct path which can be
+found on the same page where the npm package is found. For our example, it's
+`@polymer/paper-slider/paper-slider.js`. So, the annotation would be:
+```
+@JsModule("@polymer/paper-slider/paper-slider.js")
+```
 
 === 5 - Remove frontend protocol
 
