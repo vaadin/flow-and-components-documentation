@@ -43,8 +43,8 @@ public class MainLayout extends Div implements RouterLayout,
 
 === @Theme Annotation
 
-Vaadin Flow needs to know which theme it should use for the components in Vaadin 14.
-Similarly to Vaadin 8 and previously, this is done with a `@Theme` annotation.
+Vaadin needs to know which theme it should use for the components.
+Similarly to Vaadin 8 and previously, in Vaadin 14 this is done with a `@Theme` annotation.
 This should be applied on the root layout of the application.
 It can also be in an abstract class if you have multiple root layouts.
 
@@ -57,8 +57,8 @@ You should always use a theme, since the unthemed versions of the components are
 
 The theme class will handle two things:
 
-* It tells Vaadin Flow what theme it should use for the Vaadin Components and where the files can be found
-* It specifies a set of shared styles like fonts etc. that will be automatically loaded to the initial page by Vaadin Flow for the theme.
+* It tells Vaadin what theme it should use for the Vaadin Components and where the files can be found
+* It specifies a set of shared styles like fonts etc. that will be automatically loaded to the initial page by Vaadin for the theme.
 
 Both Lumo and Material can be customized, see <<../theme/using-component-themes#,documentation>> for more information.
 
