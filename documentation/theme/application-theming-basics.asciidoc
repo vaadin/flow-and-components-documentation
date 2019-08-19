@@ -15,7 +15,7 @@ If you want to share styles across multiple applications, the best practice is t
 
 == Application Theming Approaches
 
-Most developers use a prebuilt Vaadin theme, such as https://vaadin.com/themes/lumo[Lumo] or https://vaadin.com/themes/material[Material], as the starting point to customize styling in their application. See <<using-component-themes#customizing-prebuilt-themes,Customizing Prebuilt Themes>> for more. 
+Most developers use a prebuilt Vaadin theme, such as https://vaadin.com/themes/lumo[Lumo] or https://vaadin.com/themes/material[Material], as the starting point to customize styling in their application. See <<using-component-themes#customizing-available-themes,Customizing Available Themes>> for more. 
 
 [NOTE]
 The Material theme is fully compliant with Google’s https://material.io/[Material Design guidelines].
