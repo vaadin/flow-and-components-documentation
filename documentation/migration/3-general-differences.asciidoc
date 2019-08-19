@@ -1,5 +1,5 @@
 ---
-title: Differences Between Vaadin platform and V8 Applications
+title: Differences Between Vaadin 10+ and Vaadin 8 Applications
 order: 3
 layout: page
 ---
@@ -78,4 +78,4 @@ the <<../advanced/tutorial-loading-indicator#,loading indicator documentation>>.
 
 == Similarities and Package Naming
 
-Some of the Java code in Vaadin 10+ is directly inherited from Vaadin 8. Even in these cases, the package names are however changed. This is because we want to make it possible to use V8 components and views without classpath conflicts inside Vaadin 10+ using the multiplatform tool. Thus the package names for Vaadin platform contain [classname]#flow# that separates them from the V8 packages.
+Some of the Java code in Vaadin 10+ is directly inherited from Vaadin 8. Even in these cases, the package names are however changed. This is because we want to make it possible to use Vaadin 8 components and views without classpath conflicts inside Vaadin 10+ using the https://vaadin.com/docs/mpr/Overview.html[multiplatform tool]. Thus the package names for Vaadin 10+ contain [classname]#flow# that separates them from the Vaadin 8 packages.
