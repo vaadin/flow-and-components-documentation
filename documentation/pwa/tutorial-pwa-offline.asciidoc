@@ -1,16 +1,16 @@
 ---
-title: Offline experience
+title: Offline Experience
 order: 6
 layout: page
 ---
 
-= Offline experience
+= Offline Experience
 
-Flow will automatically serve a generated offline page. The generated offline page
+Vaadin will automatically serve a generated offline page. The generated offline page
 is a simple page to communicate to the user that the application is offline
 because there is no network connection currently.
 
-Flow automatically personalizes the offline page with the given application name
+Vaadin automatically personalizes the offline page with the given application name
 and icon.
 
 == Custom offline page

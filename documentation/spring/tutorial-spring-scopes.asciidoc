@@ -4,51 +4,38 @@ order: 4
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
-
 = Vaadin Spring Scopes
 
-== Contexts and Scopes
+== Contexts and Scopes in Spring
 
-__Contexts__ in Spring are services that manage the lifecycle of objects and
-handle their injection. Generally speaking, a context is a situation in which an
-instance is used with a unique identity. Such objects are essentially
-"singletons" in the context. While conventional singletons are application-wide,
-objects managed by a Spring container can be "singletons" in a more narrow
-__scope__: a user session, a particular UI instance associated with the session 
-or even just a single request. Such a context defines the
-lifecycle of the object: its creation, use, and finally its destruction.
+* *Contexts* in Spring are services that manage the lifecycle of objects and handle their injection. Generally, a context refers to a situation in which an instance is used with a unique identity. These objects are essentially "singletons" in the context. 
 
-== Scopes
+* *Scopes* are narrower than contexts. While conventional singletons are application-wide, objects managed by a Spring container are "singletons" in a narrower scope. Examples include a user session, a particular UI instance associated with the session, or even a single request. A scope defines the lifecycle of the object, that is its creation, use, and destruction.
 
-As in programming languages, where a variable name refers to a unique object
-within the scope of the variable, an object has unique identity within a scope
-in Spring. However, instead of identifying the objects by variable names, they
-are identified by their type (object class) and any qualifiers they may have.
 
-In addition to standard Spring scope the Spring add-on introduces two new scopes:
-`VaadinSessionScope` and `UIScope`.
+== Using Spring Scopes
 
-`VaadinSessionScope` manages the Spring beans during Vaadin Session lifecycle.
-It means that the same bean instance will be used within the whole Vaadin session.
+In most programming languages, a variable name refers to a unique object within the scope of the variable. In Spring, an object has a unique identity within a scope, but instead of identifying the object by its variable name, it is identified by its type (object class) and qualifiers, if any.   
 
-[NOTE]
-Please refer to <<../advanced/tutorial-application-lifecycle#application.lifecycle.session,User Session>> 
-section of <<../advanced/tutorial-application-lifecycle#,Application Lifecycle>> tutorial
-for details about the Vaadin Session lifecycle.
+In addition to standard Spring scopes, the https://vaadin.com/directory/component/vaadin-spring/overview[Vaadin Spring add-on] introduces two additional scopes: `VaadinSessionScope` and `UIScope`.
 
+* The `@VaadinSessionScope` annotation manages the Spring beans during the Vaadin session lifecycle. It ensures that the same bean instance is used during the whole Vaadin session. 
+
++
+*Example*: Using the `@VaadinSessionScope` annotation.
++
 [source,java]
 ----
 @Route("")
 public class MainLayout extends Div {
-    public MainLayout(@Autowired SessionService bean){
+    public MainLayout(@Autowired SessionService bean) {
         setText(bean.getText());
     }
 }
 
 @Route("editor")
 public class Editor extends Div {
-    public Editor(@Autowired SessionService bean){
+    public Editor(@Autowired SessionService bean) {
         setText(bean.getText());
     }
 }
@@ -59,37 +46,30 @@ public class SessionService {
     private String uid = UUID.randomUUID().toString();
     
     public String getText(){
-        return "session "+uid;
+        return "session " + uid;
     } 
 }
 ----
+** Provided you access the application from the same Vaadin session, the same instance of `SessionService` is used. This is because it is session scoped. 
+** If you open the root target in one tab and the `editor` target in another, the text in both is the same. This happens because the session is the same, even though the tabs (and `UI` instances) are different.
 
-In this example the same instance of `SessionService` will be used as long as 
-we access the application from the same Vaadin session since it's session scoped. 
-E.g. if you open the root target in one tab and the editor target in another tab, 
-then the shown text will be the same for both. It happens because the session 
-is the same even though the tabs (and `UI` instances) are different.
+* The `@UIScope` annotation manages the Spring beans during the `UI` lifecycle. 
 
-The `@UIScope` manages the Spring beans during the `UI` lifecycle. Similar to the example above
-the `UIService` will be the same while we are in the same `UI` since it's ui scoped now.
-
-[NOTE]
-Please refer to <<../advanced/tutorial-application-lifecycle#application.lifecycle.ui,Loading a UI>> 
-section of <<../advanced/tutorial-application-lifecycle#,Application Lifecycle>> tutorial
-for details about the `UI` lifecycle.
-
++
+*Example*: Using the `@UIScope` annotation. 
++
 [source,java]
 ----
 @Route("")
 public class MainLayout extends Div {
-    public MainLayout(@Autowired UIService bean){
+    public MainLayout(@Autowired UIService bean) {
         setText(bean.getText());
     }
 }
 
 @Route("editor")
 public class Editor extends Div {
-    public Editor(@Autowired UIService bean){
+    public Editor(@Autowired UIService bean) {
         setText(bean.getText());
     }
 }
@@ -99,21 +79,21 @@ public class Editor extends Div {
 public class UIService {
     private String uid = UUID.randomUUID().toString();
     
-    public String getText(){
+    public String getText() {
         return "ui " + uid;
     } 
 }
 ----
+** The `UIService` is now the same while in the same `UI`, because it is UI scoped. When using `@UIScope`, the same bean instance is used inside the same `UI` instance.
+** If you open the root target in one tab and the `editor` target in another, the text in each is different, because the `UI` instances are different. However, if you navigate to the `Editor` instance via the router (or a `UI` instance which delegates navigation to the router), the text is the same.
 
-Now if you open two browser tabs, the text in these will be different since the `UI` instances
-are different. But if you navigate to the `Editor` instance via the router (or the `UI` instance which 
-delegates navigation to the router) then the text will be the same.
-
+** *Example*: Navigating to the `editor` target. 
++
 [source,java]
 ----
 public void edit() {
     getUI().get().navigate("editor");
 }
 ----
-
-So inside the same `UI` instance the same bean instance with `@UIScope` is used. 
+ 
+See <<../advanced/tutorial-application-lifecycle#application.lifecycle.ui,Application Lifecycle > Loading a UI>> and <<../advanced/tutorial-application-lifecycle#application.lifecycle.session,User Session>> for more. 

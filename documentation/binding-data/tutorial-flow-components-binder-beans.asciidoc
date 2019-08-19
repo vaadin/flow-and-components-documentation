@@ -10,8 +10,6 @@ Business objects are typically implemented as JavaBeans in an application. `Bind
 
 == Manual Data Binding
 
-=== Using Bean Property Names
-
 You can use reflection based on bean property names to bind values. This reduces the amount of code needed when binding to fields in the bean.
 
 *Examples*: Binding using reflection based on bean property names.

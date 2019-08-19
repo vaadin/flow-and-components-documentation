@@ -5,14 +5,14 @@ layout: page
 ---
 
 
-= Using Vaadin Flow with Spring Boot
+= Using Vaadin with Spring Boot
 
-The https://vaadin.com/directory/component/vaadin-spring/[Vaadin Spring] add-on allows you to use Vaadin Flow with https://spring.io/projects/spring-boot[Spring Boot]. 
+The https://vaadin.com/directory/component/vaadin-spring/[Vaadin Spring] add-on allows you to use Vaadin with https://spring.io/projects/spring-boot[Spring Boot].
 
 https://spring.io/projects/spring-boot[Spring Boot] speeds up the development process and provides a fast and efficient development environment by emphasising . It is the easiest way to use the Spring framework. 
 
 [NOTE]
-See <<tutorial-spring-basic-mvc#,Using Flow with Spring MVC>> to learn how to use Vaadin in more traditional https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html[Spring MVC] web application, without Spring Boot. 
+See <<tutorial-spring-basic-mvc#,Using Vaadin with Spring MVC>> to learn how to use Vaadin in more traditional https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html[Spring MVC] web application, without Spring Boot.
 
 The easiest way to create an application with Spring Boot and Vaadin is to start with a template application created by https://vaadin.com/start or https://start.spring.io/, but you can also add required dependencies manually to your project.
 
@@ -29,7 +29,8 @@ Like many other tech stacks on Spring Boot, Vaadin provides a starter dependency
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-bom</artifactId>
-            <!-- declare the latest Vaadin version as a property or directly here -->
+            <!-- declare the latest Vaadin version
+                 as a property or directly here -->
             <version>${vaadin.version}</version>
             <type>pom</type>
             <scope>import</scope>
@@ -40,22 +41,28 @@ Like many other tech stacks on Spring Boot, Vaadin provides a starter dependency
 <dependencies>
     <dependency>
         <groupId>com.vaadin</groupId>
-        <artifactId>vaadin-spring-boot-starter</artifactId>
+        <artifactId>
+            vaadin-spring-boot-starter
+        </artifactId>
         <version>${vaadin.version}</version>
     </dependency>
 </dependencies>
 <build>
     <plugins>
-        <!-- The Spring Boot Maven plugin for easy execution from CLI and packaging -->
+        <!-- The Spring Boot Maven plugin for easy
+             execution from CLI and packaging -->
         <plugin>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
+            <artifactId>
+                spring-boot-maven-plugin
+            </artifactId>
         </plugin>
 
         <!--
-            Take care of synchronizing java dependencies and imports in
-            package.json and main.js files.
-            It also creates webpack.config.js if not exists yet.
+            Takes care of synchronizing java
+            dependencies and imports in package.json and
+            main.js files. It also creates
+            webpack.config.js if does not exist yet.
         -->
         <plugin>
             <groupId>com.vaadin</groupId>

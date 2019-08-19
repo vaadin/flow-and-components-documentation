@@ -124,7 +124,8 @@ public class DataProviders {
         );
         // @formatter:on
 
-        grid.addColumn(Person::getName).setHeader("Name")
+        grid.addColumn(Person::getName)
+                .setHeader("Name")
                 // Override default natural sorting
                 .setComparator(Comparator.comparing(person ->
                         person.getName().toLowerCase()));
@@ -410,7 +411,8 @@ public class DataProviders {
 
         grid.addColumn(person ->
                 person.getName() + " " + person.getLastName())
-                .setHeader("Name").setSortOrderProvider(
+                .setHeader("Name")
+                .setSortOrderProvider(
                 // Sort according to last name, then first name
                 direction -> Stream.of(
                         new QuerySortOrder("lastName", direction),
@@ -420,7 +422,8 @@ public class DataProviders {
         // When sorting by this column, the query
         // will have a SortOrder
         // where getSorted() returns "name"
-        grid.addColumn(Person::getName).setHeader("Name")
+        grid.addColumn(Person::getName)
+                .setHeader("Name")
                 .setSortProperty("name");
 
         // Will not be sortable since no sorting info is given

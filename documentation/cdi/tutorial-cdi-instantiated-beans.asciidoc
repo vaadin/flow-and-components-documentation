@@ -33,7 +33,7 @@ public class MainView extends VerticalLayout {
 ----
 
 [NOTE]
-Vaadin Flow scans for router components on startup and is unaware of CDI beans. Using producers or the `@Typed` annotation causes issues with this kind of bean.
+Vaadin scans for router components on startup and is unaware of CDI beans. Using producers or the `@Typed` annotation causes issues with this kind of bean.
 
 
 == Using Components Injected into Polymer Templates
@@ -44,7 +44,8 @@ Components injected into <<../polymer-templates/tutorial-template-basic#,Polymer
 
 [source,java]
 ----
-public class TestTemplate extends PolymerTemplate<TemplateModel> {
+public class TestTemplate
+        extends PolymerTemplate<TemplateModel> {
     @Id
     private DependentLabel label;
 }
@@ -71,7 +72,8 @@ public class DependentLabel extends Label {
 
 [source,js]
 ----
-import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
+import {PolymerElement,html} from
+        '@polymer/polymer/polymer-element.js';
 
 class TestTemplate extends Polymer.Element {
     static get template() {
@@ -92,6 +94,6 @@ The managed bean injected into the template should not exist before the template
 
 == Using a Custom UI
 
-It is not necessary to define a custom `UI` subclass for your application, but it is possible to define one using the corresponding servlet parameter, if needed. 
+It is not necessary to define a custom `UI` subclass for your application, but it is possible to define one using the corresponding servlet parameter, if needed.
 
-The custom `UI` subclass is instantiated by Vaadin Flow as a POJO (not as a managed bean), but it is still possible to achieve dependency injection. Use `BeanManager` in your overridden `UI.init` method, for example `BeanProvider.injectFields(this)` (in Deltaspike).
+The custom `UI` subclass is instantiated by Vaadin as a POJO (not as a managed bean), but it is still possible to achieve dependency injection. Use `BeanManager` in your overridden `UI.init` method, for example `BeanProvider.injectFields(this)` (in Deltaspike).

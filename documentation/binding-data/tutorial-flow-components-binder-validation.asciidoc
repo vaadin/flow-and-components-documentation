@@ -13,7 +13,7 @@ layout: page
 
 These concepts go hand in hand, because validation can be based on a converted value, and the ability to convert a value is a kind of validation in itself.
 
-Vaadin Flow includes several validators and converters that you can implement.
+Vaadin includes several validators and converters that you can implement.
 
 == Validating User Input
 
@@ -57,7 +57,7 @@ binder.forField(titleField)
 
 ** If the user leaves the field  empty, an error message displays.
 
-=== Customizing Validation Messages
+=== Customizing Validation Error Messages
 
 You can customize the way error messages display by defining a `ValidationStatusHandler` or configuring the `Label` for each binding. The label is used to show the status of the field. The label can be used for validation errors, as well as confirmation and helper messages.
 
@@ -199,10 +199,11 @@ binder.forField(yearOfBirthField)
     // with 4 characters
     .withConverter(new StringToIntegerConverter(
             "Must enter a number"))
-  // Validator will be run with the converted value
-  .withValidator(year -> year >= 1900 && year < 2000,
-    "Person must be born in the 20th century")
-  .bind(Person::getYearOfBirth, Person::setYearOfBirth);
+    // Validator will be run with the converted value
+    .withValidator(year -> year >= 1900 && year < 2000,
+            "Person must be born in the 20th century")
+    .bind(Person::getYearOfBirth,
+            Person::setYearOfBirth);
 ----
 
 When updating UI components, values from the business object are passed through each converter in reverse order (without validation).
