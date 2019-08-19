@@ -1,78 +1,69 @@
 ---
-title: Embedding Introduction
+title: Introduction to Embedding Applications
 order: 1
 layout: page
 ---
 
-= Embedding Introduction
+= Introduction to Embedding Applications
 
-== General Embedding Concepts
+Embeddeding applications is an alternative to writing monolithic frontends for your applications. 
 
-Instead of writing monolithic frontend for your application you may 
-compose your page of embedded applications (a.k.a. micro frontends, see https://micro-frontends.org/).
-These embedded applications are isolated, may be maintained by different teams, and use
-different frameworks.
-A simple example is embedding a calendar application to your page: 
-the functionality provided by the calendar is quite isolated and has no relation to 
-the logic of your application. Embedding an application is similar to adding a client-side widget to 
-your page. But the embedded calendar has its backend logic which makes it a real application
-instead.
+Embedded applications are also know as https://micro-frontends.org/[micro frontends]. They are isolated and self-contained pieces of code that can be maintained by different teams, using different frameworks. A simple example is an embedded calendar in a web page: the calendar functionality is isolated and has no relation to the logic of the main application. 
 
-== Embedding a Vaadin Application Overview
+Embedding an application is similar to adding a client-side widget to a page, except the embedded application has back-end logic and is a real application in its own right.
 
-Vaadin gives you a way to embed application via web components.
-To be able to do this you need:
 
-* write and declare a server-side Vaadin component in a special way using a custom element tag name.
-* let your embedding page know about your Vaadin application
-* add an element with the specified custom tag name onto your page, embedding
- the application
+== Embedding Applications in Vaadin 
 
-The embedded component will behave as a Vaadin component regardless of content
-on your page. Due to its nature, there are some features that are not
-available for embedded Vaadin applications, navigation being one of them.
+=== Overview
 
-Please see the technical overview below.
+Vaadin allows you to embed applications using web components and provides the `WebComponentExporter` class for this purpose. 
 
-== Embedding a Vaadin Application in Action
+These are the basic steps to creating an embedded application:
 
-To be able to embed a Vaadin component onto your page, you will need to export your
-component as an embeddable application.
-Here is what you need to do it:
+* Create the application that will be embedded and export it:
+** Write and declare a server-side component in a specific way, using a custom element tag name. 
+** Create an exporter for the component by extending the `WebComponentExporter` class. 
+* Embed and use the application in your host (embedding) page. 
+** Make your page aware of the application by adding an element with a matching custom tag.
 
-* Have a Vaadin application (which doesn't have to have any relation to your
-embedding application).
-* Have a Vaadin component. Let's assume the component name is `MyComponent` (it can be already existing component).
-* Create an exporter for the component. To do this, extend `WebComponentExporter<MyComponent>` class. 
- ** Implement its constructor providing the tag name which you will use on you page to embed the application.
- ** Configure properties in the constructor via the `addProperty` method.
- ** Implement the `configureInstance` method in case you need additional initialization 
- of the exported component (e.g. add a listener to the original component).
-* Deploy your Vaadin application.
-* Embed a Vaadin application to your page
- ** Import web component URL resource from the embedded Vaadin application. Here is the example: `<link rel='import' href='YOUR_EMBEDDED_APPLICATION_URI/web-component/my-component.js'>`.
-* Use the embedded web component inside your HTML code via the tag name which you have assigned to it. E.g. `<my-component></my-component>`.
+The embedded application behaves like a standard Vaadin component, regardless of any other content on the page, except that certain features are not available. See <<tutorial-webcomponent-limitations#,Embedded Application Limitations>> for more. 
 
-Example notes:
 
-* The tag name `"my-component"` is used in this example as a tag name to address the embedded application.
-* The application is imported using the path `"web-component/my-component.js"` where `"web-component"` is the base path for embeddable applications and `"my-component.js"` is the custom tag name + `.js`.
-*  `YOUR_EMBEDDED_APPLICATION_URI` is the URI of you Vaadin application where
-it's going to be deployed. It depends on how and where you deploy your Vaadin
- application.
-* The element `my-component` is used inside your HTML page content. This can be a static HTML file or any content generated by some framework (e.g. plain servlet, JSP, etc.)  
+=== Creating an Embedded Application
 
-For more details please see the tutorials:
+To create an embedded application, you need to export a component as an embeddable application:
 
-* <<tutorial-webcomponent-properties#,Properties of Embedded Web Components>>
-* <<tutorial-webcomponent-theming#,Theming an Embedded Application>>
-* <<tutorial-webcomponent-push#,Embedded Application Push Configuration>>
-* <<tutorial-webcomponent-security#,Securing an Embedded Application>>
-* <<tutorial-webcomponent-exporter#,Embedding a Vaadin Application>>
-* <<tutorial-webcomponent-limitations#,Limitations in Embedded Application>>
+* Create the component (`MyComponent`) that will be used as the embedded application. You can create a new component or use an existing one. This component (application) has no relation to the host application. 
+* Create an exporter for the component, by extending the `WebComponentExporter<MyComponent>` class. 
+ ** Implement its constructor providing the tag name that you will use to identify it on the host application.
+ ** Configure properties in the constructor using the `addProperty` method.
+ ** Implement the `configureInstance` method, if you need additional initialization of the exported component (for example, add a listener to the original component).
+* Deploy your embeddable application.
 
-The tutorial <<tutorial-webcomponent-exporter#,Embedding a Vaadin Application>>
-contains a full example how to create an embedded Vaadin application from
-scratch and use it on a web page.
+See <<tutorial-webcomponent-exporter#,Creating an Embedded Vaadin Application Tutorial>> for a detailed example. 
 
-There are some features limitations which you may find in <<tutorial-webcomponent-limitations#,Limitations in Embedded Application>> tutorial.
+=== Importing an Embeddable Application 
+
+To embed the exported application in a page:
+
+* Import the web component URL resource of the embedded application, for example `<link rel='import' href='YOUR_EMBEDDED_APPLICATION_URI/web-component/my-component.js'>`.
+
+** The application is imported using the path `"web-component/my-component.js"`, where `"web-component"` is the base path for embeddable applications, and `"my-component.js"` is the `_custom-tag-name_.js`.
+**  `YOUR_EMBEDDED_APPLICATION_URI` is the URI at which you deploy your exported application. This depends on how and where you deploy the application. 
+
+* Use the embedded web component in your HTML code using the tag name you assigned to the embedded application, for example `<my-component></my-component>``.
+
+** The tag name, `"my-component"`, is used to identify the embedded application.
+
+** The element `my-component` is used in your HTML page content. This can be a static HTML file or content generated by any framework, for example a plain servlet, JSP, and more.  
+
+For more on embedded applications, see:
+
+* <<tutorial-webcomponent-properties#,Embedded Application Properties>>
+* <<tutorial-webcomponent-theming#,Theming Embedded Applications>>
+* <<tutorial-webcomponent-push#,Configuring Push Notifications in Embedded Applications>>
+* <<tutorial-webcomponent-security#,Securing Embedded Applications>>
+* <<tutorial-webcomponent-exporter#,Creating an Embedded Application Tutorial>>
+* <<tutorial-webcomponent-compatibility#,Importing Embedded Applications in Compatibility and Production Mode>>
+* <<tutorial-webcomponent-limitations#,Embedded Application Limitations>>
