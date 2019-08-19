@@ -6,45 +6,39 @@ layout: page
 
 = Introduction
 
-Progressive Web Apps (PWA) combine new technologies with established best
-practices for creating reliable, accessible, and engaging experiences.
-They give users a native-like experience with a user friendly opt-in
-installation flow.
+Progressive Web Applications (PWAs) combine new technologies with established best practices. They allow you to create reliable, accessible, and engaging experiences that give give users a native-like experience, with a user friendly opt-in installation flow.
 
 [NOTE]
-This documentation is about creating PWAs with Vaadin, for generic PWA information,
-please refer to to the https://vaadin.com/pwa[Progressive Web Applications] for
-more information about PWA.
+This documentation covers how to create PWAs with Vaadin. For detailed generic PWA information, see the Vaadin https://vaadin.com/pwa[PWA Handbook].
 
 == Basic PWA Concepts
 
-All progressive web applications have the same common features that enable the
-native-app-like behavior:
+All PWAs have the following common basic features that enable native-app-like behavior:
 
-- *Web App Manifest* - The web app manifest provides information about an
-application (such as its name, theming, icon, and description). Provided information
-describes the details needed for making an installable version of web application.
-- *Service Worker* - A service worker is a type of web worker. It's essentially
-a JavaScript file that runs separately from the main browser thread, intercepting
-network requests, caching or retrieving resources from the cache, and delivering push messages.
-The ability the intercept network request makes it possible to serve files directly
-from cache and even create a full application experience even where there's no
-network available.
+* *Web App Manifest*: This provides information about an application, for example its name, theme, icon, and description. These details are needed to make an installable version of web application.
 
-Those are the basic needs, but in order to support installation on devices there
-are also other requirements, which also depend on device and browser used:
+* *Service Worker*: This is a type of web worker. Essentially, it is a a JavaScript file that:
+** Runs separately from the main browser thread. 
+** Intercepts network requests.
+** Caches and retrieves resources from the cache.
+** Delivers Push messages.
 
-- *Icons* - different sizes of icons are needed to support different devices.
-Also for better experience, there should be splash screen -images for iOS -devices.
-- *Offline support* - the service worker must be able respond to serve client if
-network is unavailable.
-- *Header information* - in addition to manifest file, the application must also
-have describing data in header (browser/device specific version of theming and icons)
-- *Installation prompt* - Google Chrome requires special installation handling.
+The ability to intercept network requests, makes it possible to serve files directly from cache and create a full application experience, even when no network is available.
+
+
+== Application Installation Requirements
+
+To support installation on devices, the following additional features are required. These depend on the device and browser used:
+
+* *Icons*: Different icon sizes are needed to support different devices. 
+To enhance the experience, splash screen images are also required.
+
+* *Offline support*: The service worker must be able respond to serve the client if a network is not available.
+
+* *Header information*: The application must include browser and/or device-specific theming and icon data in the header. This is in addition to the manifest file, 
+
+* *Installation prompts*: Special handling information is required for Google Chrome.
 
 
 [NOTE]
-HTTPS is a requirement for many new browser features, including those required
-for progressive web apps. Even if PWA currently works without HTTPS in some
-environment, e.g. Android, it is not guaranteed to stay the same and it is
-highly probable for those apps to malfunction in the future.
+Many new browser features, including those required for PWAs, require HTTPS. Even if your PWA currently works without HTTPS in some environments (for example, Android), this is likely to change and it is probable that PWAs that do not support HTTPs will malfunction in the future.
