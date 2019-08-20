@@ -109,7 +109,7 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | TextField | TextField | https://vaadin.com/components/vaadin-text-field/java-examples[Demo]
 
-| Tree | - | Planned, no timeline yet. Go vote https://github.com/vaadin/vaadin-grid-flow/issues/469[issue] if you need it.
+| Tree | TreeGrid (V12) | Tree is made by making a TreeGrid with a single column.
 
 | TreeGrid | TreeGrid (V12) | https://vaadin.com/components/vaadin-treegrid/html-examples/grid-tree-demos[Demo]
 
