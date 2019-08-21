@@ -1,42 +1,30 @@
 ---
-title: Theming Components - Overlay
+title: Theming Overlay Components 
 order: 6
 layout: page
 ---
 
-= Theming Components - Overlay
+= Theming Overlay Components
 
-`<vaadin-overlay>` is a Web Component for creating overlays. It is an essential part of many components such as:
+The `<vaadin-overlay>` component allows you to create an overlay. This component an essential part of many components, for example, `dialog`, `notification`, `combo-box`, `date-picker`, `time-picker`, `select` and `context-menu`. These components are made up of two components:
 
-* `dialog`
-* `notification`
-* `combo-box`
-* `date-picker`
-* `time-picker`
-* `select`
-* `context-menu`
+* *Main* component, for example `<vaadin-dialog>`, that is not visible (`display:none`) on the page.
+* *Overlay* component, for example `<vaadin-dialog-overlay>`, that is visible on the page.
 
-Those component are actually 2 components;
+== Styling an Overlay
 
-. The main component, e.g. `<vaadin-dialog>`, which is not visible (`display:none`).
-. The overlay component, `<vaadin-dialog-overlay>`, which is actually visible.
+The `<vaadin-overlay>` component contains three stylable parts:
 
-== How to style an overlay
+* *Backdrop*: The optional modality curtain that covers the whole viewport.
+* *Overlay*: The container to position, size, and align the content. It is typically also a scrolling container.
+* *Content*: The content area inside the scrolling container (overlay). You can apply padding in this part to affect the size of the scrolled content.
 
-The `<vaadin-overlay>` component contains 3 stylable parts:
+The `theme` attribute is the only attribute that is copied from the main component to the overlay component. This allows you to style individual overlays. The `theme` attribute is the only exception: all other attributes (for example, the class selector) are not copied from the main component to the overlay component. 
 
-. *backdrop*: the optional modality curtain, covering the whole host/viewport.
-. *overlay*: container for position/sizing/alignment of the content – this one is usually a scrolling container as well.
-. *content*: the content area inside the scrolling container, where padding should be applied (if you want it to affect the bottom of scrolled content as well).
+To style an overlay component, you need to create a style CSS module, target the stylable parts, instruct Vaadin to import it as a module targeting the specific component, and set the `theme` attribute to the main component in your view.
 
-[WARNING]
-Attributes from the main component are not copied to the overlay component, e.g. the class selector.
+*Example*: Creating the `my-overlay-theme.css` style CSS module.
 
-The theme attribute is an exception to the above, and it is copied to the overlay component, allowing styling of individual overlays.
-
-To style an overlay component it is necessary to create a style CSS module, target the stylable parts, instruct Vaadin to import it as a module targeting the specific component, and set the `theme` attribute to the main component in your view:
-
-.frontend/styles/my-overlay-theme.css
 [source,css]
 ----
 :host([theme~="custom-theme-variant"]) [part~="overlay"]
@@ -44,7 +32,8 @@ To style an overlay component it is necessary to create a style CSS module, targ
 }
 ----
 
-.MyApplication.java
+*Example*: Using the `@CssImport` annotation to import `my-overlay-theme.css` into `MyApplication`. 
+
 [source,java]
 ----
 @Route(value = "")
@@ -54,7 +43,8 @@ public class MyApplication extends Div {
 }
 ----
 
-.MyView.java
+*Example*: Using the `setAttribute` method to set the `theme` attribute in `MyView`. 
+
 [source,java]
 ----
 public class MyView extends VerticalLayout {
@@ -66,9 +56,10 @@ public class MyView extends VerticalLayout {
 }
 ----
 
-If you want to be more specific, and target overlays of `vaadin-dialog`, do not use wildcards in the `themeFor` and target the `vaadin-dialog-overlay` element.
+If you want to be more specific and target the overlay of `vaadin-dialog`, do not use wildcards in the `themeFor` attribute, rather target the `vaadin-dialog-overlay` element directly. 
 
-.frontend/styles/my-dialog-overlay-theme.css
+*Example*: Creating the `my-dialog-overlay-theme.css` style CSS module. 
+
 [source,css]
 ----
 [part="backdrop"] {
@@ -79,6 +70,7 @@ If you want to be more specific, and target overlays of `vaadin-dialog`, do not 
 }
 ----
 
+*Example*: Using the `@CssImport` annotation to import `my-dialog-overlay-theme.css` into `MyApplicationWithDialog`. 
 
 .MyApplicationWithDialog.java
 [source,java]
@@ -91,6 +83,4 @@ public class MyApplicationWithDialog extends Div {
 ----
 
 [NOTE]
-ThemableMixin does not guarantee the order in which the style modules are applied.
-It is important to declare CSS rules whose specificity is greater than the Lumo properties that are being overridden.
-For more information refer to <<application-theming-basics#, Application Theming Basics >>.
+`ThemableMixin` does not guarantee the order in which the style modules are applied. It is important to declare CSS rules whose specificity is greater than the Lumo properties that are being overridden. 
