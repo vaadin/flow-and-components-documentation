@@ -6,11 +6,11 @@ layout: page
 
 = Migrating Theming Files from Polymer 2 to Polymer 3
 
-The most significant change in Polymer 3.0 is that Html Imports are not used anymore, and instead we need to use ES6 modules.
+The most significant change in Polymer 3.0 is that you need to use ES6 modules, instead of HTML imports (that are no longer used).
 
 == Steps to migrate `.html` theming files to `.js` and `.css`
 
-Given the following example for Polymer 2 in a V13 application:
+The instructions below assume the following Polymer 2 example in a Vaadin version 13 application:
 
 [source, xml]
 ----
@@ -38,9 +38,9 @@ Given the following example for Polymer 2 in a V13 application:
 </custom-style>
 ----
 
-We need to follow the next steps to convert to Polymer 3, so as it is usable in a V14 application.
+To convert your files to Polymer 3 and make them them usable in a Vaadin version 14 application.
 
-1. Generate as many `.css` files as HTML blocks in the `.html` file
+. Generate as many `.css` files as HTML blocks in your `.html` file
 +
 .frontend/styles/my-app-layout-theme.css
 [source, css]
@@ -63,7 +63,7 @@ We need to follow the next steps to convert to Polymer 3, so as it is usable in 
 ----
 +
 
-2. Instruct Vaadin to import these css files using the `CssImport`annotation.
+. Instruct Vaadin to import these CSS files using the `CssImport`annotation.
 +
 [source, java]
 ----
