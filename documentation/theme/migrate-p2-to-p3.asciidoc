@@ -63,7 +63,7 @@ To convert your files to Polymer 3 and make them them usable in a Vaadin version
 ----
 +
 
-. Instruct Vaadin to import these CSS files using the `CssImport`annotation.
+. Instruct Vaadin to import these CSS files using the `CssImport` annotation.
 +
 [source, java]
 ----
