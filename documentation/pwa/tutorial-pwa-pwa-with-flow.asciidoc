@@ -1,14 +1,14 @@
 ---
-title: Creating PWA with Vaadin
+title: Creating PWAs with Vaadin
 order: 2
 layout: page
 ---
 
-= Creating PWA with Vaadin
+= Creating PWAs with Vaadin
 
-Vaadin server can automatically serve the needed resources for PWA. To enable this,
-annotate the root layout of your application with
-`@PWA(name = "My Progressive Web Application", shortName="MyPWA")`.
+The Vaadin server automatically serves the needed resources for a PWA, when you use the `@PWA` annotation in the root layout of your application. 
+
+*Example*: Using the `@PWA` annotation with the `@Route` annotation to automatically serve PWA resources. 
 
 [source,java]
 ----
@@ -21,11 +21,8 @@ public class MyPWA extends Div {
     }
 }
 ----
+* Vaadin server automatically serves the <<tutorial-pwa-web-app-manifest#,web manifest>>, <<tutorial-pwa-service-worker#,service worker>>, <<tutorial-pwa-icons#,icons>>, <<tutorial-pwa-offline#,offline page>>, and installation prompt, and adds the necessary additions to the application headers. 
+* The `shortName` parameter should not exceed 12 characters. See <<tutorial-pwa-web-app-manifest#,PWA Web App Manifest>> for a list of `@PWA` annotation parameters you can use.
 
-
-By doing this Vaadin server will automatically serve *web manifest*, *service worker*,
-*icons*, *offline page* and *installation prompt*. Also needed additions to
-headers are added to application.
-
-There may be only single `@PWA` -annotation per application and it must be placed
-in parent layout of application or in a view annotated with `@Route`.
+[NOTE]
+You can only have one `@PWA` annotation per application. The annotation must be placed in the application's parent layout, or in a view annotated with `@Route`.
