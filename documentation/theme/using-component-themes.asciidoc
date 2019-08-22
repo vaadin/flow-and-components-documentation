@@ -209,12 +209,14 @@ button.getThemeNames().addAll(Arrays.asList("contrast", "primary"));
 [source,java]
 ----
 Button button = new Button("Themed button");
-        String themeAttributeName = "theme";
-        String oldValue = button.getElement().getAttribute(themeAttributeName);
-        String variantsToAdd = "contrast primary";
-        button.getElement().setAttribute(themeAttributeName,
-                oldValue == null || oldValue.isEmpty() ? variantsToAdd
-                        : ' ' + variantsToAdd);
+String themeAttributeName = "theme";
+String oldValue = button.getElement()
+        .getAttribute(themeAttributeName);
+String variantsToAdd = "contrast primary";
+button.getElement().setAttribute(themeAttributeName,
+        oldValue == null || oldValue.isEmpty() ?
+            variantsToAdd
+            : ' ' + variantsToAdd);
 ----
 ** This example provides more flexibility. It allows you to manipulate the value of the `theme` attribute directly. This is useful when adding non-standard theme variants to a component.
 
