@@ -6,7 +6,7 @@ layout: page
 
 = Introduction
 
-Progressive Web Applications (PWAs) combine new technologies with established best practices. They allow you to create reliable, accessible, and engaging experiences that give give users a native-like experience, with a user friendly opt-in installation flow.
+Progressive Web Applications (PWAs) combine new technologies with established best practices. They allow you to create reliable, accessible, and engaging experiences that give users a native-like experience, with a user friendly opt-in installation flow.
 
 [NOTE]
 This documentation covers how to create PWAs with Vaadin. For detailed generic PWA information, see the Vaadin https://vaadin.com/pwa[PWA Handbook].
