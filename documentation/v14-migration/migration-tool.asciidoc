@@ -30,6 +30,9 @@ During August 2019 the template migration tool will also become available as a J
 non-Maven projects.
 
 [NOTE]
+There are currently some issues in running the migration tool on Windows 10. The error output refers to "bower install failing" or "git not being available on path". To workaround this, you should use the https://docs.microsoft.com/en-us/windows/wsl/install-win10[Windows Linux Subsystem] and run the tool there instead. Another workaround that has been reported to help, is to install Bower on the system. We are investigating these issues.
+
+[NOTE]
 The migration tool takes care about style files and `@StyleSheet` annotations
 converting them into `@JsModule`. But there is `@CssImport` annotation available
 which is more convenient to use instead of `@JsModule` for CSS. The migration tool
