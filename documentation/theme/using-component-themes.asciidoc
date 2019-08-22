@@ -201,9 +201,9 @@ Button button = new Button("Themed button");
 [source,java]
 ----
 Button button = new Button("Themed button");
-button.getThemeNames().addAll(Arrays.asList("contrast", "primary"));
+button.getThemeNames().addAll(
+        Arrays.asList("contrast", "primary"));
 ----
-
 * *Example*: Adding variants to the `theme` attribute of the `Button` component by manipulating the `theme` attribute.
 +
 [source,java]
