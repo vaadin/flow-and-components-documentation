@@ -31,7 +31,6 @@ You can change the default name (`manifest.webmanifest`) of the web app manifest
 *Example*: Setting the `manifestPath` parameter in the `@PWA` annotation.
 
 [source,java]
-
 ----
 @PWA(name = "My Progressive Web Application",
      shortName = "MyPWA",
