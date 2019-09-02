@@ -24,7 +24,7 @@ migrating their applications to V14 will be expected to encounter.
 But in case you are using templates / Vaadin Designer or are integrating 3rd party frontend dependencies, you will want to read this document.*
 
 *For component add-on developers, it is recommended to read this document, but
-there are also <<v14-addon-migration-guide#,add-on specific instructions
+there are also <<v14-addon-guide#,add-on specific instructions
 available>>.*
 
 == New frontend tooling for Vaadin 14
@@ -141,7 +141,7 @@ before they can run on V14. There is a migration tool available as a part of Mav
 The goal `migrate-to-p3` converts P2 templates to P3 templates and replaces `@HtmlImport`
 annotations with `@JsModule` annotations, see <<migration-tool#,Migration Tool>> tutorial.
 
-For component add-on projects, there are <<v14-addon-migration-guide#,
+For component add-on projects, there are <<v14-addon-guide#,
 add-on specific migration instructions available>>.
 
 === 1 - Check prerequisites
