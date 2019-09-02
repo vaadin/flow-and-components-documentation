@@ -105,4 +105,4 @@ You need to provide theme files for all components used in your application. Omi
 
 == Creating a Custom Component Theme
 
-Theming for the Vaadin components is built using `Vaadin.ThemableMixin`. See the link:https://github.com/vaadin/vaadin-themable-mixin/wiki[vaadin-themable-mixin documentation] to learn more.
+Theming for the Vaadin components is built using `Vaadin.ThemableMixin`. See the link:https://github.com/vaadin/vaadin-themable-mixin#readme[vaadin-themable-mixin documentation] to learn more.
