@@ -28,8 +28,8 @@ supported similarly as before. So no changes should be needed for existing
 Vaadin 10 - 13 add-ons to support the compatibility mode in 14.
 
 To support the new npm mode, changes are needed for almost all component add-ons.
-Only <<../creating-component-composite#, server side Java-only composite
-components>>, which do not have any frontend resources or dependencies, don't
+Only <<../creating-components/tutorial-component-composite#, server side Java-only composite components>>
+, which do not have any frontend resources or dependencies, don't
 need changes to support the npm mode. For all other component add-ons, it is
 recommended to create a new version for the npm mode support, because typically
 the version published in Bower using HTML imports is not the same as the version
@@ -150,8 +150,8 @@ To be included in the add-on `.jar` and to be available for the frontend builds
 in application projects, the add-on's frontend resources should still be
 located in the standard static resource directory
 `/src/main/resources/META-INF/resources/frontend/`. *Note that the correct path
-should be `/src/main/resources/META-INF/frontend/` but due to https://github
-.com/vaadin/flow/issues/6272[a bug] the former directory needs to be used.
+should be `/src/main/resources/META-INF/frontend/`
+but due to https://github.com/vaadin/flow/issues/6272[a bug] the former directory needs to be used.
 
 Thus a file that has been previously imported as `@JavaScript
 (frontend://src/myComponentConnector.js)` should be now imported as `@JsModule("
@@ -184,9 +184,11 @@ add-on project" that has the add-on demo in the test resources, by including the
 == Examples of Component Add-on Migration to 14
 
 * An example of a web component integration migrating from a Bower based webjar
-to npm package and JS modules: https://github.com/gatanaso/multiselect-combo-box-flow/compare/V13...359b1a2[multiselect-combo-box npm support]
+to npm package and JS modules:
+link:https://github.com/gatanaso/multiselect-combo-box-flow/compare/V13%2E%2E%2E2.0.0[multiselect-combo-box npm support]
 * An example of a web component integration with only local template files
-migrating from HTML imports to JS modules: https://github.com/capeisti/infinite-grid/compare/0.1...a48f3ba0384972fd155c60fc4ab459f8d4d8ad71[infinite-grid npm support]
+migrating from HTML imports to JS modules:
+link:https://github.com/capeisti/infinite-grid/compare/0.1%2E%2E%2Ea48f3ba0384972fd155c60fc4ab459f8d4d8ad71[infinite-grid npm support]
 * An example of a web component integration with only local template files
-adding support for npm mode on top of Vaadin 10 - 13 support: https://github.com/capeisti/infinite-grid/compare/0.1...0.2[infinite-grid supporting both
-modes]
+adding support for npm mode on top of Vaadin 10 - 13 support:
+link:https://github.com/capeisti/infinite-grid/compare/0.1%2E%2E%2E0.2[infinite-grid supporting both modes]
