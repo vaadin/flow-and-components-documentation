@@ -1,6 +1,6 @@
 ---
 title: Migration Tool for Polymer Templates
-order: 2
+order: 1
 layout: page
 ---
 

@@ -23,10 +23,9 @@ migrating their applications to V14 will be expected to encounter.
 *For Vaadin Java users, many of the changes described here only have effect on what happens on behind the scenes.
 But in case you are using templates / Vaadin Designer or are integrating 3rd party frontend dependencies, you will want to read this document.*
 
-[NOTE]
-There will be https://github.com/vaadin/flow/issues/5037[later] on a migration tool available for converting an
-existing project to use the new technologies. Its most important part, which is automatic migration of Polymer 2
-Html templates into Polymer 3 JavaScript modules, is already ready and available to be used. See <<migration-tool#,Migration Tool document>> for more information.
+*For component add-on developers, it is recommended to read this document, but
+there are also <<v14-addon-guide#,add-on specific instructions
+available>>.*
 
 == New frontend tooling for Vaadin 14
 
@@ -142,12 +141,16 @@ before they can run on V14. There is a migration tool available as a part of Mav
 The goal `migrate-to-p3` converts P2 templates to P3 templates and replaces `@HtmlImport`
 annotations with `@JsModule` annotations, see <<migration-tool#,Migration Tool>> tutorial.
 
+For component add-on projects, there are <<v14-addon-guide#,
+add-on specific migration instructions available>>.
+
 === 1 - Check prerequisites
 
+[install.npm]
 ==== Install npm
 
-Install npm and Node.js on your development platform of choice if you don't
-already have them. Either download the installer
+Install Node.js (it includes npm) on your development platform of choice if
+you don't already have it. Either download the installer
 (https://nodejs.org/en/download/[https://nodejs.org/en/download/]) or use your
 preferred package management system (Homebrew, dpkg, ...).
 
@@ -176,6 +179,7 @@ change it to the following:
 </properties>
 ----
 
+[maven.plugin]
 ==== Add Vaadin Maven plugin
 
 Next, add the Vaadin Maven plugin to the `<build><plugins>` section of `pom.xml`
@@ -264,6 +268,7 @@ under the `<PROJDIR>/frontend` folder as described in the next section.
 `<PROJDIR>/src/main/webapp/frontend` (or move anywhere else under `webapp`; see
 comments about updating annotations in section 5)
 
+[p2.p3.migration]
 === 3 - Convert Polymer 2 to Polymer 3
 
 There is a migration tool available which does this conversation. See <<migration-tool#,Migration Tool>> tutorial.
@@ -466,9 +471,9 @@ conversation.
 
 For more complex cases you can use
 https://polymer-library.polymer-project.org/3.0/docs/upgrade[Polymer 3 upgrade guide].
-You can also use polymer-modulizer tool that is described in the guide. Vaadin
-will also release later a migration tool that helps convert a Vaadin 14 application running
-in the compatibility mode to Vaadin 14 running the new toolset.
+You can also use polymer-modulizer tool that is described in the guide. The
+migration tool available with the Vaadin Maven Plugin is internally using the
+polymer-modulizer for migrating the Polymer 2 templates to Polymer 3.
 
 === 4 - Update Java annotations
 
