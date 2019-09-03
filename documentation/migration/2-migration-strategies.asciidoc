@@ -6,7 +6,7 @@ layout: page
 
 = Migration Strategies
 
-For any existing Vaadin 8 or 7 application it might be desirable to extend the lifetime of the application and make it possible to add new features using Vaadin 10.
+For any existing Vaadin 8 or 7 application it might be desirable to extend the lifetime of the application and make it possible to add new features using Vaadin 14.
 There are several migration strategies to consider as the need for migration is always application and business specific.
 
 == Use Vaadin Eight - It Is Great!
@@ -19,33 +19,34 @@ Internet Explorer 11 support is still a critical thing for many applications, an
 performance than Vaadin platform since polyfills are needed with IE 11. During the guaranteed lifetime of Vaadin 8 the usage of IE11 should decrease significantly from what it is now.
 
 During the remaining years of Vaadin 8 support, the quarterly Vaadin platform releases will bring more and more features
-that you can start using when you eventually decide to migrate to Vaadin 10 or start building a new application with a fresh design.
+that you can start using when you eventually decide to migrate to latest Vaadin LTS version (currently 14) or start building a new application with a fresh design.
 
-== Using the Multiplatform Runtime for Running V8 Application Inside V10
+== Using the Multiplatform Runtime for Running V8 Application Inside V14
 
-We are planning to release a Multiplatform Runtime that makes it possible to run views and components from your Vaadin 7 and 8 application inside Vaadin 10.
-This helps you migrate it to V10 bit by bit, or just incrementally add V10 features while also including existing application features as-is.
+Multiplatform Runtime makes it possible to run views and components from your Vaadin 7 and 8 application inside Vaadin 14.
+This helps you migrate it to version 14 bit by bit, or just incrementally add V10 features while also including existing application features as-is.
 
-Using the runtime, you will be able to get your V7 or V8 App running in V10 after couple of quick steps.
+Using the runtime, you will be able to get your V7 or V8 App running inside a V14 App after couple of quick steps.
 Then you can migrate the necessary parts while having a working application after each step.
 
-Multiplatform Runtime will not be part of Vaadin 10. Instead, we plan to release it separately at a later date. The target is to first make it for Vaadin 7 applications, and a bit after that for Vaadin 8.
+Multiplatform runtime is part of the platform and has LTS support for using it with Vaadin 14.
+For more information about MPR, see https://vaadin.com/docs/mpr/Overview.html[the documentation for it].
 
-== Transform an Existing Application To Vaadin 10
+== Transform an Existing Application To Vaadin 14
 
-Transforming a Vaadin 8 app to Vaadin 10 by reusing backend interaction, business logic, and as much as possible of UI logic,
+Transforming a Vaadin 8 app to Vaadin 14 by reusing backend interaction, business logic, and as much as possible of UI logic,
 but updating the UI to use brand new components. When planning this migration, you should at a minimum read through all of
 this documentation to understand the differences and verify what features are available and what you need to redesign.
-One big benefit is that the Data APIs, `Binder` and `DataProvider`, work the same way in V10, so you won’t have to rework your backend integration.
+One big benefit is that the Data APIs, `Binder` and `DataProvider`, work the same way in V14, so you won’t have to rework your backend integration.
 
-== Fresh Start by Redesigning Application for Vaadin 10
+== Fresh Start by Redesigning Application for Vaadin 14
 
-Sometimes the best approach is to make a fresh start - this way you will be able to focus on using new V10 features to deliver value to your users,
+Sometimes the best approach is to make a fresh start - this way you will be able to focus on using new V14 features to deliver value to your users,
 instead of carrying over legacy code. As mentioned in previous topics, there is still probably some opportunities to reuse
 existing solutions related to integration to your business logic and backend.
 
 == Migration Assessment Service ==
 
-To help you understand what a migration to Vaadin 10 means to you, Vaadin offers an assessment service led by Vaadin experts. During the assessment, our experts will gain an understanding of your organization's objectives and concerns, and analyze your application code. http://pages.vaadin.com/vaadin-application-assessment-for-migration?utm_campaign=V10%20migration&utm_source=docs[Read more about the service].
+To help you understand what a migration to Vaadin 14 means to you, Vaadin offers an assessment service led by Vaadin experts. During the assessment, our experts will gain an understanding of your organization's objectives and concerns, and analyze your application code. http://pages.vaadin.com/vaadin-application-assessment-for-migration?utm_campaign=V10%20migration&utm_source=docs[Read more about the service].
 
 You can also get us to do the migration for you.

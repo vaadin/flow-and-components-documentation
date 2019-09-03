@@ -1,39 +1,43 @@
 ---
-title: Theming an Embedded Application
+title: Theming Embedded Applications
 order: 3
 layout: page
 ---
 
-= Theming an Embedded Application
+= Theming Embedded Applications
 
-By default embedded Vaadin components don't use any theme at all or 
-use `Lumo` theme if it's in the classpath.
+Theming of embedded applications works in exactly the same way as for any other Vaadin component. 
 
-[TIP]
-See <<../theme/theming-overview#,Theming Overview>> tutorial about theming.
+By default, embedded Vaadin applications use the `Lumo` theme (if it is found in the classpath), or no theme at all.
 
-It's possible to specify any theme (e.g. `Material`)  which you want to use 
-for the embedded Vaadin components. The example below shows how you may 
-do that:
+See <<../theme/theming-overview#,Theming Overview>> for more.
+
+
+== Assigning a Theme
+
+
+You can specify a theme, for example the `Material` theme, for your embedded Vaadin application using the `@Theme` annotation. 
+
+
+*Example*: Using the `@Theme` annotation to apply the `Material` theme to the `MyExporter` embedded application.  
 
 [source, java]
 ----
-@Tag("my-component")
 @Theme(Material.class)
-public class MyExporter implements WebComponentExporter<Div> {
+public class MyExporter
+        extends WebComponentExporter<Div> {
 ----
+The annotation `@Theme(Material.class)` applies the `Material` theme to the embedded application and it works just like
+in regular Vaadin applications.
 
-The annotation `@Theme(Material.class)` declared for the `MyExporter` class
-applies the `Material` theme for the embedded application and it works just like
-in the normal Flow application.
+It's enough to specify a theme in only one of the exporters of your application.
+If there is no theme declaration then the `Lumo` theme is used when available in 
+the classpath as mentioned above.
 
-It's enough to specify a theme only for one exporter in your application.
-If there is no any theme declaration then `Lumo` theme is used if it's in 
-the project classpath as mentioned above.
+== Using Multiple Themes
 
-It's not possible to define several various themes in one embedded application:
-themes are discovered at the application startup and an exception will be thrown
-if you did this mistake. The application should be split out to the 
-several embedded applications to be able to use different themes for components.
-In this case every embedded application may use its own theme and the main
-application just embeds several themed applications instead of one.
+It is not possible to use more than one theme in a single embedded application. Themes are detected during build time (or startup in compatibility mode's
+development mode) and an exception is thrown if different themes are found.
+
+If you need to use multiple themes, create multiple embedded applications (one per theme) and split the functionality accordingly.
+Each embedded application uses its own theme and the main application embeds several themed applications instead of one.

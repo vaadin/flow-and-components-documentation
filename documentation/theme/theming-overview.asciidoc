@@ -3,19 +3,22 @@ title: Theming
 order: 1
 layout: page
 ---
+= Theming Overview
 
-# Theming Overview
+Vaadin uses themes to separate the appearance of an application from its logic.
 
-Vaadin separates the appearance of the user interface from its logic using _themes_.
-Theming is the activity that is done when the look and feel of the UI components or application is customized.
-Theming is done as with any HTML content by using https://www.w3.org/Style/CSS/[cascading style sheets (CSS)].
-This documentation does not cover the basics of CSS, for more resources see for example the Open Directory Project https://dmoztools.net/Computers/Data_Formats/Style_Sheets/CSS/[CSS guides].
+Themes allow you to customize the look and feel of your application and components. You can use https://www.w3.org/Style/CSS/[Cascading Style Sheets (CSS)] files in combination with the `@CssImport` Java annotation to style any content.
 
-Theming can be split into the following concepts:
+In this section we cover:
 
-* Application theming - creating global styles for one application and its views
-* Component theming - creating styling for reusable components to use and further customize in any application
+* <<using-component-themes#,Using Themes>>.
+* <<application-theming-basics#,Theming Basics>>.
+* <<theming-crash-course#,Theming Web Components>>.
+* <<integrating-component-theme#,Integrating a Custom Component Theme>>.
+* <<tutorial-theming-overlay#,Theming Overlay Components>>.
 
-This documentation first explains how you can use and customize the ready-made component themes provided by Vaadin.
-Then it describes the how to theme applications.
-Finally there is instructions for creating your own component theme and providing the Flow integration for it.
+[NOTE]
+This content does not cover CSS basics. There are many external resources you can use for this purpose. 
+
+[NOTE]
+If your application includes <<../polymer-templates/tutorial-template-basic#,Polymer templates>>, you need to use <<theming-crash-course#using-style-modules,style modules>> for theming.

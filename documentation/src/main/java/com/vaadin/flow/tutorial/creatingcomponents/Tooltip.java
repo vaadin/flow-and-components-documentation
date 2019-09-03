@@ -8,7 +8,8 @@ import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("creating-components/tutorial-component-mixins.asciidoc")
-public class Tooltip extends Component implements HasComponents, HasStyle {
+public class Tooltip extends Component
+        implements HasComponents, HasStyle {
 
 
     private void tooltipExample() {

@@ -32,17 +32,19 @@ public class RouterLayoutTutorial {
     public class CompanyComponent extends Component {
     }
 
-    public class MainLayout extends Div implements RouterLayout {
+    public class MainLayout extends Div
+            implements RouterLayout {
     }
 
     @ParentLayout(MainLayout.class)
-    public class MenuBar extends Div implements RouterLayout {
+    public class MenuBar extends Div
+            implements RouterLayout {
         public MenuBar() {
             addMenuElement(TutorialView.class, "Tutorial");
             addMenuElement(IconsView.class, "Icons");
         }
-
-        private void addMenuElement(Class<? extends Component> navigationTarget,
+        private void addMenuElement(
+                Class<? extends Component> navigationTarget,
                 String name) {
             // implementation omitted
         }
@@ -62,18 +64,21 @@ public class RouterLayoutTutorial {
     }
 
     @RoutePrefix("some")
-    public class SomeParent extends Div implements RouterLayout {
+    public class SomeParent extends Div
+            implements RouterLayout {
         // Implementation omitted
     }
 
-    @Route(value = "content", layout = SomeParent.class, absolute = true)
+    @Route(value = "content", layout = SomeParent.class,
+            absolute = true)
     public class MyContent extends Div {
         // Implementation omitted
     }
 
     @RoutePrefix(value = "framework", absolute = true)
     @ParentLayout(SomeParent.class)
-    public class FrameworkSite extends Div implements RouterLayout {
+    public class FrameworkSite extends Div
+            implements RouterLayout {
         // Implementation omitted
     }
 

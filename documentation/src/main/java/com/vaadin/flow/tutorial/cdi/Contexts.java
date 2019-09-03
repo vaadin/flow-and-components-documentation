@@ -97,9 +97,12 @@ public class Contexts {
     public static class RouteScope {
         @Route("")
         @RoutePrefix("parent")
-        public class ParentView extends Div implements RouterLayout {
+        public class ParentView extends Div
+                implements RouterLayout {
             @Inject
-            public ParentView(@RouteScopeOwner(ParentView.class) RouteService routeService) {
+            public ParentView(
+                    @RouteScopeOwner(ParentView.class)
+                            RouteService routeService) {
                 setText(routeService.getText());
             }
         }
@@ -107,7 +110,9 @@ public class Contexts {
         @Route(value = "child-a", layout = ParentView.class)
         public class ChildAView extends Div {
             @Inject
-            public ChildAView(@RouteScopeOwner(ParentView.class) RouteService routeService) {
+            public ChildAView(
+                    @RouteScopeOwner(ParentView.class)
+                            RouteService routeService) {
                 setText(routeService.getText());
             }
         }
@@ -115,7 +120,9 @@ public class Contexts {
         @Route(value = "child-b", layout = ParentView.class)
         public class ChildBView extends Div {
             @Inject
-            public ChildBView(@RouteScopeOwner(ParentView.class) RouteService routeService) {
+            public ChildBView(
+                    @RouteScopeOwner(ParentView.class)
+                            RouteService routeService) {
                 setText(routeService.getText());
             }
         }
@@ -133,7 +140,9 @@ public class Contexts {
         @Route("scoped")
         @RouteScoped
         public class ScopedView extends Div {
-            private void onMessage(@Observes(notifyObserver = IF_EXISTS) MessageEvent message) {
+            private void onMessage(
+                    @Observes(notifyObserver = IF_EXISTS)
+                            MessageEvent message) {
                 setText(message.getText());
             }
         }

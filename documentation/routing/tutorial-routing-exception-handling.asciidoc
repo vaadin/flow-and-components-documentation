@@ -24,13 +24,14 @@ At startup, all classes implementing the `HasErrorParameter<T extends Exception>
 ----
 @Tag(Tag.DIV)
 public class RouteNotFoundError extends Component
-        implements HasErrorParameter<NotFoundException> {
+       implements HasErrorParameter<NotFoundException> {
 
     @Override
     public int setErrorParameter(BeforeEnterEvent event,
-            ErrorParameter<NotFoundException> parameter) {
+          ErrorParameter<NotFoundException> parameter) {
         getElement().setText("Could not navigate to '"
-                    + event.getLocation().getPath() + "'");
+                    + event.getLocation().getPath()
+                    + "'");
         return HttpServletResponse.SC_NOT_FOUND;
     }
 }
@@ -52,12 +53,14 @@ You can override the default exception handlers by extending them.
 [source, java]
 ----
 @ParentLayout(MainLayout.class)
-public class CustomNotFoundTarget extends RouteNotFoundError {
+public class CustomNotFoundTarget
+        extends RouteNotFoundError {
 
     @Override
     public int setErrorParameter(BeforeEnterEvent event,
-            ErrorParameter<NotFoundException> parameter) {
-        getElement().setText("My custom not found class!");
+          ErrorParameter<NotFoundException> parameter) {
+        getElement().setText(
+                "My custom not found class!");
         return HttpServletResponse.SC_NOT_FOUND;
     }
 }
@@ -96,15 +99,18 @@ public class Dashboard extends Component {
     }
 
     private Stream<Widget> getWidgets() {
-        // Implementation omitted, gets faulty state widget
+        // Implementation omitted, gets faulty state
+        // widget
         return Stream.of(new ProtectedWidget());
     }
 }
 
 public class ProtectedWidget extends Widget {
     public ProtectedWidget() {
-        if (!AccessHandler.getInstance().isAuthenticated()) {
-            throw new AccessDeniedException("Unauthorized widget access");
+        if (!AccessHandler.getInstance()
+                .isAuthenticated()) {
+            throw new AccessDeniedException(
+                    "Unauthorized widget access");
         }
         // Implementation omitted
     }
@@ -120,14 +126,18 @@ public abstract class Widget extends Component {
 
 @Tag(Tag.DIV)
 @ParentLayout(MainLayout.class)
-public class AccessDeniedExceptionHandler extends Component
-        implements HasErrorParameter<AccessDeniedException> {
+public class AccessDeniedExceptionHandler
+     extends Component
+     implements HasErrorParameter<AccessDeniedException>
+{
 
     @Override
     public int setErrorParameter(BeforeEnterEvent event,
-            ErrorParameter<AccessDeniedException> parameter) {
+            ErrorParameter<AccessDeniedException>
+                    parameter) {
         getElement().setText(
-            "Tried to navigate to a view without correct access rights");
+            "Tried to navigate to a view without "
+            + "correct access rights");
         return HttpServletResponse.SC_FORBIDDEN;
     }
 }
@@ -142,16 +152,19 @@ You can use one of the `rerouteToError` method overloads. All you need to add is
 *Example*: Reroute to error view
 [source, java]
 ----
-public class AuthenticationHandler implements BeforeEnterObserver {
+public class AuthenticationHandler
+        implements BeforeEnterObserver {
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
         Class<?> target = event.getNavigationTarget();
         if (!currentUserMayEnter(target)) {
-            event.rerouteToError(AccessDeniedException.class);
+            event.rerouteToError(
+                    AccessDeniedException.class);
         }
     }
 
-    private boolean currentUserMayEnter(Class<?> target) {
+    private boolean currentUserMayEnter(
+            Class<?> target) {
         // implementation omitted
         return false;
     }
@@ -165,18 +178,22 @@ If the rerouting method catches an exception, you can use the `rerouteToError(Ex
 [source, java]
 ----
 @Tag(Tag.DIV)
-public class BlogPost extends Component implements HasUrlParameter<Long> {
+public class BlogPost extends Component
+        implements HasUrlParameter<Long> {
 
     @Override
-    public void setParameter(BeforeEvent event, Long parameter) {
+    public void setParameter(BeforeEvent event,
+            Long parameter) {
         removeAll();
 
-        Optional<BlogRecord> record = getRecord(parameter);
+        Optional<BlogRecord> record =
+                getRecord(parameter);
 
         if (!record.isPresent()) {
-            event.rerouteToError(IllegalArgumentException.class,
-                    getTranslation("blog.post.not.found",
-                            event.getLocation().getPath()));
+            event.rerouteToError(
+                   IllegalArgumentException.class,
+                   getTranslation("blog.post.not.found",
+                        event.getLocation().getPath()));
         } else {
             displayRecord(record.get());
         }
@@ -198,12 +215,15 @@ public class BlogPost extends Component implements HasUrlParameter<Long> {
 
 @Tag(Tag.DIV)
 public class FaultyBlogPostHandler extends Component
-        implements HasErrorParameter<IllegalArgumentException> {
+  implements HasErrorParameter<IllegalArgumentException>
+{
 
     @Override
     public int setErrorParameter(BeforeEnterEvent event,
-            ErrorParameter<IllegalArgumentException> parameter) {
-        Label message = new Label(parameter.getCustomMessage());
+            ErrorParameter<IllegalArgumentException>
+                    parameter) {
+        Label message = new Label(
+                parameter.getCustomMessage());
         getElement().appendChild(message.getElement());
 
         return HttpServletResponse.SC_NOT_FOUND;

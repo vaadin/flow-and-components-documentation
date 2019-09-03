@@ -1,36 +1,25 @@
 ---
-title: Components instantiated by the framework
+title: Using CDI Beans in Vaadin Applications
 order: 2
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
+= Using CDI Beans in Instantiated Components
 
-= Components instantiated by the framework
+When using https://vaadin.com/directory/component/vaadin-cdi/[Vaadin CDI], most objects instantiated by framework become managed beans. The framework uses the CDI `BeanManager` to get references to beans. This means they are fully-fledged CDI contextual instances.
 
-Most of the components instantiated by the Vaadin framework become managed beans ( full fledged CDI contextual instances ).
-They are queried from CDI `BeanManager` by the add-on, and all of the CDI features are usable.
+The add-on looks up the CDI bean by type (component class) and `@Any`. 
 
-[NOTE]
-Add-on looks up the CDI bean by type ( component class ), and `@Any`.
+If the type is not found as a CDI bean - for example, because it is ambiguous or does not have a no-arg public constructor - instantiation falls back to the default Vaadin behavior, and the component is instantiated as a POJO. Dependency injection is performed after instantiation and injects still work, but other CDI features do not. The reason is that the instantiated component is not a contextual instance.
 
 [NOTE]
-When type is not found as a CDI bean
-( for example ambiguous, or does not have a no-arg public constructor ),
-instantiation falls back to the default Vaadin behavior ( instantiated as a POJO ).
-After the instantiation, dependency injection is performed.
-Injects work, but other CDI features are not, because instantiated component is not a contextual instance.
+Methods annotated with `@PreDestroy` in `Dependent` beans instantiated by the framework are not run.
 
-[NOTE]
-`@PreDestroy` of `@Dependent` beans instantiated by the framework are not run.
-Since it is the default context, it is about all beans without an explicit context.
+== Using Router Components 
 
-== Router components ( `@Route`, `RouteLayout`, `HasErrorParameter` )
+All <<../routing/tutorial-routing-annotation#,route targets>>, <<../routing/tutorial-router-layout#,router layouts>>, and <<../routing/tutorial-routing-exception-handling#,exception targets>>  become managed beans when the add-on is used. The components look and behave the same as without the add-on, but CDI features are available.
 
-Your route targets, route layouts, and exception targets become managed beans.
-They look just the same as without the add-on, but CDI features are available.
-
-An example of a minimal route target using `@Inject`:
+*Example*: Using the `@Inject` annotation on a basic route target. 
 
 [source,java]
 ----
@@ -44,22 +33,25 @@ public class MainView extends VerticalLayout {
 ----
 
 [NOTE]
-Vaadin scans router components on startup without any clue about CDI beans.
-Using producers, or `@Typed` causes issues with these kind of beans.
+Vaadin scans for router components on startup and is unaware of CDI beans. Using producers or the `@Typed` annotation causes issues with this kind of bean.
 
-== Components injected by `@Id` into polymer templates
 
-Components injected into polymer template classes by `@id` become managed beans.
+== Using Components Injected into Polymer Templates
 
-For example:
+Components injected into <<../polymer-templates/tutorial-template-basic#,Polymer template classes>> using the `@id` annotation become managed beans when the add-on is used. 
+
+*Example*: Using the `@Id` annotation to inject the `DependentLabel` component into `TestTemplate` class. 
 
 [source,java]
 ----
-public class TestTemplate extends PolymerTemplate<TemplateModel> {
+public class TestTemplate
+        extends PolymerTemplate<TemplateModel> {
     @Id
     private DependentLabel label;
 }
 ----
+
+*Example*: `DependentLabel` class.
 
 [source,java]
 ----
@@ -76,36 +68,32 @@ public class DependentLabel extends Label {
 }
 ----
 
-[source,html]
+*Example*: `TestTemplate.html` Polymer template.
+
+[source,js]
 ----
-<link rel="import" href="bower_components/polymer/polymer-element.html">
+import {PolymerElement,html} from
+        '@polymer/polymer/polymer-element.js';
 
-<dom-module id="test-template">
-    <template>
-        <div>
-            <dependent-label id="label"/>
-        </div>
-    </template>
+class TestTemplate extends Polymer.Element {
+    static get template() {
+        return html`
+            <div>
+                <dependent-label id="label"/>
+            </div>`;
+    }
 
-    <script>
-        class TestTemplate extends Polymer.Element {
-            static get is() { return 'test-template' }
-        }
-        customElements.define(TestTemplate.is, TestTemplate);
-    </script>
-</dom-module>
+    static get is() { return 'test-template' }
+}
+customElements.define(TestTemplate.is, TestTemplate);
 ----
 
 [IMPORTANT]
-The managed bean injected into the template should not exist before the instantiation of the template.
-Otherwise it doesn't bind to it's element causing a wrong component tree.
-A dependent bean is safe.
+The managed bean injected into the template should not exist before the template is instantiated. If it does exist at this time, it may not bind to its element, and this may result in an incorrect component tree.
 
-== Custom UI is not a managed bean
 
-As of Vaadin Flow no custom `UI` subclass is needed for the application.
-You can define one by the corresponding servlet parameter,
-but it is instantiated by the framework as a POJO.
+== Using a Custom UI
 
-You should not need a custom UI subclass. Though dependency injection can be achieved, just in case.
-Use `BeanManager` in your overridden `UI.init`. Through Deltaspike's `BeanProvider.injectFields(this)` for example.
+It is not necessary to define a custom `UI` subclass for your application, but it is possible to define one using the corresponding servlet parameter, if needed.
+
+The custom `UI` subclass is instantiated by Vaadin as a POJO (not as a managed bean), but it is still possible to achieve dependency injection. Use `BeanManager` in your overridden `UI.init` method, for example `BeanProvider.injectFields(this)` (in Deltaspike).

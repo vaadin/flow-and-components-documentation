@@ -158,17 +158,18 @@ You can now use the following snippet in your Polymer component template.
 
 *Example*: `day`, `month` and `year` definition a Polymer template (_snippet only_). 
 
-[source,html]
+[source,js]
 ----
-<template>
-    <div style="width: 200px;">
-        <label>Birth date:</label>
-        <label for="day">Enter your birthday:</label><paper-input id="day" value="{{birthDate.day}}"></paper-input>
-        <label for="month">Enter the month of your birthday:</label><paper-input id="month" value="{{birthDate.month}}"></paper-input>
-        <label for="year">Enter the year of your birthday:</label><paper-input id="year" value="{{birthDate.year}}"></paper-input>
-        <button on-click="commit" id="commit">Commit</button>
-    </div>
-</template>
+static get template() {
+    return html`
+        <div style="width: 200px;">
+            <label>Birth date:</label>
+            <label for="day">Enter your birthday:</label><paper-input id="day" value="{{birthDate.day}}"></paper-input>
+            <label for="month">Enter the month of your birthday:</label><paper-input id="month" value="{{birthDate.month}}"></paper-input>
+            <label for="year">Enter the year of your birthday:</label><paper-input id="year" value="{{birthDate.year}}"></paper-input>
+            <button on-click="commit" id="commit">Commit</button>
+        </div>`;
+}
 ----
 * Each sub property is editable on the client side, but on the server side they are a single property, `birthDate`.
 * You need to use the original property name, `birthDate` in this example, to access the sub properties. The original property name (and not the bean name, `dateBean`) is used as the prefix. 

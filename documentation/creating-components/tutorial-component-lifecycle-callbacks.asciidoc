@@ -18,8 +18,10 @@ public class UserNameLabel extends Component {
   @Override
   protected void onAttach(AttachEvent attachEvent) {
     // user name can be stored to session after login
-    String userName = (String) attachEvent.getSession().getAttribute("username");
-    getElement().setText("Hello " + userName + ", welcome back!");
+    String userName = (String) attachEvent.getSession()
+            .getAttribute("username");
+    getElement().setText("Hello " + userName +
+            ", welcome back!");
   }
 }
 ----
@@ -31,20 +33,25 @@ before the component detaches from the `UI`. These are good times to reserve and
 [source,java]
 ----
 @Tag("div")
-public class ShoppingCartSummaryLabel extends Component {
+public class ShoppingCartSummaryLabel
+        extends Component {
 
-  private final Consumer<EventObject> eventHandler = this::onCartSummaryUpdate;
+  private final Consumer<EventObject> eventHandler =
+        this::onCartSummaryUpdate;
 
   @Override
   protected void onAttach(AttachEvent attachEvent) {
-    ShopEventBus eventBus = attachEvent.getSession().getAttribute(ShopEventBus.class);
-    // registering to event bus for updates from other components
+    ShopEventBus eventBus = attachEvent.getSession()
+            .getAttribute(ShopEventBus.class);
+    // registering to event bus for updates
+    // from other components
     eventBus.register(eventHandler);
   }
 
   @Override
   protected void onDetach(DetachEvent detachEvent) {
-    ShopEventBus eventBus = detachEvent.getSession().getAttribute(ShopEventBus.class);
+    ShopEventBus eventBus = detachEvent.getSession()
+    .getAttribute(ShopEventBus.class);
     // after detaching don't need any updates
     eventBus.unregister(eventHandler);
   }

@@ -31,8 +31,10 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class ComponentEvents {
 
     @DomEvent("change")
-    public class ChangeEvent extends ComponentEvent<TextField> {
-        public ChangeEvent(TextField source, boolean fromClient) {
+    public class ChangeEvent
+            extends ComponentEvent<TextField> {
+        public ChangeEvent(TextField source,
+                           boolean fromClient) {
             super(source, fromClient);
         }
     }
@@ -53,10 +55,12 @@ public class ComponentEvents {
     }
 
     @DomEvent("click")
-    public class ClickEvent extends ComponentEvent<NativeButton> {
+    public class ClickEvent
+            extends ComponentEvent<NativeButton> {
         private final int button;
 
-        public ClickEvent(NativeButton source, boolean fromClient,
+        public ClickEvent(NativeButton source,
+                          boolean fromClient,
                 @EventData("event.button") int button) {
             super(source, fromClient);
             this.button = button;
@@ -67,9 +71,12 @@ public class ComponentEvents {
         }
     }
 
-    @DomEvent(value = "keypress", filter = "event.key == 'Enter'")
-    public class EnterPressEvent extends ComponentEvent<TextField> {
-        public EnterPressEvent(TextField source, boolean fromClient) {
+    @DomEvent(value = "keypress",
+            filter = "event.key == 'Enter'")
+    public class EnterPressEvent
+            extends ComponentEvent<TextField> {
+        public EnterPressEvent(TextField source,
+                               boolean fromClient) {
             super(source, fromClient);
         }
     }
@@ -80,10 +87,12 @@ public class ComponentEvents {
                   timeout = 250,
                   phases = DebouncePhase.TRAILING))
     // @formatter:on
-    public class InputEvent extends ComponentEvent<TextField> {
+    public class InputEvent
+            extends ComponentEvent<TextField> {
         private String value;
 
-        public InputEvent(TextField source, boolean fromClient,
+        public InputEvent(TextField source,
+                          boolean fromClient,
                 @EventData("element.value") String value) {
             super(source, fromClient);
             this.value = value;
@@ -101,10 +110,12 @@ public class ComponentEvents {
                   phases = {DebouncePhase.LEADING,
                             DebouncePhase.INTERMEDIATE }))
     // @formatter:on
-    public class ContiniousInputEvent extends ComponentEvent<TextField> {
+    public class ContinuousInputEvent
+            extends ComponentEvent<TextField> {
         private String value;
 
-        public ContiniousInputEvent(TextField source, boolean fromClient,
+        public ContinuousInputEvent(TextField source,
+                                    boolean fromClient,
                 @EventData("element.value") String value) {
             super(source, fromClient);
             this.value = value;
@@ -119,7 +130,8 @@ public class ComponentEvents {
     private void useEvents() {
         TextField textField = new TextField();
         Registration registration = textField
-                .addChangeListener(e -> System.out.println("Event fired"));
+                .addChangeListener(e ->
+                        System.out.println("Event fired"));
 
         // In some other part of the code
         registration.remove();

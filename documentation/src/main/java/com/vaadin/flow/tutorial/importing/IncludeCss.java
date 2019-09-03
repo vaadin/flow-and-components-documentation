@@ -24,14 +24,18 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class IncludeCss {
 
     //@formatter:off - custom line wrapping
-    @StyleSheet("styles.css") // Relative to Servlet URL
-    @StyleSheet("http://www.example.com/example.css") // Loaded from external location
+    // Relative to Servlet URL
+    @StyleSheet("styles.css")
+    // Loaded from external location
+    @StyleSheet("http://www.example.com/example.css")
     public class MainLayout extends Component {
         // implementation omitted
 
         public MainLayout(){
-            // Loaded from "/root.css" regardless of how your application is deployed
-            UI.getCurrent().getPage().addStyleSheet("/root.css");
+            // Loaded from "/root.css" regardless of how
+            // your application is deployed
+            UI.getCurrent().getPage()
+                    .addStyleSheet("/root.css");
         }
     }
     //@formatter:on

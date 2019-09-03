@@ -1,105 +1,108 @@
 ---
-title: Properties of Embedded Web Components
+title: Embedded Application Properties
 order: 2
 layout: page
 ---
 
-= Properties of Embedded Web Components
+= Embedded Application Properties
 
-The tutorial <<tutorial-webcomponent-exporter#,Embedding a Flow Application>>
-showed how to export a Vaadin `Component` as embeddable web component and use
-that web component on a non-Vaadin page. In this chapter we will take a closer
-look at how we can control the properties of exported web components.
+In this section we cover:
 
-=== Defining Web Component Properties
-`WebComponentExporter` defines the properties exposed as part of the web
-components public API. Calling `WebComponentDefinition#addProperty` defines
-a property and adds it to the public API of the web component.
+* How to define web component properties for embedded Vaadin applications.
+* How to handle property changes on the server side. 
+* How to fire custom events on the client side. 
+
+See <<tutorial-webcomponent-exporter#,Creating an Embedded Application Tutorial>> for a detailed example of how to create an embedded Vaadin application.
+
+== Defining Web Component Properties
+
+The `WebComponentExporter` class defines the properties that are exposed by the `WebComponent` public API. 
+
+Calling `WebComponentDefinition#addProperty` defines a property and adds it to the public API of the web component. The supported types are `Integer`, `Double`, `Boolean`, `String`, and `JsonValue`.
+
+*Example*: Using the `addProperty` method to define web component properties. 
 
 [source, java]
 ----
-@Tag("person-display")
-public class PersonExporter implements WebComponentExporter<PersonComponent> {
+public class PersonExporter
+        extends WebComponentExporter<PersonComponent> {
+    private PropertyConfiguration<PersonComponent,
+              Boolean> isAdultProperty;
 
-    private PropertyConfiguration<PersonComponent, Boolean> isAdultProperty;
-
-    @Override
-    public void define(WebComponentDefinition<PersonComponent> definition) {
-        definition.addProperty("name", "John Doe")
+    public PersonExporter() {
+        super("person-display");
+        addProperty("name", "John Doe")
                 .onChange(PersonComponent::setName);
-        definition.addProperty("age", 0).onChange(PersonComponent::setAge);
+        addProperty("age", 0)
+                .onChange(PersonComponent::setAge);
 
-        isAdultProperty = definition.addProperty("is-adult", false);
+        isAdultProperty = addProperty("is-adult",
+                false);
     }
 ----
+* This example defines three properties: `name`, `age`, and `is-adult`. (The `is-adult` property is used in an example below in <<Updating Properties on the Client Side>>) 
+* The `name` property type is a `String` and the `age` property type is an `Integer`. 
+* The default values serve a dual purpose: they define the property type and set the default value. If no default value is provided, you need to define the type explicitly by calling `definition.addProperty(String, Class<?extends Serializable>)`. 
 
-In the above example we define two properties: "name" and "age". The property
-"name" is of type `String` and property "age" is of type `Integer`. Both
-properties are given default values, which serves to also define the type of
-the property. If default value is not given, a type must be defined
-explicitly by calling `definition.addProperty(String, Class<? extends
-Serializable>)`. Supported types are `Integer`, `Double`, `Boolean`,
-`String`, and `JsonValue`.
+=== Property Event Attributes
 
-Adding a property exposes a fluent API for configuring the property. The
-properties have two features: `.onChange(...)` and `.readOnly()`. Calling
-`onChange` registers a callback which gets called when the property's value
-changes on the client-side. It accepts a `SerializableBiConsumer<C, P>` where
-`C` is the type of the `Component` being exported and `P` is the type of the
-property. Component's associated setter method is a conventional choice.
-Calling `.readOnly()` will set the property into a read-only mode; the value
-of the property cannot be changed from the client-side.
+Adding a property exposes a fluent API that you can use to configure the property. 
 
-The method `addProperty` returns `PropertyConfiguration<C, P>` which offers the
-fluent API for configuring the property. If the property needs to be referred
-later, the received `PropertyDefinition` is used to identify the property in
-question.
+Properties have two event attributes:
 
-=== Updating Properties on the Client-Side
-In previous section we learned how to define properties and handle value
-updates to those properties. In this section we explore how to update
-property values from server to the client and thus be able to communication
-with the host environment.
+* `.onChange(...)`: 
+** Registers a callback that is called when the value of the property changes on the client side. 
+** Accepts the parameter, `SerializableBiConsumer<C, P>`, where `C` is the type of the `Component` being exported and `P` is the type of the property. The component's associated setter method is a conventional choice. 
+* `.readOnly()`. 
+** Sets the property to read-only mode: the value of the property cannot be changed on the client side.
 
-In order to update the client-side property values, we need a reference to
-the web component which contains our exported component, and a reference to the
-instance of the exported component itself.
 
-Provide an implementation for the `WebComponentExporter#configure()` method
-to update properties and fire client-side events (more on that later). `configure()`
-receives references to `WebComponent<PersonComponent>` and
-`PersonComponent`, where `PersonComponent` is the exported component.
-WebComponent is used to communicate with the client-side.
+=== `addProperty` Method Return Type
 
-In the following example we show how we can update boolean property
-"is-adult" every time the age changes in the instance of our `PersonComponent`.
-`WebComponent#setProperty()` updates the property identified by
-`PropertyConfiguration` to the new value.
+The `addProperty` method returns a `PropertyConfiguration<C, P>` object that provides the fluent API for configuring the property. 
+
+If you need to refer to the property later, you can use the received `PropertyDefinition` to identify the property in question.
+
+
+== Updating Properties on the Client Side
+
+In this section we cover how the host environment (sever) communicates with the client, and explain how to update client-side property values from the server.  
+
+To update client-side property values, you need:
+
+* A reference to the web component that contains the exported component, and 
+* A reference to the instance of the exported component itself.
+
+You can implement the abstract `configureInstance` method to update properties and <<firing-custom-events-on-the-client-side,fire client-side events>>.
+
+The `configureInstance` method receives references to `WebComponent<PersonComponent>` and `PersonComponent`, where `PersonComponent` is the exported component. `WebComponent` is used to communicate with the client-side.
+
+*Example*: Updating the `is-adult` boolean property when the `age` property changes in the `PersonComponent` instance.
+
 
 [source, java]
 ----
-@Override
-public void configure(WebComponent<PersonComponent> webComponent,
-        PersonComponent component) {
-    component.setAdultAge(18); // initialization
+    @Override
+    protected void configureInstance(
+            WebComponent<PersonComponent> webComponent,
+            PersonComponent component) {
+        component.setAdultAge(18); // initialization
 
-    component.addAgeChangedListener(event -> {
-        webComponent.setProperty(isAdultProperty, component.isAdult());
-    });
-
-    component.addAgeChangedListener(event -> {
-        if (event.getAge() > 65) {
-            webComponent.fireEvent("retirement-age-reached");
-        }
-    });
-}
+        component.addAgeChangedListener(event -> {
+            webComponent.setProperty(isAdultProperty,
+                    component.isAdult());
+        });
 ----
 
-Now that we updating our "is-adult" property on the client-side, lets see how
-we can access and leverage that property. In the following example we have
-embedded our "person-display" component onto a web page. Our script checks
-periodically whether or not the person has reached adulthood. Once they have,
-we will update the `<span>` known as "designator" with the information.
+* The `WebComponent#setProperty()` method updates the property identified by the `PropertyConfiguration` to the new value.
+
+[NOTE]
+The `configureInstance` method can also be used to do further initialization on the `component` instance.
+
+Now that the `is-adult` property is configured to update on the client side, the next step is to access and leverage this property. 
+
+*Example*: Embedding the `person-display` component in a web page and updating `<span id='designator'>`.
+
 
 [source, html]
 ----
@@ -108,9 +111,11 @@ we will update the `<span>` known as "designator" with the information.
 
 <script>
     function updateDesignator() {
-        var personComponent = document.querySelector("#person");
+        var personComponent = document
+                .querySelector("#person");
         if (personComponent["is-adult"]) {
-            document.querySelector("#designator").innerText = "is an adult!";
+            document.querySelector("#designator")
+                    .innerText = "is an adult!";
         } else {
             setTimeout(updateDesignator, 1000);
         }
@@ -119,48 +124,50 @@ we will update the `<span>` known as "designator" with the information.
     updateDesignator();
 </script>
 ----
+* The script checks periodically whether or not the person has reached adulthood, and updates `<span id="designator">` when this occurs. 
 
-[NOTE]
-As the first example shows, the callback registered via
-`setInstanceConfigurator` can also be used to do further initialization on
-the `component` instance.
 
-=== Firing Custom Events on the Client-Side
-In addition to wiring property updates, `WebComponent` instance can also be
-used to fire custom events on the client-side. `WebComponent#fireEvent()`
-fires the event with the given parameters.
+
+== Firing Custom Events on the Client Side
+
+A `WebComponent` instance can also be used to fire custom events on the client side. 
+
+You can use the `webComponent#fireEvent()` method to fire events for given parameters.
+
+*Example*: Using the `webComponent#fireEvent()` method to fire the `"retirement-age-reached"` event. 
 
 [source, java]
 ----
-            component.addAgeChangedListener(event -> {
-                if (event.getAge() > 65) {
-                    webComponent.fireEvent("retirement-age-reached");
-                }
-            });
+        component.addAgeChangedListener(event -> {
+            if (event.getAge() > 65) {
+                webComponent.fireEvent(
+                        "retirement-age-reached");
+            }
         });
     }
 }
 ----
 
-In the example we add custom logic and a custom event: when the person's age
-reaches 66 or more, an event of type "retirement-age-reached" is fired on
-the client-side.
+* This example uses custom logic and a custom event: if a person's age reaches 66 or more, an event of type `"retirement-age-reached"` is fired on the client-side.
 
-The `fireEvent()` method has three variants:
+The `fireEvent()` method has three variants: 
 
-- `fireEvent(String)`
-- `fireEvent(String, JsonValue)`
-- `fireEvent(String, JsonValue, EventOptions)`
+* `fireEvent(String)`.
+* `fireEvent(String, JsonValue)`.
+* `fireEvent(String, JsonValue, EventOptions)`.
 
-The first parameter (String) is the name, or `type` of the event. Second
-parameter `JsonValue` is a custom Json object set as the value of "detail"
-key in the client-side event. The final parameter, `EventOptions`, is used to
-configure the flags "bubbles", "cancelable", and "composed". See
-https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent[CustomEvent] for
-more information about "detail" and `EventOptions` flags.
+The parameters are:
 
-Expanding on our previous client-side example, we now update our information
-`<span>` as a result of "retirement-age-reached" event:
+* `String`: The name or `type` of the event. 
+* `JsonValue`: A custom JSON object set as the value of the `detail` key in the client-side event. 
+* `EventOptions`: To configure the `bubbles`, `cancelable`, and `composed` event options. 
+
+See https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent[CustomEvent] in the MDN documentation for more information about these parameters. 
+
+
+The final step is to update the `<span>` tag with the event results.
+
+*Example*: updating `<span id="designator">` with the `"retirement-age-reached"` event result.
 
 [source, html]
 ----
@@ -168,10 +175,13 @@ Expanding on our previous client-side example, we now update our information
 <span id="designator">is a child</span>
 
 <script>
-    var personComponent = document.querySelector("#person");
+    var personComponent = document
+            .querySelector("#person");
 
-    personComponent.addEventListener("retirement-age-reached", function(event) {
-        document.querySelector("#designator").innerText = "is allowed to retire!";
+    personComponent.addEventListener(
+            "retirement-age-reached", function(event) {
+        document.querySelector("#designator")
+                .innerText = "is allowed to retire!";
     });
 </script>
 ----
