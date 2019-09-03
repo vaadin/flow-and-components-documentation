@@ -1,6 +1,6 @@
 ---
 title: Integrating components in a PolymerTemplate
-order: 10
+order: 11
 layout: page
 ---
 

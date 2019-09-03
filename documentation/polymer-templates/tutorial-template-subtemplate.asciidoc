@@ -1,6 +1,6 @@
 ---
 title: Using sub-template from PolymerTemplate
-order: 3
+order: 4
 layout: page
 ---
 

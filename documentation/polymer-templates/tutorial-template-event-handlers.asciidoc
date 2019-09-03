@@ -1,6 +1,6 @@
 ---
 title: Handling User Events in a PolymerTemplate
-order: 5
+order: 6
 layout: page
 ---
 

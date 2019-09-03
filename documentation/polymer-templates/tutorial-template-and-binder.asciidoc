@@ -1,6 +1,6 @@
 ---
 title: How to combine templates with binders
-order: 11
+order: 12
 layout: page
 ---
 
