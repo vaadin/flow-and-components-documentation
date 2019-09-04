@@ -28,14 +28,14 @@ public class TemplateInTemplate {
 
     @Tag("parent-template")
     @JsModule("./com/example/parent-template.js")
-    @Uses(ChildTemplate.class)
     public class ParentTemplate extends PolymerTemplate<Model> {
+
+        @Id("childTemplate")
+        private ChildTemplate child;
     }
 
     public interface Model extends TemplateModel {
         void setName(String name);
-
-        String getName();
     }
 
     @Tag("child-template")

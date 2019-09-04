@@ -1,12 +1,12 @@
 // tutorial::polymer-templates/tutorial-template-event-handlers.asciidoc
 import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
 
-class XCustom extends PolymerElement {
+class EventhandlerDemo extends PolymerElement {
     static get template() {
         return html`<button on-click="handleClick">Say hello</button>`;
     }
 
-    static get is() {return 'x-custom'}
+    static get is() {return 'eventhandler-demo'}
 
     handleClick() {
       console.log('Button was clicked.');
