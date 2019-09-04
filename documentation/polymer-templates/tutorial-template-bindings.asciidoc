@@ -1,6 +1,6 @@
 ---
 title: Binding Model Data in a PolymerTemplate
-order: 7
+order: 5
 layout: page
 subnav:
   - title: Two-way data binding
