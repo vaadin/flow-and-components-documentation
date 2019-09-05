@@ -231,3 +231,45 @@ The line `this.userInfo.name = this.$.name.value` should be replaced to `this.se
 the correct way to update sub-properties in Polymer. But in this case the server-side model will be updated automatically for
 you and there is no need to send this custom event at all. You may just notify somehow the server about the click event (e.g. via
 `this.$server` and a `@ClientCallable` method, see <<tutorial-template-basic#,Creating A Simple Component Using the Template API>>) and get the model value directly from the server-side model.
+
+=== Other ways of calling the server
+
+Another way to call a server side method is the `@ClientCallable` annotation which allows a Java method to be called from the client side code using the notation `this.$server.serverMethodName(args)`.
+It can be used anywhere in your client side Polymer class implementation. You can pass your own arguments in this methodm, as long as their types matches to method declaration on the server side.
+
+=== Receiving "after server update" event
+
+In some cases you may want to execute some client-side logic after the component
+is updated from the server during a roundtrip.
+E.g. the component constructor is called on the client side but
+this component doesn't yet have data from the server side. So it's too early
+to do anything with the component at this stage.
+In this case you can use the method `afterServerUpdate`. If this method is defined
+for the component it will be called each time after the component is updated
+from the server side, allowing you to configure the component with all data available.
+
+[source,js]
+----
+import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
+
+class MyComponent extends PolymerElement {
+
+    static get template() {
+        return html`
+            <div>
+                <div>[[text]]</div>
+            </div>`;
+    }
+
+    static get is() {
+          return 'my-component';
+    }
+
+    afterServerUpdate(){
+        console.log("The new 'text' value is: "+this.text);
+    }
+}
+
+customElements.define(MyComponent.is, MyComponent);
+----
+
