@@ -21,7 +21,7 @@ For tutorials about how to use more advanced template features, see:
 * <<tutorial-template-event-handlers#,Handling User Events in a Template>>
 
 This tutorial is based on the https://github.com/vaadin/flow-demo/tree/master/demo-hello-worlds[Hello Worlds technical demo].
-The demo shows three ways of creating as simple view: using Components, using pure Element API and the template approach that we'll show here.
+The demo shows three ways of creating a simple view: using Components, using pure Element API and the template approach that we'll show here.
 
 The demo is a simple view where we ask the user to input their name and click a button for a response.
 

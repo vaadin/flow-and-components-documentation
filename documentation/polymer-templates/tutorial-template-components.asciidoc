@@ -14,7 +14,7 @@ for an element defined in the PolymerTemplate JavaScript file. This way you can 
 The `Component`/`Element` needs to have the same `@Tag` as the actual element that is wired.
 This means that you can not wire a `<span id="content"></span>` to a `@Id("content") Div content`
 
-Here is a template file with a placeholder `div` element with a `"content"` identifier. This element is mapped to a `Div` component in Java code below so that we can add a `Component` as a child for it.
+Here is a template file with a placeholder `div` element with a `"content"` identifier. This element is mapped to a `Div` component in Java code below so that we can add a `Component` as a child to it.
 
 [source,js]
 ----
@@ -60,7 +60,7 @@ The `@Id` annotation is used to map a component to an element in the template
 on the client that has the HTML identifier `"content"`.
 
 A component instance of the declared type is created automatically and
-wired to the template DOM element and the 'container' field in the Java class.
+wired to the template DOM element and the `content` field in the Java class.
 
 You can now call the method to set any `Component` as a content for the `MainPage` class:
 

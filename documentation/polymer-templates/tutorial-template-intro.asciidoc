@@ -20,7 +20,7 @@ There are however some limitations to using templates, please look below for mor
 
 == When should I build the UI with Java Components?
 
-The Java API is the traditional way of building UIs with Vaadin. It works very well for complex and dynamic UIs, where the view structure changes depending on the data that is viewed. The Component API also allows you to use inheritance to easily create and modify your own custom components. In addition, the addition of the low-level Element API gives you much greater DOM control from Java than ever before. All Java code has the additional benefit of being completely type-safe; the risk of typos or other mistakes is greatly reduced since the code is compiled before use.
+The Java API is the traditional way of building UIs with Vaadin. It works very well for complex and dynamic UIs, where the view structure changes depending on the data that is viewed. The Component API also allows you to use inheritance to easily create and modify your own custom components. The addition of the low-level Element API gives you much greater DOM control from Java than ever before. All Java code has the additional benefit of being completely type-safe; the risk of typos or other mistakes is greatly reduced since the code is compiled before use.
 
 The drawbacks of the Component approach is that it is harder to get a structural overview of the resulting view from the code. And although modifying the DOM is possible, it is not as easy as just writing HTML in a template. 
 
@@ -28,10 +28,10 @@ The drawbacks of the Component approach is that it is harder to get a structural
 
 Besides the pros and cons listed above, the Template API has some deliberate limitations in its design that you'll need to be aware of when selecting which API you will use. The root for the limitations is that HTML templates are not processed on the server before they are sent to the client. This means a few things are not happening:
 
-* Templates are not checked for correctness on the server. Any errors will be detected by the browser, or show up as incorrect layouting etc.
+* Templates are not checked for correctness on the server. Any errors will be detected by the browser, or show up as incorrect layouting, etc.
 * Because the Template isn't checked, the server is not aware of the content of the template by default. As shown in later chapters, you can add synchronization of components, data and events yourself, but by default the server does not have any info about the template contents, e.g. attributes for any used components. This means that many getter methods returns the incorrect value (because the client never sent them to the server).
 
-The latter behaviour can be demonstrated by e.g. using a `vaadin-grid` in a template. In the template itself, a developer can configure the Grid, add columns and add data. But, if the developer uses e.g. `@Id` to bind the Grid in the Java companion file, they will soon run into issues. On the server, in the Java file, the Grid object will not be aware of anything that was configured in the template, such as what columns are configured. 
+The latter behaviour can be demonstrated by e.g. using a `vaadin-grid` in a template. In the template itself, a developer can configure the Grid, add columns and add data. But, if the developer uses e.g. `@Id` to <<tutorial-template-components#,bind the Grid in the Java companion file>>, they will soon run into issues. On the server, in the Java file, the Grid object will not be aware of anything that was configured in the template, such as what columns are configured. 
 
 You can add components and DOM to a template structure, but you can not remove anything present in the original template. Overriding component properties does work however, so you can add e.g. an empty Grid into a template, bind it using `@Id`, and add columns and data from Java code.
 

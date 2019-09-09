@@ -13,7 +13,7 @@ inappropriate for your template model.
 
 This usually happens if you use data base backend with JPA entities. Such entities
 usually have unique identifiers with the `Long` type. The `Long` type is not supported
-by Vaadin Flow, since it can't be mapped correctly to any JavaScript type. So you have to
+by Vaadin, since it can't be mapped correctly to any JavaScript type. So you have to
 exclude any property with this type (see `@Exclude` in
 <<tutorial-template-model-bean#,Using Beans with a PolymerTemplate Model>>).
 
