@@ -9,7 +9,7 @@ class MainPage extends PolymerElement {
             <div id="content"></div>
             <hr>
             <div id="footer">
-                <a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">Send Mail</a>
+                <a href="mailto:someone@example.com?Subject=Hello" target="_top">Send Mail</a>
             </div>`;
     }
 
