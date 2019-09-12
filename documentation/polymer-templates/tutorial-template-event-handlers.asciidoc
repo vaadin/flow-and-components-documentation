@@ -63,12 +63,12 @@ public class EventHandlerPolymerTemplate extends PolymerTemplate<TemplateModel> 
 
 The framework will wire up the client-side event when you've added the `@EventHandler` annotation on the method `handleClick()`.
 [NOTE]
-If you add both a client and a server side event listener, the client side handler will be called before the server side handler.
+If you add both client and server side event listeners, the client side handlers will be called before the server side handlers.
 
 === Adding Event Data to server-side event
 
 An event can also include additional information about what has happened, e.g. which mouse button was used for a click event.
-When you use the `@EventHandler` annotation, each method parameter should have an `@EventData` annotation that tells the framework what data to send from the browser. You can send any serializeable value from the client side event object; the available data depends on the type of event.
+When you use the `@EventHandler` annotation, each method parameter should have an `@EventData` annotation that tells the framework what data to send from the browser. You can send any serializeable value present in the client side event object; the available data depends on the type of event.
 
 [source,js]
 ----

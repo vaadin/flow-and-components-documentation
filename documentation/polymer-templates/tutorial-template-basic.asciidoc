@@ -149,7 +149,7 @@ for properties. The Model you want to use needs to be specified when extending t
 
 === Adding Event handlers
 
-The server side class has a method annotated with `@EventHandler`. The method is called from the client side, triggered
+The server side class has a method (`sayHello`) annotated with `@EventHandler`. The method is called from the client side, triggered
 by the `helloButton` button. The method name is used to map function calls between the Template and Java files.
 
 == Usage in code

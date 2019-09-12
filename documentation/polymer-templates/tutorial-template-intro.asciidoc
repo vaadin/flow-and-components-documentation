@@ -16,7 +16,7 @@ Templates work best when used in simple, static views, where the view itself doe
 
 The other case where you should use templates is when you want client-side (JavaScript) logic in your app. Typical examples for this are apps or views that need offline functionality. With templates, you can have any logic you want on the client side, allowing you to cut the cord to the server when you need to. 
 
-There are however some limitations to using templates, please look below for more info.
+There are however some limitations to using templates; please look below for more info.
 
 == When should I build the UI with Java Components?
 
@@ -29,7 +29,7 @@ The drawbacks of the Component approach is that it is harder to get a structural
 Besides the pros and cons listed above, the Template API has some deliberate limitations in its design that you'll need to be aware of when selecting which API you will use. The root for the limitations is that HTML templates are not processed on the server before they are sent to the client. This means a few things are not happening:
 
 * Templates are not checked for correctness on the server. Any errors will be detected by the browser, or show up as incorrect layouting, etc.
-* Because the Template isn't checked, the server is not aware of the content of the template by default. As shown in later chapters, you can add synchronization of components, data and events yourself, but by default the server does not have any info about the template contents, e.g. attributes for any used components. This means that many getter methods returns the incorrect value (because the client never sent them to the server).
+* Because the Template isn't checked, the server is not aware of the content of the template by default. As shown in later chapters, you can add synchronization of components, data and events yourself, but by default the server does not have any info about the template contents, e.g. attributes for any used components. This means that many getter methods return the incorrect value (because the client never sent them to the server).
 
 The latter behaviour can be demonstrated by e.g. using a `vaadin-grid` in a template. In the template itself, a developer can configure the Grid, add columns and add data. But, if the developer uses e.g. `@Id` to <<tutorial-template-components#,bind the Grid in the Java companion file>>, they will soon run into issues. On the server, in the Java file, the Grid object will not be aware of anything that was configured in the template, such as what columns are configured. 
 
