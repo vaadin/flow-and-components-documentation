@@ -132,6 +132,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<embedding-flow-applications/tutorial-webcomponent-security#,Securing an Embedded Application>>
 * <<embedding-flow-applications/tutorial-webcomponent-exporter#,Embedding a Vaadin Application>>
 * <<embedding-flow-applications/tutorial-webcomponent-compatibility#,Embedding Application in Compatibility mode>>
+* <<embedding-flow-applications/tutorial-webcomponent-preserveonrefresh#,Preserving Contents of Embedded Applications on Refresh>>
 * <<embedding-flow-applications/tutorial-webcomponent-limitations#,Limitations in Embedded Application>>
 
 == Progressive Web Applications (PWA)

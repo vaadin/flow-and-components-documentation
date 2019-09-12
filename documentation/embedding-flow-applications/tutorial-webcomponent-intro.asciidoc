@@ -71,4 +71,5 @@ For more on embedded applications, see:
 * <<tutorial-webcomponent-security#,Securing Embedded Applications>>
 * <<tutorial-webcomponent-exporter#,Creating an Embedded Application Tutorial>>
 * <<tutorial-webcomponent-compatibility#,Importing Embedded Applications in Compatibility and Production Mode>>
+* <<tutorial-webcomponent-preserveonrefresh#,Preserving Contents of Embedded Applications on Refresh>>
 * <<tutorial-webcomponent-limitations#,Embedded Application Limitations>>
