@@ -28,7 +28,7 @@ As an example, if you create a starter project for https://github.com/PolymerEle
 
 The name of the HTML element is defined using `@Tag("paper-slider")` and the JS import for the component is defined using `@JsModule("@polymer/paper-slider/paper-slider.js")` and `@NpmPackage(value = "@polymer/paper-slider", version = "3.0.1")`.
 
-If your component requires in-project front-end files, for example JavaScript modules, add them to the `src/main/resources/META-INF/resources/frontend` directory so that they are packaged in the component jar if you choose to make an add-on of your component. A local JavaScript module should be loaded with a `@JsModule` annotation as follows:
+If your component requires in-project front-end files, for example JavaScript modules, add them to the `src/main/resources/META-INF/frontend` directory so that they are packaged in the component jar if you choose to make an add-on of your component. A local JavaScript module should be loaded with a `@JsModule` annotation as follows:
 
 [source, java]
 ----

@@ -1,16 +1,13 @@
 ---
 title: How to combine templates with binders
-order: 11
+order: 9
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 = How to combine templates with binders
 
-Combining templates with binders is a necessary aspect in every Vaadin application.
-Templates are the recommended way of building UIs and binders are the recommended way of building forms.
-
-This process is almost the same as using binders with declared components.
+Since the `Binder`is a server-side construct, you can not use it inside templates. But it is still possible to create forms using the Template API and connecting the components to a Binder. This process is almost the same as using binders with declared components. In the following tutorial will take you through each step to create a fully-functioning template-binder view.
 
 The first step is to declare an HTML template as a JavaScript module.
 

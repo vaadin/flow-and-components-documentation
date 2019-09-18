@@ -20,23 +20,3 @@ class HelloWorld extends PolymerElement {
 
 customElements.define(HelloWorld.is, HelloWorld);
 
-
-class MyComponent extends PolymerElement {
-
-    static get template() {
-        return html`
-            <div>
-                <div>[[text]]</div>
-            </div>`;
-    }
-
-    static get is() {
-          return 'my-component';
-    }
-
-    afterServerUpdate(){
-        console.log("The new 'text' value is: "+this.text);
-    }
-}
-
-customElements.define(MyComponent.is, MyComponent);
