@@ -12,7 +12,7 @@ WARNING: CCDM is a temporary internal name that might change in the definitive r
 
 Client-side bootstrapping mode is not enabled by default. To turn it on, you need to provide the property `vaadin.clientSideMode=true` as a system property or maven plugin property while building/running an application, e.g. running in dev-mode with client-side bootstrapping enabled: `mvn jetty:run -Dvaadin.clientSideMode`. It can be also be provided as a servlet container deployment property with the name `clientSideMode`.
 
-=== Bootstrap page template
+=== Bootstrap page template [[bootstrap-page-template]]
 
 In this `clientSideMode`, instead of generating the full HTML content of the host application page, the server uses `frontend/index.html` file as a template to generate the bootstrap page. It processes the template and injects the following additional information:
 
