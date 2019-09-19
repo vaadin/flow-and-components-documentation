@@ -22,7 +22,6 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("ccdm/client-side-routing.asciidoc")
 public class ClientSideRoutingPage {
-
     public class MyView extends Div implements BeforeLeaveObserver {
         @Override
         public void beforeLeave(BeforeLeaveEvent event) {
