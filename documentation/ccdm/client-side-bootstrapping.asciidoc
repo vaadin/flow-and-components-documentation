@@ -1,5 +1,5 @@
 ---
-title: Client-side bootstrapping in CCDM
+title: Client-side Bootstrapping in CCDM
 order: 1
 layout: page
 ---
@@ -18,7 +18,7 @@ In this `clientSideMode`, instead of generating the full HTML content of the hos
 
   - `<base href='./relative/to/root'>`: Flow calculates the relative path from the current request path to the root path of the application. So that all the relative links in the template should work correctly.
 
-  - Bundled script: Flow adds the bundled script which is generated from `frontend/index.js` (or `frontend/index.ts` if you prefer develop in TypeScript) by webpack (the module bundler used in Flow). Therefore, in the template `frontend/index.html`, there is no need to include the `index.js` (or `index.ts`) script manually. That will be done automatically by the server when serving the bootstrap page.
+  - Bundled script: Flow adds the bundled script which is generated from `frontend/index.js` (or `frontend/index.ts` if you prefer to develop in TypeScript) by webpack (the module bundler used in Flow). Therefore, in the template `frontend/index.html`, there is no need to include the `index.js` (or `index.ts`) script manually. That will be done automatically by the server when serving the bootstrap page.
 
 By using this approach, you can optimize your application to load the minimal content to be displayed to users at the first load. This might reduce the first-loading time compared to the old bootstrapping method which loads a full Vaadin application on the first request. As a result, the first request will load promptly ant it will boost the first interaction experience.
 

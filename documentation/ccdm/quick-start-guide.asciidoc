@@ -1,0 +1,125 @@
+---
+title: Quick Start Guide
+order: 0
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= Quick Start Guide
+
+This guide assumes that you already have a Vaadin 15 project, otherwise you can download a starter from the link:https://vaadin.com/start/latest[Vaadin website].
+
+If you downloaded a TypeScript starter project, you can skip configuration and go directly to the <<#step-5,step 5>> to add new views.
+
+→ *Step 1* - Enable <<client-side-bootstrapping#,Client Side Bootstrapping>> 
+
+.pom.xml
+[source, xml]
+----
+<properties>
+  <vaadin.clientSideMode>true</vaadin.clientSideMode>
+</properties>
+----
+
+→ *Step 2* - Install link:https://vaadin.com/router/[Vaadin Router] from npm.
+
+[source,bash]
+----
+$ npm install --save @vaadin/router
+----
+
+
+→ *Step 3* - Create `frontend/index.html` and `frontend/index.js` to enable <<client-side-routing#,client-side routing>>.
+
+.frontend/index.html
+[source, html]
+----
+<html>
+  <body>
+    <div id="outlet"></div>
+  </body>
+</html>
+----
+
+
+.frontend/index.js
+[source, javascript]
+----
+import {Router} from '@vaadin/router';
+const router = new Router(document.querySelector('#outlet'));
+
+router.setRoutes([
+]);
+----
+
+[NOTE]
+You can use <<typescript-support#TypeScript>> in your project if you'd rather it.
+
+→ *Step 4* - Import Flow module to enable link:https://vaadin.com/docs/v14/flow/routing/tutorial-routing-annotation.html[server-side routing]
+
+.frontend/index.js
+[source, javascript]
+----
+import {Router} from '@vaadin/router';
+import {Flow} from '@vaadin/flow-frontend/Flow';
+
+const router = new Router(document.querySelector('#outlet'));
+const flow = new Flow({
+  imports: () => import('../target/frontend/generated-flow-imports.js')
+});
+
+router.setRoutes([
+  flow.route
+]);
+----
+
+[NOTE]
+Flow API is not distributed via npm repositories but added automatically when running the Vaadin project.
+
+→ *Step 5* [[step-5]] - Add a client-side view and set a route path for it.
+
+.frontend/index.js
+[source, javascript]
+----
+import {Router} from '@vaadin/router';
+const router = new Router(document.querySelector('#outlet'));
+const flow = new Flow({
+  imports: () => import('../target/frontend/generated-flow-imports.js')
+});
+
+router.setRoutes([
+  {
+    path: '/help',
+    component: 'app-help',
+    action: () => import('app-help.js')
+  },
+  flow.route
+]);
+----
+
+.frontend/app-help.js
+[source, javascript]
+----
+import {LitElement, html} from 'lit-element';
+
+export class AppHelp extends LitElement {
+    render() {
+        return html`<h1>Help View</h1>`;
+    }
+}
+
+customElements.define('app-help', AppHelp);
+----
+
+→ *Step 6* -  Add a server-side view and set the route path for it
+
+[source, java]
+----
+@Route("server")
+public class ServerView extends Div {
+    public ServerView() {
+        setText("Hello from server side");
+    }
+}
+----
