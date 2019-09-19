@@ -6,15 +6,41 @@ layout: page
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Prerequisites
-To be able to use TypeScript in Vaadin application, your project must have the following requirements:
 
-  - The project depends on Vaadin 15+.
-  - `clientSideMode` is enabled. See <<client-side-bootstrapping#,Client-side bootstrapping>> for more information.
+= TypeScript Support
+
+Vaadin 15+ supports link:https://www.typescriptlang.org/[TypeScript] for writing client-side code, without needing any additional configuration. That includes live reloading at the development time, and optimized builds for production.
+
+In order to write the app bootstrapping code, or create views in TypeScript make sure that:
+
+ - <<client-side-bootstrapping#,client-side bootstrapping>> is enabled.
+
+ - and the `index.html` page template and the `index.ts` entry point do exist in the `frontend/` folder.
+
+After that any `.ts` file imported from `index.ts` (statically or dynamically) is going to be built as a part of the application.
 
 = Bootstrapping with TypeScript
 
-As mentioned in the <<client-side-bootstrapping#bootstrap-page-template, Bootstrap page template section>>, `index.html` and `index.ts` are required in the `frontend` folder. The `index.ts` file is injected in `index.html` by webpack when you build the application. Let's create a simple bootstrap page that shows a welcome text and a button to load Vaadin client-engine lazily.
+The entry point to the application can be written in TypeScript: using an `index.ts` file is supported as well as using `index.js`. Below is a sample `index.ts` file that adds a button click listener to load the full Vaadin application lazily, only after the button is clicked.
+See the <<client-side-bootstrapping, Client-side Bootstrapping>> page for details on starting a Vaadin application from client-side code.
+
+.frontend/index.ts
+[source,typescript]
+----
+import {Flow} from '@vaadin/flow-frontend/Flow';
+
+const flow = new Flow({
+  // @ts-ignore
+  imports: () => import('../target/frontend/generated-flow-imports')
+});
+
+const loadButton: HTMLElement | null = document.getElementById('loadButton');
+if (loadButton) {
+  loadButton.addEventListener('click', async() => {
+    await flow.start();
+  });
+}
+----
 
 .frontend/index.html
 [source,html]
@@ -36,29 +62,12 @@ As mentioned in the <<client-side-bootstrapping#bootstrap-page-template, Bootstr
 </html>
 ----
 
-.frontend/index.ts
-[source,typescript]
-----
-import {Flow} from '@vaadin/flow-frontend/Flow';
-
-const flow = new Flow({
-  // @ts-ignore
-  imports: () => import('../target/frontend/generated-flow-imports')
-});
-
-const loadButton: HTMLElement | null = document.getElementById('loadButton');
-if (loadButton) {
-  loadButton.addEventListener('click', () => {
-    flow.start();
-  });
-}
-----
-
-With the above code, the bootstrap page will show "Hello, World!" text with a button. The Vaadin client engine is not loaded until the button is clicked.
+With the above snippets, the bootstrap page shows "Hello, World!" text with a button. The Vaadin client engine is not loaded until the button is clicked.
 
 = Adding a TypeScript View
 
-Since Vaadin 15, it is possible to have client-side views and server-side views using <<client-side-routing, Client-side routing>> approach. The client-side views can be either in JavaScript or TypeScript. Here is an example of a LitElement view in TypeScript.
+Since version 15 Vaadin allows defining routes and creating views in client-side code using the <<client-side-routing, Client-side routing>> approach.
+Client-side views can be created in TypeScript, like in the following example:
 
 .frontend/my-view.ts
 [source,typescript]
@@ -99,8 +108,7 @@ export class MyView extends LitElement {
 }
 ----
 
-
-To navigate to the new client-side view, the `index.html` and `index.ts` have to be modified to include `vaadin-router` as following:
+In order to see the new client-side view in the browser, you would need to define a new client-side route for it. That requires the following changes in the `index.html` and `index.ts` files:
 
 .frontend/index.html
 [source,html]
@@ -142,8 +150,8 @@ const router = new Router(document.querySelector('#outlet'));
 router.setRoutes(routes);
 ----
 
-Now, if you navigate to the empty path, e.g. `http://localhost:8080/`, `my-view` will be shown. All the other routes are falling back to server routes. See <<client-side-routing, Client-side routing>> for more information.
+Now `my-view` is accessible via the root path, i.e. `http://localhost:8080/`. All the other routes are handled by the server-side router. See the <<client-side-routing, Client-side Routing>> page for more information.
 
 = Limitations
 
-TypeScript support is not applied for `PolymerTemplate` which connects with a view in Java code. It is only possible to create TypeScript view as a client-side view and use it with `vaadin-router` or any other ways that you prefer.
+TypeScript support does not apply to <<polymer-templates/tutorial-template-intro, Polymer-based declarative HTML templates>>.
