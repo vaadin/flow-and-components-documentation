@@ -9,15 +9,15 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 = Prerequisites
 To be able to use TypeScript in Vaadin application, your project must have the following requirements:
 
-  - The project depends on Vaadin 15.0.0.alpha1 (or later).
+  - The project depends on Vaadin 15+.
   - `clientSideMode` is enabled. See <<client-side-bootstrapping#,Client-side bootstrapping>> for more information.
 
 = Bootstrapping with TypeScript
 
 As mentioned in the <<client-side-bootstrapping#bootstrap-page-template, Bootstrap page template section>>, `index.html` and `index.ts` are required in the `frontend` folder. The `index.ts` file is injected in `index.html` by webpack when you build the application. Let's create a simple bootstrap page that shows a welcome text and a button to load Vaadin client-engine lazily.
 
-[source,html]
 .frontend/index.html
+[source,html]
 ----
 <!DOCTYPE html>
 <html lang="en">
@@ -36,8 +36,8 @@ As mentioned in the <<client-side-bootstrapping#bootstrap-page-template, Bootstr
 </html>
 ----
 
-[source,typescript]
 .frontend/index.ts
+[source,typescript]
 ----
 import {Flow} from '@vaadin/flow-frontend/Flow';
 
@@ -60,8 +60,8 @@ With the above code, the bootstrap page will show "Hello, World!" text with a bu
 
 Since Vaadin 15, it is possible to have client-side views and server-side views using <<client-side-routing, Client-side routing>> approach. The client-side views can be either in JavaScript or TypeScript. Here is an example of a LitElement view in TypeScript.
 
-[source,typescript]
 .frontend/my-view.ts
+[source,typescript]
 ----
 import {LitElement, html, css, customElement, query} from 'lit-element';
 import '@vaadin/vaadin-button/vaadin-button.js';
@@ -102,8 +102,8 @@ export class MyView extends LitElement {
 
 To navigate to the new client-side view, the `index.html` and `index.ts` have to be modified to include `vaadin-router` as following:
 
-[source,html]
 .frontend/index.html
+[source,html]
 ----
 <!DOCTYPE html>
 <html lang="en">
@@ -120,8 +120,8 @@ To navigate to the new client-side view, the `index.html` and `index.ts` have to
 </html>
 ----
 
-[source,typescript]
 .frontend/index.ts
+[source,typescript]
 ----
 import {Flow} from '@vaadin/flow-frontend/Flow';
 import {Router} from '@vaadin/router';
