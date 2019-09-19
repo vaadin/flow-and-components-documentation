@@ -16,22 +16,15 @@
 package com.vaadin.flow.tutorial.ccdm;
 
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.router.BeforeLeaveEvent;
-import com.vaadin.flow.router.BeforeLeaveObserver;
+import com.vaadin.flow.router.Route;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("ccdm/client-side-routing.asciidoc")
-public class ClientSideRoutingPage {
-    public class MyView extends Div implements BeforeLeaveObserver {
-        @Override
-        public void beforeLeave(BeforeLeaveEvent event) {
-            if (this.isDirty()) {
-                event.postpone();
-            }
-        }
-
-        private boolean isDirty() {
-            return true;
+@CodeFor("ccdm/quick-start-guide.asciidoc")
+public class QuickStartGuide {
+    @Route("server")
+    public class ServerView extends Div {
+        public ServerView() {
+            setText("Hello from server side");
         }
     }
 }
