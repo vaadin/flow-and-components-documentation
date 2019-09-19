@@ -56,7 +56,7 @@ if (loadButton) {
 
 With the above code, the bootstrap page will show "Hello, World!" text with a button. The Vaadin client engine is not loaded until the button is clicked.
 
-= Adding a TypeScript view
+= Adding a TypeScript View
 
 Since Vaadin 15, it is possible to have client-side views and server-side views using <<client-side-routing, Client-side routing>> approach. The client-side views can be either in JavaScript or TypeScript. Here is an example of a LitElement view in TypeScript.
 
