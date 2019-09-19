@@ -1,5 +1,5 @@
 ---
-title: TypeScript support in CCDM
+title: TypeScript support
 order: 3
 layout: page
 ---

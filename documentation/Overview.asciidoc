@@ -28,6 +28,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 
 == Client Centric Development Model
 * <<ccdm/client-side-bootstrapping#, Client-side Bootstrapping Mode>>
+* <<ccdm/typescript-support#, TypeScript Support>>
 
 == Router and Navigation
 * <<routing/tutorial-routing-annotation#,Defining Routes with @Route>>
