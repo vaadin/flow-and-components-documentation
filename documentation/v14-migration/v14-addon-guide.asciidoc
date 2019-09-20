@@ -57,6 +57,24 @@ For creating the Vaadin 14 version of your component add-on, you should first:
 modules or profiles of your add-on
 * If you test your add-on in production mode, you need to switch the goal for
 the production build profile to `build-frontend` (previously two goals)
+* If the `vaadin-maven-plugin` configuration is missing from your project,
+you can add it to the `<plugins>` section of your `pom.xml` as follows:
+
+[source, xml]
+----
+    <plugin>
+        <groupId>com.vaadin</groupId>
+        <artifactId>vaadin-maven-plugin</artifactId>
+        <version>${vaadin.version}</version>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>prepare-frontend</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
+----
 
 == Migrating an Add-on with External Frontend Dependencies
 
