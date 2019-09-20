@@ -1,31 +1,30 @@
 ---
-title: Service Worker
+title: PWA Service Worker
 order: 5
 layout: page
 ---
 
-= Service Worker
+= PWA Service Worker
 
+When the `@PWA` annotation is found, Vaadin automatically generates a simple service worker during application startup. 
 
-When the @PWA annotation is used, Flow will generate a simple service worker
-automatically during application startup. Service caches resources:
-offline fallback page, icons and user defined offline resources.
-Service worker also handles simple navigation in offline by serving the offline
-page.
+The generated service worker:
 
-Note that the service worker can only respond to full navigation events, like
-refresh or direct navigation to an url.
+* Caches <<tutorial-pwa-offline#,offline resources>>, including the offline fallback page, icons, and custom (user-defined) offline resources.
+* Handles simple offline navigation by serving the <<tutorial-pwa-offline#,offline page>>. 
 
-The service worker uses https://developers.google.com/web/tools/workbox/[Google Workbox]
-for caching resources. Needed workbox files are served by Flow, from directory
-“_VAADIN/resources/workbox/_”.
+[NOTE]
 
-== Custom cached resources
+The service worker can only respond to full navigation events, like refresh or direct navigation to a URL.
 
-To get custom files to be cached automatically by the service worker, add those
-to `@PWA` -property *offlineResources*.
+The service worker uses https://developers.google.com/web/tools/workbox/[Google Workbox] to cache resources. The necessary Workbox files are stored in the `VAADIN/resources/workbox/` folder.
 
-For example, if wanted to cache *styles/offline.css*, *img/offline.jpg* and *js/jquery.js*
+== Defining Custom Cache Resources
+
+You can define custom resources to be cached automatically by the service worker, using the `offlineResources` parameter in the `@PWA` annotation.
+
+*Example*: Defining `styles/offline.css`, `img/offline.jpg` and `js/jquery.js` as cacheable offline resources. 
+
 [source,java]
 ----
 @PWA(name = "My Progressive Web Application",
@@ -34,16 +33,16 @@ For example, if wanted to cache *styles/offline.css*, *img/offline.jpg* and *js/
          "js/jquery.js", "img/offline.jpg" })
 ----
 
-== Overriding generated service worker
+== Overriding the Generated Service Worker
 
-To override generated service worker, copy a custom service worker to web application
-folder, named as "*sw.js*".
+You can override the generated service worker with a custom service worker. 
 
-```
-src/main/webapp/sw.js
-```
+To override the generated service worker file:
+
+. Create a custom service worker file and name it `sw.js`.  
+
+. Add the file to your `src/main/webapp/` folder. 
+
 
 [NOTE]
-Overriding service worker means that offline support and resource caching must be
-done in that custom service worker. A good template for custom service worker can
-be achieved by copying generated service worker from browser resources.
+To ensure that your custom service worker deals with offline support and resource caching properly, you can copy the default service worker from browser resources and use it as a template. 

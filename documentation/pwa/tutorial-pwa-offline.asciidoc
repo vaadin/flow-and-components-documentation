@@ -1,33 +1,23 @@
 ---
-title: Offline experience
+title: PWA Offline Page
 order: 6
 layout: page
 ---
 
-= Offline experience
+= PWA Offline Page
 
-Flow will automatically serve a generated offline page. The generated offline page
-is a simple page to communicate to the user that the application is offline
-because there is no network connection currently.
+Vaadin automatically generates and serves an offline page. This is a simple page that:
 
-Flow automatically personalizes the offline page with the given application name
-and icon.
+* Includes the application name and icon.
+* Communicates to the user that the application is offline, because there is no network connection.
 
-== Custom offline page
+== Creating a Custom Offline Page
 
-To use own offline page create file with name "*offline.html*" in web resources folder.
+To override the default offline page:
 
-```
-src/main/webapp/offline.html
-```
+. Create a file named `offline.html`.
+. Add the file to your `src/main/webapp/` folder. 
 
-To change the name of the file, use `@PWA` -property *offlinePath*.
+You can change the name of the offline page file using the `offlinePath` parameter in the <<tutorial-pwa-pwa-with-flow#,`@PWA` annotation>>. 
 
-Offline page may only use resources found in cache. By default only the offline
-page, manifest and icons are cached. If the offline page needs other resources
-(such as css, images, webcomponents) describe those in *offlineResources*.
-
-Offline experience with simple fallback page is very limited and by having separate
-offline page, it also isolates the offline experience from application itself.
-For this developer could have offline experience within web components and
-re-use those web components in offline -page.
+The offline page can only use resources found in the cache. By default, only the offline page, <<tutorial-pwa-web-app-manifest#,manifest>>, and <<tutorial-pwa-icons#,icons>> are cached. If your page needs additional resources (such as CSS, images, Web Components), you can define them using the `offlineResources` parameter in the <<tutorial-pwa-pwa-with-flow#,`@PWA` annotation>>. See <<tutorial-pwa-service-worker#defining-custom-cache-resources,Defining Custom Cache Resources>> for more. 
