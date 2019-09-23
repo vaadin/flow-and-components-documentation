@@ -1,61 +1,50 @@
 ---
-title: Application Icons
+title: PWA Application Icons
 order: 3
 layout: page
 ---
 
-= Application Icons
+= PWA Application Icons
 
-Icons are needed to give fav-icon for browser page, icon for device for installed apps and
-also to create splash screen for installed applications. By default, Flow will
-use a default icon and serve an it automatically.
+PWAs need at least three icons: a favicon for the browser page, a device icon for the for the installed application, and an icon used on the splash screen of the installed application. 
 
-== Using a custom icon
 
-To customize the application images, copy your image to the following location
-```
-src/main/webapp/icons/icon.png
-```
+== Using a Custom Icon
 
-Flow will automatically scan for an *icon.png* icon file from the */icons* folder
-inside the webapp resources folder. The icon should be in png format. Flow will
-automatically create different sizes of images from the given image for different
-devices. If no icon is found, then Flow will fall back to default image.
+Vaadin uses and serves default PWA icons automatically, but you can use a custom icon.
 
-Given image is resized to different sizes for different use cases, so use image
-with size of at least 512x512. The icon will be automatically resized - only
-downscaling the image, that's the reason to give big enough image - to different
-sizes, using top-left -pixel as background color if needed.
+To use a custom icon image:
 
-== Overriding the generated icons
+. Create an icon image named `ìcon.png`. The icon must be in PNG format. 
+. Add the image to your `src/main/webapp/icons/` folder. 
 
-All the generated images are named with as "*icons/icon-[width]x[height].png*".
+Vaadin automatically scans for an image named `icon.png` in the `*/icons*` folder in the `webapp` resources folder. It uses this image to create appropriately-sized images for different devices. If no icon is found, the default image is used as a fallback. 
 
-To override generated image place image named as created one to web application
-resources folder.
+To ensure that all resized images are attractive, use an image of at least 512 x 512 pixels. This is large enough to only be downscaled, as upscaling can cause pixelation. 
 
-For example, for getting a custom splash screen for hi-res iOS devices,
-create an image of size 1125x2436 and copy it to:
-```
-src/main/webapp/icons/icons/icon-1125x2436.png
-```
 
-== Renaming the icons
+== Overriding Generated Icons
 
-To change the used icon path give custom path in `@PWA` -annotation property *iconPath*.
+All generated images are named using the `icon-_[width]x[height]_.png` notation, for example `icon-1125x2436.png`.
 
-Example
+To override any generated image:
+
+. Create an image of the size you want to override and name in using the notation mentioned above. For example, `icon-1125x2436.png` for a custom hi-res splash screen image for iOS devices.
+. Add the image to your `src/main/webapp/icons/` folder.
+
+
+== Renaming Icons
+
+You can change the default icon path to a custom path, using the `iconPath` parameter in the `@PWA` annotation.
+
+*Example*: Defining a custom path using the `iconPath` parameter in the `@PWA` annotation.
+
 [source,java]
 ----
 @PWA(name = "My Progressive Web Application",
      shortName = "MyPWA",
      iconPath = "img/icons/logo.png")
 ----
-
-Then place the icon to
-```
-src/main/webapp/img/icons/logo.png
-```
-
-Now all icons will be named using value in *iconPath*, so 512x512 sized icon
-would be "*img/icons/logo-512x512.png*".
+* Icon images will now be:
+** Named using the value in the `iconPath*` parameter. For example the 512 x 512 pixel image would be `img/icons/logo-512x512.png`.
+** Stored in the `src/main/webapp/img/icons/` folder. 

@@ -1,5 +1,5 @@
 ---
-title: Preserving state on refresh
+title: Preserving the State on Refresh
 order: 15
 layout: page
 ---
@@ -7,17 +7,19 @@ layout: page
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
 
-= Preserving state on refresh
+= Preserving the State on Refresh
 
-When a URL is entered in the browser, the routing subsystem of Vaadin Flow resolves it into a view component by <<../routing/tutorial-routing-annotation#,inspecting `@Route` class annotations>>. When a matching class is found, the default behavior is to create a new instance, also when the user refreshes the page in the same browser tab.
+When a URL is entered in the browser, Vaadin's routing subsystem resolves it into a view component by <<../routing/tutorial-routing-annotation#,inspecting `@Route` class annotations>>. When a matching class is found, a new instance is created by default. This also happens when the user refreshes the page in the same browser tab.
 
-Occasionally it is desirable to keep the state of the view between such refreshes. For example, if the view contains a lot of data entry components, and we believe that the user may refresh the page (intentionally or unintentionally) before the data is persisted in the backend, ensuring that the entries are not lost makes for better UX. Another use case is to support browser tab-specific "sessions" as an alternative to the standard cookie-based session.
+Occasionally, you may want to keep the state of the view between these refreshes. For example, if the view contains many data entry components, and the user is likely to refresh the page (intentionally or unintentionally) before the data is persisted in the backend. By preserving the view, you ensure the entries are not lost and provide a better UX. Another use case is supporting browser tab-specific "sessions" as an alternative to the standard cookie-based session.
 
-The annotation `@PreserveOnRefresh` instructs Flow to re-use the view component of a route, whenever the route is reloaded in the same browser tab. The routed component instance will then be the same server-side object as was created in the first request, with all of its state (member fields, subcomponent hierarchy, and so on), is preserved.
+The `@PreserveOnRefresh` annotation instructs Vaadin to re-use the view component of a route, whenever the route is reloaded in the same browser tab. The routed component instance is then the same server-side object that was created in the first request, with all of its state (member fields, subcomponent hierarchy, and so on) preserved.
 
-== How-to
+== Preserving the State of a Component
 
-To make a single view component preserve its content on refresh, simply add the annotation `@PreserveOnRefresh` to the class:
+To make a single-view component preserve its content on refresh, simply add the `@PreserveOnRefresh` annotation  to the class.
+
+*Example*: Adding the `@PreserveOnRefresh` annotation to the `PreservedView` class. 
 
 [source, java]
 ----
@@ -32,9 +34,9 @@ public class PreservedView extends VerticalLayout {
 }
 ----
 
-If the view component is defined to have a <<../routing/tutorial-router-layout#,router layout>> (via the `layout` parameter of the `@Route` annotation), the router layout is also preserved on refresh.
+If the view component has a <<../routing/tutorial-router-layout#,router layout>> (via the `layout` parameter of the `@Route` annotation), the router layout is also preserved on refresh. As an alternative, you can add the `@PreserveOnRefresh` annotation to a class that implements `RouterLayout`.
 
-Alternatively, it is possible to add the `@PreserveOnRefresh` to a class that implements `RouterLayout`:
+*Example*: Adding the `@PreserveOnRefresh` annotation to an implementation of `RouterLayout`. 
 
 [source, java]
 ----
@@ -47,21 +49,20 @@ public class PreservedLayout extends FlexLayout
     }
 }
 ----
+* The `PreservedLayout` instance itself, as well as any view laid out inside it, is preserved on refresh.
 
-In this case, the `PreservedLayout` instance itself as well as any view laid out inside it will be preserved on refresh.
+Any elements that are not direct children of the view component, such as notifications and dialogs, are also preserved. This means that if your `@PreserveOnRefresh` annotated-view class opens a dialog, in which the user makes edits and then refreshes, the dialog remains visible in its edited state.
 
-Any elements that are not direct children of the view component, such as notifications and dialogs, will also be preserved. This means that if your `@PreserveOnRefresh`-annotated view class opens a dialog, and the user does some edits and then refreshes, the dialog will still be visible in its edited state.
+== Preconditions and Limitations
 
-== Preconditions and limitations
+Using the `@PreserveOnRefresh` annotation has the following conditions/limitations:
 
-When using `@PreserveOnRefresh` the following conditions/limitations should be observed:
+* The annotation must be placed in a component class that is a route target (typically annotated with `@Route`) or on a component that implements `RouterLayout`.
 
-* The annotation must be placed on a component class that is the target of routing (typically by being annotated with `@Route`) or on a component implementing `RouterLayout`.
+* The annotation does not support partial preserving. You cannot preserve only some components on the route chain. If the annotation is present on any component in the chain, the entire chain is preserved.
 
-* The annotation does not support partially preserving only some components on the route chain (if the annotation is present on any component in the chain, the entire chain is preserved).
+* The component is persisted only when reloaded in the same browser tab (the `window.name` client-side property is used to identify the tab), and only if the URL stays the same (visiting another route or changing a URL parameter discards the component state permanently).
 
-* The component is persisted only when reloaded in the same browser tab (the `window.name` client-side property is used to identify the tab), and only if the URL stays the same (visiting another route or changing a URL parameter will discard the component state permanently).
+* Vaadin 10 and later does not preserve the `UI` instance between refreshes. The view is detached from its previous `UI` and then attached to a fresh `UI` instance on refresh.
 
-* In contrast to Vaadin 8, Vaadin Flow does not preserve the `UI` instance between refreshes. The view is detached from its previous `UI` and then attached to a fresh `UI` instance on refresh.
-
-* `AttachEvent` and `DetachEvent` are generated also when a preserved component is moved to a new `UI`. This means for instance that your view component should expect multiple calls to `onAttach` and listeners registered through `addAttachListener` during its lifetime.
+* The `AttachEvent` and `DetachEvent` events are also generated when a preserved component is moved to a new `UI`. This means, for instance, that your view component should expect multiple calls to `onAttach` and listeners registered through `addAttachListener` during its lifetime.

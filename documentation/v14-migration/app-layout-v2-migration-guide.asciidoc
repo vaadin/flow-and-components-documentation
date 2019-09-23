@@ -1,6 +1,6 @@
 ---
 title: App Layout 2 Migration Guide
-order: 1
+order: 3
 layout: page
 ---
 
@@ -9,7 +9,7 @@ layout: page
 
 Version 2 of `AppLayout` is introduced in Vaadin 14 and comes with several breaking changes.
 
-=== Routing
+== Routing
 `AbstractAppRouterLayout` was removed. `AppLayout` itself now implements `RouterLayout`.
 If you have a view like that extended `AbstractRouterLayout`
 ```java
@@ -24,7 +24,7 @@ public class MyView extends AppLayout {
 }
 ```
 
-=== Menu
+== Menu
 
 `AppLayoutMenu` and `AppLayoutMenuItem`  were removed. The same functionality can be achieved by using `vaadin-tabs`. `AppLayoutMenu` can be directly replaced with `Tabs`.
 ```java
@@ -50,7 +50,7 @@ Additionally, use the appropriate theme variant to place the icon on top of the 
 tab.addThemeVariants(TabVariant.LUMO_ICON_ON_TOP);
 ``` 
 
-=== Branding on navbar
+== Branding on navbar
 
 To keep the same look of the previous version with the branding on the top left and having the menu center, add both elements to the navbar.
 ```java
@@ -107,7 +107,7 @@ and add some styles to shared-styles.html
 ```
 
 
-=== New `DrawerToggle` to open or close the drawer.
+== New `DrawerToggle` to open or close the drawer.
 
 To use it, add a instance to the component, tipically to the navbar. It will cause a button to appear that will toggle the navbar when clicked.
 

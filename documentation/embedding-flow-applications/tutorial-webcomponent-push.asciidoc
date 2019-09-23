@@ -1,26 +1,20 @@
 ---
-title: Embedded Application Push Configuration
+title: Configuring Push in Embedded Applications
 order: 4
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Embedded Application Push Configuration
+= Configuring Push in Embedded Applications 
 
-You may configure and enable Push in your embedded application.
-See <<../advanced/tutorial-push-configuration#,Server Push Configuration>> tutorial 
-for Push overview.
+You can configure and enable Push in your embedded applications. 
 
-There are two ways to configure Push for the embedded application: use 
-`@Push` annotation for your `WebComponentExporter` class or declare it
-on the servlet level. You can see how to do it on the servlet level in the
-mentioned tutorial.
+There are two ways to configure Push: 
 
-Similarly to declaring `@Theme` annotation described in 
-<<tutorial-webcomponent-theming#,Theming an Embedded Application>> tutorial, 
-you may declare `@Push` annotation for `WebComponentExporter` class:
-
+* Use the <<../advanced/tutorial-push-configuration#push.configuration.annotation,`@Push` annotation>> in your `WebComponentExporter` class. 
++
+*Example*: Using the `@Push` annotation in the `PushComponentExporter` class. 
++
 [source, java]
 ----
 @Push
@@ -28,7 +22,12 @@ public class PushComponentExporter
         extends WebComponentExporter<Div> {
 ----
 
-`@Push` annotation declaration has the same limitation as `@Theme` annotation:
-it's not possible to declare several different `@Push` annotations for different
-exporter classes. An exception will be thrown otherwise during the application
-startup. It's enough to configure Push only for one exporter.
+* Declare Push on the servlet level, by defining them in the <<../advanced/tutorial-push-configuration#push.configuration.servlet,servlet configuration>>.
+
+
++
+[NOTE]
+
+The `@Push` annotation declaration has the same limitation as the <<tutorial-webcomponent-theming#,@Theme` annotation>>: it is only possible to configure Push for one exporter. Declaring different `@Push` annotations for different exporter classes will result in an exception during startup. 
+
+See <<../advanced/tutorial-push-configuration#,Server Push Configuration>> for more about configuring Push.
