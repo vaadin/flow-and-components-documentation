@@ -61,10 +61,9 @@ This is not necessary anymore, and in Vaadin Flow the UI content is delivered on
 
 == Modifying the Bootstrap Page
 
-If you had previously customized the initial response with `BootstrapListener`,
- <<../advanced/tutorial-bootstrap#,this tutorial>> show the new and simpler way of customizing the initial page response using `PageConfigurator` or specific annotations on the application's main layout.
+If you had previously customized the initial response with `BootstrapListener`, using client-side bootstrapping with `index.html` template is a simpler way of customizing the initial page response by adding the content directly to the file.
 
-`BoostrapListener` is still there and can be registered using a `VaadinServiceInitListener`, as shown by <<../advanced/tutorial-service-init-listener#,this tutorial>>.
+`ClientIndexBootstrapListener` is still there and can be registered using a `VaadinServiceInitListener`, as shown by <<../advanced/tutorial-service-init-listener#,this tutorial>>.
 
 == Configuring Server Push
 

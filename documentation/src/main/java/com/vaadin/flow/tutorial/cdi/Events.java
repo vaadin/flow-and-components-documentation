@@ -15,7 +15,7 @@
  */
 package com.vaadin.flow.tutorial.cdi;
 
-import com.vaadin.flow.server.BootstrapPageResponse;
+import com.vaadin.flow.server.ClientIndexBootstrapPage;
 import com.vaadin.flow.server.ServiceInitEvent;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
@@ -28,12 +28,12 @@ public class Events {
 
         private void onServiceInit(@Observes
                 ServiceInitEvent serviceInitEvent) {
-            serviceInitEvent.addBootstrapListener(
+            serviceInitEvent.addClientIndexBootstrapListener(
                     this::modifyBootstrapPage);
         }
 
         private void modifyBootstrapPage(
-                BootstrapPageResponse response) {
+                ClientIndexBootstrapPage response) {
             response.getDocument().body().append(
                     "<p>By CDI add-on</p>");
         }
