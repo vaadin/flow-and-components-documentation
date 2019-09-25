@@ -7,6 +7,17 @@ layout: page
 
 == Storing Resources
 
+=== Static frontend resources for Webpack bundling (14 npm mode)
+In Vaadin 14, static resources that are bundled using Webpack and referenced via `@JavaScript`, `@JsModule`, and `CssImport` annotations should be placed under `{project directory}/frontend`.
+This includes normal JavaScript files, Polymer 3 template files, and CSS files.
+When importing these files using the annotations, prefix the path with `./` which signifies the `frontend/` directory.
+For example, a CSS file `my-custom.css` under `{project directory}/frontend/styles/my-custom.css` would be referenced `@CssImport("./styles/my-custom.css")`.
+
+If the `./` prefix is missing from a `@JsModule` annotation, the import is assumed to be a reference to npm module under `node_modules/` folder.
+
+=== Static resources
+This section covers static resource locations when in either compatibility mode or using resources that should not be bundled by Webpack.
+
 You can place your resource files (CSS style sheets, JavaScript and HTML files, and other static resources) in any folder in your WAR file, except `/VAADIN`, which is reserved for internal framework use.
 
 `VaadinServlet` handles static resource requests, if you have mapped it to `/*`.
@@ -28,45 +39,63 @@ When you configure an element, for example setting the `src` attribute for an `<
 
 == Advanced configuration of CSS, JavaScript and HTML imports
 
-As discussed in <<tutorial-include-css#,Including Style Sheets>> and <<tutorial-importing#,Importing HTML and JavaScript>>, you can import client side dependencies or resource files using:
+As discussed in <<tutorial-include-css#,Including Style Sheets>> and <<tutorial-importing#,Importing HTML and JavaScript>>, you can import client-side dependencies or resource files using:
 
-* Annotations (`@StyleSheet`, `@JavaScript` and `@HtmlImport`), and 
-* Methods provided by the `Page` class (`addStyleSheet`, `addHtmlImport)` and `addJavaScript)`.
+* Annotations (`@JavaScript`, `@JsModule`, `@CssImport`, `@StyleSheet`, and `@HtmlImport`), and
+* Methods provided by the `Page` class (`addJavaScript`, `addJsModule`, `addStyleSheet`, and `addHtmlImport`).
 
-Sometimes the way client-side resources are loaded to the browser affects the functionality of the application. Vaadin Flow provides advanced methods to configure the loading of these resources.
+[NOTE]
+`@HtmlImport` and `addHtmlImport` work only in compatibility mode and while `@StyleSheet` does work as before, `@CssImport` may be a better fit.
+
+Sometimes the way client-side resources are loaded to the browser affects the functionality of the application.
+Vaadin Flow provides advanced methods to configure the loading of these resources.
 
 === Dependency Loading Order
 
-Imported dependency files of the same type, load in the order they are defined in the class. For example, CSS files load in the `@StyleSheet` annotation definition order, JavaScript files in the `@JavaScript` annotation definition order, and HTML files in the `@HtmlImport` annotation definition order.  
+Imported dependency files of the same type, load in the order they are defined in the class.
+For example, CSS files load in the `@CssImport` annotation definition order, JavaScript files in the `JsModule` and  `@JavaScript` annotation definition order.
 
-The loading order of imported dependencies is only guaranteed for one file type, in one class. There are no other loading-order guarantees. Specifically, loading order is not guaranteed between classes or files types. 
+The loading order of imported dependencies is only guaranteed for one file type, in one class.
+Specifically, loading order is not guaranteed between classes; Annotations on class `A` could be imported before or after annotations on class `B`.
+
+Frontend resources bundled by Webpack also have a type group ordering;
+JavaScript files loaded by `@JsModule` annotation come always before JavaScript files loaded by `@JavaScript`, and both of those come before CSS files loaded by `@CssImport`.
+The exception to this rule are `@JsModule` annotations of files annotated with `@Theme`.
+All JavaScript modules found on such classes are imported before other file types. This covers both `Lumo` and `Material` themes as well as custom themes created by the developer.
+
 
 *Example*: Imported dependencies of different file types in a single class. 
 
 [source, java]
 ----
 @JavaScript("1.js")
-@StyleSheet("1.css")
-@HtmlImport("1.html")
+@JsModule("a.js")
+@CssImport("1.css")
 @JavaScript("2.js")
-@StyleSheet("2.css")
-@HtmlImport("2.html")
+@JsModule("b.js")
+@CssImport("2.css")
 static class OrderedDependencies extends Div {
 }
 ----
-* `1.js` will be imported before `2.js`, `1.css` before `2.css`, `1.html` before `2.html`, but there are no other guarantees.
+* The loading order of the files will be: `a.js`, `b.js`, `1.js`, `2.js`, `1.css`, and `2.css`.
+Imports on other classes could be before or after the imports present here (within each file group).
 
-You can control the load order of dependencies of different file types, by adding imports within an HTML import. 
+You can control the load order of dependencies of different file types, by adding imports within an JavaScript import.
 
+*Example*: Ensuring `custom-css.js` runs before `javascript-file.js`.
+The `custom-css.js` uses the technique for wrapping CSS into JavaScript presented in <<tutorial-include-css#,Including Style Sheets>>.
 
-*Example*: Ensuring `htmlimport4.html` runs before `htmlimport4-js.js`.
-[source, html]
+[source, javascript]
 ----
-<link rel="import" href="htmlimport4.html">
-<script src="htmlimport4-js.js"></script>
+import '../styles/custom-css.js';
+import './javascript-file.js';
 ----
 
 === Using the loadMode Parameter
+
+[NOTE]
+`LoadMode` does not affect files that are bundled by Webpack.
+Those files will be included into the frontend resource bundle and will thus be available after the bundle has been loaded.
 
 All annotations and methods in the `Page` class without explicit `LoadMode` parameter use `LoadMode.EAGER`, by default.
 
@@ -134,3 +163,114 @@ public class MainLayout extends Component {
 
 
 * Dependencies with the same load mode are guaranteed to load in the order defined in the component. This is true for all load modes.
+
+== Resource Cheat Sheet
+
+=== Vaadin 14 with npm
+.Non-Spring projects
+|===
+|File type |Import |File location
+
+|CSS files
+|`@CssImport("./my-styles/styles.css")`<<foot-1,[1]>>
+|`/frontend/my-styles/styles.css`
+
+|JavaScript and Polymer templates
+|`@JsModule("./src/my-script.js")`<<foot-1,[1]>>
+|`/frontend/src/my-script.js`
+
+|Static files, e.g. images
+|`new Image("img/flower.jpg", "A flower")`
+|`/src/main/webapp/img/flower.jpg`
+|===
+
+.Spring projects
+|===
+|File type |Import |File location
+
+|CSS files
+|`@CssImport("./my-styles/styles.css")`<<foot-1,[1]>>
+|`/frontend/my-styles/styles.css`
+
+|JavaScript and Polymer templates
+|`@JsModule("./src/my-script.js")`<<foot-1,[1]>>
+|`/frontend/src/my-script.js`
+
+|Static files, e.g. images
+|`new Image("img/flower.jpg", "A flower")`
+|`/src/main/resources/META-INF/resources/img/flower.jpg`
+|===
+
+.Add-ons
+|===
+|File type |Import |File location
+
+|CSS files
+|`@CssImport("./my-styles/styles.css")`<<foot-1,[1]>>
+|`/src/main/resources/META-INF/resources/frontend/my-styles/styles.css`
+
+|JavaScript and Polymer templates
+|`@JsModule("./src/my-script.js")`<<foot-1,[1]>>
+|`/src/main/resources/META-INF/resources/frontend/src/my-script.js`
+
+|Static files, e.g. images
+|`new Image("img/flower.jpg", "A flower")`
+|`/src/main/resources/META-INF/resources/img/flower.jpg`
+|===
+
+=== Vaadin 10-13, Vaadin 14 in compatibility mode
+
+.Non-Spring projects
+|===
+|File type |Import |File location
+
+|CSS files
+|`@StyleSheet("css/styles.css")`<<foot-2,[2]>>
+|`/src/main/webapp/frontend/css/styles.css`
+
+|Polymer templates, custom-style and dom-module styles
+|`@HtmlImport("src/template.html")`
+|`/src/main/webapp/frontend/src/template.html`
+
+|JavaScript
+|`@JavaScript("js/script.js")`<<foot-3,[3]>>
+|`/src/main/webapp/frontend/js/script.js`
+
+|Static files, e.g. images
+|`new Image("img/flower.jpg", "A flower")`
+|`/src/main/webapp/img/flower.jpg`
+|===
+
+.Spring projects and add-ons
+|===
+|File type |Import |File location
+
+|CSS files
+|`@StyleSheet("css/styles.css")`<<foot-2,[2]>>
+|`/src/main/resources/META-INF/resources/frontend/css/styles.css`
+
+|Polymer templates, custom-style and dom-module styles
+|`@HtmlImport("src/template.html")`
+|`/src/main/resources/META-INF/resources/frontend/src/template.html`
+
+|JavaScript
+|`@JavaScript("js/script.js")`<<foot-3,[3]>>
+|`/src/main/resources/META-INF/resources/frontend/js/script.js`
+
+|Static files, e.g. images
+|`new Image("img/flower.jpg", "A flower")`
+|`/src/main/resources/META-INF/resources/img/flower.jpg`
+|===
+
+=== Footnotes
+
+[[foot-1]]
+. The `@JsModule` and `@CssImport` annotations can also be used for importing from an npm package.
+In this case, the path is defined as `@JsModule("@polymer/paper-input")` or `@CssImport("some-package/style.css")`.
+Paths referring to the local frontend directory should be prefixed with `./`.
+[[foot-2]]
+. The `@StyleSheet` annotation can also be used in Vaadin 14 with npm.
+The same paths as in V10-V13 can be used, including the `context://` protocol `@StyleSheet("context://style.css")`, which resolves the path relative to the context path of the web application, like other static files.
+Styles included this way may cause issues with web components.
+[[foot-3]]
+. The `@JavaScript` annotation can also be used in Vaadin 14 with npm. The V14 `/frontend` folder should then be used.

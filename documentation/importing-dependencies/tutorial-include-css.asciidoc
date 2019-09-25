@@ -25,9 +25,9 @@ public class MainLayout extends Component {
 }
 ----
 
-* The snippet uses the `@StyleSheet` annotation on a component. 
-* The value of the annotation is a URL from which the style sheet loads. 
-* The style sheet is loaded when the component displays for the first time in the browser. 
+* The snippet uses the `@StyleSheet` annotation on a component.
+* The value of the annotation is a URL from which the style sheet loads.
+* The style sheet is loaded when the component displays for the first time in the browser.
 * You can use the annotation multiple times on the same component.
 
 . Using the `addStyleSheet(String url)` method from the `Page` class. 
@@ -54,6 +54,8 @@ Be cautious when including global styles for your application. If the user's bro
 See <<../web-components/integrating-a-web-component#,Integrating a Web Component>> for more, and *Browser support* at https://www.webcomponents.org/[webcomponents.org] for a list of browsers that support Web Components and those that require polyfills. 
 
 Web Component normally uses their own styles that are specifically scoped for each component. If the browser does not support Web Components, the missing functionality is polyfilled, and the Web Component is no longer treated as a scoped unit, but rather as a regular part of the DOM tree. Global styles are applied to it in the same way as any other HTML element.
+
+=== Using JavaScript template
 
 To prevent global styles leaking into the local DOM of Web Components, you can use the `<custom-style>` extension:
 
@@ -99,5 +101,27 @@ document.head.appendChild(documentContainer.content);
 ----
 
 . Use the `@JsModule("./shared-styles.js")` annotation in a component class, like your main layout class.
+
+=== Using CssImport
+The new `@CssImport` annotation can be used to load cs files into the global scope.
+Create a normal css file under `{project directory}/frontend/styles` and use the annotation to bundle the css into frontend resources.
+
+[source,html]
+----
+// custom-styles.css
+html {
+  color: red;
+}
+----
+
+[source,java]
+----
+// MainLayout.java
+@CssImport("./styles/custom-styles.css")
+@Route("")
+public class MainLayout extends VerticalLayout{
+
+}
+----
 
 See <<../theme/theming-crash-course#,Theming Web Components>> and https://polymer-library.polymer-project.org/3.0/api/elements/custom-style[Polymer.CustomStyle] for more.
