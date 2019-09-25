@@ -45,7 +45,7 @@ The `Page` class also has method `addJsModule(String url)` but it is meant to be
             .addHtmlImport("/html/htmlimport.html");
     // external JavaScript module
     UI.getCurrent().getPage()
-            .addJsModule("https://unpkg.com/lodash@4.17.15")
+            .addJsModule("https://unpkg.com/lodash@4.17.15");
   }
 ----
 

@@ -108,7 +108,6 @@ Create a normal css file under `{project directory}/frontend/styles` and use the
 
 [source,html]
 ----
-// custom-styles.css
 html {
   color: red;
 }
@@ -116,10 +115,9 @@ html {
 
 [source,java]
 ----
-// MainLayout.java
 @CssImport("./styles/custom-styles.css")
 @Route("")
-public class MainLayout extends VerticalLayout{
+public class MainLayout extends Component {
 
 }
 ----
