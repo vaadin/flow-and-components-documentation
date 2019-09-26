@@ -53,7 +53,7 @@ Vaadin Flow provides advanced methods to configure the loading of these resource
 === Dependency Loading Order
 
 Imported dependency files of the same type, load in the order they are defined in the class.
-For example, CSS files load in the `@CssImport` annotation definition order, JavaScript files in the `JsModule` and  `@JavaScript` annotation definition order.
+For example, CSS files load in the `@CssImport` annotation definition order, JavaScript files in the `@JsModule` and  `@JavaScript` annotation definition order.
 
 The loading order of imported dependencies is only guaranteed for one file type, in one class.
 Specifically, loading order is not guaranteed between classes; annotations on class `A` could be imported before or after annotations on class `B`.
