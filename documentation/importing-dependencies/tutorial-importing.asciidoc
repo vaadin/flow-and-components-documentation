@@ -6,7 +6,7 @@ layout: page
 
 = Importing JavaScript, JavaScript modules, and HTML
 
-You can add JavaScript, JavaScript modules, and HTML imports (compatibility mode) to your host page directly from your Java classes.
+You can add classic JavaScript source files, JavaScript modules, and HTML imports (compatibility mode) to your host page directly from your Java classes.
 
 [NOTE]
 Polymer 3 templates should be imported using `@JsModule` (see <<../polymer-templates/tutorial-template-basic#,Creating Polymer Templates>> for more information). Only use `@HtmlImport` for importing Polymer 2 templates if your application is running in compatibility mode, and `@JavaScript` for importing plain `.js` files.
@@ -29,7 +29,7 @@ static class CustomComponent extends Component
 }
 ----
 
-* All the annotations are repeatable. Add one annotation for each file you need to add.
+* All the resource annotations are repeatable. Add one annotation for each file you need to add.
 
 . Using the `addJavaScript(String url)` and `addHtmlImport(String url)` methods from the `Page` class.
 The `Page` class also has method `addJsModule(String url)` but it is meant to be used to add an external JavaScript module.

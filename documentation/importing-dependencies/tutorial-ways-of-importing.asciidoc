@@ -10,10 +10,10 @@ layout: page
 === Static frontend resources for Webpack bundling (14 npm mode)
 In Vaadin 14, static resources that are bundled using Webpack and referenced via `@JavaScript`, `@JsModule`, and `CssImport` annotations should be placed under `{project directory}/frontend`.
 This includes normal JavaScript files, Polymer 3 template files, and CSS files.
-When importing these files using the annotations, prefix the path with `./` which signifies the `frontend/` directory.
+When importing files using these annotations, prefix the path with `./`, which signifies the `frontend/` directory.
 For example, a CSS file `my-custom.css` under `{project directory}/frontend/styles/my-custom.css` would be referenced `@CssImport("./styles/my-custom.css")`.
 
-If the `./` prefix is missing from a `@JsModule` annotation, the import is assumed to be a reference to npm module under `node_modules/` folder.
+If the `./` prefix is missing from a `@JsModule` annotation, the import is treated as a reference to an npm module under `node_modules/` folder.
 
 === Static resources
 This section covers static resource locations when in either compatibility mode or using resources that should not be bundled by Webpack.
@@ -56,7 +56,7 @@ Imported dependency files of the same type, load in the order they are defined i
 For example, CSS files load in the `@CssImport` annotation definition order, JavaScript files in the `JsModule` and  `@JavaScript` annotation definition order.
 
 The loading order of imported dependencies is only guaranteed for one file type, in one class.
-Specifically, loading order is not guaranteed between classes; Annotations on class `A` could be imported before or after annotations on class `B`.
+Specifically, loading order is not guaranteed between classes; annotations on class `A` could be imported before or after annotations on class `B`.
 
 Frontend resources bundled by Webpack also have a type group ordering;
 JavaScript files loaded by `@JsModule` annotation come always before JavaScript files loaded by `@JavaScript`, and both of those come before CSS files loaded by `@CssImport`.

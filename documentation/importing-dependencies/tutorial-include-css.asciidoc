@@ -103,8 +103,8 @@ document.head.appendChild(documentContainer.content);
 . Use the `@JsModule("./shared-styles.js")` annotation in a component class, like your main layout class.
 
 === Using CssImport
-The new `@CssImport` annotation can be used to load cs files into the global scope.
-Create a normal css file under `{project directory}/frontend/styles` and use the annotation to bundle the css into frontend resources.
+The new `@CssImport` annotation can be used to load CSS files into the global scope.
+Create a normal CSS file under `{project directory}/frontend/styles` and use the annotation to bundle the CSS into frontend resources.
 
 [source,html]
 ----
