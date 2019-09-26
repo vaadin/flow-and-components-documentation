@@ -100,5 +100,6 @@ When set to `true`, enables Vaadin 13 compatibility mode (Vaadin uses Bower and 
 See <<../v14-migration/v14-migration-guide#compatibility-mode, Compatibility mode in Vaadin 14 Migration Guide>> for more information.
 
 |devmode.optimizeBundle |
-When set to `true`, creates an optimized Webpack bundle by including only frontend resources that are used from the application entry points (this is the default in production mode).
+Normally all frontend resources found on the class path are included in the generated Webpack bundle.
+When set to `true`, creates an optimized bundle by including only frontend resources that are used from the application entry points (this is the default in production mode).
 Uses bytecode scanning which increases application startup time. *This feature is available only in Vaadin Platform 14.1 and newer.*
