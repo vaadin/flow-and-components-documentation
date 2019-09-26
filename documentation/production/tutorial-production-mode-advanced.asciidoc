@@ -78,3 +78,8 @@ and will be used as entry point of the application.
 
 * *generateEmbeddableWebComponents* (default: `true`):
     Whether to generate embeddable web components from WebComponentExporter inheritors.
+
+* *optimizeBundle* (default: `true`):
+    Whether to include only frontend resources used from application entry points (the default) or to include all resources found on the class path.
+    Should normally be left to the default, but a value of `false` can be useful for faster production builds or debugging discrepancies between development and production mode.
+    *This feature is available only in Vaadin Platform 14.1 and newer.*
