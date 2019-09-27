@@ -26,7 +26,7 @@ NOTE: The frontend directory can be customized by providing the property `vaadin
 
 ==== Default Bootstrap Template and Entry Point
 
-If the presence of the `index.html` in the frontend folder is missing, `vaadin-maven-plugin` generates a default one in the `target` folder with the following content:
+If the `index.html` or `index.ts` (and `index.js`) in the frontend folder are missing, `vaadin-maven-plugin` generates a default corresponding file in the `target` folder. The generated files are responsible to bootstrap and load the application using server-side routing. You can take control of these files by creating them to the `frontend` folder. The default content of the files are as following:
 
 .Default `index.html`
 [source,html]
@@ -36,30 +36,32 @@ If the presence of the `index.html` in the frontend folder is missing, `vaadin-m
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-</head>
-<body>
   <!-- Polyfills for the Web Component APIs are required to use Web Components
     in the browsers that do not support these APIs natively (e.g. IE11) -->
-  <script src="./VAADIN/build/webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="./VAADIN/build/webcomponentsjs/webcomponents-loader.js" defer></script>
   <!-- index.ts is included here automatically (either by the dev server or during the build) -->
+</head>
+<body>
 </body>
 </html>
 ----
 
-The same rule applies for the entry point, `index.ts` or `index.js`. If both of them are missing from the frontend folder, a default one is generated in `target` folder. The content is as below:
-
-.Default `index.js`
+.Default `index.ts`
 [source,javascript]
 ----
-import { Flow } from '@vaadin/flow-frontend/Flow.js';
+
+import { Flow } from '@vaadin/flow-frontend/Flow';
 
 const flow = new Flow({
   // relative path to `projectDir/target/frontend/flow-generated-imports.js`
-  imports: () => import('./frontend/flow-generated-imports.js')
+  // @ts-ignore
+  imports: () => import('../target/frontend/flow-generated-imports.js')
 });
 // Let the flow-server control the application
 flow.start();
 ----
+
+NOTE: Follow <<typescript-support#, this link>> for more information about TypeScript support. To mix client-side and server-side routes, you need to install and configure `vaadin-router` as described in <<quick-start-guide#, Quick Start Guide>>
 
 In case you have an `index.ts` in your frontend folder but there is no `tsconfig.json` in your project root, `vaadin-maven-plugin` also generates one.
 
