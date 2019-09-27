@@ -51,9 +51,10 @@ The same rule applies for the entry point, `index.ts` or `index.js`. If both of 
 .Default `index.js`
 [source,javascript]
 ----
-import { Flow } from '@vaadin/flow-frontend/Flow';
+import { Flow } from '@vaadin/flow-frontend/Flow.js';
 
 const flow = new Flow({
+  // relative path to `projectDir/target/frontend/flow-generated-imports.js`
   imports: () => import('./frontend/flow-generated-imports.js')
 });
 // Let the flow-server control the application
