@@ -23,7 +23,7 @@ Here is an example where we fetch sensitive user data from the database, but don
 4. Vaadin double-checks the session info and makes sure a Button with the given ID exists. If it does, the server-side click handler for the button is invoked and given the event details.
 5. The server-side code fetches the user details from storage. This data does not need to be filtered at this point, but can be if the developer so chooses.
 6. The developer chooses what parts of the data to show the user by setting it as the content for any components. 
-    a. For example: nameTextField.setValue(user.getName());
+    a. For example: `nameTextField.setValue(user.getName());
 7. After the handler code has executed, Vaadin will not store any reference to the fetched data. Any data that is not specifically set to be displayed is therefore discarded, such as user ID or hashed passwords or salts.
 8. Only the user name String is sent to the client to be displayed, not the full User object. The client is not even aware there is a User object on the server side.
 9. After the user has modified the name, the new value is sent back to the server. On the server, the developer can load the User object again, set the new name, and store the object.
@@ -37,10 +37,10 @@ Since Vaadin is a server-side framework, credential processing always happens on
 
 Generally, it is recommended that the developer double-checks user identity and access rights for each call from the client. This can be automated with e.g. Spring Security and view-based authentication using roles. What typically can’t be automated by these frameworks is data-based access rights, such as limiting access to specific entities.
 
-As an example, if the server receives an ID of a User object to be displayed in e.g. a URL request parameter ( {yourapp.com}/users/4/edit ), then the ID in question can be freely changed by an attacker. The application needs to be aware of this and check if the currently logged in user has access rights to this entity. This is something that is common for all UI frameworks, and not specific to Vaadin. 
+As an example, if the server receives an ID of a User object to be displayed in e.g. a URL request parameter (`{yourapp.com}/users/4/edit`), then the ID in question can be freely changed by an attacker. The application needs to be aware of this and check if the currently logged in user has access rights to this entity. This is something that is common for all UI frameworks, and not specific to Vaadin. 
 
 Examples for integrating Spring Security can be found here: 
-<<https://vaadin.com/tutorials/securing-your-app-with-spring-security#, Securing your app with Spring Security>>.
+<<https://vaadin.com/tutorials/securing-your-app-with-spring-security, Securing your app with Spring Security>>.
 
 == Application state
 
@@ -52,7 +52,7 @@ For instance, if the developer sets a component to be disabled, this effect is s
 ----
 Button button = new Button("Click me for effect!");
 button.setEnabled(false);
-button.addClickListener(e-> {
+button.addClickListener(e -> {
 	// If the Button is disabled, this listener will not run,
 	// even if an attacker enables the button client side.
 });
@@ -103,14 +103,15 @@ The CSRF token is passed inside the JSON message in the request body:
 
 [source]
 ----
-Sending xhr message to server: {"csrfToken":"0bd61cf8-0231-455b-b39a-434f054352c5","rpc":[{"type":"mSync","node":5,"feature":1,"property":"invalid","value":false},{"type":"publishedEventHandler","node":9,"templateEventMethodName":"confirmUpdate","templateEventMethodArgs":[0]}],"syncId":0,"clientId":0}
+Sending xhr message to server: 
+{"csrfToken":"0bd61cf8-0231-455b-b39a-434f054352c5","rpc":[{"type":"mSync","node":5,"feature":1,"property":"invalid","value":false},{"type":"publishedEventHandler","node":9,"templateEventMethodName":"confirmUpdate","templateEventMethodArgs":[0]}],"syncId":0,"clientId":0}
 ----
 
 The CSRF token mechanism can be overridden on the server to enable e.g. repeatable load test scripts using Gatling or similar tools. This is strongly discouraged when running in production.
 
 == Cross-Site Scripting (XSS)
 
-Vaadin has built-in protection against cross-site scripting (xss) attacks. Vaadin uses Browser APIs that make the browser render content as text instead of HTML, such as using `innerText` instead of `innerHTML`. This negates the chance to accidentally inserting e.g. `<script> tags into the DOM by binding unsecure string values. 
+Vaadin has built-in protection against cross-site scripting (xss) attacks. Vaadin uses Browser APIs that make the browser render content as text instead of HTML, such as using `innerText` instead of `innerHTML`. This negates the chance to accidentally inserting e.g. `<script>` tags into the DOM by binding unsecure string values. 
 
 Some Vaadin components explicitly allow HTML content for certain attributes, in which case your application needs to ensure that the data does not contain XSS payloads. Allowing insecure HTML content is never the default, it is an explicit choice by developers. Vaadin recommends using e.g. JSoup for sanitation and escaping.
 
@@ -147,8 +148,7 @@ Sometimes application developers need to run custom scripts inside the applicati
 [source,java]
 ----
 // The script below can do whatever it wants, use the method carefully! 
-UI.getCurrent().getPage().executeJs("window.alert('This method is 
-inherently unsafe');");
+UI.getCurrent().getPage().executeJs("window.alert('This method is inherently unsafe');");
  
 // This is especially dangerous!
 // We can’t know what the script contains, nor can we make it safe.
@@ -170,7 +170,7 @@ UI.getCurrent().getPage().executeJs(script, scriptParam);
 
 === Using Templates 
 
-When using Polymer Templates in Vaadin applications, the developer needs to be extra careful when inserting data into the DOM as well as using JavaScript. Vaadin automatically uses String values safely when using a TemplateModel from the server side, but the framework has no control over what the developers do using HTML or JavaScript inside the template itself. An example is binding a TextField with javascript value directly to client-side logic; there is no guarantee that the input is safe, and it should be sanitized before use.
+When using Polymer Templates in Vaadin applications, the developer needs to be extra careful when inserting data into the DOM as well as using JavaScript. Vaadin automatically uses String values safely when using a `TemplateModel` from the server side, but the framework has no control over what the developers do using HTML or JavaScript inside the template itself. An example is binding a `TextField` with javascript value directly to client-side logic; there is no guarantee that the input is safe, and it should be sanitized before use.
 
 Reading values from Template Models and receiving RPC calls in server side methods has the same caveats as discussed in the section Data Validation; the developer should never trust values sent from the client.
 
@@ -224,13 +224,13 @@ Cross-Site Request Forgery (CSRF) when fetching static resources
 
 Many tools report a CSRF vulnerability when Vaadin fetches static resources. These requests can not change app state. Here is a list of resources that are safe to fetch without a CSRF token:
 
-- Widgetset files (such as AppWidgetset.nocache.js)
-- vaadinBootstrap.js
-- vaadin-bundle-(hash).cache.js
-- vaadin-flow-bundle-(hash).cache.html
-- client-(hash).cache.js
-- frontend-es[56]/bower_components/webcomponentsjs/*
-- VAADIN/build/webcomponentsjs/*
+- Widgetset files (such as `AppWidgetset.nocache.js`)
+- `vaadinBootstrap.js`
+- `vaadin-bundle-(hash).cache.js`
+- `vaadin-flow-bundle-(hash).cache.html`
+- `client-(hash).cache.js`
+- `frontend-es[56]/bower_components/webcomponentsjs/*`
+- `VAADIN/build/webcomponentsjs/*`
 
 === Authentication bypass when fetching static resources
 
@@ -256,22 +256,3 @@ This issue is reported because `vaadinBootstrap.js` indeed opens a new HTTP requ
 
 The way this request is done can not be used by an attacker to modify the application state, hence this is a false positive.
 
-
-
-
-
-
-= FORMATTING HELPERS
-
-There are a number of properties that you can use to configure your Flow application.
-
-This document summarizes the properties that are defined in `com.vaadin.server.DeploymentConfiguration` and `com.vaadin.server.Constants` classes.
-
-These properties can be set from the command line as a system property, as a Servlet init parameter in the `web.xml` or using the `@WebServlet` annotation.
-For further information, please consult the tutorial <<tutorial-flow-runtime-configuration#, Changing Flow behavior with runtime configuration>>.
-
-[NOTE]
-If you use Spring Boot then you should add the prefix `vaadin.`, e.g. vaadin.productionMode=true.
-
-
-See <<../v14-migration/v14-migration-guide#compatibility-mode, Compatibility mode in Vaadin 14 Migration Guide>> for more information.
