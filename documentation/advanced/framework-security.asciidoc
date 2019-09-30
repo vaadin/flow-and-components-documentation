@@ -23,7 +23,7 @@ Here is an example where we fetch sensitive user data from the database, but don
 4. Vaadin double-checks the session info and makes sure a Button with the given ID exists. If it does, the server-side click handler for the button is invoked and given the event details.
 5. The server-side code fetches the user details from storage. This data does not need to be filtered at this point, but can be if the developer so chooses.
 6. The developer chooses what parts of the data to show the user by setting it as the content for any components. 
-    a. For example: `nameTextField.setValue(user.getName());
+    a. For example: `nameTextField.setValue(user.getName());`
 7. After the handler code has executed, Vaadin will not store any reference to the fetched data. Any data that is not specifically set to be displayed is therefore discarded, such as user ID or hashed passwords or salts.
 8. Only the user name String is sent to the client to be displayed, not the full User object. The client is not even aware there is a User object on the server side.
 9. After the user has modified the name, the new value is sent back to the server. On the server, the developer can load the User object again, set the new name, and store the object.
