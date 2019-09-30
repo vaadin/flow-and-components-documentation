@@ -26,7 +26,7 @@ NOTE: The frontend directory can be customized by providing the property `vaadin
 
 ==== Default Bootstrap Template and Entry Point
 
-If the `index.html` or `index.ts` (and `index.js`) in the frontend folder are missing, `vaadin-maven-plugin` generates a default corresponding file in the `target` folder. The generated files are responsible to bootstrap and load the application using server-side routing. You can take control of these files by creating them to the `frontend` folder. The default content of the files are as following:
+If the `index.html` or `index.ts` (and `index.js`) in the frontend folder are missing, `vaadin-maven-plugin` generates a default corresponding file in the `target` folder. The generated files bootstrap and load the application using server-side routing. You can take control of these files by creating them in the `frontend` folder. The default content of the files are as following:
 
 .Default `index.html`
 [source,html]
