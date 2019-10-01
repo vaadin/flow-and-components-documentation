@@ -8,7 +8,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Client-side Bootstrapping
 
-Client-side bootstrapping in Vaadin 15+ allows creating applications that have parts of the UI written in TypeScript (or JavaScript), and do not always require a connected server-side <<../introduction/introduction-overview.asciidoc#,`UI`>> instance to run.
+Client-side bootstrapping in Vaadin 15+ allows creating applications that have parts of the UI written in TypeScript (or JavaScript), and do not always require a connected server-side <<../introduction/introduction-overview#,`UI`>> instance to run.
 It is one of the building blocks that enable starting an application from the browser cache when offline, navigating between views when offline, and starting the server-side of the app if and when it is needed.
 
 .frontend/index.ts
@@ -45,7 +45,7 @@ If migration from the V10-14 bootstrapping APIs to the V15 client-side bootstrap
 When using client-side bootstrapping, Vaadin does not automatically load the Flow client, nor create a server-side `UI` instance for the app.
 The Flow JavaScript API offers two ways to start a Flow app from the client-side:
 
- - `flow.route`: add a fallback route into a client-side routing configuration with Vaadin Router. This is the way to go if the application has a combination of client-side and server-side views. See the <<./client-side-routing.asciidoc#,Client-side Routing>> page for more details.
+ - `flow.route`: add a fallback route into a client-side routing configuration with Vaadin Router. This is the way to go if the application has a combination of client-side and server-side views. See the <<client-side-routing#,Client-side Routing>> page for more details.
 
  - `flow.start()`: start a Flow app and let it take full control over the current browser page. This is the way to go if the applicaitno has only server-side views. See the <<#default-index-ts,default `index.ts` file>> below on this page.
 
