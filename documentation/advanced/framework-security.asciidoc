@@ -85,8 +85,8 @@ new TextField("Set new username:", valueChangeEvent -> {
 	String sql = "UPDATE app_users WHERE id=? SET name=?";
 	
 	// Use prepared statement to safely call the DB
-	PreparedStatement ps = dbConnection.preparedStatement(sql);
-	ps.setInt(1, user.getId());
+	PreparedStatement ps = dbConnection.prepareStatement(sql);
+	ps.setLong(1, user.getId());
 	ps.setString(2, value); 
 	ps.executeUpdate();
  
