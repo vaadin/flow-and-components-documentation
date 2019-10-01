@@ -53,8 +53,8 @@ For instance, if the developer sets a component to be disabled, this effect is s
 Button button = new Button("Click me for effect!");
 button.setEnabled(false);
 button.addClickListener(e -> {
-	// If the Button is disabled, this listener will not run,
-	// even if an attacker enables the button client side.
+    // If the Button is disabled, this listener will not run,
+    // even if an attacker enables the button client side.
 });
 ----
 
@@ -77,21 +77,27 @@ Most providers have their own ways of dealing with injections out of the box and
 [source,java]
 ----
 new TextField("Set new username:", valueChangeEvent -> {
- 
-	String value = valueChangeEvent.getValue();
-	// ‘value’ can contain malicious content!
-	
-	// This is the correct way
-	String sql = "UPDATE app_users WHERE id=? SET name=?";
-	
-	// Use prepared statement to safely call the DB
-	PreparedStatement ps = dbConnection.prepareStatement(sql);
-	ps.setLong(1, user.getId());
-	ps.setString(2, value); 
-	ps.executeUpdate();
- 
-	// This is the INCORRECT way, DO NOT USE!
-	// sql = "UPDATE app_users WHERE id="+ user.getId() +" SET name=\"" + value + "\"";
+
+    String value = valueChangeEvent.getValue();
+    // ‘value’ can contain malicious content!
+
+    // This is the correct way
+    String sql = "UPDATE app_users WHERE id=? SET name=?";
+
+    try {
+        // Use prepared statement to safely call the DB
+        PreparedStatement ps = dbConnection.prepareStatement(sql);
+
+        ps.setLong(1, user.getId());
+        ps.setString(2, value);
+        ps.executeUpdate();
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+
+    // This is the INCORRECT way, DO NOT USE!
+    // sql = "UPDATE app_users WHERE id="+ user.getId() +" SET name=\"" + value +
+    // "\"";
 });
 ----
 
@@ -137,7 +143,7 @@ The developer can use helpers to mitigate the risk when data is not trusted. Her
 
 [source,java]
 ----
-String safeHtml = Jsoup.clean(dangerousText, Whitelist.relaxed())
+String safeHtml = Jsoup.clean(dangerousText, Whitelist.relaxed());
 new Checkbox().setLabelAsHtml(safeHtml);
 ----
 
@@ -161,7 +167,7 @@ Scripts can not be automatically escaped, since any escaping would make the scri
 [source,java]
 ----
 // If the script is known:
-String script = "window.alert($0)");
+String script = "window.alert($0)";
  
 // These parameters are treated in a safe way 
 String scriptParam = getScriptParamFromDB();

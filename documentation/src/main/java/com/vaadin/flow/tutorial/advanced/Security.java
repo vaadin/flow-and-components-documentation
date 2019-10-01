@@ -2,6 +2,7 @@ package com.vaadin.flow.tutorial.advanced;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
@@ -23,8 +24,8 @@ import com.vaadin.flow.tutorial.databinding.Person;
 @PreserveOnRefresh
 public class Security extends VerticalLayout {
 
-    Connection dbConnection;
-    Person user;
+    Connection dbConnection = null;
+    Person user = null;
 
     public Security() {
         Button button = new Button("Click me for effect!");
@@ -42,11 +43,16 @@ public class Security extends VerticalLayout {
             // This is the correct way
             String sql = "UPDATE app_users WHERE id=? SET name=?";
 
-            // Use prepared statement to safely call the DB
-            PreparedStatement ps = dbConnection.prepareStatement(sql);
-            ps.setLong(1, user.getId());
-            ps.setString(2, value);
-            ps.executeUpdate();
+            try {
+                // Use prepared statement to safely call the DB
+                PreparedStatement ps = dbConnection.prepareStatement(sql);
+
+                ps.setLong(1, user.getId());
+                ps.setString(2, value);
+                ps.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
 
             // This is the INCORRECT way, DO NOT USE!
             // sql = "UPDATE app_users WHERE id="+ user.getId() +" SET name=\"" + value +
@@ -66,7 +72,7 @@ public class Security extends VerticalLayout {
 
         new Checkbox().setLabelAsHtml("<b>This is bolded too</b>");
 
-        String dangerousText;
+        String dangerousText = "";
 
         String safeHtml = Jsoup.clean(dangerousText, Whitelist.relaxed());
         new Checkbox().setLabelAsHtml(safeHtml);
