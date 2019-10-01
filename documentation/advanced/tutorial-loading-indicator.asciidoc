@@ -28,8 +28,7 @@ element located inside the `<body>` element. *You need to also need to toggle th
 ----
 
 The loading indicator can be configured from Java by accessing the configuration object from `UI`.
-The easiest way to do this is with the `PageConfigurator` (see <<tutorial-bootstrap#,bootstrap page docs>> for more information)
-and the changes are applied already on the initial response.
+The easiest way to do this is with the `PageConfigurator` and the changes are applied already on the initial response.
 
 [source,java]
 ----

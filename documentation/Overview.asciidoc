@@ -25,6 +25,13 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<introduction/introduction-overview#,Introduction to Vaadin Flow>>
 * https://vaadin.com/tutorials/getting-started-with-flow[Getting started with Vaadin Flow]
 
+
+== Client Centric Development Model
+* <<ccdm/quick-start-guide#, Client-side Quick Start Guide>>
+* <<ccdm/client-side-bootstrapping#, Client-side Bootstrapping>>
+* <<ccdm/client-side-routing#, Client-side Routing>>
+* <<ccdm/typescript-support#, TypeScript Support>>
+
 == Router and Navigation
 * <<routing/tutorial-routing-annotation#,Defining Routes with @Route>>
 * <<routing/tutorial-routing-lifecycle#,Navigation Lifecycle>>
@@ -158,14 +165,13 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 == Advanced Topics
 * <<advanced/tutorial-application-lifecycle#,Application Lifecycle>>
 * <<advanced/tutorial-i18n-localization#,Application Localization (I18N)>>
-* <<advanced/tutorial-bootstrap#,Modifying the bootstrap page>>
 * <<advanced/tutorial-flow-runtime-configuration#,Flow runtime configuration>>
 * <<advanced/tutorial-loading-indicator#,Customizing the Loading Indicator>>
 * <<advanced/tutorial-push-configuration#,Server Push Configuration>>
 * <<advanced/tutorial-push-access#,Asynchronous Updates>>
 * <<advanced/tutorial-push-broadcaster#,Creating Collaborative Views>>
 * <<advanced/tutorial-dependency-filter#,Modifying how dependencies are loaded with DependencyFilters>>
-* <<advanced/tutorial-service-init-listener#,Configure RequestHandlers, BootstrapListeners and DependencyFilters using VaadinServiceInitListener>>
+* <<advanced/tutorial-service-init-listener#,Configure RequestHandlers, ClientIndexBootstrapListeners and DependencyFilters using VaadinServiceInitListener>>
 * <<advanced/tutorial-dynamic-content#,Showing Dynamic Content>>
 * <<advanced/tutorial-history-api#,History API>>
 * <<advanced/tutorial-stream-resources#,Using stream resources>>
