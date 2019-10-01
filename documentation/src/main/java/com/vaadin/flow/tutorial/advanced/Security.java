@@ -35,29 +35,29 @@ public class Security extends VerticalLayout {
             // even if an attacker enables the button client side.
         });
 
-        new TextField("Set new username:", valueChangeEvent -> {
+new TextField("Set new username:", valueChangeEvent -> {
 
-            String value = valueChangeEvent.getValue();
-            // ‘value’ can contain malicious content!
+    String value = valueChangeEvent.getValue();
+    // ‘value’ can contain malicious content!
 
-            // This is the correct way
-            String sql = "UPDATE app_users WHERE id=? SET name=?";
+    // This is the correct way
+    String sql = "UPDATE app_users WHERE id=? SET name=?";
 
-            try {
-                // Use prepared statement to safely call the DB
-                PreparedStatement ps = dbConnection.prepareStatement(sql);
+    try {
+        // Use prepared statement to safely call the DB
+        PreparedStatement ps = dbConnection.prepareStatement(sql);
 
-                ps.setLong(1, user.getId());
-                ps.setString(2, value);
-                ps.executeUpdate();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+        ps.setLong(1, user.getId());
+        ps.setString(2, value);
+        ps.executeUpdate();
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
 
-            // This is the INCORRECT way, DO NOT USE!
-            // sql = "UPDATE app_users WHERE id="+ user.getId() +" SET name=\"" + value +
-            // "\"";
-        });
+    // This is the INCORRECT way, DO NOT USE!
+    // sql = "UPDATE app_users WHERE id="+ user.getId() +" SET name=\"" + value +
+    // "\"";
+});
 
         Div div = new Div();
 
@@ -94,6 +94,8 @@ public class Security extends VerticalLayout {
         // These parameters are treated in a safe way
         String scriptParam = getScriptParamFromDB();
         UI.getCurrent().getPage().executeJs(script, scriptParam);
+        
+        return "";
     }
 
     private String getScriptParamFromDB() {
