@@ -28,28 +28,20 @@ A default `index.html` / `index.js` pair is generated during the build, and imme
 If there is a need to add a client-side view to the application later, it can be done incrementally, with minimal modifications.
 See more details on this in the <<#default-bootstrap-template-and-entry-point,Default Bootstrap Template and Entry Point>> section below.
 
-When compared to Vaadin 10-14, the biggest change introduced to the app bootstrapping process in Vaadin 15 is a split between generating an `index.html` page, and initializing a Flow client engine and a server-side `UI` instance.
-The `index.html` page includes the basic HTML markup that browsers need to start rendering the page and load additional app resources.
-The Flow client takes control of the browser page and executes the UI logic provided by the the server-side `UI` instance.
-In Vaadin 10 to 14 these two steps are combined and the `index.html` page includes the code and configuration needed to start the Flow client engine and link the page to the server-side `UI` instance.
-In Vaadin 15+ with client-side bootstrapping the `index.html` page includes only the basic HTML page markup and links to the TypeScript (or JavaScript) UI code.
-The Flow client and a server-side `UI` instance are loaded and created later if (and when) the user navigates to a route that does not have a client-side implementation.
-
-For applications migrated from earlier versions of Vaadin, client-side bootstrapping requires replacing the usages of the V10-14 `BootstrapHandler` APIs with their `ClientIndexHtmlHandler` API counterparts as described in link:https://github.com/vaadin/flow/issues/6584[TBD (see flow#6584)].
-
-If migration from the V10-14 bootstrapping APIs to the V15 client-side bootstrapping APIs is not feasible, it is possible to add a `-Dvaadin.clientSideMode=false` system property when starting the app to keep using the V10-14 bootstrapping process. It can be also be provided as a servlet container deployment property with the name `clientSideMode`.
+[NOTE]
+If you are migrating from an earlier version of Vaadin, check the <<#migrating-from-vaadin-10-14,Migrating from Vaadin 10-14>> section below.
 
 
-=== Startng a Flow App from Client-side Code
+=== Starting a Flow App from Client-side Code
 
-When using client-side bootstrapping, Vaadin does not automatically load the Flow client, nor create a server-side `UI` instance for the app.
+When using client-side bootstrapping, Vaadin does not automatically load the Flow client or create a server-side `UI` instance for the app.
 The Flow JavaScript API offers two ways to start a Flow app from the client-side:
 
  - `flow.route`: add a fallback route into a client-side routing configuration with Vaadin Router. This is the way to go if the application has a combination of client-side and server-side views. See the <<client-side-routing#,Client-side Routing>> page for more details.
 
- - `flow.start()`: start a Flow app and let it take full control over the current browser page. This is the way to go if the applicaitno has only server-side views. See the <<#default-index-ts,default `index.ts` file>> below on this page.
+ - `flow.start()`: start a Flow app and let it take full control over the current browser page. This is the way to go if the application has only server-side views. See the <<#default-index-ts,default `index.ts` file>> below on this page.
 
-By using either of these two approachs you can optimize your application to load the minimal content to be displayed to users at the first load. This might reduce the first-loading time compared to the Vaadin 10-14 bootstrapping method which loads a full Vaadin application on the first request. As a result, the first request loads promptly and that improves the first interaction experience.
+By using either of these two approaches, you can optimize your application to load the minimal content to be displayed to users at the first load. This might reduce the first-loading time compared to the Vaadin 10-14 bootstrapping method which loads a full Vaadin application on the first request. As a result, the first request loads promptly and that improves the first interaction experience.
 
 
 === Bootstrap Page Template [[bootstrap-page-template]]
@@ -170,3 +162,20 @@ public class CustomBootstrapPageListener implements
     }
 }
 ----
+
+
+=== Migrating from Vaadin 10-14 [[migrating-from-vaadin-10-14]]
+
+For applications migrated from earlier versions of Vaadin, client-side bootstrapping requires replacing the usages of the V10-14 `BootstrapHandler` APIs with their `ClientIndexHtmlHandler` API counterparts as described in link:https://github.com/vaadin/flow/issues/6584[TBD (see flow#6584)].
+
+The reason for this API change is that with clien-side bootstrapping the initial page HTML generation is separated from loading the Flow client and creating a server-side `UI` instance.
+
+ - In Vaadin 10 to 14 these two steps are combined and the `index.html` page includes the code and configuration needed to start the Flow client engine and link the page to the server-side `UI` instance.
+
+ - In Vaadin 15+ with client-side bootstrapping the `index.html` page includes only the basic HTML page markup and links to the TypeScript (or JavaScript) UI code. The Flow client and a server-side `UI` instance are loaded and created later if (and when) the user navigates to a route that does not have a client-side implementation.
+
+==== Compatibility Mode
+
+If migration from the V10-14 bootstrapping APIs to the V15 client-side bootstrapping APIs is not feasible, it is possible to add a `-Dvaadin.clientSideMode=false` system property when starting the app to keep using the V10-14 bootstrapping process.
+
+It can be also be provided as a servlet container deployment property with the name `clientSideMode`.
