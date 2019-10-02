@@ -12,7 +12,7 @@ This guide assumes that you already have a Vaadin 15 project, otherwise you can 
 
 If you downloaded a TypeScript starter project, you can skip configuration and go directly to the <<#step-5,step 5>> to add new views.
 
-→ *Step 1* - Enable <<client-side-bootstrapping#,Client Side Bootstrapping>> 
+→ *Step 1* - Enable <<client-side-bootstrapping#,Client Side Bootstrapping>>
 
 .pom.xml
 [source, xml]
@@ -98,14 +98,25 @@ router.setRoutes([
 ]);
 ----
 
+.install components
+[source, bash]
+----
+npm install --save '@vaadin/vaadin-button'
+----
+
 .frontend/app-help.js
 [source, javascript]
 ----
 import {LitElement, html} from 'lit-element';
+import '@vaadin/vaadin-button';
 
 export class AppHelp extends LitElement {
     render() {
-        return html`<h1>Help View</h1>`;
+      return html`<vaadin-button @click='${this.click}'>Read More</vaadin-button>`;
+    }
+
+    click(e) {
+      console.log('clicked');
     }
 }
 
@@ -120,7 +131,7 @@ customElements.define('app-help', AppHelp);
 @Route("server")
 public class ServerView extends Div {
     public ServerView() {
-        setText("Hello from server side");
+        this.add(new Button("click-me", e -> Notification.show("clicked")));
     }
 }
 ----
