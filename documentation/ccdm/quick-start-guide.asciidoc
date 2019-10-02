@@ -65,12 +65,12 @@ import {Router} from '@vaadin/router';
 import {Flow} from '@vaadin/flow-frontend/Flow';
 
 const router = new Router(document.querySelector('#outlet'));
-const flow = new Flow({
+const {serverSideRoutes} = new Flow({
   imports: () => import('../target/frontend/generated-flow-imports.js')
 });
 
 router.setRoutes([
-  flow.route
+  ...serverSideRoutes
 ]);
 ----
 
@@ -84,7 +84,7 @@ Flow API is not distributed via npm repositories but added automatically when ru
 ----
 import {Router} from '@vaadin/router';
 const router = new Router(document.querySelector('#outlet'));
-const flow = new Flow({
+const {serverSideRoutes} = new Flow({
   imports: () => import('../target/frontend/generated-flow-imports.js')
 });
 
@@ -94,7 +94,7 @@ router.setRoutes([
     component: 'app-help',
     action: () => import('app-help.js')
   },
-  flow.route
+  ...serverSideRoutes
 ]);
 ----
 
