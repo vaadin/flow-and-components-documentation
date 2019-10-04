@@ -61,7 +61,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<theme/theming-overview#,Theming Overview>>
 * <<theme/using-component-themes#,Using Component Themes>>
 * <<theme/application-theming-basics#,Application Theming Basics>>
-* <<theme/theming-crash-course#,Theming Crash Course>>
+* <<theme/theming-crash-course#,Theming Web Components>>
 * <<theme/integrating-component-theme#,Integrating Your Own Component Theme>>
 
 == Creating Components

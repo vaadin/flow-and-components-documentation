@@ -62,4 +62,4 @@ public class MainLayout extends Div
 
 `shared-styles.css` should typically contain all global and view-specific theming for your application. See <<theming-crash-course#,Theming Web Components>> for more about the expected contents.
 
-For custom components, you can add component-specific styling to the `template` block in the component's `.js` file. See <<theming-crash-course#,Theming Crash Course>> for an example of this.
+For custom components, you can add component-specific styling to the `template` block in the component's `.js` file. See <<theming-crash-course#,Theming Web Components>> for an example of this.
