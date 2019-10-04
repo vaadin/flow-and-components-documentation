@@ -162,7 +162,7 @@ GridSingleSelectionModel<Person> singleSelect =
 singleSelect.setDeselectAllowed(false);
 ----
 
-=== Multi-selection Model
+==== Multi-selection Model
 
 In multi-selection mode, a user can select multiple items by selecting checkboxes in the left column.
 
