@@ -30,6 +30,33 @@ Here is an example where we fetch sensitive user data from the database, but don
 
 As the example shows, the developer can safely handle confidential data in their code, even when dealing with UI code. The framework only stores data the developer gives it explicitly, and only data that should be visible on the client is actually sent there.
 
+=== 3rd party libraries
+Vaadin always updates dependencies to 3rd part libraries when security patches for them are released. The new dependencies are updated in maintenance releases; if necessary, a new maintenance version of Vaadin is created to apply the fix.
+
+In most cases, developers can also specifically update versions of external libraries using Maven, where updated versions of Vaadin libraries aren’t yet available. This is done by adding a new dependency definition with the wanted version number.
+
+Some older version of Vaadin additionally depend on libraries with known security issues. These libraries are used only for compiling Java code into JavaScript, and the insecure libraries are never deployed into the runtime and hence do not pose a security risk. These are the known libraries where this is the case:
+
+- `org.codehaus.plexus`
+
+== Security Practices at Vaadin
+
+=== Releasing security patches
+
+Security fixes are implemented as fast as possible and released for all supported versions (currently versions 8.9, 10.0 and 14.0). The fix is mentioned in the release notes, and we also send a separate security notification to all our registered users explaining the issue and how to fix it (typically updating to a new version).
+
+=== How users can report security issues
+
+If a developer or user finds a potential security issue, they can report it directly to `security@vaadin.com`. The issue will be reviewed and fixed internally, before publishing to GitHub.
+
+If the issue is minor and public discussion is OK, then issues can reported directly in GitHub.
+
+=== Internal security practices
+
+All code that is commited at Vaadin goes through an internal code review before it is merged. Each change is also ran against our existing battery of tens of thousands of unit, integration and behavior tests that have to pass for the merge to be accepted.
+
+Developers are also encouraged to actively think about security issues while developing the framework and its parts. At Vaadin, we take security extremely seriously. Anyone can escalate an issue that they think might be a security issue, and investigating the issue is given priority over other tasks.
+
 == Authentication and Authorization
 Vaadin lets you choose which authentication and authorization framework you want to use, instead of bundling any specific one. Vaadin is fully compatible with the most used security solutions in the Java ecosystem, including but not limited to Spring Security, JAAS and Apache Shiro. The Vaadin-Spring and Vaadin-CDI addons have helpers for developers to integrate into the security mechanisms of those respective frameworks.
 
@@ -198,16 +225,6 @@ Vaadin has published a security alert for this vulnerability, <<https://v.vaadin
  
 The vulnerability can not be fixed in the Vaadin framework, but instead developers must mitigate the risk using methods described in the alert appendices.
 
-== Releasing security patches
-
-Security fixes are implemented as fast as possible and released for all supported versions (currently versions 8.9, 10.0 and 14.0). The fix is mentioned in the release notes, and we also send a separate security notification to all our registered users explaining the issue and how to fix it (typically updating to a new version).
-
-=== How users can report security issues
-
-If a developer or user finds a potential security issue, they can report it directly to `security@vaadin.com`. The issue will be reviewed and fixed internally, before publishing to GitHub.
-
-If the issue is minor and public discussion is OK, then issues can reported directly in GitHub.
-
 == Frequently reported issues (false positives)
 
 From time to time, Vaadin users perform security tests on the framework and report issues they find. Most of the time the issues are false positives. Here is a list of commonly reported false positives and why they are false.
@@ -264,5 +281,5 @@ The way this request is done can not be used by an attacker to modify the applic
 
 === Enabling X-Frame-Options
 
-Vaadin does not automatically set the `X-Frame-Options` HTTP header, because many times apps should run inside frames. The developer can set this header either in the server options or by using the Java Servlet API (adding the header to `VaadinResponse.getCurrent()`).
+Vaadin does not automatically set the `X-Frame-Options` HTTP header, because many times apps should run inside frames. The developer can set this header either in the server options or by using the Java Servlet API (using e.g. the Vaadin BootstrapListener or creating a Servlet Filter).
 
