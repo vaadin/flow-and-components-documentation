@@ -37,7 +37,7 @@ If you are migrating from an earlier version of Vaadin, check the <<#migrating-f
 When using client-side bootstrapping, Vaadin does not automatically load the Flow client or create a server-side `UI` instance for the app.
 The Flow JavaScript API offers two ways to start a Flow app from the client-side:
 
- - `flow.route`: add a fallback route into a client-side routing configuration with Vaadin Router. This is the way to go if the application has a combination of client-side and server-side views. See the <<client-side-routing#,Client-side Routing>> page for more details.
+ - `flow.serverSideRoutes`: add a fallback route into a client-side routing configuration with Vaadin Router. This is the way to go if the application has a combination of client-side and server-side views. See the <<client-side-routing#,Client-side Routing>> page for more details.
 
  - `flow.start()`: start a Flow app and let it take full control over the current browser page. This is the way to go if the application has only server-side views. See the <<#default-index-ts,default `index.ts` file>> below on this page.
 

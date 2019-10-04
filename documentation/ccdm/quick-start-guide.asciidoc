@@ -12,7 +12,7 @@ This guide assumes that you already have a Vaadin 15 project, otherwise you can 
 
 If you downloaded a TypeScript starter project, you can skip configuration and go directly to the <<#step-5,step 5>> to add new views.
 
-→ *Step 1* - Enable <<client-side-bootstrapping#,Client Side Bootstrapping>> 
+→ *Step 1* - Enable <<client-side-bootstrapping#,Client Side Bootstrapping>>
 
 .pom.xml
 [source, xml]
@@ -65,12 +65,12 @@ import {Router} from '@vaadin/router';
 import {Flow} from '@vaadin/flow-frontend/Flow';
 
 const router = new Router(document.querySelector('#outlet'));
-const flow = new Flow({
+const {serverSideRoutes} = new Flow({
   imports: () => import('../target/frontend/generated-flow-imports.js')
 });
 
 router.setRoutes([
-  flow.route
+  ...serverSideRoutes
 ]);
 ----
 
@@ -84,7 +84,7 @@ Flow API is not distributed via npm repositories but added automatically when ru
 ----
 import {Router} from '@vaadin/router';
 const router = new Router(document.querySelector('#outlet'));
-const flow = new Flow({
+const {serverSideRoutes} = new Flow({
   imports: () => import('../target/frontend/generated-flow-imports.js')
 });
 
@@ -94,23 +94,37 @@ router.setRoutes([
     component: 'app-help',
     action: () => import('app-help.js')
   },
-  flow.route
+  ...serverSideRoutes
 ]);
+----
+
+.install components
+[source, bash]
+----
+npm install --save '@vaadin/vaadin-button'
 ----
 
 .frontend/app-help.js
 [source, javascript]
 ----
 import {LitElement, html} from 'lit-element';
+import '@vaadin/vaadin-button/vaadin-button';
 
 export class AppHelp extends LitElement {
     render() {
-        return html`<h1>Help View</h1>`;
+      return html`<vaadin-button @click='${this.click}'>Read More</vaadin-button>`;
+    }
+
+    click(e) {
+      console.log('clicked');
     }
 }
 
 customElements.define('app-help', AppHelp);
 ----
+
+NOTE:
+You might want to install all `@vaadin` components at once by running `npm install --save '@vaadin/vaadin-core'`
 
 → *Step 6* -  Add a server-side view and set the route path for it
 
@@ -120,7 +134,7 @@ customElements.define('app-help', AppHelp);
 @Route("server")
 public class ServerView extends Div {
     public ServerView() {
-        setText("Hello from server side");
+        this.add(new Button("click-me", e -> Notification.show("clicked")));
     }
 }
 ----

@@ -21,7 +21,7 @@ import {Router} from '@vaadin/router';
 import {Flow} from '@vaadin/flow-frontend/Flow';
 
 const router = new Router(document.querySelector('#outlet'));
-const flow = new Flow({
+const {serverSideRoutes} = new Flow({
   imports: () => import('../target/frontend/generated-flow-imports')
 });
 
@@ -32,7 +32,7 @@ router.setRoutes([
     component: 'app-categories'
   },
   // pass all unmatched paths to server-side
-  flow.route
+  ...serverSideRoutes
 ]);
 ----
 
@@ -157,7 +157,7 @@ const flow = new Flow({
 });
 ----
 
-Finally, make Vaadin Router pass all unmatched paths to Flow server by adding `flow.route` at the end of the router configuration block:
+Finally, make Vaadin Router pass all unmatched paths to Flow server by adding `...serverSideRoutes` at the end of the router configuration block:
 
 [source, html]
 ----
@@ -177,7 +177,7 @@ import {Router} from '@vaadin/router';
 import {Flow} from '@vaadin/flow-frontend/Flow';
 
 const router = new Router(document.querySelector('#outlet'));
-const flow = new Flow({
+const {serverSideRoutes} = new Flow({
   imports: () => import('../target/frontend/generated-flow-imports')
 });
 
@@ -189,7 +189,7 @@ router.setRoutes([
     component: 'app-categories'
   },
   // pass all unmatched paths to server-side
-  flow.route
+  ...serverSideRoutes
 ]);
 ----
 

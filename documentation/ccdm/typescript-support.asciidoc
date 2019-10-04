@@ -73,8 +73,8 @@ Client-side views can be created in TypeScript, like in the following example:
 [source,typescript]
 ----
 import {LitElement, html, css, customElement, query} from 'lit-element';
-import '@vaadin/vaadin-button/vaadin-button.js';
-import '@vaadin/vaadin-notification/vaadin-notification.js';
+import '@vaadin/vaadin-button/vaadin-button';
+import '@vaadin/vaadin-notification/vaadin-notification';
 
 @customElement("my-view")
 export class MyView extends LitElement {
@@ -136,14 +136,14 @@ import {Router} from '@vaadin/router';
 
 import './my-view';
 
-const flow = new Flow({
+const {serverSideRoutes} = new Flow({
   // @ts-ignore
   imports: () => import('../target/frontend/generated-flow-imports')
 });
 
 const routes = [
     {path: '', component: 'my-view'},
-    flow.route
+    ...serverSideRoutes
 ];
 
 const router = new Router(document.querySelector('#outlet'));
