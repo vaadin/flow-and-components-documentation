@@ -108,7 +108,7 @@ npm install --save '@vaadin/vaadin-button'
 [source, javascript]
 ----
 import {LitElement, html} from 'lit-element';
-import '@vaadin/vaadin-button';
+import '@vaadin/vaadin-button/vaadin-button';
 
 export class AppHelp extends LitElement {
     render() {
@@ -122,6 +122,9 @@ export class AppHelp extends LitElement {
 
 customElements.define('app-help', AppHelp);
 ----
+
+NOTE:
+You might want to install all `@vaadin` components at once by running `npm install --save '@vaadin/vaadin-core'`
 
 → *Step 6* -  Add a server-side view and set the route path for it
 
