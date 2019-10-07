@@ -18,9 +18,7 @@ package com.vaadin.flow.tutorial.importing;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.dependency.HtmlImport;
-import com.vaadin.flow.component.dependency.JavaScript;
-import com.vaadin.flow.component.dependency.StyleSheet;
+import com.vaadin.flow.component.dependency.*;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.shared.ui.LoadMode;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
@@ -50,13 +48,13 @@ public class LazyImporting {
         }
     }
     //@formatter:on
-    
+
     @JavaScript("1.js")
-    @StyleSheet("1.css")
-    @HtmlImport("1.html")
+    @JsModule("a.js")
+    @CssImport("1.css")
     @JavaScript("2.js")
-    @StyleSheet("2.css")
-    @HtmlImport("2.html")
+    @JsModule("b.js")
+    @CssImport("2.css")
     static class OrderedDependencies extends Div {
     }
 
