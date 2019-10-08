@@ -13,12 +13,12 @@ In this section we cover:
 
 * <<using-component-themes#,Using Themes>>.
 * <<application-theming-basics#,Theming Basics>>.
-* <<theming-crash-course#,Theming Polymer Components>>.
-* <<integrating-component-theme#,Creating a Custom Theme>>.
+* <<theming-crash-course#,Theming Web Components>>.
+* <<integrating-component-theme#,Integrating a Custom Component Theme>>.
 * <<tutorial-theming-overlay#,Theming Overlay Components>>.
 
 [NOTE]
 This content does not cover CSS basics. There are many external resources you can use for this purpose. 
 
 [NOTE]
-If your application includes <<../polymer-templates/tutorial-template-basic#,Polymer components>>, you need to use <<theming-crash-course#using-style-modules,style modules>> for theming.
+If your application includes <<../polymer-templates/tutorial-template-basic#,Polymer templates>>, you need to use <<theming-crash-course#using-style-modules,style modules>> for theming.

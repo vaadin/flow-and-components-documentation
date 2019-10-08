@@ -1,39 +1,42 @@
 ---
-title: Theming Crash Course
+title: Theming Web Components
 order: 4
 layout: page
 ---
 
 = Theming Web Components
 
-This chapter gives an overview of everything you need to understand in order to master and be productive in theming modern web applications which are built with web components.
 
-First, it is important to draw the line between global styles and scoped styles:
+This section describes how to theme applications that include, or are built with, <<../polymer-templates/tutorial-template-basic#,
+Web Components>> (also know as Polymer templates).  
 
-* Before web components were introduced, the styles were global on the web, meaning that a selector in CSS can target any element in the document.
-* Web components, and Shadow DOM in particular, introduce style scoping to the web platform.
-The contents of web components are isolated from global styles, and instead have scoped styles, which are specific to a particular web component only.
+When styling Polymer templates, it is important to distinguish global and scoped styles:  
 
-This guide describes how to apply global and scoped styles, as well as how to share common styles between style scopes for the application theming purpose.
+* *Global styles* apply to all elements globally. A CSS selector targets any and all elements. This was the case generally before the introduction of Web Components. 
+* *Scoped styles* are isolated from global styles and apply to only the shadow DOM of a specific Web Component (Polymer template). 
 
-== Global Styles
 
-Global styles are styles defined in the document scope.
-Global styles can target document body and any regular DOM contents inside, including the application views,
-but can not target Shadow DOM contents, such as internals of Vaadin components, Polymer templates, and other web components.
+== Defining Global Styles
 
-To define global styles, we need to put our styles in a `.css` file and configure your application to import
-it using the `@CssImport` annotation. Vaadin will wrap the styles appropriately to instruct Polymer to enable correct cross-browser scoping.
+Global styles are styles defined in the document scope, that is, styles that target the document body and regular DOM contents (including application views). Global styles exclude styles that target shadow DOM content, for example the internals of a Vaadin Polymer template or other Web Component. 
 
-.frontend/styles/shared-styles.css
+To define global styles:
+
+. Include your styles in a CSS file.
++
+*Example*: `shared-styles.css` typically stored in the `frontend/styles/` folder. 
++
 [source,css]
 ----
 html {
   font-size: 1em;
 }
 ----
+. Configure your application to import the CSS file using the `@CssImport` annotation. 
 
-.MyApplication.java
++
+*Example*: Using the `@CssImport` annotation to import `shared-styles.css`.
++
 [source,java]
 ----
 @Route(value = "")
@@ -42,15 +45,16 @@ public class MyApplication extends Div {
 }
 ----
 
+Vaadin wraps the styles appropriately and instructs Polymer to enable correct cross-browser scoping.
+
 == Styling Polymer Templates
 
-Since Polymer templates are web components, their template contents end up in Shadow DOM.
-By design, Shadow DOM defines a local style scope, isolated from global styles.
+Since Polymer templates are Web Components, their content is in the shadow DOM. By design, the shadow DOM defines a local-style scope that is isolated from global styles.
 
-Scoped styles, which are specific to a single template, can be added directly
-to the `<style>` tag inside the template getter.
+You can add component-specific scoped styles directly in the `<style>` tag in the template getter..
 
-.frontend/src/my-view.js
+*Example*: Adding component-specific styles in `my-view.js`.
+
 [source,js]
 ----
 import { PolymerElement } from
@@ -84,17 +88,16 @@ class MyView extends PolymerElement {
 customElements.define(MyView.is, MyView);
 ----
 
-
 == Using Custom CSS Properties
 
-One of the needs for theming is to share common style values, such as sizes, colors, etc, between pieces of the application.
-This could be achieved using custom CSS properties, which is a special syntax for assigning and referencing CSS variables.
-Custom CSS properties are inherited, their values cross Shadow DOM boundaries.
-Polymer templates can reuse values defined by global styles, as well as override them.
+You can use custom CSS properties to share common style values, such as sizes and colors, among different parts of your application. 
 
-Use global styles for `html` element to define a global custom CSS property:
+Custom CSS properties use the double dash (`--`) syntax, for example `--main-color: black;`, and allow you to assign and reference CSS variables. 
 
-.frontend/styles/shared-styles.css
+Custom CSS property values are inherited and are able to penetrate the shadow DOM. You can use them to style component elements within the shadow DOM. Polymer templates can reuse custom CSS property values defined by global styles, and also override them.
+
+*Example*: Defining a global custom CSS property in `shared-styles.css` for a HTML element. 
+
 [source,css]
 ----
 html {
@@ -103,9 +106,10 @@ html {
 }
 ----
 
-For referencing your custom CSS property, use ```var(--my-property)``` syntax. For example, in your Polymer template styles:
+You can reference your custom CSS properties using the `var(_--my-property_)` function.
 
-.frontend/styles/my-view.css
+*Example*: Using the `var()` function in `my-view.css` .
+
 [source,css]
 ----
 .my-view-title {
@@ -116,12 +120,10 @@ For referencing your custom CSS property, use ```var(--my-property)``` syntax. F
 
 == Using Style Modules
 
-Style modules allow sharing the same stylesheet between multiple Polymer templates and global styles.
+Style modules allow you to use the same style sheet for multiple Polymer templates and global styles.
 
-In order to import it in the application as a module, you need to provide an unique name for the `id`
-attribute in the `@CssImport` annotation
+*Example*: `common-styles.css` style module.
 
-.frontend/styles/common-styles.css
 [source,css]
 ----
 /* Example style module */
@@ -130,7 +132,10 @@ attribute in the `@CssImport` annotation
 }
 ----
 
-.MyApplication.java
+To import a style module into your application, you need to provide a unique name for the `id` attribute in the `@CssImport` annotation.
+
+*Example*: Importing `common-styles.css` using the `@CssImport` annotation. 
+
 [source,java]
 ----
 @Route(value = "")
@@ -139,8 +144,9 @@ attribute in the `@CssImport` annotation
 public class MyApplication extends Div {
 }
 ----
+You can now reuse the style module when importing other style files using the `include` attribute.
 
-Then you can re-use it when importing other style files by providing the `include` attribute.
+*Example*: `specific-styles.css`
 
 .frontend/styles/specific-styles.css
 [source,css]
@@ -151,8 +157,8 @@ Then you can re-use it when importing other style files by providing the `includ
 }
 ----
 
+*Example*: Using the `include` attribute to include the `common-styles` style module when importing `specific-styles.css`. 
 
-.MyApplication.java
 [source,java]
 ----
 @Route(value = "")
@@ -162,10 +168,10 @@ public class MyApplication extends Div {
 }
 ----
 
-If you need to style your templates directly in the client modules, you can define and
-import modules by using JavaScript:
+If you need to style your templates directly in the client modules, you can define and import modules using JavaScript.
 
-.frontend/styles/common-styles.js
+*Example*: Importing the `common-styles.css` style module in `common-styles.js`. 
+
 [source,js]
 ----
 import styles from './common-styles.css'
@@ -178,7 +184,8 @@ $_documentContainer.innerHTML = `
 document.head.appendChild($_documentContainer.content);
 ----
 
-.frontend/src/my-view.js
+*Example*: Using the `include` attribute to include the `common-styles` style module in `my-view.js`.
+
 [source,js]
 ----
 import { PolymerElement } from
@@ -206,10 +213,12 @@ class MyView extends PolymerElement {
 customElements.define(MyView.is, MyView);
 ----
 
+[NOTE]
+You can include multiple style modules into a single scope using a space-separated list of style module ids, for example `<style include="shared-styles other-shared-styles"></style>`.
 
-NOTE: Use a space-separated list of style module ids to include multiple style modules into a single scope: ```<style include="shared-styles other-shared-styles"></style>```.
+You can also include style modules in global styles.
 
-Style modules can also be included in global styles:
+*Example*: Using the `@CssImport` annotation to include the `common-styles` style module while importing `shared-styles.css`. 
 
 .MyApplication.java
 [source,java]
