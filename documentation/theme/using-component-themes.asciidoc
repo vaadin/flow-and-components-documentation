@@ -137,7 +137,7 @@ Both themes are a part of the `vaadin-core` dependency. To use the ready-made Va
 
 Both themes provide customization points for Vaadin components. These allow you to fine tune component appearance and UX. You can customize using CSS custom properties. See the the *Customization* section of the https://vaadin.com/themes/lumo[Lumo] and https://vaadin.com/themes/material[Material] documentation for more.
 
-Theming for Vaadin components is built using `Vaadin.ThemableMixin`. See the https://github.com/vaadin/vaadin-themable-mixin/wiki[vaadin-themable-mixin] documentation for more. 
+Theming for Vaadin components is built using `Vaadin.ThemableMixin`. See the https://github.com/vaadin/vaadin-themable-mixin#readme[vaadin-themable-mixin] documentation for more. 
 
 === Defining Global Theme Variants
 

@@ -1,6 +1,6 @@
 ---
 title: App Layout 2 Migration Guide
-order: 1
+order: 3
 layout: page
 ---
 
@@ -29,6 +29,7 @@ public class MyView extends AppLayout {
 `AppLayoutMenu` and `AppLayoutMenuItem`  were removed. The same functionality can be achieved by using `vaadin-tabs`. `AppLayoutMenu` can be directly replaced with `Tabs`.
 ```java
 Tabs menu = new Tabs();
+tabs.setWidthFull();
 ```
 To mimick AppLayoutMenu's look, use horizontal orientation and place the menu in the navbar.
 ```java

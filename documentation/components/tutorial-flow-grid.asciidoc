@@ -162,7 +162,7 @@ GridSingleSelectionModel<Person> singleSelect =
 singleSelect.setDeselectAllowed(false);
 ----
 
-=== Multi-selection Model
+==== Multi-selection Model
 
 In multi-selection mode, a user can select multiple items by selecting checkboxes in the left column.
 
@@ -468,7 +468,7 @@ Conceptually, there are three types of renderer:
 
 There are several basic renderers that you can use to configure grid columns.
 
-==== LocalDateRenderer
+==== Local Date Renderer
 
 Use `LocalDateRenderer` to render `LocalDate` objects in the cells.
 
@@ -495,7 +495,7 @@ grid.addColumn(new LocalDateRenderer<>(
     .setHeader("Estimated delivery date");
 ----
 
-==== LocalDateTimeRenderer
+==== Local Date Time Renderer
 
 Use `LocalDateTimeRenderer` to render `LocalDateTime` objects in the cells.
 
@@ -523,7 +523,7 @@ grid.addColumn(new LocalDateTimeRenderer<>(
 ).setHeader("Purchase date and time");
 ----
 
-==== NumberRenderer
+==== Number Renderer
 
 Use `NumberRenderer` to render any type of Number in the cells. It is especially useful for rendering floating-point values.
 
@@ -548,7 +548,7 @@ grid.addColumn(new NumberRenderer<>(
 ).setHeader("Price");
 ----
 
-==== NativeButtonRenderer
+==== Native Button Renderer
 
 Use `NativeButtonRenderer` to create a clickable button in the cells. It creates a native `<button>` on the client side. Click and tap (for touch devices) events are handled on the server side.
 
