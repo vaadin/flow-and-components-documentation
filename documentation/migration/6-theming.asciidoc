@@ -12,7 +12,7 @@ Vaadin 7 introduced the themes in Sass format and the parameterized Valo theme, 
 == New CSS Based Themes - No Sass
 
 Since we introduced Sass as a helper to Vaadin Application theming,
-browsers have started to support https://developer.mozilla.org/en-US/docs/Web/CSS/--*[CSS Custom Properties]
+browsers have started to support pass:macros[https://developer.mozilla.org/en-US/docs/Web/CSS/--*[CSS Custom Properties\]]footnote:[https://developer.mozilla.org/en-US/docs/Web/CSS/--*]
 (IE11 is polyfilled for production mode.), which brings the customizability gains from Sass to basic CSS, without the overhead of needing to compile the Sass to CSS.
 
 Thus, Vaadin 14 itself isn't using Sass, but you can of course use it for your own application theming if you want to.
