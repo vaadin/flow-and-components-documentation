@@ -1,5 +1,5 @@
 ---
-title: Client-side Bootstrapping in CCDM
+title: Client-side Bootstrapping
 order: 20
 layout: page
 ---
