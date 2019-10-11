@@ -1,6 +1,6 @@
 ---
 title: Client-side Routing
-order: 2
+order: 30
 layout: page
 ---
 
@@ -10,7 +10,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 Client-side routing adds the ability to combine regular Flow <<../routing/tutorial-routing-annotation#,views in Java>> (server-side views) and client-side views in JavaScript or TypeScript.
 
-It lets you to use link:https://vaadin.com/router[Vaadin Router] to define routes in your `index.js` or `index.ts` file, and delegate server-side Flow routes when no client-side routes matches.
+It lets you to use link:https://vaadin.com/router[Vaadin Router^] to define routes in your `index.js` or `index.ts` file, and delegate server-side Flow routes when no client-side routes matches.
 
 The following snippet which will be explained later, shows how to combine client and side views:
 
@@ -43,7 +43,7 @@ The glue for mixing views is the `@vaadin/flow-frontend/Flow` JavaScript module 
 == Prerequisites
 
  - Vaadin 15+ is needed to enable <<client-side-bootstrapping#,Client Side Bootstrapping>> and use the Flow client module.
- - Vaadin Router link:https://github.com/vaadin/vaadin-router/releases/[1.4.3+] is needed to properly handle client and server views.
+ - Vaadin Router link:https://github.com/vaadin/vaadin-router/releases/[1.4.3+^] is needed to properly handle client and server views.
 
 [NOTE]
 If your Vaadin starter project is already configured for client-side bootstrapping, you can skip _installation_ and _usage_ sections in this article.
@@ -230,7 +230,7 @@ router.setRoutes([
 ]);
 ----
 
-For more information visit vaadin router link:https://vaadin.github.io/vaadin-router/vaadin-router/#/classes/WebComponentInterface[API documentation]
+For more information visit vaadin router link:https://vaadin.github.io/vaadin-router/vaadin-router/#/classes/WebComponentInterface[API documentation^]
 
 === Flow Router navigation lifecycle (server-side views)
 

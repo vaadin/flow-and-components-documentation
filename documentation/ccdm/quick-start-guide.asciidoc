@@ -1,6 +1,6 @@
 ---
 title: Quick Start Guide
-order: 0
+order: 10
 layout: page
 ---
 
@@ -8,9 +8,9 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Quick Start Guide
 
-This guide assumes that you already have a Vaadin 15 project, otherwise you can download a starter from the link:https://vaadin.com/start/latest[Vaadin website].
+This guide assumes that you already have a Vaadin 15 project, otherwise you can download a starter from the link:https://vaadin.com/start/latest[Vaadin website^].
 
-If you downloaded a TypeScript starter project, you can skip configuration and go directly to the <<#step-5,step 5>> to add new views.
+If you downloaded a TypeScript starter project, you can skip configuration and go directly to the <<step-5,step 5>> to add new views.
 
 → *Step 1* - Enable <<client-side-bootstrapping#,Client Side Bootstrapping>>
 
@@ -22,7 +22,7 @@ If you downloaded a TypeScript starter project, you can skip configuration and g
 </properties>
 ----
 
-→ *Step 2* - Install link:https://vaadin.com/router/[Vaadin Router] from npm.
+→ *Step 2* - Install link:https://vaadin.com/router/[Vaadin Router^] from npm.
 
 [source,bash]
 ----
@@ -54,9 +54,9 @@ router.setRoutes([
 ----
 
 [NOTE]
-You can use <<typescript-support#TypeScript>> in your project if you'd rather it.
+You can use <<typescript-support#,TypeScript>> in your project if you'd rather it.
 
-→ *Step 4* - Import Flow module to enable link:https://vaadin.com/docs/v14/flow/routing/tutorial-routing-annotation.html[server-side routing]
+→ *Step 4* - Import Flow module to enable <<../routing/tutorial-routing-annotation#,server-side routing>>
 
 .frontend/index.js
 [source, javascript]
