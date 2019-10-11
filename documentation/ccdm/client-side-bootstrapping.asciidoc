@@ -8,8 +8,10 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Client-side Bootstrapping
 
-Client-side bootstrapping in Vaadin 15+ allows creating applications that have parts of the UI written in TypeScript (or JavaScript), and do not always require a connected server-side <<../introduction/introduction-overview#,`UI`>> instance to run.
-It is one of the building blocks that enable starting an application from the browser cache when offline, navigating between views when offline, and starting the server-side of the app if and when it is needed.
+Client-side bootstrapping allows creating parts of the application UI in TypeScript (or JavaScript).
+It also allows starting an app without creating a connected server-side <<../introduction/introduction-overview#,`UI`>> instance, which makes such applications stateless.
+
+This is one of the building blocks that enable starting an application and navigating between views when offline, and creating applications that are easy to scale because they do not consume server resources for each user session.
 
 .frontend/index.ts
 [source, javascript]
@@ -23,7 +25,7 @@ const flow = new Flow({
 flow.start();
 ----
 
-For applications that are built in Java and do not include any client-side views the client-side bootstrapping process is transparent.
+For applications where the UI is built in Java and does not include any client-side views the client-side bootstrapping process is transparent.
 A default `index.html` / `index.js` pair is generated during the build, and immediately loads the server-side `UI` when the app starts.
 If there is a need to add a client-side view to the application later, it can be done incrementally, with minimal modifications.
 See more details on this in the <<default-bootstrap-template-and-entry-point,Default Bootstrap Template and Entry Point>> section below.
@@ -56,7 +58,7 @@ NOTE: The frontend directory can be customized by providing the property `vaadin
 
 === Default Bootstrap Template and Entry Point [[default-bootstrap-template-and-entry-point]]
 
-If the `index.html` or `index.ts` (and `index.js`) in the frontend folder are missing, `vaadin-maven-plugin` generates a default corresponding file in the `target` folder. The generated files bootstrap and load the application using server-side routing. You can take control of these files by creating them in the `frontend` folder. The default content of the files are as following:
+If the `index.html` or `index.ts` (and `index.js`) files in the frontend folder are missing, `vaadin-maven-plugin` generates a default corresponding file in the `target` folder. The generated files starts the application so that it uses only server-side routing. You can take control of these files by moving them into the `frontend` folder. By default these files look similar to the following:
 
 .Default `index.html`
 [source,html]
@@ -67,7 +69,8 @@ If the `index.html` or `index.ts` (and `index.js`) in the frontend folder are mi
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- Polyfills for the Web Component APIs are required to use Web Components
-    in the browsers that do not support these APIs natively (e.g. IE11) -->
+    in the browsers that do not support these APIs natively (e.g. MS Edge) -->
+
   <script src="./VAADIN/build/webcomponentsjs/webcomponents-loader.js" defer></script>
   <!-- index.ts is included here automatically (either by the dev server or during the build) -->
 </head>
@@ -79,30 +82,24 @@ If the `index.html` or `index.ts` (and `index.js`) in the frontend folder are mi
 .Default `index.ts` [[default-index-ts]]
 [source,javascript]
 ----
-
 import { Flow } from '@vaadin/flow-frontend/Flow';
 
 const flow = new Flow({
   // relative path to `projectDir/target/frontend/flow-generated-imports.js`
-  // @ts-ignore
   imports: () => import('../target/frontend/flow-generated-imports.js')
 });
-// Let the flow-server control the application
+
+// load Flow and let it take full control over the browser page
 flow.start();
 ----
 
-NOTE: Follow <<typescript-support#, this link>> for more information about TypeScript support. To mix client-side and server-side routes, you need to install and configure `vaadin-router` as described in <<quick-start-guide#, Quick Start Guide>>
+NOTE: The auto-generated bootstrap template works best for server-side applicaitons. In order add client-side views into the app, please follow the  <<quick-start-guide#, Quick Start Guide>>.
 
-In case you have an `index.ts` in your frontend folder but there is no `tsconfig.json` in your project root, `vaadin-maven-plugin` also generates one.
+Using TypeScript requires a `tsconfig.json` file for the TypeScript compiler. `vaadin-maven-plugin` generates one in case if there an `index.ts` file in the frontend folder but there is no `tsconfig.json` in the project root. The default config look similar to the following:
 
 .Default `tsconfig.json`
 [source,json]
 ----
-// This TypeScript configuration file is generated by vaadin-maven-plugin.
-// This is needed for TypeScript compiler to compile your TypeScript code in the project.
-// It is recommended to commit this file to the VCS.
-// You might want to change the configurations to fit your preferences
-// For more information about the configurations, please refer to http://www.typescriptlang.org/docs/handbook/tsconfig-json.html
 {
   "compilerOptions": {
     "sourceMap": true,
@@ -124,24 +121,23 @@ In case you have an `index.ts` in your frontend folder but there is no `tsconfig
   ],
   "exclude": []
 }
-
 ----
 
-== Modifying the Bootstrap Page on Runtime
+== Modifying the Bootstrap Page at the Runtime
 
-Before sending the bootstrap page response to the browser, the content can be modified via a `ClientIndexBootstrapListener`. An implementation of the listener should be added via a `ServiceInitEvent` when a `VaadinService` is initialized. Take a look on the <<../advanced/tutorial-service-init-listener#,ServiceInitListener tutorial>> on how to configure it.
+Before sending the bootstrap page response to the browser, the content can be modified via an `IndexHtmlRequestListener`. An implementation of the listener should be added via a `ServiceInitEvent` when a `VaadinService` is initialized. Check the <<../advanced/tutorial-service-init-listener#,ServiceInitListener tutorial>> for the details about using Vaadin `ServiceInitListeners`.
 
-Here is an example implementation of `ClientIndexBootstrapListener` to add additional meta tags into the head of the bootstrap page:
+The example below shows how to use the `IndexHtmlRequestListener` API to add custom HTML meta tags dynamically for each page request:
 
 [source,java]
 ----
-public class CustomBootstrapPageListener implements
-            ClientIndexBootstrapListener {
+public class MyIndexHtmlRequestListener implements
+            IndexHtmlRequestListener {
 
     @Override
-    public void modifyBootstrapPage(
-            ClientIndexBootstrapPage clientIndexBootstrapPage) {
-        Document document = clientIndexBootstrapPage.getDocument();
+    public void modifyIndexHtmlResponse(
+            IndexHtmlResponse indexHtmlResponse) {
+        Document document = indexHtmlResponse.getDocument();
 
         Element head = document.head();
 
@@ -168,11 +164,11 @@ public class CustomBootstrapPageListener implements
 
 For applications migrated from earlier versions of Vaadin, client-side bootstrapping requires replacing the usages of the V10-14 `BootstrapHandler` APIs with their `ClientIndexHtmlHandler` API counterparts as described in link:https://github.com/vaadin/flow/issues/6584[TBD (see flow#6584)].
 
-The reason for this API change is that with clien-side bootstrapping the initial page HTML generation is separated from loading the Flow client and creating a server-side `UI` instance.
+The reason for this API change is that with client-side bootstrapping the initial page HTML generation is separated from loading the Flow client and creating a server-side `UI` instance.
 
- - In Vaadin 10 to 14 these two steps are combined and the `index.html` page includes the code and configuration needed to start the Flow client engine and link the page to the server-side `UI` instance.
+ - In Vaadin 10 to 14 these two steps are combined and the `index.html` page includes the code and configuration needed to start the Flow client engine and link the browser page to the server-side `UI` instance.
 
- - In Vaadin 15+ with client-side bootstrapping the `index.html` page includes only the basic HTML page markup and links to the TypeScript (or JavaScript) UI code. The Flow client and a server-side `UI` instance are loaded and created later if (and when) the user navigates to a route that does not have a client-side implementation.
+ - In Vaadin 15+ with client-side bootstrapping the `index.html` page includes only the basic HTML markup and links to the TypeScript (or JavaScript) UI code. When using <<client-side-routing#,client-side routing>>, the Flow client and a server-side `UI` instance are loaded and created later if (and when) the user navigates to a route that does not have a client-side implementation.
 
 === Compatibility Mode
 
