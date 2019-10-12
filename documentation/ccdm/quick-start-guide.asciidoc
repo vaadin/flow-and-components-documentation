@@ -124,7 +124,7 @@ customElements.define('app-help', AppHelp);
 ----
 
 NOTE:
-You might want to install all `@vaadin` components at once by running `npm install --save '@vaadin/vaadin-core'`
+You might want to install all `@vaadin` components at once by running `npm install --save '@vaadin/vaadin'`
 
 → *Step 6* -  Add a server-side view and set the route path for it
 
