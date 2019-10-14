@@ -63,7 +63,7 @@ This is not necessary anymore, and in Vaadin 10+ the UI content is delivered on 
 
 If you had previously customized the initial response with `BootstrapListener`, using client-side bootstrapping with `index.html` template is a simpler way of customizing the initial page response by adding the content directly to the file.
 
-`ClientIndexBootstrapListener` is still there and can be registered using a `VaadinServiceInitListener`, as shown by <<../advanced/tutorial-service-init-listener#,this tutorial>>.
+`IndexHtmlRequestListener` is still there and can be registered using a `VaadinServiceInitListener`, as shown by <<../advanced/tutorial-service-init-listener#,this tutorial>>.
 
 == Configuring Server Push
 

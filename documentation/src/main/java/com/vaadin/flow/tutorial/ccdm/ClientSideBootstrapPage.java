@@ -18,14 +18,14 @@ package com.vaadin.flow.tutorial.ccdm;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import com.vaadin.flow.server.IndexHtmlRequestListener;
-import com.vaadin.flow.server.IndexHtmlResponse;
+import com.vaadin.flow.server.communication.IndexHtmlRequestListener;
+import com.vaadin.flow.server.communication.IndexHtmlResponse;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("ccdm/client-side-bootstrapping.asciidoc")
 public class ClientSideBootstrapPage {
     public class MyIndexHtmlRequestListener implements
-                IndexHtmlRequestListener {
+            IndexHtmlRequestListener {
 
         @Override
         public void modifyIndexHtmlResponse(
