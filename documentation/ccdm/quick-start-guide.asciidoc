@@ -25,15 +25,16 @@ If you prefer to create a Maven project manually, check the <<preparing-a-projec
 import {Router} from '@vaadin/router';
 const router = new Router(document.querySelector('#outlet'));
 const {serverSideRoutes} = new Flow({
-  imports: () => import('../target/frontend/generated-flow-imports.js')
+  imports: () => import('../target/frontend/generated-flow-imports')
 });
 
 router.setRoutes([
   {
     path: '/help',
     component: 'app-help',
-    action: () => import('app-help.js')
+    action: () => import('app-help')
   },
+  // pass all unmatched paths to server-side
   ...serverSideRoutes
 ]);
 ----
@@ -90,7 +91,7 @@ public class ServerView extends Div {
 $ npm install --save @vaadin/router
 ----
 
-→ *Step 0b* - Create `frontend/index.html` and `frontend/index.js` to enable <<client-side-routing#,client-side routing>>.
+→ *Step 0b* - Create `frontend/index.html` and `frontend/index.ts` to enable <<client-side-routing#,client-side routing>>.
 
 .frontend/index.html
 [source, html]
@@ -113,9 +114,6 @@ router.setRoutes([
 ]);
 ----
 
-[NOTE]
-You can use <<typescript-support#,TypeScript>> in your project if you'd rather it.
-
 → *Step 0c* - Import Flow module to enable <<../routing/tutorial-routing-annotation#,server-side routing>>
 
 .frontend/index.ts
@@ -126,10 +124,11 @@ import {Flow} from '@vaadin/flow-frontend/Flow';
 
 const router = new Router(document.querySelector('#outlet'));
 const {serverSideRoutes} = new Flow({
-  imports: () => import('../target/frontend/generated-flow-imports.js')
+  imports: () => import('../target/frontend/generated-flow-imports')
 });
 
 router.setRoutes([
+  // pass all unmatched paths to server-side
   ...serverSideRoutes
 ]);
 ----
