@@ -13,6 +13,10 @@ It also allows starting an app without creating a connected server-side <<../int
 
 This is one of the building blocks that enable starting an application and navigating between views when offline, and creating applications that are easy to scale because they do not consume server resources for each user session.
 
+[WARNING]
+This feature is experimental and it *will change* before the next Long-Term-Supported Vaadin version.
+If you have an idea how to make it more useful for you, please share it on link:https://github.com/vaadin/flow/issues/new/[GitHub^].
+
 .frontend/index.ts
 [source, javascript]
 ----

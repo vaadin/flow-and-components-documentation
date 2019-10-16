@@ -6,10 +6,13 @@ layout: page
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-
 = TypeScript Support
 
 Vaadin 15+ supports link:https://www.typescriptlang.org/[TypeScript^] for writing client-side code, without needing any additional configuration. That includes live reloading at the development time, and optimized builds for production.
+
+[WARNING]
+This feature is experimental and it *will change* before the next Long-Term-Supported Vaadin version.
+If you have an idea how to make it more useful for you, please share it on link:https://github.com/vaadin/flow/issues/new/[GitHub^].
 
 In order to write the app bootstrapping code, or create views in TypeScript make sure that:
 

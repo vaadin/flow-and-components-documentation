@@ -26,12 +26,6 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * https://vaadin.com/tutorials/getting-started-with-flow[Getting started with Vaadin Flow]
 
 
-== Creating UI in TypeScript
-* <<ccdm/quick-start-guide#, Quick Start Guide>>
-* <<ccdm/client-side-bootstrapping#, Client-side Bootstrapping>>
-* <<ccdm/client-side-routing#, Client-side Routing>>
-* <<ccdm/typescript-support#, TypeScript Support>>
-
 == Router and Navigation
 * <<routing/tutorial-routing-annotation#,Defining Routes with @Route>>
 * <<routing/tutorial-routing-lifecycle#,Navigation Lifecycle>>
@@ -106,6 +100,12 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<polymer-templates/tutorial-template-list-bindings#,Using List of Items in a PolymerTemplate with template repeater>>
 * <<polymer-templates/tutorial-template-model-bean#,Using Beans with a PolymerTemplate Model>>
 * <<polymer-templates/tutorial-template-model-encoders#,Using Model Encoders with a PolymerTemplate Model>>
+
+== Creating UI in TypeScript
+* <<ccdm/quick-start-guide#, Quick Start Guide>>
+* <<ccdm/client-side-bootstrapping#, Client-side Bootstrapping>>
+* <<ccdm/client-side-routing#, Client-side Routing>>
+* <<ccdm/typescript-support#, TypeScript Support>>
 
 == Using Vaadin with Spring
 * <<spring/tutorial-spring-basic#,Use Vaadin with Spring>>

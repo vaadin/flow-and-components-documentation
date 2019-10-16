@@ -12,6 +12,10 @@ Client-side routing allows combining client-side views created in TypeScript (or
 
 This is one of the building blocks that enable navigating between views when offline because it does not require a server connection for navigation between client-side views.
 
+[WARNING]
+This feature is experimental and it *will change* before the next Long-Term-Supported Vaadin version.
+If you have an idea how to make it more useful for you, please share it on link:https://github.com/vaadin/flow/issues/new/[GitHub^].
+
 Client-side routing is based on using link:https://vaadin.com/router[Vaadin Router^] in a  <<client-side-bootstrapping#,client-side bootstrapped>> app.
 Client-side routes are explicitly listed in the routing config, and server-side routes are added there through the `serverSideRoutes` Flow JS API.
 
