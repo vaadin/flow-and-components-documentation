@@ -12,8 +12,8 @@ public class VaadinServiceInitListenerPage {
 
         @Override
         public void serviceInit(ServiceInitEvent event) {
-            event.addClientIndexBootstrapListener(response -> {
-                // ClientIndexBootstrapListener to change the bootstrap page
+            event.addIndexHtmlRequestListener(response -> {
+                // IndexHtmlRequestListener to change the bootstrap page
             });
 
             event.addDependencyFilter((dependencies, filterContext) -> {

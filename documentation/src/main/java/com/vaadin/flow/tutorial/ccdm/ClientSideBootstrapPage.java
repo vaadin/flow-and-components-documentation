@@ -18,19 +18,19 @@ package com.vaadin.flow.tutorial.ccdm;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import com.vaadin.flow.server.ClientIndexBootstrapListener;
-import com.vaadin.flow.server.ClientIndexBootstrapPage;
+import com.vaadin.flow.server.communication.IndexHtmlRequestListener;
+import com.vaadin.flow.server.communication.IndexHtmlResponse;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("ccdm/client-side-bootstrapping.asciidoc")
 public class ClientSideBootstrapPage {
-    public class CustomBootstrapPageListener implements
-            ClientIndexBootstrapListener {
+    public class MyIndexHtmlRequestListener implements
+            IndexHtmlRequestListener {
 
         @Override
-        public void modifyBootstrapPage(
-                ClientIndexBootstrapPage clientIndexBootstrapPage) {
-            Document document = clientIndexBootstrapPage.getDocument();
+        public void modifyIndexHtmlResponse(
+                IndexHtmlResponse indexHtmlResponse) {
+            Document document = indexHtmlResponse.getDocument();
 
             Element head = document.head();
 

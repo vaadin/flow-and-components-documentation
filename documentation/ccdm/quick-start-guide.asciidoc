@@ -1,6 +1,6 @@
 ---
 title: Quick Start Guide
-order: 0
+order: 10
 layout: page
 ---
 
@@ -8,29 +8,90 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Quick Start Guide
 
-This guide assumes that you already have a Vaadin 15 project, otherwise you can download a starter from the link:https://vaadin.com/start/latest[Vaadin website].
+NOTE: The quickest and easiest way to get started with Vaadin and TypeScript is to download a starter project from link:https://start.stg.vaadin.com/[start.stg.vaadin.com^].
 
-If you downloaded a TypeScript starter project, you can skip configuration and go directly to the <<#step-5,step 5>> to add new views.
+→ *Step 1* - Create a new project at link:https://start.stg.vaadin.com/[start.stg.vaadin.com^]
 
-→ *Step 1* - Enable <<client-side-bootstrapping#,Client Side Bootstrapping>>
+Make sure to select `TypeScript + Spring Boot` as the technology stack.
 
-.pom.xml
-[source, xml]
+If you prefer to create a Maven project manually, check the <<preparing-a-project-manually>> section below.
+
+
+→ *Step 2* - Add a client-side view and set a route path for it [[step-2]]
+
+.frontend/index.ts
+[source, javascript]
 ----
-<properties>
-  <vaadin.clientSideMode>true</vaadin.clientSideMode>
-</properties>
+import {Router} from '@vaadin/router';
+const router = new Router(document.querySelector('#outlet'));
+const {serverSideRoutes} = new Flow({
+  imports: () => import('../target/frontend/generated-flow-imports')
+});
+
+router.setRoutes([
+  {
+    path: '/help',
+    component: 'app-help',
+    action: () => import('app-help')
+  },
+  // pass all unmatched paths to server-side
+  ...serverSideRoutes
+]);
 ----
 
-→ *Step 2* - Install link:https://vaadin.com/router/[Vaadin Router] from npm.
+.install components
+[source, bash]
+----
+npm install --save '@vaadin/vaadin-button'
+----
+
+.frontend/app-help.ts
+[source, javascript]
+----
+import {LitElement, html, customElement} from 'lit-element';
+import '@vaadin/vaadin-button/vaadin-button';
+
+@customElement('app-help')
+export class AppHelp extends LitElement {
+    render() {
+      return html`
+        <vaadin-button @click=${this.click}>Read More</vaadin-button>
+      `;
+    }
+
+    click(e) {
+      console.log('clicked');
+    }
+}
+----
+
+NOTE:
+You might want to install all `@vaadin` components at once by running `npm install --save '@vaadin/vaadin-core'`
+
+→ *Step 3* -  Add a server-side view and set the route path for it
+
+.src/main/java/com/example/application/ServerView.java
+[source, java]
+----
+@Route("server")
+public class ServerView extends Div {
+    public ServerView() {
+        this.add(new Button("click-me", e -> Notification.show("clicked")));
+    }
+}
+----
+
+
+== Preparing a project manually [[preparing-a-project-manually]]
+
+→ *Step 0a* - Install link:https://vaadin.com/router/[Vaadin Router^] from npm.
 
 [source,bash]
 ----
 $ npm install --save @vaadin/router
 ----
 
-
-→ *Step 3* - Create `frontend/index.html` and `frontend/index.js` to enable <<client-side-routing#,client-side routing>>.
+→ *Step 0b* - Create `frontend/index.html` and `frontend/index.ts` to enable <<client-side-routing#,client-side routing>>.
 
 .frontend/index.html
 [source, html]
@@ -43,7 +104,7 @@ $ npm install --save @vaadin/router
 ----
 
 
-.frontend/index.js
+.frontend/index.ts
 [source, javascript]
 ----
 import {Router} from '@vaadin/router';
@@ -53,12 +114,9 @@ router.setRoutes([
 ]);
 ----
 
-[NOTE]
-You can use <<typescript-support#TypeScript>> in your project if you'd rather it.
+→ *Step 0c* - Import Flow module to enable <<../routing/tutorial-routing-annotation#,server-side routing>>
 
-→ *Step 4* - Import Flow module to enable link:https://vaadin.com/docs/v14/flow/routing/tutorial-routing-annotation.html[server-side routing]
-
-.frontend/index.js
+.frontend/index.ts
 [source, javascript]
 ----
 import {Router} from '@vaadin/router';
@@ -66,75 +124,16 @@ import {Flow} from '@vaadin/flow-frontend/Flow';
 
 const router = new Router(document.querySelector('#outlet'));
 const {serverSideRoutes} = new Flow({
-  imports: () => import('../target/frontend/generated-flow-imports.js')
+  imports: () => import('../target/frontend/generated-flow-imports')
 });
 
 router.setRoutes([
+  // pass all unmatched paths to server-side
   ...serverSideRoutes
 ]);
 ----
+
+Proceed to <<step-2,Step 2>> to add a client-side view.
 
 [NOTE]
 Flow API is not distributed via npm repositories but added automatically when running the Vaadin project.
-
-→ *Step 5* [[step-5]] - Add a client-side view and set a route path for it.
-
-.frontend/index.js
-[source, javascript]
-----
-import {Router} from '@vaadin/router';
-const router = new Router(document.querySelector('#outlet'));
-const {serverSideRoutes} = new Flow({
-  imports: () => import('../target/frontend/generated-flow-imports.js')
-});
-
-router.setRoutes([
-  {
-    path: '/help',
-    component: 'app-help',
-    action: () => import('app-help.js')
-  },
-  ...serverSideRoutes
-]);
-----
-
-.install components
-[source, bash]
-----
-npm install --save '@vaadin/vaadin-button'
-----
-
-.frontend/app-help.js
-[source, javascript]
-----
-import {LitElement, html} from 'lit-element';
-import '@vaadin/vaadin-button/vaadin-button';
-
-export class AppHelp extends LitElement {
-    render() {
-      return html`<vaadin-button @click='${this.click}'>Read More</vaadin-button>`;
-    }
-
-    click(e) {
-      console.log('clicked');
-    }
-}
-
-customElements.define('app-help', AppHelp);
-----
-
-NOTE:
-You might want to install all `@vaadin` components at once by running `npm install --save '@vaadin/vaadin-core'`
-
-→ *Step 6* -  Add a server-side view and set the route path for it
-
-.src/main/java/com/example/application/ServerView.java
-[source, java]
-----
-@Route("server")
-public class ServerView extends Div {
-    public ServerView() {
-        this.add(new Button("click-me", e -> Notification.show("clicked")));
-    }
-}
-----

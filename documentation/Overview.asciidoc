@@ -26,8 +26,8 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * https://vaadin.com/tutorials/getting-started-with-flow[Getting started with Vaadin Flow]
 
 
-== Client Centric Development Model
-* <<ccdm/quick-start-guide#, Client-side Quick Start Guide>>
+== Creating UI in TypeScript
+* <<ccdm/quick-start-guide#, Quick Start Guide>>
 * <<ccdm/client-side-bootstrapping#, Client-side Bootstrapping>>
 * <<ccdm/client-side-routing#, Client-side Routing>>
 * <<ccdm/typescript-support#, TypeScript Support>>
@@ -171,7 +171,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<advanced/tutorial-push-access#,Asynchronous Updates>>
 * <<advanced/tutorial-push-broadcaster#,Creating Collaborative Views>>
 * <<advanced/tutorial-dependency-filter#,Modifying how dependencies are loaded with DependencyFilters>>
-* <<advanced/tutorial-service-init-listener#,Configure RequestHandlers, ClientIndexBootstrapListeners and DependencyFilters using VaadinServiceInitListener>>
+* <<advanced/tutorial-service-init-listener#,Configure RequestHandlers, IndexHtmlRequestListeners and DependencyFilters using VaadinServiceInitListener>>
 * <<advanced/tutorial-dynamic-content#,Showing Dynamic Content>>
 * <<advanced/tutorial-history-api#,History API>>
 * <<advanced/tutorial-stream-resources#,Using stream resources>>
