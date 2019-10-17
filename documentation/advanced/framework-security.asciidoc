@@ -31,11 +31,11 @@ Here is an example where we fetch sensitive user data from the database, but don
 As the example shows, the developer can safely handle confidential data in their code, even when dealing with UI code. The framework only stores data the developer gives it explicitly, and only data that should be visible on the client is actually sent there.
 
 === 3rd party libraries
-Vaadin always updates dependencies to 3rd part libraries when security patches for them are released. The new dependencies are updated in maintenance releases; if necessary, a new maintenance version of Vaadin is created to apply the fix.
+Vaadin always updates dependencies to 3rd part libraries when security patches for them are released. When necessary, a new maintenance version of Vaadin is created to apply the fix.
 
-In most cases, developers can also specifically update versions of external libraries using Maven, where updated versions of Vaadin libraries aren’t yet available. This is done by adding a new dependency definition with the wanted version number.
+In most cases, developers can also specifically update versions of external libraries using Maven, where updated versions of Vaadin libraries aren’t yet available. This is done by adding a new dependency definition to the project pom.xml file with the wanted library and version number. This will make Maven override the Vaadin-defined version of the dependency with whatever version the developer added.
 
-Some older version of Vaadin additionally depend on libraries with known security issues. These libraries are used only for compiling Java code into JavaScript, and the insecure libraries are never deployed into the runtime and hence do not pose a security risk. These are the known libraries where this is the case:
+Older versions of Vaadin (namely, Vaadin 7 and 8) additionally depend on libraries with known security issues. These libraries are used only for compiling Java code into JavaScript, and the insecure libraries are never deployed into the runtime and hence do not pose a security risk. These are the known libraries where this is the case:
 
 - `org.codehaus.plexus`
 
@@ -43,7 +43,7 @@ Some older version of Vaadin additionally depend on libraries with known securit
 
 === Releasing security patches
 
-Security fixes are implemented as fast as possible and released for all supported versions (currently versions 8.9, 10.0 and 14.0). The fix is mentioned in the release notes, and we also send a separate security notification to all our registered users explaining the issue and how to fix it (typically updating to a new version).
+Security fixes are implemented as fast as possible and released for all supported versions (currently versions 8.9, 10.0 and 14.0). The fix is mentioned in the release notes, and we also send a separate security notification email to all our registered users explaining the issue and how to fix it (typically updating to a new mainenance version).
 
 === How users can report security issues
 
@@ -281,5 +281,7 @@ The way this request is done can not be used by an attacker to modify the applic
 
 === Enabling X-Frame-Options
 
-Vaadin does not automatically set the `X-Frame-Options` HTTP header, because many times apps should run inside frames. The developer can set this header either in the server options or by using the Java Servlet API (using e.g. the Vaadin BootstrapListener or creating a Servlet Filter).
+The X-Frame-Options are a way for web pages or apps to tell the browser that they should not be run inside frames (inside another page). This is done to try to ensure that these sites are not wrapped in malicious pages where attackers can intercept user actions. 
+
+Vaadin does not automatically set the `X-Frame-Options` HTTP header, because many times apps should run inside frames. Developers can set this header either in their server options or by using the Java Servlet API (using e.g. the Vaadin BootstrapListener or creating a Servlet Filter). 
 
