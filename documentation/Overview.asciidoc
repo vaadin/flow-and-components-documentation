@@ -106,6 +106,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<ccdm/client-side-bootstrapping#, Client-side Bootstrapping>>
 * <<ccdm/client-side-routing#, Client-side Routing>>
 * <<ccdm/typescript-support#, TypeScript Support>>
+* <<ccdm/how-to-create-api-endpoint#, How to Create an API Endpoint>>
 
 == Using Vaadin with Spring
 * <<spring/tutorial-spring-basic#,Use Vaadin with Spring>>
