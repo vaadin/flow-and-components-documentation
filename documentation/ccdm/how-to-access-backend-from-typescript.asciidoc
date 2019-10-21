@@ -1,0 +1,94 @@
+---
+title: How to Access the Backend from TypeScript
+order: 60
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= How to Access the Backend from TypeScript
+
+Vaadin Connect generates TypeScript clients for calling the Java backend
+in a type-checkable way.
+
+[WARNING]
+This feature is experimental and it *will change* before the next Long-Term-Supported Vaadin version.
+If you have an idea how to make it more useful for you, please share it on link:https://github.com/vaadin/flow/issues/new/[GitHub^].
+
+== Generated TypeScript modules from your Java backend services
+
+The TypeScript client frontend modules are generated for every Vaadin service
+on the backend. The generation is done automatically when the application
+compiles, and when the application is running in development mode.
+
+For example, the generated TypeScript module for the Java service defined in
+ <<how-to-create-api-endpoint,CounterService.java>> would look like:
+
+[source,typescript]
+.CounterService.ts
+----
+/**
+ * A Vaadin Connect service that counts numbers.
+ *
+ * This module has been generated from CounterService.java
+ * @module CounterService
+ */
+
+import client from './connect-client.default';
+
+/**
+ * A method that adds one to the argument.
+ *
+ * @param number
+ */
+export function addOne(number: number): Promise<number> {
+  return client.call('CounterService', 'addOne', {number}, {requireCredentials: true});
+}
+----
+
+By default, the generated files are located under `{project
+directory}/frontend/generated`. You can change the folder by providing the path
+for the generator in the `application.properties` project resource file.
+
+[NOTE]
+====
+The TypeScript modules are re-generated whenever you make changes to your Java
+files.
+====
+
+== Import and use generated TypeScript modules
+
+All the methods in the generated modules are exported, so you can either
+import them separately or the whole module as a service. For instance, the
+`CounterService.ts` could be used as in the following snippets:
+
+.index.ts (import the whole module)
+[[index.ts]]
+[source,typescript]
+----
+// Other imports
+import * as counterService from './generated/CounterService';
+
+// Other code
+counterService.addOne(1).then(result => console.log(result));
+----
+
+.index.ts (only import the needed method)
+[source,typescript]
+----
+// Other imports
+import {addOne} from './generated/CounterService';
+
+// Other code
+addOne(1).then(result => console.log(result));
+----
+
+== Code-completion
+
+As you see in `CounterService.ts`, the Javadoc of `@VaadinService` class
+is preserved the generated TypeScript file, and the type definitions are
+maintained. This helps code-completion work pretty well in *Visual Studio Code*
+and *Intellij IDEA Ultimate Edition*.
+
+.Code-completion in Visual Studio Code
+image:codecompletion.gif[Code-completion]
