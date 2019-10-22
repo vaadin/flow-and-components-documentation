@@ -15,11 +15,47 @@ in a type-checkable way.
 This feature is experimental and it *will change* before the next Long-Term-Supported Vaadin version.
 If you have an idea how to make it more useful for you, please share it on link:https://github.com/vaadin/flow/issues/new/[GitHub^].
 
-== Generated TypeScript modules from your Java backend services
+== Import and use generated TypeScript modules
 
-The TypeScript client frontend modules are generated for every Vaadin service
-on the backend. The generation is done automatically when the application
-compiles, and when the application is running in development mode.
+There is a generated TypeScript module for every Vaadin service on the backend.
+Each module exports all the methods.
+
+You can either import the whole generated module as a service, or import the
+methods from the module separately. For instance, the
+`CounterService.ts` could be used as in the following snippets:
+
+.index.ts (import the whole module)
+[[index.ts]]
+[source,typescript]
+----
+// Other imports
+import * as counterService from './generated/CounterService';
+
+// Other code
+counterService.addOne(1).then(result => console.log(result));
+----
+
+.index.ts (only import the needed method)
+[source,typescript]
+----
+// Other imports
+import {addOne} from './generated/CounterService';
+
+// Other code
+addOne(1).then(result => console.log(result));
+----
+
+== TypeScript generation details
+
+The generation is done automatically when the application compiles, and when
+the application is running in development mode.
+
+By default, the generated files are located under `{project
+directory}/frontend/generated`. You can change the folder by providing the path
+for the generator in the `generatedFrontendDirectory` property for Vaadin Maven
+plugin.
+
+== Example generated TypeScript module contents
 
 For example, the generated TypeScript module for the Java service defined in
  <<how-to-create-api-endpoint#how-to-create-vaadin-service,CounterService.java>> would look like:
@@ -44,38 +80,6 @@ import client from './connect-client.default';
 export function addOne(number: number): Promise<number> {
   return client.call('CounterService', 'addOne', {number}, {requireCredentials: true});
 }
-----
-
-By default, the generated files are located under `{project
-directory}/frontend/generated`. You can change the folder by providing the path
-for the generator in the `generatedFrontendDirectory` property for Vaadin Maven
-plugin.
-
-== Import and use generated TypeScript modules
-
-All the methods in the generated modules are exported, so you can either
-import them separately or the whole module as a service. For instance, the
-`CounterService.ts` could be used as in the following snippets:
-
-.index.ts (import the whole module)
-[[index.ts]]
-[source,typescript]
-----
-// Other imports
-import * as counterService from './generated/CounterService';
-
-// Other code
-counterService.addOne(1).then(result => console.log(result));
-----
-
-.index.ts (only import the needed method)
-[source,typescript]
-----
-// Other imports
-import {addOne} from './generated/CounterService';
-
-// Other code
-addOne(1).then(result => console.log(result));
 ----
 
 == Code-completion
