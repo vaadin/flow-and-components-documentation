@@ -22,7 +22,7 @@ on the backend. The generation is done automatically when the application
 compiles, and when the application is running in development mode.
 
 For example, the generated TypeScript module for the Java service defined in
- <<how-to-create-api-endpoint,CounterService.java>> would look like:
+ <<how-to-create-api-endpoint#how-to-create-vaadin-service,CounterService.java>> would look like:
 
 [source,typescript]
 .CounterService.ts

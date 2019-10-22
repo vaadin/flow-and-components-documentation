@@ -21,7 +21,7 @@ TypeScript clients to call the Java backend in a type-checkable way.
 This feature is experimental and it *will change* before the next Long-Term-Supported Vaadin version.
 If you have an idea how to make it more useful for you, please share it on link:https://github.com/vaadin/flow/issues/new/[GitHub^].
 
-== How to create a Vaadin service?
+== How to create a Vaadin service? [[how-to-create-vaadin-service]]
 
 Annotate any existing class with the `@VaadinService` annotation or create such
 class from scratch:
