@@ -17,7 +17,10 @@ package com.vaadin.flow.tutorial.importing;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.StyleSheet;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.Route;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("importing-dependencies/tutorial-include-css.asciidoc")
@@ -26,8 +29,10 @@ public class IncludeCss {
     //@formatter:off - custom line wrapping
     // Relative to Servlet URL
     @StyleSheet("styles.css")
+    @CssImport("./styles/custom-styles.css")
     // Loaded from external location
     @StyleSheet("http://www.example.com/example.css")
+    @Route("")
     public class MainLayout extends Component {
         // implementation omitted
 
@@ -39,5 +44,4 @@ public class IncludeCss {
         }
     }
     //@formatter:on
-
 }
