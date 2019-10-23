@@ -4,6 +4,8 @@ order: 50
 layout: page
 ---
 
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
 = How to Create an API Endpoint
 
 An API endpoint is a backend method that is exposed for calling from client-side
@@ -19,7 +21,7 @@ TypeScript clients to call the Java backend in a type-checkable way.
 This feature is experimental and it *will change* before the next Long-Term-Supported Vaadin version.
 If you have an idea how to make it more useful for you, please share it on link:https://github.com/vaadin/flow/issues/new/[GitHub^].
 
-== How to create a Vaadin service?
+== How to create a Vaadin service? [[how-to-create-vaadin-service]]
 
 Annotate any existing class with the `@VaadinService` annotation or create such
 class from scratch:
@@ -99,9 +101,7 @@ the `@VaadinService` annotation to override default one:
 `@VaadinService("customName")`. In this case, the `customName` value will be
 used as a `${service_name}` to accept incoming requests, also case-insensitive.
 
-////
 == Next steps
 
-- <<TODO: Replace this with a link#,How to use an API endpoint in to your
-Application>>
-////
+- <<how-to-access-backend-from-typescript#,How to Access Backend from
+TypeScript>>
