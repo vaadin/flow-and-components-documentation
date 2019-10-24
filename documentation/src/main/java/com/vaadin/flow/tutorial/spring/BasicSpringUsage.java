@@ -16,6 +16,7 @@
 package com.vaadin.flow.tutorial.spring;
 
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
