@@ -108,7 +108,7 @@ Follow the instructions on https://docs.spring.io/spring-boot/docs/current/refer
 
 == Add Vaadin view to Spring Boot application
 
-With Vaadin views are defined as Java classes using `@Route` annotation. Component scan will detect the classes and display them in given path. If you leave out the path parameter the view is served in the root context of the application, and you can specify multiple views by givin them different paths. 
+With Vaadin views are defined as Java classes using `@Route` annotation. Component scan will detect the classes and publish them in a path derived from the class name or defined as parameter to the annotation. 
 
 *Example*: `MainView` class.
 
