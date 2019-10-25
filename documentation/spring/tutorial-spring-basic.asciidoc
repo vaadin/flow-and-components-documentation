@@ -124,7 +124,7 @@ public class MainView extends VerticalLayout {
 }
 ----
 [TIP]
-If no route path is provided, the path will be derived from the class name of the class. The derived name will be in lower case and trailing "View" will be removed. Also, `MainView` or `Main` names will be mapped to root (path will be `""`)
+If you don't provide a path parameter, the framework will derive the path from the class name of the class. The derived name will be in lower case, and possible trailing "View" will be removed. Also, `MainView` or `Main` names will be mapped to root (path will be `""`)
 
 == Vaadin Spring Boot examples
 
