@@ -61,10 +61,10 @@ public class DragSourceSample extends Div {
         });
 
         card1.addDragEndListener(event -> {
-            getVisibleCards().forEach(target -> target.removeClassName("drop-zone"));
+            getVisibleCards().forEach(target -> target.removeClassName("possible-drop-zone"));
             // NOTE: The following is always FALSE for Edge, Safari and IE11 !!!
             if (event.isSuccessful()) {
-                // better to put logic for succesful drop into DropEvent for the
+                // better to put logic for successful drop into DropEvent for the
                 // DropTarget because of the above
             }
         });
