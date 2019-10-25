@@ -80,6 +80,11 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<element-api/tutorial-dynamic-styling#,Dynamic styling>>
 * <<element-api/tutorial-shadow-root#,Shadow root in server-side Element>>
 
+== Drag and Drop
+* <<dnd/generic-dnd#,Generic Drag and Drop>>
+* <<dnd/drag-source#,Making Any Component Draggable>>
+* <<dnd/drop-target#,Creating a Drop Target>>
+
 == Integrating Web Components
 * <<web-components/integrating-a-web-component#,Integrating a Web Component>>
 * <<web-components/creating-java-api-for-a-web-component#,Creating Java API for a Web Component>>
