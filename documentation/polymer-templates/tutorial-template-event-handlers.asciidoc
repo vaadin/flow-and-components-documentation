@@ -235,9 +235,12 @@ you and there is no need to send this custom event at all. You may just notify s
 === Other ways of calling the server
 
 Another way to call a server side method is the `@ClientCallable` annotation which allows a Java method to be called from the client side code using the notation `this.$server.serverMethodName(args)`.
-It can be used anywhere in your client side Polymer class implementation. You can pass your own arguments in this methodm, as long as their types matches to method declaration on the server side.
+It can be used anywhere in your client-side Polymer class implementation.
+You can pass your own arguments to this method, as long as their types match the method declaration on the server side.
+For more info, please see <<../element-api/client-server-rpc#clientcallable-annotation,@ClientCallable annotation>>.  
 
-You can also define `PropertyChangeListeners` when working with templates. for more info, please see <<../components/tutorial-enabled-state#enabling-property-changes,Enabling Property Changes>>.
+You can also define `PropertyChangeListeners` when working with templates.
+For more info, please see <<../components/tutorial-enabled-state#enabling-property-changes,Enabling Property Changes>>.
 
 === Receiving "after server update" event
 
