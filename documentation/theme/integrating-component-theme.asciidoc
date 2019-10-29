@@ -1,20 +1,20 @@
 ---
-title: Integrating Your Own Component Theme
+title: Integrating a Custom Component Theme
 order: 5
 layout: page
 ---
 
-= Integrating Your Own Component Theme
+= Integrating a Custom Component Theme
 
-To create your own component theme to be used with the wrapped Vaadin components
-you need to create a theme class that informs Vaadin how to translate the base un-themed
-component html import to use your themed version.
+You can integrate a custom component theme to be used with the wrapped Vaadin components. To do this, you need to create a theme class that tells Vaadin how to translate the base un-themed component HTML import into your themed version.
 
-The `getBaseUrl` should return the part of the import that can be used to determine if
-it is an import that could be changed to a theme import. (for Vaadin components that is `/src/`)
+The most important methods are:
 
-The `getThemeUrl` should return what the base url part should be changed to to get the
-correct theme import. (for Vaadin components that `/theme/[themeName]` is used)
+* `getBaseUrl`: This should return the part of the import that is used to determine if it is an import that can be changed into a theme import. For Vaadin components this is `/src/`.
+
+* `getThemeUrl`: This should return what the base URL part should be changed into to get the correct theme import. For Vaadin components this is `/theme/[_themeName_]`.
+
+*Example*: Overriding the `getBaseUrl` and `getThemeUrl` methods in the `MyTheme` class. 
 
 [source,java]
 ----
@@ -32,9 +32,9 @@ public class MyTheme implements AbstractTheme {
 }
 ----
 
-For more control there is `getHeaderInlineContents()` that returns a collection of html
-that will be inlined to the BootstrapPage body. For instance, it can be used to add a
-custom style to have the correct typography:
+If you need more control, you can use the `getHeaderInlineContents()` method that returns a collection of HTML that will be inlined to the `BootstrapPage` body. 
+
+*Example*: Using the `getHeaderInlineContents()` method to add a custom style that includes the correct typography styles.
 [source,java]
 ----
 @Override
@@ -46,8 +46,14 @@ public List<String> getHeaderInlineContents() {
 }
 ----
 
-Your theme can also support variants. For instance, Lumo theme supports both light and dark variants.
-To add support for variants, you can override the `getHtmlAttributes`  method:
+Your can also support theme variants. The Lumo theme, for example, supports both light and dark variants.
+
+To add support for variants:
+
+. Override the `getHtmlAttributes` method in your custom theme class.
++
+*Example*: Overriding the `getHtmlAttributes` method.
++
 [source,java]
 ----
 @Override
@@ -63,11 +69,10 @@ public Map<String, String> getHtmlAttributes(
 }
 ----
 
-Then you need to create themed `.js` files for all the vaadin elements in the `/frontend/theme/myTheme/` folder.
-
-For instance, to modify the `vaadin-button` component by adding some custom rules to the original Lumo ones, your themed file for button might look like this:
-
-.frontend/theme/myTheme/vaadin-button.js
+. Create themed `.js` files for all the Vaadin elements in the `/frontend/theme/myTheme/` folder.
++
+*Example*: Modifying  the `vaadin-button` component by adding custom rules to the original Lumo rules in `frontend/theme/myTheme/vaadin-button.js`.
++
 [source,js]
 ----
 // import the non-themed component
@@ -96,9 +101,8 @@ document.head.appendChild($_documentContainer.content);
 ----
 
 [NOTE]
-Be aware that you need to provide theme files for all the components used in your application, otherwise they will be displayed without any style. This works in this way because all vaadin components are imported by using the `/src/` path, and it is responsability of the theme class to replace the `getBaseUrl()` pattern by the appropriate path to the themed elements as it is returned in the `getThemeUrl()`.
+You need to provide theme files for all components used in your application. Omitted component display without any styles. This is because all Vaadin components are imported using the `/src/` path, and it is the responsibility of the theme class to replace the `getBaseUrl()` pattern with an appropriate path to the themed elements (as returned in the `getThemeUrl()`).
 
-== Creating Your Own Component Theme
+== Creating a Custom Component Theme
 
-The theming for the Vaadin components is built using `Vaadin.ThemableMixin`.
-See link:https://github.com/vaadin/vaadin-themable-mixin/wiki[vaadin-themable-mixin wiki] to learn how theming of Vaadin components is done.
+Theming for the Vaadin components is built using `Vaadin.ThemableMixin`. See the link:https://github.com/vaadin/vaadin-themable-mixin#readme[vaadin-themable-mixin documentation] to learn more.

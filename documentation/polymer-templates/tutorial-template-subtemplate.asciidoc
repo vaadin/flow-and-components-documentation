@@ -1,13 +1,13 @@
 ---
 title: Using sub-template from PolymerTemplate
-order: 3
+order: 10
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 = Using sub-template from PolymerTemplate
 
-You can configure Java instances to be created for custom elements inside your HTML template file with the `@Uses` annotation.
+Your template can have references to child templates that are defined in other files, by using their tag name and import. In this case you will need to let the server know to load the child file as well. This is done automatically if you bind the child template in the Java file by using `@Id`, like you would do for any other component.
 
 Here is an example of parent HTML template file:
 
@@ -21,7 +21,7 @@ class ParentTemplate extends PolymerElement {
         return html`
             <div>Parent Template</div>
             <div>[[name]]</div>
-            <child-template></child-template>`;
+            <child-template id="childTemplate"></child-template>`;
     }
 
     static get is() { return 'parent-template' }
@@ -36,23 +36,20 @@ The Java counterpart defines that `ChildTemplate` should be instantiated for any
 ----
 @Tag("parent-template")
 @JsModule("./com/example/parent-template.js")
-@Uses(ChildTemplate.class)
 public class ParentTemplate extends PolymerTemplate<Model> {
+
+    @Id("childTemplate")
+    private ChildTemplate child;
 }
 
 public interface Model extends TemplateModel {
     void setName(String name);
-
-    String getName();
 }
 ----
 
 The HTML template uses a `child-template` element, which is a custom element defined in `ChildTemplate.html`.
-Since the client-side implementation of `child-template` depends on a click handler defined from server-side Java, an instance of `ChildTemplate` must be created on the server.
-By using `@Uses(ChildTemplate.class)`, this instance will automatically be created and hooked up with the `<child-template>` element in the parent template based on the `@Tag("child-template")` annotation value.
-
-[NOTE]
-Server-side instances are also created when using `@Id` to connect elements together. You don't need `@Uses` for elements that are already covered by `@Id`, and vice versa.
+Since the client-side implementation of `child-template` depends on a click handler defined from server-side Java, an instance of `ChildTemplate` must be created on the server to receive the event.
+By using the `@Id` mapping, this instance will automatically be created and hooked up with the `<child-template>` element in the parent template.
 
 Here is the child template Java code:
 
