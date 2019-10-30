@@ -1,0 +1,462 @@
+---
+title: Client-side Bootstrapping
+order: 70
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= Client-side Security
+
+When server side views are developed, service access control can be done in different ways:
+
+When developing server-side views, service access control is done by using regular java approaches: servlet-container based security, third party libraries, or session based solutions.
+
+On the other hand, client-side views do not have any sort of security, hence, it is necessary to secure the endpoint services that they access.
+
+This article describes all the pieces needed for securing client centric applications.
+
+== How to secure server-side endpoints
+
+The first step is to configure authorization of each service that the application exposes.
+
+=== Default security options
+
+Consider the basic Vaadin Connect service defined in the following class:
+
+.CounterService.java
+[source,java]
+----
+@VaadinService
+public class CounterService {
+    public int addOne(int number) {
+        return number + 1;
+    }
+}
+----
+
+For this service definition, when the application is started locally, it awaits the POST requests to the
+`http://localhost:8080/connect/CounterService/addOne` endpoint.
+
+But if you try to send any POST request to the endpoint (not using the Vaadin Client), you'll get a
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401[401 Unauthorized] response instead of the method invocation.
+
+This happens due to Vaadin access control features enabled by default for any service method:
+if not specified in Java code explicitly, before invoking a service method, the presence of `Principal` object in the the request is required.
+The `HttpServletRequest#getUserPrincipal()` Java API is used for the check.
+
+At this point, the servlet container or the application needs to be configured appropriately to handle user authentication.
+This is described in the <<container,'How to configure Servlet container'>> section.
+
+== Other security options
+
+In order to change the default behavior, a security Java annotation should either be placed on the service class or on the service method.
+There are the following annotations:
+
+* `@PermitAll`
+Same as no annotations, allows any authenticated user to call a method via the request.
+* `@RolesAllowed`
+Grants access to users having the roles specified in the annotation value. Roles are covered in the <<permissions,next section>>.
+* `@DenyAll`
+Disallows to call the method via the request by anyone.
+* `@AnonymousAllowed`
+Permits anyone to call the method via the request without the authorization.
+
+A security annotation that is placed on a class is applied to any public method of this class that has no security annotations.
+If the method has security annotations, any class-level annotation is discarded and only method ones are applied.
+
+If there are multiple annotations specified on some entity, the following rules are applied:
+
+- `DenyAll` overrides other annotations
+- `AnonymousAllowed` overrides `RolesAllowed` and `PermitAll`
+-  `RolesAllowed` overrides `PermitAll`
+
+Example:
+
+.MyService.java
+[source,java]
+----
+@VaadinService
+@DenyAll
+public class MyService {
+
+  public void deniedService() {
+    // Not possible to call by any request due to class-level annotation
+  }
+
+  @AnonymousAllowed
+  public void anonymousService() {
+    // Possible to call by any request (even without
+    // authorization) since method level annotation
+    // overrides class-level one
+  }
+
+  @PermitAll
+  public void permittedToAllService() {
+    // Permitted to all authenticated users, same as if
+    // there were no security annotations on the class
+    // and the methods.
+    // Since there's a `@DenyAll` annotation is on the
+    // class, we specify this one on a method to override
+    // the class one.
+  }
+
+  @RolesAllowed("ROLE_ADMIN")
+  public void permittedToToleService() {
+    // Permited to all authenticated users belonging
+    // to the ROLE_ADMIN
+  }
+}
+----
+
+== Defining user permissions[[permissions]]
+
+As mentioned in the previous section, every user can have roles and may affect his ability to access some service methods.
+This section explains how to specify those for each user.
+
+Vaadin Services checks the existence of roles by using the `HttpServletRequest#isUserInRole(String)` Java API.
+
+Once the servlet container has been configured to handle user authentication, when the server receives a request for the secured service, user and its roles are checked, and if everything is alright, the method is executed.
+
+== Accessing user information in a service method
+
+When access to the `UserPrincipal` is required in a service, an extra argument with the `HttpServletRequest` signature
+can be provided to the service method. This magic argument handled by Vaadin Flow is not not exposed to the TypeScript API
+
+.EchoService.java
+[source,java]
+----
+@VaadinService
+public class EchoService {
+    public String saySomething(String message, HttpServletRequest req) {
+        return req.getUserPrincipal().getName() + " says: " + message;
+    }
+}
+----
+
+.frontend/index.ts
+[source,typescript]
+----
+import * as service from './generated/EchoService';
+
+service
+    .saySomething("It's snowing in Turku")
+    .then(response => console.log(response));
+----
+
+== How to configure Servlet container authentication [[containers]]
+
+Servlet containers have different mechanism to run security checks and create the user `Principal` object when authentication is required for secured endpoints.
+
+As reference, we provide examples for two popular containers, as well as code for custom authentication.
+
+=== Configuring Jetty
+
+.$JETTY_HOME/etc/jetty-users.properties
+[source,properties]
+----
+test: password1,user
+admin: password2,user,admin
+----
+
+.$JETTY_HOME/etc/jetty.xml
+[source,xml]
+----
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+  <Set name="contextPath">/connect</Set>
+  <Set name="war"><SystemProperty name="jetty.home" default="."/>/webapps/my-app</Set>
+
+  <Get name="securityHandler">
+    <Set name="loginService">
+      <New class="org.eclipse.jetty.security.HashLoginService">
+        <Set name="name">my-app</Set>
+        <Set name="config"><SystemProperty name="jetty.home" default="."/>/etc/jetty-users.properties</Set>
+      </New>
+    </Set>
+  </Get>
+</Configure>
+----
+
+[NOTE]
+A 'realm' is a repository of user information. The `HashLoginService` is a simple login service that loads usernames from a Java properties file, whereas `JDBCLoginService` cat read users from a JDBC data-source.
+
+=== Configuring Tomcat
+
+.$CATALINA_HOME/conf/tomcat-users.xml
+[source,xml]
+----
+<tomcat-users>
+  <role rolename="admin" />
+  <role rolename="user" />
+  <user name="test" password="password1" roles="user" />
+  <user name="admin" password="password2" roles="user,admin" />
+</tomcat-users>
+----
+
+.$CATALINA_HOME/conf/server.xml
+[source,xml]
+----
+<Context path="/connect">
+  <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+         resourceName="UserDatabase" />
+</Context>
+----
+
+[NOTE]
+Change the realm implementation if you'd rather have a different user data-source. Provided `UserDatabaseRealm` is able to get users from a JDBC database.
+
+=== Configuring a Custom Filter
+
+For customized authentication, it is needed to implement a custom `HttpServletRequest` to wrap the default one through a `WebFilter`.
+
+In the next example, there is a customized `Principal` object, and it's assumed that this principal is set as a `Session` attribute at some point by the application.
+
+.CustomPrincipal.java
+[source,java]
+----
+public class CustomPrincipal implements Principal {
+    private final String name;
+    private final List<String> roles;
+
+    public CustomPrincipal(String name, String ...roles) {
+        this.name = name;
+        this.roles = Arrays.asList(roles);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isUserInRole(String role) {
+        return roles.contains(role);
+    }
+}
+----
+
+.CustomHttpServletRequest.java
+[source,java]
+----
+public class CustomHttpServletRequest extends HttpServletRequestWrapper {
+    public CustomHttpServletRequest(HttpServletRequest request) {
+        super(request);
+    }
+
+    @Override
+    public Principal getUserPrincipal() {
+        Principal myUser = (Principal) getSession().getAttribute("User");
+        return myUser != null ? myUser : super.getUserPrincipal();
+    }
+
+    @Override
+    public boolean isUserInRole(String role) {
+        return getUserPrincipal() instanceof CustomPrincipal
+                && ((CustomPrincipal) getUserPrincipal()).isUserInRole(role)
+                || super.isUserInRole(role);
+    }
+}
+----
+
+
+.CustomWebFilter.java
+[source,java]
+----
+@WebFilter("/connect")
+public class CustomWebFilter implements Filter {
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response,
+            FilterChain chain) throws IOException, ServletException {
+
+        chain.doFilter(new CustomHttpServletRequest((HttpServletRequest) request), response);
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException { }
+
+    @Override
+    public void destroy() { }
+}
+----
+
+== How to check that a user is logged in client-side
+
+The client-side module provides an API for checking whether the user is logged in the application.
+
+.frontend/index.ts
+[source,typescript]
+----
+import client from './generated/connect-client.default';
+
+client.checkLoggedIn()
+      .then(logged =>
+          document.body
+              .querySelector('#connected')
+              .style.background = (logged ? 'green' : 'red')
+);
+----
+
+[NOTE]
+There is no need to define any endpoint in server side to respond to this check since it's internally implemented.
+
+== How to perform a login request
+
+The API for authenticate the user is a call to the `client.login()` method. Though, previously it's needed to configure a way to obtain the `login` and `password` pair through the `client.credentials` callback.
+
+.frontend/index.ts
+[source,typescript]
+----
+import client from './generated/connect-client.default';
+
+client.credentials = async () => {
+  return {username: 'user', password: 'password'}
+};
+
+client.login();
+----
+
+[NOTE]
+The `client.login()` method will ask for the login credentials only in the case that a call to `client.checkLoggedIn()` does not succeed.
+
+[NOTE]
+The `client.login()` method is automatically called when a service is demanded and user is not authenticated yet.
+
+== How to change default authentication method
+
+By default, Flow connect sends the `login/password` pair by using the HTTP Authentication Scheme. In order to use a different approach, it's needed to provide a `client.authenticate` callback, and handle the request in a custom `WebFilter`
+
+.frontend/index.ts
+[source,typescript]
+----
+import client from './generated/connect-client.default';
+
+client.authenticate = async (credentials) => {
+  return fetch('/connect/login', {
+    method: 'POST',
+    body: `username=${credentials.username}&password=${credentials.password}`
+  })
+};
+----
+
+.CustomWebFilter.java
+[source,java]
+----
+@WebFilter("/connect")
+public class CustomWebFilter implements Filter {
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response,
+            FilterChain chain) throws IOException, ServletException {
+
+        // Check username/password and set the `User` attribute in session
+        if ("foo".equals(request.getParameter("username")) &&
+            "abc123".equals(request.getParameter("password"))) {
+            ((HttpServletRequest) request).getSession()
+                .setAttribute("User", new CustomPrincipal("foo"));
+        }
+
+        // wrap original request with our custom implementation
+        chain.doFilter(new CustomHttpServletRequest((HttpServletRequest) request), response);
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException { }
+    @Override
+    public void destroy() { }
+}
+----
+
+=== How to logout
+
+You might be interested on removing the authentication principal from the server session, as well as clean browser status so as the user be asked to login the next time.
+
+.frontend/index.ts
+[source,typescript]
+----
+import client from './generated/connect-client.default';
+
+client.logout();
+----
+
+
+== How to create a login form
+
+It's a good practice to provide a way for asking the username and password pair to handle unauthorized response when requesting connect services.
+
+There are two options to log into the backend server:
+
+- Let Vaadin Connect `client` to decide when to show a login form so that it appears at that point when authorization is required to access the backend.
+- Or proactively ask for login when the App is opened by calling the `connect.login()` method.
+
+== How to configure the form and credentials callback
+
+=== 1. Define a login form in your UI
+
+Although you can use any HTML components for the form, in our example we use the https://github.com/vaadin/vaadin-login[vaadin-login-overlay] web component because of its simplicity. It is added to the UI as any other HTML tag:
+
+[source,xml]
+----
+<vaadin-login-overlay></vaadin-login-overlay>
+----
+
+Then, the import for the component library is needed to make it work, and eventually you can configure it by using its JavaScript API:
+
+./frontend/my-app.ts
+[source,typescript]
+----
+
+import '@vaadin/vaadin-login/vaadin-login-overlay.js';
+
+const vaadinLoginOverlay = document.querySelector('vaadin-login-overlay')
+   as any;
+
+vaadinLoginOverlay.i18n = {
+  header: {
+    title: 'My App Login',
+  },
+  form: {
+    username: 'Username',
+    password: 'Password',
+    submit: 'Submit'
+  }
+};
+----
+
+[NOTE]
+====
+`vaadin-login-overlay` is hidden by default, hence it's developer responsibility to show it whenever the authentication is needed (see the code in the next section as reference).
+====
+
+=== 2. Set the `credentials` callback
+
+Vaadin Connect `client` inspects service callbacks, when it realizes that there is no valid token, it executes the `credentials()` callback, thus developer must provide it as in the following example:
+
+.frontend/index.ts
+[source,typescript]
+----
+
+import client from './generated/connect-client.default';
+
+client.credentials = (options) => {
+  vaadinLoginOverlay.opened = true;
+  vaadinLoginOverlay.disabled = false;
+  return new Promise(resolve => {
+    vaadinLoginOverlay.addEventListener('login', e => {
+      vaadinLoginOverlay.opened = false;
+      resolve({
+        username: e.detail.username,
+        password: e.detail.password});
+    }, {once: true});
+  });
+};
+----
+
+== How Vaadin Services protects from CSRF attacks
+
+Connect client sends in each XHR request a custom header that protects against CSRF attacks since it cannot be set in 3rd party forms.
+
+The presence of the header is checked before any service invocation, returning an unauthorized response if it fails.
+
+If Cross-Origin Resource Sharing (CORS) is enabled in the Vaadin server, it must be appropriately configured for not accepting requests from unknown sources.
+
+
+
+
