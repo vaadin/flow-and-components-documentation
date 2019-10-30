@@ -108,6 +108,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<ccdm/typescript-support#, TypeScript Support>>
 * <<ccdm/how-to-create-api-endpoint#, How to Create an API Endpoint>>
 * <<ccdm/how-to-access-backend-from-typescript#, How to Access the Backend from TypeScript>>
+* <<ccdm/client-side-security#, Security in client-side>>
 
 == Using Vaadin with Spring
 * <<spring/tutorial-spring-basic#,Use Vaadin with Spring>>
