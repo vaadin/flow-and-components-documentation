@@ -49,11 +49,9 @@ to be able to process the requests made to such services.
 
 [IMPORTANT]
 ====
-At the moment, all API endpoints are public. No security checks are
-automatically performed for incoming client-side call requests.
+At the moment, all API endpoints are secured and only available for authenticated users. However, if an API endpoint is annotated with `@AnonymousAllowed`, the endpoint is public to any user.
 
-Make sure that your API endpoint implementation authenticates users and check
-their authorization for having respective data access permissions.
+A request is considered as an authenticated one when `request.getUserPrincipal()` returns a non-null `java.security.Principal` object. Therefore, make sure that your application set a proper `Principal` instance for authenticated users. Please refer to <<security#, Security page>> for more information.
 ====
 
 Any public method in any Vaadin service can be accessed with the following url:
@@ -66,7 +64,7 @@ Where:
 used. For instance, for Spring framework, the default one if the application is
 started locally, is `http://localhost:8080`.
 * `${endpoint}` — the url part that every Vaadin Connect service has,
-same for every service url. By default, `/connect` is used, but this can be
+same for every service url. By default, `connect` is used, but this can be
 configured in the application properties.
 * `${service_name}` — if not specified explicitly, the corresponding Java
 service class name.
@@ -90,7 +88,7 @@ combination for the service and method name.
 Vaadin Connect allows to configure the following url parts:
 
 * `${endpoint}`
-The default value is `/connect`. To change it to some other value, provide
+The default value is `connect`. To change it to some other value, provide
 `application.properties` file in the project resources:
 `src/main/resources/application.properties` and set the
 `vaadin.connect.endpoint` property to the new value.
