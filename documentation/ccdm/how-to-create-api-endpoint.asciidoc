@@ -49,9 +49,7 @@ to be able to process the requests made to such services.
 
 [IMPORTANT]
 ====
-At the moment, all API endpoints are secured and only available for authenticated users. However, if an API endpoint is annotated with `@AnonymousAllowed`, the endpoint is public to any user.
-
-A request is considered as an authenticated one when `request.getUserPrincipal()` returns a non-null `java.security.Principal` object. Therefore, make sure that your application set a proper `Principal` instance for authenticated users. Please refer to <<security#, Security page>> for more information.
+At the moment, all API endpoints are secured and only available for authenticated users. Pease refer to the <<client-side-security#, Security page>> for configuring access to each service.'
 ====
 
 Any public method in any Vaadin service can be accessed with the following url:
