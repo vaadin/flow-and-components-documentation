@@ -1,0 +1,32 @@
+---
+title: Overview
+order: 1
+layout: page
+---
+
+= Vaadin Portlet Support
+
+Vaadin Portlet Support for Vaadin 14.2+ is built on top of the <<Portlet 3.0
+specification>>.
+
+== Topics
+
+. <<creating-vaadin-portlets#,Creating Vaadin Portlets>>
++
+Instructs the reader on how to build their own Vaadin Portlets and how to run
+it on Pluto 3.0 reference implementation.
+
+. <<handling-portlet-phases#,Handling Portlet Phases>>
++
+Introduces the different `interfaces` the reader can use to interact with the
+Portlet phases and Portlet requests.
+
+. <<inter-portlet-communication#,Inter-portlet Communication>>
++
+Outlines how the reader can enable their Portlets to communicate with other
+Portlets (be they Vaadin Portlets or not) on the Portal page.
+
+. <<demo-address-book#,Address Book Demonstration>>
++
+A demonstration which shows how to build two functioning Vaadin Portlets that communicate with each other.
+The full code example is available in module https://github.com/vaadin/portlet-support/tree/master/vaadin-portlet-demo/address-book[vaadin-portlet-demo/address-book].
