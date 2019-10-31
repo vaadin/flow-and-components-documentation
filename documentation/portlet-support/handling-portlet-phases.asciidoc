@@ -29,6 +29,7 @@ The server-side instances are preserved when the page is refreshed, e.g. due to 
 This means that the client-side gets automatically repopulated with the state (similar to how views in servlet-based Vaadin applications behave when annotated with <<../advanced/tutorial-preserving-state-on-refresh#,`@PreserveOnRefresh`>>).
 
 === Listeners
+
 Vaadin Portlet support offers various listeners which allows implementing view component to react to updates from the portal.
 To add a listener, your view should first implement `VaadinPortletEventView`.
 Then in `VaadinPortletEventView.onPortletEventContextInit`, you have access to `VaadinPortletEventContext` which allows you to add the listeners you need.
