@@ -126,11 +126,11 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<osgi/tutorial-osgi-components#,Create OSGi compatible components>>
 
 == Vaadin Portlet Support
-* <<portlest-support/overview#,Vaadin Portlet Support Overview>>
-* <<portlest-support/creating-vaadin-portlets#,Creating Vaadin Portlets>>
-* <<portlest-support/handling-portlet-phases#,Handling Portlet Phases>>
-* <<portlest-support/inter-portlet-communication#,Inter-portlet Communication>>
-* <<portlest-support/demo-address-book#,Address Book Demonstration>>
+* <<portlet-support/overview#,Vaadin Portlet Support Overview>>
+* <<portlet-support/creating-vaadin-portlets#,Creating Vaadin Portlets>>
+* <<portlet-support/handling-portlet-phases#,Handling Portlet Phases>>
+* <<portlet-support/inter-portlet-communication#,Inter-portlet Communication>>
+* <<portlet-support/demo-address-book#,Address Book Demonstration>>
 
 == Packaging for Production
 * <<production/tutorial-production-mode-basic#,Taking your Application into Production>>
