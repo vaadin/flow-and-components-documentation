@@ -9,8 +9,8 @@ import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.portal.VaadinPortlet;
 import com.vaadin.flow.portal.handler.PortletModeEvent;
 import com.vaadin.flow.portal.handler.PortletModeHandler;
-import com.vaadin.flow.portal.handler.VaadinPortletEventContext;
-import com.vaadin.flow.portal.handler.VaadinPortletEventView;
+import com.vaadin.flow.portal.handler.PortletView;
+import com.vaadin.flow.portal.handler.PortletViewContext;
 import com.vaadin.flow.portal.handler.WindowStateEvent;
 import com.vaadin.flow.portal.handler.WindowStateHandler;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
@@ -18,29 +18,25 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @CodeFor("portlet-support/handling-portlet-phases.asciidoc")
 public class HandlingPortletPhases {
     public class PortletModeListenerDemo {
-        public PortletModeListenerDemo() {
-            // for the current portlet that is processing requests
-            VaadinPortlet.getCurrent().setPortletMode(PortletMode.EDIT);
-        }
-
-        public class MyPortletView extends Div implements VaadinPortletEventView {
+        public class MyPortletView extends Div implements PortletView {
+            
             @Override
-            public void onPortletEventContextInit(VaadinPortletEventContext context) {
+            public void onPortletViewContextInit(PortletViewContext context) {
                 context.addPortletModeChangeListener(event -> showHelpText(event.isHelpMode()));
+                // for the current portlet that is processing requests
+                context.setPortletMode(PortletMode.EDIT);
             }
         }
     }
 
     public class WindowStateListenerDemo {
-        public WindowStateListenerDemo() {
-            // for the current portlet that is processing requests
-            VaadinPortlet.getCurrent().setWindowState(WindowState.MAXIMIZED);
-        }
 
-        public class MyPortletView extends Div implements VaadinPortletEventView {
+        public class MyPortletView extends Div implements PortletView {
             @Override
-            public void onPortletEventContextInit(VaadinPortletEventContext context) {
+            public void onPortletViewContextInit(PortletViewContext context) {
                 context.addWindowStateChangeListener(event -> showDetailsField(event.isMaximized()));
+                // for the current portlet that is processing requests
+                context.setWindowState(WindowState.MAXIMIZED);
             }
         }
     }
@@ -57,29 +53,25 @@ public class HandlingPortletPhases {
 
     }
 
-    public class MyView extends Div implements VaadinPortletEventView {
+    public class MyView extends Div implements PortletView {
 
         private Paragraph stateInformation;
 
-        public MyView() {
-            stateInformation = new Paragraph("Use the portlet controls or the "
-                    + "buttons below to change the portlet's state!");
-
-            Button maximizeButton = new Button("Maximize", event -> VaadinPortlet
-                    .getCurrent().setWindowState(WindowState.MAXIMIZED));
-
-            Button helpButton = new Button("Show help", event -> VaadinPortlet
-                    .getCurrent().setPortletMode(PortletMode.HELP));
-
-            add(stateInformation, maximizeButton, helpButton);
-        }
-
         @Override
-        public void onPortletEventContextInit(VaadinPortletEventContext context) {
+        public void onPortletViewContextInit(PortletViewContext context) {
             context.addWindowStateChangeListener(event -> stateInformation
                     .setText("Window state changed to " + event.getWindowState()));
             context.addPortletModeChangeListener(event -> stateInformation
                     .setText("Portlet mode changed to " + event.getPortletMode()));
+            
+            stateInformation = new Paragraph("Use the portlet controls or the "
+                    + "buttons below to change the portlet's state!");
+
+            Button maximizeButton = new Button("Maximize", event -> context.setWindowState(WindowState.MAXIMIZED));
+
+            Button helpButton = new Button("Show help", event -> context.setPortletMode(PortletMode.HELP));
+
+            add(stateInformation, maximizeButton, helpButton);
         }
     }
 
