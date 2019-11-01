@@ -17,7 +17,7 @@ is missing from the `pom.xml` or it is missing configuration. To fix this simply
 
 == Splitting the Webpack bundle into multiple chunks
 
-This is an upcoming feature in Vaadin Platform 14. For information on customizing bundling when using compatibility mode, see the https://vaadin.com/docs/v13/flow/production/tutorial-production-mode-customising.html[Vaadin 13 documentation on this topic].
+This is an upcoming feature in Vaadin Platform 14.x in a minor release, probably during 2020. For information on customizing bundling when using compatibility mode, see the https://vaadin.com/docs/v13/flow/production/tutorial-production-mode-customising.html[Vaadin 13 documentation on this topic].
 
 == Plugin goals and goal parameters
 
