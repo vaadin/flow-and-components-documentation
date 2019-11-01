@@ -16,14 +16,14 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.portal.VaadinPortlet;
 import com.vaadin.flow.portal.handler.PortletEvent;
 import com.vaadin.flow.portal.handler.PortletModeEvent;
-import com.vaadin.flow.portal.handler.VaadinPortletEventContext;
-import com.vaadin.flow.portal.handler.VaadinPortletEventView;
+import com.vaadin.flow.portal.handler.PortletView;
+import com.vaadin.flow.portal.handler.PortletViewContext;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("portlet-support/demo-address-book.asciidoc")
 public class DemoAddressBook {
-    public class ListPortletView extends VerticalLayout implements VaadinPortletEventView {
-        private VaadinPortletEventContext vaadinPortletEventContext;
+    public class ListPortletView extends VerticalLayout implements PortletView {
+        private PortletViewContext vaadinPortletContext;
 
         public ListPortletView() {
             // ... other initialization ...
@@ -32,24 +32,24 @@ public class DemoAddressBook {
             // ... other grid configuration ...
             grid.addItemClickListener(this::fireSelectionEvent);
         }
-
+        
         @Override
-        public void onPortletEventContextInit(VaadinPortletEventContext context) {
+        public void onPortletViewContextInit(PortletViewContext context) {
             context.addEventChangeListener("contact-updated", this::handleEvent);
             // save context for sending events
-            vaadinPortletEventContext = context;
+            vaadinPortletContext = context;
         }
 
         private void fireSelectionEvent(ItemClickEvent<Contact> contactItemClickEvent) {
             // get contact id
             Integer contactId = contactItemClickEvent.getItem().getId();
 
-            // save the ide into a string-to-string map
+            // save the id into a string-to-string map
             Map<String, String> param = Collections.singletonMap(
                     "contactId", contactId.toString());
 
             // send the event with name "contact-selected"
-            vaadinPortletEventContext.fireEvent("contact-selected", param);
+            vaadinPortletContext.fireEvent("contact-selected", param);
         }
 
         // receives all correctly formatted portlet hub events
@@ -67,11 +67,11 @@ public class DemoAddressBook {
         }
     }
 
-    public class FormPortletView extends VerticalLayout implements VaadinPortletEventView {
+    public class FormPortletView extends VerticalLayout implements PortletView {
         private static final String ACTION_EDIT = "Edit";
         private static final String ACTION_SAVE = "Save";
 
-        private VaadinPortletEventContext vaadinPortletEventContext;
+        private PortletViewContext vaadinPortletContext;
         private PortletMode portletMode;
 
         private Button action;
@@ -80,32 +80,31 @@ public class DemoAddressBook {
         private Image image;
         // ... other components
 
-        public FormPortletView() {
-            // ... setup other form components
+        
+        @Override
+        public void onPortletViewContextInit(PortletViewContext context) {
+            context.addEventChangeListener("contact-selected", this::handleEvent);
+            context.addPortletModeChangeListener(this::handlePortletMode);
+            // save context for sending events
+            vaadinPortletContext = context;
+            
+         // ... setup other form components
 
             action = new Button(PortletMode.EDIT
-                    .equals(FormPortlet.getCurrent().getPortletMode()) ?
+                    .equals(context.getPortletMode()) ?
                     ACTION_SAVE : ACTION_EDIT, event -> {
                 if (PortletMode.EDIT.equals(portletMode)) {
                     // save bean, switch to VIEW mode, send an event
                     save();
                 } else {
                     // switch portlet to EDIT mode
-                    VaadinPortlet.getCurrent().setPortletMode(PortletMode.EDIT);
+                    vaadinPortletContext.setPortletMode(PortletMode.EDIT);
                 }
             });
 
             add(action);
 
             // ... setup rest of the form components
-        }
-
-        @Override
-        public void onPortletEventContextInit(VaadinPortletEventContext context) {
-            context.addEventChangeListener("contact-selected", this::handleEvent);
-            context.addPortletModeChangeListener(this::handlePortletMode);
-            // save context for sending events
-            vaadinPortletEventContext = context;
         }
 
         // called when the portlet mode changes
@@ -147,8 +146,8 @@ public class DemoAddressBook {
                 ContactService.getInstance().save(contact);
             }
 
-            VaadinPortlet.getCurrent().setPortletMode(PortletMode.VIEW);
-            vaadinPortletEventContext.fireEvent("contact-updated", Collections.singletonMap(
+            vaadinPortletContext.setPortletMode(PortletMode.VIEW);
+            vaadinPortletContext.fireEvent("contact-updated", Collections.singletonMap(
                     "contactId", contact.getId().toString()));
         }
     }

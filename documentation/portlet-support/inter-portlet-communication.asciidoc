@@ -26,7 +26,7 @@ Vaadin Portlets allows the developer to leverage all of these different methods 
 When Vaadin Portlets run on a portal supporting Portlet 3.0 specification, Vaadin Portlet automatically adds `PortletHub` support on the client-side.
 The standard IPC for Vaadin Portlets leverages `PortletHub` to provide the developer with seamless integration of the client-side and server-side events.
 
-You can use `VaadinPortletEventContext` to send events from your portlet's view class.
+You can use `PortletViewContext` to send events from your portlet's view class.
 These events are then delivered to the client-side, where the events are delivered forward forward using `PortletHub::dispatchClientEvent()`.
 To handle the events dispatched by the `PortletHub` you can either register your portlet's view class to handle certain events based on the event names, or register a JavaScript event handler onto the client-side.
 
@@ -37,18 +37,16 @@ Given two portlet views `FiringPortletView` and `ReceivingPortletView` we setup 
 .FiringPortletView.java
 [source,java]
 ----
-public class FiringPortletView extends Div implements VaadinPortletEventView {
+public class FiringPortletView extends Div implements PortletView {
 
-    private VaadinPortletEventContext portletContext;
-
-    public FiringPortletView() {
-        Button button = new Button("Fire event", event -> portletContext
-                .fireEvent("my-ipc-event", Collections.emptyMap()));
-    }
+    private PortletViewContext portletContext;
 
     @Override
-    public void onPortletEventContextInit(VaadinPortletEventContext context) {
+    public void onPortletViewContextInit(PortletViewContext context) {
         portletContext = context;
+        
+        Button button = new Button("Fire event", event -> portletContext
+                .fireEvent("my-ipc-event", Collections.emptyMap()));
     }
 }
 ----
@@ -57,22 +55,22 @@ public class FiringPortletView extends Div implements VaadinPortletEventView {
 [source,java]
 ----
 public class ReceivingPortletView extends Div
-        implements VaadinPortletEventView {
+        implements PortletView {
 
     @Override
-    public void onPortletEventContextInit(VaadinPortletEventContext context) {
+    public void onPortletViewContextInit(PortletViewContext context) {
         context.addEventChangeListener("my-ipc-event", event -> Notification
                 .show("Received '" + event.getEventName() + "' event!"));
     }
 }
 ----
 
-`FiringPortletView.java` implements `VaadinPortletEventView` interface which allows it to get `VaadinPortletEventContext` when it is initialized.
-Then it calls `VaadinPortletEventContext::fireEvent(...)` method to fire our event.
+`FiringPortletView.java` implements `PortletView` interface which allows it to get `PortletViewContext` when it is initialized.
+Then it calls `PortletViewContext::fireEvent(...)` method to fire our event.
 The event is fired using the available delivery method, preferring `PortletHub`.
 If you would like to fire events as specified in the 2.0 specification, see <<ipc-20>>.
 
-`ReceivingPortletView.java` also implements `VaadinPortletEventView` interface, which allows it to add event listeners via `VaadinPortletEventContext::addEventListener` when it is initialized.
+`ReceivingPortletView.java` also implements `PortletView` interface, which allows it to add event listeners via `PortletViewContext::addEventChangeListener` when it is initialized.
 When adding an event listener, we can specify the event name for which we'd like to receive updates.
 
 Using `PortletHub` for IPC has the following benefits:
