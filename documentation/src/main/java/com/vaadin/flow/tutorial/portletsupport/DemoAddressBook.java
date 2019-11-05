@@ -71,7 +71,7 @@ public class DemoAddressBook {
         private static final String ACTION_EDIT = "Edit";
         private static final String ACTION_SAVE = "Save";
 
-        private PortletViewContext vaadinPortletContext;
+        private PortletViewContext context;
         private PortletMode portletMode;
 
         private Button action;
@@ -86,7 +86,7 @@ public class DemoAddressBook {
             context.addEventChangeListener("contact-selected", this::handleEvent);
             context.addPortletModeChangeListener(this::handlePortletMode);
             // save context for sending events
-            vaadinPortletContext = context;
+            this.context = context;
             
          // ... setup other form components
 
@@ -98,7 +98,7 @@ public class DemoAddressBook {
                     save();
                 } else {
                     // switch portlet to EDIT mode
-                    vaadinPortletContext.setPortletMode(PortletMode.EDIT);
+                    context.setPortletMode(PortletMode.EDIT);
                 }
             });
 
@@ -146,8 +146,8 @@ public class DemoAddressBook {
                 ContactService.getInstance().save(contact);
             }
 
-            vaadinPortletContext.setPortletMode(PortletMode.VIEW);
-            vaadinPortletContext.fireEvent("contact-updated", Collections.singletonMap(
+            context.setPortletMode(PortletMode.VIEW);
+            context.fireEvent("contact-updated", Collections.singletonMap(
                     "contactId", contact.getId().toString()));
         }
     }
