@@ -30,6 +30,7 @@ public class CompatibilityVaadinServlet extends VaadinServlet {
 }
 ----
 ** Add `/VAADIN/\*` to the `urlPatterns` in both development *and* production modes.
+*** We need to handle Vaadin client and other static resources under `/VAADIN` for the embedded application.
 ** In development mode, add `/frontend/*` to the `urlPatterns`.
 *** We need to handle WebJar resource URIs: we use various Vaadin components in the server-side web component and this requires a `frontend` URI handler.
 * If you follow the examples given in <<tutorial-webcomponent-exporter#,Creating an Embedded Vaadin Application Tutorial>>, you need to make sure that the embedded application has access to `/frontend-\*` static folders.
