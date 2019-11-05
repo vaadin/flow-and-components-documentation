@@ -6,7 +6,7 @@ layout: page
 
 = Address Book Demonstration
 
-This demonstration brings together all the topics covered in previous chapters.
+This demonstration brings together all the topics covered in the previous chapters.
 The focus of this chapter is on using inter-portlet communication between two Vaadin Portlets.
 Using this document along with the demonstration code, you will be able to understand the demonstration code and build similar applications yourself.
 
@@ -21,58 +21,62 @@ The source code with a complete project for this example is available in https:/
 
 == Address Book Module
 
-The address book demonstration show how to build a simple address book application using Vaadin Portlets.
+The address book demonstration shows how to build a simple address book application using Vaadin Portlets.
 The address book consists of two portlets.
-One portlet, _contact list_, displays all the available contacts the user has.
-The other portlet, _contact information_, show the information about the contact selected via the contact list.
-Contact information portlet also allows the user to edit the existing contact.
+One portlet, _Contact List_, displays all the available contacts the user has.
+The other portlet, _Contact Form_, shows the information about the contact selected via the contact list.
+Contact Form portlet also allows the user to edit the existing contact.
 
 === Structure
 
 The address book consists of two portlets and their view components.
 The classes ending in `Portlet` are the classes extending `VaadinPortlet` and classes ending in `View` are the view component classes for the portlets.
 
-- Contact list: `ListPortlet` and `ListPortletView`
+- Contact List: `ContactListPortlet` and `ContactListView`
 +
 Responsible for displaying the available contacts in the address book.
-Allows user to select contacts to be displayed in the `FormPortletView`.
+Allows user to select a contact to be displayed in the Contact Form.
 
-- Contact information: `FormPortlet` and `FormPortletView`
+- Contact Form: `ContactFormPortlet` and `ContactFormView`
 +
 Responsible for displaying and modifying the contact information in the address book.
 
 The other classes are there to provide business logic and mock implementations for data services
 
 === Functionality Requirements as Portlets
+
 *Contact List* +
 The portlet operates in only one portlet mode: `view` and user cannot change the mode.
-When user selects a contact from the list, the contact's details are displayed on the _contact information_ portlet.
-When the contact's information is changed in the _contact information_ portlet, the relevant contact information is updated on the list.
+When user selects a contact from the list, the contact's details are displayed on the _Contact Form_ portlet.
+When the contact's information is changed in the _Contact Form_ portlet, the relevant contact information is updated on the list.
+The list shows limited number of contacts attributes including first name, last name, and phone number.
+When the portlet is maximized (its window state is changed to MAXIMIZED) more attributes are shown including email and birth date.
 
-In order to provide this functionality, the _contact list_ view class needs to
+In order to provide this functionality, the _Contact List_ view class needs to
 
 - be able to receive events
 - be able to send events
+- be able to react to window state changes
 
-These requirements can be fulfilled by implementing the `VaadinPortletEventView` interface.
+These requirements can be fulfilled by implementing the `PortletView` interface.
 
-*Contact information* +
+*Contact Form* +
 The portlet supports two portlets modes: `view` and `edit`.
 When the portlet is in `view` mode, the contact information is only displayed and cannot be changed.
 When user changes the portlet into `edit` mode, the information can be updated.
 After editing the information, the user can either save or discard the changes.
 
-In order to provide this functionality, the _contact list_ view class needs to
+In order to provide this functionality, the _Contact List_ view class needs to
 
 - be able to react to portlet mode changes
 - be able to receive events
 - be able to send events
 
-These requirements can be fulfilled by implementing the `VaadinPortletEventView` interface.
+These requirements can be fulfilled by implementing the `PortletView` interface.
 
 [NOTE]
-We use `VaadinPortletEventView` in both view classes as it provides a single entry point to the portlet state.
-We can both register event listeners and mutate the state through `VaadinPortletEventContext` object.
+We use `PortletView` in both view classes as it provides a single entry point to the portlet state.
+We can both register event listeners and mutate the state through `PortletView` object.
 However, if we were interested in only very particular types of updates and
 did not need to change the state, we could simply implement `PortletModeHandler`, `WindowStateHandler`, or `EventHandler` interfaces
 
@@ -83,22 +87,26 @@ The classes contain code that is not directly related to the portlet implementat
 .ListPortletView.java
 [source,java]
 ----
-public class ListPortletView extends VerticalLayout implements PortletView {
-    private PortletViewContext vaadinPortletContext;
+public class ContactListView extends VerticalLayout implements PortletView {
+    private PortletViewContext portletViewContext;
+    private Grid<Contact> grid = new Grid<>(Contact.class);
 
-    public ListPortletView() {
+    public ContactListView() {
         // ... other initialization ...
 
         Grid<Contact> grid = new Grid<>(Contact.class);
         // ... other grid configuration ...
         grid.addItemClickListener(this::fireSelectionEvent);
     }
-    
+
     @Override
     public void onPortletViewContextInit(PortletViewContext context) {
-        context.addEventChangeListener("contact-updated", this::handleEvent);
+        context.addEventChangeListener("contact-updated",
+                this::onContactUpdated);
+        context.addWindowStateChangeListener(
+                event -> handleWindowStateChanged(event.getWindowState()));
         // save context for sending events
-        vaadinPortletContext = context;
+        portletViewContext = context;
     }
 
     private void fireSelectionEvent(ItemClickEvent<Contact> contactItemClickEvent) {
@@ -110,67 +118,74 @@ public class ListPortletView extends VerticalLayout implements PortletView {
                 "contactId", contactId.toString());
 
         // send the event with name "contact-selected"
-        vaadinPortletContext.fireEvent("contact-selected", param);
+        portletViewContext.fireEvent("contact-selected", param);
     }
 
-    // receives all correctly formatted portlet hub events
-    // we are looking for the contact-updated event generated by FormPortletView
-    // we check that the event name is correct and that the contact exists. Then
-    // we update the contact information.
-    private void handleEvent(PortletEvent event) {
-        if ("contact-updated".equals(event.getEventName())) {
-            int contactId = Integer.parseInt(event.getParameters().get("contactId")[0]);
-            Optional<Contact> contact = ContactService.getInstance().findById(contactId);
-            if (contact.isPresent()) {
-                // TODO: actually update grid
-            }
+    private void handleWindowStateChanged(WindowState windowState) {
+        if (WindowState.MAXIMIZED.equals(windowState)) {
+            grid.setColumns("firstName", "lastName", "phoneNumber", "email",
+                    "birthDate");
+            grid.setMinWidth("700px");
+        } else if (WindowState.NORMAL.equals(windowState)) {
+            grid.setColumns("firstName", "lastName", "phoneNumber");
+            grid.setMinWidth("450px");
         }
+    }
+
+    private void onContactUpdated(PortletEvent event) {
+        int contactId = Integer
+                .parseInt(event.getParameters().get("contactId")[0]);
+        Optional<Contact> contact = ContactService.getInstance()
+                .findById(contactId);
+        contact.ifPresent(value -> grid.getDataProvider().refreshItem(value));
     }
 }
 ----
 
-The `ListPortletView` view implements `VaadinPortletEventView` interface.
-`VaadinPortletEventView`'s method `onPortletEventContextInit(VaadinPortletEventContext)` provides the implementing class a reference to a `VaadinPortletEventContext` object, which allows us to register listeners and change the portlet's state.
-Besides `init`, the `ListPortletView` has three important methods from the portlet perspective: `fireSelectionEvent` and `handleEvent`.
+The `ContactListView` view implements `PortletView` interface.
+``PortletView``'s method `onPortletViewContextInit(PortletViewContext)` provides the implementing class a reference to a `PortletViewContext` object, which allows us to register listeners and change the portlet's state.
+Besides `onPortletViewContextInit`, the `ContactListView` has three important methods from the portlet perspective: `fireSelectionEvent`, `handleWindowStateChanged`, and `contactUpdated`.
 Firing the selection event is triggered when user selects a contact in the list.
 The method creates a parameter map which contains the id of the selected contact.
-We then use the our portlet instance to send the event under the name `contact-selected`.
-Other Vaadin portlet views that implement `EventHandler` will be notified about the event.
+We then use the our `portletViewContext` instance to send the event under the name `contact-selected`.
+Other Vaadin portlet views that have registered listeners for this event name will be notified about the event.
 
-The other method, `handleEvent`, is is registered as an event listener for `contact-updated` event via `VaadinPortletEventContext` instance.
+`handleWindowStateChanged` is registered as a listener for `WindowStateChange` event.
+So, it is called when e.g. the portlet view get maximized or get back normalized.
+In this method, minimum width of the grid is set to a higher value and more grid columns are shown when the window state is changed to maximized.
+
+The other method, `contactUpdated`, is registered as an event listener for `contact-updated` event via `PortletViewContext` instance.
 The `contact-updated` event has the same parameters as the `contact-selected` event.
-We use the contact id to updated the correct contact information field on the list.
+We use the contact id to update the correct contact information on the list.
 
 .FormPortletView.java
 [source,java]
 ----
-public class FormPortletView extends VerticalLayout implements PortletView {
+public class ContactFormView extends VerticalLayout implements PortletView {
     private static final String ACTION_EDIT = "Edit";
     private static final String ACTION_SAVE = "Save";
 
-    private PortletViewContext context;
-    private PortletMode portletMode;
+    private PortletViewContext portletViewContext;
 
     private Button action;
     private Binder<Contact> binder;
-    private TextField firstName;
     private Image image;
     // ... other components
 
-    
     @Override
     public void onPortletViewContextInit(PortletViewContext context) {
-        context.addEventChangeListener("contact-selected", this::handleEvent);
-        context.addPortletModeChangeListener(this::handlePortletMode);
+        context.addEventChangeListener("contact-selected",
+                this::onContactSelected);
+        context.addPortletModeChangeListener(this::handlePortletModeChange);
         // save context for sending events
-        this.context = context;
-        
-     // ... setup other form components
+        this.portletViewContext = context;
+
+        // ... setup other form components
 
         action = new Button(PortletMode.EDIT
                 .equals(context.getPortletMode()) ?
                 ACTION_SAVE : ACTION_EDIT, event -> {
-            if (PortletMode.EDIT.equals(portletMode)) {
+            if (PortletMode.EDIT.equals(portletViewContext.getPortletMode())) {
                 // save bean, switch to VIEW mode, send an event
                 save();
             } else {
@@ -186,7 +201,7 @@ public class FormPortletView extends VerticalLayout implements PortletView {
 
     // called when the portlet mode changes
     // FormPortlet supports two modes: 'view' and 'edit'
-    private void handlePortletMode(PortletModeEvent event) {
+    private void handlePortletModeChange(PortletModeEvent event) {
         // set fields to read-only mode when portlet mode is 'view'
         final boolean isViewMode = event.isViewMode();
         binder.setReadOnly(isViewMode);
@@ -197,22 +212,17 @@ public class FormPortletView extends VerticalLayout implements PortletView {
         } else {
             action.setText(ACTION_SAVE);
         }
-        portletMode = event.getPortletMode();
     }
 
     // handles "contact-selected" event from PortletListView.
     // we check that the event name is correct and that the contact exists.
     // then we display the contact information on the form.
-    private void handleEvent(PortletEvent event) {
+    private void onContactSelected(PortletEvent event) {
         int contactId = Integer.parseInt(event.getParameters().get("contactId")[0]);
         Optional<Contact> contact = ContactService.getInstance().findById(contactId);
         if (contact.isPresent()) {
             binder.setBean(contact.get());
-            firstName.setValue(contact.get().getFirstName());
             image.setSrc(contact.get().getImage().toString());
-        } else {
-            // clear the form, if the contact does not exist
-            cancel(); // not shown here
         }
     }
 
@@ -221,20 +231,20 @@ public class FormPortletView extends VerticalLayout implements PortletView {
 
         if (contact != null) {
             ContactService.getInstance().save(contact);
+            portletViewContext.fireEvent("contact-updated", Collections.singletonMap(
+                    "contactId", contact.getId().toString()));
         }
 
-        context.setPortletMode(PortletMode.VIEW);
-        context.fireEvent("contact-updated", Collections.singletonMap(
-                "contactId", contact.getId().toString()));
+        portletViewContext.setPortletMode(PortletMode.VIEW);
     }
 }
 ----
 
-`FormPortletView` uses `VaadinPortletEventContext` received via the `onPortletEventContextInit(VaadinPortletEventContext)` method to register an event listener and portlet mode listener.
-The important methods for the portlet operation are `handlePortletMode` and `handleEvent`.
-The `FormPortletView` supports two portlet modes: `view` and `edit`.
+`ContactFormView` uses `PortletViewContext` received via the `onPortletViewContextInit(PortletViewContext)` method to register an event listener and portlet mode listener.
+The important methods for the portlet operation are `handlePortletMode` and `onContactSelected`.
+The `ContactFormView` supports two portlet modes: `view` and `edit` which are declared in `portlet.xml`.
 In the `handlePortletMode`, depending on the portlet mode, we either enable or disable editing on the form fields.
 We also change the name of the `action` button to correspond to the correct mode.
 
-The `handleEvent` method expects the event `contact-selected` sent by the _contact list_ portlet.
-When the event arrives, the view uses the contact id to display information for the selected `Contact`.
+The `onContactSelected` is called when the event `contact-selected` is sent by the _Contact List_ portlet.
+When the event arrives, the contact id is used to display information for the selected `Contact`.
