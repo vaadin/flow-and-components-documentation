@@ -138,7 +138,7 @@ public class DemoAddressBook {
             Optional<Contact> contact = ContactService.getInstance().findById(contactId);
             if (contact.isPresent()) {
                 this.contact = contact.get();
-                binder.setBean(this.contact);
+                binder.readBean(this.contact);
                 image.setSrc(this.contact.getImage().toString());
             } else {
                 clear();
