@@ -36,7 +36,7 @@ public class MainAppServlet extends HttpServlet {
                 out.println("<script type='module' src='/vaadin/web-component"
                         + "/login-form.js'></script>");
                 out.println("<script type='text/javascript' "
-                        + "src='vaadin/frontend/log-in.js' defer></script>");
+                        + "src='/log-in.js' defer></script>");
             }
             out.println("</head><body>");
             if (isAuthenticated) {
