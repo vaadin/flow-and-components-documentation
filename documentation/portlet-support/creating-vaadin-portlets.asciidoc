@@ -27,13 +27,13 @@ Next, update your pom.xml:
 . Update `vaadin-version` property to `14.1-SNAPSHOT` (temporary)
 . Add the following dependencies:
 +
-.(temporary)
+.pom.xml additions
 [source,xml]
 ----
 <dependency>
     <groupId>com.vaadin</groupId>
     <artifactId>flow</artifactId>
-    <version>2.1.portal-SNAPSHOT</version>
+    <version>2.2.0</version>
     <type>pom</type>
 </dependency>
 ----
@@ -43,7 +43,7 @@ Next, update your pom.xml:
 <dependency>
     <groupId>com.vaadin</groupId>
     <artifactId>vaadin-portlet</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ----
 +
@@ -176,7 +176,9 @@ Add the following plugin configuration to the pom.xml:
             </manifestEntries>
         </archive>
     </configuration>
+    <!-- Generate 2 war archives for portlet. One for the portlet(s) and another for the static files -->
     <executions>
+        <!-- Generate a static war 'vaadin-portlet-static.war' with all static files -->
         <execution>
             <id>static-files</id>
             <goals>
@@ -184,15 +186,18 @@ Add the following plugin configuration to the pom.xml:
             </goals>
             <configuration>
                 <warName>vaadin-portlet-static</warName>
+                <!-- static files should contain flow-client and all build files generated in VAADIN/ -->
                 <packagingIncludes>WEB-INF/lib/flow-client*.jar,VAADIN/</packagingIncludes>
 
                 <webResources>
                     <resource>
                         <!-- this is relative to the pom.xml directory -->
                         <directory>target/classes/META-INF/</directory>
+                        <!-- Include all files and folders below <directory> -->
                         <includes>
                             <include>**</include>
                         </includes>
+                        <!-- do not include configuration files -->
                         <excludes>
                             <exclude>VAADIN/config/**</exclude>
                         </excludes>
@@ -200,6 +205,7 @@ Add the following plugin configuration to the pom.xml:
                 </webResources>
             </configuration>
         </execution>
+        <!-- Generate the portlet war excluding any static build files -->
         <execution>
             <id>portlet-war</id>
             <goals>
@@ -213,6 +219,12 @@ Add the following plugin configuration to the pom.xml:
     </executions>
 </plugin>
 ----
+
+Here we build 2 war files one for the application (all portlets in this project) and one
+for the static files needed by the portlets (this contains frontend bundle and client engine)
+
+The static war is built as a portal window can only load a single Vaadin bundle and client engine
+at a time. With this all the portlets on the page can in a simple way use the same static bundle.
 
 === Deploying Vaadin Portlet
 
