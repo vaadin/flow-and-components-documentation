@@ -1,0 +1,35 @@
+---
+title: Overview
+order: 1
+layout: page
+---
+
+= Vaadin Portlet Support
+
+Vaadin Portlet Support for Vaadin 14.x+ is built on top of the <<Portlet 3.0
+specification>> and requires Flow 2.2 and `vaadin-portlet` 1.0.0. Both are currently in alpha-stage
+and expected to change.
+
+== Topics
+
+. <<creating-vaadin-portlets#,Creating Vaadin Portlets>>
++
+Instructs the reader on how to build their own Vaadin Portlets and how to run
+it on Pluto Portal 3.1.0 which is the reference implementation for Portlet 3.0 API.
+
+. <<handling-portlet-phases#,Handling Portlet Phases>>
++
+Introduces the different `interfaces` the reader can use to interact with the
+Portlet phases and Portlet requests.
+
+. <<inter-portlet-communication#,Inter-portlet Communication>>
++
+Outlines how the reader can enable their Portlets to communicate with other
+Portlets (be they Vaadin Portlets or not) on the Portal page.
+
+. <<demo-address-book#,Address Book Demonstration>>
++
+A demonstration which shows how to build two functioning Vaadin Portlets that communicate with each other.
+The full code example will be available in https://github.com/vaadin/addressbook-portlet[addressbook-portlet].
+
+To help getting started building Vaadin Portlets, there is a https://github.com/vaadin/base-starter-flow-portlet[project base] that you can use. 
