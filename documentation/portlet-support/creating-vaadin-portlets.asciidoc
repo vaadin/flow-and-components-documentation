@@ -226,6 +226,14 @@ for the static files needed by the portlets (this contains frontend bundle and c
 The static war is built as a portal window can only load a single Vaadin bundle and client engine
 at a time. With this all the portlets on the page can in a simple way use the same static bundle.
 
+==== Configuring static resources
+If you need to change the name (or location) of the static assets war (`vaadin-portlet-static`), you can do that via `portlet.static.resources.mapping` system property.
+For example, if you would like to serve static resources from `[portal-url]/resources/vaadin-static-resources/`, you will need to +
+
+- Rename static war to `vaadin-static-resources` in the pom.xml
+- Build the project with `-Dportlet.static.resources.mapping="/resources/vaadin-static-resources/"
+- Place the created `vaadin-static-resources.war` under `/resources` on your web server
+
 === Deploying Vaadin Portlet
 
 . Run `mvn install` in you project directory.
