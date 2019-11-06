@@ -84,6 +84,7 @@ public class DemoAddressBook {
 
         private Button action;
         private Binder<Contact> binder;
+        private Contact contact;
         private Image image;
         // ... other components
 
@@ -136,15 +137,17 @@ public class DemoAddressBook {
             int contactId = Integer.parseInt(event.getParameters().get("contactId")[0]);
             Optional<Contact> contact = ContactService.getInstance().findById(contactId);
             if (contact.isPresent()) {
-                binder.setBean(contact.get());
-                image.setSrc(contact.get().getImage().toString());
+                this.contact = contact.get();
+                binder.setBean(this.contact);
+                image.setSrc(this.contact.getImage().toString());
+            } else {
+                clear();
             }
         }
 
         private void save() {
-            Contact contact = binder.getBean();
-
             if (contact != null) {
+                binder.writeBeanIfValid(contact);
                 ContactService.getInstance().save(contact);
                 portletViewContext.fireEvent("contact-updated", Collections.singletonMap(
                         "contactId", contact.getId().toString()));
@@ -154,7 +157,7 @@ public class DemoAddressBook {
         }
     }
 
-    private void cancel() {
+    private void clear() {
 
     }
 
