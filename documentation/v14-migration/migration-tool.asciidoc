@@ -53,7 +53,7 @@ See *keepOriginal* parameter description below.
 === Goal parameters
 
 Here we describe the Maven plugin goal's parameters. These can be configured in the `<configuration>`
-section inside the `vaadin-maven-plugin` 's `<plugin>` tag.
+section inside the ``vaadin-maven-plugin``'s `<plugin>` tag.
 
 * *resources* (default: `${project.basedir}/src/main/webapp`):
     List of folder paths that should be used to locate the P2 resources to convert 
