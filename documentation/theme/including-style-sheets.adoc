@@ -1,0 +1,143 @@
+---
+title: Including style sheets
+order: 4
+layout: page
+---
+
+= Including style sheets
+
+To customize the built-in themes you need to include custom style sheets in your app. You can include style sheets to the global scope and to components’ local scope (Shadow DOM).
+
+.`Java`
+[source,java]
+....
+@CssImport("./styles/global.css")
+@CssImport(value = "./styles/text-field.css", themeFor = "vaadin-text-field")
+@StyleSheet("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
+@StyleSheet("context://styles/bootstrap-overrides.css")
+public class StyledApp extends Div {
+}
+....
+
+.`JavaScript`
+[source,javascript]
+....
+import { registerStyles, css } from '@vaadin/vaadin-themable-mixin/register-styles.js';
+
+registerStyles('vaadin-text-field', css`
+  /* Styles which will be included in vaadin-text-field local scope, i.e. contents of styles/text-field.css */
+`);
+....
+
+.`HTML`
+[source,html]
+....
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="styles/bootstrap-overrides.css">
+....
+
+
+[NOTE]
+====
+To figure out where to put the CSS files in your project, <<../importing-dependencies/tutorial-ways-of-importing#resource-cheat-sheet,see this table>>.
+====
+
+For a comprehensive documentation how static resources are handled, see <<../importing-dependencies/tutorial-ways-of-importing#,Storing and Loading Resources>>
+
+== Global scope
+
+The global scope is the "classic" way of styling. Styles defined in a global style sheet apply to all elements/components in the main HTML document.
+
+Styles in a global style sheet do not apply to component internals, like the label inside the Text Field component or drag handle inside the Split Layout component. Template-based components and views are also protected from global styles. This means you can safely write global CSS without worrying about breaking component styling and/or behavior.
+
+There are two ways to include global style sheets:
+
+ 1. Bundled style sheets which are loaded together with the app’s frontend bundle
+ 2. Linked style sheets which are not bundled with the app’s frontend bundle but loaded and cached separately by the browser
+
+=== Bundled
+
+Bundled style sheets are inlined to the application bundle during a production build, together with other client-side resources. Bundling is recommended for styles which change together with the application logic or component implementation, as the browser can cache them as a single, closely related unit.
+
+==== Java
+
+For Java, the https://vaadin.com/api/platform/com/vaadin/flow/component/dependency/CssImport.html[`@CssImport`] annotation will handle all the boilerplate for you, you only need to reference a regular CSS file.
+
+[NOTE]
+The `@CssImport` annotation works in Vaadin 14 (non-compatibility mode) and later.
+
+.`Java`
+[source,java]
+....
+@CssImport("./styles/global.css")
+public class StyledApp extends Div {
+}
+....
+
+==== Frontend
+
+When managing style sheets in the frontend, you need to take polyfilled browsers into consideration – namely Internet Explorer 11. Those browsers do not have native style encapsulation via Shadow DOM and require that styles are scoped manually or via polyfills.
+
+One way to scope global styles and prevent them from affecting Polymer-based components in polyfilled browsers is to use the `<custom-style>` element from the Polymer library.
+
+.`HTML`
+[source,html]
+....
+<script type="module">
+import '@polymer/polymer/lib/elements/custom-style.js';
+</script>
+
+<custom-style>
+  <style>
+    /* The same style rules as in styles/global.css in the above example */
+  </style>
+</custom-style>
+....
+
+=== Linked
+
+Linked style sheets can be used to link a style sheet without inlining the contents to the application bundle. This allows the browser to load and cache the style sheet separately from the rest of the application. It also allows you to use external style sheets (e.g. different domain, CDN).
+
+[NOTE]
+The CSS rules in linked style sheets are not protected from overriding component-specific styles in browsers without native style encapsulation (Shadow DOM) – namely Internet Explorer 11. Use bundled styles in cases where this might be an issue, for example when including CSS which is not maintained by you.
+
+.`Java`
+[source,java]
+....
+@StyleSheet("context://styles/global.css")
+@StyleSheet("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
+public class StyledApp extends Div {
+}
+....
+
+.`HTML`
+[source,html]
+....
+<link rel="stylesheet" type="text/css" href="styles/global.css">
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+....
+
+
+== Component scope
+
+Component styles are scoped per component and allow you to customize component styles without worrying about side-effects to other parts of your app.
+
+.`Java`
+[source,java]
+....
+@CssImport(value = "./styles/text-field.css", themeFor = "vaadin-text-field")
+public class StyledApp extends Div {
+}
+....
+
+.`JavaScript`
+[source,javascript]
+....
+import { registerStyles, css } from '@vaadin/vaadin-themable-mixin/register-styles.js';
+
+registerStyles('vaadin-text-field', css`
+  /* Styles which will be included in vaadin-text-field local scope, i.e. contents of styles/text-field.css */
+`);
+....
+
+Learn how to write CSS for component scopes and style Vaadin components: <<../styling-components/overview#,Styling components>>.

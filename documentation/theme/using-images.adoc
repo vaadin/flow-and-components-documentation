@@ -1,0 +1,26 @@
+---
+title: Using images
+order: 6
+layout: page
+---
+
+= Using images
+
+Place images and other static assets, which need to be accessibly by the browser, in the `/src/main/webapp/` folder and use absolute paths in CSS for those assets. For Spring-based projects use `/src/main/resources/META-INF/resources/`.
+
+For a comprehensive documentation how static resources are handled, see <<../importing-dependencies/tutorial-ways-of-importing#,Storing and Loading Resources>>
+
+== Example
+
+Given the following file/folder structure:
+
+* `/src/main/webapp/img/logo.png`
+
+Referencing the image from a style sheet (see <<including-style-sheets#,Including style sheets>> to learn how to include custom style sheets to your app):
+
+[source,css]
+....
+.logo {
+  background-image: url(/img/logo.png);
+}
+....
