@@ -227,12 +227,16 @@ The static war is built as a portal window can only load a single Vaadin bundle 
 at a time. With this all the portlets on the page can in a simple way use the same static bundle.
 
 ==== Configuring static resources
-If you need to change the name (or location) of the static assets war (`vaadin-portlet-static`), you can do that via `portlet.static.resources.mapping` system property.
-For example, if you would like to serve static resources from `[portal-url]/resources/vaadin-static-resources/`, you will need to +
+If you need to change the name of the static assets war (`vaadin-portlet-static` as default), you can do that via `vaadin.portlet.static.resources.mapping` application property.
+For example, if you would like to serve static resources from `vaadin-static-resources.war`, you will need to +
 
-- Rename static war to `vaadin-static-resources` in the pom.xml
-- Build the project with `-Dportlet.static.resources.mapping="/resources/vaadin-static-resources/"
-- Place the created `vaadin-static-resources.war` under `/resources` on your web server
+* Rename static war to `vaadin-static-resources` in the pom.xml
+* Pass the value `/vaadin-static-resources/` via the application property to the Vaadin application, i.e. on TomCat web server you would:
+** On *nix-based operating systems, create a file `$CATALINA_BASE/bin/setenv.sh` with the line +
+`JAVA_OPTS="$JAVA_OPTS -Dvaadin.portlet.static.resources.mapping=/vaadin-static-resources/"`
+** On Windows operating systems, create a file `%CATALINA_BASE%\bin\setenv.bat` with the line +
+`set "JAVA_OPTS=%JAVA_OPTS% -Dvaadin.portlet.static.resources.mapping=/vaadin-static-resources/"`
+
 
 === Deploying Vaadin Portlet
 
