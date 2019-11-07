@@ -89,8 +89,8 @@ If the `index.html` or `index.ts` (and `index.js`) files in the frontend folder 
 import { Flow } from '@vaadin/flow-frontend/Flow';
 
 const flow = new Flow({
-  // relative path to `projectDir/target/frontend/flow-generated-imports.js`
-  imports: () => import('../target/frontend/flow-generated-imports.js')
+  // relative path to `projectDir/target/frontend/generated-flow-imports.js`
+  imports: () => import('../target/frontend/generated-flow-imports.js')
 });
 
 // load Flow and let it take full control over the browser page
