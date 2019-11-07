@@ -1,10 +1,15 @@
 ---
-title: Integrating a Custom Component Theme
-order: 5
+title: Creating a custom theme
+order: 7
 layout: page
 ---
 
-= Integrating a Custom Component Theme
+= Creating a custom theme
+
+If customizing built-in themes is not enough and you want complete control, you can create a completely custom theme from scratch. This means that you explicitly define the style sheets for all the components that are used in your application.
+
+[NOTE]
+This approach is not recommended for most applications. You should first consider customizing one of the built-in themes. See the other articles in this section for instructions how to do that.
 
 You can integrate a custom component theme to be used with the wrapped Vaadin components. To do this, you need to create a theme class that tells Vaadin how to translate the base un-themed component HTML import into your themed version.
 
@@ -14,7 +19,7 @@ The most important methods are:
 
 * `getThemeUrl`: This should return what the base URL part should be changed into to get the correct theme import. For Vaadin components this is `/theme/[_themeName_]`.
 
-*Example*: Overriding the `getBaseUrl` and `getThemeUrl` methods in the `MyTheme` class. 
+*Example*: Overriding the `getBaseUrl` and `getThemeUrl` methods in the `MyTheme` class.
 
 [source,java]
 ----
@@ -32,7 +37,7 @@ public class MyTheme implements AbstractTheme {
 }
 ----
 
-If you need more control, you can use the `getHeaderInlineContents()` method that returns a collection of HTML that will be inlined to the `BootstrapPage` body. 
+If you need more control, you can use the `getHeaderInlineContents()` method that returns a collection of HTML that will be inlined to the `BootstrapPage` body.
 
 *Example*: Using the `getHeaderInlineContents()` method to add a custom style that includes the correct typography styles.
 [source,java]
