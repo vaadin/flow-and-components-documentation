@@ -57,6 +57,8 @@ Next, update your pom.xml:
 </dependency>
 ----
 
+. Add `build-frontend` goal to `vaadin-maven-plugin` as Vaadin Portlet does not work in development mode running webpack-dev-server.
+
 === Creating the Portlet
 
 In the most basic setup, Vaadin Portlets consist of two classes:
