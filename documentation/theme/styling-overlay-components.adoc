@@ -1,0 +1,7 @@
+---
+title: Styling overlay components
+order: 8
+layout: page
+---
+
+= Styling overlay components

@@ -1,6 +1,6 @@
 ---
 title: Creating a custom theme
-order: 7
+order: 10
 layout: page
 ---
 

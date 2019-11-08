@@ -1,0 +1,7 @@
+---
+title: Styling component internals
+order: 6
+layout: page
+---
+
+= Styling component internals

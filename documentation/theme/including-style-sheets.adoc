@@ -8,6 +8,8 @@ layout: page
 
 To customize the built-in themes you need to include custom style sheets in your app. You can include style sheets to the global scope and to components’ local scope (Shadow DOM).
 
+=== Example
+
 .`Java`
 [source,java]
 ....
@@ -140,4 +142,4 @@ registerStyles('vaadin-text-field', css`
 `);
 ....
 
-Learn how to write CSS for component scopes and style Vaadin components: <<../styling-components/overview#,Styling components>>.
+Learn how to write CSS for component scopes and style Vaadin components in <<basic-theme-customization#component-themes, Component themes>> and Styling component <<styling-component-internals#,internals>> and <<styling-component-states#,states>> and <<styling-sub-components#,sub-components>>.
