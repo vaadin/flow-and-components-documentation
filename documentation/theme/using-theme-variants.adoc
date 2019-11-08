@@ -6,10 +6,7 @@ layout: page
 
 = Using theme variants
 
-The built-in themes have global variants that you use to quickly customize all components. Built-in component variants can be used to style individual component instances quickly.
-
-[NOTE]
-Refer to <<built-in-themes#,the previous article>> to learn how to choose a built-in theme before using theme variants.
+The built-in themes have global variants that you use to quickly customize all components. Built-in component variants can be used to style individual component instances quickly. You should be familiar <<built-in-themes#,choosing a built-in theme>> before using theme variants.
 
 == Global variants
 
@@ -100,7 +97,7 @@ You can find a component's Material variants from the https://vaadin.com/themes/
 
 === Custom variants
 
-You can add custom variant values for components. The styles for those variants should then be defined in an additional stylesheet which you import. Learn how to <<including-style-sheets#component-scope,include a component style sheet>> and how to <<../styling-components/overview#,write styles for a component>>.
+You can add custom variant values for components. The styles for those variants should then be defined in an additional stylesheet which you import. Learn how to <<including-style-sheets#component-scope,include a component style sheet>> and how to <<styling-component-internals#,write styles for a component>>.
 
 .`Java`
 [source,java]

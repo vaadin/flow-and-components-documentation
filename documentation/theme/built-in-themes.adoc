@@ -6,7 +6,7 @@ layout: page
 
 = Built-in themes
 
-Vaadin comes with a set of built-in themes which you can choose from. See vaadin.com/themes for a high-level overview of theming in Vaadin.
+Vaadin comes with a set of built-in themes which you can choose from. See https://vaadin.com/themes[vaadin.com/themes] for a high-level overview of theming in Vaadin.
 
 == Lumo
 
