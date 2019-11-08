@@ -6,14 +6,14 @@ layout: page
 
 = Themes and styling
 
-This documentation section describes how to use the <<built-in-themes#,built-in themes>> and their <<using-theme-variants#,variants>> and how to <<basic-theme-customization#,customize them>>.
+This documentation section describes how to use the <<built-in-themes#,built-in themes>> and their <<using-theme-variants#,variants>> and how to <<theming-basics#,customize them>>.
 
 To learn how to theme and style components, see the later articles in this section about <<styling-component-internals#,component internals>>, <<styling-component-states#,states>>, <<styling-sub-components#,sub-components>> and <<styling-overlay-components#,overlays>>.
 
 [NOTE]
 Parts of the documentation show how to accomplish theming using either Java or JavaScript/HTML. The end result will be identical regardless. Choose the approach you are most comfortable with.
 
-== Prerequisites
+=== Prerequisites
 
 Themes are built and customized using CSS. You should be familiar and comfortable with writing CSS, to be able to effectively customize themes and style components.
 

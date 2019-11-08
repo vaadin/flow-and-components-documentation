@@ -1,14 +1,16 @@
 ---
-title: Basic theme customization
+title: Theming basics
 order: 5
 layout: page
 ---
 
-= Basic theme customization
+= Theming basics
 
-Learn the basics of customizing the built-in themes with CSS. You should be familiar how to include style sheets for the <<including-style-sheets#global-scope,global scope>> and for <<including-style-sheets#component-scope,component scopes>>, where you can write your CSS.
+Learn the basics of customizing the built-in themes with CSS.
 
-If you are unfamiliar with CSS Custom Properties and Variables (properties that start with a double dash `--`) read the https://developer.mozilla.org/en-US/docs/Web/CSS/--*[documentation on MDN].
+=== Prerequisites
+
+You should be familiar <<including-style-sheets#,how to include style sheets>> for the global scope and for component scopes, where you can write your CSS. <<themes-and-styling#prerequisites,Basic understanding of CSS>> is also required.
 
 === Example
 

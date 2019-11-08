@@ -6,7 +6,11 @@ layout: page
 
 = Using theme variants
 
-The built-in themes have global variants that you use to quickly customize all components. Built-in component variants can be used to style individual component instances quickly. You should be familiar <<built-in-themes#,choosing a built-in theme>> before using theme variants.
+The built-in themes have global variants that you use to quickly customize all components. Built-in component variants can be used to style individual component instances quickly.
+
+=== Prerequisites
+
+You should be familiar with <<built-in-themes#,choosing a built-in theme>> before using theme variants.
 
 == Global variants
 

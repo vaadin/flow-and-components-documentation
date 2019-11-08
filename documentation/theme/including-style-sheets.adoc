@@ -142,4 +142,4 @@ registerStyles('vaadin-text-field', css`
 `);
 ....
 
-Learn how to write CSS for component scopes and style Vaadin components in <<basic-theme-customization#component-themes, Component themes>> and Styling component <<styling-component-internals#,internals>> and <<styling-component-states#,states>> and <<styling-sub-components#,sub-components>>.
+Learn about <<theming-basics#component-themes, basic component theming>> and how to write styles for component <<styling-component-internals#,internals>>, <<styling-component-states#,states>>, <<styling-sub-components#,sub-components>> and <<styling-overlay-components#,overlay components>>.
