@@ -1,6 +1,6 @@
 ---
 title: Styling overlay components
-order: 8
+order: 9
 layout: page
 ---
 
