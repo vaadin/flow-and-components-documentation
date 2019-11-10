@@ -17,9 +17,8 @@ Vaadin Connect uses https://github.com/OAI/OpenAPI-Specification[OpenAPI Specifi
 
 A simple generated TypeScript files will look like the following snippet:
 
-.UserService.ts
-[[UserService.ts]]
-[source,typescript]
+.UserService.ts [[UserService.ts]]
+[source, typescript]
 ----
 /**
  * User services.
@@ -48,9 +47,8 @@ The `_import client from './connect-client.default'_` is a static part of any ge
 
 Each method in the generated modules is corresponding to a Java method in `@VaadinService` annotated classes. For example, the following Java code is corresponding to the generated <<UserServices.ts,UserServices.ts>>:
 
-.UserService.ts
-[[UserService.ts]]
-[source,typescript]
+.UserService.ts [[UserService.ts]]
+[source, java]
 ----
 /**
  * User services.
@@ -81,7 +79,7 @@ If a parameter, a bean property or a method in Java method is annotated with `@N
 ==== Optional parameter
 
 .Optional parameter in Java service
-[source,java]
+[source, java]
 ----
 public void setName(String firstName, String lastName, @Nullable String middleName) {
     // omitted code
@@ -93,7 +91,7 @@ public void setNameOptional(String firstName, String lastName, Optional<String> 
 ----
 
 .Generated optional parameter in TypeScript
-[source,typescript]
+[source, typescript]
 ----
 export function setName(
   firstName: string,
@@ -186,9 +184,8 @@ The path *must* start with `/` as described in https://github.com/OAI/OpenAPI-Sp
 ==== Method's Parameters
 Parameters of the method are taken from the `_application/json_` content of https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#requestBodyObject[request body object]. To get the result as <<UserService.ts>>, the request body content should be:
 
-.Request Body
+.Request Body [[request-body]]
 [source, json]
-[[request-body]]
 ----
 {
  "content": {
@@ -218,9 +215,8 @@ All the other content types of request body object are not ignored by Vaadin Con
 
 Return type and its description are taken from the `_200_` https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#responseObject[response object]. As same as request body object, the generator is only interested at `application/json` content type. The schema type indicates the return type and the description describes the result. Here is an example of a https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#responsesObject[responses objects]:
 
-.Responses Object
+.Responses Object [[response-object]]
 [source, json]
-[[response-object]]
 ----
 {
   "200": {

@@ -57,5 +57,6 @@
 
         <flow.version>3.0-SNAPSHOT</flow.version>
         <vaadin.version>14.0-SNAPSHOT</vaadin.version>
+        <jackson.version>2.9.7</jackson.version>
     </properties>
 </project>
