@@ -27,7 +27,7 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | Accordion | Accordion (V13) | https://vaadin.com/components/vaadin-accordion/java-examples[Demo]
 
-| Audio | - | Not planned. Use the native `<audio>` element.
+| Audio | - | Not planned due to no demand. Use the native `<audio>` element.
 
 | Button | Button | https://vaadin.com/components/vaadin-button/java-examples[Demo]
 
@@ -53,9 +53,9 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | DateField | DatePicker | https://vaadin.com/components/vaadin-date-picker/java-examples[Demo]
 
-| DateTimeField | DatePicker (V10) & TimePicker (V12) | Planned for 2019. Possible by combining `DatePicker` and `TimePicker`. `<input type="datetime">` is supported in some browsers.
+| DateTimeField | DatePicker (V10) & TimePicker (V12) | Planned for 2020 (14.x). Possible by combining `DatePicker` and `TimePicker`. `<input type="datetime">` is supported in some browsers.
 
-| Embedded | - | Use `<object>` directly via `@Tag("object")` and `Element` API
+| Embedded | - | Not planned due to lack of demand. Use `<object>` directly via `@Tag("object")` and `Element` API
 
 | FormLayout | FormLayout | https://vaadin.com/components/vaadin-form-layout/java-examples[Demo]
 
@@ -89,11 +89,11 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | Notification | Notification | https://vaadin.com/components/vaadin-notification/java-examples[Demo]
 
-| Panel | Planned H2/2019: VerticalLayout & HorizontalLayout | `setScrollable` API for VL & HL will be available in a minor release for 14 in 2019
+| Panel | - | Similar add-on available, search for "Card" in https://vaadin.com/directory[vaadin.com/directory]. Candidate for adding to 14.x in 2020.
 
 | PasswordField | PasswordField | https://vaadin.com/components/vaadin-text-field/java-examples[Demo]
 
-| PopupView | - | Planned for 2019. Can be made by combining `Button` and `ContextMenu` (V12).
+| PopupView | - | Planned. Can be made by combining `Button` and `ContextMenu` (V12).
 
 | ProgressBar | ProgressBar | https://vaadin.com/components/vaadin-progress-bar/java-examples[Demo]
 
@@ -107,7 +107,7 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | TextArea | TextArea | https://vaadin.com/components/vaadin-text-field/java-examples[Demo]
 
-| TextField | TextField | https://vaadin.com/components/vaadin-text-field/java-examples[Demo]
+| TextField | TextField (BigDecimalField, IntegerField, NumberField) | https://vaadin.com/components/vaadin-text-field/java-examples[Demo]
 
 | Tree | - | Planned, no timeline yet. Go vote https://github.com/vaadin/vaadin-grid-flow/issues/469[issue] if you need it.
 
@@ -115,7 +115,7 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | TwinColSelect | - | Not planned. Can be built as a composite using `ListBox` and `Button`.
 
-| Video | - | Not planned. Can directly use the native `<video>` element.
+| Video | - | Not planned due to no demand. Can directly use the native `<video>` element.
 
 | VerticalLayout | VerticalLayout | https://vaadin.com/components/vaadin-ordered-layout/java-examples[Demo], more details <<layouts,later in this chapter>>
 

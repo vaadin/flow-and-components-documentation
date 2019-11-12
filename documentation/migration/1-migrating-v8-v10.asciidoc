@@ -1,13 +1,15 @@
 ---
-title: Migrating from V8 to Vaadin platform
+title: Migrating from V8 to Vaadin 14
 order: 1
 layout: page
 ---
 
-= Migrating from Vaadin 8 to Vaadin platform
+= Migrating from Vaadin 8 to Vaadin 14
 
 [NOTE]
-This migration documentation has been revised for Vaadin 14.0 release. It is recommended to migrate to Vaadin 14 since it is the latest LTS and has more features available than versions 10-13. 
+This migration documentation has been revised for Vaadin 14.1 release. It is recommended to migrate to Vaadin 14 since it is the latest LTS and has more features available than versions 10-13.
+Vaadin 14 also gets new minor releases, which are backwards compatible but add new
+features.
 
 Vaadin platform stands for Vaadin versions 10 and later, and is a continuum from Vaadin 8. While the core concepts, architecture and programming model stay the same,
 the platform is still a big leap forward:
