@@ -18,7 +18,7 @@ In this section we take a look at different listeners, which allows Vaadin Portl
 
 === The Portlet View
 
-As described in <<creating-vaadin-portlets#,Creating Vaadin Portlets>>, the Vaadin Portlet consists of two parts: a class extending `VaadinPortlet` and a portlet view class extending Vaadin `Component`.
+As described in <<portlet-02-creating-vaadin-portlets#,Creating Vaadin Portlets>>, the Vaadin Portlet consists of two parts: a class extending `VaadinPortlet` and a portlet view class extending Vaadin `Component`.
 The portlet view is the Vaadin component defining the UI of your portlet.
 Any `Component` subclass can be used as the base class for the portlet view.
 
@@ -38,7 +38,7 @@ The available listeners are:
 
 - `PortletModeListener`
 - `WindowStateListener`
-- `PortletEventListener` (part of the <<inter-portlet-communication#,Inter-Portlet Communication>>)
+- `PortletEventListener` (part of the <<portlet-04-inter-portlet-communication#,Inter-Portlet Communication>>)
 
 Next, we will have a look at the listeners which enable the view component react to changes to the portlet's state.
 

@@ -15,7 +15,7 @@ import com.vaadin.flow.portal.handler.WindowStateEvent;
 import com.vaadin.flow.portal.handler.WindowStateHandler;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("portlet-support/handling-portlet-phases.asciidoc")
+@CodeFor("portlet-support/portlet-03-handling-portlet-phases.asciidoc")
 public class HandlingPortletPhases {
     public class PortletModeListenerDemo {
         public class MyPortletView extends Div implements PortletView {

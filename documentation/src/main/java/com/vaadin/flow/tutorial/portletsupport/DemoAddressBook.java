@@ -20,7 +20,7 @@ import com.vaadin.flow.portal.handler.PortletView;
 import com.vaadin.flow.portal.handler.PortletViewContext;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("portlet-support/demo-address-book.asciidoc")
+@CodeFor("portlet-support/portlet-05-demo-address-book.asciidoc")
 public class DemoAddressBook {
     public class ContactListView extends VerticalLayout implements PortletView {
         private PortletViewContext portletViewContext;
