@@ -150,7 +150,7 @@ add the following contents:
 The `<portlet-class>` points to your class extending `VaadinPortlet` with fully qualified name.
 The `<supports>` section contains the portlet modes (`<portlet-mode>` tag) the portlet supports.
 You can learn more about portlet modes for Vaadin Portlet in
-<<handling-portlet-phases#,the next chapter>>
+<<portlet-03-handling-portlet-phases#,the next chapter>>
 
 == Deploying your Vaadin Portlet
 

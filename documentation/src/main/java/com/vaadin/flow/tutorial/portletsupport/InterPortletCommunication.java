@@ -9,7 +9,7 @@ import com.vaadin.flow.portal.handler.PortletView;
 import com.vaadin.flow.portal.handler.PortletViewContext;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("portlet-support/inter-portlet-communication.asciidoc")
+@CodeFor("portlet-support/portlet-04-inter-portlet-communication.asciidoc")
 public class InterPortletCommunication {
     public class FiringPortletView extends Div implements PortletView {
 
