@@ -102,6 +102,8 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<polymer-templates/tutorial-template-model-encoders#,Using Model Encoders with a PolymerTemplate Model>>
 
 == Creating UI in TypeScript
+* <<ccdm/quick-start-guide-v15#, Start a new V15 project>>
+* <<ccdm/quick-start-guide-v14#, Migrate a V14 project>>
 * <<ccdm/quick-start-guide#, Quick Start Guide>>
 * <<ccdm/client-side-bootstrapping#, Client-side Bootstrapping>>
 * <<ccdm/client-side-routing#, Client-side Routing>>
