@@ -1,0 +1,116 @@
+---
+title: Address Book Demonstration
+order: 6
+layout: page
+---
+
+= Creating Multi-module Portlet Project
+
+It is possible to set up your Vaadin Portlet project up as a multi-module maven project.
+This allows each portlet to be placed into its own module, allowing for greater separation between the portlets.
+The separation makes it easier to separate concerns and allow multiple people or teams to work on the portlets simultaneously.
+
+The multi-module Vaadin portlet project can naturally contain non-Vaadin portlets in their own modules (and vice-versa).
+A module may of course contain multiple portlets, if it makes sense for the project.
+
+Multi-module project is the recommended setup for Vaadin portlet projects.
+In this chapter we look into what a multi-module project looks like for Vaadin portlets, and it can be set up.
+
+== Vaadin Portlet Multi-module Project Structure
+
+The project consists of _1+N_ modules, where _N_ in the number of portlets in the project - the _1_ stands for Vaadin frontend asset module.
+All frontend assets used by the Vaadin Portlets are packaged into a single war by the frontend asset module.
+The asset WAR can be deployed onto the same web server as the portlet WARs, or onto some other file provider.
+Below is a sketch of a possible project structure.
+
+.Potential project structure
+----
+project-base
++-- static-vaadin-assets
++-- vaadin-portlet-1
++-- vaadin-portlet-2
+:
++-- vaadin-portlet-n
+----
+
+Take a look at the https://github.com/vaadin/addressbook-portlet[addressbook-portlet] multi-module project for a working example.
+The project has four modules:
+
+* `addressbook-backend` +
+Holds the shared data-layer for both portlets.
+* `addressbook-bundle` +
+Builds the frontend resource bundle for both portlets.
+* `addressbook-form` +
+Contact information portlet.
+* `addressbook-grid` +
+Contact list portlet.
+
+Setting up the above configuration requires some configuration in pom.xml files of each module directly related to portlets.
+After the configuration is done, and everything has been built and deployed once, further portlet deployments are limited to deploying only the WAR file for the module being edited, if there are no frontend changes.
+In the next section we show how to configure a multi-module Vaadin portlet project.
+
+== Configuring Vaadin Portlet Multi-module Project
+
+Configuring the Vaadin portlet multi-module project has two requirements:
+
+. Portlet modules build WARs without frontend resources
+. Static asset module packages frontend resources from all portlet WARs
+
+The first requirement can be achieved by _not_ using `vaadin-maven-plugin` in the pom.xml.
+Normally, Vaadin 14+ projects would have `vaadin-maven-plugin` in the pom.xml to enable packaging frontend files into the WAR.
+We will simply leave the plugin out, and the first step is achieved.
+
+The second step requires a bit more configuring.
+The static asset module needs to depend on each of the portlet modules.
+This means, that each portlet module builds two assets, a WAR and a JAR.
+I addition, for the frontend resources to be available, the portlet modules need to be set up similarly to Vaadin add-on projects.
+Finally, the portlet modules need to be configured to fetch frontend resources from the deployed static frontend resource provider.
+
+=== Building Two Assets
+Building both WAR and JAR can be achieved by configuring the maven-war-plugin as follows:
+
+.pom.xml in a portlet module
+[source,xml]
+----
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-war-plugin</artifactId>
+    <configuration>
+        <attachClasses>true</attachClasses>
+    </configuration>
+</plugin>
+----
+
+Adding the `attachClasses` flag instructs maven to build a jar file with `-classes` qualifier.
+We use this jar as a dependency in our static assets module:
+
+.Add module as dependency to static assets pom.xml
+[source,xml]
+----
+<dependency>
+    <groupId>your.group</groupId>
+    <artifactId>module-name</artifactId>
+    <qualifier>classes</qualifier>
+</dependency>
+----
+
+Replace the `groupId` and `artifactId` with the correct values.
+The portlet module is now used as a dependency for the static asset module.
+
+=== Structuring Module as a Vaadin Add-on
+
+The significant part of the project structure, when considering add-ons, is the `frontend` resource folder.
+The folder is normally located on to root of the module for Vaadin 14+ projects.
+In order for the frontend resources to packaged into the JAR file, place the files under the `frontend` folder to `/src/main/resources/META-INF/frontend/`.
+
+=== Retrieving Frontend Resources from the Static Asset Artifact
+
+
+=== Deploying the thing
+
+== Differences to the Single Module Approach
+
+
+Copy all the wars, yah.
+
+=== Common pitfalls: take note, ass-hat
