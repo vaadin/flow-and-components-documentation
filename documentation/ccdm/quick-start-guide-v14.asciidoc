@@ -20,6 +20,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-bom</artifactId>
+            <!-- Visit https://github.com/vaadin/flow/releases for checking the last version -->
             <version>15.0.0.alpha4</version>
             <type>pom</type>
             <scope>import</scope>
@@ -38,7 +39,7 @@ $ npm install --save @vaadin/router
 → *Step 2* - Create `frontend/index.html` and `frontend/index.ts` to enable <<client-side-routing#,client-side routing>>.
 
 .frontend/index.html
-[source, html]
+[source, xml]
 ----
 <html>
   <body>
@@ -83,12 +84,68 @@ router.setRoutes([
 [NOTE]
 Flow API is not distributed via npm repositories but added automatically when running the Vaadin project.
 
-→ *Step 4* - Install link:https://lit-element.polymer-project.org/[LitElement^] 
+→ *Step 4* - Install link:https://lit-element.polymer-project.org/[LitElement^]
 
 [source,bash]
 ----
 $ npm install --save lit-element
 ----
 
-→ *Step 5* -Continue with the <<quick-start-guide-v15#step3,Start Guide V15 - Step 3>> to add client-side views.
+→ *Step 5* - Define a Main Layout for navigation
+
+Create a component for links to each route in the Application:
+
+.frontend/main-layout.ts
+[source, javascript]
+----
+import { css, customElement, html, LitElement} from 'lit-element';
+
+@customElement('main-layout')
+export class MainLayoutElement extends LitElement {
+
+  static get styles() {
+    return css`
+      :host {
+        display: block;
+      }
+    `;
+  }
+
+  render() {
+    return html`
+      <a href="client-view">Client View</a>
+      <a href="server-view">Server View</a>
+     `;
+  }
+}
+----
+
+Add the component to the router configuration:
+
+.frontend/index.ts
+[source, javascript]
+----
+import {Router} from '@vaadin/router';
+import {Flow} from '@vaadin/flow-frontend/Flow';
+
+const router = new Router(document.querySelector('#outlet'));
+const {serverSideRoutes} = new Flow({
+  imports: () => import('../target/frontend/generated-flow-imports')
+});
+
+router.setRoutes([
+    {
+    path: '',
+    component: 'main-layout',
+    children: [
+      {path: 'client-view', component: 'my-client-view'},
+      // pass all unmatched paths to server-side
+      ...serverSideRoutes
+    ]
+  }
+]);
+----
+
+
+→ *Step 6* -Continue with the <<quick-start-guide-v15#step3,Start Guide V15 - Step 3>> to add client-side views.
 
