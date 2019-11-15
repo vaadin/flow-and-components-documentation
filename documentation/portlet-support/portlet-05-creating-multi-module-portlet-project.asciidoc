@@ -1,6 +1,6 @@
 ---
 title: Creating Multi-Module Portlet Project
-order: 6 
+order: 5
 layout: page
 ---
 
@@ -33,7 +33,7 @@ project-base
 +-- vaadin-portlet-n
 ----
 
-For an example of a multi-module Vaadin Portlet project, take a look at the https://github.com/vaadin/addressbook-portlet[addressbook-portlet] and the associated tutorial <<portlet-05-demo-address-book#,Address Book Demonstration>>.
+For an example of a multi-module Vaadin Portlet project, take a look at the https://github.com/vaadin/addressbook-portlet[addressbook-portlet] and the associated tutorial <<portlet-demo-01-address-book#,Address Book Demonstration>>.
 The tutorial covers the project structure and how the different portlet components interact.
 
 Setting up the above configuration requires some configuration in pom.xml files of each module directly related to portlets.
