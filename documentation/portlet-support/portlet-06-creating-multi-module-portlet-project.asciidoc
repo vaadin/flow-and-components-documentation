@@ -14,7 +14,7 @@ The multi-module Vaadin Portlet project can naturally contain non-Vaadin Portlet
 A module may of course contain multiple portlets, if it makes sense for the project.
 
 Multi-Module project is the recommended setup for Vaadin Portlet projects.
-In this chapter we look into what a multi-module project looks like for Vaadin Portlets, and it can be set up.
+In this chapter we look into what a multi-module project looks like for Vaadin Portlets, how and it can be set up.
 
 == Vaadin Portlet Multi-Module Project Structure
 
