@@ -19,13 +19,27 @@ The learning goals are:
 
 The source code with a complete project for this example is available in https://github.com/vaadin/addressbook-portlet[addressbook-portlet].
 
-== Address Book Module
+== Address Book Project Structure
 
 The address book demonstration shows how to build a simple address book application using Vaadin Portlets.
 The address book consists of two portlets.
 One portlet, _Contact List_, displays all the available contacts the user has.
 The other portlet, _Contact Form_, shows the information about the contact selected via the contact list.
 Contact Form portlet also allows the user to edit the existing contact.
+
+The project is structured as a multi-module project and has the following four modules:
+
+* `addressbook-backend` +
+Holds the shared data-layer for both portlets.
+* `addressbook-bundle` +
+Builds the frontend resource bundle for both portlets.
+* `addressbook-form` +
+Contact information portlet.
+* `addressbook-grid` +
+Contact list portlet.
+
+In this chapter we focus on the portlet implementations.
+To get more familiar with setting up and maintaining a multi-module Vaadin Portlet project, take a look at the next chapter, <<portlet-06-creating-multi-module-portlet-project#,Creating Multi-Module Portlet Project>>.
 
 === Structure
 
@@ -148,7 +162,7 @@ Besides `onPortletViewContextInit`, the `ContactListView` has three important me
 Firing the selection event is triggered when user selects a contact in the list.
 The method creates a parameter map which contains the id of the selected contact.
 We then use the our `portletViewContext` instance to send the event under the name `contact-selected`.
-Other Vaadin portlet views that have registered listeners for this event name will be notified about the event.
+Other Vaadin Portlet views that have registered listeners for this event name will be notified about the event.
 
 `handleWindowStateChanged` is registered as a listener for `WindowStateChange` event.
 So, it is called when e.g. the portlet view get maximized or get back normalized.
