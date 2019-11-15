@@ -1,0 +1,47 @@
+---
+title: Mulimodule portlets
+order: 6
+layout: page
+---
+
+== Adding an external portlet to the portal
+
+To add an external portlet to an existing multimodule portlet project there are some requirements for the external portlet:
+
+=== 1. Portlet configuration:
+
+The external portlet war should be built containing `flow-build-info.json` in `META-INF/VAADIN/config` with the content:
+
+.flow-build-info.json
+[src, json]
+----
+{
+  "externalStatsUrl": "/vaadin-portlet-static/VAADIN/config/stats.json"
+}
+----
+
+[NOTE]
+This is the default static war that is built and will target 127.0.0.1:8080.
+This should use the correct known url of the bundle. For instance localhost on port 80 would be
+ `http://127.0.0.1/vaadin-portlet-static/VAADIN/config/stats.json`
+
+[NOTE]
+The portlet war should be built without using the vaadin-maven-plugin as all frontend files will be handled in the bundle module
+
+=== 2. Portlet classes should be delegated to bundle
+
+For the bundle to build correctly the bundle module should be given the compiled sources of the portlet, preferably as a jar artifact.
+Else the sources can be added to the bundle build, but this wouldn't be optimal.
+
+=== 3. Portlet local frontend files
+
+If the external portlet uses local frontend files these need to be delegated to the bundle. 
+This is done by building the portlet as an add-on with the frontend files under `src/main/resources/META-INF/frontend`.
+This will leave the files in `META-INF/frontend` inside the built JAR file.
+
+The other choice is to copy the `./frontend/` folder contents to the bundle module so that they are available for bundle creation.
+
+=== 4. Build the bundle module
+
+Last step is to build the bundle module and deploy the new bundle and external portlet to the portal.
+All already deployed portlets should be able to use the contents of the new bundle after the bundle has deployed.
