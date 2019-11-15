@@ -16,7 +16,7 @@ The scenarios covered are 1) adding the Vaadin Portlet module to a Vaadin multi-
 This short guide is applicable when:
 
 - You have an existing Vaadin Portlet multi-module project containing a bundle module and one or more Vaadin Portlet modules, as described in <<portlet-06-creating-multi-module-portlet-project#,Creating Multi-module Portlet Project>>; and
-- You have a Vaadin Portlet module (either built from scratch or based on `addressbook-portlet` or `base-starter-flow-portlet`); and
+- You have a Vaadin Portlet module (either built from scratch or based on `base-starter-flow-portlet`); and
 - Your objective is to integrate the new Vaadin Portlet module into the target project, so that you can build and deploy all Vaadin Portlet modules as separate wars together with a shared static asset war.
 
 [[adding-submodule]]
@@ -35,7 +35,8 @@ Then register `myproject-newportlet` as a submodule in `myproject/pom.xml`:
     <module>myproject-bundle</module>
 </modules>
 ----
-Note that the portlet modules should be added before the static asset module (here `myproject-bundle`).
+[NOTE]
+The portlet modules should be added before the static asset module (here `myproject-bundle`).
 The internal order of the portlet modules does not matter (unless there are project-specific interdependencies).
 
 Also update the parent property in the portlet module's `pom.xml` to refer to the target project:
@@ -102,6 +103,7 @@ Next, under the `maven-war-plugin` of `pom.xml`, remove the entire execution wit
 Since the target project builds its own static asset module, these are no longer needed in the portlet module itself.
 Next, we need to check that the portlet module itself is configured properly.
 
+[[module-configuration]]
 === Ensure the New Portlet Module is Configured Properly
 
 In the `pom.xml` of the new portlet module, enable `<attachClasses>`:
@@ -126,7 +128,10 @@ In the new portlet module, ensure that the file `src/main/resources/META-INF/VAA
 ----
 
 The first component of the path (here `myproject-bundle`) must match the war name of the deployed static asset war.
-Note that this is a server URL (not a local file path).
+[NOTE]
+As this is a relative url it will target 127.0.0.1:8080.
+This should use the correct known url of the bundle. For instance localhost on port 80 would be
+ `http://127.0.0.1/myproject-bundle/VAADIN/config/stats.json`
 
 For more information on setting up the multi-module project and packaging of static assets, see <<portlet-06-creating-multi-module-portlet-project#,Creating Multi-module Portlet Project>>.
 
@@ -160,7 +165,8 @@ To add the Vaadin Portlet as a submodule in the existing multi-module project, f
 
 Ensure that the Vaadin Portlet `pom.xml` contains the `vaadin-maven-plugin` and two executions in the `maven-war-plugin` for building both the static asset bundle war and the portlet war.
 If your portlet module is based on `base-starter-flow-portlet`, `vaadin-maven-plugin` is added and the executions already exist with the ids `static-files` and `portlet-war`, respectively.
-Note that the `<warName>` of the static asset bundle must be exactly `vaadin-portlet-static`.
+Note that the `<warName>` of the static asset bundle must be exactly `vaadin-portlet-static` for the project to work out of the box.
+To use a custom bundle name, you must add a `flow-build-info.json` file containing the static asset URL as explained in <<module-configuration>>.
 
 === Package and Deploy the war Files
 
