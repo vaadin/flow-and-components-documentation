@@ -30,16 +30,13 @@ The portlet war should be built without using the vaadin-maven-plugin as all fro
 
 === 2. Portlet classes should be delegated to bundle
 
-For the bundle to build correctly the bundle module should be given the compiled sources of the portlet, preferably as a jar artifact.
-Else the sources can be added to the bundle build, but this wouldn't be optimal.
+For the bundle to build correctly the bundle module should be given the compiled sources of the portlet, as a jar artifact.
 
 === 3. Portlet local frontend files
 
 If the external portlet uses local frontend files these need to be delegated to the bundle. 
 This is done by building the portlet as an add-on with the frontend files under `src/main/resources/META-INF/frontend`.
 This will leave the files in `META-INF/frontend` inside the built JAR file.
-
-The other choice is to copy the `./frontend/` folder contents to the bundle module so that they are available for bundle creation.
 
 === 4. Build the bundle module
 
