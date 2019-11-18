@@ -1,10 +1,10 @@
 ---
 title: Address Book Demonstration
-order: 5
+order: 7
 layout: page
 ---
 
-= Address Book Demonstration
+= Demonstration: Address Book
 
 This demonstration brings together all the topics covered in the previous chapters.
 The focus of this chapter is on using inter-portlet communication between two Vaadin Portlets.
@@ -39,7 +39,7 @@ Contact information portlet.
 Contact list portlet.
 
 In this chapter we focus on the portlet implementations.
-To get more familiar with setting up and maintaining a multi-module Vaadin Portlet project, take a look at the next chapter, <<portlet-06-creating-multi-module-portlet-project#,Creating Multi-Module Portlet Project>>.
+To get more familiar with setting up and maintaining a multi-module Vaadin Portlet project, take a look at the next chapter, <<portlet-05-creating-multi-module-portlet-project#,Creating Multi-Module Portlet Project>>.
 
 === Structure
 
