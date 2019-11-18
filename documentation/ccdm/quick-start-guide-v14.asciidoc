@@ -20,7 +20,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-bom</artifactId>
-            <!-- Visit https://github.com/vaadin/flow/releases for checking the last version -->
+            <!-- Visit https://github.com/vaadin/platform/releases for checking the last version -->
             <version>15.0.0.alpha4</version>
             <type>pom</type>
             <scope>import</scope>
