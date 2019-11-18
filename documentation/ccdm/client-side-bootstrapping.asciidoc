@@ -97,7 +97,7 @@ const flow = new Flow({
 flow.start();
 ----
 
-NOTE: The auto-generated bootstrap template works best for server-side applicaitons. In order add client-side views into the app, please follow the  <<quick-start-guide#, Quick Start Guide>>.
+NOTE: The auto-generated bootstrap template works best for server-side applicaitons. In order add client-side views into the app, please follow the  <<quick-start-guide-v15#step-3, Quick Start Guide>>.
 
 Using TypeScript requires a `tsconfig.json` file for the TypeScript compiler. `vaadin-maven-plugin` generates one in case if there is an `index.ts` file in the frontend folder but there is no `tsconfig.json` in the project root.
 The default config looks similar to the following:

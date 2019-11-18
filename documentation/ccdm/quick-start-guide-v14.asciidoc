@@ -1,0 +1,151 @@
+---
+title: Quick Start Guide
+order: 15
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= Quick V14 to V15 Migration Guide
+
+== Preparing a project manually [[preparing-a-project-manually]]
+
+→ *Step 0* - Make your project depend on Vaadin 15
+
+.pom.xml
+[source,bash]
+----
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-bom</artifactId>
+            <!-- Visit https://github.com/vaadin/platform/releases for checking the last version -->
+            <version>15.0.0.alpha4</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+----
+
+→ *Step 1* - Install link:https://vaadin.com/router/[Vaadin Router^] from npm.
+
+[source,bash]
+----
+$ npm install --save @vaadin/router
+----
+
+→ *Step 2* - Create `frontend/index.html` and `frontend/index.ts` to enable <<client-side-routing#,client-side routing>>.
+
+.frontend/index.html
+[source, xml]
+----
+<html>
+  <body>
+    <div id="outlet"></div>
+  </body>
+</html>
+----
+
+
+.frontend/index.ts
+[source, javascript]
+----
+import {Router} from '@vaadin/router';
+const router = new Router(document.querySelector('#outlet'));
+
+router.setRoutes([
+]);
+----
+
+[NOTE]
+As an alternative to create these two files, you can run `mvn package` in the console to let vaadin create those files in the `./target` folder, then you can move them to the `./frontend` directory.
+
+→ *Step 3* - Import Flow module to enable <<../routing/tutorial-routing-annotation#,server-side routing>>
+
+.frontend/index.ts
+[source, javascript]
+----
+import {Router} from '@vaadin/router';
+import {Flow} from '@vaadin/flow-frontend/Flow';
+
+const router = new Router(document.querySelector('#outlet'));
+const {serverSideRoutes} = new Flow({
+  imports: () => import('../target/frontend/generated-flow-imports')
+});
+
+router.setRoutes([
+  // pass all unmatched paths to server-side
+  ...serverSideRoutes
+]);
+----
+
+[NOTE]
+Flow API is not distributed via npm repositories but added automatically when running the Vaadin project.
+
+→ *Step 4* - Install link:https://lit-element.polymer-project.org/[LitElement^]
+
+[source,bash]
+----
+$ npm install --save lit-element
+----
+
+→ *Step 5* - Define a Main Layout for navigation
+
+Create a component for links to each route in the Application:
+
+.frontend/main-layout.ts
+[source, javascript]
+----
+import { css, customElement, html, LitElement} from 'lit-element';
+
+@customElement('main-layout')
+export class MainLayoutElement extends LitElement {
+
+  static get styles() {
+    return css`
+      :host {
+        display: block;
+      }
+    `;
+  }
+
+  render() {
+    return html`
+      <a href="client-view">Client View</a>
+      <a href="server-view">Server View</a>
+     `;
+  }
+}
+----
+
+Add the component to the router configuration:
+
+.frontend/index.ts
+[source, javascript]
+----
+import {Router} from '@vaadin/router';
+import {Flow} from '@vaadin/flow-frontend/Flow';
+
+const router = new Router(document.querySelector('#outlet'));
+const {serverSideRoutes} = new Flow({
+  imports: () => import('../target/frontend/generated-flow-imports')
+});
+
+router.setRoutes([
+    {
+    path: '',
+    component: 'main-layout',
+    children: [
+      {path: 'client-view', component: 'my-client-view'},
+      // pass all unmatched paths to server-side
+      ...serverSideRoutes
+    ]
+  }
+]);
+----
+
+
+→ *Step 6* -Continue with the <<quick-start-guide-v15#step3,Start Guide V15 - Step 3>> to add client-side views.
+

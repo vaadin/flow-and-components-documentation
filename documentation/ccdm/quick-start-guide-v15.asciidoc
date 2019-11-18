@@ -1,0 +1,74 @@
+---
+title: Quick Start Guide V15
+order: 10
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= Quick Start of a clean V15 project
+
+If you already have a working Vaadin-14 maven project, check the <<quick-start-guide-v14#, V14 Migration>> guide.
+
+→ *Step 1* - Create a new project at link:https://start.stg.vaadin.com/[start.stg.vaadin.com^]
+
+image:starterwizard.gif[New Project Video]
+
+
+[NOTE]
+Make sure to select `TypeScript + Spring Boot` as the technology stack.
+
+→ *Step 2* - Unzip an run the project in Dev-Mode
+
+Run `mvn spring-boot:run` in the console and open the application at link:http://localhost:8080[]
+
+image:runproject.gif[New Project Video]
+
+
+[NOTE]
+When running the project the very first time, be patient all `maven` and `npm` dependencies need to be downloaded.
+
+[NOTE]
+If you'd rather run the spring project from the IDE, first run the maven goal `mvn compile` to prepare the environment.
+
+→ *Step 3* - Add a new client-side view and set a route path for it [[step-3]]
+
+First add a new route for the new view:
+
+.frontend/index.ts
+[source, javascript]
+----
+
+router.setRoutes([
+  ...
+  {
+    path: '/help',
+    component: 'app-help',
+    action: () => import('./views/help/app-help')
+  },
+  ...
+]);
+----
+
+Second create a new client-side view:
+
+.frontend/views/help/app-help.ts
+[source, javascript]
+----
+import {LitElement, html, customElement} from 'lit-element';
+
+@customElement('app-help')
+export class AppHelp extends LitElement {
+    render() {
+      return html`
+        <vaadin-button @click=${this.click}>Read More</vaadin-button>
+      `;
+    }
+
+    click(e) {
+      console.log('clicked');
+    }
+}
+----
+
+→ *Step 4* - Continue with the <<how-to-access-backend-from-typescript#, 'How to Access the Backend from TypeScript'>> guide for consuming server-side services.
