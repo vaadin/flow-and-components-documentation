@@ -32,7 +32,7 @@ Portlets (be they Vaadin Portlets or not) on the Portal page.
 Shows how to create a multi-module Vaadin Portlet maven project.
 Each portlet is in its own module, and frontend assets are in one module.
 
-. <<portlet-06-creating-multi-module-portlet-project#,Adding a Vaadin Portlet Module to an Existing Multi-Module Project>>
+. <<portlet-06-adding-portlet-module#,Adding a Vaadin Portlet Module to an Existing Multi-Module Project>>
 +
 Quick guide on how to add a new Vaadin Portlet Module to an existing Vaadin or non-Vaadin multi-module project.
 
