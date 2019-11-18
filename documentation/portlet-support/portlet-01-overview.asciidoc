@@ -37,4 +37,8 @@ The full code example will be available in https://github.com/vaadin/addressbook
 Shows how to create a multi-module Vaadin Portlet maven project.
 Each portlet is in its own module, and frontend assets are in one module.
 
+. <<portlet-07-adding-portlet-module#,Adding a Vaadin Portlet Module to an Existing Multi-Module Project>>
++
+Quick guide on how to add a new Vaadin Portlet Module to an existing Vaadin or non-Vaadin multi-module project.
+
 To help getting started building Vaadin Portlets, there is a https://github.com/vaadin/base-starter-flow-portlet[project base] that you can use. 
