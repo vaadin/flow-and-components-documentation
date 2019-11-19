@@ -47,7 +47,7 @@ public class RPC extends Component {
     }
 
     @ClientCallable
-    public void clickHandler() {
-        // do your server side action here
+    public String getGreeting(String name) {
+        return "Hello " + name;
     }
 }

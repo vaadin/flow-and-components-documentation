@@ -32,8 +32,7 @@ mvn vaadin:migrate-to-p3
 ```
 
 or with most IDEs from a list of configured Maven plugin goals for a project.
-During August 2019 the template migration tool will also become available as a Java executable for
-non-Maven projects.
+The template migration tool is also available as a <<standalone,Java executable>> for non-Maven projects.
 
 [NOTE]
 There are currently some issues in running the migration tool on Windows 10. The error output refers to "bower install failing" or "git not being available on path". To workaround this, you should use the https://docs.microsoft.com/en-us/windows/wsl/install-win10[Windows Linux Subsystem] and run the tool there instead. Another workaround that has been reported to help, is to install Bower on the system. We are investigating these issues.
@@ -53,7 +52,8 @@ See *keepOriginal* parameter description below.
 
 === Goal parameters
 
-Here we describe the Maven plugin goal's parameters.
+Here we describe the Maven plugin goal's parameters. These can be configured in the `<configuration>`
+section inside the ``vaadin-maven-plugin``'s `<plugin>` tag.
 
 * *resources* (default: `${project.basedir}/src/main/webapp`):
     List of folder paths that should be used to locate the P2 resources to convert 
@@ -83,7 +83,7 @@ Here we describe the Maven plugin goal's parameters.
     ** `SKIP`  means skip annotations rewrite
     ** `SKIP_ON_ERROR` means rewrite only if there are no errors during resource conversation
 
-
+[[standalone]]
 == Migrating a Project Using the Standalone Tool
 
 The standalone migration tool can be used to migrate projects that do not use Maven. It performs the

@@ -81,6 +81,3 @@ If you want to be more specific and target the overlay of `vaadin-dialog`, do no
 public class MyApplicationWithDialog extends Div {
 }
 ----
-
-[NOTE]
-`ThemableMixin` does not guarantee the order in which the style modules are applied. It is important to declare CSS rules whose specificity is greater than the Lumo properties that are being overridden. 
