@@ -578,7 +578,7 @@ grid.addColumn(new NativeButtonRenderer<>(
 );
 ----
 
-=== Using Template renderers
+=== Using Template Renderers
 
 Providing a `TemplateRenderer` for a column allows you to define the content of cells using HTML markup, and to use Polymer notations for data binding and event handling.
 
