@@ -20,7 +20,7 @@ Make sure to select `TypeScript + Spring Boot` as the technology stack.
 
 → *Step 2* - Unzip an run the project in Dev-Mode
 
-Run `mvn spring-boot:run` in the console and open the application at link:http://localhost:8080[]
+Run `mvn spring-boot:run` in the console and open the application at link:http://localhost:8080[]. After that, all modifications in `frontend` directory are compiled and reloaded automatically. Refreshing browser is enough to get the updates.
 
 image:runproject.gif[New Project Video]
 

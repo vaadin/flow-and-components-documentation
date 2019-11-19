@@ -155,6 +155,12 @@ router.setRoutes(routes);
 
 Now `my-view` is accessible via the root path, i.e. `http://localhost:8080/`. All the other routes are handled by the server-side router. See the <<client-side-routing#, Client-side Routing>> page for more information.
 
+= Hot-reload in development mode
+
+When running the application in development mode, all modifications in `frontend` folder are compiled and reloaded automatically. Refreshing browser is enough to get the updates.
+
+NOTE: There is an exceptional case when adding `index.ts` (`index.js`) or `index.html` for the first time. The application server needs to be restarted to update the entry point and the bootstrap template.
+
 = Limitations
 
 TypeScript support does not apply to <<../polymer-templates/tutorial-template-intro#, Polymer-based declarative HTML templates>>.
