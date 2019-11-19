@@ -129,9 +129,9 @@ When editing a single portlet module, there are two different deployment pattern
 
 == Adding an external portlet to the portal
 
-To add an external portlet to an existing multimodule portlet project there are some requirements for the external portlet:
+To add an external portlet to an existing multi-module portlet project there are some requirements for the external portlet:
 
-=== 1. Portlet configuration:
+=== 1. Portlet configuration
 
 The external portlet war should be built containing `flow-build-info.json` in `META-INF/VAADIN/config` with the content:
 
