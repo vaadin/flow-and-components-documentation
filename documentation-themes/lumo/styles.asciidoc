@@ -1,0 +1,164 @@
+---
+title: Style
+order: 4
+layout: page
+---
+
+// The following source is in HTML because it's copied from https://github.com/vaadin/vaadin-lumo-styles/tree/master/demo as is
+include::../themes-shared.asciidoc[]
+
+= Style
+
+++++
+    <p>Lumo defines a set of CSS custom properties you can use to apply consistent visual styles across your application.</p>
+
+    <p>Import <code>style.js</code> to use them.</p>
+++++
+[source,html]
+----
+<script type="module">
+  import '@vaadin/vaadin-lumo-styles/style.js';
+</script>
+----
+== Border radius
+++++
+
+    <p>The border radius values are defined as <code>em</code> by default, so they scale with the font size.</p>
+
+++++
+[NOTE]
+If you want to set a border radius property to zero, you need to specify a unit for it as well (i.e. `0px` or `0em`), as it can be used in `calc` functions which will be undefined if the border radius is a unitless value.
+++++
+
+<content-preview class="block">
+++++
+[source,html]
+----
+<div class="box s radius">S</div>
+<div class="box m radius">M</div>
+<div class="box l radius">L</div>
+
+<custom-style>
+  <style>
+    .radius.s {
+      border-radius: var(--lumo-border-radius-s);
+    }
+    .radius.m {
+      border-radius: var(--lumo-border-radius-m);
+    }
+    .radius.l {
+      border-radius: var(--lumo-border-radius-l);
+    }
+  </style>
+</custom-style>
+----
+++++
+</content-preview>
+
+++++
+== Shadow
+++++
+
+    <p>Shadows are used to indicate elements which are stacked on top of other elements in the UI.</p>
+
+<content-preview class="block background-shade">
+++++
+[source,html]
+----
+<div class="box xs shadow">XS</div>
+<div class="box s shadow">S</div>
+<div class="box m shadow">M</div>
+<div class="box l shadow">L</div>
+<div class="box xl shadow">XL</div>
+
+<custom-style>
+  <style>
+    .shadow.xs {
+      box-shadow: var(--lumo-box-shadow-xs);
+    }
+    .shadow.s {
+      box-shadow: var(--lumo-box-shadow-s);
+    }
+    .shadow.m {
+      box-shadow: var(--lumo-box-shadow-m);
+    }
+    .shadow.l {
+      box-shadow: var(--lumo-box-shadow-l);
+    }
+    .shadow.xl {
+      box-shadow: var(--lumo-box-shadow-xl);
+      width: calc(var(--lumo-size-xl) * 1.2);
+      height: calc(var(--lumo-size-xl) * 1.2);
+    }
+  </style>
+</custom-style>
+----
+++++
+</content-preview>
+
+++++
+== Cursor for clickable elements
+++++
+    <p>Use this property for elements that are clickable, such as buttons. That way, an application
+      can easily decide which mouse cursor to use for them. Traditional web address links (anchors)
+      should always use the <code>pointer</code> cursor (pointing hand).</p>
+
+    <p>By default, Lumo uses the <code>default</code> cursor (arrow) for clickable elements.</p>
+
+<content-preview class="block">
+++++
+[source,html]
+----
+<vaadin-button>Default</vaadin-button>
+<vaadin-button class="pointer">Pointer</vaadin-button>
+
+<custom-style>
+  <style>
+    .pointer {
+      --lumo-clickable-cursor: pointer;
+      cursor: var(--lumo-clickable-cursor);
+    }
+  </style>
+</custom-style>
+----
+++++
+
+</content-preview>
+
+++++
+== Custom properties
+++++
+  <content-preview class="block" hidesource raw>
+    <h5>Border radius</h5>
+    <dl class="custom-properties">
+      <dt>--lumo-border-radius-s: <code>0.25em</code></dt>
+        <dd>Use for small elements. To ensure they never turn into full circles, keep this value below <code>0.5em</code>.</dd>
+      <dt>--lumo-border-radius-m: <code>0.25em</code></dt>
+        <dd>The most commonly used roundness. It’s recommended to keep the value between <code>0em</code> and <code>calc(var(--lumo-size-m) / 2)</code></dd>
+      <dt>--lumo-border-radius-l: <code>0.5em</code></dt>
+        <dd>Use for large containers, such as cards and dialogs. It’s recommended to keep the value between <code>0em</code> and <code>0.5em</code></dd>
+      <dt>--lumo-border-radius: <code>0.25em</code></dt>
+        <dd>Deprecated. Use <code>--lumo-border-radius-m</code> instead.</dd>
+    </dl>
+
+    <h5>Shadow</h5>
+    <p theme="font-size-s">The shadows use various <code>--lumo-shade</code> colors. Computed values are shown here instead of the declared values.</p>
+    <dl class="custom-properties">
+      <dt>--lumo-box-shadow-xs: <code>0 1px 4px -1px  hsla(214, 45%, 20%, 0.5)</code></dt>
+        <dd>Elements closest to the application background, for example cards.</dd>
+      <dt>--lumo-box-shadow-s: <code>0 2px 4px -1px  hsla(214, 53%, 23%, 0.16), 0 3px 12px -1px  hsla(214, 50%, 22%, 0.26)</code></dt>
+        <dd>Tooltips, etc.</dd>
+      <dt>--lumo-box-shadow-m: <code>0 2px 6px -1px  hsla(214, 53%, 23%, 0.16), 0 8px 24px -4px  hsla(214, 47%, 21%, 0.38)</code></dt>
+        <dd>Contextual popups, such as select menus.</dd>
+      <dt>--lumo-box-shadow-l: <code>0 3px 18px -2px  hsla(214, 53%, 23%, 0.16), 0 12px 48px -6px  hsla(214, 47%, 21%, 0.38)</code></dt>
+        <dd>Elements that rise above above most elements in the UI, for example dialogs.</dd>
+      <dt>--lumo-box-shadow-xl: <code>0 4px 24px -3px  hsla(214, 53%, 23%, 0.16), 0 18px 64px -8px  hsla(214, 47%, 21%, 0.38)</code></dt>
+        <dd>Elements highest in the stacking order, for example notifications, which should be above all other content.</dd>
+    </dl>
+
+    <h5>Interaction</h5>
+    <dl class="custom-properties">
+      <dt>--lumo-clickable-cursor: <code>default</code></dt>
+    </dl>
+  </content-preview>
+++++

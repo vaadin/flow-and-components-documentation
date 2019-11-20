@@ -1,0 +1,65 @@
+---
+title: Overview
+order: 1
+layout: page
+---
+
+// The following source is in HTML because it's copied from https://github.com/vaadin/vaadin-lumo-styles/tree/master/demo as is
+include::../themes-shared.asciidoc[]
+
+= Vaadin Lumo theme
+
+++++
+    <p>Lumo is an evolving design system foundation for modern web applications. <a href="https://vaadin.com/components">Vaadin components</a> implement Lumo as their default theme.</p>
+++++
+== Getting started
+++++
+
+    <h3>1. Install</h3>
+
+    <p>To start using the Lumo styles you need to install the
+      <a href="https://github.com/vaadin/vaadin-lumo-styles">vaadin-lumo-styles</a> package using
+      <a href="https://www.npmjs.com/">npm</a>.</p>
+
+++++
+```
+npm i @vaadin/vaadin-lumo-styles
+```
+++++
+    <h3>2. Import and include main style modules</h3>
+    <p>Import and include the main style modules in the global scope to make your application use Lumo styles:</p>
+++++
+[source,html]
+----
+<!-- Place these in your index.html -->
+<script type="module">
+  import '@vaadin/vaadin-lumo-styles/color.js';
+  import '@vaadin/vaadin-lumo-styles/sizing.js';
+  import '@vaadin/vaadin-lumo-styles/spacing.js';
+  import '@vaadin/vaadin-lumo-styles/style.js';
+  import '@vaadin/vaadin-lumo-styles/typography.js';
+</script>
+
+<!-- Include the main style modules in global scope (index.html) -->
+<custom-style>
+  <style include="lumo-color lumo-typography"></style>
+</custom-style>
+----
+[NOTE]
+See link:https://polymer-library.polymer-project.org/3.0/api/elements/custom-style[documentation for the <custom-style> element]
+++++
+
+    <h3>3. Next steps</h3>
+    <ul>
+      <li>Get to know the foundation which defines the overall look and feel of the system.
+        <ul>
+          <li><b><a href="typography.html">Typography</a></b></li>
+          <li><b><a href="colors.html">Color</a></b></li>
+          <li><b><a href="styles.html">Style</a></b></li>
+          <li><b><a href="sizing-and-spacing.html">Sizing and Spacing</a></b></li>
+          <li><b><a href="icons.html">Icons</a></b></li>
+        </ul>
+      </li>
+      <li>Get to know the utilities, like <b><a href="badges.html">Badges</a></b>, which offer ready-made styles for small but common use cases.</li>
+    </ul>
+++++
