@@ -38,7 +38,7 @@ Contact information portlet.
 * `addressbook-grid` +
 Contact list portlet.
 * `portal` +
-Contains configuration for deploying portlets with maven.
+Configuration for automatically setting up and running Pluto portal using Cargo plugin.
 
 In this chapter we focus on the portlet implementations.
 To get more familiar with setting up and maintaining a multi-module Vaadin Portlet project, take a look at the next chapter, <<portlet-05-creating-multi-module-portlet-project#,Creating Multi-Module Portlet Project>>.
