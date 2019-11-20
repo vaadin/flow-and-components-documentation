@@ -11,6 +11,11 @@ To use CDI with Vaadin Portlets, the project must depend on the `vaadin-portlet-
 
 In this chapter we go over how to enable CDI for your Vaadin Portlets.
 
+*Prerequisite knowledge:*
+
+- To learn about CDI in general, visit http://www.cdi-spec.org/
+- To learn about using CDI with Vaadin, read <<../cdi/tutorial-cdi-basic#,Use Vaadin with CDI>>
+
 == Configuring a Project
 Configuring the project requires three steps:
 
