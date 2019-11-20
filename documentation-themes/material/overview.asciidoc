@@ -1,0 +1,64 @@
+---
+title: Overview
+order: 1
+layout: page
+---
+
+// The following source is in HTML because it's copied from https://github.com/vaadin/vaadin-material-styles/tree/master/demo as is
+include::../themes-shared.asciidoc[]
+
+= Vaadin Material theme
+
+++++
+<p>Vaadin Material is a complete theme for <a href="https://vaadin.com/components">Vaadin components</a>, inspired by Google’s <a href="https://material.io">Material Design</a> guidelines.</p>
+
+++++
+== Getting started
+++++
+
+<h3 demo-section>1. Install</h3>
+<p>To start using the Material theme you need to install the
+  <a href="https://github.com/vaadin/vaadin-material-styles">vaadin-material-styles</a> package using
+  <a href="https://www.npmjs.com/">npm</a>.</p>
+
+++++
+```
+npm i @vaadin/vaadin-material-styles
+```
+++++
+
+<h3 demo-section>2. Import and include main style modules</h3>
+<p>Import and include the main style modules in the global scope:</p>
+++++
+[source,html]
+----
+<!-- Place these in your index.html -->
+<script type="module">
+  import '@vaadin/vaadin-material-styles/color.js';
+  import '@vaadin/vaadin-material-styles/typography.js';
+</script>
+
+<!-- Include the main style modules in global scope (index.html) -->
+<custom-style>
+  <style include="material-color-light material-typography"></style>
+</custom-style>
+----
+[NOTE]
+See link:https://polymer-library.polymer-project.org/3.0/api/elements/custom-style[documentation for the <custom-style> element]
+++++
+
+<div class="note">
+  <p>Learn more about the main style modules in the <a href="typography.html">Typography</a> and <a href="colors.html">Color</a> sections.</p>
+</div>
+
+<h3 demo-section>3. Next steps</h3>
+<ul>
+  <li>Get to know the foundation which defines the overall look and feel of the theme.
+    <ul>
+      <li><b><a href="typography.html">Typography</a></b></li>
+      <li><b><a href="colors.html">Color</a></b></li>
+    </ul>
+  </li>
+</ul>
+
+++++

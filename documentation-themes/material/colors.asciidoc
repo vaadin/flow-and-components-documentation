@@ -1,0 +1,208 @@
+---
+title: Colors
+order: 3
+layout: page
+---
+
+// The following source is in HTML because it's copied from https://github.com/vaadin/vaadin-material-styles/tree/master/demo as is
+include::../themes-shared.asciidoc[]
+
+= Colors
+
+++++
+<p>The theme defines a set of CSS custom properties you can use to apply a consistent color palette across your application.</p>
+
+<h3>Importing the style modules</h3>
+
+<p>If you are not importing any component themes, and want to use these colors, you need to import the style module explicitly.</p>
+
+++++
+[source,html]
+----
+<script type="module">
+  import '@vaadin/vaadin-material-styles/color.js';
+</script>
+----
+++++
+
+++++
+== Style module
+++++
+
+<p>Include the color style module to easily apply basic colors for any style scope (e.g. app's entrypoint for global scope). It will set the background, text and link colors and enable you to use the dark palette colors inside that style scope.</p>
+
+++++
+[source,html]
+----
+<!-- Add directly to your app's entrypoint or use a separate HTML import -->
+<custom-style>
+  <style include="material-light-color"></style>
+</custom-style>
+----
+++++
+
+++++
+== Dark palette
+++++
+
+<p>The dark color palette is available when you include the <a href="#style-module">main style module</a>.</p>
+
+<p>You can apply the <code>theme="dark"</code> attribute on any element inside the style scope where you include the main style module.</p>
+
+<p>If you include the main style module in the global scope (i.e. app's entrypoint), you can apply the <code>theme="dark"</code> attribute on the <code>html</code> element directly, to make the whole page adopt the dark color palette.</p>
+
+++++
+[source,html]
+----
+<!-- Import the style modules -->
+<link rel="import" href="bower_components/vaadin-material-theme/color.html">
+
+<!-- Include the "material-light-color" style module -->
+<custom-style>
+  <style include="material-light-color"></style>
+</custom-style>
+
+<div theme="dark">
+  <!-- Everything inside this element will use the dark palette colors -->
+</div>
+----
+// ++++
+
+// <div>
+//   <h6>Browser compatibility</h6>
+//   <p>This example doesn’t work in Internet Explorer 11 or EdgeHTML 14. Read the <a href="compatibility.html#dark-color-palette">browser compatibility instructions</a> if you need to support those browsers.</p>
+// </div>
+
+// ++++
+== Primary
+++++
+<p>The most prominent color in the theme. It is used to bring attention to certain elements in the interface. An accompanying contrast color is also defined.</p>
+
+<content-preview-md>
+++++
+[source,html]
+----
+<span class="primary">Text</span>
+
+<custom-style>
+  <style>
+    .primary {
+      background-color: var(--material-primary-color);
+      color: var(--material-primary-contrast-color);
+    }
+  </style>
+</custom-style>
+----
+++++
+</content-preview-md>
+
+++++
+== Error
+++++
+<p>Usually a red color, used for things like error indicators, error messages and buttons that can cause permanent data loss.</p>
+
+<content-preview-md>
+++++
+[source,html]
+----
+<span class="error"></span>
+
+<custom-style>
+  <style>
+    .error {
+      background-color: var(--material-error-color);
+    }
+  </style>
+</custom-style>
+----
+++++
+</content-preview-md>
+
+++++
+== Text
+++++
+
+<p>The following text colors have the desired contrast with the main background color.</p>
+
+<div class="note">
+  <h6>Separate text colors</h6>
+  <p>Note, that <code><span class="color-swatch" style="background-color: var(--material-primary-text-color);"></span>--material-primary-text-color</code> is not necessarily the same as <code><span class="color-swatch" style="background-color: var(--material-primary-color);"></span>--material-primary-color</code>. Use the main color for backgrounds and the “text” version for text.</p>
+  <p>The same applies for the “error” and “success” colors as well.</p>
+</div>
+
+<div class="note warn">
+  <h6>Accessibility</h6>
+  <p>The “disabled” text color does not have enough contrast by default to meet WCAG 2.0 AA level requirements (3:1). Only use it for text which is not crucial for the end user to see.</p>
+</div>
+
+<content-preview-md>
+++++
+[source,html]
+----
+<div class="base">
+  <div class="body-text">Normal text</div>
+  <div class="secondary-text">Secondary text</div>
+  <div class="disabled-text">Disabled text</div>
+  <div class="primary-text">Primary text</div>
+  <div class="error-text">Error text</div>
+</div>
+
+<custom-style>
+  <style>
+    .body-text {
+      color: var(--material-body-text-color);
+    }
+
+    .secondary-text {
+      color: var(--material-secondary-text-color);
+    }
+
+    .disabled-text {
+      color: var(--material-disabled-text-color);
+    }
+
+    .primary-text {
+      color: var(--material-primary-text-color);
+    }
+
+    .error-text {
+      color: var(--material-error-text-color);
+    }
+  </style>
+</custom-style>
+----
+++++
+</content-preview-md>
+
+++++
+== Custom properties
+++++
+
+<content-preview-md class="block" hidesource raw>
+  <h5>Background</h5>
+  <dl class="custom-properties color">
+    <dt>--material-background-color: <span class="color-swatch" style="background-color: #fff"></span><code>#fff</code></dt>
+    <dt>--material-secondary-background-color: <span class="color-swatch" style="background-color: #f5f5f5"></span><code>#f5f5f5</code></dt>
+  </dl>
+
+  <h5>Text/foreground</h5>
+  <dl class="custom-properties color">
+    <dt>--material-body-text-color: <span class="color-swatch" style="background-color: rgba(0, 0, 0, 0.87)"></span><code>rgba(0, 0, 0, 0.87)</code></dt>
+    <dt>--material-secondary-text-color: <span class="color-swatch" style="background-color: rgba(0, 0, 0, 0.54)"></span><code>rgba(0, 0, 0, 0.54)</code></dt>
+    <dt>--material-disabled-text-color: <span class="color-swatch" style="background-color: rgba(0, 0, 0, 0.38)"></span><code>rgba(0, 0, 0, 0.38)</code></dt>
+    <dt>--material-primary-text-color: <span class="color-swatch" style="background-color: #6200ee"></span><code>#6200ee</code></dt>
+    <dt>--material-error-text-color: <span class="color-swatch" style="background-color: #b00020"></span><code>#b00020</code></dt>
+  </dl>
+
+  <h5>Primary</h5>
+  <dl class="custom-properties color">
+    <dt>--material-primary-color: <span class="color-swatch" style="background-color: #6200ee"></span><code>#6200ee</code></dt>
+    <dt>--material-primary-contrast-color: <span class="color-swatch" style="background-color: #fff"></span><code>#fff</code></dt>
+  </dl>
+
+  <h5>Error</h5>
+  <dl class="custom-properties color">
+    <dt>--material-error-color: <span class="color-swatch" style="background-color: #b00020"></span><code>#b00020</code></dt>
+  </dl>
+</content-preview-md>
+++++
