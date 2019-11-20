@@ -155,6 +155,12 @@ router.setRoutes(routes);
 
 Now `my-view` is accessible via the root path, i.e. `http://localhost:8080/`. All the other routes are handled by the server-side router. See the <<client-side-routing#, Client-side Routing>> page for more information.
 
+= Hot-reload in development mode
+
+When running the application in development mode, all modifications in `frontend` folder are compiled and reloaded automatically. Refreshing browser is enough to get the updates.
+
+NOTE: There is an exceptional case when adding `index.ts` (`index.js`) or `index.html` for the first time. The application server needs to be restarted to update the entry point and the bootstrap template.
+
 = Accessing Backend Data in TypeScript Views
 
 Vaadin 15 provides a type-safe and secured way to access data from backend in frontend views using the generated TypeScript code. During the development time, Vaadin scans the backend code and generates TypeScript code which can call corresponding Java methods. The generated code are processed through the same build chain as other TypeScript views. So that only necessary code are bundled for your application in production mode. See <<how-to-create-api-endpoint#, How to Create API Endpoint>> and <<how-to-access-backend-from-typescript#, How to Access the Backend from TypeScript>> for more information.
