@@ -3,6 +3,8 @@ package com.vaadin.flow.tutorial.webcomponent.b;
 import com.vaadin.flow.component.AbstractSinglePropertyField;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.DomEvent;
+import com.vaadin.flow.component.EventData;
 import com.vaadin.flow.component.PropertyDescriptor;
 import com.vaadin.flow.component.PropertyDescriptors;
 import com.vaadin.flow.component.Tag;
@@ -10,7 +12,6 @@ import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.shared.Registration;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
-import com.vaadin.flow.tutorial.webcomponent.ClickEvent;
 
 @CodeFor("web-components/creating-java-api-for-a-web-component.asciidoc")
 //@formatter:off
@@ -39,6 +40,29 @@ public class PaperSlider extends AbstractSinglePropertyField<PaperSlider, Intege
 
     public void increment() {
         getElement().callJsFunction("increment");
+    }
+    @DomEvent("click")
+    public static class ClickEvent extends ComponentEvent<PaperSlider> {
+    
+        private int x, y;
+    
+        public ClickEvent(PaperSlider source,
+                          boolean fromClient,
+                          @EventData("event.offsetX") int x,
+                          @EventData("event.offsetY") int y) {
+            super(source, fromClient);
+            this.x = x;
+            this.y = y;
+        }
+        
+        public int getX() {
+            return x;
+        }
+        
+        public int getY() {
+            return y;
+        }
+        
     }
 }
 //@formatter:on

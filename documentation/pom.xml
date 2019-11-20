@@ -143,5 +143,17 @@
             <classifier>classes</classifier>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-portlet</artifactId>
+            <version>${vaadin-portlet.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.portlet</groupId>
+            <artifactId>portlet-api</artifactId>
+            <version>${portlet-api.version}</version>
+        </dependency>
     </dependencies>
 </project>
