@@ -1,0 +1,74 @@
+---
+title: Vaadin Portlet CDI Support
+order: 7
+layout: page
+---
+
+= Vaadin Portlet CDI Support
+
+Portlet 3.0 specification adds support for managed beans and custom scopes for CDI.
+To use CDI with Vaadin Portlets, the project must depend on the `vaadin-portlet-cdi` which adds the Vaadin specific CDI components.
+
+In this chapter we go over how to enable CDI for your Vaadin Portlets.
+
+== Configuring a Project
+Configuring the project requires three steps:
+
+. Add `vaadin-portlet-cdi` dependency
+. Add `beans.xml` configuration file
+. Use `VaadinCdiPortlet` class
+
+=== Add Dependency
+The first thing that must be added is the dependency.
+Add the following to your portlet project's pom.xml:
+
+.pom.xml excerpt
+[source,xml]
+----
+<dependency>
+    <groupId>com.vaadin</groupId>
+    <artifactId>vaadin-portlet-cdi</artifactId>
+    <version>${vaadin.portlet.version}</version>
+</dependency>
+----
+
+The value of `vaadin.portlet.version` property should match the version of the used `vaadin.portlet` dependency.
+
+=== Add Configuration File
+
+The second step is to add the file `/src/main/webapp/WEB-INF/beans.xml`:
+
+.beans.xml
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+       xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                     http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
+       bean-discovery-mode="all">
+</beans>
+----
+
+For a quick overview about the `bean.xml` read "What is bean.xml and why do I need it" in http://www.cdi-spec.org/faq[CDI's frequently asked questions].
+
+=== Change Portlet Class
+The last step to enabling CDI is to replace `VaadinPortlet` references with `VaadinCdiPortlet`.
+For example, updating `BookListPortlet`:
+
+.BookListPortlet.java
+[source,java]
+----
+// old, normal portlet:
+public class NormalBookListPortlet extends VaadinPortlet<BookListView> {
+    // ... contents
+}
+
+// new, cdi portlet:
+public class CdiBookListPortlet extends VaadinCdiPortlet<BookListView> {
+    // ... contents
+}
+----
+
+After completing the three steps, re-build and deploy.
