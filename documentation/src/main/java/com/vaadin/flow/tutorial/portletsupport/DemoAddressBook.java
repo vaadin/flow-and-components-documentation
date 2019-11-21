@@ -15,10 +15,10 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.portal.VaadinPortlet;
-import com.vaadin.flow.portal.handler.PortletEvent;
-import com.vaadin.flow.portal.handler.PortletModeEvent;
-import com.vaadin.flow.portal.handler.PortletView;
-import com.vaadin.flow.portal.handler.PortletViewContext;
+import com.vaadin.flow.portal.lifecycle.PortletEvent;
+import com.vaadin.flow.portal.lifecycle.PortletModeEvent;
+import com.vaadin.flow.portal.PortletView;
+import com.vaadin.flow.portal.PortletViewContext;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("portlet-support/portlet-demo-01-address-book.asciidoc")
