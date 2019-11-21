@@ -12,6 +12,16 @@ The built-in themes have global variants that you use to quickly customize all c
 
 You should be familiar with <<built-in-themes#,choosing a built-in theme>> before using theme variants.
 
+===== Contents
+
+* <<global-variants>>
+** <<dark>>
+** <<compact>>
+* <<component-variants>>
+** <<built-in-variants>>
+** <<custom-variants>>
+** <<sub-component-variants>>
+
 == Global variants
 
 === Dark
@@ -101,7 +111,7 @@ You can find a component's Material variants from the https://vaadin.com/themes/
 
 === Custom variants
 
-You can add custom variant values for components. The styles for those variants should then be defined in an additional stylesheet which you import. Learn how to <<including-style-sheets#component-scope,include a component style sheet>> and how to <<styling-component-internals#,write styles for a component>>.
+You can add custom variant values for components. The styles for those variants should then be defined in an additional stylesheet which you import. Learn how to <<including-style-sheets#component-local-scope,include style sheets into component scopes>> and how to <<styling-web-component#,write styles for a component>>.
 
 .`Java`
 [source,java]

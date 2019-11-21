@@ -1,7 +1,0 @@
----
-title: Styling component states
-order: 7
-layout: page
----
-
-= Styling component states

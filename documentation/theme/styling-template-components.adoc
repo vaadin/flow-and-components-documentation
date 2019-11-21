@@ -1,0 +1,7 @@
+---
+title: Styling Template-based Components
+order: 8
+layout: page
+---
+
+= Styling Template-based Components
