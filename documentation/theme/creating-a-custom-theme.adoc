@@ -1,10 +1,10 @@
 ---
-title: Creating a custom theme
-order: 11
+title: Creating a Custom Theme
+order: 10
 layout: page
 ---
 
-= Creating a custom theme
+= Creating a Custom Theme
 
 If customizing built-in themes is not enough and you want complete control, you can create a completely custom theme from scratch. This means that you explicitly define the style sheets for all the components that are used in your application.
 

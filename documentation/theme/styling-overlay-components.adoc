@@ -1,7 +1,0 @@
----
-title: Styling overlay components
-order: 9
-layout: page
----
-
-= Styling overlay components

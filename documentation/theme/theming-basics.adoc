@@ -6,52 +6,11 @@ layout: page
 
 = Theming basics
 
-Learn the basics of customizing the built-in themes with CSS.
+Learn the basics of customizing the built-in themes with CSS. To learn how to theme and style Vaadin components, see <<styling-vaadin-components#,Styling Vaadin Components>>.
 
 === Prerequisites
 
 You should be familiar <<including-style-sheets#,how to include style sheets>> for the global scope and for component scopes, where you can write your CSS. <<themes-and-styling#prerequisites,Basic understanding of CSS>> is also required.
-
-=== Example
-
-Adjusting a theme’s and components’ custom properties in the global scope, such as fonts and colors.
-
-.`styles/global.css`
-[source,css]
-....
-html {
-  --lumo-font-family: Arial, Helvetica, sans-serif;
-  --lumo-primary-text-color: hsl(265, 88%, 44%);
-  --lumo-primary-color: hsl(265, 90%, 52%);
-  --lumo-primary-color-50pct: hsla(265, 90%, 52%, 0.5);
-  --lumo-primary-color-10pct: hsla(265, 90%, 52%, 0.1);
-
-  --vaadin-text-field-default-width: 10em;
-}
-....
-
-Customizing the scoped styles of a certain component, for example Text Field.
-
-.`styles/text-field.css`
-[source,css]
-....
-:host {
-  padding: 0;
-}
-
-[part="input-field"] {
-  box-shadow: inset 0 0 0 1px var(--lumo-contrast-30pct);
-  background-color:var(--lumo-base-color);
-}
-
-[part="input-field"]:hover {
-  box-shadow: inset 0 0 0 1px var(--lumo-contrast-50pct);
-}
-
-:host([invalid]) [part="input-field"] {
-  box-shadow: inset 0 0 0 1px var(--lumo-error-color);
-}
-....
 
 == Fonts and colors
 
@@ -92,105 +51,3 @@ html {
 ....
 
 See the <<../../components/foundation/material#,Material theme>> documentation for all of the available top-level properties, which affect all components.
-
-
-== Component themes
-
-You can customize component themes with custom properties and custom CSS rules which are included in the component’s local scope (instead of the global scope).
-
-=== Custom properties
-
-You can adjust any component-specific custom properties in the global scope, making them affect all instances of the component.
-
-.`styles/global.css`
-[source,css]
-....
-html {
-  --vaadin-text-field-default-width: 10em;
-}
-....
-
-You can find component-specific custom properties from the component's HTML API documentation. For example, see the https://vaadin.com/components/vaadin-text-field/html-api/elements/Vaadin.TextFieldElement[Styling section for Text Field].
-
-Most components do _not_ have any specific custom properties. Instead, themes provide most of the custom properties that you can customize.
-
-=== Custom CSS rules
-
-To customize component styles more freely, you need to write custom CSS rules in component-specific style sheets.
-
-==== Stylable parts
-
-As an example, let's modify the Text Field component's internal "input field" to have a border and a different background color than the default Lumo theme has.
-
-.`*styles/text-field.css*`
-[source,css]
-....
-[part="input-field"] {
-  /* We use box-shadow for the border to avoid changing the dimensions of the element */
-  /* We use the Lumo custom properties to make our changes automatically adapt to
-     the dark palette */
-  box-shadow: inset 0 0 0 1px var(--lumo-contrast-30pct);
-  background-color:var(--lumo-base-color);
-}
-....
-
-The `[part]` attribute selector is the only one you should be using when targeting elements inside a component. Other selectors (such as `.class` or `+#id+`) may stop working with any release because they are considered as internal implementation details. Learn more about <<styling-component-internals#,styling component internals>>.
-
-The internal parts of each component are listed in the component's HTML API documentation. See the https://vaadin.com/components/vaadin-text-field/html-api/elements/Vaadin.TextFieldElement[Styling section in Text Field API docs] for an example.
-
-Use the `:host` selector to target the components root element (e.g. the `<vaadin-text-field>` element).
-
-.`styles/text-field.css`
-[source,css]
-....
-:host {
-  padding: 0;
-}
-....
-
-Pseudo-element selectors (`::before` and `::after`) can be used in combination with the `:host` and `[part]` selectors. The built-in themes can also use the pseudo-elements, so be aware of potential collisions.
-
-.`styles/text-field.css`
-[source,css]
-....
-[part="input-field"]::after {
-  content: "";
-  ...
-}
-....
-
-==== Component state
-
-Let's add one more detail to our custom text field styles: a different border-color when the field is invalid, using the `+[invalid]+` state attribute selector. Learn more about <<styling-component-states#,styling component states>>.
-
-.`styles/text-field.css`
-[source,css]
-....
-:host([invalid]) [part="input-field"] {
-  box-shadow: inset 0 0 0 1px var(--lumo-error-color);
-}
-....
-
-The state attributes for each component are listed in the component's HTML API documentation. See the https://vaadin.com/components/vaadin-text-field/html-api/elements/Vaadin.TextFieldElement[Styling section in Text Field API docs] for an example.
-
-In addition to the `[state]` attributes, standard CSS pseudo-classes (`:hover`, `:active`, etc.) can be used for both the component host and stylable parts.
-
-.`styles/text-field.css`
-[source,css]
-....
-[part="input-field"]:hover {
-  box-shadow: inset 0 0 0 1px var(--lumo-contrast-50pct);
-}
-....
-
-==== Sub-components
-
-The customizations we did for the Text Field component end up affecting other components as well, which internally use Text Field. For example, Combo Box, Date Picker, Time Picker, and Select all contain a Text Field, so those components will automatically "inherit" our style customizations.
-
-To learn more about sub-components and how to style them, see <<using-theme-variants#sub-component-variants, Sub-component variants>> and <<styling-sub-components#,Styling sub-components>>.
-
-=== Overlay components
-
-Styling overlay components (e.g. Dialogs or the popup which contains the items for Combo Box or Select, or the Date Picker calendar, etc.) is covered in <<styling-overlay-components#,Styling overlay components>>.
-
-An overlay is considered as a sub-component of the main component and <<using-theme-variants#sub-component-variants, Sub-component variants>> apply to them as well.

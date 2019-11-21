@@ -1,7 +1,0 @@
----
-title: Styling sub-components
-order: 8
-layout: page
----
-
-= Styling sub-components

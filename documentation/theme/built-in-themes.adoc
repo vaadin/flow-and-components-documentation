@@ -1,12 +1,19 @@
 ---
-title: Built-in themes
+title: Built-in Themes
 order: 2
 layout: page
 ---
 
-= Built-in themes
+= Built-in Themes
 
 Vaadin comes with a set of built-in themes which you can choose from. See https://vaadin.com/themes[vaadin.com/themes] for a high-level overview of theming in Vaadin.
+
+===== Contents
+
+* <<lumo>>
+* <<material>>
+* <<no-theme>>
+* <<limitations>>
 
 == Lumo
 
@@ -78,7 +85,7 @@ import '@vaadin/vaadin-button/theme/material/vaadin-button.js';
 ....
 
 
-== No theme
+== No Theme
 
 If you want to control all styling manually you can opt-out of loading any built-in theme.
 
