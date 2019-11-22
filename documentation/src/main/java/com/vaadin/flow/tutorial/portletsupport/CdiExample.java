@@ -12,7 +12,7 @@ public class CdiExample {
     }
 
     // new, cdi portlet:
-    public class CdiBookListPortlet extends VaadinCdiPortlet<BookListView> {
+    public class CdiBookListVaadinPortlet extends CdiVaadinPortlet<BookListView> {
         // ... contents
     }
 
@@ -21,7 +21,7 @@ public class CdiExample {
     }
 
     // TODO: remove once the cdi support is in
-    private static class VaadinCdiPortlet<C extends Component> extends VaadinPortlet<C> {
+    private static class CdiVaadinPortlet<C extends Component> extends VaadinPortlet<C> {
 
     }
 }
