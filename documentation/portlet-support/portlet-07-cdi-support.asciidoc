@@ -71,7 +71,7 @@ public class NormalBookListPortlet extends VaadinPortlet<BookListView> {
 }
 
 // new, cdi portlet:
-public class CdiBookListPortlet extends CdiVaadinPortlet<BookListView> {
+public class CdiBookListVaadinPortlet extends CdiVaadinPortlet<BookListView> {
     // ... contents
 }
 ----
