@@ -1,177 +1,171 @@
 ++++
-<script shouldrun>
-  const defineContentPreview = (is, additionalDefaultContent) => {
-    customElements.define(is, class extends Polymer.Element {
+<script inline>
+    function getContentPreviewClass(additionalDefaultContent) {
+      return class extends Polymer.Element {
 
-      static get properties() {
-        return {
-          hidesource: {
-            type: Boolean,
-            reflectToAttribute: true
-          },
+        static get properties() {
+          return {
+            hidesource: {
+              type: Boolean,
+              reflectToAttribute: true
+            },
 
-          raw: {
-            type: Boolean,
-            value: false,
-            reflectToAttribute: true,
-            observer: '_updateContent'
-          },
+            raw: {
+              type: Boolean,
+              value: false,
+              reflectToAttribute: true,
+              observer: '_updateContent'
+            },
+          }
         }
-      }
 
-      static get template() {
+        static get template() {
 
-        return Polymer.html`
-          <style>
-            :host {
-              display: block;
-            }
+          return Polymer.html`
+            <style>
+              :host {
+                display: block;
+              }
 
-            #preview {
-              display: flex;
-              border-radius: var(--lumo-border-radius-m);
-              overflow: hidden;
-              align-items: flex-end;
-              position: relative;
-              z-index: 0;
-            }
+              #preview {
+                display: flex;
+                border-radius: var(--lumo-border-radius-m);
+                overflow: hidden;
+                align-items: flex-end;
+                position: relative;
+                z-index: 0;
+              }
 
-            :host(:not([hidesource])) #preview {
-              padding: 1.2rem;
-              margin-bottom: calc(-1.5rem - 4px);
-              border: 1px solid var(--color-aluminium);
-              border-radius: 4px;
-            }
+              :host(:not([hidesource])) #preview {
+                padding: 1.2rem;
+                margin-bottom: calc(-1.5rem - 4px);
+                border: 1px solid var(--color-aluminium);
+                border-radius: 4px;
+              }
 
-            :host(.block) #preview {
-              display: block;
-            }
+              :host(.block) #preview {
+                display: block;
+              }
 
-            :host(.background-shade) #preview {
-              background-color: var(--lumo-shade-5pct);
-            }
+              :host(.background-shade) #preview {
+                background-color: var(--lumo-shade-5pct);
+              }
 
-            #source {
-              z-index: 1;
-              position: relative;
-            }
+              #source {
+                z-index: 1;
+                position: relative;
+              }
 
-            /* Content styles */
-            .color-swatch {
-              display: inline-block;
-              width: 0.75em;
-              height: 0.75em;
-              border-radius: 50%;
-              box-shadow: 0 0 0 1px var(--lumo-shade-20pct);
-              margin-right: 0.2em;
-            }
+              /* Content styles */
+              .color-swatch {
+                display: inline-block;
+                width: 0.75em;
+                height: 0.75em;
+                border-radius: 50%;
+                box-shadow: 0 0 0 1px var(--lumo-shade-20pct);
+                margin-right: 0.2em;
+              }
 
-            #preview > span:not(.color-swatch):not([class^="size"]):not([class^="space"]):not([theme~="badge"]):not(.font-icon) {
-              display: inline-flex;
-              align-items: center;
-              justify-content: center;
-              width: 100%;
-              height: 3.5em;
-              font-size: var(--lumo-font-size-s);
-              font-weight: 500;
-            }
+              #preview > span:not(.color-swatch):not([class^="size"]):not([class^="space"]):not([theme~="badge"]):not(.font-icon) {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 3.5em;
+                font-size: var(--lumo-font-size-s);
+                font-weight: 500;
+              }
 
-            .custom-properties {
-              font-size: var(--lumo-font-size-s);
-              border-left: 4px solid var(--lumo-shade-10pct);
-              background-color: var(--lumo-shade-5pct);
-              padding: 1em 2em;
-              margin: 0;
-            }
+              .custom-properties {
+                font-size: var(--lumo-font-size-s);
+                border-left: 4px solid var(--lumo-shade-10pct);
+                background-color: var(--lumo-shade-5pct);
+                padding: 1em 2em;
+                margin: 0;
+              }
 
-            .box {
-              display: inline-flex;
-              align-items: center;
-              justify-content: center;
-              font-weight: 600;
-              color: var(--lumo-secondary-text-color);
-              width: var(--lumo-size-xl);
-              height: var(--lumo-size-xl);
-              margin: var(--lumo-space-xl);
-              border-radius: var(--lumo-border-radius-m);
-              background-color: var(--lumo-tint-5pct);
-            }
+              .box {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 600;
+                color: var(--lumo-secondary-text-color);
+                width: var(--lumo-size-xl);
+                height: var(--lumo-size-xl);
+                margin: var(--lumo-space-xl);
+                border-radius: var(--lumo-border-radius-m);
+                background-color: var(--lumo-tint-5pct);
+              }
 
-            .radius {
-              background-color: var(--lumo-contrast-20pct);
-            }
+              .radius {
+                background-color: var(--lumo-contrast-20pct);
+              }
 
-            span[class^="space"],
-            span[class^="size"] {
-              background-color: var(--lumo-contrast-10pct);
-              display: flex;
-              flex: none;
-              align-items: center;
-              justify-content: center;
-              margin: 0.25rem;
-              font-size: var(--lumo-font-size-xs);
-              color: var(--lumo-secondary-text-color);
-              background-clip: content-box;
-              position: relative;
-              font-weight: 600;
-              box-sizing: content-box;
-            }
+              span[class^="space"],
+              span[class^="size"] {
+                background-color: var(--lumo-contrast-10pct);
+                display: flex;
+                flex: none;
+                align-items: center;
+                justify-content: center;
+                margin: 0.25rem;
+                font-size: var(--lumo-font-size-xs);
+                color: var(--lumo-secondary-text-color);
+                background-clip: content-box;
+                position: relative;
+                font-weight: 600;
+                box-sizing: content-box;
+              }
 
-            /* Weaker selector since these should be overridable by Sizing demo */
-            [class^="space"],
-            [class^="size"] {
-              width: 2rem;
-              height: 2rem;
-            }
+              /* Weaker selector since these should be overridable by Sizing demo */
+              [class^="space"],
+              [class^="size"] {
+                width: 2rem;
+                height: 2rem;
+              }
 
-            span[class^="space"] {
-              background-color: var(--lumo-base-color);
-            }
+              span[class^="space"] {
+                background-color: var(--lumo-base-color);
+              }
 
-            span[class^="space"]::before {
-              content: "";
-              position: absolute;
-              z-index: -1;
-              top: 0;
-              right: 0;
-              bottom: 0;
-              left: 0;
-              background-color: var(--lumo-contrast-10pct);
-            }
+              span[class^="space"]::before {
+                content: "";
+                position: absolute;
+                z-index: -1;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background-color: var(--lumo-contrast-10pct);
+              }
 
-            #preview h2 {
-              border: none;
-            }
-          </style>
+              #preview h2 {
+                border: none;
+              }
+            </style>
 
-          ${additionalDefaultContent}
+            ${additionalDefaultContent}
 
-          <div id="preview"></div>
-          <div id="source" hidden="[[hidesource]]">
-            <slot></slot>
-          </div>
-        `;
-      }
+            <div id="preview"></div>
+            <div id="source" hidden="[[hidesource]]">
+              <slot></slot>
+            </div>
+          `;
+        }
 
-      _updateContent(raw) {
-        this.$.preview.innerHTML = raw ? this.innerHTML : this.textContent;
-        // Edge shady CSS workaround to make the dynamically included custom-style styles to affect example content elements
-        // Removing <custom-style> tags from the content isn't an option as that would make any selectors within the contained <style> tags global on shady
+        _updateContent(raw) {
+          this.$.preview.innerHTML = raw ? this.innerHTML : this.textContent;
+          // Edge shady CSS workaround to make the dynamically included custom-style styles to affect example content elements
+          // Removing custom-style tags from the content isn't an option as that would make any selectors within the contained style tags global on shady
 
-        Array.from(this.$.preview.querySelectorAll('*')).forEach(element => {
-          element.classList.remove('style-scope');
-        });
-      }
-    });
-  }
+          Array.from(this.$.preview.querySelectorAll('*')).forEach(element => {
+            element.classList.remove('style-scope');
+          });
+        }
+      };
+    };
 
-  if (!customElements.get('content-preview')) {
-    defineContentPreview('content-preview', Polymer.html`<style include="lumo-typography lumo-color lumo-badge">`);
-    defineContentPreview('content-preview-md', Polymer.html`<style include="material-typography material-color">`);
-  }
-
-  if (!customElements.get('lumo-icon')) {
-    customElements.define('lumo-icon', class extends Polymer.Element {
+    const lumoIconClass = class extends Polymer.Element {
       static get template() {
         return Polymer.html`
           <style>
@@ -300,9 +294,9 @@
       formatName(name) {
         return name.replace('-', ' ');
       }
-    });
+    };
 
-    customElements.define('lumo-icons-viewer', class extends Polymer.Element {
+    const lumoIconsViewerClass = class extends Polymer.Element {
       static get properties() {
         return {
           format: {
@@ -352,7 +346,48 @@
           </div>
         `;
       }
-    });
-  }
+    };
+
+    function ensureDefined(is, clazz) {
+      if (!customElements.get(is)) {
+        customElements.define(is, clazz);
+      }
+    }
+
+    function ensureRegistered(url, module) {
+      if (Polymer.DomModule.prototype.modules[module]) {
+        return Promise.resolve();
+      } else {
+        return fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const div = document.createElement('div');
+            div.innerHTML = html;
+
+            const domModule = div.querySelector(`#${module}`);
+            domModule && domModule.register();
+
+            Array.from(div.querySelectorAll('custom-style'))
+              .forEach(customStyle => document.body.appendChild(customStyle));
+          });
+      }
+    }
+
+    ensureDefined('lumo-icon', lumoIconClass);
+    ensureDefined('lumo-icons-viewer', lumoIconsViewerClass);
+
+    ensureRegistered('frontend/bower_components/vaadin-lumo-styles/badge.html', 'lumo-badge')
+      .then(() => ensureRegistered('frontend/bower_components/vaadin-lumo-styles/color.html', 'lumo-color'))
+      .then(() => ensureRegistered('frontend/bower_components/vaadin-lumo-styles/typography.html', 'lumo-typography'))
+      // Finally not supported by Edge
+      .then(() => ensureDefined('content-preview', getContentPreviewClass(Polymer.html`<style include="lumo-typography lumo-color lumo-badge"></style>`)))
+      .catch(() => ensureDefined('content-preview', getContentPreviewClass(Polymer.html`<style include="lumo-typography lumo-color lumo-badge"></style>`)));
+
+    ensureRegistered('frontend/bower_components/vaadin-material-styles/color.html', 'material-color-light')
+      .then(() => ensureRegistered('frontend/bower_components/vaadin-material-styles/typography.html', 'material-typography'))
+      // Finally not supported by Edge
+      .then(() => ensureDefined('content-preview-md', getContentPreviewClass(Polymer.html`<style include="material-typography material-color-light"></style>`)))
+      .catch(() => ensureDefined('content-preview-md', getContentPreviewClass(Polymer.html`<style include="material-typography material-color-light"></style>`)));
+
 </script>
 ++++
