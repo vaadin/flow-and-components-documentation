@@ -1,6 +1,6 @@
 ---
 title: Using Images
-order: 9
+order: 7
 layout: page
 ---
 
