@@ -8,6 +8,9 @@ layout: page
 
 Vaadin comes with a set of built-in themes which you can choose from. See https://vaadin.com/themes[vaadin.com/themes] for a high-level overview of theming in Vaadin.
 
+[NOTE]
+The documentation show how to do things using either Java or JavaScript/HTML. The end result will be identical regardless. Choose the approach you are most comfortable with.
+
 ===== Contents
 
 * <<lumo>>
@@ -108,6 +111,22 @@ import '@vaadin/vaadin-button/src/vaadin-button.js';
 
 == Limitations
 
-It is not possible to switch themes at runtime. A full page reload is required.
+It is not possible to switch themes at runtime. A full page reload is required. That means you can’t for example use a different theme for different views/routes of your application.
 
 It is not possible to mix themes. For example, you can't use the Lumo theme for Date Picker and the Material theme for Button at the same time, because Date Picker internally uses the Button component.
+
+== Technical Details
+
+=== Java
+
+The `@Theme` annotation has to be set to your root-navigation-level class or to the `RouterLayout` component defined in its `@Route` annotation. An exception is thrown on startup if the `@Theme` annotation is not on a `@Route` component or a top-level `RouterLayout`.
+
+=== Theme Resolving Order
+
+The following resolving logic is used to determine which theme is used:
+
+. If the `@Theme` annotation is found at the <<../routing/tutorial-routing-annotation#,root navigation>> level, the theme set in the annotation is used
+. If the `@NoTheme` annotation is found at the root navigation level, theming is disabled
+. If the `com.vaadin.flow.theme.lumo.Lumo` class is available in the classpath, the Lumo theme is used
+
+Resolving stops when a match is found. No theme is used if none of the conditions are met.

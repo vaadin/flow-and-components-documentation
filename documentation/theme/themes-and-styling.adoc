@@ -4,35 +4,40 @@ order: 1
 layout: page
 ---
 
-= Themes and styling
+= Themes and Styling
 
-This documentation section describes how to use the <<built-in-themes#,built-in themes>> and their <<using-theme-variants#,variants>> and how to <<theming-basics#,customize them>>.
+This documentation section describes how to use the <<built-in-themes#,built-in themes>> and their <<using-theme-variants#,variants>>, how to <<theming-basics#,customize them>> and how to <<styling-vaadin-components#,theme and style Vaadin components>>.
 
-To learn how to theme and style components see <<styling-vaadin-components#,Styling Vaadin Components>>.
+== Prerequisites
 
-[NOTE]
-Parts of the documentation show how to accomplish theming using either Java or JavaScript/HTML. The end result will be identical regardless. Choose the approach you are most comfortable with.
-
-=== Prerequisites
+=== CSS
 
 Themes are built and customized using CSS. You should be familiar and comfortable with writing CSS, to be able to effectively customize themes and style components.
 
-The https://developer.mozilla.org/en-US/docs/Web/CSS[CSS tutorials on MDN] are a great way to learn the basics of CSS. https://vaadin.com/tutorials/css-variables[CSS Custom Properties and Variables] are an especially important topic to understand together with the fundamentals of scoped CSS and https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM[Shadow DOM].
+The https://developer.mozilla.org/en-US/docs/Web/CSS[CSS tutorials on MDN] are a great way to learn the basics of CSS. <<style-scopes#,Style scopes>> and <<css-custom-properties#,CSS custom properties and variables>> are especially important topics to understand.
 
-== Glossary
+=== Terminology
 
-=== What is a theme
+==== Theme
 
 A theme makes an app look and feel consistent to the end user. It defines global font styles and text and background colors and defines how components look.
 
 A theme and can also affect the behavior of components. For example, where the date picker overlay opens on small viewport sizes.
 
-=== What is theming
+==== Theming
 
 The term *“theming”* is used for styles that apply across the whole app to all component instances. For example, you could theme all button components across an entire app to have a certain background color, or choose a certain font to be used for all components.
 
-=== What is styling
+==== Styling
 
 The term *“styling”* is used for styles that apply to particular instances of components. For example, you could style an individual button in one view to have a different background color than all the other buttons in the app, or increase the cell padding of a data grid in one view.
 
 The techniques used for styling can also be applied to theming, if you scope the CSS to apply for all component instances.
+
+==== Style Scope
+
+CSS can be scoped to apply to only certain parts of the element hierarchy. A style scope refers one such part of the hierarchy. See <<style-scopes#,Style Scopes>> for more information.
+
+== Getting Started with Theming
+
+Start by learning about the <<built-in-themes#,built-in themes>> and <<using-theme-variants#,theme variants>>. Then you can progress to <<theming-basics#,theming basics>> and finally <<styling-vaadin-components#,styling Vaadin components>>.

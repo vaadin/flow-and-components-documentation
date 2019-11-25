@@ -1,18 +1,18 @@
 ---
-title: Theming basics
+title: Theming Basics
 order: 5
 layout: page
 ---
 
-= Theming basics
+= Theming Basics
 
 Learn the basics of customizing the built-in themes with CSS. To learn how to theme and style Vaadin components, see <<styling-vaadin-components#,Styling Vaadin Components>>.
 
 === Prerequisites
 
-You should be familiar <<including-style-sheets#,how to include style sheets>> for the global scope and for component scopes, where you can write your CSS. <<themes-and-styling#prerequisites,Basic understanding of CSS>> is also required.
+You should be familiar with <<built-in-themes#,built-in themes>>, <<including-style-sheets#,including style sheets>> and <<themes-and-styling#prerequisites,writing CSS>>.
 
-== Fonts and colors
+== Fonts and Colors
 
 The most common theme customization is to adjust the global font and color properties.
 
@@ -32,13 +32,13 @@ html {
 
 See the <<../../components/foundation/lumo#,Lumo theme>> documentation for all of the available top-level properties, which affect all components.
 
-==== Lumo theme editor
+==== Lumo Theme Editor
 
 To quickly adjust most of the global styles of Lumo, you can use the https://demo.vaadin.com/lumo-editor/[Lumo theme editor].
 
-The Lumo theme editor is not yet an officially supported tool and does not necessarily support the latest versions of Vaadin. You can still use the CSS it produces by copying it to the correct files in your project.
+The Lumo theme editor is not yet an officially supported tool and does not necessarily support the latest versions of Vaadin. You can still use the CSS it produces by copying it to the correct files in your project. Visit the Labs page to https://vaadin.com/labs/lumo-editor/[give feedback about the Lumo theme editor tool].
 
-=== Material theme
+=== Material Theme
 
 .`styles/global.css`
 [source,css]

@@ -1,9 +1,0 @@
----
-title: Including Style Sheets
-order: 1
-layout: page
----
-
-= Including Style Sheets
-
-This documentation has been migrated under the <<../theme/including-style-sheets#,Themes and styling section>>.
