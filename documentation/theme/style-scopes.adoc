@@ -6,18 +6,18 @@ layout: page
 
 = Style Scopes
 
-With the addition of Shadow DOM, styles on a webpage can be divided into two groups:
+With the addition of https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM[Shadow DOM], styles on a webpage can be divided into two groups:
 
 1. Styles affecting elements in the <<global-style-scope,global scope>>, i.e. traditional styles
 2. Styles affecting elements inside a <<local-style-scope-shadow-dom,local scope>>, i.e. styles inside a shadow DOM
 
-See <<including-style-sheets#,Including style sheets>> to learn how to include CSS for these different scopes.
+See <<including-style-sheets#,Including Style Sheets>> to learn how to include CSS for these different scopes.
 
 == Global Style Scope
 
 On a regular website, all elements are inside the same global style scope, and can be styled with global stylesheets (either `<link rel="stylesheet">` or `<style>` elements), using regular CSS selectors.
 
-=== Example: Global Stylesheet
+=== Example: Global Scope
 
 image:images/vaadin-text-field-light-dom.png[Text Field light DOM,523,120]
 
@@ -44,7 +44,9 @@ When a custom element has its own shadow DOM, the browser creates a new style sc
 
 The only CSS selectors that can affect the elements inside a shadow DOM need to be in a `<style>` element which is somewhere inside the shadow DOM hierarchy. At the same time, the styles inside a shadow DOM can’t affect elements outside the shadow DOM. The styles are placed in the “local style scope” of the shadow DOM.
 
-=== Example: Local Style
+https://wicg.github.io/construct-stylesheets/[Constructable and adopted style sheets] are upcoming additions to web standards (currently implemented in Chrome, Nov 2019) that allow developers to add style sheets to shadow DOM.
+
+=== Example: Local Scope
 
 image:images/vaadin-text-field-shadow-dom.png[Text Field shadow DOM,380,78]
 
@@ -93,3 +95,8 @@ If we wanted to move the border to the actual text input element, we would need 
 ....
 
 image:images/vaadin-text-field-input-border.png[Text Field with a border around the input only,188,70]
+
+
+== Related Tutorials
+
+- https://vaadin.com/tutorials/css-encapsulation-with-shadow-dom[CSS Encapsulation with Shadow DOM]

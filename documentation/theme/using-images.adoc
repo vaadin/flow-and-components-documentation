@@ -1,10 +1,10 @@
 ---
-title: Using images
+title: Using Images
 order: 9
 layout: page
 ---
 
-= Using images
+= Using Images
 
 Place images and other static assets, which need to be accessibly by the browser, in the `/src/main/webapp/` folder and use absolute paths in CSS for those assets. For Spring-based projects use `/src/main/resources/META-INF/resources/`.
 

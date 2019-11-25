@@ -1,12 +1,15 @@
 ---
-title: Using theme variants
+title: Using Theme Variants
 order: 3
 layout: page
 ---
 
-= Using theme variants
+= Using Theme Variants
 
 The built-in themes have global variants that you use to quickly customize all components. Built-in component variants can be used to style individual component instances quickly.
+
+[NOTE]
+The documentation show how to do things using either Java or JavaScript/HTML. The end result will be identical regardless. Choose the approach you are most comfortable with.
 
 === Prerequisites
 
@@ -22,7 +25,9 @@ You should be familiar with <<built-in-themes#,choosing a built-in theme>> befor
 ** <<custom-variants>>
 ** <<sub-component-variants>>
 
-== Global variants
+== Global Variants
+
+Global theme variants apply throughout the app, affecting all components.
 
 === Dark
 
@@ -81,13 +86,15 @@ import '@vaadin/vaadin-lumo-styles/presets/compact.js';
 
 Technically, it adds a `<style>` element to the page which sets new values for the https://cdn.vaadin.com/vaadin-lumo-styles/1.5.0/demo/sizing-and-spacing.html[Lumo sizing and spacing] CSS properties. You can https://github.com/vaadin/vaadin-lumo-styles/blob/master/presets/compact.html[view the values] from the source code.
 
-== Component variants
+== Component Variants
 
-=== Built-in variants
+Component variants are specific to certain components and can be applied per-instance.
 
-Many of the components have built-in variants, in both the Lumo and the Material theme. You can use multiple variants for a single component.
+=== Built-in Variants
 
-Those components that have variants have an explicit Java API for using them.
+Many of the components have built-in variants in both the Lumo and the Material theme. You can use multiple variants for a single component.
+
+Those components that have variants (components that implement the `HasTheme` interface) have an explicit Java API for using them.
 
 .`Java`
 [source,java]
@@ -102,33 +109,40 @@ button.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_SMALL);
 <vaadin-button theme="primary small">OK</vaadin-button>
 ....
 
-==== Lumo variants
+==== Lumo Variants
 You can find a component's Lumo variants from the component's HTML examples on vaadin.com, from the "Theme Variants" section. For example, see https://vaadin.com/components/vaadin-button/html-examples/button-theme-variants-demos[Button Lumo variants].
 
-==== Material variants
+==== Material Variants
 You can find a component's Material variants from the https://vaadin.com/themes/material[Material theme documentation site]. For example, see https://cdn.vaadin.com/vaadin-material-styles/1.2.3/demo/buttons.html[Button Material variants].
 
 
-=== Custom variants
+=== Custom Variants
 
-You can add custom variant values for components. The styles for those variants should then be defined in an additional stylesheet which you import. Learn how to <<including-style-sheets#component-local-scope,include style sheets into component scopes>> and how to <<styling-web-component#,write styles for a component>>.
+You can add custom variant values for components. The styles for those variants should then be defined in an additional stylesheet which you import. Learn how to <<including-style-sheets#component-local-scope,include style sheets into component scopes>> and how to <<styling-vaadin-components#,style Vaadin components>>.
 
 .`Java`
 [source,java]
 ....
 Button button = new Button("Button");
 button.getThemeNames().add("custom-variant");
+// Or, for components that do not implement HasTheme
+ComboBox combo = new ComboBox();
+combo.getElement().setAttribute("theme", "custom-variant");
 ....
+
+[NOTE]
+Using `setAttribute` will remove any previous values set using either `addThemeVariants()` or `getThemeNames().add()`.
 
 .`HTML`
 [source,html]
 ....
 <vaadin-button theme="custom-variant">Button</vaadin-button>
+<vaadin-combo-box theme="custom-variant">Button</vaadin-combo-box>
 ....
 
-=== Sub-component variants
+=== Sub-component Variants
 
-Components which internally use another component (sub-component) can utilize the variants of the sub-components. For example, while Combo Box doesn't have any own variants, it can still use the Text Field component's "small" variant, since Combo Box has a Text Field inside it.
+Components which internally use another component (sub-component) can utilize the sub-component variants. For example, while Combo Box doesn't have its own variants, it can still use the Text Field component's "small" variant, since Combo Box has a Text Field inside it.
 
 .`Java`
 [source,java]
@@ -142,8 +156,5 @@ combo.getElement().setAttribute("theme", TextFieldVariant.LUMO_SMALL);
 ....
 <vaadin-combo-box theme="small"></vaadin-combo-box>
 ....
-
-[NOTE]
-Setting the attribute will remove any previously set values using either `addThemeVariants()` or `getThemeNames().add()`.
 
 To learn about the hierarchy of components and how theme variants propagate through that hierarchy, refer to the list of https://github.com/vaadin/vaadin-themable-mixin/#list-of-vaadin-components-that-propagate-theme-to-subcomponents[components that propagate the theme attribute] to sub-components.
