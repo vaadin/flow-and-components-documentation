@@ -159,7 +159,7 @@
               <p>
                 The demo above might appear differently on browsers without native Shadow DOM support
                 due to leaking unscoped styles from the host environment.
-                This isn't an issue with Vaadin applications in general. Sorry about the inconvenience.
+                This isn't an issue with Vaadin applications in general. Sorry for the inconvenience.
               </p>
             </div>
 
@@ -180,7 +180,7 @@
         }
 
         _shouldHideShadyDisclaimer(shadyDisclaimer) {
-          return !shadyDisclaimer || document.head.createShadowRoot;
+          return !shadyDisclaimer || Polymer.Settings.useShadow;
         }
       };
     };
