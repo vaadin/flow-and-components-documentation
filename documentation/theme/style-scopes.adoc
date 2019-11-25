@@ -1,6 +1,6 @@
 ---
 title: Style Scopes
-order: 11
+order: 9
 layout: page
 ---
 

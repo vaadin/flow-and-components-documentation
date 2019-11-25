@@ -1,7 +1,0 @@
----
-title: Styling Composition-Based Components
-order: 7
-layout: page
----
-
-= Styling Composition-based Components
