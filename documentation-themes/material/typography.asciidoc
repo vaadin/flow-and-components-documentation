@@ -39,7 +39,7 @@ Importing the typography modules imports the Roboto font from link:https://fonts
 ----
 ++++
 
-<content-preview-md class="block">
+<content-preview-md class="block" shady-disclaimer>
 ++++
 [source,html]
 ----
