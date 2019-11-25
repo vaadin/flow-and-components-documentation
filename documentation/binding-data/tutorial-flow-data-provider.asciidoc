@@ -135,7 +135,7 @@ grid.setDataProvider(dataProvider);
 * The second `DataProvider` type parameter defines how the provider can be filtered. In the example, the filter type is `Void`, meaning filtering in not supported. See <<Filtering Lazy-loaded Data>> below for more. 
 
 [NOTE]
-The number of items that need to be fetched, `query.getLimit()`, is set by the component that uses the `DataProvider`. For example, in `Grid` compponent the default number is 50. This number can be changed via its constructor, like `Grid<Person> grid = new Grid<>(20);`, or via its `setPageSize` method, like `grid.setPageSize(20);`.  
+The number of items that need to be fetched, `query.getLimit()`, is set by the component that uses the `DataProvider`. For example, in `Grid` component the default number is 50. This number can be changed via its constructor, like `Grid<Person> grid = new Grid<>(20);`, or via its `setPageSize` method, like `grid.setPageSize(20);`.  
 
 === Sorting Lazy-loaded Data
 
