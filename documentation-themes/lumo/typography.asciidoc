@@ -33,7 +33,7 @@ include::../themes-shared.asciidoc[]
 </custom-style>
 ----
 ++++
-<content-preview class="block">
+<content-preview class="block" shady-disclaimer>
 ++++
 [source,html]
 ----

@@ -16,6 +16,12 @@
               reflectToAttribute: true,
               observer: '_updateContent'
             },
+
+            shadyDisclaimer: {
+              type: Boolean,
+              value: false,
+              reflectToAttribute: true
+            }
           }
         }
 
@@ -146,7 +152,17 @@
 
             ${additionalDefaultContent}
 
+
             <div id="preview"></div>
+
+            <div id="shady-disclaimer" class="admonitionblock note" hidden="[[_shouldHideShadyDisclaimer(shadyDisclaimer)]]" style="margin-bottom: -1rem">
+              <p>
+                The demo above might appear differently on browsers without native Shadow DOM support
+                due to leaking unscoped styles from the host environment.
+                This isn't an issue with Vaadin applications in general. Sorry about the inconvenience.
+              </p>
+            </div>
+
             <div id="source" hidden="[[hidesource]]">
               <slot></slot>
             </div>
@@ -161,6 +177,10 @@
           Array.from(this.$.preview.querySelectorAll('*')).forEach(element => {
             element.classList.remove('style-scope');
           });
+        }
+
+        _shouldHideShadyDisclaimer(shadyDisclaimer) {
+          return !shadyDisclaimer || document.head.createShadowRoot;
         }
       };
     };
