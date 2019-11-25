@@ -396,18 +396,19 @@
     ensureDefined('lumo-icon', lumoIconClass);
     ensureDefined('lumo-icons-viewer', lumoIconsViewerClass);
 
-    ensureRegistered('frontend/bower_components/vaadin-lumo-styles/badge.html', 'lumo-badge')
-      .then(() => ensureRegistered('frontend/bower_components/vaadin-lumo-styles/color.html', 'lumo-color'))
-      .then(() => ensureRegistered('frontend/bower_components/vaadin-lumo-styles/typography.html', 'lumo-typography'))
-      // Finally not supported by Edge
-      .then(() => ensureDefined('content-preview', getContentPreviewClass(Polymer.html`<style include="lumo-typography lumo-color lumo-badge"></style>`)))
-      .catch(() => ensureDefined('content-preview', getContentPreviewClass(Polymer.html`<style include="lumo-typography lumo-color lumo-badge"></style>`)));
+    Promise.all([
+      ensureRegistered('frontend/bower_components/vaadin-lumo-styles/badge.html', 'lumo-badge'),
+      ensureRegistered('frontend/bower_components/vaadin-lumo-styles/color.html', 'lumo-color'),
+      ensureRegistered('frontend/bower_components/vaadin-lumo-styles/typography.html', 'lumo-typography')
+    ]).finally(() =>
+      ensureDefined('content-preview', getContentPreviewClass(Polymer.html`<style include="lumo-typography lumo-color lumo-badge"></style>`))
+    );
 
-    ensureRegistered('frontend/bower_components/vaadin-material-styles/color.html', 'material-color-light')
-      .then(() => ensureRegistered('frontend/bower_components/vaadin-material-styles/typography.html', 'material-typography'))
-      // Finally not supported by Edge
-      .then(() => ensureDefined('content-preview-md', getContentPreviewClass(Polymer.html`<style include="material-typography material-color-light"></style>`)))
-      .catch(() => ensureDefined('content-preview-md', getContentPreviewClass(Polymer.html`<style include="material-typography material-color-light"></style>`)));
-
+    Promise.all([
+      ensureRegistered('frontend/bower_components/vaadin-material-styles/color.html', 'material-color-light'),
+      ensureRegistered('frontend/bower_components/vaadin-material-styles/typography.html', 'material-typography'),
+    ]).finally(() =>
+      ensureDefined('content-preview-md', getContentPreviewClass(Polymer.html`<style include="material-typography material-color-light"></style>`))
+    );
 </script>
 ++++
