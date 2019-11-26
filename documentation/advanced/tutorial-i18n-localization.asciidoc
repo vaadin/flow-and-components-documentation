@@ -104,16 +104,6 @@ public class TranslationProvider implements I18NProvider {
     private List<Locale> locales = Collections
             .unmodifiableList(Arrays.asList(LOCALE_FI, LOCALE_EN));
 
-    private static final LoadingCache<Locale, ResourceBundle> bundleCache = CacheBuilder
-            .newBuilder().expireAfterWrite(1, TimeUnit.DAYS)
-            .build(new CacheLoader<Locale, ResourceBundle>() {
-
-                @Override
-                public ResourceBundle load(final Locale key) throws Exception {
-                    return initializeBundle(key);
-                }
-            });
-
     @Override
     public List<Locale> getProvidedLocales() {
         return locales;
@@ -127,7 +117,7 @@ public class TranslationProvider implements I18NProvider {
             return "";
         }
 
-        final ResourceBundle bundle = bundleCache.getUnchecked(locale);
+        final ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_PREFIX, locale);
 
         String value;
         try {
