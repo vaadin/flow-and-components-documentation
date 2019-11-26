@@ -146,40 +146,24 @@ After the migration to JS modules, the imports need to be changed use
 
 === Location and Importing of Local HTML & JS files
 
-To be included in the add-on `.jar` and to be available for the frontend builds
-in application projects, the add-on's frontend resources should still be
-located in the standard static resource directory
-`/src/main/resources/META-INF/resources/frontend/`. *Note that the correct path
-should be `/src/main/resources/META-INF/frontend/`
-but due to https://github.com/vaadin/flow/issues/6272[a bug] the former directory needs to be used.
+To be included in the add-on `.jar` and to be available for the frontend builds in application projects, the add-on's frontend resources should still be located in the standard static resource directory `/src/main/resources/META-INF/frontend/`.
 
-Thus a file that has been previously imported as `@JavaScript
-(frontend://src/myComponentConnector.js)` should be now imported as `@JsModule("
-./src/myComponentConnector.js")`. The same changes should be applied to
-`@HtmlImport` files that are converted to JS modules.
+Thus a file that has been previously imported as `@JavaScript("frontend://src/myComponentConnector.js")` should new be imported as `@JsModule("./src/myComponentConnector.js")`.
+The same changes should be applied to `@HtmlImport` files that are converted to JS modules.
 
-You can also use another resource directory, as long as you make that sure that
-the files end up to the above mentioned location when the add-on `.jar` is built.
+You can also use another resource directory, as long as you make that sure that the files end up to the above mentioned location when the add-on `.jar` is built.
 
 [NOTE]
-Any "vanilla" CSS files (imported with the `@StyleSheet` annotation) don't need
-migration to be supported in Vaadin 14 npm mode.
+Any "vanilla" CSS files (imported with the `@StyleSheet` annotation) don't need migration to be supported in Vaadin 14 npm mode.
 
 == Miscellaneous Changes Related to Migration
 
-* You might have to update the `jetty-maven-plugin` version when updating to
-Vaadin 14. The `9.4.15.v20190215` version that has been tested to work with the "single module
-add-on project" that has the add-on demo in the test resources, by including the
- configuration `<supportedPackagings><supportedPackaging>jar</supportedPackaging
- ></supportedPackagings>`
-* When you your add-on depends on either `vaadin` or `vaadin-core` dependencies,
- you can exclude the webjars for the npm version of the add-on. This way anyone
- using your add-on will not have to exclude those themselves. See an example of
- how to exclude the webjars https://github.com/vaadin/skeleton-starter-flow/pull/189/files[here]
- * When the `prepare-frontend` goal creates the `package.json`,
- `package-lock.json` and `webpack.config.js` files for your add-on project demo
- or integration tests modules, you should add those to version control. But
- these files do not need to be packaged together with the add-on.
+* You might have to update the `jetty-maven-plugin` version when updating to Vaadin 14. The `9.4.15.v20190215` version that has been tested to work with the "single module add-on project" that has the add-on demo in the test resources, by including the configuration `<supportedPackagings><supportedPackaging>jar</supportedPackaging></supportedPackagings>`
+* When you your add-on depends on either `vaadin` or `vaadin-core` dependencies, you can exclude the webjars for the npm version of the add-on.
+This way anyone using your add-on will not have to exclude those themselves.
+See an example of how to exclude the webjars https://github.com/vaadin/skeleton-starter-flow/pull/189/files[here]
+* When the `prepare-frontend` goal creates the `package.json`, `package-lock.json` and `webpack.config.js` files for your add-on project demo or integration tests modules, you should add those to version control.
+But these files do not need to be packaged together with the add-on.
 
 == Examples of Component Add-on Migration to 14
 

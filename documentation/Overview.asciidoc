@@ -130,7 +130,8 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<portlet-support/portlet-02-creating-vaadin-portlets#,Creating Vaadin Portlets>>
 * <<portlet-support/portlet-03-handling-portlet-phases#,Handling Portlet Phases>>
 * <<portlet-support/portlet-04-inter-portlet-communication#,Inter-portlet Communication>>
-** <<portlet-support/portlet-05-demo-address-book#,Address Book Demonstration>>
+* <<portlet-support/portlet-05-creating-multi-module-portlet-project#,Creating Multi-module Portlet Project>>
+* <<portlet-support/portlet-demo-01-address-book#,Demonstration: Address Book>>
 
 == Packaging for Production
 * <<production/tutorial-production-mode-basic#,Taking your Application into Production>>
