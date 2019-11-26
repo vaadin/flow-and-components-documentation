@@ -13,16 +13,13 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.vaadin.flow.tutorial.ccdm;
+package com.vaadin.flow.tutorial.typescript;
 
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.annotation.security.DenyAll;
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -33,12 +30,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-import com.vaadin.flow.server.VaadinRequest;
-import com.vaadin.flow.server.connect.VaadinService;
-import com.vaadin.flow.server.connect.auth.AnonymousAllowed;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("ccdm/configure-server-authentication.asciidoc")
+@CodeFor("typescript/configure-server-authentication.asciidoc")
 public class ConfigureServerAuthentication {
 
     public class CustomPrincipal implements Principal {

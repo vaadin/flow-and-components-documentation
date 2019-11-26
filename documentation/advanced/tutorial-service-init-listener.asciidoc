@@ -9,7 +9,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 = VaadinServiceInitListener
 
 `VaadinServiceInitListener` can be used to configure RequestHandlers,
-<<../ccdm/client-side-bootstrapping#,IndexHtmlRequestListener>> and <<tutorial-dependency-filter#,DependencyFilters>>.
+<<../typescript/client-side-bootstrapping#,IndexHtmlRequestListener>> and <<tutorial-dependency-filter#,DependencyFilters>>.
 You can also use it to <<../routing/tutorial-router-dynamic-routes#application.startup,dynamically register routes during the
 application startup>>.
 

@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.vaadin.flow.tutorial.ccdm;
+package com.vaadin.flow.tutorial.typescript;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -22,7 +22,7 @@ import com.vaadin.flow.server.communication.IndexHtmlRequestListener;
 import com.vaadin.flow.server.communication.IndexHtmlResponse;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("ccdm/client-side-bootstrapping.asciidoc")
+@CodeFor("typescript/client-side-bootstrapping.asciidoc")
 public class ClientSideBootstrapPage {
     public class MyIndexHtmlRequestListener implements
             IndexHtmlRequestListener {
