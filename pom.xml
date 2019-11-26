@@ -55,7 +55,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <flow.version>2.0-SNAPSHOT</flow.version>
-        <vaadin.version>14.0-SNAPSHOT</vaadin.version>
+        <flow.version>2.2-SNAPSHOT</flow.version>
+        <vaadin.version>14.1-SNAPSHOT</vaadin.version>
+        <vaadin-portlet.version>1.0-SNAPSHOT</vaadin-portlet.version>
+        <portlet-api.version>3.0.0</portlet-api.version>
     </properties>
 </project>

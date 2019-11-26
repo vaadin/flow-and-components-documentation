@@ -1,6 +1,6 @@
 ---
 title: Binding Model Data in a PolymerTemplate
-order: 6
+order: 5
 layout: page
 subnav:
   - title: Two-way data binding
@@ -30,7 +30,7 @@ class MyTemplate extends PolymerElement {
 customElements.define(MyTemplate.is, MyTemplate);
 ----
 
-For the server-side sample see: <<server-side-sample,Server-side model sample code>>
+For the server-side sample see below: <<server-side-sample,Server-side model sample code>>
 
 == Binding Property Values
 
@@ -74,15 +74,15 @@ return html`<a href$="[[hostProperty]]"></a>`;
 --
 Text surrounded by double curly bracket {{ }} or double square bracket [[ ]] delimiters identify the host data being bound.
 
-* Double-curly brackets support both upward and downward data flow. see <<two-way-binding,Two-way data binding>>.
+* Double curly brackets support both server-to-client and client-to-server data flow. see <<two-way-binding,Two-way data binding>>.
 
-* Double square brackets are one-way, and support only downward data flow.
+* Double square brackets are one-way, and support only server-to-client data flow.
 --
 
 [[server-side-sample]]
 === Server-side model sample code
 
-Here is the server-side sample for tutorial html templates.
+Here is the server-side code example for all html templates shown above.
 
 .PolymerTemplate class
 [source,java]
@@ -110,7 +110,7 @@ public interface BindingModel extends TemplateModel {
 [[two-way-binding]]
 == Two-way data binding
 
-For two-way data binding the data flows in both directions client-to-server and server-to-client.
+For two-way data binding the data flows in both directions: client-to-server and server-to-client.
 
 To demonstrate the functionality lets create a TwoWayBindingModel with some a couple of different fields like:
 
@@ -161,11 +161,10 @@ public class PolymerTwoWayBindingTemplate
 ----
 
 We use here the `Element::addPropertyChangeListener` method to get immediate
-update for the property values. Another way would be to define an `@EventHandler`
-method on the server side which is just called once when a button is pressed
-similar to the `reset()` method.
+updates for when the property values change. An alternate way to get notified about changes would be to define an `@EventHandler`
+method on the server side and adding the appropriate event handers in the template.
 
-On the client we will use different methods to bind  binding the model data:
+On the client we will use different methods to bind the model data:
 
 .Name string to an input using:
  - Native input element
@@ -182,7 +181,7 @@ On the client we will use different methods to bind  binding the model data:
 
 [NOTE]
 --
-Native elements need to specify a custom change event name in the annotation using the syntax: `target-prop="{{hostProp::target-change-event}}"` see. https://www.polymer-project.org/3.0/docs/devguide/data-binding#two-way-native[Two-way binding to a non-Polymer element]
+Native elements need to specify a custom change event name in the annotation using the syntax: `target-prop="{{hostProp::target-change-event}}"`. Please see https://www.polymer-project.org/3.0/docs/devguide/data-binding#two-way-native[Two-way binding to a non-Polymer element]
 --
 
 .Polymer html template

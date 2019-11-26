@@ -1,6 +1,6 @@
 ---
 title: Using Model Encoders with a PolymerTemplate Model
-order: 9
+order: 7
 layout: page
 ---
 
@@ -9,21 +9,21 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 Sometimes you may want to use ready made beans in your model which you can't control
 (i.e. they are given to you as binary class files). But their structure may be
-inappropriate for your template model used in a user interface representation.
+inappropriate for your template model.
 
-It usually happens if you use data base backend with JPA entities. Such entities
-usually have unique identifier with `Long` type. `Long` type is not supported
-by Flow at all (it can't be mapped correctly to any client type). So you have to
+This usually happens if you use data base backend with JPA entities. Such entities
+usually have unique identifiers with the `Long` type. The `Long` type is not supported
+by Vaadin, since it can't be mapped correctly to any JavaScript type. So you have to
 exclude any property with this type (see `@Exclude` in
 <<tutorial-template-model-bean#,Using Beans with a PolymerTemplate Model>>).
 
 But what if you need this property on the client side for some reason (e.g. you
-want this identifier of a bean to be able to reference it)? In this case you can use `@Encode`
+want this identifier of a bean to be able to reference it)? In this case you can use the `@Encode`
 annotation. You can just encode a `Long` value to a `String` value and it
 will be sent to the client-side as a string. Then once the client side sends this value
 back it will be decoded back to a `Long`.
 
-Here is the `Person` JPA entity class with the model class :
+Here is the `Person` JPA entity class and the template model class:
 
 [source,java]
 ----
@@ -40,7 +40,7 @@ public class Person implements Serializable {
 }
 
 public interface MyModel extends TemplateModel {
-   @Encode(value=LongToStringEncoder.class, path="id")
+   @Encode(value = LongToStringEncoder.class, path = "id")
    void setPerson(Person person);
    Person getPerson();
 }
@@ -67,16 +67,16 @@ public class LongToStringEncoder implements ModelEncoder<Long, String> {
 }
 ----
 
-Now you can access `id` property of the `Person` bean in your code on the client side
-in the usual way but it will have the `String` type.
+Now you can access the `id` property of the `Person` bean in your code on the client side
+in the usual way. But note that it will be of the `String` type instead of a number.
 
 [NOTE]
 The annotation parameter `path="id"` is used to address the `id` sub-property of the `person` property.
-By default the `path` value is `""` which means that an encoder is applied to the property itself.
+By default the `path` value is `""` which means that an encoder is applied to the property itself, in this case the `Person`.
 
-You can use any type to encode to any supported type. Another usecase for encoders may be
+You can use any type to encode to any supported type. Another use case for encoders may be
 splitting one property value to several sub-properties to use them in different UI controls instead of one.
-E.g. we may want to have 3 input fields for a person birthday instead of one: one for the day, month and year.
+E.g. we may want to have 3 input fields for a persons birthday instead of one: one for the day, month and year.
 So you have a `Date` property in your model:
 
 [source,java]

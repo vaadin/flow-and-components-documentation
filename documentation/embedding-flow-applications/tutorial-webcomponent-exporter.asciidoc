@@ -6,74 +6,69 @@ layout: page
 
 = Creating an Embedded Vaadin Application Tutorial
 
-In this section, we demonstrate how to create a basic embedded application: that is, an application that is capable of being embedded in another page.
+In this section, we demonstrate how to create a basic embedded application: that is, an application that can be embedded in another page.
 
 [NOTE]
-
 The technology you use to create the host page is irrelevant: you can use Vaadin or non-Vaadin server-side Java technologies, like JSP, Thymeleaf, or servlet, or even a basic static HTML page.
 
-From a overview perspective, to create an embedded application you need to create: 
+In order to be able to embed a Vaadin application, you need to create:
 
-* A separate Vaadin application. This is achieved by declaring the web component exporter as a separate web component, and 
+* An entry point. This is achieved by creating a `WebComponentExporter` for the Vaadin `Component` you want to embed, and
 * A `VaadinServlet` to handle requests to your web component. The servlet can be declared in a non-Vaadin application, or deployed separately as a standalone WAR file.
-
 
 Our scenario uses:
 
-* A single custom servlet to handle the main application logic. 
-** The servlet displays primarily static content. 
-** The content differs depending on whether a user is logged in or not. 
+* A single custom servlet to handle the main application logic.
+** The servlet displays primarily static content.
+** The content differs depending on whether a user is logged in or not.
 
-* A Vaadin server-side web component to implement a login form. 
+* An embeddable Vaadin `Component` to implement a login form.
 
 [NOTE]
 `VaadinServlet` forms part of the application, but its mapping differs from the main servlet mapping.
 
+You can start with a clean project, or start building on top of the https://vaadin.com/start/latest[Vaadin Base Starter] (download the "Plain Java Servlet" version).
+
 . Create the `MainAppServlet` servlet class.
++
+This servlet serves the static page which embeds our login form as a web component.
 +
 [source, java]
 ----
-@WebServlet(urlPatterns = { "/*" })
+@WebServlet(urlPatterns = {"/example"})
 public class MainAppServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req,
-            HttpServletResponse response)
+    protected void doGet(HttpServletRequest req, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType(
-                "text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
 
-        Object authToken = req.getSession()
-                .getAttribute("auth_token");
+        Object authToken = req.getSession().getAttribute("auth_token");
         boolean isAuthenticated = authToken != null;
 
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html><head>");
-            out.println(
-                     "<meta http-equiv='Content-Type' "
-                    + "content='text/html; "
+            out.println("<meta http-equiv='Content-Type' content='text/html; "
                     + "charset=UTF-8'>");
-            out.println(
-                   "<script type='text/javascript' "
-                    + "src='log-in.js'></script>");
+
             if (!isAuthenticated) {
-                out.println(
-                         "<script type='module' src="
-                        + "'/vaadin/web-component/"
-                        + "login-form.js'></script>");
+                out.println("<script type='text/javascript' "
+                        + "src='/vaadin/VAADIN/build/webcomponentsjs/"
+                        + "webcomponents-loader.js'></script>");
+                out.println("<script type='module' src='/vaadin/web-component"
+                        + "/login-form.js'></script>");
+                out.println("<script type='text/javascript' "
+                        + "src='/log-in.js' defer></script>");
             }
-            out.println("<body>");
+            out.println("</head><body>");
             if (isAuthenticated) {
                 out.println("<h1>Welcome "
-                        + UserService.getInstance()
-                              .getName(authToken)
+                        + UserService.getInstance().getName(authToken)
                         + "</h1>");
             } else {
-                out.println(
-                        "<login-form userlbl='Username' "
-                      + "pwdlbl='Password'>"
-                      + "</login-form>");
+                out.println("<login-form userlbl='Username' pwdlbl='Password'>"
+                        + "</login-form>");
             }
             out.println("</body>");
             out.println("</html>");
@@ -81,8 +76,41 @@ public class MainAppServlet extends HttpServlet {
     }
 }
 ----
++
+Let's analyze the HTML content generated by `MainAppServlet`:
 
-. Create the `UserService` class. This class contains the authentication logic and is shared between the `MainAppServlet` and the web component class (created in 6. below). You can use any interface and implementation you like. This example is a custom stub implementation and is provided as a reference.
+* This line loads the web component polyfill:
++
+[source, html]
+----
+<script type='text/javascript'
+        src='/vaadin/VAADIN/build/webcomponentsjs/webcomponents-loader.js'>
+</script>
+----
+* This line loads the web component:
++
+[source, html]
+----
+<script type='module'
+        src='/vaadin/web-component/login-form.js'>
+</script>
+----
+** Both script `src` attributes start with `/vaadin/`. This is the URI to use to map to the Vaadin servlet (see <<step-3,step 3>> below).
+** The second part the link URI,`/web-component/login-form.js`, is the standard URI to use to import the web component. It consists of the hard-coded  `web-component` part, followed by `login-form.js`, which is the web component file. The web component file is generated by Vaadin, based on the configuration set in the  exporter.
+
+* The name of the web component in our example must be `"login-form"`. This name  must be used in both the `super` constructor of the exporter (see `LoginFormExporter` in <<step-5,step 5>> below) and the HTML code where the web component is inserted. In our example this is right under the `<body>` tag:
++
+[source, html]
+----
+<login-form userlbl='Username' pwdlbl='Password'>
+</login-form>
+----
+** The `"login-form"` web component has two properties, `userlbl` and `pwdlbl`. These values are passed from the HTML to a web component instance.
++
+[NOTE]
+If embedding applications is targeted towards very specific browsers, the polyfill is not needed. For example Chrome and Firefox do not need the polyfill while Edge does.
+
+. Create the `UserService` class. This class contains the authentication logic and is shared between the `MainAppServlet` and the web component class (created in <<step-5,step 5>> below). You can use any interface and implementation you like. This example is a custom stub implementation and is provided as a reference.
 +
 [source, java]
 ----
@@ -114,38 +142,17 @@ public final class UserService {
 }
 ----
 
-. Analyze the HTML content generated by `MainAppServlet`. It is fairly simple:   
-** This line loads the web component:
-+
-[source, html]
-----
-<script type='module'
-        src='/vaadin/web-component/login-form.js'>
-</script>
-----
-*** The link URI starts with `/vaadin/`. This is the URI to use to map the Vaadin servlet (see 4. below). 
-*** The second part the link URI,`/web-component/login-form.js`, is the standard URI to use to import the web component. It consists of the hard-coded  `web-component` part, followed by `login-form.js`, which is the web component file. The web component file is generated by Vaadin, based on the configuration set in the  exporter. 
-** The name of the web component in our example must be `"login-form"`. This name  must be used in both the `super` constructor of the exporter (see `LoginFormExporter` in 6. below) and the HTML code where the web component is inserted. In our example this is right under the `<body>` tag: 
-+
-[source, html]
-----
-<login-form userlbl='Username' pwdlbl='Password'>
-</login-form>
-----
-*** The `"login-form"` web component has two properties, `userlbl` and `pwdlbl`. These values are passed from the HTML to a web component instance.
-
-. Register the `VaadinServlet`.
+. [[step-3]]Register the `VaadinServlet`.
 +
 
 [source, java]
 ----
-@WebServlet(urlPatterns = {"/vaadin/*", "/frontend/*" })
-public class WebComponentVaadinServlet
-        extends VaadinServlet {
+@WebServlet(urlPatterns = { "/vaadin/*" })
+public class WebComponentVaadinServlet extends VaadinServlet {
 }
 ----
-*** As mentioned above, the `/vaadin/\*` mapping allows the `VaadinServlet` to handle web component requests. You can use any URI, but be sure to use the same URI in the mapping and in the import declaration. 
-*** Our example also uses `/frontend/*` mapping for the servlet because we need to handle WebJar resource URIs: we use various Vaadin components in the server-side web component and this requires a `frontend` URI handler.
+* As mentioned above, the `/vaadin/*` mapping allows the `VaadinServlet` to handle web component requests. You can use any URI, but be sure to use the same URI in the mapping and in the import declaration.
+* If you are operating in compatibility mode, see <<tutorial-webcomponent-compatibility#,Embedding Applications in Compatibility and Production Mode>> for more information about implementing the `VaadinServlet`.
 +
 [NOTE]
 If you deploy your web component exporter(s) as a standalone WAR application, an explicit servlet registration is unnecessary. A servlet instance is registered automatically with the `"/*"` mapping.
@@ -221,13 +228,13 @@ public class LoginForm extends Div {
     }
 }
 ----
-* The example uses several Vaadin components: `FormLayout`, `TextField`, `PasswordField` and `Button`. 
-* The code takes care of authentication and sets an authentication token in the `HttpSession`, which makes it available while the session is live. 
-* Because the main application servlet uses the same `HttpSession` instance, it changes behavior and redirects authenticated users to the main servlet that now shows content specific to authenticated users. There are various ways to do this: 
-** Execute JavaScript directly from your Java code and set the location to `"/"` : `getUI().get().getPage().executeJs("window.location.href='/'");`.
+* The example uses several Vaadin components: `FormLayout`, `TextField`, `PasswordField` and `Button`.
+* The code takes care of authentication and sets an authentication token in the `HttpSession`, which makes it available while the session is live.
+* Because the main application servlet uses the same `HttpSession` instance, it changes behavior and redirects authenticated users to the main servlet that now shows content specific to authenticated users. There are various ways to do this:
+** Execute JavaScript directly from your Java code and set the location to `"/example"` : `getUI().get().getPage().executeJs("window.location.href='/example'");`.
 ** Use a solution similar to this example: design the component code so that its logic is isolated and it does not need to know anything about the embedding context. This method allows you to completely decouple the embedded component logic from the application that uses it. In this example, the `addLoginListener` method allows you to register a listener which is called in the `fireLoginEvent` method.
 
-. The final step is to export the `LoginForm` component as an embeddable web component using the web component exporter.
+. [[step-5]]The final step is to export the `LoginForm` component as an embeddable web component using the web component exporter.
 +
 [source, java]
 ----
@@ -250,20 +257,26 @@ public class LoginFormExporter
     }
 }
 ----
-* The exporter defines its tag name as `"login-form"` by calling the super constructor `super("login-form");`. 
+* The exporter defines its tag name as `"login-form"` by calling the super constructor `super("login-form");`.
 * The `addProperty` method defines the component properties (`userlbl='Username' and `pwdlbl='Password'`) to receive values from the HTML element to the web component instance. In this example we declare the labels for user name field and password field via HTML, instead of hard-coding them in the `LoginForm` component class.
 
-* `LoginFormExporter` class implements the abstract method, `configureInstance`, which registers a login listener. 
-* The login listener fires a client-side `"logged-in"` event, using the `webcomponent.fireEvent()` method. The main application needs to handle this event somehow. 
+* `LoginFormExporter` class implements the abstract method, `configureInstance`, which registers a login listener.
+* The login listener fires a client-side `"logged-in"` event, using the `webcomponent.fireEvent()` method. The main application needs to handle this event somehow.
 * The custom event is handled by the JavaScript file declared via the line `<script type='text/javascript' src='log-in.js'></script>` in `MainAppServlet`. This is the `log-in.js` file content:
+** Place the `log-in.js` under `./src/main/webapp/`
 +
 [source, html]
 ----
 var editor = document.querySelector("login-form");
 editor.addEventListener("logged-in", function(event) {
-    window.location.href='/';
+    window.location.href='/example';
 });
 ----
 
 * The embedding servlet uses the API provided by `LoginForm` via a custom event and adds an event listener for the event. The listener simply redirects the page to
-the `"/"`  location.
+the `"/example"` location.
+
+. Run the application with `mvn jetty:run`. Once jetty has started, navigate to http://localhost:8080/example.
+* Type in login information and click on "Login" button
+** Username: admin
+** Password: admin

@@ -106,6 +106,26 @@ public class Application {
 [TIP]
 Follow the instructions on https://docs.spring.io/spring-boot/docs/current/reference/html/howto-traditional-deployment.html[Spring Boot documentation], if you want to deploy your Spring Boot application as a traditional WAR file.
 
+== Add Vaadin view to Spring Boot application
+
+With Vaadin views are defined as Java classes using `@Route` annotation. At the application start the classes are detected and published in a path derived from the class name or defined as a parameter to the annotation. 
+
+*Example*: `MainView` class.
+
+[source,java]
+----
+@Route
+public class MainView extends VerticalLayout {
+
+	public MainView() {
+		add(new Text("Welcome to MainView."));
+	}
+
+}
+----
+[TIP]
+If you don't provide a path parameter, the framework will derive the path from the class name of the class. The derived name will be in lower case, and possible trailing "View" will be removed. Also, `MainView` or `Main` names will be mapped to root (path will be `""`)
+
 == Vaadin Spring Boot examples
 
 https://github.com/vaadin/flow-spring-examples[Vaadin Spring Examples] is an example application that showcases basic usage of Vaadin and Spring Boot. You can use it to test the concepts and features covered in this documentation.

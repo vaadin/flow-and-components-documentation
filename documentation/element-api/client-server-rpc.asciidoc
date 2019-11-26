@@ -92,24 +92,44 @@ The `@EventHandler` annotation allows you to register a server-side method as an
 
 === @ClientCallable annotation
 
-The `@ClientCallable` annotation allows you to invoke a server-side method from the client side. It marks a template method as a method that can be called from the client side using the `this.$server.serverMethodName(args)` notation.
+The `@ClientCallable` annotation allows you to invoke a server-side method from the client side.
+It marks a method in a `Component` subclass that can be called from the client side using the `element.$server.serverMethodName(args)` notation.
+In client-side Polymer template code, `this` refers to the corresponding element so that the calling convention is `this.$server.serverMethodName(args)`.  
 
-You can use it anywhere in your client-side Polymer class implementation, and can pass your own arguments in the method. Note that the types should match the method declaration on the server side. 
+You can use it anywhere in your client-side Polymer class implementation, and can pass your own arguments in the method.
+Note that the types should match the method declaration on the server side.
 
-*Example*: Using `this.$server.clickHandler()` to mark a template method.
+The client-side method returns a Promise which will asynchronously be resolved with the return value from the server, or `null` if the server-side return type is `void`.
+You can wait for the result using `Promise.then`.
+In an `async` function, the `await` keyword can also be used for waiting for the result. 
 
-[source, xml]
+*Example*: Using `this.$server.getGreeting` to call a server-side method and `await` the result
+
+[source, javascript]
 ----
-this.$server.clickHandler()
+async getServerGreeting() {
+  let greeting = await this.$server.getGreeting("JavaScript");
+  console.log(greeting);
+}
+----
+
+*Example*: Using `this.$server.getGreeting` to call a server-side method and wait for the result in a callback.
+
+[source, javascript]
+----
+getServerGreeting() {
+  let greetingPromise = this.$server.getGreeting("JavaScript");
+  greetingPromise.then(greeting => console.log(greeting));
+}
 ----
 
 *Example*: Using the `@ClientCallable` annotation on the server side.
 [source, java]
 ----
-    @ClientCallable
-    public void clickHandler() {
-        // do your server side action here
-    }
+@ClientCallable
+public String getGreeting(String name) {
+    return "Hello " + name;
+}
 ----
 
 [IMPORTANT]
