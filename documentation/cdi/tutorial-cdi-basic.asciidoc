@@ -53,7 +53,7 @@ You need the CDI API version 1.2 and a provided implementation. In practice, bec
 
 There are no specific CDI configuration options. 
 
-An instance of the CDI-enabled Vaadin servlet, `com.vaadin.cdi.CdiVaadinServlet`, is deployed automatically, provided you do not setup a Vaadin servlet in your `web.xml`or
+An instance of the CDI-enabled Vaadin servlet, `com.vaadin.cdi.CdiVaadinServlet`, is deployed automatically, provided you do not setup a Vaadin servlet in your `web.xml` or
 use the `@WebServlet` annotation. You can also customize `CdiVaadinServlet` to suit your setup.   
 
 [NOTE]
