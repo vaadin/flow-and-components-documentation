@@ -223,7 +223,7 @@ The heartbeats occur at an interval of 5 minutes, which can be changed with the
 parameter in [classname]#@VaadinServletConfiguration# or in [filename]#web.xml#.
 
 When the UI cleanup happens, a [classname]#DetachEvent# is sent to all
-[classname]#DetachListener#s added to the UI. When the [classname]#UI# is
+[classname]##DetachListener##s added to the UI. When the [classname]#UI# is
 detached from the session, [methodname]#detach()# is called for it.
 
 
