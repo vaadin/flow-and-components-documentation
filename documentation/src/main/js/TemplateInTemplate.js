@@ -7,7 +7,7 @@ class ParentTemplate extends PolymerElement {
         return html`
             <div>Parent Template</div>
             <div>[[name]]</div>
-            <child-template></child-template>`;
+            <child-template id="childTemplate"></child-template>`;
     }
 
     static get is() { return 'parent-template' }

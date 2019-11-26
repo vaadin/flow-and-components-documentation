@@ -67,10 +67,12 @@ public class HelloWorldTutorial {
         private void sayHello() {
             // Called from the template click handler
             // @formatter:off
-            getModel().setGreeting(Optional.ofNullable(getModel().getUserInput())
-                    .filter(userInput -> !userInput.isEmpty())
-                    .map(greeting -> String.format("Hello %s!", greeting))
-                    .orElse(EMPTY_NAME_GREETING));
+            String userInput = getModel().getUserInput();
+            if (userInput == null || userInput.isEmpty()) {
+                getModel().setGreeting(EMPTY_NAME_GREETING);
+            } else {
+                getModel().setGreeting(String.format("Hello %s!", userInput));
+            }
             // @formatter:on
         }
     }
