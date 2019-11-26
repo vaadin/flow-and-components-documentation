@@ -61,7 +61,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<theme/theming-overview#,Theming Overview>>
 * <<theme/using-component-themes#,Using Component Themes>>
 * <<theme/application-theming-basics#,Application Theming Basics>>
-* <<theme/theming-crash-course#,Theming Crash Course>>
+* <<theme/theming-crash-course#,Theming Web Components>>
 * <<theme/integrating-component-theme#,Integrating Your Own Component Theme>>
 
 == Creating Components
@@ -79,6 +79,11 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<element-api/tutorial-user-input#,Retrieving User Input>>
 * <<element-api/tutorial-dynamic-styling#,Dynamic styling>>
 * <<element-api/tutorial-shadow-root#,Shadow root in server-side Element>>
+
+== Drag and Drop
+* <<dnd/generic-dnd#,Generic Drag and Drop>>
+* <<dnd/drag-source#,Making Any Component Draggable>>
+* <<dnd/drop-target#,Creating a Drop Target>>
 
 == Integrating Web Components
 * <<web-components/integrating-a-web-component#,Integrating a Web Component>>
@@ -119,6 +124,14 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 == Use Vaadin with OSGi
 * <<osgi/tutorial-osgi-basic#,Vaadin OSGi Support>>
 * <<osgi/tutorial-osgi-components#,Create OSGi compatible components>>
+
+== Vaadin Portlet Support
+* <<portlet-support/portlet-01-overview#,Vaadin Portlet Support Overview>>
+* <<portlet-support/portlet-02-creating-vaadin-portlets#,Creating Vaadin Portlets>>
+* <<portlet-support/portlet-03-handling-portlet-phases#,Handling Portlet Phases>>
+* <<portlet-support/portlet-04-inter-portlet-communication#,Inter-portlet Communication>>
+* <<portlet-support/portlet-05-creating-multi-module-portlet-project#,Creating Multi-module Portlet Project>>
+* <<portlet-support/portlet-demo-01-address-book#,Demonstration: Address Book>>
 
 == Packaging for Production
 * <<production/tutorial-production-mode-basic#,Taking your Application into Production>>

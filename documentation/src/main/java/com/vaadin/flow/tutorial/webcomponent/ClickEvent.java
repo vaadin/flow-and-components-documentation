@@ -10,16 +10,23 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 // @formatter:off
 public class ClickEvent extends ComponentEvent<PaperSlider> {
 
-    private int x,y;
+    private int x, y;
 
-    public ClickEvent(PaperSlider source, boolean fromClient, @EventData("event.offsetX") int x, @EventData("event.offsetY") int y) {
+    public ClickEvent(PaperSlider source,
+                      boolean fromClient,
+                      @EventData("event.offsetX") int x,
+                      @EventData("event.offsetY") int y) {
         super(source, fromClient);
         this.x = x;
+        this.y = y;
     }
+    
     public int getX() {
         return x;
     }
+    
     public int getY() {
         return y;
     }
+    
 }

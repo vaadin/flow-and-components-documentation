@@ -1,5 +1,5 @@
 ---
-title: Theming Crash Course
+title: Theming Web Components
 order: 4
 layout: page
 ---
