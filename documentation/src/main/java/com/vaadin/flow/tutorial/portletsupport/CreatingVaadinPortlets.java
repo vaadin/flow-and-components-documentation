@@ -6,7 +6,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.portal.VaadinPortlet;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("portlet-support/creating-vaadin-portlets.asciidoc")
+@CodeFor("portlet-support/portlet-02-creating-vaadin-portlets.asciidoc")
 public class CreatingVaadinPortlets {
     public class MyPortlet extends VaadinPortlet<MainView> {
 

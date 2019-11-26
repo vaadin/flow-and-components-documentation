@@ -7,15 +7,15 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.portal.VaadinPortlet;
-import com.vaadin.flow.portal.handler.PortletModeEvent;
-import com.vaadin.flow.portal.handler.PortletModeHandler;
-import com.vaadin.flow.portal.handler.PortletView;
-import com.vaadin.flow.portal.handler.PortletViewContext;
-import com.vaadin.flow.portal.handler.WindowStateEvent;
-import com.vaadin.flow.portal.handler.WindowStateHandler;
+import com.vaadin.flow.portal.lifecycle.PortletModeEvent;
+import com.vaadin.flow.portal.lifecycle.PortletModeHandler;
+import com.vaadin.flow.portal.PortletView;
+import com.vaadin.flow.portal.PortletViewContext;
+import com.vaadin.flow.portal.lifecycle.WindowStateEvent;
+import com.vaadin.flow.portal.lifecycle.WindowStateHandler;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("portlet-support/handling-portlet-phases.asciidoc")
+@CodeFor("portlet-support/portlet-03-handling-portlet-phases.asciidoc")
 public class HandlingPortletPhases {
     public class PortletModeListenerDemo {
         public class MyPortletView extends Div implements PortletView {
