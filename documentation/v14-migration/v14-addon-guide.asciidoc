@@ -19,7 +19,7 @@ it before starting with this document.
 It is possible to run Vaadin 14 applications in either the new _npm mode_ or
 in the Vaadin 10 - 13 compatibility mode. *For most add-ons, it is recommended
 to create two different versions to support both modes in Vaadin 14.* An add-on
-supporting only the npm mode cannot be used in the compatibility mode, and wise
+supporting only the npm mode cannot be used in the compatibility mode, and vice
 versa.
 
 Any add-on version that supports Vaadin 10 - 13 should work out of the box with
