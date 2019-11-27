@@ -25,7 +25,6 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<introduction/introduction-overview#,Introduction to Vaadin Flow>>
 * https://vaadin.com/tutorials/getting-started-with-flow[Getting started with Vaadin Flow]
 
-
 == Router and Navigation
 * <<routing/tutorial-routing-annotation#,Defining Routes with @Route>>
 * <<routing/tutorial-routing-lifecycle#,Navigation Lifecycle>>

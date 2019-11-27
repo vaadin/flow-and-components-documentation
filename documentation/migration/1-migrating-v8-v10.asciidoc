@@ -1,13 +1,15 @@
 ---
-title: Migrating from V8 to Vaadin platform
+title: Migrating from V8 to Vaadin 14
 order: 1
 layout: page
 ---
 
-= Migrating from Vaadin 8 to Vaadin platform
+= Migrating from Vaadin 8 to Vaadin 14
 
 [NOTE]
-This migration documentation has been revised for Vaadin 14.0 release. It is recommended to migrate to Vaadin 14 since it is the latest LTS and has more features available than versions 10-13. 
+This migration documentation has been revised for Vaadin 14.1 release. It is recommended to migrate to Vaadin 14 since it is the latest LTS and has more features available than versions 10-13.
+Vaadin 14 also gets new minor releases, which are backward compatible, but add new
+features.
 
 Vaadin platform stands for Vaadin versions 10 and later, and is a continuum from Vaadin 8. While the core concepts, architecture and programming model stay the same,
 the platform is still a big leap forward:
@@ -46,10 +48,10 @@ Bookstore Starter and the whole migration story is described step-by-step.
 == The More Things Change The More They Stay The Same
 
 Most of the migration documentation covers the features that have changed or been removed in Vaadin platform.
-But not everything has changed and at the core it is still the same product.
-The following concepts are not covered, since they have *stayed the same* between platform and 8:
+But not everything has changed and at the core, it is still the same product.
+The following concepts are not covered since they have *stayed the same* between platform and 8:
 
-* Using high level APIs to compose UIs with ready-made components in Java on the server side
+* Using high-level APIs to compose UIs with ready-made components in Java on the server-side
 * Stateful server-side architecture
 * Automated client-server communication using request-response or server push
 * Minimum server requirements: Java 8 and Servlet 3.0
@@ -58,10 +60,10 @@ The following concepts are not covered, since they have *stayed the same* betwee
 
 A major part of any application, the API for binding data to components, was modernized in Vaadin 8 with the introduction
 of `Binder` and `DataProvider`.
-These same concepts are used in platform and the API is mostly the same.
+These same concepts are used in the platform and the API is mostly the same.
 
-In Vaadin platform, building UIs is still the same. By using ready made components to make beautiful apps and it is super
-easy by using high level type-safe Java APIs. But now the components have been redesigned to provide better end user experience,
+In Vaadin platform, building UIs is still the same. By using ready-made components to make beautiful apps and it is super
+easy by using high-level type-safe Java APIs. But now the components have been redesigned to provide better end-user experience,
 but at the same time the initial set of components is smaller than in V8.§
 More components will be added later on. Creating your own components is a lot easier than before.
 

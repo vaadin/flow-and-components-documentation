@@ -4,11 +4,11 @@ order: 3
 layout: page
 ---
 
-= Differences Between Vaadin 10+ and V8 Applications
+= Differences Between Vaadin 10+ and 8 Applications
 
 == The UI Class is Different and it is Optional
 
-A subcass of `UI` is not needed anymore in Vaadin 10+ applications.
+A subclass of `UI` is not needed anymore in Vaadin 10+ applications.
 It is still there, but it is not _the starting point_ of the application anymore,
 and you don’t need to define your custom `UI`.
 Adding the content to show is handled by `Router` which is introduced in the <<4-routing-navigation#,next chapter>>.

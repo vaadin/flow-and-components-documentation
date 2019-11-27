@@ -26,9 +26,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.slf4j.LoggerFactory;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import com.vaadin.flow.i18n.I18NProvider;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
@@ -43,16 +40,6 @@ public class TranslationProvider implements I18NProvider {
     private List<Locale> locales = Collections
             .unmodifiableList(Arrays.asList(LOCALE_FI, LOCALE_EN));
 
-    private static final LoadingCache<Locale, ResourceBundle> bundleCache = CacheBuilder
-            .newBuilder().expireAfterWrite(1, TimeUnit.DAYS)
-            .build(new CacheLoader<Locale, ResourceBundle>() {
-
-                @Override
-                public ResourceBundle load(final Locale key) throws Exception {
-                    return initializeBundle(key);
-                }
-            });
-
     @Override
     public List<Locale> getProvidedLocales() {
         return locales;
@@ -66,7 +53,7 @@ public class TranslationProvider implements I18NProvider {
             return "";
         }
 
-        final ResourceBundle bundle = bundleCache.getUnchecked(locale);
+        final ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_PREFIX, locale);
 
         String value;
         try {
@@ -80,24 +67,6 @@ public class TranslationProvider implements I18NProvider {
             value = MessageFormat.format(value, params);
         }
         return value;
-    }
-
-    private static ResourceBundle initializeBundle(final Locale locale) {
-        return readProperties(locale);
-    }
-
-    protected static ResourceBundle readProperties(final Locale locale) {
-        final ClassLoader cl = TranslationProvider.class.getClassLoader();
-
-        ResourceBundle propertiesBundle = null;
-        try {
-            propertiesBundle = ResourceBundle.getBundle(BUNDLE_PREFIX, locale,
-                    cl);
-        } catch (final MissingResourceException e) {
-            LoggerFactory.getLogger(TranslationProvider.class.getName())
-                    .warn("Missing resource", e);
-        }
-        return propertiesBundle;
     }
 
 }
