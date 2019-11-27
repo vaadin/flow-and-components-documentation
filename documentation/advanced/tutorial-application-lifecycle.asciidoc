@@ -40,7 +40,7 @@ When starting, Vaadin application tries to registed the following servlets:
 This servlet is needed to serve the main application files.
 
 The servlet won't be registered, if any [classname]#VaadinServlet# is registered already
-or if there are no class annotated with [classname]#Route# annotation.
+or if there is no class annotated with [classname]#Route# annotation.
 
 * Frontend files servlet, mapped to `/frontend/*` path
 
