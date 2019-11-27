@@ -5,8 +5,8 @@ import java.util.Collections;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.portal.PortletView;
-import com.vaadin.flow.portal.PortletViewContext;
+import com.vaadin.flow.portal.handler.PortletView;
+import com.vaadin.flow.portal.handler.PortletViewContext;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("portlet-support/portlet-04-inter-portlet-communication.asciidoc")

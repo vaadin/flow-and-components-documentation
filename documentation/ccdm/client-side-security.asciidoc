@@ -1,0 +1,154 @@
+---
+title: Client-side Security
+order: 70
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= Client-side Security
+
+When developing server-side views, service access control is done by using regular java approaches: servlet-container based security, third party libraries, or session based solutions.
+
+On the other hand, client-side views do not have any sort of security, hence, it is necessary to secure the endpoint services that they access.
+
+This article describes all the pieces needed for securing client centric applications.
+
+== How to secure server-side endpoints
+
+The first step is to configure authorization of each service that the application exposes.
+
+=== Default security options
+
+Consider the basic Vaadin Connect service defined in the following class:
+
+.CounterService.java
+[source,java]
+----
+@VaadinService
+public class CounterService {
+    public int addOne(int number) {
+        return number + 1;
+    }
+}
+----
+
+For this service definition, when the application is started locally, it awaits the POST requests to the
+`http://localhost:8080/connect/CounterService/addOne` endpoint.
+
+But if you try to send any POST request to the endpoint (not using the Vaadin Client), you'll get a
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401[401 Unauthorized] response instead of the method invocation.
+
+This happens due to Vaadin access control features enabled by default for any service method:
+if not specified in Java code explicitly, before invoking a service method, the presence of `Principal` object in the the request is required.
+The `HttpServletRequest#getUserPrincipal()` Java API is used for the check.
+
+At this point, the servlet container or the application needs to be configured appropriately to handle user authentication.
+This is described in the <<configure-server-authentication#,Configure Servlet-Container>> article.
+
+== Other security options
+
+In order to change the default behavior, a security Java annotation should either be placed on the service class or on the service method.
+There are the following annotations:
+
+* `@PermitAll`
+Same as no annotations, allows any authenticated user to call a method via the request.
+* `@RolesAllowed`
+Grants access to users having the roles specified in the annotation value. Roles are covered in the <<permissions,next section>>.
+* `@DenyAll`
+Disallows to call the method via the request by anyone.
+* `@AnonymousAllowed`
+Permits anyone to call the method via the request without the authorization.
+
+A security annotation that is placed on a class is applied to any public method of this class that has no security annotations.
+If the method has security annotations, any class-level annotation is discarded and only method ones are applied.
+
+If there are multiple annotations specified on some entity, the following rules are applied:
+
+- `DenyAll` overrides other annotations
+- `AnonymousAllowed` overrides `RolesAllowed` and `PermitAll`
+-  `RolesAllowed` overrides `PermitAll`
+
+Example:
+
+.MyService.java
+[source,java]
+----
+@VaadinService
+@DenyAll
+public class MyService {
+
+  public void deniedService() {
+    // Not possible to call by any request due to class-level annotation
+  }
+
+  @AnonymousAllowed
+  public void anonymousService() {
+    // Possible to call by any request (even without
+    // authorization) since method level annotation
+    // overrides class-level one
+  }
+
+  @PermitAll
+  public void permittedToAllService() {
+    // Permitted to all authenticated users, same as if
+    // there were no security annotations on the class
+    // and the methods.
+    // Since there's a `@DenyAll` annotation is on the
+    // class, we specify this one on a method to override
+    // the class one.
+  }
+
+  @RolesAllowed("ROLE_ADMIN")
+  public void permittedToToleService() {
+    // Permited to all authenticated users belonging
+    // to the ROLE_ADMIN
+  }
+}
+----
+
+== Defining user permissions[[permissions]]
+
+As mentioned in the previous section, every user can have roles and may affect his ability to access some service methods.
+This section explains how to specify those for each user.
+
+Vaadin Services checks the existence of roles by using the `HttpServletRequest#isUserInRole(String)` Java API.
+
+Once the servlet container has been configured to handle user authentication, when the server receives a request for the secured service, user and its roles are checked, and if everything is alright, the method is executed.
+
+== Accessing user information in a service method
+
+When access to the `UserPrincipal` is required in a service, call the `VaadinRequest.getCurrent()` method to access the `HttpServletRequest` API.
+
+.EchoService.java
+[source,java]
+----
+@VaadinService
+public class EchoService {
+    public String saySomething(String message) {
+        return VaadinRequest.getCurrent().getUserPrincipal().getName() + " says: " + message;
+    }
+}
+----
+
+.frontend/index.ts
+[source,typescript]
+----
+import * as service from './generated/EchoService';
+
+service
+    .saySomething("It's snowing in Turku")
+    .then(response => console.log(response));
+----
+
+== How Vaadin Services protects from CSRF attacks
+
+Connect client sends in each XHR request a custom header that protects against CSRF attacks since it cannot be set in 3rd party forms.
+
+The presence of the header is checked before any service invocation, returning an unauthorized response if it fails.
+
+If Cross-Origin Resource Sharing (CORS) is enabled in the Vaadin server, it must be appropriately configured for not accepting requests from unknown sources.
+
+
+
+

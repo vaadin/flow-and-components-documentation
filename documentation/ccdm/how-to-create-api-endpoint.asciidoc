@@ -1,0 +1,103 @@
+---
+title: How to Create an API Endpoint
+order: 50
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= How to Create an API Endpoint
+
+An API endpoint is a backend method that is exposed for calling from client-side
+TypeScript code.
+
+Vaadin service is a class that defines one or more API endpoints.
+
+Vaadin Connect is a bridge between Java backend services and a TypeScript
+frontend. It allows creating API endpoints and services in Java, and generates
+TypeScript clients to call the Java backend in a type-checkable way.
+
+[WARNING]
+This feature is experimental and it *will change* before the next Long-Term-Supported Vaadin version.
+If you have an idea how to make it more useful for you, please share it on link:https://github.com/vaadin/flow/issues/new/[GitHub^].
+
+== How to create a Vaadin service? [[how-to-create-vaadin-service]]
+
+Annotate any existing class with the `@VaadinService` annotation or create such
+class from scratch:
+
+[source,java]
+----
+import com.vaadin.flow.server.connect.VaadinService;
+
+/**
+ * A Vaadin service that counts numbers.
+ */
+@VaadinService
+public class CounterService {
+    /**
+     * A method that adds one to the argument.
+     */
+    public int addOne(int number) {
+        return number + 1;
+    }
+}
+----
+
+After that, when the application starts, Vaadin analyzes such classes in order
+to be able to process the requests made to such services.
+
+[IMPORTANT]
+====
+At the moment, all API endpoints are secured and only available for authenticated users. Pease refer to the <<client-side-security#, Security page>> for configuring access to each service.'
+====
+
+Any public method in any Vaadin service can be accessed with the following url:
+
+`http://${base_url}/${endpoint}/${service_name}/${method_name}`
+
+Where:
+
+* `${base_url}` — the base url of the application, depends on the framework
+used. For instance, for Spring framework, the default one if the application is
+started locally, is `http://localhost:8080`.
+* `${endpoint}` — the url part that every Vaadin Connect service has,
+same for every service url. By default, `connect` is used, but this can be
+configured in the application properties.
+* `${service_name}` — if not specified explicitly, the corresponding Java
+service class name.
+* `${method_name}` — the public method name from the Java service class.
+
+For the application started locally with the `CounterService` service defined
+above, the service url will be the following:
+`http://localhost:8080/connect/counterservice/addone`
+
+[NOTE]
+====
+Service name and the method name are not case sensitive for Vaadin Connect, so
+the url above is the same as
+`http://localhost:8080/connect/CounterService/addOne` or
+`http://localhost:8080/connect/COUNTERSERVICE/ADDONE` or any other case
+combination for the service and method name.
+====
+
+== How to configure the API endpoint URL?
+
+Vaadin Connect allows to configure the following url parts:
+
+* `${endpoint}`
+The default value is `connect`. To change it to some other value, provide
+`application.properties` file in the project resources:
+`src/main/resources/application.properties` and set the
+`vaadin.connect.endpoint` property to the new value.
+
+* `${service_name}`
+By default, the Java class name is taken. It is possible to specify a value in
+the `@VaadinService` annotation to override default one:
+`@VaadinService("customName")`. In this case, the `customName` value will be
+used as a `${service_name}` to accept incoming requests, also case-insensitive.
+
+== Next steps
+
+- <<how-to-access-backend-from-typescript#,How to Access Backend from
+TypeScript>>

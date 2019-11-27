@@ -25,6 +25,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<introduction/introduction-overview#,Introduction to Vaadin Flow>>
 * https://vaadin.com/tutorials/getting-started-with-flow[Getting started with Vaadin Flow]
 
+
 == Router and Navigation
 * <<routing/tutorial-routing-annotation#,Defining Routes with @Route>>
 * <<routing/tutorial-routing-lifecycle#,Navigation Lifecycle>>
@@ -105,6 +106,16 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<polymer-templates/tutorial-template-model-bean#,Using Beans with a PolymerTemplate Model>>
 * <<polymer-templates/tutorial-template-model-encoders#,Using Model Encoders with a PolymerTemplate Model>>
 
+== Creating UI in TypeScript
+* <<ccdm/quick-start-guide-v15#, Start a new V15 project>>
+* <<ccdm/quick-start-guide-v14#, Migrate a V14 project>>
+* <<ccdm/client-side-bootstrapping#, Client-side Bootstrapping>>
+* <<ccdm/client-side-routing#, Client-side Routing>>
+* <<ccdm/intro-to-typescript-in-v15#, Intro to TypeScript in Vaadin 15>>
+* <<ccdm/how-to-create-api-endpoint#, How to Create an API Endpoint>>
+* <<ccdm/how-to-access-backend-from-typescript#, How to Access the Backend from TypeScript>>
+* <<ccdm/client-side-security#, Security in client-side>>
+
 == Using Vaadin with Spring
 * <<spring/tutorial-spring-basic#,Use Vaadin with Spring>>
 * <<spring/tutorial-spring-basic-mvc#,Use Vaadin with Spring MVC>>
@@ -171,14 +182,13 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 == Advanced Topics
 * <<advanced/tutorial-application-lifecycle#,Application Lifecycle>>
 * <<advanced/tutorial-i18n-localization#,Application Localization (I18N)>>
-* <<advanced/tutorial-bootstrap#,Modifying the bootstrap page>>
 * <<advanced/tutorial-flow-runtime-configuration#,Flow runtime configuration>>
 * <<advanced/tutorial-loading-indicator#,Customizing the Loading Indicator>>
 * <<advanced/tutorial-push-configuration#,Server Push Configuration>>
 * <<advanced/tutorial-push-access#,Asynchronous Updates>>
 * <<advanced/tutorial-push-broadcaster#,Creating Collaborative Views>>
 * <<advanced/tutorial-dependency-filter#,Modifying how dependencies are loaded with DependencyFilters>>
-* <<advanced/tutorial-service-init-listener#,Configure RequestHandlers, BootstrapListeners and DependencyFilters using VaadinServiceInitListener>>
+* <<advanced/tutorial-service-init-listener#,Configure RequestHandlers, IndexHtmlRequestListeners and DependencyFilters using VaadinServiceInitListener>>
 * <<advanced/tutorial-dynamic-content#,Showing Dynamic Content>>
 * <<advanced/tutorial-history-api#,History API>>
 * <<advanced/tutorial-stream-resources#,Using stream resources>>

@@ -1,0 +1,258 @@
+---
+title: Client-side Routing
+order: 30
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= Client-side Routing
+
+Client-side routing allows combining client-side views created in TypeScript (or JavaScript) with server-side views created in Java using the <<../routing/tutorial-routing-annotation#,`@Route`>> annotation.
+
+This is one of the building blocks that enable navigating between views when offline because it does not require a server connection for navigation between client-side views.
+
+[WARNING]
+This feature is experimental and it *will change* before the next Long-Term-Supported Vaadin version.
+If you have an idea how to make it more useful for you, please share it on link:https://github.com/vaadin/flow/issues/new/[GitHub^].
+
+Client-side routing is based on using link:https://vaadin.com/router[Vaadin Router^] in a  <<client-side-bootstrapping#,client-side bootstrapped>> app.
+Client-side routes are explicitly listed in the routing config, and server-side routes are added there through the `serverSideRoutes` Flow JS API.
+
+The following snippet--explained further on this page--shows how to combine client and server views so that the server-side is invoked when no client-side routes match.
+
+.index.ts
+[source, javascript]
+----
+import {Router} from '@vaadin/router';
+import {Flow} from '@vaadin/flow-frontend/Flow';
+
+const router = new Router(document.querySelector('#outlet'));
+const {serverSideRoutes} = new Flow({
+  imports: () => import('../target/frontend/generated-flow-imports')
+});
+
+router.setRoutes([
+  // client-side views
+  {
+    path: '/categories',
+    component: 'app-categories'
+  },
+  // pass all unmatched paths to server-side
+  ...serverSideRoutes
+]);
+----
+
+The `@vaadin/router` module facilitates navigation when client and server views are combined in the same application, as well as when common layouts are used in the page.
+
+The glue for mixing views is the `@vaadin/flow-frontend/Flow` JavaScript module which allows lazy initialization of Flow and navigation to server views.
+
+== Vaadin Router
+
+Vaadin Router is a small yet powerful client-side router JavaScript library. It uses a widely adopted `express.js` syntax for routers (users/:id) to map URLs to views. It has all the features of a modern router: async route resolution, animated transition, child routes, navigation guards, redirects, and more.
+
+Vaadin router works with Web Components regardless of how they are created, it also offers a JavaScript API for regular HTML elements.
+
+Vaadin Router is distributed as the link:https://www.npmjs.com/package/@vaadin/vaadin-router[`@vaadin/vaadin-router`^] npm package.
+It is included into link:https://www.npmjs.com/package/@vaadin/vaadin-core[`@vaadin/vaadin-core`^], and is automatically included into any Vaadin application.
+
+=== Usage
+
+Add Vaadin Router into the `index.ts` (or `index.js`) file by using the `import` statement, then create a `router` instance by passing the outlet element in the `index.html` file:
+
+.index.html
+[source, html]
+----
+<html>
+  <body>
+    <h1>My App</h1>
+    <div id="outlet"></div>
+  </body>
+</html>
+----
+
+
+.index.ts
+[source, javascript]
+----
+import {Router} from '@vaadin/router';
+const outlet = document.querySelector('#outlet');
+const router = new Router(outlet);
+----
+
+Router configuration is done by using a set of routes that map URL paths to components.
+
+Vaadin Router goes through the routes until the first match is found, then it creates an element instance for the component specified by the route, and inserts this element in the router outlet, replacing any pre-existing elements.
+
+[source, javascript]
+----
+router.setRoutes([
+  {
+    path: '/help',
+    component: 'app-help',
+  },
+  {
+    path: '/categories',
+    component: 'app-categories'
+  }
+]);
+----
+
+== Layouts
+
+When using client-side routing it is possible to compose the page layout without server intervention, so as the application shell can be shown when in offline mode.
+
+Vaadin Router enables layout containers by using the `children` property during the configuration:
+
+[source, javascript]
+----
+router.setRoutes([
+  {
+    path: '/',
+    component: 'app-layout'
+    children: [
+      {
+        path: '/help',
+        component: 'app-help',
+      },
+      {
+        path: '/categories',
+        component: 'app-categories'
+      }
+    ]
+  }
+]);
+----
+
+== Vaadin Flow Client
+
+Flow provides a client module which acts as a bridge between client router and server routes.
+
+Even though it is possible to integrate Flow with any JavaScript based routing solution, we recommend using Vaadin Router as introduced in the previous section.
+
+The Flow client is distributed as a part of the link:https://search.maven.org/artifact/com.vaadin/vaadin/[`com.vaadin:vaadin`^] Maven artifact.
+It is automatically included into any Vaadin application and can be imported into any TypeScript (or JavaScript) file as `import {Flow} from '@vaadin/flow-frontend/Flow';`.
+
+=== Usage
+
+First, you have to import the module, and then you have to create the `Flow` instance.
+
+At this point, it is needed to specify the location to the Flow generated file with the imports for Java views, typically `/target/frontend/generated-flow-imports.js` in a Vaadin maven project.
+
+Notice that the `import()` function should be used in order to lazy load Flow dependencies the first time the user navigates to a server-side view.
+
+[source, javascript]
+----
+import {Flow} from '@vaadin/flow-frontend/Flow';
+const flow = new Flow({
+  imports: () => import('../target/frontend/generated-flow-imports')
+});
+----
+
+Finally, make Vaadin Router pass all unmatched paths to Flow server by adding `...serverSideRoutes` at the end of the router configuration block:
+
+[source, html]
+----
+<html>
+  <body>
+    <h1>My App</h1>
+    <a href="categories">Categories</a>
+    <a href="reviews">Reviews</a>
+    <div id="outlet"></div>
+  </body>
+</html>
+----
+
+[source, javascript]
+----
+import {Router} from '@vaadin/router';
+import {Flow} from '@vaadin/flow-frontend/Flow';
+
+const router = new Router(document.querySelector('#outlet'));
+const {serverSideRoutes} = new Flow({
+  imports: () => import('../target/frontend/generated-flow-imports')
+});
+
+router.setRoutes([
+  // client-side views
+  {
+    path: '/categories',
+    title: 'categories',
+    component: 'app-categories'
+  },
+  // pass all unmatched paths to server-side
+  ...serverSideRoutes
+]);
+----
+
+== Router Navigation Events
+
+The router executes callbacks on each view to check if the navigation must continue, be postponed or redirected. The way to implement navigation controllers differs depending on whether the view is on the client or server side.
+
+=== Vaadin Router navigation lifecycle (client-side views)
+
+When returning an element or Web Component in a client view, developer might implement the following lifecycle methods:
+
+- `onBeforeEnter(location, commands, router)` is executed before the outlet container is updated with the new element. At this point, user can cancel the navigation.
+- `onAfterEnter(location, commands, router)` is executed after the new element has been attached to the outlet. he difference between this method and `onBeforeEnter` is that when this method is executed, there is no way to abort the navigation.
+- `onBeforeLeave(location, commands, router)` is executed before the previous element is going to be detached. Navigation can be cancelled at this point.
+- `onAfterLeave(location, commands, router)` is executed before the element is going to be removed from the DOM. When this method is executed, there is no way to abort the navigation.
+
+During the execution of `onBeforeEnter` and `onBeforeLeave` callbacks, user might postpone navigation by returning `commands.prevent()`, but only in `onBeforeEnter`, navigation can be redirected by returning `commands.redirect(path)`.
+
+[NOTE]
+Lifecycle callbacks are asynchronous.
+
+The following snippets show how to cancel navigation in a Web Component
+
+[source, javascript]
+.my-demo.ts
+----
+class MyView extends HTMLElement {
+  onBeforeEnter(location, commands, router) {
+    return location.pathname === '/cancel' ? commands.prevent() : {};
+  }
+}
+customElements.define('my-view', MyView);
+
+router.setRoutes([
+  {
+    path: '/view1',
+    component: 'my-view'
+  }
+]);
+----
+
+For more information visit vaadin router link:https://vaadin.github.io/vaadin-router/vaadin-router/#/classes/WebComponentInterface[API documentation^]
+
+=== Flow Router navigation lifecycle (server-side views)
+
+For server-side views routing events are handled as described in the Vaadin <<../routing/tutorial-routing-lifecycle#,Navigation Lifecycle>> chapter.
+
+The way to interact with lifecycle events in Java is by implementing the following interfaces:
+
+- Any attached Components implementing `BeforeEnterObserver` will receive an event before a new navigation state is entered. There is the possibility to reroute or forward to another navigation target.
+- Attached components implementing `BeforeLeaveObserver`  will receive an event before leaving the current navigation state. Navigation can be postponed, or rerouted or forwarded to another target.
+- Components implementing `AfterNavigationObserver` will receive an event after all navigation tasks have resolved.
+
+
+In the following example, navigation is cancelled when the view is dirty.
+
+[source, java]
+----
+public class MyView extends Div implements BeforeLeaveObserver {
+    @Override
+    public void beforeLeave(BeforeLeaveEvent event) {
+        if (this.isDirty()) {
+            event.postpone();
+        }
+    }
+
+    private boolean isDirty() {
+        return true;
+    }
+}
+----
+
+[NOTE]
+Rerouting from server to client side is not supported yet.
