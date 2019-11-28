@@ -13,21 +13,23 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.vaadin.flow.tutorial.ccdm;
+package com.vaadin.flow.tutorial.typescript;
 
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.connect.VaadinService;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.notification.Notification;
 
-
-@CodeFor("ccdm/quick-start-guide.asciidoc")
-public class QuickStartGuide {
-    @Route("server")
-    public class ServerView extends Div {
-        public ServerView() {
-            this.add(new Button("click-me", e -> Notification.show("clicked")));
+@CodeFor("typescript/how-to-create-api-endpoint.asciidoc")
+public class HowToCreateApiEndpointPage {
+    /**
+     * A Vaadin service that counts numbers.
+     */
+    @VaadinService
+    public class CounterService {
+        /**
+         * A method that adds one to the argument.
+         */
+        public int addOne(int number) {
+            return number + 1;
         }
     }
 }

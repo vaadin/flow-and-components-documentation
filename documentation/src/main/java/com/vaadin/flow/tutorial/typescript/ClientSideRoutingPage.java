@@ -13,14 +13,14 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.vaadin.flow.tutorial.ccdm;
+package com.vaadin.flow.tutorial.typescript;
 
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.BeforeLeaveEvent;
 import com.vaadin.flow.router.BeforeLeaveObserver;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("ccdm/client-side-routing.asciidoc")
+@CodeFor("typescript/client-side-routing.asciidoc")
 public class ClientSideRoutingPage {
     public class MyView extends Div implements BeforeLeaveObserver {
         @Override

@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.vaadin.flow.tutorial.ccdm;
+package com.vaadin.flow.tutorial.typescript;
 
 import javax.annotation.Nullable;
 
@@ -23,7 +23,7 @@ import com.vaadin.flow.server.connect.VaadinService;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 
-@CodeFor("ccdm/typescript-services-generator.asciidoc")
+@CodeFor("typescript/typescript-services-generator.asciidoc")
 public class TypeScriptServicesGenerator {
     /**
     * User services.

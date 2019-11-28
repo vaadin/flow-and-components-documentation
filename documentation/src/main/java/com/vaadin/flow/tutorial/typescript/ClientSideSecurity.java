@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.vaadin.flow.tutorial.ccdm;
+package com.vaadin.flow.tutorial.typescript;
 
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
@@ -24,7 +24,7 @@ import com.vaadin.flow.server.connect.VaadinService;
 import com.vaadin.flow.server.connect.auth.AnonymousAllowed;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("ccdm/client-side-security.asciidoc")
+@CodeFor("typescript/client-side-security.asciidoc")
 public class ClientSideSecurity {
 
     @VaadinService
