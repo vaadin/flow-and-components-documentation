@@ -83,3 +83,10 @@ and will be used as entry point of the application.
     Whether to include only frontend resources used from application entry points (the default) or to include all resources found on the class path.
     Should normally be left to the default, but a value of `false` can be useful for faster production builds or debugging discrepancies between development and production mode.
     *This feature is available only in Vaadin Platform 14.1 and newer.*
+    
+* *polymerVersion*
+    The polymer version to use in the project. The default polymer version is `3.2.0`.
+    
+* *disablePnpm* (default: `false`):
+    Whether to use `pnpm` or `npm` tool to handle frontend resources. Bt default `pnpm`  is used. 
+    *This feature is available only in Vaadin Platform 14.1 and newer.*

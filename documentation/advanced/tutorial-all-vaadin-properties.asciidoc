@@ -103,3 +103,9 @@ See <<../v14-migration/v14-migration-guide#compatibility-mode, Compatibility mod
 By default, in development mode all frontend resources found on the class path are included in the generated Webpack bundle.
 When set to `true`, creates an optimized bundle by including only frontend resources that are used from the application entry points (this is the default in production mode).
 Uses bytecode scanning which increases application startup time. *This feature is available only in Vaadin Platform 14.1 and newer.*
+
+|devmode.polymer.version |
+Allows to specify Polymer version in development mode. By default the polymer version is `3.2.0`.
+
+|disable.pnpm |
+When set to `true`, disables `pnpm` which means `npm` will be used to handle frontend resources.
