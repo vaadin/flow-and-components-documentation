@@ -50,7 +50,8 @@ in _Vaadin 13 compatibility mode_.
 
 === Web Components: ES6 modules instead of HTML Imports
 
-_EcmaScript 6 modules_ (or JS modules) are a web standard for modulizing and
+_EcmaScript 6 modules_ (or JS modules) are a feature added to JavaScript as part of
+the ECMAScript 2015 Language Specification. They provide a means for modulizing and
 importing JavaScript code in the browser. Vaadin 14 adds support for JS modules
 as a replacement for HTML imports which was used earlier for building web
 components with the Polymer library. This means that the Polymer version has been
