@@ -107,7 +107,3 @@ document.head.appendChild($_documentContainer.content);
 
 [NOTE]
 You need to provide theme files for all components used in your application. Omitted component display without any styles. This is because all Vaadin components are imported using the `/src/` path, and it is the responsibility of the theme class to replace the `getBaseUrl()` pattern with an appropriate path to the themed elements (as returned in the `getThemeUrl()`).
-
-== Creating a Custom Component Theme
-
-Theming for the Vaadin components is built using `Vaadin.ThemableMixin`. See the link:https://github.com/vaadin/vaadin-themable-mixin#readme[vaadin-themable-mixin documentation] to learn more.
