@@ -1,12 +1,12 @@
 ---
-title: Using Theme Variants
+title: Theme Variants
 order: 3
 layout: page
 ---
 
-= Using Theme Variants
+= Theme Variants
 
-The built-in themes have global variants that you use to quickly customize all components. Built-in component variants can be used to style individual component instances quickly.
+The built-in themes have global variants that you use to quickly customize all components. Built-in component variants can be used to style individual component instances quickly. Custom variants allow you to create new component styles that can be used in all style scopes across your app.
 
 [NOTE]
 The documentation show how to do things using either Java or JavaScript/HTML. The end result will be identical regardless. Choose the approach you are most comfortable with.
@@ -157,4 +157,4 @@ combo.getElement().setAttribute("theme", TextFieldVariant.LUMO_SMALL);
 <vaadin-combo-box theme="small"></vaadin-combo-box>
 ....
 
-To learn about the hierarchy of components and how theme variants propagate through that hierarchy, refer to the list of https://github.com/vaadin/vaadin-themable-mixin/#list-of-vaadin-components-that-propagate-theme-to-subcomponents[components that propagate the theme attribute] to sub-components.
+Learn more about <<styling-vaadin-components#sub-components,styling sub-components>> (including the component hierarchy in Vaadin components).

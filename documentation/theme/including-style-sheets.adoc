@@ -93,10 +93,10 @@ The `@CssImport` annotation does not work in Vaadin 14 compatibility mode (Bower
 @CssImport("./styles/global.css")
 ....
 
-[[global-frontend]]
-==== Frontend
+[[global-client-side]]
+==== Client-side
 
-When managing style sheets in the frontend, you need to take polyfilled browsers into consideration – namely Internet Explorer 11. Those browsers do not have native style encapsulation via Shadow DOM and require that styles are scoped manually or via polyfills.
+When including style sheets in client-side code, you need to take polyfilled browsers into consideration – namely Internet Explorer 11. Those browsers do not have native style encapsulation via Shadow DOM and require that styles are scoped manually or via polyfills.
 
 One way to scope global styles and prevent them from affecting Polymer-based components in polyfilled browsers is to use the `<custom-style>` element from the Polymer library.
 
@@ -141,6 +141,12 @@ The CSS rules in linked style sheets are not protected from overriding component
 
 Component styles are scoped per component and allow you to customize component styles without worrying about side-effects to other parts of your app. Component styles are always inlined to the application bundle.
 
+[NOTE]
+Component scoped style sheets apply to all instances of the component across the entire app.
+
+[CAUTION]
+Component scoped style sheets need to be included before the components which they target are registered and upgraded (before the first instantiation of the component).
+
 .`Java`
 [source,java]
 ....
@@ -159,7 +165,7 @@ registerStyles('vaadin-text-field', css`
 `);
 ....
 
-You can use the same style sheet for multiple components simultaneously by providing a space-separated list of component names instead of a single component name.
+You can use the same style sheet for multiple components simultaneously by providing a space-separated list of component names instead of a single component name. Wildcard element names are supported as well, for example `vaadin-*-overlay`.
 
 .`Java`
 [source,java]
@@ -310,7 +316,7 @@ If you are <<global-linked,linking your global style sheet>> you can use the sta
 
 ==== JavaScript
 
-Import the CSS string from an ES module and append it to a <<global-frontend,global `<custom-style>`>> element.
+Import the CSS string from an ES module and append it to a <<global-client-side,global `<custom-style>`>> element.
 
 .`JavaScript`
 [source,html]

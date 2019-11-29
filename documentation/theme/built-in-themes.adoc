@@ -20,7 +20,7 @@ The documentation show how to do things using either Java or JavaScript/HTML. Th
 
 == Lumo
 
-The default theme for Vaadin apps. If you do not explicitly choose a theme, Lumo will be used. See the <<../../components/foundation/lumo#,Lumo theme docs>> for all the details regarding it.
+The default theme for Vaadin apps. If you do not explicitly choose a theme, Lumo will be used. See the <<../../themes/lumo#,Lumo theme docs>> for all the details regarding it.
 
 .`Java`
 [source,java]
@@ -59,7 +59,7 @@ import '@vaadin/vaadin-button/vaadin-button.js';
 
 == Material
 
-A theme inspired by the https://material.io[Material Design guidelines]. See the <<../../components/foundation/material#,Material theme docs>> for all the details regarding it.
+A theme inspired by the https://material.io[Material Design guidelines]. See the <<../../themes/material#,Material theme docs>> for all the details regarding it.
 
 .`Java`
 [source,java]

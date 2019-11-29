@@ -1,0 +1,47 @@
+---
+title: Styling Applications
+order: 7
+layout: page
+---
+
+= Styling Applications
+
+=== Prerequisites
+
+You should be familiar with <<including-style-sheets#,including style sheets>> to the different <<style-scopes#,style scopes>> in your app.
+
+== Styling Views and Components
+
+=== Java
+
+Java-based views and components (extending from `Component`) are rendered in the global scope. You can apply traditional CSS styling techniques for your Java-based views.
+
+The <<client-side,instructions for client-side views and components>> apply for template-based views and components (i.e. extending `PolymerTemplate`).
+
+
+=== Client-side
+
+Client-side views and components are usually authored using Polymer (extending `Polymer.Element`). Polymer elements render their HTML template inside shadow DOM and create a new style scope.
+
+
+
+== Using Images
+
+Place images and other static assets, which need to be accessibly by the browser, in the `/src/main/webapp/` folder and use absolute paths in CSS for those assets. For Spring-based projects use `/src/main/resources/META-INF/resources/`.
+
+For a comprehensive documentation how static resources are handled, see <<../importing-dependencies/tutorial-ways-of-importing#,Storing and Loading Resources>>
+
+=== Example
+
+Given the following file/folder structure:
+
+* `/src/main/webapp/img/logo.png`
+
+Referencing the image from a style sheet (see <<including-style-sheets#,Including style sheets>> to learn how to include custom style sheets to your app):
+
+[source,css]
+....
+.logo {
+  background-image: url(/img/logo.png);
+}
+....
