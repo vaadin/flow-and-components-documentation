@@ -114,6 +114,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<typescript/how-to-create-api-endpoint#, How to Create an API Endpoint>>
 * <<typescript/how-to-access-backend-from-typescript#, How to Access the Backend from TypeScript>>
 * <<typescript/client-side-security#, Security in client-side>>
+* <<typescript/configure-spring-authentication#, Adding a Login Form with Spring Security>>
 
 == Using Vaadin with Spring
 * <<spring/tutorial-spring-basic#,Use Vaadin with Spring>>
