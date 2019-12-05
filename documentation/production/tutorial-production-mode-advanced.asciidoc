@@ -86,4 +86,4 @@ and will be used as entry point of the application.
     
 * *disablePnpm* (default: `false`):
     Whether to use `pnpm` or `npm` tool to handle frontend resources. Bt default `pnpm`  is used. 
-    *This feature is available only in Vaadin Platform 14.1 and newer.*
+    *This feature is available only in Vaadin Platform 14.2 and newer.*
