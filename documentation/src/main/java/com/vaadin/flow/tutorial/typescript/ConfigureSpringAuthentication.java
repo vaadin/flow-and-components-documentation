@@ -30,7 +30,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("typescript/configure-spring-authentication.asciidoc")
 public class ConfigureSpringAuthentication {
-    
+
     @EnableWebSecurity
     @Configuration
     public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -60,6 +60,7 @@ public class ConfigureSpringAuthentication {
             .and()
             .withUser("admin").password("{noop}admin").roles("ADMIN", "USER");
 
+        // Configure users and roles in a JDBC database  
         auth.jdbcAuthentication()
           .dataSource(dataSource)
           .usersByUsernameQuery(
@@ -68,6 +69,7 @@ public class ConfigureSpringAuthentication {
              "SELECT username, authority FROM from authorities WHERE username=?")
           .passwordEncoder(new BCryptPasswordEncoder());
 
+        // Obtain users and roles from an LDAP service
         auth.ldapAuthentication()
             .userDnPatterns("uid={0},ou=people")
             .userSearchBase("ou=people")
@@ -79,6 +81,5 @@ public class ConfigureSpringAuthentication {
             .passwordAttribute("userPassword");
       }
     }
-
 }
 

@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 ----
 
 
-→ *Step 2* - Configure Spring `HttpSecurity` by enabling its built-ing form login.
+→ *Step 2* - Configure Spring `HttpSecurity` by enabling its built-in form login.
 
 At the same time, disable CSRF validation because Vaadin services uses its own CSRF protection mechanism.
 
@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 ----
 
 [NOTE]
-If CSRF is still needed for other endpoints in the application, it is possibe to disable CSRF just for vaadin services: `http.csrf().ignoringAntMatchers("/connect/**")`
+If CSRF is still needed for other endpoints in the application, it is possibe to disable CSRF just for Vaadin services: `http.csrf().ignoringAntMatchers("/connect/**")`
 
 
 → *Step 3* - Allow public access to Vaadin static resources.
@@ -176,6 +176,10 @@ export class MainLayoutElement extends LitElement {
 }
 ----
 
+== Handling Authentication errors in Client
+
+When consuming services it 
+
 
 == Appendix: Production Data Sources
 
@@ -196,7 +200,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     // Configure users and roles in a JDBC database
-    auth.jdbcAuthentication().dataSource(dataSource)
+    auth.jdbcAuthentication()
+      .dataSource(dataSource)
       .usersByUsernameQuery(
           "SELECT username, password, enabled FROM users WHERE username=?")
       .authoritiesByUsernameQuery(
@@ -223,14 +228,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    // Configure users and roles in a JDBC database
-    auth.jdbcAuthentication()
-      .dataSource(dataSource)
-      .usersByUsernameQuery(
-          "SELECT username, password, enabled FROM users WHERE username=?")
-      .authoritiesByUsernameQuery(
-          "SELECT username, authority FROM from authorities WHERE username=?")
-      .passwordEncoder(new BCryptPasswordEncoder());
+    // Obtain users and roles from an LDAP service
+    auth.ldapAuthentication()
+      .userDnPatterns("uid={0},ou=people")
+      .userSearchBase("ou=people")
+      .groupSearchBase("ou=groups")
+      .contextSource()
+      .url("ldap://localhost:8389/dc=example,dc=com")
+      .and()
+      .passwordCompare()
+      .passwordAttribute("userPassword");
   }  
 }
 ----
