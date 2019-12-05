@@ -176,6 +176,10 @@ export class MainLayoutElement extends LitElement {
 }
 ----
 
+== Handling Authentication errors in Client
+
+When consuming services it 
+
 
 == Appendix: Production Data Sources
 
@@ -196,7 +200,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     // Configure users and roles in a JDBC database
-    auth.jdbcAuthentication().dataSource(dataSource)
+    auth.jdbcAuthentication()
+      .dataSource(dataSource)
       .usersByUsernameQuery(
           "SELECT username, password, enabled FROM users WHERE username=?")
       .authoritiesByUsernameQuery(
@@ -223,14 +228,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    // Configure users and roles in a JDBC database
-    auth.jdbcAuthentication()
-      .dataSource(dataSource)
-      .usersByUsernameQuery(
-          "SELECT username, password, enabled FROM users WHERE username=?")
-      .authoritiesByUsernameQuery(
-          "SELECT username, authority FROM from authorities WHERE username=?")
-      .passwordEncoder(new BCryptPasswordEncoder());
+    // Obtain users and roles from an LDAP service
+    auth.ldapAuthentication()
+      .userDnPatterns("uid={0},ou=people")
+      .userSearchBase("ou=people")
+      .groupSearchBase("ou=groups")
+      .contextSource()
+      .url("ldap://localhost:8389/dc=example,dc=com")
+      .and()
+      .passwordCompare()
+      .passwordAttribute("userPassword");
   }  
 }
 ----
