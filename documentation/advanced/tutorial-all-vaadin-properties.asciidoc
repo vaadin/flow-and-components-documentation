@@ -105,4 +105,4 @@ When set to `true`, creates an optimized bundle by including only frontend resou
 Uses bytecode scanning which increases application startup time. *This feature is available only in Vaadin Platform 14.1 and newer.*
 
 |disable.pnpm |
-When set to `true`, disables `pnpm` which means `npm` will be used to handle frontend resources. *This feature is available only in Vaadin Platform 14.1 and newer.*
+When set to `true`, disables `pnpm` which means `npm` will be used to handle frontend resources. *This feature is available only in Vaadin Platform 14.2 and newer.*
