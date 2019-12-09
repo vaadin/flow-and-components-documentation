@@ -197,6 +197,9 @@ The following example demonstrates how to access a SQL database with tables for 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
   ...
 
+  @Autowired
+  private DataSource dataSource;
+
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     // Configure users and roles in a JDBC database
@@ -222,9 +225,6 @@ The next examples shows how to configure authentication by using an LDAP reposit
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
   ...
-
-  @Autowired
-  private DataSource dataSource;
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
