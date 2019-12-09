@@ -61,7 +61,7 @@ encapsulate the HTML structure of the component template.
 
 === Package management: pnpm/npm instead of Bower
 
-Behind the scenes, Vaadin 14 manages front-end dependencies using _pnpm_ (or _npm_),
+Behind the scenes, Vaadin 14 manages front-end dependencies using _pnpm_ (or _npm_ if requested),
 the de-facto standard JavaScript package manager (whereas V13 and older used _Bower_ & webjars).
 Using pnpm/npm means that all JavaScript dependencies will be downloaded to the `node_modules` directory
 in the root of your project and that `package.json` and `pnpm-lock.yaml`/`package-lock.json` files will be
