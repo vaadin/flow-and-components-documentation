@@ -74,7 +74,7 @@ and will be used as entry point of the application.
     Whether to generate a bundle from the project frontend sources or not.
 
 * *runNpmInstall* (default: `true`):
-    Whether to run `npm install` after updating dependencies.
+    Whether to run `pnpm install` (or `npm install`, depending on *disablePnpm* parameter value) after updating dependencies.
 
 * *generateEmbeddableWebComponents* (default: `true`):
     Whether to generate embeddable web components from WebComponentExporter inheritors.
@@ -83,3 +83,7 @@ and will be used as entry point of the application.
     Whether to include only frontend resources used from application entry points (the default) or to include all resources found on the class path.
     Should normally be left to the default, but a value of `false` can be useful for faster production builds or debugging discrepancies between development and production mode.
     *This feature is available only in Vaadin Platform 14.1 and newer.*
+
+* *disablePnpm* (default: `false`):
+    Whether to use `pnpm` or `npm` tool to handle frontend resources. By default `pnpm`  is used. 
+    *This feature is available only in Vaadin Platform 14.2 and newer.*

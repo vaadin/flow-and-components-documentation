@@ -59,16 +59,21 @@ upgraded from version 2 to version 3 (see https://polymer-library.polymer-projec
 new in Polymer 3). In Polymer 3, templates are JavaScript modules that fully
 encapsulate the HTML structure of the component template.
 
-=== Package management: npm instead of Bower
+=== Package management: pnpm/npm instead of Bower
 
-Behind the scenes, Vaadin 14 manages front-end dependencies using _npm_,
+Behind the scenes, Vaadin 14 manages front-end dependencies using _pnpm_ (or _npm_ if requested),
 the de-facto standard JavaScript package manager (whereas V13 and older used _Bower_ & webjars).
-Using npm means that all JavaScript dependencies will be downloaded to the `node_modules` directory
-in the root of your project and that `package.json` and `package-lock.json` files will be
+Using pnpm/npm means that all JavaScript dependencies will be downloaded to the `node_modules` directory
+in the root of your project and that `package.json` and `pnpm-lock.yaml`/`package-lock.json` files will be
 created to record and resolve the dependencies and their versions respectively.
 
+Since Vaadin Platform 14.2 `pnpm` tool is used by default for package management instead of `npm`. 
+This is done transparently for the end user and in case there is a reason to use `npm` instead of `pnpm` you may disable `pnpm` (see <<../advanced/tutorial-all-vaadin-properties#,All Vaadin properties>>  or <<../production/tutorial-production-mode-advanced#,Advanced production mode topics>> sections). `pnpm` tool improves the package management in many ways, 
+e.g. it allows to share the same packages between various  projects and avoid downloading them every 
+time for every project which also reduce a number of IO operations.
+
 *Do not be alarmed if you are not familiar with these files or the npm way of doing things.
-The invocation of npm is fully automated by `vaadin-maven-plugin`; the only
+The invocation of pnpm/npm is fully automated by `vaadin-maven-plugin`; the only
 thing you need to make sure is that _Node.js_ (version 10 or later) and npm
 (version 5.6 or later) are installed.* If they are not installed, the application
 will not be started and there will be a notification about installing Node.js instead.
@@ -246,7 +251,7 @@ For the production profile plugin you need to have the goal `build-frontend`:
 </profile>
 ----
 
-The goal `build-frontend` invokes npm to download and cache the npm packages
+The goal `build-frontend` invokes pnpm/npm to download and cache the npm packages
 (into directory node_modules) and webpack to process the JavaScript modules.
 
 ==== Move contents of src/main/webapp/frontend
@@ -519,7 +524,7 @@ name is mentioned in the readme file. For the given example, the owner
 name of the component on GitHub is the last part of the groupId which is `polymerelements`,
 So, after adding the name of the component, the address of its GitHub repository
 can be determined as https://github.com/PolymerElements/paper-slider. Then the
-npm package name can be found under installation section in front of `npm install`
+npm package name can be found under installation section in front of `pnpm install` (or `npm install`)
 command. So, the npm package is `@polymer/paper-slider`.
 
 ** Search on [npmjs.com](https://www.npmjs.com).
@@ -592,16 +597,16 @@ maven plugin, run:
 
 `mvn clean jetty:run`
 
-You should see Maven log messages confirming that npm is downloading the package
+You should see Maven log messages confirming that pnpm/npm is downloading the package
 dependencies and that webpack is emitting `.js` bundles. If there is any error,
 go back and re-check the previous steps.
 
 The following files/folders have been generated in the root of your project:
 
-* `package.json` and `package-lock.json`: These files keep track of npm
+* `package.json` and `pnpm-lock.yaml`/`package-lock.json`: These files keep track of npm
 packages and pin their versions. You may want to add these to version control,
-in particular, if you added any local package directly with npm.
-* `node_modules` directory: npm package cache, do not add this to version
+in particular, if you added any local package directly with pnpm/npm.
+* `node_modules` directory: pnpm/npm package cache, do not add this to version
 control!
 * `webpack.config.js`: webpack configuration. Include in version control. You
 can add custom webpack configuration to this file.
