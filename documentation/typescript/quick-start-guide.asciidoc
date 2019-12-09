@@ -8,7 +8,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Quick Start of a clean V15 project
 
-If you already have a working Vaadin-14 maven project, check the <<quick-start-guide-v14#, V14 Migration>> guide.
+If you already have a working Vaadin-14 maven project, check the <<quick-migration-guide#, V14 Migration>> guide.
 
 → *Step 1* - Create a new project at link:https://start.stg.vaadin.com/[start.stg.vaadin.com^]
 

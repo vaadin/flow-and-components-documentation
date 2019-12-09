@@ -147,5 +147,5 @@ router.setRoutes([
 ----
 
 
-→ *Step 6* -Continue with the <<quick-start-guide-v15#step3,Start Guide V15 - Step 3>> to add client-side views.
+→ *Step 6* -Continue with the <<quick-start-guide#step3,Start Guide V15 - Step 3>> to add client-side views.
 
