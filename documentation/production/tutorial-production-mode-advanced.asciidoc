@@ -74,7 +74,7 @@ and will be used as entry point of the application.
     Whether to generate a bundle from the project frontend sources or not.
 
 * *runNpmInstall* (default: `true`):
-    Whether to run `npm install` after updating dependencies.
+    Whether to run `pnpm install` (or `npm install`, depending on *disablePnpm* parameter value) after updating dependencies.
 
 * *generateEmbeddableWebComponents* (default: `true`):
     Whether to generate embeddable web components from WebComponentExporter inheritors.
