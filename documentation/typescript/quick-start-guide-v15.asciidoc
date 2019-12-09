@@ -1,5 +1,5 @@
 ---
-title: Quick Start Guide V15
+title: Quick Start Guide
 order: 10
 layout: page
 ---
