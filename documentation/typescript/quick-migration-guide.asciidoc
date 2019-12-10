@@ -10,7 +10,9 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 == Preparing a project manually [[preparing-a-project-manually]]
 
-→ *Step 0* - Make your project depend on Vaadin 15
+This guide describes step-by-step how to upgrade a Vaadin 14 application to Vaadin 15, and then shows how to add a TypeScript view to it.
+
+→ *Step 1* - Make your project depend on Vaadin 15
 
 .pom.xml
 [source,bash]
@@ -20,8 +22,8 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-bom</artifactId>
-            <!-- Visit https://github.com/vaadin/platform/releases for checking the last version -->
-            <version>15.0.0.alpha4</version>
+            <!-- See the latest version at https://github.com/vaadin/platform/releases -->
+            <version>15.0.0.alpha8</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -29,76 +31,50 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 </dependencyManagement>
 ----
 
-→ *Step 1* - Install link:https://vaadin.com/router/[Vaadin Router^] from npm.
+[NOTE]
+Vaadin 15 includes several breaking API changes, mainly related to application bootstrapping and the bootstrap page configuration.
+If you see Java deprecation warnings during the build, check the <<client-side-bootstrapping#migrating-from-vaadin-10-14,Migration>> section in the *Client-side bootstrapping page*.
 
-[source,bash]
-----
-$ npm install --save @vaadin/router
-----
-
-→ *Step 2* - Create `frontend/index.html` and `frontend/index.ts` to enable <<client-side-routing#,client-side routing>>.
-
-.frontend/index.html
-[source, xml]
-----
-<html>
-  <body>
-    <div id="outlet"></div>
-  </body>
-</html>
-----
-
-
-.frontend/index.ts
-[source, javascript]
-----
-import {Router} from '@vaadin/router';
-const router = new Router(document.querySelector('#outlet'));
-
-router.setRoutes([
-]);
-----
+→ *Step 2* - Create `frontend/index.html` and `frontend/index.ts` to be able to add client-side <<client-side-routing#,client-side routes>>.
 
 [NOTE]
-As an alternative to create these two files, you can run `mvn package` in the console to let vaadin create those files in the `./target` folder, then you can move them to the `./frontend` directory.
+These files are necessary only if you want to add TypeScript views to the app (new in Vaadin 15).
+If you do not plan adding any TypeScript views, migration from Vaadin 14 to Vaadin 15 is done at this point.
 
-→ *Step 3* - Import Flow module to enable <<../routing/tutorial-routing-annotation#,server-side routing>>
+You can create the `frontend/index.html` and `frontend/index.ts` files from scratch, but an easier way is to let Vaadin to generate them.
+Run `mvn package` in the console, copy the generated files into to the `./frontend` folder, and customize them as described in the further steps.
 
-.frontend/index.ts
-[source, javascript]
+[source, bash]
 ----
-import {Router} from '@vaadin/router';
-import {Flow} from '@vaadin/flow-frontend/Flow';
-
-const router = new Router(document.querySelector('#outlet'));
-const {serverSideRoutes} = new Flow({
-  imports: () => import('../target/frontend/generated-flow-imports')
-});
-
-router.setRoutes([
-  // pass all unmatched paths to server-side
-  ...serverSideRoutes
-]);
+mvn package
+cp target/index.html target/index.ts frontend
 ----
 
-[NOTE]
-Flow API is not distributed via npm repositories but added automatically when running the Vaadin project.
+→ *Step 3* - Install link:https://lit-element.polymer-project.org/[LitElement^]
 
-→ *Step 4* - Install link:https://lit-element.polymer-project.org/[LitElement^]
+This step is needed if you want to create TypeScript views using LitElement as a helper library.
+There are other ways to create UI in TypeScript, but they are not covered in this guide.
 
 [source,bash]
 ----
 $ npm install --save lit-element
 ----
 
-→ *Step 5* - Define a Main Layout for navigation
+→ *Step 4* - Define a Main Layout for navigation
 
-Create a component for links to each route in the Application:
+This step is needed if you want to create a page layout common for several TypeScript views.
+This guide shows how to create a layout with a navigation menu.
+
+[NOTE]
+Vaadin 15 allows seamless combinations of TypeScript and Java views, but it has a limitation.
+Java views may be added freely as children into a TypeScript parent layout, but not the opposite.
+TypeScript views cannot be added as children into a Java `RouterLayout` class.
+If you need to add a TypeScript view into the same parent layout with existing Java views, then the layout has to be implemented in TypeScript.
 
 .frontend/main-layout.ts
 [source, javascript]
 ----
-import { css, customElement, html, LitElement} from 'lit-element';
+import {css, customElement, html, LitElement} from 'lit-element';
 
 @customElement('main-layout')
 export class MainLayoutElement extends LitElement {
@@ -147,5 +123,5 @@ router.setRoutes([
 ----
 
 
-→ *Step 6* -Continue with the <<quick-start-guide#step3,Start Guide V15 - Step 3>> to add client-side views.
+→ *Step 5* - Continue with the <<quick-start-guide#step-3,Quick Start Guide - Step 3>> to see how to add a client-side view.
 
