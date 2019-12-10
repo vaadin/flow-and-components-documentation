@@ -29,7 +29,7 @@ Some features may have been removed to make way for new things.
 There are different migration strategies for Vaadin 8 applications:
 
 * Staying with Vaadin Eight - it is Great! And supported at least until 2022.
-* Using the upcoming Multiplatform Runtime from the Prime subscription to run views or components from a V8 app inside Vaadin platform for
+* Using the Multiplatform Runtime from the Prime subscription to run views or components from a V8 app inside Vaadin platform for
 ** Migrating the application bit by bit
 ** Extending the application with new parts implemented with Vaadin platform
 * Transform an existing application to Vaadin platform
