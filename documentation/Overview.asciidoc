@@ -186,4 +186,4 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<advanced/tutorial-stream-resources#,Using stream resources>>
 * <<advanced/tutorial-ui-init-listener#,UIInitListener>>
 * <<advanced/tutorial-preserving-state-on-refresh#,Preserving view state between browser refreshes>>
-* <<advanced/tutorial-switch-npm-pnpm#,Switch between NPM and PNPM packaging tools>>
+* <<advanced/tutorial-switch-npm-pnpm#,Differences between NPM and PNPM>>
