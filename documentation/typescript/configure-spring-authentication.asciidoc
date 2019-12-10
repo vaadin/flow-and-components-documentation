@@ -8,7 +8,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Adding a Login Form with Spring Security
 
-In this article it is assumed that you have an already working Vaadin-15 project as it is described in the <<quick-start-guide-v15#, Start a new V15 project>> guide.
+In this article it is assumed that you have an already working Vaadin-15 project as it is described in the <<quick-start-guide#, Start a new V15 project>> guide.
 
 Since the downloaded application is a link:https://spring.io/projects/spring-boot[Spring Boot] project, the easiest way to enable authentication is by adding link:https://spring.io/projects/spring-security[Spring Security].
 
