@@ -1,32 +1,31 @@
 ---
-title: Switch between NPM and PNPM packaging tools
+title: Differences between NPM and PNPM
 order: 16
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
+= Differences between NPM and PNPM
 
-= Switch between NPM and PNPM packaging tools
-
-Starting from  Vaadin Platform 14.2 `pnpm` tool is used instead of `npm`.
-`pnpm` uses shared repository available for any project which allows to reduce
+Starting from  Vaadin Platform 14.2 `pnpm` tool is used as the default package manager instead of `npm`.
+https://pnpm.js.org/[pnpm] uses shared repository available for any project which allows to reduce
 packages download time.
 
-`pnpm` is installed transparently if it's not installed globally. This is still done 
-using `npm` and as a result `npm` produces `package-lock.json` file which contains _only_ 
-information about `pnpm` as a dependency. This is important difference between using `npm` vs. 
-`pnpm` as a packaging tool. `package-lock.json` which contains other dependencies than 
-`pnpm` will be removed automatically since it may be incompatible with `pnpm`. `pnpm` uses `pnpm-lock.yaml` 
-file instead of `package-lock.json`. It means that if you have some specific package
-dependencies configuration it should be moved into `pnpm-lock.yaml`.
+If `pnpm` is not installed globally the framework will install it locally using `npm`.
+`package-lock.json` which is used by `npm` may be incompatible with `pnpm` and it's 
+removed automatically if `pnpm` is used. `pnpm` uses `pnpm-lock.yaml` 
+file instead of `package-lock.json`. This means that any dependency configurations 
+should move to `pnpm-lock.yaml`.
 
 Another thing which is incompatible with `npm` in older versions is `package.json` file.
 Vaadin Platform versions before 14.2 generates `package.json` file with `@vaadin/flow-deps` 
-dependency which refers to an additional package located in `target/frontend` folder. Starting from 
-Vaadin Platform 14.2 the  `package.json` file doesn't contain anymore `@vaadin/flow-deps` 
-but uses instead `"vaadin"` object to manage dependencies previously referred via `@vaadin/flow-deps`.
-If `pnpm` is in use the `@vaadin/flow-deps` dependency will be removed from `package.json` file.
+dependency which refers to an additional package located in `target/frontend` folder. 
+Starting from Vaadin 14.2 `package.json` will contain all package information and `target/frontend/package.json` referenced by the `@vaadin/flow-deps` dependency does not exist anymore. The `@vaadin/flow-depsdependency` 
+should be removed from the `package.json` dependencies for 14.2.
+Framework dependency handling uses a `"vaadin"` object inside `package.json` and only touches dependencies named there.
+
+== Switch between NPM and PNPM packaging tools
 
 By default Vaadin Platform 14.2 projects uses `pnpm` tool. It's possible to disable 
 `pnpm` and switch back to `npm`. This can be done via `disable.pnpm` property value 
