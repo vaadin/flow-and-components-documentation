@@ -117,20 +117,18 @@ Add the component to the router configuration:
 .frontend/index.ts
 [source, javascript]
 ----
-import {Router} from '@vaadin/router';
-import {Flow} from '@vaadin/flow-frontend/Flow';
-
-const router = new Router(document.querySelector('#outlet'));
-const {serverSideRoutes} = new Flow({
-  imports: () => import('../target/frontend/generated-flow-imports')
-});
+...
+import './main-layout';
+...
 
 router.setRoutes([
     {
-    path: '',
+    path: '/',
     component: 'main-layout',
     children: [
-      {path: 'client-view', component: 'my-client-view'},
+      // add you client-side views here, e.g.
+      // {path: 'client-view', component: 'my-client-view'},
+
       // pass all unmatched paths to server-side
       ...serverSideRoutes
     ]
