@@ -10,7 +10,7 @@ The Vaadin platform includes a set of https://vaadin.com/components/browse[compo
 
 The components, together with Flow, are included as platform dependencies.
 
-TIP: Watch the https://vaadin.com/training/course/view/v10-intro[Vaadin 10+: Intro] free training video to learn more about the Vaadin platform terminology and what Vaadin components are.
+TIP: Watch the https://vaadin.com/learn/training/v14-intro[Vaadin 14: Introduction] free training video to learn more about the Vaadin platform terminology and what Vaadin components are.
 
 The `vaadin-core` module includes all open-source components, such as TextField, Button and Grid. The `vaadin` module extends this set to include all officially-supported components in the Vaadin platform, like Vaadin Charts.
 
