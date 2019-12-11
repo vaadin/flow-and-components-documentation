@@ -35,6 +35,22 @@ This guide describes step-by-step how to upgrade a Vaadin 14 application to Vaad
 Vaadin 15 includes several breaking API changes, mainly related to application bootstrapping and the bootstrap page configuration.
 If you see Java deprecation warnings during the build, check the <<client-side-bootstrapping#migrating-from-vaadin-10-14,Migration>> section in the *Client-side bootstrapping page*.
 
+→ *Step 1b* - Update Spring (for Spring-based projects)
+
+Vaadin works well with Spring, but it requires a compatible version of Spring.
+For Vaadin 15 the compatible version of Spring is 5.2.0, and Spring boot 2.2.0.
+If your application uses Spring, please update it to a compatible version:
+
+.pom.xml
+[source,bash]
+----
+<parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.2.0.RELEASE</version>
+</parent>
+----
+
 → *Step 2* - Create `frontend/index.html` and `frontend/index.ts` to be able to add client-side <<client-side-routing#,client-side routes>>.
 
 [NOTE]
