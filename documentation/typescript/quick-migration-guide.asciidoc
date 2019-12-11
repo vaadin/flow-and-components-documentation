@@ -107,6 +107,7 @@ export class MainLayoutElement extends LitElement {
     return html`
       <a href="client-view">Client View</a>
       <a href="server-view">Server View</a>
+      <slot></slot>
      `;
   }
 }
@@ -117,11 +118,10 @@ Add the component to the router configuration:
 .frontend/index.ts
 [source, javascript]
 ----
-...
 import './main-layout';
 ...
 
-router.setRoutes([
+const routes = [
     {
     path: '/',
     component: 'main-layout',
@@ -133,7 +133,7 @@ router.setRoutes([
       ...serverSideRoutes
     ]
   }
-]);
+];
 ----
 
 
