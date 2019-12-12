@@ -8,7 +8,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = How to Access the Backend from TypeScript
 
-Vaadin 15 generates TypeScript clients for calling the Java backend
+Vaadin 15 generates TypeScript clients for calling the <<how-to-create-api-endpoint#,Java backend>>
 in a type-checkable way.
 
 [WARNING]
