@@ -6,13 +6,22 @@ layout: page
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Quick V14 to V15 Migration Guide
+= Quick Migration Guide
 
-== Preparing a project manually [[preparing-a-project-manually]]
+We recommend the following steps to migrate an existing Vaadin 14 application to Vaadin 15, and then to add a TypeScript view to it.
 
-This guide describes step-by-step how to upgrade a Vaadin 14 application to Vaadin 15, and then shows how to add a TypeScript view to it.
+* change the Vaadin version in `pom.xml` (<<quick-migration-guide#step-1,step 1>>)
+* (for Spring-based apps) use a compatible version of Spring  (<<quick-migration-guide#step-1b,step 1b>>)
+* build the app to see if it uses any APIs deprecated in Vaadin 15
+* create a custom index page for client-side bootstrapping  (<<quick-migration-guide#step-2,step 2>>)
+* add a dependency to `lit-element` to create UIs in TypeScript (<<quick-migration-guide#step-3,step 3>>)
+* add a TypeScript page layout (<<quick-migration-guide#step-4,step 4>>)
+* add a TypeScript view (<<quick-migration-guide#step-5,step 5>>)
 
-→ *Step 1* - Make your project depend on Vaadin 15
+_If you are starting a new app with Vaadin 15, please check the <<quick-start-guide#,Quick Start Guide>>._
+
+
+== Step 1 - Make your project depend on Vaadin 15 [[step-1]]
 
 .pom.xml
 [source,bash]
@@ -22,7 +31,8 @@ This guide describes step-by-step how to upgrade a Vaadin 14 application to Vaad
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-bom</artifactId>
-            <!-- See the latest version at https://github.com/vaadin/platform/releases -->
+            <!-- See the latest version at
+                 https://github.com/vaadin/platform/releases -->
             <version>15.0.0.alpha8</version>
             <type>pom</type>
             <scope>import</scope>
@@ -35,11 +45,12 @@ This guide describes step-by-step how to upgrade a Vaadin 14 application to Vaad
 Vaadin 15 includes several breaking API changes, mainly related to application bootstrapping and the bootstrap page configuration.
 If you see Java deprecation warnings during the build, check the <<client-side-bootstrapping#migrating-from-vaadin-10-14,Migration>> section in the *Client-side bootstrapping page*.
 
-→ *Step 1b* - Update Spring (for Spring-based projects)
 
-Vaadin works well with Spring, but it requires a compatible version of Spring.
-For Vaadin 15 the compatible version of Spring is 5.2.0, and Spring boot 2.2.0.
-If your application uses Spring, please update it to a compatible version:
+== Step 1b - Update Spring (for Spring-based projects) [[step-1b]]
+
+Vaadin works with <<../spring/tutorial-spring-basic#,Spring Boot>> or <<../spring/tutorial-spring-basic-mvc#,Spring MVC>>.
+Vaadin 15 is compatible with Spring 5.2.0 or newer, and Spring Boot 2.2.0 or newer.
+If your application uses an older version of Spring, please update it to a compatible version:
 
 .pom.xml
 [source,bash]
@@ -51,10 +62,11 @@ If your application uses Spring, please update it to a compatible version:
 </parent>
 ----
 
-→ *Step 2* - Create `frontend/index.html` and `frontend/index.ts` to be able to add client-side <<client-side-routing#,client-side routes>>.
+
+== Step 2 - Create `frontend/index.html` and `frontend/index.ts` [[step-2]]
 
 [NOTE]
-These files are necessary only if you want to add TypeScript views to the app (new in Vaadin 15).
+These files are necessary only if you want to add <<client-side-routing#,TypeScript views>> to the app (new in Vaadin 15).
 If you do not plan adding any TypeScript views, migration from Vaadin 14 to Vaadin 15 is done at this point.
 
 You can create the `frontend/index.html` and `frontend/index.ts` files from scratch, but an easier way is to let Vaadin to generate them.
@@ -66,7 +78,8 @@ mvn package
 cp target/index.html target/index.ts frontend
 ----
 
-→ *Step 3* - Install link:https://lit-element.polymer-project.org/[LitElement^]
+
+== Step 3 - Install link:https://lit-element.polymer-project.org/[LitElement^] [[step-3]]
 
 This step is needed if you want to create TypeScript views using LitElement as a helper library.
 There are other ways to create UI in TypeScript, but they are not covered in this guide.
@@ -76,7 +89,8 @@ There are other ways to create UI in TypeScript, but they are not covered in thi
 $ npm install --save lit-element
 ----
 
-→ *Step 4* - Define a Main Layout for navigation
+
+== Step 4 - Add a TypeScript page layout [[step-4]]
 
 This step is needed if you want to create a page layout common for several TypeScript views.
 This guide shows how to create a layout with a navigation menu.
@@ -137,5 +151,5 @@ const routes = [
 ----
 
 
-→ *Step 5* - Continue with the <<quick-start-guide#step-3,Quick Start Guide - Step 3>> to see how to add a client-side view.
-
+== Step 5 - Add a TypeScript view [[step-5]]
+Continue with the <<quick-start-guide#step-3,Quick Start Guide - Step 3>> to see how.
