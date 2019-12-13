@@ -1,22 +1,22 @@
 ---
-title: Quick Migration Guide
+title: Upgrading from Vaadin 14
 order: 15
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Quick Migration Guide
+= Upgrading from Vaadin 14
 
-We recommend the following steps to migrate an existing Vaadin 14 application to Vaadin 15, and then to add a TypeScript view to it.
+We recommend the following steps to upgrade an existing Vaadin 14 application to Vaadin 15, and then to add a TypeScript view to it.
 
-* change the Vaadin version in `pom.xml` (<<quick-migration-guide#step-1,step 1>>)
-* (for Spring-based apps) use a compatible version of Spring  (<<quick-migration-guide#step-1b,step 1b>>)
+* change the Vaadin version in `pom.xml` (<<upgrading-from-vaadin14#step-1,step 1>>)
+* (for Spring-based apps) use a compatible version of Spring  (<<upgrading-from-vaadin14#step-1b,step 1b>>)
 * build the app to see if it uses any APIs deprecated in Vaadin 15
-* create a custom index page for client-side bootstrapping  (<<quick-migration-guide#step-2,step 2>>)
-* add a dependency to `lit-element` to create UIs in TypeScript (<<quick-migration-guide#step-3,step 3>>)
-* add a TypeScript page layout (<<quick-migration-guide#step-4,step 4>>)
-* add a TypeScript view (<<quick-migration-guide#step-5,step 5>>)
+* create a custom index page for client-side bootstrapping  (<<upgrading-from-vaadin14#step-2,step 2>>)
+* add a dependency to `lit-element` to create UIs in TypeScript (<<upgrading-from-vaadin14#step-3,step 3>>)
+* add a TypeScript page layout (<<upgrading-from-vaadin14#step-4,step 4>>)
+* add a TypeScript view (<<upgrading-from-vaadin14#step-5,step 5>>)
 
 _If you are starting a new app with Vaadin 15, please check the <<quick-start-guide#,Quick Start Guide>>._
 

@@ -15,7 +15,7 @@ We recommend the following steps to create a new application with Vaadin 15.
 * add a new TypeScript view to the app (<<quick-start-guide#step-3,step 3>>)
 * access the backend from the new TypeScript view (<<quick-start-guide#step-4,step 4>>)
 
-_If you are migrating an existing Vaadin 14 application, please check the <<quick-migration-guide#,Quick Migration Guide>>._
+_If you are migrating an existing Vaadin 14 application, please check the <<upgrading-from-vaadin14#,Upgrading from Vaadin 14>> page._
 
 
 == Step 1 - Create a new project at link:https://start.stg.vaadin.com/[start.stg.vaadin.com^] [[step-1]]
