@@ -102,7 +102,7 @@ TypeScript views cannot be added as children into a Java `RouterLayout` class.
 If you need to add a TypeScript view into the same parent layout with existing Java views, then the layout has to be implemented in TypeScript.
 
 .frontend/main-layout.ts
-[source, javascript]
+[source, typescript]
 ----
 import {css, customElement, html, LitElement} from 'lit-element';
 
@@ -130,7 +130,7 @@ export class MainLayoutElement extends LitElement {
 Add the component to the router configuration:
 
 .frontend/index.ts
-[source, javascript]
+[source, typescript]
 ----
 import './main-layout';
 ...
