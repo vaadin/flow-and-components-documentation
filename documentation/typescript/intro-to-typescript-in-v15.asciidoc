@@ -30,17 +30,18 @@ See the <<client-side-bootstrapping#, Client-side Bootstrapping>> page for detai
 .frontend/index.ts
 [source,typescript]
 ----
+import {Router} from '@vaadin/router';
 import {Flow} from '@vaadin/flow-frontend/Flow';
 
-const flow = new Flow({
-  // @ts-ignore
+const {serverSideRoutes} = new Flow({
   imports: () => import('../target/frontend/generated-flow-imports')
 });
 
 const loadButton: HTMLElement | null = document.getElementById('loadButton');
 if (loadButton) {
   loadButton.addEventListener('click', async() => {
-    await flow.start();
+    const router = new Router(document.querySelector('#outlet'));
+    await router.setRoutes(serverSideRoutes);
   });
 }
 ----
@@ -59,8 +60,10 @@ if (loadButton) {
 <body>
   <script src="VAADIN/build/webcomponentsjs/webcomponents-loader.js"></script>
 
-  <h2>Hello, World!</h2>
-  <button id="loadButton">Load Vaadin application</button>
+  <div id="#outlet">
+    <h2>Hello, World!</h2>
+    <button id="loadButton">Load Vaadin application</button>
+  </div>
 </body>
 </html>
 ----
