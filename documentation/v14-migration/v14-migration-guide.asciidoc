@@ -6,6 +6,9 @@ layout: page
 
 = Vaadin 14 Migration Guide
 
+[NOTE]
+This migration documentation has been revised for Vaadin 14.2 release (pnpm support). 
+
 For existing Vaadin platform projects (versions 10-13), using most Vaadin 14 new features
 requires just updating the Vaadin version, adding a dependency for compatibility mode, and addressing any API changes in code, which can be backtracked
 from the https://github.com/vaadin/platform/releases[platform release notes].

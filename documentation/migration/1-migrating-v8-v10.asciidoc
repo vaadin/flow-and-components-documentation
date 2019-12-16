@@ -7,7 +7,7 @@ layout: page
 = Migrating from Vaadin 8 to Vaadin 14
 
 [NOTE]
-This migration documentation has been revised for Vaadin 14.1 release. It is recommended to migrate to Vaadin 14 since it is the latest LTS and has more features available than versions 10-13.
+This migration documentation has been revised for Vaadin 14.2 release. It is recommended to migrate to Vaadin 14 since it is the latest LTS and has more features available than versions 10-13.
 Vaadin 14 also gets new minor releases, which are backward compatible, but add new
 features.
 
