@@ -7,7 +7,7 @@ layout: page
 = Migrating from Vaadin 8 to Vaadin 14
 
 [NOTE]
-This migration documentation has been revised for Vaadin 14.1 release. It is recommended to migrate to Vaadin 14 since it is the latest LTS and has more features available than versions 10-13.
+This migration documentation has been revised for Vaadin 14.2 release. It is recommended to migrate to Vaadin 14 since it is the latest LTS and has more features available than versions 10-13.
 Vaadin 14 also gets new minor releases, which are backward compatible, but add new
 features.
 
@@ -29,7 +29,7 @@ Some features may have been removed to make way for new things.
 There are different migration strategies for Vaadin 8 applications:
 
 * Staying with Vaadin Eight - it is Great! And supported at least until 2022.
-* Using the upcoming Multiplatform Runtime from the Prime subscription to run views or components from a V8 app inside Vaadin platform for
+* Using the Multiplatform Runtime from the Prime subscription to run views or components from a V8 app inside Vaadin platform for
 ** Migrating the application bit by bit
 ** Extending the application with new parts implemented with Vaadin platform
 * Transform an existing application to Vaadin platform
