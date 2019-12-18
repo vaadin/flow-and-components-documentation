@@ -24,7 +24,7 @@ _If you are starting a new app with Vaadin 15, please check the <<quick-start-gu
 == Step 1 - Make your project depend on Vaadin 15 [[step-1]]
 
 .pom.xml
-[source,bash]
+[source,xml]
 ----
 <dependencyManagement>
     <dependencies>
@@ -53,7 +53,7 @@ Vaadin 15 is compatible with Spring 5.2.0 or newer, and Spring Boot 2.2.0 or new
 If your application uses an older version of Spring, please update it to a compatible version:
 
 .pom.xml
-[source,bash]
+[source,xml]
 ----
 <parent>
     <groupId>org.springframework.boot</groupId>
