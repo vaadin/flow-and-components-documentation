@@ -5,11 +5,19 @@ tutorial::typescript/client-side-bootstrapping.asciidoc
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- Polyfills for the Web Component APIs are required to use Web Components
-    in the browsers that do not support these APIs natively (e.g. MS Edge) -->
-
+     in the browsers that do not support these APIs natively (e.g. MS Edge) -->
   <script src="./VAADIN/build/webcomponentsjs/webcomponents-loader.js" defer></script>
+  <style>
+    body, #outlet {
+      height: 100vh;
+      width: 100vw;
+      margin: 0;
+    }
+  </style>
   <!-- index.ts is included here automatically (either by the dev server or during the build) -->
 </head>
 <body>
+<!-- vaadin-router in index.ts needs an outlet for displaying the views -->
+<div id="outlet"></div>
 </body>
 </html>

@@ -107,7 +107,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 
 == Creating UI in TypeScript
 * <<typescript/quick-start-guide#, Quick Start Guide>>
-* <<typescript/quick-migration-guide#, Quick Migration Guide>>
+* <<typescript/upgrading-from-vaadin14#, Upgrading from Vaadin 14>>
 * <<typescript/client-side-bootstrapping#, Client-side Bootstrapping>>
 * <<typescript/client-side-routing#, Client-side Routing>>
 * <<typescript/intro-to-typescript-in-v15#, Intro to TypeScript in Vaadin 15>>

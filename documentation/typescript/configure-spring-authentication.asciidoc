@@ -143,7 +143,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 Add links in the main layout for login and logout.
 
 .frontend/main-layout.ts
-[source, javascript]
+[source, typescript]
 ----
 import { css, customElement, html, LitElement} from 'lit-element';
 
