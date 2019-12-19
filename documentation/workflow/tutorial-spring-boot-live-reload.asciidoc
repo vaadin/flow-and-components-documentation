@@ -1,10 +1,10 @@
 ---
-title: Live Reload in Spring Boot application
+title: Live Reload in Spring Boot Applications
 order: 1
 layout: page
 ---
 
-= Live Reload in Spring Boot application
+= Live Reload in Spring Boot Applications
 
 == Spring Boot dev tools
 
@@ -23,11 +23,11 @@ The https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-
 </dependencies>
 ----
 
-With this dependency enabled you may change your Java code and the application 
-will be reloaded automatically without need to restart it.
+With this dependency enabled you may change your Java code, 
+recompile, and the application will be reloaded automatically without need to restart it.
 
 To be able to see the changes a browser tab still needs to be reloaded. That also
-may be automated via using https://github.com/twolfson/livereload-extensions[LiveReload extension].
+may be automated via https://github.com/twolfson/livereload-extensions[LiveReload extension].
 
 == Live Reload extension
 
@@ -41,12 +41,12 @@ The port 35729 is used by the LiveReload extension to communicate using WebSocke
 Now when changes in Java code are made the application will be reloaded and once
 this is done the extension will reload the browser page automatically.
 
-== Java modifications that applied automatically
+== Java modifications that are applied automatically
 
 Basically all Java code modifications are applied automatically:
 - changes in the internal application logic
 - routes modification (such as add a new view (route), update the route path, remove a view)
-- changes made to custom component (`PolymerTemplate` subclasses): add/change/remove
+- changes made to custom components (`PolymerTemplate` subclasses): add/change/remove
 
 During those changes the session is preserved.
 
