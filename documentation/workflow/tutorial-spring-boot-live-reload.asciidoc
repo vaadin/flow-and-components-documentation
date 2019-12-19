@@ -48,8 +48,7 @@ Basically all Java code modifications are applied automatically:
 - routes modification (such as add a new view (route), update the route path, remove a view)
 - changes made to custom component (`PolymerTemplate` subclasses): add/change/remove
 
-During those changes the session is preserved which means UI changes made in the 
-browser are not lost.
+During those changes the session is preserved.
 
 == Frontend resources modifications
 
