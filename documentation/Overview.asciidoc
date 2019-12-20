@@ -31,6 +31,9 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<installing/installing-overview#,Overview>>
 * <<installing/installing-toolchain#,Development Toolchain>>
 
+== Development Workflow
+* <<workflow/tutorial-spring-boot-live-reload#, Live Reload in Spring Boot Applications>>
+
 == Router and Navigation
 * <<routing/tutorial-routing-annotation#,Defining Routes with @Route>>
 * <<routing/tutorial-routing-lifecycle#,Navigation Lifecycle>>
@@ -136,7 +139,9 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<portlet-support/portlet-02-creating-vaadin-portlets#,Creating Vaadin Portlets>>
 * <<portlet-support/portlet-03-handling-portlet-phases#,Handling Portlet Phases>>
 * <<portlet-support/portlet-04-inter-portlet-communication#,Inter-portlet Communication>>
-* <<portlet-support/portlet-05-creating-multi-module-portlet-project#,Creating Multi-module Portlet Project>>
+* <<portlet-support/portlet-05-creating-multi-module-portlet-project#,Creating Multi-Module Portlet Project>>
+* <<portlet-support/portlet-06-adding-portlet-module#,Adding a Vaadin Portlet Module to an Existing Maven Multi-Module Project>>
+* <<portlet-support/portlet-07-cdi-support#,Vaadin Portlet CDI Support>>
 * <<portlet-support/portlet-demo-01-address-book#,Demonstration: Address Book>>
 
 == Packaging for Production
@@ -190,3 +195,4 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<advanced/tutorial-stream-resources#,Using stream resources>>
 * <<advanced/tutorial-ui-init-listener#,UIInitListener>>
 * <<advanced/tutorial-preserving-state-on-refresh#,Preserving view state between browser refreshes>>
+* <<advanced/tutorial-switch-npm-pnpm#,Differences between NPM and PNPM>>
