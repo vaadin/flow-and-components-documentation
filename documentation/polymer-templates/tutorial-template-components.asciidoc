@@ -82,7 +82,7 @@ Similar to this the `getText()` method of the `Div` instance injected via
 `@Id("header")` returns an empty string.
 
 So, server side `Component`/`Element` read methods are not always in sync
-with the client-side. But you still may use mutation API methods from the server side
+with the client-side. But you may still use mutation API methods from the server side
 like `appendChild`/`setProperty`/`setAttribute`. Getter methods returns values
 which have been set from the server side only.
 
