@@ -26,6 +26,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * https://vaadin.com/tutorials/getting-started-with-flow[Getting started with Vaadin Flow]
 
 == Development Workflow
+** <<workflow/workflow-overview#,Workflow Overview>>
 ** <<workflow/tutorial-spring-boot-live-reload#, Live Reload in Spring Boot Applications>>
 
 == Router and Navigation
