@@ -1,0 +1,83 @@
+---
+title: Core Concepts
+order: 2
+layout: page
+---
+= Core Concepts
+
+In the following, we go through some concepts central to Vaadin development.
+
+== Rapid Web Application Development
+
+At Vaadin, we pride ourselves on developer productivity.
+We feel that developers should be able to forget the framework they run on, so that they can concentrate on developing the best application they can.
+
+For rapid application development, Vaadin offers:
+
+* Customizable project templates in link:https://vaadin.com/start/latest[Get Started with Vaadin]
+* Downloadable application examples
+* Maven archetypes
+* Eclipse plugin for rapid project creation
+* Vaadin Designer for interactive UI designing
+
+== Everything is a Component
+
+Vaadin uses a component-based programming model to build UIs.
+Reusable components are the cornerstone of Vaadin.
+Everything in the UI is a component on the server-side.
+To have a button, you create a [classname]#Button# object.
+To have a text input field, you create a [classname]#TextField# object.
+You can build your own components and views by combining existing components and layouts, or by connecting a server-side component to a web component.
+
+Each server-side component is connected to web components and HTML elements on the client-side.
+
+The following is a small but complete Vaadin application written in Java:
+
+[[figure.introduction.concepts.component]]
+image:images/concepts-component.png[width=80%]
+
+In the example, the application itself is a UI component that extends one of Vaadin’s basic layouts – [classname]#VerticalLayout#.
+In the constructor, we add a [classname]#H1# component (which corresponds to a [elementname]#h1# HTML tag) to the layout to say hello to the entire world.
+
+////
+To make it an application, we map the view to an empty route with the `@Route("")` annotation, so when this application is deployed to a local server, the view is available on your machine at `http://localhost:8080/`.
+////
+
+== Event-Driven Programming
+
+To make the applications interactive, Vaadin provides an event-driven programming model.
+User interaction causes events, which are handled by event listeners.
+
+For example, you can handle button clicks by adding a click listener with [methodname]#addClickListener()#, typically as a lambda expression:
+
+[source, java]
+----
+Button button = new Button("Push me!");
+
+button.addClickListener(event ->
+  button.setCaption("You pushed me!"));
+----
+
+The event and listener classes are illustrated in <<figure.introduction.concepts.events>>.
+
+[[figure.introduction.concepts.events]]
+.Class diagram of component event handling
+image:images/events-classdiagram.png[width=80%]
+
+== Flexible and Powerful Data Binding
+
+All Vaadin components have a clear and unified data binding API to help developers build data-intensive apps with confidence.
+
+== Key Technologies
+
+Cascading Stylesheets (CSS)::
+  Vaadin application are styled using cascading stylesheets (CSS).
+  Styling is done in an application _theme_.
++
+See <<../theme/theming-overview#, Theming Applications with CSS>>.
+
+Java Servlets::
+  Vaadin applications run as Java servlets.
+  A Java Servlet is a class that is executed in a Java web server (a __Servlet
+container__) to extend the capabilities of the server.
+  In practice, it is normally a part of a __web application__, which can contain HTML pages to provide static content, and JavaServer Pages (JSP) and Java Servlets to provide dynamic content.

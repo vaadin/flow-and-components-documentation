@@ -21,9 +21,15 @@ Vaadin Flow features:
 
 The Vaadin Flow documentation is arranged in the following sections and we recommend reading it in this order.
 
-== Introduction and Getting Started
+== Introduction
 * <<introduction/introduction-overview#,Introduction to Vaadin Flow>>
+* <<introduction/introduction-concepts#,Core Concepts>>
+* <<introduction/introduction-compatibility#,Compatibility and Versioning>>
 * https://vaadin.com/tutorials/getting-started-with-flow[Getting started with Vaadin Flow]
+
+== Installing
+* <<installing/installing-overview#,Overview>>
+* <<installing/installing-toolchain#,Development Toolchain>>
 
 == Router and Navigation
 * <<routing/tutorial-routing-annotation#,Defining Routes with @Route>>
