@@ -112,7 +112,7 @@ public interface BindingModel extends TemplateModel {
 
 For two-way data binding the data flows in both directions: client-to-server and server-to-client.
 
-To demonstrate the functionality lets create a TwoWayBindingModel with some a couple of different fields like:
+To demonstrate the functionality, let's create a TwoWayBindingModel with a couple of different fields like:
 
 .Two-way template model
 [source,java]
@@ -160,11 +160,11 @@ public class PolymerTwoWayBindingTemplate
 }
 ----
 
-We use here the `Element::addPropertyChangeListener` method to get immediate
+Here we use the `Element::addPropertyChangeListener` method to get immediate
 updates for when the property values change. An alternate way to get notified about changes would be to define an `@EventHandler`
 method on the server side and adding the appropriate event handers in the template.
 
-On the client we will use different methods to bind the model data:
+On the client-side we will use different methods to bind the model data:
 
 .Name string to an input using:
  - Native input element
