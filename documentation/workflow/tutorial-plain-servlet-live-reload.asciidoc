@@ -6,28 +6,29 @@ layout: page
 
 = Live Reload in Web Applications
 
-During application development the code changes happen frequently. There are various
-tools available which allows to speed up the development process and a avoid 
-web application restart every time.
+During application development the code changes happen frequently. There are multiple tools 
+available which speed up the development process and avoid having to manually 
+restart the application every time after a change.
 
-Here is some list of such tools:
-- `scanIntervalSeconds` configuration parameter may be used in case of Jetty Maven Plugin
-- commercial https://www.jrebel.com/[JRebel tool] may be used with any Java application including web applications
+Here is a list of some of these tools:
+- https://www.eclipse.org/jetty/documentation/9.4.x/jetty-maven-plugin.html[The Jetty Maven plugin] 
+with the `scanIntervalSeconds` configuration enabled.
+- The commercial https://www.jrebel.com/[JRebel tool] may be used with any Java application including web applications
 - HostSwapAgent[http://hotswapagent.org/] also may be used with any Java applicaiton
 
-HostSwapAgent has issues with existing route target reloading and we don't 
-recommend to use it until it's fixed.
+HostSwapAgent has issues with existing route target reloading and 
+we don't recommend it at the moment for this reason..
 
-== Java modifications that applied automatically
+== Java modifications that are applied automatically
 
-Basically all Java code modifications are applied automatically:
-- changes in the internal application logic
-- routes modification (such as add a new view (route), update the route path, remove a view)
+=== Jetty Maven plugin with `scanInterval`
 
-Jetty Maven Plugin performs complete application restart and it allows to apply
-also changes made to custom component (`PolymerTemplate` subclasses): add/change/remove.
+Jetty Maven Plugin performs complete application restart and as a result any Java code modification
+is applied including changes made to a custom component (`PolymerTemplate` subclasses): add/change/remove.
 
 During those changes the session is not preserved.
+
+=== JRebel
 
 JRebel tool only applies changes in the binaries, as a result:
 - it works faster
@@ -37,23 +38,26 @@ JRebel preserves the session.
 
 == Frontend resources modifications
 
-As noted in the previous section it's possible to add a new `PolymerTemplate` class
-in your application with already existing or new template module `.js` file.
-So if you use Jetty Maven Plugin the working scenarios are:
+As noted in the previous section it's possible to add a new `PolymerTemplate` class 
+to an existing JS template module or add a new JS module (see <<../polymer-templates/tutorial-template-basic#,Creating A Simple Component Using the Template API>>).
+
+=== Jetty Maven plugin with `scanInterval`
+The working scenarios are:
 - add a new CSS import (as a frontend resource and use it in Java via `@CssImport` annotation) 
 - add a new frontend JS module file (and use it with a Java class)
 - modify the existing frontend resource (JS module or imported CSS file) 
 
 In the latter case webpack dev server cares about changes made in the JS module only.
 
-JRebel doesn't support new template creation or adding a new frontend resource 
-(CSS or JS module via annotation) to an existing class. So the only working scenario
-with JREbel is modification of existing resource which is handed by webpack dev
-server.  
+=== JRebel
+
+JRebel only supports reloading of Java code changes, whereas client resource 
+changes are monitored by `webpack-dev-server`. Changes in either are live-reloaded 
+independently, meaning that changes to the annotations mapping JS templates or CSS 
+files to Java classes require a full server restart to keep the front-end and back-end consistent.
 
 == Changes that requires application restart
 
 All changes described above applied automatically only assuming you don't add
 new dependencies to the project. The modifications which rely anyhow on updated
 classpath dependencies requires the application restart.
- 
