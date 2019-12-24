@@ -82,10 +82,6 @@ directory immediately under the project root, which is inspected by webpack.
 As application is started in development mode, the webpack development server is started automatically
 to handle serving the frontend resources to the browser.
 
-Unlike in Vaadin 10-13, using webpack enables testing your application with Internet Explorer 11
-on development mode. Previously this required a production build to get the frontend resources
-transpiled to IE11 compatible ES5 syntax. The overhead from this transpilation is about 1-2 seconds.
-
 In production mode, webpack is used to create a (transpiled and minified) bundle from
 the resources inside the `frontend` folder. As long as your project file structure
 is as specified in this guide, these steps are fully automated by `vaadin-maven-plugin`.
