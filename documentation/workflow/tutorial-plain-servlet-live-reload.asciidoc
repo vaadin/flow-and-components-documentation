@@ -1,6 +1,6 @@
 ---
 title: Live Reload in Web Applications
-order: 1
+order: 2
 layout: page
 ---
 

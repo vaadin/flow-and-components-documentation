@@ -1,6 +1,6 @@
 ---
 title: Live Reload in Spring Boot Applications
-order: 2
+order: 3
 layout: page
 ---
 
