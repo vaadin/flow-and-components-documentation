@@ -52,7 +52,7 @@ router.setRoutes([
   {
     path: '/help',
     component: 'app-help',
-    action: () => import('./views/help/app-help')
+    action: async () => { await import('./views/help/app-help'); }
   },
   ...
 ]);
@@ -64,17 +64,18 @@ Second create a new client-side view:
 [source, typescript]
 ----
 import {LitElement, html, customElement} from 'lit-element';
+import '@vaadin/vaadin-button/vaadin-button';
 
 @customElement('app-help')
 export class AppHelp extends LitElement {
     render() {
-      return html`
-        <vaadin-button @click=${this.click}>Read More</vaadin-button>
+        return html`
+        <vaadin-button @click=${this.onClick}>Read More</vaadin-button>
       `;
     }
 
-    click(e) {
-      console.log('clicked');
+    onClick() {
+        console.log('clicked');
     }
 }
 ----
