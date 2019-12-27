@@ -27,7 +27,7 @@ In more problematic cases, e.g., if the problem occurs on initial setup, you can
 To do that, you need to edit the web component included in your project.
 All the components used in this project will be downloaded by npm and located in the `node_modules` folder under the project root folder.
 
-To debug the `increment()` function in `paper-slider` you can thus do:
+To debug the `increment()` function in `paper-slider` you can therefore:
 
 1. Launch the project in dev mode so that any frontend file change is automatically used after the page reload
 2. Find a `paper-slider` in the `node_modules` directory: `node_modules/@polymer/paper-slider`
