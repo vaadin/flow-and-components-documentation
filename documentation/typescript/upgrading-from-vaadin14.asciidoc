@@ -43,7 +43,7 @@ Edit the `pom.xml` file and change the versions of the Vaadin platform dependenc
 
 <dependencyManagement>
     <dependencies>
-        <!-- add the Vaadin platform to the class-path -->
+        <!-- add the Vaadin platform to the classpath -->
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-bom</artifactId>
