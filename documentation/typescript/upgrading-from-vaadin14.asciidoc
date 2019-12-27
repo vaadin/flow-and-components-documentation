@@ -10,6 +10,10 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 We recommend the following steps to upgrade an existing Vaadin 14 application to Vaadin 15, and then to add a TypeScript view to it.
 
+[TIP]
+You can use JavaScript instead of TypeScript if you prefer.
+JavaScript is supported as well: any `.ts` file can be replaced with a `.js` alternative.
+
 * change the Vaadin version in `pom.xml` (<<upgrading-from-vaadin14#step-1,step 1>>)
 * (for Spring-based apps) use a compatible version of Spring  (<<upgrading-from-vaadin14#step-1b,step 1b>>)
 * build the app to see if it uses any APIs deprecated in Vaadin 15
