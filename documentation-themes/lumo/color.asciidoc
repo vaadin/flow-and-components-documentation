@@ -1,5 +1,5 @@
 ---
-title: Colors
+title: Color
 order: 3
 layout: page
 ---
@@ -7,13 +7,12 @@ layout: page
 // The following source is in HTML because it's copied from https://github.com/vaadin/vaadin-lumo-styles/tree/master/demo as is
 include::../themes-shared.asciidoc[]
 
-= Colors
+= Color
 
-++++
-    <p>Lumo defines a set of style modules and CSS custom properties you can use to apply a consistent color palette across your application.</p>
+Lumo defines a set of style modules and CSS custom properties you can use to apply a consistent color palette across your application.
 
-    <p>Import <code>color.js</code> to use them.</p>
-++++
+Import `color.js` to use them.
+
 [source,html]
 ----
 <script type="module">
@@ -21,35 +20,40 @@ include::../themes-shared.asciidoc[]
 </script>
 ----
 
-
 [NOTE]
 The default color palette is link:https://www.w3.org/TR/WCAG20/#visual-audio-contrast[WCAG 2.0] AA level compliant unless otherwise noted.
 
-== Style module
-++++
-    <p>Include the color style module to easily apply basic colors for any style scope (e.g. index.html for global scope). It will set the background, text and link colors and enable you to use the dark palette colors inside that style scope.</p>
+== Style Sheet
 
-++++
+Include the color style sheet to apply basic colors for any style scope. It will set the background, text and link colors and enable you to use the dark palette colors inside that style scope.
+
 [source,html]
 ----
-<!-- Add directly to index.html or use a separate HTML import -->
 <custom-style>
   <style include="lumo-color"></style>
 </custom-style>
 ----
 
 == Dark palette
-++++
-    <p>The dark color palette is available when you include the <a href="#style-module">main style module</a>.</p>
-    <p>You can apply the <code>theme="dark"</code> attribute on any element inside the style scope where you include the main style module.</p>
-    <p>If you include the main style module in the global scope (i.e. index.html), you can apply the <code>theme="dark"</code> attribute on the <code>html</code> element directly, to make the whole page adopt the dark color palette.</p>
-++++
+
+The dark color palette is available when you include the main style sheet.
+
+You can apply the `theme="dark"` attribute on any element inside the style scope where you include the main style module.
+
+[NOTE]
+The dark variant is not supported in Internet Explorer 11. https://github.com/vaadin/vaadin-lumo-styles/issues/50[See the issue in GitHub].
+
+If you include the main style module in the global scope (i.e. index.html), you can apply the `theme="dark"` attribute on the `<html>` element directly, to make the whole page adopt the dark color palette.
+
+
 [source,html]
 ----
-<!-- Import the style modules -->
-<link rel="import" href="bower_components/vaadin-lumo-styles/color.html">
+<!-- Import the style sheet -->
+<script type="module">
+  import '@vaadin/vaadin-lumo-styles/color.js';
+</script>
 
-<!-- Include the "lumo-color" style module -->
+<!-- Include the "lumo-color" style sheet -->
 <custom-style>
   <style include="lumo-color"></style>
 </custom-style>
@@ -58,17 +62,12 @@ The default color palette is link:https://www.w3.org/TR/WCAG20/#visual-audio-con
   <!-- Everything inside this element will use the dark palette colors -->
 </div>
 ----
-// ++++
-//     <div class="note warn">
-//       <h6>Browser compatibility</h6>
-//       <p>This example doesn’t work in Internet Explorer 11 or EdgeHTML 14. Read the <a href="compatibility.html#dark-color-palette">browser compatibility instructions</a> if you need to support those browsers.</p>
-//     </div>
 
-// ++++
 == Base
-++++
-    <p>The base color is used as the main background color for the system. The <a href="#grayscale">grayscale colors</a> are designed to be used on top of it, and the <a href="#text">text colors</a> are designed to have proper contrast with it.</p>
 
+The base color is used as the main background color for the system. The <<grayscale>> colors are designed to be used on top of it, and the <<text>> colors are designed to have sufficient contrast with it.
+
+++++
 <content-preview class="background-shade">
 ++++
 [source,html]

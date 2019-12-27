@@ -9,7 +9,7 @@ layout: page
 Vaadin comes with a set of built-in themes which you can choose from. See https://vaadin.com/themes[vaadin.com/themes] for a high-level overview of theming in Vaadin.
 
 [NOTE]
-The documentation show how to do things using either Java or JavaScript/HTML. The end result will be identical regardless. Choose the approach you are most comfortable with.
+The documentation shows how to do things using either Java or JavaScript/HTML. The end result will be identical regardless. Choose the approach you are most comfortable with.
 
 ===== Contents
 
@@ -17,10 +17,11 @@ The documentation show how to do things using either Java or JavaScript/HTML. Th
 * <<material>>
 * <<no-theme>>
 * <<limitations>>
+* <<technical-details>>
 
 == Lumo
 
-The default theme for Vaadin apps. If you do not explicitly choose a theme, Lumo will be used. See the <<../../themes/lumo#,Lumo theme docs>> for all the details regarding it.
+The default theme for Vaadin apps. If you do not explicitly choose a theme, Lumo will be used. See the <<../../themes/lumo/overview#,Lumo theme docs>> for all the details regarding it.
 
 .`Java`
 [source,java]
@@ -59,7 +60,7 @@ import '@vaadin/vaadin-button/vaadin-button.js';
 
 == Material
 
-A theme inspired by the https://material.io[Material Design guidelines]. See the <<../../themes/material#,Material theme docs>> for all the details regarding it.
+A theme inspired by the https://material.io[Material Design guidelines]. See the <<../../themes/material/overview#,Material theme docs>> for all the details regarding it.
 
 .`Java`
 [source,java]
