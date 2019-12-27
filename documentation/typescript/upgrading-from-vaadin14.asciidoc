@@ -104,9 +104,10 @@ cp target/index.html target/index.ts frontend
 This step is needed if you want to create TypeScript views using LitElement as a helper library.
 There are other ways to create UI in TypeScript, but they are not covered in this guide.
 
+Run in the console, in the project folder:
 [source,bash]
 ----
-$ npx pnpm install --save lit-element
+npx pnpm install --save lit-element
 ----
 
 
