@@ -9,7 +9,7 @@ layout: page
 The built-in themes have global variants that you use to quickly customize all components. Built-in component variants can be used to style individual component instances quickly. Custom variants allow you to create new component styles that can be used in all style scopes across your app.
 
 [NOTE]
-The documentation show how to do things using either Java or JavaScript/HTML. The end result will be identical regardless. Choose the approach you are most comfortable with.
+The documentation shows how to do things using either Java or JavaScript/HTML. The end result will be identical regardless. Choose the approach you are most comfortable with.
 
 === Prerequisites
 

@@ -6,13 +6,23 @@ layout: page
 
 = Styling Applications
 
+Learn how to apply app-specific styling across your custom app views and components and how to use images and icons.
+
 === Prerequisites
 
 You should be familiar with <<including-style-sheets#,including style sheets>> to the different <<style-scopes#,style scopes>> in your app.
 
+===== Contents
+
+* <<styling-views-and-components>>
+* <<using-images>>
+* <<using-icons>>
+
 == Styling Views and Components
 
-=== Java
+Your app specific views and components are usually built by composing existing, lower-level components. Styling these components is a little different from <<styling-vaadin-components#,styling the built-in Vaadin components>>.
+
+=== Server-side
 
 Java-based views and components (extending from `Component`) are rendered in the global scope. You can apply traditional CSS styling techniques for your Java-based views.
 
@@ -40,8 +50,19 @@ Given the following file/folder structure:
 Referencing the image from a style sheet (see <<including-style-sheets#,Including style sheets>> to learn how to include custom style sheets to your app):
 
 [source,css]
-....
+----
 .logo {
   background-image: url(/img/logo.png);
 }
-....
+----
+
+
+== Using Icons
+
+=== Server-side
+
+TODO the Icon component, VaadinIcons and LumoIcons, and how to build your own iconset
+
+=== Client-side
+
+TODO <iron-icon>, vaadin-icons and lumo-icons, and how to build your own iconset

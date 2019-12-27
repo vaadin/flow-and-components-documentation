@@ -7,59 +7,58 @@ layout: page
 // The following source is in HTML because it's copied from https://github.com/vaadin/vaadin-lumo-styles/tree/master/demo as is
 include::../themes-shared.asciidoc[]
 
-= Vaadin Lumo theme
+= Lumo
 
-++++
-    <p>Lumo is an evolving design system foundation for modern web applications. <a href="https://vaadin.com/components">Vaadin components</a> implement Lumo as their default theme.</p>
-++++
+Lumo is the default theme for Vaadin, which can be customized to fit your visual style requirements.
+
+The core Lumo package defines the basic building blocks for component themes as CSS custom properties, also known as design tokens, such as colors, typography and other visual styles.
+
+In addition to the custom properties, Lumo comes with a ready-made <<badges#,Badge>> component and a collection of <<icons#,icons>> which match the default Lumo visual style.
+
+
+== Lumo Theme Editor
+
+To quickly adjust most of the global styles of Lumo, you can use the https://demo.vaadin.com/lumo-editor/[Lumo theme editor].
+
+The Lumo theme editor is not yet an officially supported tool and does not necessarily support the latest versions of Vaadin. You can still use the CSS it produces by copying them to the correct files in your project. Visit the Labs page to https://vaadin.com/labs/lumo-editor/[give feedback about the Lumo theme editor tool].
+
+
 == Getting started
-++++
 
-    <h3>1. Install</h3>
+=== Install
 
-    <p>To start using the Lumo styles you need to install the
-      <a href="https://github.com/vaadin/vaadin-lumo-styles">vaadin-lumo-styles</a> package using
-      <a href="https://www.npmjs.com/">npm</a>.</p>
+Lumo comes bundled with Vaadin (including all individual components). If you need, you can also install the core Lumo package separately using https://www.npmjs.com[npm].
 
-++++
-```
+[source]
+----
 npm i @vaadin/vaadin-lumo-styles
-```
-++++
-    <h3>2. Import and include main style modules</h3>
-    <p>Import and include the main style modules in the global scope to make your application use Lumo styles:</p>
-++++
+----
+
+=== Import and Include Style Sheets
+
+The global style sheets, which define the global custom properties (a.k.a. design tokens) and define basic color and typography rules, are automatically included in your Vaadin app when you are using Lumo as your theme. excluding <<badges>> which needs to be imported and included explicitly.
+
+You can import and include these style sheets manually if needed, for example if you are building a client-side only app.
+
 [source,html]
 ----
-<!-- Place these in your index.html -->
 <script type="module">
   import '@vaadin/vaadin-lumo-styles/color.js';
   import '@vaadin/vaadin-lumo-styles/sizing.js';
   import '@vaadin/vaadin-lumo-styles/spacing.js';
   import '@vaadin/vaadin-lumo-styles/style.js';
   import '@vaadin/vaadin-lumo-styles/typography.js';
+  import '@vaadin/vaadin-lumo-styles/icons.js';
+  import '@vaadin/vaadin-lumo-styles/badges.js';
 </script>
 
-<!-- Include the main style modules in global scope (index.html) -->
+<!-- Include the core style sheets in global scope (index.html) -->
 <custom-style>
-  <style include="lumo-color lumo-typography"></style>
+  <style include="lumo-color lumo-typography lumo-badge"></style>
 </custom-style>
-----
-[NOTE]
-See link:https://polymer-library.polymer-project.org/3.0/api/elements/custom-style[documentation for the <custom-style> element]
-++++
 
-    <h3>3. Next steps</h3>
-    <ul>
-      <li>Get to know the foundation which defines the overall look and feel of the system.
-        <ul>
-          <li><b><a href="typography.html">Typography</a></b></li>
-          <li><b><a href="colors.html">Color</a></b></li>
-          <li><b><a href="styles.html">Style</a></b></li>
-          <li><b><a href="sizing-and-spacing.html">Sizing and Spacing</a></b></li>
-          <li><b><a href="icons.html">Icons</a></b></li>
-        </ul>
-      </li>
-      <li>Get to know the utilities, like <b><a href="badges.html">Badges</a></b>, which offer ready-made styles for small but common use cases.</li>
-    </ul>
-++++
+<!-- Include the style sheets in the local scope of a component -->
+----
+
+[NOTE]
+See <<../../flow/theme/including-style-sheets#,Including style sheets>> for more information

@@ -20,7 +20,7 @@ The most common theme customization is to adjust the global font and color prope
 
 .`styles/global.css`
 [source,css]
-....
+----
 html {
   --lumo-font-family: Arial, Helvetica, sans-serif;
   --lumo-primary-text-color: hsl(265, 88%, 44%);
@@ -28,26 +28,27 @@ html {
   --lumo-primary-color-50pct: hsla(265, 90%, 52%, 0.5);
   --lumo-primary-color-10pct: hsla(265, 90%, 52%, 0.1);
 }
-....
+----
 
-See the <<../../components/foundation/lumo#,Lumo theme>> documentation for all of the available top-level properties, which affect all components.
-
-==== Lumo Theme Editor
-
-To quickly adjust most of the global styles of Lumo, you can use the https://demo.vaadin.com/lumo-editor/[Lumo theme editor].
-
-The Lumo theme editor is not yet an officially supported tool and does not necessarily support the latest versions of Vaadin. You can still use the CSS it produces by copying it to the correct files in your project. Visit the Labs page to https://vaadin.com/labs/lumo-editor/[give feedback about the Lumo theme editor tool].
+See the <<../../components/foundation/lumo#,Lumo theme>> documentation for more information.
 
 === Material Theme
 
 .`styles/global.css`
 [source,css]
-....
+----
 html {
   --material-font-family: Arial, Helvetica, sans-serif;
   --material-primary-text-color: hsl(265, 88%, 44%);
   --material-primary-color: hsl(265, 90%, 52%);
 }
-....
+----
 
-See the <<../../components/foundation/material#,Material theme>> documentation for all of the available top-level properties, which affect all components.
+See the <<../../components/foundation/material#,Material theme>> documentation for more information.
+
+== TODO custom class name?
+
+== Next Steps
+
+* <<styling-vaadin-components#,Styling Vaadin components>> — learn how to customize the component themes and styles.
+* <<styling-applications#,style applications>> – learn how to customize custom, application-specific view and component styles.

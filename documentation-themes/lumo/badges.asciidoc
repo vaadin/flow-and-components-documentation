@@ -9,9 +9,8 @@ include::../themes-shared.asciidoc[]
 
 = Badges
 
-++++
-    <p>Import and include the badge style module:</p>
-++++
+Import and include the badge style module:
+
 [source,html]
 ----
 <script type="module">
@@ -22,9 +21,7 @@ include::../themes-shared.asciidoc[]
   <style include="lumo-badge"></style>
 </custom-style>
 ----
-++++
 
-++++
 == Colors
 ++++
     <content-preview class="block">
