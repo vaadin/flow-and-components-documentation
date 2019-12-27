@@ -106,7 +106,7 @@ There are other ways to create UI in TypeScript, but they are not covered in thi
 
 [source,bash]
 ----
-$ npm install --save lit-element
+$ npx pnpm install --save lit-element
 ----
 
 
