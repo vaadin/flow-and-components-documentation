@@ -20,7 +20,8 @@ JavaScript is supported as well: any `.ts` file can be replaced with a `.js` alt
 * create a custom index page for client-side bootstrapping  (<<upgrading-from-vaadin14#step-2,step 2>>)
 * add a dependency to `lit-element` to create UIs in TypeScript (<<upgrading-from-vaadin14#step-3,step 3>>)
 * add a TypeScript page layout (<<upgrading-from-vaadin14#step-4,step 4>>)
-* add a TypeScript view (<<upgrading-from-vaadin14#step-5,step 5>>)
+* move the existing Java views into the TypeScript page layout (<<upgrading-from-vaadin14#step-5,step 5>>)
+* add a TypeScript view (<<upgrading-from-vaadin14#step-6,step 6>>)
 
 _If you are starting a new app with Vaadin 15, please check the <<quick-start-guide#,Quick Start Guide>>._
 
@@ -138,6 +139,7 @@ export class MainLayoutElement extends LitElement {
     return css`
       :host {
         display: block;
+        height: 100%;
       }
     `;
   }
@@ -176,5 +178,22 @@ const routes = [
 ----
 
 
-== Step 5 - Add a TypeScript view [[step-5]]
+== Step 5 - Move the existing Java views into the TypeScript page layout [[step-5]]
+
+This step is needed if you want to display your existing Java views in the same page layout with the new TypeScript views.
+In order to move an existing Java view from a parent layout defined in Java into a parent layout defined in TypeScript, you need to change the `@Route()` annotation on the Java view and remove the `layout` property from it:
+
+For example, for a Java view defined in a `DashboardView` class the change would look like this:
+
+.DashboardView.java
+[source, java]
+----
+@Route(value = "dashboard"/*, layout = MainView.class <-- remove this */)
+@RouteAlias(value = ""/*, layout = MainView.class <-- and this */)
+public class DashboardView extends Div {
+    ...
+}
+----
+
+== Step 6 - Add a TypeScript view [[step-6]]
 Continue with the <<quick-start-guide#step-3,Quick Start Guide - Step 3>> to see how.
