@@ -23,22 +23,42 @@ _If you are starting a new app with Vaadin 15, please check the <<quick-start-gu
 
 == Step 1 - Make your project depend on Vaadin 15 [[step-1]]
 
+Edit the `pom.xml` file and change the versions of the Vaadin platform dependency and the Vaadin Maven plugin to Vaadin 15:
+
 .pom.xml
 [source,xml]
 ----
+<properties>
+    ...
+    <!-- See the latest version at
+         https://github.com/vaadin/platform/releases -->
+    <vaadin.version>15.0.0.alpha11</vaadin.version>
+    ...
+</properties>
+
 <dependencyManagement>
     <dependencies>
+        <!-- add the Vaadin platform to the class-path -->
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-bom</artifactId>
-            <!-- See the latest version at
-                 https://github.com/vaadin/platform/releases -->
-            <version>15.0.0.alpha8</version>
+            <version>${vaadin.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
     </dependencies>
 </dependencyManagement>
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-maven-plugin</artifactId>
+            <version>${vaadin.version}</version>
+            ...
+        </plugin>
+    </plugins>
+</build>
 ----
 
 [NOTE]
