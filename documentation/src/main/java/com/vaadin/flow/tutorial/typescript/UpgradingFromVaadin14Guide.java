@@ -17,17 +17,15 @@ package com.vaadin.flow.tutorial.typescript;
 
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.notification.Notification;
 
 
-@CodeFor("typescript/quick-start-guide.asciidoc")
-public class QuickStartGuide {
-    @Route("server")
-    public class ServerView extends Div {
-        public ServerView() {
-            this.add(new Button("click-me", e -> Notification.show("clicked")));
-        }
+@CodeFor("typescript/upgrading-from-vaadin14.asciidoc")
+public class UpgradingFromVaadin14Guide {
+    @Route(value = "dashboard"/*, layout = MainView.class <-- remove this */)
+    @RouteAlias(value = ""/*, layout = MainView.class <-- and this */)
+    public class DashboardView extends Div {
+
     }
 }
