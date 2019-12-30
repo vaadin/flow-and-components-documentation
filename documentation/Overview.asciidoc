@@ -110,7 +110,6 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<typescript/upgrading-from-vaadin14#, Upgrading from Vaadin 14>>
 * <<typescript/starting-the-app#, Starting the Application in TypeScript>>
 * <<typescript/creating-routes#, Creating Routes in TypeScript>>
-* <<typescript/creating-views-and-layouts#, Creating Views and Layouts in TypeScript>>
 * <<typescript/accessing-backend#, Accessing Java Backend in TypeScript>>
 * <<typescript/configuring-security#, Configuring Security for TypeScript Views>>
 * <<typescript/adding-login-form-with-spring-security#, Adding a Login Form with Spring Security>>
