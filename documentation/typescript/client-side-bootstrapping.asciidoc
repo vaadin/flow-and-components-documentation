@@ -205,4 +205,4 @@ The reason for this API change is that with client-side bootstrapping the initia
 
 If migration from the V10-14 bootstrapping APIs to the V15 client-side bootstrapping APIs is not feasible, it is possible to add a `-Dvaadin.clientSideMode=false` system property when starting the app to keep using the V10-14 bootstrapping process.
 
-It can be also be provided as a servlet container deployment property with the name `clientSideMode`.
+It can also be provided as a servlet container deployment property with the name `clientSideMode`.
