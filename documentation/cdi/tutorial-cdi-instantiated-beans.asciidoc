@@ -8,24 +8,24 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Components instantiated by the framework
 
-Most of the components instantiated by the Vaadin framework become managed beans ( full fledged CDI contextual instances ).
+Most of the components instantiated by the Vaadin framework become managed beans (full fledged CDI contextual instances).
 They are queried from CDI `BeanManager` by the add-on, and all of the CDI features are usable.
 
 [NOTE]
-Add-on looks up the CDI bean by type ( component class ), and `@Any`.
+Add-on looks up the CDI bean by type (component class), and `@Any`.
 
 [NOTE]
 When type is not found as a CDI bean
-( for example ambiguous, or does not have a no-arg public constructor ),
-instantiation falls back to the default Vaadin behavior ( instantiated as a POJO ).
+(for example ambiguous, or does not have a no-arg public constructor),
+instantiation falls back to the default Vaadin behavior (instantiated as a POJO).
 After the instantiation, dependency injection is performed.
-Injects work, but other CDI features are not, because instantiated component is not a contextual instance.
+Injects work, but other CDI features not, because instantiated component is not a contextual instance.
 
 [NOTE]
-`@PreDestroy` of `@Dependent` beans instantiated by the framework are not run.
+`@PreDestroy` of `@Dependent` beans instantiated by the framework will not run.
 Since it is the default context, it is about all beans without an explicit context.
 
-== Router components ( `@Route`, `RouteLayout`, `HasErrorParameter` )
+== Router components (`@Route`, `RouteLayout`, `HasErrorParameter`)
 
 Your route targets, route layouts, and exception targets become managed beans.
 They look just the same as without the add-on, but CDI features are available.
