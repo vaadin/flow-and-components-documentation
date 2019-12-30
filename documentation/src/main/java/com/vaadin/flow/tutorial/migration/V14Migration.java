@@ -13,16 +13,14 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class V14Migration {
     private void addImageOld() {
         String resolvedImage = VaadinServletService.getCurrent()
-                .resolveResource("frontend://img/logo.png",
-                        VaadinSession.getCurrent().getBrowser());
+                .resolveResource("frontend://img/logo.png");
 
         Image image = new Image(resolvedImage, "");
     }
 
     private void addImageNew() {
         String resolvedImage = VaadinServletService.getCurrent()
-                .resolveResource("img/logo.png",
-                        VaadinSession.getCurrent().getBrowser());
+                .resolveResource("img/logo.png");
 
         Image image = new Image(resolvedImage, "");
     }

@@ -18,9 +18,9 @@ Here is one example - it removes all dependencies and add one single bundle when
 public class BundleFilter implements DependencyFilter {
     @Override
     public List<Dependency> filter(List<Dependency> dependencies,
-            FilterContext filterContext) {
+            VaadinService service) {
 
-        if (filterContext.getService().getDeploymentConfiguration()
+        if (service.getDeploymentConfiguration()
                 .isProductionMode()) {
             dependencies.clear();
             dependencies.add(new Dependency(Dependency.Type.HTML_IMPORT,
