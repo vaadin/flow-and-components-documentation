@@ -108,13 +108,15 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 == Creating UI in TypeScript
 * <<typescript/quick-start-guide#, Quick Start Guide>>
 * <<typescript/upgrading-from-vaadin14#, Upgrading from Vaadin 14>>
-* <<typescript/client-side-bootstrapping#, Client-side Bootstrapping>>
-* <<typescript/client-side-routing#, Client-side Routing>>
-* <<typescript/intro-to-typescript-in-v15#, Intro to TypeScript in Vaadin 15>>
-* <<typescript/how-to-create-api-endpoint#, How to Create an API Endpoint>>
-* <<typescript/how-to-access-backend-from-typescript#, How to Access the Backend from TypeScript>>
-* <<typescript/client-side-security#, Security in client-side>>
-* <<typescript/configure-spring-authentication#, Adding a Login Form with Spring Security>>
+* <<typescript/starting-the-app#, Starting the Application in TypeScript>>
+* <<typescript/creating-routes#, Creating Routes in TypeScript>>
+* <<typescript/creating-views-and-layouts#, Creating Views and Layouts in TypeScript>>
+* <<typescript/accessing-backend#, Accessing Java Backend in TypeScript>>
+* <<typescript/configuring-security#, Configuring Security for TypeScript Views>>
+* <<typescript/adding-login-form-with-spring-security#, Adding a Login Form with Spring Security>>
+* <<typescript/intro-to-typescript-in-v15#, Appendix: Intro to TypeScript in Vaadin 15>>
+* <<typescript/type-conversion#, Appendix: Type Conversion between Java and TypeScript>>
+* <<typescript/typescript-services-generator#, Appendix: TypeScript Services Generator>>
 
 == Using Vaadin with Spring
 * <<spring/tutorial-spring-basic#,Use Vaadin with Spring>>

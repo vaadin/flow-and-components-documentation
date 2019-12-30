@@ -1,6 +1,6 @@
 ---
 title: Upgrading from Vaadin 14
-order: 15
+order: 20
 layout: page
 ---
 
@@ -68,7 +68,7 @@ Edit the `pom.xml` file and change the versions of the Vaadin platform dependenc
 
 [NOTE]
 Vaadin 15 includes several breaking API changes, mainly related to application bootstrapping and the bootstrap page configuration.
-If you see Java deprecation warnings during the build, check the <<client-side-bootstrapping#migrating-from-vaadin-10-14,Migration>> section in the *Client-side bootstrapping page*.
+If you see Java deprecation warnings during the build, check the <<starting-the-app#migrating-from-vaadin-10-14,Migration>> section in the *Client-side bootstrapping page*.
 
 
 == Step 1b - Update Spring (for Spring-based projects) [[step-1b]]
@@ -91,7 +91,7 @@ If your application uses an older version of Spring, please update it to a compa
 == Step 2 - Create `frontend/index.html` and `frontend/index.ts` [[step-2]]
 
 [NOTE]
-These files are necessary only if you want to add <<client-side-routing#,TypeScript views>> to the app (new in Vaadin 15).
+These files are necessary only if you want to add <<creating-routes#,TypeScript views>> to the app (new in Vaadin 15).
 If you do not plan adding any TypeScript views, migration from Vaadin 14 to Vaadin 15 is done at this point.
 
 You can create the `frontend/index.html` and `frontend/index.ts` files from scratch, but an easier way is to let Vaadin to generate them.
