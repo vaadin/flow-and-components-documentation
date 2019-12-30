@@ -1,0 +1,13 @@
+---
+title: Creating Views and Layouts in TypeScript
+order: 50
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= Creating Views and Layouts in TypeScript
+
+TBD
+
+Next step: <<accessing-backend#,Accessing Java Backend in TypeScript>>.

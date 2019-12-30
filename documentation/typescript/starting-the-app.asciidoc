@@ -1,12 +1,12 @@
 ---
-title: Client-side Bootstrapping
-order: 20
+title: Starting the Application in TypeScript
+order: 30
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Client-side Bootstrapping
+= Starting the Application in TypeScript
 
 Client-side bootstrapping allows creating parts of the application UI in TypeScript.
 It also allows starting an app without creating a connected server-side <<../introduction/introduction-overview#,`UI`>> instance, which means applications can be stateless.
@@ -114,7 +114,7 @@ const routes = [
   // Send all routes to  server-side.
   // If you have client-side views add them above this line.
   // For more info, please check out the 'Client-side Routing'
-  // page in `https://vaadin.com/docs/v15/flow/typescript/client-side-routing.html`
+  // page in `https://vaadin.com/docs/v15/flow/typescript/creating-routes.html`
   ...serverSideRoutes
 ];
 
@@ -199,7 +199,7 @@ The reason for this API change is that with client-side bootstrapping the initia
 
  - In Vaadin 10 to 14 these two steps are combined and the `index.html` page includes the code and configuration needed to start the Flow client engine and link the browser page to the server-side `UI` instance.
 
- - In Vaadin 15+ with client-side bootstrapping the `index.html` page includes only the basic HTML markup and links to the TypeScript UI code. When using <<client-side-routing#,client-side routing>>, the Flow client and a server-side `UI` instance are loaded and created later if (and when) the user navigates to a route that does not have a client-side implementation.
+ - In Vaadin 15+ with client-side bootstrapping the `index.html` page includes only the basic HTML markup and links to the TypeScript UI code. When <<creating-routes#,adding routes in TypeScript>>, the Flow client and a server-side `UI` instance are loaded and created later if (and when) the user navigates to a route that does not have a client-side implementation.
 
 === Compatibility Mode
 

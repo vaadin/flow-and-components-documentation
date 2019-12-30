@@ -22,8 +22,8 @@ import com.vaadin.flow.server.communication.IndexHtmlRequestListener;
 import com.vaadin.flow.server.communication.IndexHtmlResponse;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("typescript/client-side-bootstrapping.asciidoc")
-public class ClientSideBootstrapPage {
+@CodeFor("typescript/starting-the-app.asciidoc")
+public class StartingTheApp {
     public class MyIndexHtmlRequestListener implements
             IndexHtmlRequestListener {
 

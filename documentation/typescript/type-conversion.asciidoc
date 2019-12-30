@@ -1,10 +1,10 @@
 ---
-title: Type Conversion Between Java and TypeScript
-order: 72
+title: "Appendix: Type Conversion between Java and TypeScript"
+order: 110
 layout: page
 ---
 
-= Type Conversion Between Java and TypeScript
+= Appendix: Type Conversion between Java and TypeScript
 
 == TypeScript to Java [[from-ts-to-java]]
 

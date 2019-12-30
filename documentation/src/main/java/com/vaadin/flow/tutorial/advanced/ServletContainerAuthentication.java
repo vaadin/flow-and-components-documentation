@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.vaadin.flow.tutorial.typescript;
+package com.vaadin.flow.tutorial.advanced;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -32,8 +32,8 @@ import javax.servlet.http.HttpServletRequestWrapper;
 
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("typescript/configure-server-authentication.asciidoc")
-public class ConfigureServerAuthentication {
+@CodeFor("advanced/tutorial-servlet-container-authentication.asciidoc")
+public class ServletContainerAuthentication {
 
     public class CustomPrincipal implements Principal {
         private final String name;
