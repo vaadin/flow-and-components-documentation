@@ -63,8 +63,8 @@ of `Binder` and `DataProvider`.
 These same concepts are used in the platform and the API is mostly the same.
 
 In Vaadin platform, building UIs is still the same. By using ready-made components to make beautiful apps and it is super
-easy by using high-level type-safe Java APIs. But now the components have been redesigned to provide better end-user experience,
-but at the same time the initial set of components is smaller than in V8.§
+easy by using high-level type-safe Java APIs. Now the components have been redesigned to provide better end-user experience,
+but at the same time the initial set of components is smaller than in V8.
 More components will be added later on. Creating your own components is a lot easier than before.
 
 The following is the list of things that have changed, which does not list all the new features of Vaadin platform, but the differences with V8:
