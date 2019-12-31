@@ -1,12 +1,12 @@
 ---
-title: Client-side Routing
-order: 30
+title: Creating Routes in TypeScript
+order: 40
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Client-side Routing
+= Creating Routes in TypeScript
 
 Client-side routing allows combining client-side views created in TypeScript with server-side views created in Java using the <<../routing/tutorial-routing-annotation#,`@Route`>> annotation.
 
@@ -16,7 +16,7 @@ This is one of the building blocks that enable navigating between views when off
 This feature is experimental and it *will change* before the next Long-Term-Supported Vaadin version.
 If you have an idea how to make it more useful for you, please share it on link:https://github.com/vaadin/flow/issues/new/[GitHub^].
 
-Client-side routing is based on using link:https://vaadin.com/router[Vaadin Router^] in a  <<client-side-bootstrapping#,client-side bootstrapped>> app.
+Client-side routing is based on using link:https://vaadin.com/router[Vaadin Router^] and <<starting-the-app#,starting the app in TypeScript>>.
 Client-side routes are explicitly listed in the routing config, and server-side routes are added there through the `serverSideRoutes` Flow TypeScript API.
 
 The following snippet--explained further on this page--shows how to combine client and server views so that the server-side is invoked when no client-side routes match.

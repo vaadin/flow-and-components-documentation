@@ -20,8 +20,8 @@ import com.vaadin.flow.router.BeforeLeaveEvent;
 import com.vaadin.flow.router.BeforeLeaveObserver;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("typescript/client-side-routing.asciidoc")
-public class ClientSideRoutingPage {
+@CodeFor("typescript/creating-routes.asciidoc")
+public class CreatingRoutes {
     public class MyView extends Div implements BeforeLeaveObserver {
         @Override
         public void beforeLeave(BeforeLeaveEvent event) {

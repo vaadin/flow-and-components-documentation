@@ -1,12 +1,12 @@
 ---
-title: How to Create an API Endpoint
-order: 50
+title: Accessing Java Backend in TypeScript
+order: 60
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= How to Create an API Endpoint
+= Accessing Java Backend in TypeScript
 
 An API endpoint is a backend method that is exposed for calling from client-side
 TypeScript code.
@@ -49,7 +49,7 @@ to be able to process the requests made to such services.
 
 [IMPORTANT]
 ====
-At the moment, all API endpoints are secured and only available for authenticated users. Pease refer to the <<client-side-security#, Security page>> for configuring access to each service.'
+At the moment, all API endpoints are secured and only available for authenticated users. Pease refer to the <<configuring-security#, Security page>> for configuring access to each service.'
 ====
 
 Any public method in any Vaadin service can be accessed with the following url:
@@ -97,7 +97,79 @@ the `@VaadinService` annotation to override default one:
 `@VaadinService("customName")`. In this case, the `customName` value will be
 used as a `${service_name}` to accept incoming requests, also case-insensitive.
 
-== Next steps
+== Import and use generated TypeScript modules
 
-- <<how-to-access-backend-from-typescript#,How to Access Backend from
-TypeScript>>
+There is a generated TypeScript module for every Vaadin service on the backend.
+Each module exports all the methods.
+
+You can either import the whole generated module as a service, or import the
+methods from the module separately. For instance, the
+`CounterService.ts` could be used as in the following snippets:
+
+.index.ts (import the whole module)
+[[index.ts]]
+[source,typescript]
+----
+// Other imports
+import * as counterService from './generated/CounterService';
+
+// Other code
+counterService.addOne(1).then(result => console.log(result));
+----
+
+.index.ts (only import the needed method)
+[source,typescript]
+----
+// Other imports
+import {addOne} from './generated/CounterService';
+
+// Other code
+addOne(1).then(result => console.log(result));
+----
+
+== TypeScript generation details
+
+The generation is done automatically when the application compiles, and when
+the application is running in development mode.
+
+By default, the generated files are located under `{project
+directory}/frontend/generated`. You can change the folder by providing the path
+for the generator in the `generatedFrontendDirectory` property for Vaadin Maven
+plugin.
+
+== Example generated TypeScript module contents
+
+For example, the generated TypeScript module for the Java service defined in
+ <<accessing-backend#how-to-create-vaadin-service,CounterService.java>> would look like:
+
+[source,typescript]
+.CounterService.ts
+----
+/**
+ * A Vaadin Connect service that counts numbers.
+ *
+ * This module has been generated from CounterService.java
+ * @module CounterService
+ */
+
+import client from './connect-client.default';
+
+/**
+ * A method that adds one to the argument.
+ *
+ * @param number
+ */
+export function addOne(number: number): Promise<number> {
+  return client.call('CounterService', 'addOne', {number}, {requireCredentials: true});
+}
+----
+
+== Code-completion
+
+As you see in `CounterService.ts`, the Javadoc of `@VaadinService` class
+is preserved the generated TypeScript file, and the type definitions are
+maintained. This helps code-completion work pretty well in *Visual Studio Code*
+and *Intellij IDEA Ultimate Edition*.
+
+.Code-completion in Visual Studio Code
+image:codecompletion.gif[Code-completion]

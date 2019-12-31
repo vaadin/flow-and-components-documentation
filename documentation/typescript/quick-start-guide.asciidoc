@@ -81,6 +81,6 @@ export class AppHelp extends LitElement {
 ----
 
 
-== Step 4 - Access the backend from the new TypeScript view [[step-4]]
+== Step 4 - Access the back-end from the new TypeScript view [[step-4]]
 
-Continue with the <<how-to-access-backend-from-typescript#, 'How to Access the Backend from TypeScript'>> guide for consuming server-side services.
+Continue with the <<accessing-backend#, Accessing back-end from TypeScript>> page for more details on how to consume server-side services.
