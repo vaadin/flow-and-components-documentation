@@ -563,8 +563,7 @@ code. For example in V10-V13 to add a PNG file from
 [source, java]
 ----
 String resolvedImage = VaadinServletService.getCurrent()
-    .resolveResource("frontend://img/logo.png",
-    VaadinSession.getCurrent().getBrowser());
+    .resolveResource("frontend://img/logo.png");
 
 Image image = new Image(resolvedImage, "");
 ----
@@ -574,8 +573,7 @@ In V14, the above becomes:
 [source, java]
 ----
 String resolvedImage = VaadinServletService.getCurrent()
-    .resolveResource("img/logo.png",
-    VaadinSession.getCurrent().getBrowser());
+    .resolveResource("img/logo.png");
 
 Image image = new Image(resolvedImage, "");
 ----
