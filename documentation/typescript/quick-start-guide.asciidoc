@@ -26,7 +26,7 @@ image:starterwizard.gif[New Project Video]
 Make sure to select `TypeScript` implementation when adding views.
 
 
-== Step 2 - Unzip an run the project in Dev-Mode [[step-2]]
+== Step 2 - Unzip and run the project in Dev-Mode [[step-2]]
 
 Run `mvn spring-boot:run` in the console and open the application at link:http://localhost:8080[]. After that, all modifications in `frontend` directory are compiled and reloaded automatically. Refreshing browser is enough to get the updates.
 
