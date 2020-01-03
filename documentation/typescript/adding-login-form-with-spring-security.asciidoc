@@ -176,11 +176,6 @@ export class MainLayoutElement extends LitElement {
 }
 ----
 
-== Handling Authentication errors in Client
-
-When consuming services it 
-
-
 == Appendix: Production Data Sources
 
 The example using users in memory above is valid for test applications, though, Spring Security offers other implementations for production scenarios.
