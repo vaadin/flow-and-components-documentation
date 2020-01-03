@@ -10,8 +10,6 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 When developing server-side views, service access control is done by using regular java approaches: servlet-container based security, third party libraries, or session based solutions.
 
-On the other hand, client-side views do not have any sort of security, hence, it is necessary to secure the endpoint services that they access.
-
 This article describes all the pieces needed for securing client centric applications.
 
 == How to secure server-side endpoints
