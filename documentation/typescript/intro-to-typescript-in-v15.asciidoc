@@ -159,7 +159,7 @@ Now `my-view` is accessible via the root path, i.e. `http://localhost:8080/`. Al
 
 = Hot-reload in development mode
 
-When running the application in development mode, all modifications in `frontend` folder are compiled and reloaded automatically. Refreshing browser is enough to get the updates.
+When running the application in development mode, all modifications in `frontend` folder are compiled automatically. Refreshing browser is enough to get the updates.
 
 NOTE: There is an exceptional case when adding `index.ts` or `index.html` for the first time. The application server needs to be restarted to update the entry point and the bootstrap template.
 
