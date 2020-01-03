@@ -18,7 +18,7 @@ In order to write the app bootstrapping code, or create views in TypeScript make
 
  - <<starting-the-app#,client-side bootstrapping>> is enabled.
 
- - and the `index.html` page template and the `index.ts` entry point do exist in the `frontend/` folder.
+ - and the `index.html` page template and the `index.ts` entry point do exist in the `frontend/` folder. If they don't, follow the <<upgrading-from-vaadin14#step-2,instruction>> to create them.
 
 After that any `.ts` file imported from `index.ts` (statically or dynamically) is going to be built as a part of the application.
 
