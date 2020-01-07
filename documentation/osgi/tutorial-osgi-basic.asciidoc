@@ -129,6 +129,13 @@ public class VaadinServletRegistration {
 
             getService().setClassLoader(getClass().getClassLoader());
         }
+        
+		@Override
+		protected DeploymentConfiguration createDeploymentConfiguration(Properties initParameters) {
+			// npm mode is not currently supported
+			initParameters.setProperty("compatibilityMode", "true");
+			return super.createDeploymentConfiguration(initParameters);
+		}        
     }
 
     @Activate
