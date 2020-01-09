@@ -56,7 +56,7 @@ public class DataBeanImpl implements DataBean {
 You should be aware of the difference between running the application as a Spring Boot 
 application and a WAR application deployed to a Web server. In the latter case 
 all `@Route` annotations are discovered out of the box due to Servlet 3.0 specification. 
-It doesn't happen automatically in the Spring Boot application case due a design decision  
+It doesn't happen automatically in the Spring Boot application case due to a design decision  
 (see https://github.com/spring-projects/spring-boot/issues/321).
 Vaadin Spring add-on implements scanning for route classes (and other Vaadin
 types that needs to be discovered and registered at startup) for Spring Boot applications for you.
