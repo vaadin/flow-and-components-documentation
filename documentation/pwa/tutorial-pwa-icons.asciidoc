@@ -6,32 +6,32 @@ layout: page
 
 = Application Icons
 
-Icons are needed to give fav-icon for browser page, icon for device for installed apps and
-also to create splash screen for installed applications. By default, Flow will
-use a default icon and serve an it automatically.
+Icons are needed to give a fav-icon for the browser page, an icon on the device for installed applications and
+to create a splash screen for the application. By default, Flow will
+use a default icon and serve it automatically.
 
 == Using a custom icon
 
-To customize the application images, copy your image to the following location
+To customize the application images, copy your image to the following location:
 ```
 src/main/webapp/icons/icon.png
 ```
 
 Flow will automatically scan for an *icon.png* icon file from the */icons* folder
-inside the webapp resources folder. The icon should be in png format. Flow will
-automatically create different sizes of images from the given image for different
-devices. If no icon is found, then Flow will fall back to default image.
+inside the webapp resources folder. The icon should be in .png format. Flow will then
+automatically create different sized images from the given image for different
+devices. If no icon is found, then Flow will fall back to the default image.
 
-Given image is resized to different sizes for different use cases, so use image
-with size of at least 512x512. The icon will be automatically resized - only
-downscaling the image, that's the reason to give big enough image - to different
-sizes, using top-left -pixel as background color if needed.
+The given image is resized to different sizes for different use cases, so use an image
+with the size of at least 512x512. The icon will be automatically resized - only
+downscaling the image, which is the reason to give an image that's big enough - to different
+sizes, using the top-left -pixel as background color if required.
 
 == Overriding the generated icons
 
-All the generated images are named with as "*icons/icon-[width]x[height].png*".
+All the generated images are named as "*icons/icon-[width]x[height].png*".
 
-To override generated image place image named as created one to web application
+To override the generated image, place an image with the same name as the created one to the web application
 resources folder.
 
 For example, for getting a custom splash screen for hi-res iOS devices,
@@ -42,17 +42,17 @@ src/main/webapp/icons/icons/icon-1125x2436.png
 
 == Renaming the icons
 
-To change the used icon path give custom path in `@PWA` -annotation property *iconPath*.
+To change the used icon path, give a custom path in the `@PWA` -annotation property *iconPath*.
 
-Example
+Example:
 ```
 @PWA(name = "My Progressive Web Application", shortname = "MyPWA", iconPath = "img/icons/logo.png")
 ```
 
-Then place the icon to
+Then place the icon to:
 ```
 src/main/webapp/img/icons/logo.png
 ```
 
-Now all icons will be named using value in *iconPath*, so 512x512 sized icon
+Now all icons will be named using the value in *iconPath*, so a 512x512 sized icon
 would be "*img/icons/logo-512x512.png*".
