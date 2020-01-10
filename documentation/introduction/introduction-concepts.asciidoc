@@ -15,19 +15,19 @@ We feel that developers should be able to forget the framework they run on, so t
 For rapid application development, Vaadin offers:
 
 * Customizable project templates in link:https://vaadin.com/start/latest[Get Started with Vaadin]
-* Downloadable application examples
+* link:https://vaadin.com/start/latest[Downloadable application examples]
 * Maven archetypes
-* Eclipse plugin for rapid project creation
-* Vaadin Designer for interactive UI designing
+* https://vaadin.com/eclipse[Eclipse plugin] for rapid project creation
+* https://vaadin.com/designer[Vaadin Designer] for interactive UI designing
 
 == Everything is a Component
 
 Vaadin uses a component-based programming model to build UIs.
 Reusable components are the cornerstone of Vaadin.
-Everything in the UI is a component on the server-side.
-To have a button, you create a [classname]#Button# object.
-To have a text input field, you create a [classname]#TextField# object.
-You can build your own components and views by combining existing components and layouts, or by connecting a server-side component to a web component.
+Everything in the UI is a component.
+To have a button, you create a button component.
+To have a text input field, you create a [classname]#TextField# component.
+You can build your own components and views by combining existing components and layouts, or by creating creating a new web component and connecting it with a server-side counterpart.
 
 Each server-side component is connected to web components and HTML elements on the client-side.
 
@@ -48,7 +48,7 @@ To make it an application, we map the view to an empty route with the `@Route(""
 To make the applications interactive, Vaadin provides an event-driven programming model.
 User interaction causes events, which are handled by event listeners.
 
-For example, you can handle button clicks by adding a click listener with [methodname]#addClickListener()#, typically as a lambda expression:
+In Java code, you can handle button clicks by adding a click listener with [methodname]#addClickListener()#, typically as a lambda expression:
 
 [source, java]
 ----
@@ -58,10 +58,19 @@ button.addClickListener(event ->
   button.setCaption("You pushed me!"));
 ----
 
-The event and listener classes are illustrated in <<figure.introduction.concepts.events>>.
+In JavaScript code, you add an event listener to the element:
+
+[source, javascript]
+----
+const button = new customElements.get('vaadin-button');
+button.textContent = 'Push me!';
+button.addEventListener('click', event => button.textContent = 'You pushed me!');
+----
+
+The server-side event and listener classes are illustrated in <<figure.introduction.concepts.events>>.
 
 [[figure.introduction.concepts.events]]
-.Class diagram of component event handling
+.Class diagram of server-side component event handling
 image:images/events-classdiagram.png[width=80%]
 
 == Flexible and Powerful Data Binding
@@ -71,8 +80,8 @@ All Vaadin components have a clear and unified data binding API to help develope
 == Key Technologies
 
 Cascading Stylesheets (CSS)::
-  Vaadin application are styled using cascading stylesheets (CSS).
-  Styling is done in an application _theme_.
+  Vaadin applications are styled using cascading style sheets (CSS).
+  Styling begins with a built-in _theme_, which can be modified and refined with application-specific style sheets.
 +
 See <<../theme/theming-overview#, Theming Applications with CSS>>.
 

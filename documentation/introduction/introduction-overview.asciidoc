@@ -3,6 +3,7 @@ title: Overview
 order: 1
 layout: page
 ---
+
 = Overview
 
 This chapter provides an overview of the Vaadin architecture and introduces the key concepts in the framework.
@@ -13,14 +14,14 @@ Vaadin is a user interface framework to create web apps on top of a Java backend
 Using Vaadin, you can quickly create a modern and robust web application.
 Vaadin allows you to combine the power of Java with the capability of web browsers to create a truly class-leading user and developer experience.
 
-Vaadin consists of a large set of premade UI components and widgets that you can combine and extend in any way you like.
+Vaadin consists of a large set of premade UI components, also called widgets or controls, that you can combine and extend in any way you like.
 Vaadin also provides full DOM access, even from the server.
 The flexibility extends to the programming stack; choose to write the UI in Java, TypeScript, JavaScript, or any mix of them.
-The same features are available regardless of the language you use.
+The same features are mostly available regardless of the language you use.
 
-All components are pre-tested and work in all modern browsers.
-This allows you to spend your development time on your application, not testing with umpteen different browsers and operating systems.
-When you do want to create tests, Vaadin has got you covered with purpose-built tools.
+All components are pre-tested and work in all modern browsers (see <<introduction-compatibility#,Compatibility and Versioning>> or the release notes).
+This allows you to spend your development time on your application, not testing with a large combination of different devices, browsers, and operating systems.
+When you do want to create tests, Vaadin has got you covered with a purpose-built tool, https://vaadin.com/testbench[Vaadin TestBench].
 
 Vaadin applications are often data-intensive; indeed, data is what we designed the framework around.
 Whether it is automatic server-client communication, lazy-loading millions of database rows, or building big, complex forms quickly, Vaadin has the necessary tools.
@@ -30,7 +31,7 @@ TIP: Watch the https://vaadin.com/training/course/view/v10-intro[Vaadin 10+: Int
 
 == Vaadin Application Architecture
 
-Working with front-end web technologies, such as HTML, CSS and JavaScript, can be challenging and time-consuming for Java developers. In Vaadin, all UI elements are componentized into https://www.webcomponents.org/[Web Components]. This makes development easier than ever before, because each element is decoupled and sandboxed.
+Working with front-end web technologies, such as HTML, CSS and JavaScript, can be challenging and time-consuming for Java developers. In Vaadin, all UI elements are componentized into https://developer.mozilla.org/en-US/docs/Web/Web_Components[Web Components]. This makes development easier than ever before, because each element is decoupled and sandboxed.
 
 Vaadin includes:
 
@@ -43,7 +44,7 @@ Vaadin includes:
 ** Lets you choose either basic HTTP(S) or WebSocket communication protocol for building real-time applications.
 * Two-way data binding: when the UI changes on either the client or the server, the changes automatically reflect on the other side.
 
-image:images/v10-architecture.svg[Vaadin 10 Architecture,1200,430]
+image:images/architecture.svg[Vaadin 10 Architecture,1200,430]
 
 Vaadin allows you to access browser APIs, Web Components, and even simple DOM elements, directly from the server-side Java. It is not necessary to understand how the client-to-server communication or Web Components work. This leaves you free to focus on creating components that work at a higher-abstraction level.
 
