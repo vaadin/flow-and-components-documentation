@@ -8,16 +8,13 @@ layout: page
 
 During application development the code changes happen frequently. There are multiple tools 
 available which speed up the development process and avoid having to manually 
-restart the application every time after a change.
+restart the application every time after a change. IDEs have integrations to servlet containers that automatically reload the servlet context, in debug mode compatiblec class changes can be hotswapped to a running application and many server Maven plugins and detect new changes.
 
 Here is a list of some of these tools:
 - https://www.eclipse.org/jetty/documentation/9.4.x/jetty-maven-plugin.html[The Jetty Maven plugin] 
 with the `scanIntervalSeconds` configuration enabled.
 - The commercial https://www.jrebel.com/[JRebel tool] may be used with any Java application including web applications
 - http://hotswapagent.org/[HostSwapAgent] also may be used with any Java applicaiton
-
-HostSwapAgent has issues with existing route target reloading and 
-we don't recommend it at the moment for this reason..
 
 == Java modifications that are applied automatically
 
@@ -34,7 +31,15 @@ JRebel tool only applies changes in the binaries, as a result:
 - it works faster
 - it doesn't handle properly newly added custom components 
 
-JRebel preserves the session.
+JRebel preserves the session, because server restart isn't required. With JRebel, you should disable automatic server or context reload by any Maven plugins or your IDE.
+
+=== HotSwapAgent
+
+Like JRebel, HotSwapAgent is a free tool that allows more complex class reloads than the default debug mode in JDK. Its Vaadin integration also makes it possible to introduce new routes without server restarts.  
+
+HotSwapAgent currently throws an exception about duplicate routes when reloading classes, but actual reload works. We suggest to use the custom JDK 11 approach as it is clearly the easiest one to make HotSwapAgent setup work. Note, that HotSwapAgent requires you to use debug mode by default to make class reloading chaing from you IDE work. Alternatively start the JVM with custom parameters as described in HotSwapAgent docs.
+
+With HotSwapAgent, you should disable automatic server or context reload by any Maven plugins or your IDE.
 
 == Frontend resources modifications
 
@@ -42,6 +47,7 @@ As noted in the previous section it's possible to add a new `PolymerTemplate` cl
 to an existing JS template module or add a new JS module (see <<../polymer-templates/tutorial-template-basic#,Creating A Simple Component Using the Template API>>).
 
 === Jetty Maven plugin with `scanInterval`
+
 The working scenarios are:
 - add a new CSS import (as a frontend resource and use it in Java via `@CssImport` annotation) 
 - add a new frontend JS module file (and use it with a Java class)
@@ -56,8 +62,7 @@ changes are monitored by `webpack-dev-server`. Changes in either are live-reload
 independently, meaning that changes to the annotations mapping JS templates or CSS 
 files to Java classes require a full server restart to keep the front-end and back-end consistent.
 
-== Changes that requires application restart
+== Classpath changes always require application restart
 
-All changes described above applied automatically only assuming you don't add
-new dependencies to the project. The modifications which rely anyhow on updated
-classpath dependencies requires the application restart.
+None of the above solutions can dynamically add or update classpath dependencies to your running application.
+Clean build and server restart is required if you add for example a new add-on to your pom.xml.
