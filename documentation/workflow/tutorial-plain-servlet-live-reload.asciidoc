@@ -1,10 +1,10 @@
 ---
-title: Live Reload in Web Applications
+title: Live Reload in Basic Servlet Containers
 order: 2
 layout: page
 ---
 
-= Live Reload in Web Applications
+= Live Reload in Basic Servlet Containers
 
 During application development the code changes happen frequently. There are multiple tools 
 available which speed up the development process and avoid having to manually 
