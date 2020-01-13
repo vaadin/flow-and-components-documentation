@@ -31,7 +31,7 @@ import com.vaadin.flow.shared.communication.PushMode;
 import com.vaadin.flow.shared.ui.Transport;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("typescript/creating-routes.asciidoc")
+@CodeFor("typescript/application-shell.asciidoc")
 public class ApplicationShell {
 
     @Viewport("width=device-width, initial-scale=1")
@@ -73,4 +73,31 @@ public class ApplicationShell {
                     .ifPresent(dialog -> dialog.setDialogModal(true));
         }
     }
+
+    public class MyIndexHtmlRequestListener implements
+            IndexHtmlRequestListener {
+
+        @Override
+        public void modifyIndexHtmlResponse(
+                IndexHtmlResponse indexHtmlResponse) {
+            Document document = indexHtmlResponse.getDocument();
+
+            Element head = document.head();
+
+            head.appendChild(createMeta(document, "og:title", "The Rock"));
+            head.appendChild(createMeta(document, "og:type", "video.movie"));
+            head.appendChild(createMeta(document, "og:url",
+                    "http://www.imdb.com/title/tt0117500/"));
+            head.appendChild(createMeta(document, "og:image",
+                    "http://ia.media-imdb.com/images/rock.jpg"));
+        }
+
+        private Element createMeta(Document document, String property,
+                String content) {
+            Element meta = document.createElement("meta");
+            meta.attr("property", property);
+            meta.attr("content", content);
+            return meta;
+        }
+    }    
 }

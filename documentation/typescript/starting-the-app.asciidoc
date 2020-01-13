@@ -156,40 +156,7 @@ The default config looks similar to the following:
 
 == Modifying the Bootstrap Page at the Runtime
 
-Before sending the bootstrap page response to the browser, the content can be modified via an `IndexHtmlRequestListener`. An implementation of the listener should be added via a `ServiceInitEvent` when a `VaadinService` is initialized. Check the <<../advanced/tutorial-service-init-listener#,ServiceInitListener tutorial>> for the details about using Vaadin `ServiceInitListeners`.
-
-The example below shows how to use the `IndexHtmlRequestListener` API to add custom HTML meta tags dynamically for each page request:
-
-[source,java]
-----
-public class MyIndexHtmlRequestListener implements
-            IndexHtmlRequestListener {
-
-    @Override
-    public void modifyIndexHtmlResponse(
-            IndexHtmlResponse indexHtmlResponse) {
-        Document document = indexHtmlResponse.getDocument();
-
-        Element head = document.head();
-
-        head.appendChild(createMeta(document, "og:title", "The Rock"));
-        head.appendChild(createMeta(document, "og:type", "video.movie"));
-        head.appendChild(createMeta(document, "og:url",
-                "http://www.imdb.com/title/tt0117500/"));
-        head.appendChild(createMeta(document, "og:image",
-                "http://ia.media-imdb.com/images/rock.jpg"));
-    }
-
-    private Element createMeta(Document document, String property,
-            String content) {
-        Element meta = document.createElement("meta");
-        meta.attr("property", property);
-        meta.attr("content", content);
-        return meta;
-    }
-}
-----
-
+Before sending the bootstrap page response to the browser, the content can be modified as described in the <<application-shell#,Application Shell>> tutorial.
 
 == Migrating from Vaadin 10-14 [[migrating-from-vaadin-10-14]]
 

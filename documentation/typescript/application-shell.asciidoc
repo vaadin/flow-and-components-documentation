@@ -1,6 +1,6 @@
 ---
 title: Application Shell Configurator
-order: 30
+order: 35
 layout: page
 ---
 
@@ -8,20 +8,27 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Application Shell
 
-The `AppShellConfigurator` is a Java interface introduced in Vaadin 15 for configuring the `index.html` page delivered to the browser. 
-
-In Vaadin 15+ the user has full control on the `index.html` contents, which can by modified by either: in client-side by editing the `frontend/index.html`, or in server-side by implementing the `AppShellConfigurator`.
-
-== Abstract
+=== Abstract
 
 The link:https://developers.google.com/web/fundamentals/architecture/app-shell[App Shell Model] tries to make your website faster by loading the 'important' parts of the web page at first causing a good first impression. The key for this, is to deliver the minimal HTML, CSS and JavaScript required to display the user interface during the first visit, and eventually cache it to be used in future revisits.
 
-== The `index.html`
+=== Modifying the Bootstrap Page
 
-By default, during the first hit, Vaadin parses the `frontend/index.html` template file and delivers its content with few modifications as described in the <<starting-the-app#default-bootstrap-template-and-entry-point,Default Bootstrap Template>>
+In Vaadin 15+ the user has full control on the `index.html` contents, which can by modified in different ways: 
+
+1. In client-side by editing the `frontend/index.html`
+2. In server-side 
+   - by implementing the `AppShellConfigurator`.
+   - by adding an `IndexHtmlRequestListener`.
+
+== Bootstrap Customization in the Template
+
+By default, during the first request, Vaadin parses the `frontend/index.html` template file and delivers it with a few modifications as described in the <<starting-the-app#default-bootstrap-template-and-entry-point,Default Bootstrap Template>>
 
 
-== The `AppShellConfigurator` interface [[application-shell-configurator]]
+== Bootstrap Customization during Runtime
+
+=== The `AppShellConfigurator` interface [[application-shell-configurator]]
 
 In Java code, use the `AppShellConfigurator` marker interface rather than editing the `index.html` file for dynamic changes during the bootstrap process.
 
@@ -29,9 +36,11 @@ In Java code, use the `AppShellConfigurator` marker interface rather than editin
 There must be a single application shell for the entire Vaadin application, and therefore there can be at max one class implementing `AppShellConfigurator`.
 
 [NOTE]
-`AppShellConfigurator` replace the obsolete `PageConfigurator` interface.
+`AppShellConfigurator` is a replacement of the obsolete `PageConfigurator` interface.
 
-The `AppShellConfigurator#configurePage` method should be overridden for adding content to the `index.html` template by calling the following `AppShellSettings` methods:
+==== The `AppShellConfigurator#configurePage` method
+
+Override `configurePage` for adding content to the `index.html` template by calling the following `AppShellSettings` methods:
 
 - `AppShellSettings#setViewport` to set the viewport value, it replaces the viewport present in the `index.html` template.
 - `AppShellSettings#setPageTitle` to set the initial page title, replaces the template title tag.
@@ -78,7 +87,7 @@ public class AppShell implements AppShellConfigurator {
 }
 ----
 
-== Java annotations
+==== Java annotations
 
 Vaadin provide a set annotations for modifying the bootstrap page, though, unlike in previous versions, in Vaadin 15 these annotations must be placed in the application shell class.
 
@@ -111,3 +120,39 @@ Modifications in the  `AppShellConfigurator#configurePage` do have priority over
 
 [NOTE]
 Annotations do not cover all the cases that can be done when overridding the `AppShellConfigurator#configurePage` method
+
+=== The `IndexHtmlRequestListener` interface
+
+In addition, before sending the bootstrap page response to the browser, the content can be modified via an `IndexHtmlRequestListener`. An implementation of the listener should be added via a `ServiceInitEvent` when a `VaadinService` is initialized. Check the <<../advanced/tutorial-service-init-listener#,ServiceInitListener tutorial>> for the details about using Vaadin `ServiceInitListeners`.
+
+The example below shows how to use the `IndexHtmlRequestListener` API to add custom HTML meta tags dynamically for each page request:
+
+[source,java]
+----
+public class MyIndexHtmlRequestListener implements
+            IndexHtmlRequestListener {
+
+    @Override
+    public void modifyIndexHtmlResponse(
+            IndexHtmlResponse indexHtmlResponse) {
+        Document document = indexHtmlResponse.getDocument();
+
+        Element head = document.head();
+
+        head.appendChild(createMeta(document, "og:title", "The Rock"));
+        head.appendChild(createMeta(document, "og:type", "video.movie"));
+        head.appendChild(createMeta(document, "og:url",
+                "http://www.imdb.com/title/tt0117500/"));
+        head.appendChild(createMeta(document, "og:image",
+                "http://ia.media-imdb.com/images/rock.jpg"));
+    }
+
+    private Element createMeta(Document document, String property,
+            String content) {
+        Element meta = document.createElement("meta");
+        meta.attr("property", property);
+        meta.attr("content", content);
+        return meta;
+    }
+}
+----
