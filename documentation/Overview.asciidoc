@@ -54,7 +54,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 
 == Importing HTML, JavaScript and CSS files
 * <<importing-dependencies/tutorial-include-css#,Including Style Sheets>>
-* <<importing-dependencies/tutorial-importing#,Importing html/javascript>>
+* <<importing-dependencies/tutorial-importing#,Importing javascript>>
 * <<importing-dependencies/tutorial-ways-of-importing#,Ways of importing the dependencies>>
 
 == Theming Applications

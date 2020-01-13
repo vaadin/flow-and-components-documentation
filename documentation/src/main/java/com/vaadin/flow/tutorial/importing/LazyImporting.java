@@ -18,7 +18,10 @@ package com.vaadin.flow.tutorial.importing;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.dependency.*;
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.dependency.JavaScript;
+import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.shared.ui.LoadMode;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
@@ -28,9 +31,6 @@ public class LazyImporting {
 
     //@formatter:off - custom line wrapping
     @Tag("div")
-// same as @HtmlImport("/html/layout.html",
-//                     loadMode = LoadMode.EAGER)
-    @HtmlImport("/html/layout.html")
     @StyleSheet(value = "/css/big_style_file.css",
             loadMode = LoadMode.INLINE)
     @JavaScript(value = "/js/animation.js",
@@ -39,8 +39,6 @@ public class LazyImporting {
         // implementation omitted
 
         public MainLayout() {
-            UI.getCurrent().getPage().addHtmlImport(
-                    "/html/layout.html", LoadMode.EAGER);
             UI.getCurrent().getPage().addStyleSheet(
                     "/css/big_style_file.css", LoadMode.INLINE);
             UI.getCurrent().getPage().addJavaScript(
@@ -57,6 +55,5 @@ public class LazyImporting {
     @CssImport("2.css")
     static class OrderedDependencies extends Div {
     }
-
 
 }
