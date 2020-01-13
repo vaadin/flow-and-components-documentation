@@ -12,7 +12,7 @@ In this section, we go through how the development tools work together.
 
 [[figure.toolchain]]
 .Development Toolchain and Process
-image::images/toolchain.svg[width=80%, scaledwidth=100%]
+image:images/toolchain.svg[width=80%, scaledwidth=100%]
 
 You normally develop your Vaadin application as a Maven project using an IDE.
 An optional IDE plugin can help in creating and managing the project.

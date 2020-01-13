@@ -55,7 +55,7 @@ In Java code, you can handle button clicks by adding a click listener with [meth
 Button button = new Button("Push me!");
 
 button.addClickListener(event ->
-  button.setCaption("You pushed me!"));
+  button.setText("You pushed me!"));
 ----
 
 In JavaScript code, you add an event listener to the element:

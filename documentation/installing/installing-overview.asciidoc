@@ -13,7 +13,7 @@ You can use Vaadin with any Java IDE or no IDE at all.
 Vaadin has special support for the Eclipse, NetBeans, and IntelliJ IDEA IDEs.
 
 .Vaadin installation steps
-image::images/installation-steps.svg[width=100%, scaledwidth=100%]
+image:images/installation-steps.svg[width=100%, scaledwidth=100%]
 
 == Required Tools
 
