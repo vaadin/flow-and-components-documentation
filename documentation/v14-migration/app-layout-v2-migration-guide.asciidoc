@@ -1,6 +1,6 @@
 ---
 title: App Layout 2 Migration Guide
-order: 3
+order: 2
 layout: page
 ---
 

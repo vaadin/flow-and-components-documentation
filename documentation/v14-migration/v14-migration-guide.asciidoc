@@ -7,13 +7,13 @@ layout: page
 = Vaadin 14 Migration Guide
 
 For existing Vaadin platform projects (versions 10-13), using most Vaadin 14 new features
-requires just updating the Vaadin version, adding a dependency for compatibility mode, and addressing any API changes in code, which can be backtracked
+requires just updating the Vaadin version and addressing any API changes in code, which can be backtracked
 from the https://github.com/vaadin/platform/releases[platform release notes].
 
-Vaadin 14 also introduces support for new frontend technologies and tools,
+Vaadin 14 introduces support for new frontend technologies and tools,
 which change the way the project is built and how frontend dependencies, like 
 web components, are integrated. This is the default starting point for new projects
-starting from Vaadin 14, and an optional migration to take for existing projects.
+starting from Vaadin 14.
 
 First, this document introduces the new technologies and tooling.
 Second, it gives an overview of the migration path from Platform V10-V13 to V14.
@@ -41,12 +41,6 @@ While Bower still works and is maintained, it is lacking support for the latest 
 To be able to bring all the latest frontend technologies available to the 
 Vaadin users, the frontend technology stack and tooling
 have been renewed in Vaadin 14.
-
-[NOTE]
-The old and the new toolset cannot be used at the same time!
-This means eg. `@HtmlImports` are completely ignored when running the project
-in _npm mode_, and vice versa `@JsModule` is ignored when running the project
-in _Vaadin 13 compatibility mode_.
 
 === Web Components: ES6 modules instead of HTML Imports
 
@@ -89,54 +83,11 @@ is as specified in this guide, these steps are fully automated by `vaadin-maven-
 While basic Vaadin usage requires no knowledge about webpack and how it works,
 for advanced users there is also a possibility to customize the webpack build.
 
-=== Compatibility mode
-
-Existing Vaadin 10-13 projects can update to 14 without migrating
-to the new toolset. The only thing that you need to do is to upgrade your Vaadin
-version to `14.0.0` in your `pom.xml`. No more changes are needed in your
-project. Behind the scenes, everything works just as before with using
-Bower & Webjars, Polymer 2 & Html Imports, and Polymer CLI for the production build.
-This is called _the compatibility mode_ in Vaadin 14.
-
-The compatibility mode is only intended to enable a smoother migration path, and should not
-be used in new projects. The compatibility mode is supported for the full Vaadin
-14 support period, but it will be removed permanently in Vaadin 15.
-
-Compatibility mode can be enabled explicitly by including the `flow-server-compatibility-mode`
-jar. If using Maven, add the following dependency to `pom.xml`:
-
-[source, xml]
-----
-<dependency>
-    <groupId>com.vaadin</groupId>
-    <artifactId>flow-server-compatibility-mode</artifactId>
-</dependency>
-----
-
-Alternatively, enable compatibility mode by setting the deployment configuration parameter
-`vaadin.compatibilityMode` to `true`. Read more about setting configuration parameters
- <<../advanced/tutorial-all-vaadin-properties#,here>>.
-
-If using Spring Boot, setting the `vaadin.compatibilityMode` parameter is the mandatory solution
-as the `web-fragment.xml` added by the `flow-server-compatibility-mode` dependency is not read.
-To set the property, you may add the following line to `application.properties`:
-
-[source, text]
-----
-vaadin.compatibilityMode=true
-----
-
-Alternatively, add the property as a JVM parameter to the `spring-boot` plugin when running
-the application via Maven:
-`mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dvaadin.compatibilityMode=true"`
-
 == Migration steps
 
 To use the new toolset, any existing Vaadin projects with client-side Polymer 2
 based web components must migrate these from Polymer 2 syntax to Polymer 3 (see next section)
-before they can run on V14. There is a migration tool available as a part of Maven plugin.
-The goal `migrate-to-p3` converts P2 templates to P3 templates and replaces `@HtmlImport`
-annotations with `@JsModule` annotations, see <<migration-tool#,Migration Tool>> tutorial.
+before they can run on V14.
 
 For component add-on projects, there are <<v14-addon-guide#,
 add-on specific migration instructions available>>.

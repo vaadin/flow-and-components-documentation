@@ -16,11 +16,10 @@ public class DependencyFilterPage {
         public List<Dependency> filter(List<Dependency> dependencies,
                 VaadinService service) {
 
-            if (service.getDeploymentConfiguration()
-                    .isProductionMode()) {
+            if (service.getDeploymentConfiguration().isProductionMode()) {
                 dependencies.clear();
-                dependencies.add(new Dependency(Dependency.Type.HTML_IMPORT,
-                        "my-bundle.html", LoadMode.EAGER));
+                dependencies.add(new Dependency(Dependency.Type.STYLESHEET,
+                        "my-style.css", LoadMode.EAGER));
             }
 
             return dependencies;
