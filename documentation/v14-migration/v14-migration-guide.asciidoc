@@ -219,8 +219,6 @@ comments about updating annotations in section 5)
 [p2.p3.migration]
 === 3 - Convert Polymer 2 to Polymer 3
 
-There is a migration tool available which does this conversation. See <<migration-tool#,Migration Tool>> tutorial.
-
 ==== Templates
 
 Polymer templates defined in HTML files (extension `.html` ) should be converted
@@ -424,8 +422,6 @@ migration tool available with the Vaadin Maven Plugin is internally using the
 polymer-modulizer for migrating the Polymer 2 templates to Polymer 3.
 
 === 4 - Update Java annotations
-
-The migration tool is able to do this step for you automatically, see <<migration-tool#,Migration Tool>> tutorial. 
 
 After converting Polymer templates from HTML to JavaScript modules, every
 `HtmlImport` annotation in Java classes should be changed to a `JsModule`
