@@ -38,8 +38,7 @@ The `Page` class also has method `addJsModule(String url)` but it is meant to be
 [source,java]
 ----
   private void addDependencies() {
-    UI.getCurrent().getPage()
-            .addJavaScript("/js/script.js");
+    UI.getCurrent().getPage().addJavaScript("/js/script.js");
     // external JavaScript module
     UI.getCurrent().getPage()
             .addJsModule("https://unpkg.com/lodash@4.17.15");
