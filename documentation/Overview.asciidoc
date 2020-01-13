@@ -115,6 +115,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<typescript/quick-start-guide#, Quick Start Guide>>
 * <<typescript/upgrading-from-vaadin14#, Upgrading from Vaadin 14>>
 * <<typescript/starting-the-app#, Starting the Application in TypeScript>>
+* <<typescript/application-shell#, The Application Shell>>
 * <<typescript/creating-routes#, Creating Routes in TypeScript>>
 * <<typescript/accessing-backend#, Accessing Java Backend in TypeScript>>
 * <<typescript/configuring-security#, Configuring Security for TypeScript Views>>
