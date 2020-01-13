@@ -1,6 +1,6 @@
 ---
 title: Live Reload in Spring Boot Applications
-order: 1
+order: 3
 layout: page
 ---
 
@@ -28,6 +28,20 @@ recompile, and the application will be reloaded automatically without need to re
 
 To be able to see the changes a browser tab still needs to be reloaded. That also
 may be automated via https://github.com/twolfson/livereload-extensions[LiveReload extension].
+
+=== In case of errors with dev tools
+
+If after changing code and reloading the browser page, you cannot access a view in your application,
+but instead get an error page with message like `Could not navigate to ...` or `Error creating bean with name ...`,
+you need to adjust the dev tools configuration to ensure code changes get picked up. You can do this by 
+adding the following lines to your `application.properties` file:
+
+```json
+spring.devtools.restart.poll-interval=2s
+spring.devtools.restart.quiet-period=1s
+```
+
+The configuration above helps with slower computers to fix dev tools code reload issues.
 
 == Live Reload extension
 

@@ -27,7 +27,7 @@ Vaadin applications are often data-intensive; indeed, data is what we designed t
 Whether it is automatic server-client communication, lazy-loading millions of database rows, or building big, complex forms quickly, Vaadin has the necessary tools.
 By using Vaadin, you never have to think about how to transfer data from the server to the client or vice-versa; the framework takes care of that, leaving you to concentrate on your business logic.
 
-TIP: Watch the https://vaadin.com/training/course/view/v10-intro[Vaadin 10+: Intro] free training video to learn more about the Vaadin framework, basic Vaadin application architecture and how Vaadin components work.
+TIP: Watch the https://vaadin.com/learn/training/v14-intro[Vaadin 14: Intro] free training video to learn more about the Vaadin framework, basic Vaadin application architecture and how Vaadin components work.
 
 == Vaadin Application Architecture
 
