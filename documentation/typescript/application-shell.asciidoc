@@ -1,0 +1,113 @@
+---
+title: Application Shell Configurator
+order: 30
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= Application Shell
+
+The `AppShellConfigurator` is a Java interface introduced in Vaadin 15 for configuring the `index.html` page delivered to the browser. 
+
+In Vaadin 15+ the user has full control on the `index.html` contents, which can by modified by either: in client-side by editing the `frontend/index.html`, or in server-side by implementing the `AppShellConfigurator`.
+
+== Abstract
+
+The link:https://developers.google.com/web/fundamentals/architecture/app-shell[App Shell Model] tries to make your website faster by loading the 'important' parts of the web page at first causing a good first impression. The key for this, is to deliver the minimal HTML, CSS and JavaScript required to display the user interface during the first visit, and eventually cache it to be used in future revisits.
+
+== The `index.html`
+
+By default, during the first hit, Vaadin parses the `frontend/index.html` template file and delivers its content with few modifications as described in the <<starting-the-app#default-bootstrap-template-and-entry-point,Default Bootstrap Template>>
+
+
+== The `AppShellConfigurator` interface [[application-shell-configurator]]
+
+In Java code, use the `AppShellConfigurator` marker interface rather than editing the `index.html` file for dynamic changes during the bootstrap process.
+
+[NOTE]
+There must be a single application shell for the entire Vaadin application, and therefore there can be at max one class implementing `AppShellConfigurator`.
+
+[NOTE]
+`AppShellConfigurator` replace the obsolete `PageConfigurator` interface.
+
+The `AppShellConfigurator#configurePage` method should be overridden for adding content to the `index.html` template by calling the following `AppShellSettings` methods:
+
+- `AppShellSettings#setViewport` to set the viewport value, it replaces the viewport present in the `index.html` template.
+- `AppShellSettings#setPageTitle` to set the initial page title, replaces the template title tag.
+- `AppShellSettings#setBodySize` to configure the body width and height values.
+- `AppShellSettings#addMetaTag` to append meta tags to the head.
+- `AppShellSettings#addInlineFromFile` to include content from resource files.
+- `AppShellSettings#addInlineWithContents` to add arbitrary content.
+- `AppShellSettings#addLink` to add links to the head.
+- `AppShellSettings#addFavIcon` to configure the favicon.
+- `AppShellSettings#getLoadingIndicatorConfiguration` for getting and modifying the configuration for the loading indicator.
+- `AppShellSettings#getReconnectDialogConfiguration` for configuring the reconnect dialog.
+- `AppShellSettings#getPushConfiguration` to customize the push mechanism.
+
+[source,java]
+----
+public class AppShell implements AppShellConfigurator {
+
+  @Override
+  public void configurePage(AppShellSettings settings) {
+    settings.setViewport("width=device-width, initial-scale=1");
+    settings.setPageTitle("cool-app");
+    settings.setBodySize("100vw", "100vh");
+    settings.addMetaTag("author", "bunny");
+    settings.addFavIcon("icon", "icons/icon-192.png", "192x192");
+    settings.addLink("shortcut icon", "icons/favicon.ico");
+
+    settings.addInlineFromFile(
+            TargetElement.BODY,
+            Position.APPEND,
+            "custom.html",
+            Wrapping.AUTOMATIC);
+    settings.addInlineWithContents(Position.PREPEND,
+            "console.log(\"foo\");", Wrapping.JAVASCRIPT);
+
+    settings.getLoadingIndicatorConfiguration()
+            .ifPresent(indicator -> indicator.setApplyDefaultTheme(false));
+    settings.getLoadingIndicatorConfiguration()
+            .ifPresent(indicator -> indicator.setSecondDelay(700000));
+    settings.getPushConfiguration()
+            .ifPresent(push -> push.setPushMode(PushMode.AUTOMATIC));
+    settings.getReconnectDialogConfiguration()
+            .ifPresent(dialog -> dialog.setDialogModal(true));
+  }
+}
+----
+
+== Java annotations
+
+Vaadin provide a set annotations for modifying the bootstrap page, though, unlike in previous versions, in Vaadin 15 these annotations must be placed in the application shell class.
+
+- `@Viewport` to set the viewport value.
+- `@PageTitle` to set the initial page title.
+- `@BodySize` to configure the body size.
+- `@Meta` to append meta tags to the head.
+- `@Inline` to include content from resource files in the bootstrap page.
+- `@PWA` to define application PWA properties.
+- `@Push` to configures server push.
+
+[source,java]
+----
+@Viewport("width=device-width, initial-scale=1")
+@PageTitle("A cool vaadin app")
+@BodySize(height = "100vh", width = "100vw")
+@Meta(name = "author", content = "bunny")
+@Inline(wrapping = Wrapping.AUTOMATIC,
+        position = Position.APPEND,
+        target = TargetElement.BODY,
+        value = "custom.html")
+@PWA(name = "Cool Vaadin App", shortName = "my-app")
+@Push(value = PushMode.MANUAL, transport = Transport.WEBSOCKET)
+public class AppShell implements AppShellConfigurator {
+}
+----
+
+[NOTE]
+Modifications in the  `AppShellConfigurator#configurePage` do have priority over the equivalent annotations.
+
+[NOTE]
+Annotations do not cover all the cases that can be done when overridding the `AppShellConfigurator#configurePage` method
