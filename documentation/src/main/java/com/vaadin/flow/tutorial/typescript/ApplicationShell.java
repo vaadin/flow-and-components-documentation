@@ -15,6 +15,12 @@
  */
 package com.vaadin.flow.tutorial.typescript;
 
+import java.util.Collections;
+import java.util.Set;
+
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.component.page.BodySize;
 import com.vaadin.flow.component.page.Inline;
@@ -27,6 +33,8 @@ import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.server.AppShellSettings;
 import com.vaadin.flow.server.PWA;
+import com.vaadin.flow.server.communication.IndexHtmlRequestListener;
+import com.vaadin.flow.server.communication.IndexHtmlResponse;
 import com.vaadin.flow.shared.communication.PushMode;
 import com.vaadin.flow.shared.ui.Transport;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
@@ -80,24 +88,15 @@ public class ApplicationShell {
         @Override
         public void modifyIndexHtmlResponse(
                 IndexHtmlResponse indexHtmlResponse) {
+
             Document document = indexHtmlResponse.getDocument();
-
-            Element head = document.head();
-
-            head.appendChild(createMeta(document, "og:title", "The Rock"));
-            head.appendChild(createMeta(document, "og:type", "video.movie"));
-            head.appendChild(createMeta(document, "og:url",
-                    "http://www.imdb.com/title/tt0117500/"));
-            head.appendChild(createMeta(document, "og:image",
-                    "http://ia.media-imdb.com/images/rock.jpg"));
+            Element body = document.body();
+            body.classNames(computeBodyClassNames());
         }
 
-        private Element createMeta(Document document, String property,
-                String content) {
-            Element meta = document.createElement("meta");
-            meta.attr("property", property);
-            meta.attr("content", content);
-            return meta;
+        private Set<String> computeBodyClassNames() {
+            // Introduce some logic to dynamically change the body class
+            return Collections.singleton("my-className");
         }
-    }    
+    }
 }

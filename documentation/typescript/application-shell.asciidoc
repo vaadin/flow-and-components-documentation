@@ -1,6 +1,6 @@
 ---
 title: Application Shell Configurator
-order: 35
+order: 115
 layout: page
 ---
 
@@ -12,25 +12,51 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 The link:https://developers.google.com/web/fundamentals/architecture/app-shell[App Shell Model] tries to make your website faster by loading the 'important' parts of the web page at first causing a good first impression. The key for this, is to deliver the minimal HTML, CSS and JavaScript required to display the user interface during the first visit, and eventually cache it to be used in future revisits.
 
-=== Modifying the Bootstrap Page
+The _Application Shell_ in Vaadin is also known as _Bootstrap Page_ or simply _index.html_.
 
-In Vaadin 15+ the user has full control on the `index.html` contents, which can by modified in different ways: 
+=== Modifying the Application Shell
 
-1. In client-side by editing the `frontend/index.html`
-2. In server-side 
-   - by implementing the `AppShellConfigurator`.
-   - by adding an `IndexHtmlRequestListener`.
+In Vaadin 15+ the user has full control on the `index.html` contents, which can by modified in different ways:
 
-== Bootstrap Customization in the Template
+1. In client-side by editing the `frontend/index.html` when the content is static, for instance the `<viewport>` tag.
+2. In server-side for changes that require some dynamic server content or just when Java syntax is preferred, for example making the application installable by enabling the `@PWA` built-in feature.
+   - Implement the `AppShellConfigurator` for cases covered by the `AppShellSettings` API, or by annotations.
+   - Configure an `IndexHtmlRequestListener` for advanced cases modifying the document structure.
+
+== Customizig the Application Shell Template
 
 By default, during the first request, Vaadin parses the `frontend/index.html` template file and delivers it with a few modifications as described in the <<starting-the-app#default-bootstrap-template-and-entry-point,Default Bootstrap Template>>
 
+This is the best place for customizing the app-shell, for example to put an analytics tag in the page.
 
-== Bootstrap Customization during Runtime
+.index.html
+[source, xml]
+----
+...
+<head>
+  <title>My App</title>
+</head>
+<body>
+  ...
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-XXXXX-Y', 'auto');
+    ga('send', 'my-app-bootstrap');
+  </script>
+</body>
+----
+
+
+== Customizing the Application Shell during Runtime
 
 === The `AppShellConfigurator` interface [[application-shell-configurator]]
 
-In Java code, use the `AppShellConfigurator` marker interface rather than editing the `index.html` file for dynamic changes during the bootstrap process.
+In Java code, use the `AppShellConfigurator` marker interface rather than editing the `index.html` when adding dynamic content during the bootstrap process.
 
 [NOTE]
 There must be a single application shell for the entire Vaadin application, and therefore there can be at max one class implementing `AppShellConfigurator`.
@@ -61,7 +87,7 @@ public class AppShell implements AppShellConfigurator {
   @Override
   public void configurePage(AppShellSettings settings) {
     settings.setViewport("width=device-width, initial-scale=1");
-    settings.setPageTitle("cool-app");
+    settings.setPageTitle("A cool vaadin app");
     settings.setBodySize("100vw", "100vh");
     settings.addMetaTag("author", "bunny");
     settings.addFavIcon("icon", "icons/icon-192.png", "192x192");
@@ -89,13 +115,13 @@ public class AppShell implements AppShellConfigurator {
 
 ==== Java annotations
 
-Vaadin provide a set annotations for modifying the bootstrap page, though, unlike in previous versions, in Vaadin 15 these annotations must be placed in the application shell class.
+Vaadin provide a set annotations for modifying the application shell, though, unlike in previous versions, in Vaadin 15 these annotations must be placed in the application shell class.
 
 - `@Viewport` to set the viewport value.
 - `@PageTitle` to set the initial page title.
 - `@BodySize` to configure the body size.
 - `@Meta` to append meta tags to the head.
-- `@Inline` to include content from resource files in the bootstrap page.
+- `@Inline` to include content from resource files in the `index.html`.
 - `@PWA` to define application PWA properties.
 - `@Push` to configures server push.
 
@@ -123,36 +149,29 @@ Annotations do not cover all the cases that can be done when overridding the `Ap
 
 === The `IndexHtmlRequestListener` interface
 
-In addition, before sending the bootstrap page response to the browser, the content can be modified via an `IndexHtmlRequestListener`. An implementation of the listener should be added via a `ServiceInitEvent` when a `VaadinService` is initialized. Check the <<../advanced/tutorial-service-init-listener#,ServiceInitListener tutorial>> for the details about using Vaadin `ServiceInitListeners`.
+In addition, for advance cases not covered in the previous section, the content can be modified via an `IndexHtmlRequestListener`.
 
-The example below shows how to use the `IndexHtmlRequestListener` API to add custom HTML meta tags dynamically for each page request:
+An implementation of the listener should be added via a `ServiceInitEvent` when a `VaadinService` is initialized. Check the <<../advanced/tutorial-service-init-listener#,ServiceInitListener tutorial>> for the details about using Vaadin `ServiceInitListeners`.
+
+The example below changes the body class dynamically:
 
 [source,java]
 ----
 public class MyIndexHtmlRequestListener implements
-            IndexHtmlRequestListener {
+        IndexHtmlRequestListener {
 
     @Override
     public void modifyIndexHtmlResponse(
             IndexHtmlResponse indexHtmlResponse) {
+
         Document document = indexHtmlResponse.getDocument();
-
-        Element head = document.head();
-
-        head.appendChild(createMeta(document, "og:title", "The Rock"));
-        head.appendChild(createMeta(document, "og:type", "video.movie"));
-        head.appendChild(createMeta(document, "og:url",
-                "http://www.imdb.com/title/tt0117500/"));
-        head.appendChild(createMeta(document, "og:image",
-                "http://ia.media-imdb.com/images/rock.jpg"));
+        Element body = document.body();
+        body.classNames(computeBodyClassNames());
     }
 
-    private Element createMeta(Document document, String property,
-            String content) {
-        Element meta = document.createElement("meta");
-        meta.attr("property", property);
-        meta.attr("content", content);
-        return meta;
+    private Set<String> computeBodyClassNames() {
+        // Introduce some logic to dynamically change the body class
+        return Collections.singleton("my-className");
     }
 }
 ----
