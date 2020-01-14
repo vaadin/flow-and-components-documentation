@@ -24,40 +24,6 @@ backend side of the project.
 Along with the default client, the plugin is capable of generating the modules for each Vaadin Connect service defined in the backend part.
 Those modules use the default client to communicate with the backend also.
 
-== `ConnectClient` features
-
-Vaadin Connect client (hence the default client also) main goal is to ease the communications with the Vaadin Connect backend server
-by adding the built in support for its oauth part and easing the Vaadin Connect backend services access.
-
-Vaadin Connect client built-in oauth server support does the following:
-
-* Automatically adds an access token to every request to the Vaadin Connect backend
-
-By default, every Vaadin Connect backend service method requires a token to be provided so it could be invoked via a corresponding request from the client side.
-The client ensures that the token, if present, is passed to the backend.
-
-* Automatically retrieves and extracts the access and refresh tokens from the Vaadin Connect oauth server responses
-
-When an access token is missing, the client attempts to retrieve it from the backend, handling an error responses
-from the server and trying to resolve those automatically.
-
-* Automatically checks for the access token expiration and renews it with the refresh token, if provided
-
-If the Vaadin Connect oauth server returns a refresh token, it will be used to update the access token when it expires to continue
-sending the requests to Vaadin Connect backend.
-
-* Automatically renders a login form for retrieving the tokens
-
-When an access token is impossible to retrieve via the refresh token, a login form will be rendered on a client so that the user can authorize
-himself and continue using the client that will be doing the Vaadin Connect backend calls.
-This behavior is customizable and can be overridden.
-
-[NOTE]
-====
-Nothing restricts you from directly accessing the backend with requests without the client – if needed, the functionality can be
-implementing from scratch by the Vaadin Connect user.
-====
-
 == Usage example
 
 Consider Vaadin Connect backend that is started on `/customEndpoint` endpoint and has a single service with name `SingleService`
