@@ -6,22 +6,26 @@ layout: page
 
 = CSS Custom Properties and Variables
 
-https://vaadin.com/tutorials/css-variables[CSS custom properties and variables] allow you to define arbitrarily named properties and their values, which you can then later reference in other style sheets. They reduce copy-paste, ensure consistency and make it easier to read and understand style sheets.
+https://vaadin.com/tutorials/css-variables[CSS custom properties and variables] allow you to define arbitrarily named properties and their values, which you can then later reference in other style sheets.
+They reduce copy-paste, ensure consistency and make it easier to read and understand style sheets.
 
 The <<built-in-themes#,built-in themes>> in Vaadin and their customizability are solely based on these custom properties.
 
 [CAUTION]
-CSS custom properties are not natively supported in Internet Explorer 11. A polyfill is automatically loaded which makes it possible to use them, but with some https://github.com/webcomponents/polyfills/tree/master/packages/shadycss#limitations[limitations].
+CSS custom properties are not natively supported in Internet Explorer 11.
+A polyfill is automatically loaded which makes it possible to use them, but with some https://github.com/webcomponents/polyfills/tree/master/packages/shadycss#limitations[limitations].
 
 === Difference to pre-processor variables
 
-Custom properties are different from traditional CSS-preprocessor (Sass, Less, Stylus, etc.) variables by being capable of changing their value at runtime (no need for compilation) and even based on the DOM hierarchy. They are also available to be used from JavaScript, making them even more powerful.
+Custom properties are different from traditional CSS-preprocessor (Sass, Less, Stylus, etc.) variables. They do not need to be compiled before sending them to the browser and they are capable of changing their value at runtime, even based on the DOM hierarchy.
+They are also available to be used from JavaScript, making them even more powerful.
 
 == Defining custom properties
 
-Custom properties can be defined inside any CSS selector, scoping them to that particular selector. The most common place to define custom properties is at the document root, the `<html>` element.
+Custom properties can be defined inside any CSS selector, scoping them to that particular selector.
+The most common place to define custom properties is at the document root, the `<html>` element.
 
-Custom properties need to start with a double-dash, to distinguish them from standard properties.
+Custom properties need to start with a double-dash, to distinguish them from standard properties and avoid naming collisions with future standards.
 
 [source,css]
 ----
@@ -39,7 +43,9 @@ You can override the value of a custom property with higher priority selector.
 }
 ----
 
-The value of a custom property can be any string. They are not limited to existing CSS property values. These values are only useful together with JavaScript.
+The value of a custom property can be any string.
+They are not limited to existing CSS property values.
+These values are only useful together with JavaScript.
 
 [source,css]
 ----
@@ -70,7 +76,8 @@ You can also define a fallback value for cases when the custom property is not d
 
 == Custom properties and Shadow DOM
 
-Custom properties inherit by default, allowing them to “pierce” shadow DOM boundaries. This makes it possible to theme/style components from outside their <<style-scopes#,local style scope>>, assuming a component is using a custom property in its local styles (with `var()`).
+Custom properties inherit by default, allowing them to “pierce” shadow DOM boundaries.
+This makes it possible to theme/style components from outside their <<style-scopes#,local style scope>>, assuming a component is using a custom property in its local styles (with `var()`).
 
 
 == Related tutorials

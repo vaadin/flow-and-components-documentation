@@ -31,31 +31,31 @@ The documentation shows how to do things using either Java or JavaScript/HTML. T
 
 .`Java`
 [source,java]
-....
+----
 @CssImport("./styles/global.css")
 @CssImport(value = "./styles/text-field.css", themeFor = "vaadin-text-field")
 @StyleSheet("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
 @StyleSheet("context://styles/bootstrap-overrides.css")
 public class StyledApp extends Div {
 }
-....
+----
 
 .`JavaScript`
 [source,javascript]
-....
+----
 import { registerStyles, css } from '@vaadin/vaadin-themable-mixin/register-styles.js';
 
 registerStyles('vaadin-text-field', css`
   /* Styles which will be included in vaadin-text-field local scope, i.e. contents of styles/text-field.css */
 `);
-....
+----
 
 .`HTML`
 [source,html]
-....
+----
 <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="styles/bootstrap-overrides.css">
-....
+----
 
 
 [TIP]
@@ -90,9 +90,9 @@ The `@CssImport` annotation does not work in Vaadin 14 compatibility mode (Bower
 
 .`Java`
 [source,java]
-....
+----
 @CssImport("./styles/global.css")
-....
+----
 
 [[global-client-side]]
 ==== Client-side
@@ -103,7 +103,7 @@ One way to scope global styles and prevent them from affecting Polymer-based com
 
 .`HTML`
 [source,html]
-....
+----
 <script type="module">
   import '@polymer/polymer/lib/elements/custom-style.js';
 </script>
@@ -113,7 +113,7 @@ One way to scope global styles and prevent them from affecting Polymer-based com
     /* The same style rules as in styles/global.css in the above example */
   </style>
 </custom-style>
-....
+----
 
 [NOTE]
 See the https://polymer-library.polymer-project.org/3.0/api/elements/custom-style[API documentation for `<custom-style>`]
@@ -128,66 +128,65 @@ The CSS rules in linked style sheets are not protected from overriding component
 
 .`Java`
 [source,java]
-....
+----
 @StyleSheet("context://styles/global.css")
 @StyleSheet("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
-....
+----
 
 .`HTML`
 [source,html]
-....
+----
 <link rel="stylesheet" type="text/css" href="styles/global.css">
 <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-....
+----
 
 
 == Component (Local) Scope
 
-Component styles are scoped per component and allow you to customize component styles without worrying about side-effects to other parts of your app. Component styles are always inlined to the application bundle.
+Component styles are scoped per component and allow you to customize component styles without worrying about side-effects to other parts of your app.
+Component styles are always inlined to the application bundle.
 
-[NOTE]
-Component scoped style sheets apply to all instances of the component across the entire app.
+Component scoped style sheets *apply to all instances of the component* across the entire app, and  *need to be registered before the components* which they target are registered and upgraded (before the first instantiation of the component).
 
-[CAUTION]
-Component scoped style sheets need to be included before the components which they target are registered and upgraded (before the first instantiation of the component).
+The following instructions only apply to components which are internally based on https://github.com/vaadin/vaadin-themable-mixin/[`ThemableMixin`], including all Vaadin components.
 
 .`Java`
 [source,java]
-....
+----
 @CssImport(value = "./styles/text-field.css",
            themeFor = "vaadin-text-field")
-....
+----
 
 .`JavaScript`
 [source,javascript]
-....
+----
 import { registerStyles, css } from '@vaadin/vaadin-themable-mixin/register-styles.js';
 
 registerStyles('vaadin-text-field', css`
   /* Styles which will be included in vaadin-text-field local scope,
      i.e. the same contents as in styles/text-field.css */
 `);
-....
+----
 
 You can use the same style sheet for multiple components simultaneously by providing a space-separated list of component names instead of a single component name. Wildcard element names are supported as well, for example `vaadin-*-overlay`.
 
 .`Java`
 [source,java]
-....
+----
 @CssImport(value = "./styles/shared-overlays.css",
            themeFor = "vaadin-select-overlay vaadin-combo-box-overlay")
-....
+----
 
 .`JavaScript`
 [source,javascript]
-....
+----
 import { registerStyles, css } from '@vaadin/vaadin-themable-mixin/register-styles.js';
 
 registerStyles('vaadin-select-overlay vaadin-combo-box-overlay', css`
   /* Styles which will be included in vaadin-select-overlay and vaadin-combo-box-overlay
      local scopes, i.e. the same CSS as in styles/shared-overlays.css */
 `);
-....
+----
 
 
 [[sharing-style-sheets]]
@@ -237,7 +236,7 @@ The recommended way of creating shared style sheets is to package CSS in ES modu
 
 .`styles/shared-typography.css.js`
 [source,javascript]
-....
+----
 import { css } from '@vaadin/vaadin-themable-mixin/register-styles.js';
 
 export default css`
@@ -256,7 +255,7 @@ export default css`
     font-size: 24px;
   }
 `;
-....
+----
 
 ===== Share Style Sheets with Vaadin Components
 
@@ -266,7 +265,7 @@ If you want to share style sheets with existing Vaadin components (instead of wi
 The use of `moduleId` is deprecated and only provided for backwards compatibility with Vaadin components.
 
 [source,javascript]
-....
+----
 import { registerStyles, css } from '@vaadin/vaadin-themable-mixin/register-styles.js';
 
 registerStyles(undefined, css`
@@ -285,7 +284,7 @@ registerStyles(undefined, css`
     font-size: 24px;
   }
 `, {moduleId: 'shared-typography'});
-....
+----
 
 
 [[using-shared-styles-global]]
@@ -432,6 +431,8 @@ You can include Lumo and Material style sheets to all Polymer-based components y
 .`JavaScript`
 [source,javascript]
 ----
+import { registerStyles } from '@vaadin/vaadin-themable-mixin/register-styles.js';
+
 // (Deprecated): including Lumo style sheets to components
 // that extend ThemableMixin
 registerStyles('my-custom-view vaadin-dialog-overlay', css`
