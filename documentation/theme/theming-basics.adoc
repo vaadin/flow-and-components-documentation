@@ -6,7 +6,8 @@ layout: page
 
 = Theming Basics
 
-Learn the basics of customizing the built-in themes with CSS. To learn how to theme and style Vaadin components, see <<styling-vaadin-components#,Styling Vaadin Components>>.
+Learn the basics of customizing the built-in themes with CSS.
+To learn how to theme and style Vaadin components, see <<styling-vaadin-components#,Styling Vaadin Components>>.
 
 === Prerequisites
 
@@ -50,5 +51,5 @@ See the <<../../components/foundation/material#,Material theme>> documentation f
 
 == Next Steps
 
-* <<styling-vaadin-components#,Styling Vaadin components>> — learn how to customize the component themes and styles.
-* <<styling-applications#,style applications>> – learn how to customize custom, application-specific view and component styles.
+* <<styling-vaadin-components#,Styling Vaadin components>> — learn how to customize Vaadin component themes and styles.
+* <<styling-applications#,style applications>> – learn how to style app-specific view and custom components.

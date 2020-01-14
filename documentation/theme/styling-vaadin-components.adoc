@@ -6,15 +6,17 @@ layout: page
 
 = Styling Vaadin Components
 
-Vaadin components utilize Shadow DOM to encapsulate and scope their styles and hides the internal HTML element hierarchy. This prevents components and the application from accidentally affecting each other’s styles or from breaking the element hierarchy.
+This section describes how you can write style sheets for Vaadin components and customize their internal theme implementation.
 
-The internal style scope is sometimes referred to as “local scope”, whereas the main page scope is called the global scope. Learn more about <<style-scopes#,style scopes>>.
+Vaadin components utilize Shadow DOM to encapsulate and scope their styles and hides the internal HTML element hierarchy.
+This prevents components and the application from accidentally affecting each other’s styles or from breaking the element hierarchy. The internal style scope is sometimes referred to as “local scope”, whereas the main page scope is called the global scope.
 
-This section describes how you can write CSS for Vaadin web components and customize their internal theme implementation.
+Vaadin components internally use https://github.com/vaadin/vaadin-themable-mixin/[`ThemableMixin`] which allows developers to add custom style sheets to the component’s local scope.
+
 
 === Prerequisites
 
-You should be familiar with <<including-style-sheets#component-local-scope, including style sheets into component scopes>> before you can style web components effectively.
+You should be familiar with <<style-scopes#,style scopes>> and how to <<including-style-sheets#component-local-scope, include style sheets into component scopes>> before you can style Vaadin components effectively.
 
 ===== Contents
 
@@ -52,11 +54,13 @@ Customizing the scoped styles of Text Field.
 ----
 
 [NOTE]
-You might need to use more specific selectors to override the current theme’s styles. Use the browser inspector to identify the applied styles for the element that you wish to customize.
+You might need to use more specific selectors to override the current theme’s styles.
+Use the browser inspector to identify the applied styles for the element that you wish to customize.
 
 == Custom Properties
 
-Currently, the only global CSS that can affect styles inside a shadow DOM’s local scope are properties that are inherited. Properties can be inherited by default, like `font-family`, `color` and all custom properties, or explicitly by the custom element using the `inherit` property value.
+Currently, the only global CSS that can affect styles inside a shadow DOM’s local scope are properties that are inherited.
+Properties can be inherited by default, like `font-family`, `color` and all custom properties, or explicitly by the custom element using the `inherit` property value.
 
 You can adjust any component-specific custom properties in the global scope, making them affect all instances of the component.
 
@@ -69,19 +73,26 @@ html {
 ----
 
 [NOTE]
-When including CSS in your client-side code (JavaScript or HTML), remember to take care of cross-browser compatibility. See <<including-style-sheets#global-client-side, Global Scope / Client-side>> for more info.
+When including CSS in your client-side code (JavaScript or HTML), remember to take care of cross-browser compatibility.
+See <<including-style-sheets#global-client-side, Global Scope / Client-side>> for more info.
 
-You can find component-specific custom properties from the component's HTML API documentation. For example, see the https://vaadin.com/components/vaadin-text-field/html-api/elements/Vaadin.TextFieldElement[Styling section for Text Field].
+You can find component-specific custom properties from the component's HTML API documentation.
+For example, see the https://vaadin.com/components/vaadin-text-field/html-api/elements/Vaadin.TextFieldElement[Styling section for Text Field].
 
-Most components do _not_ have any specific custom properties. Instead, themes provide most of the custom properties that you can customize.
+Most components do _not_ have any specific custom properties.
+Instead, themes provide most of the custom properties that you can customize.
 
 == Stylable Parts
 
-Vaadin components define certain elements inside their shadow DOM as their stylable parts. They form the public theming and styling API of the component, together with custom properties and state attributes. These stylable elements are marked with the `part` attribute.
+Vaadin components define certain elements inside their shadow DOM as their stylable parts.
+They form the public theming and styling API of the component, together with custom properties and state attributes.
+These stylable elements are marked with the `part` attribute.
 
-The `[part]` attribute selector is the only one you should use to target elements inside a component. Other selectors (such as `.class` or `+#id+`) may stop working with any release because they are considered as internal implementation details.
+The `[part]` attribute selector is the only one you should use to target elements inside a component.
+Other selectors (such as `.class` or `+#id+`) may stop working with any release because they are considered as internal implementation details.
 
-The internal parts of each component are listed in the component's HTML API documentation. See the https://vaadin.com/components/vaadin-text-field/html-api/elements/Vaadin.TextFieldElement[Styling section in Text Field API docs] for an example.
+The internal parts of each component are listed in the component's HTML API documentation.
+See the https://vaadin.com/components/vaadin-text-field/html-api/elements/Vaadin.TextFieldElement[Styling section in Text Field API docs] for an example.
 
 === Example
 
@@ -129,11 +140,12 @@ The stylable elements (marked with a `part` attribute) should only be targeted u
 
 ==== [part~="..."]
 
-Use `part~="..."` to match a part which might have multiple names, for example the cells inside a `<vaadin-grid>` which can have multiple names like `"cell"` and `"body-cell"`.
+Use `part~="..."` to match a part which might have multiple names. For example, the cells inside a `<vaadin-grid>` have multiple part names like `"cell"` and `"body-cell"`.
 
 image:images/vaadin-grid-cell-parts.png[vaadin-grid shadow DOM where the stylable part names of header and body cells are highlighted]
 
-You can use this kind of attribute selector in all cases, if you want to be safe. It will work for parts with only one name as well.
+You can use this kind of attribute selector in all cases, if you want to be safe.
+It will work for parts with only one name as well.
 
 .`Styles included into the local scope of <vaadin-grid>`
 [source,css]
@@ -147,11 +159,15 @@ You can use this kind of attribute selector in all cases, if you want to be safe
 }
 ----
 
-**Do not rely on the element type** which a part applies to. For example, given `<input type="text" part="value">`, you should not rely on the information that the element is actually a native `<input>` element. This is considered as an internal implementation detail, and the element type could change in the future (while the part name stays the same), for example to `<div contenteditable="true" part="value">`.
+**Do not rely on the element type** which a part applies to.
+For example, given `<input type="text" part="value">`, you should not rely on the information that the element is actually a native `<input>` element.
+This is considered as an internal implementation detail.
+The element type could change in the future while the part name stays the same, for example, to `<div contenteditable="true" part="value">`.
 
 ==== ::before and ::after
 
-Pseudo-element selectors (`::before` and `::after`) can be used in combination with the `:host` and `[part]` selectors. The built-in themes can also use the pseudo-elements, so be aware of potential collisions.
+Pseudo-element selectors (`::before` and `::after`) can be used in combination with the `:host` and `[part]` selectors.
+The built-in themes can also use the pseudo-elements, so be aware of potential collisions.
 
 .`Styles included into the local scope of <vaadin-text-field>`
 [source,css]
@@ -166,7 +182,8 @@ Pseudo-element selectors (`::before` and `::after`) can be used in combination w
 
 Some custom elements expose some of their internal state as top-level attributes for styling purposes.
 
-Let's add one more detail to our custom text field styles: a different border-color when the field is invalid, using the `+[invalid]+` state attribute selector. Learn more about <<styling-component-states#,styling component states>>.
+Let's add one more detail to our custom text field styles: a different border-color when the field is invalid, using the `+[invalid]+` state attribute selector.
+Learn more about <<styling-component-states#,styling component states>>.
 
 .`Styles included into the local scope of <vaadin-text-field>`
 [source,css]
@@ -176,7 +193,8 @@ Let's add one more detail to our custom text field styles: a different border-co
 }
 ----
 
-The state attributes for each component are listed in the component's HTML API documentation. See the https://vaadin.com/components/vaadin-text-field/html-api/elements/Vaadin.TextFieldElement[Styling section in Text Field API docs] for an example.
+The state attributes for each component are listed in the component's HTML API documentation.
+See the https://vaadin.com/components/vaadin-text-field/html-api/elements/Vaadin.TextFieldElement[Styling section in Text Field API docs] for an example.
 
 In addition to the `[state]` attributes, standard CSS pseudo-classes (`:hover`, `:active`, etc.) can be used for both the component host and stylable parts.
 
@@ -188,7 +206,8 @@ In addition to the `[state]` attributes, standard CSS pseudo-classes (`:hover`, 
 }
 ----
 
-Similarly to the host element, named parts can also expose state attributes for themselves, which can be used for styling. These are also listed in the element’s API documentation.
+Similarly to the host element, named parts can also expose state attributes for themselves, which can be used for styling.
+These are also listed in the element’s API documentation.
 
 For example, you can target a selected date in a `<vaadin-date-picker>`:
 
@@ -202,13 +221,17 @@ For example, you can target a selected date in a `<vaadin-date-picker>`:
 
 == Sub-components
 
-Components contain other components inside their shadow DOM. This creates a hierarchy of style scopes.
+Components contain other components inside their shadow DOM.
+This creates a hierarchy of style scopes.
 
-The customizations we did for the Text Field component end up affecting other components as well, which internally use Text Field. For example, Combo Box, Date Picker, Time Picker and Select all contain a Text Field, so those components will automatically "inherit" our style customizations.
+The customizations we did for the Text Field component end up affecting other components as well, which internally use Text Field.
+For example, Combo Box, Date Picker, Time Picker and Select all contain a Text Field, and those components will automatically "inherit" our style customizations.
 
-In some cases it is undesirable to style all component instances and affect sub-components across multiple parent components. Sometimes you only want to target the Text Field inside a single Combo Box.
+In some cases it is undesirable to style all component instances and affect sub-components across multiple parent components.
+Sometimes you only want to target the Text Field inside a single Combo Box.
 
-Theme variants (the `theme` attribute values) are propagated from the parent component to all of its sub-components. They allow you to scope sub-component styles per-instance.
+Theme variants (the `theme` attribute values) are propagated from the parent component to all of its sub-components.
+They allow you to scope sub-component styles per-instance.
 
 ++++
 <details>
@@ -217,9 +240,11 @@ Theme variants (the `theme` attribute values) are propagated from the parent com
 </summary>
 ++++
 
-The following components allow you to style their stylable parts in their local style scope. Technically they extend `ThemableMixin`.
+The following components allow you to style their stylable parts in their local style scope.
+Technically they extend `ThemableMixin`.
 
-Nested items are sub-components, meaning the `theme` attribute is propagated to them from their parent component. The overlay components are rendered directly under the `<body>` element and are not nested inside their parent component in the resulting DOM.
+Nested items are sub-components, meaning the `theme` attribute is propagated to them from their parent component.
+The overlay components are rendered directly under the `<body>` element and are not nested inside their parent component in the resulting DOM.
 
 Styles are inherited when components are extended.
 
@@ -406,14 +431,17 @@ Styles are inherited when components are extended.
 
 image:images/vaadin-combo-box-theme-propagation.png[vaadin-combo-box theme attribute propagating to its sub-components]
 
-Theme variant propagation is not limited to the built-in variants. Your custom theme variants will propagate in the same way.
+Theme variant propagation is not limited to the built-in variants.
+Your custom theme variants will propagate in the same way.
 
 
 == Overlays
 
 Components such as Dialog, Notification, Combo Box, Date Picker, Time Picker, Select, Menu Bar and Context Menu internally use the Overlay component (`<vaadin-overlay>`).
 
-The Overlay component allows the main components to render content on top of all other components in the application. It avoids any potential clipping stacking context issues where the overlay would be partially or completely hidden depending on where it is placed in the component hierarchy. One example of a such situation are Grid rows, which create a clipping stacking context.
+The Overlay component allows the main components to render content on top of all other components in the application.
+It avoids any potential clipping stacking context issues where the overlay would be partially or completely hidden depending on where it is placed in the component hierarchy.
+One example of a such situation are Grid rows, which create a clipping stacking context.
 
 All components that have an overlay sub-component have their own extension of the base Overlay component, for example “Dialog Overlay” (`<vaadin-dialog-overlay>`) and “Date Picker Overlay” (`<vaadin-date-picker-overlay>`).
 
@@ -455,14 +483,17 @@ Changing the background color and padding of the Dialog overlay component.
 
 == Scoping Component Styles
 
-A style sheet defined for a <<including-style-sheets#component-local-scope,component’s local scope>> affects all the instances of the component. But what if you only want to target a single instance of a component with custom styles?
+A style sheet defined for a <<including-style-sheets#component-local-scope,component’s local scope>> affects all the instances of the component.
+But what if you only want to target a single instance of a component with custom styles?
 
 There are two ways to scope styles to specific component instances:
 
 1. *Expose new custom properties*
-  This is the recommended first option for simple situations. If you end up exposing more than a handful of properties, you should consider the second option.
+  This is the recommended first option for simple situations.
+  If you end up exposing more than a handful of properties, you should consider the second option.
 2. *Use scoping selectors*
-  This approach is used by the built-in variations in Vaadin themes (Lumo and Material), i.e. `theme` attribute. The downside of this approach is that you end up adding the selectors and properties to all instances, even though only some instances will need those styles (they won’t apply unless the scoping selector is used on the host element).
+  This approach is used by the built-in variations in Vaadin themes (Lumo and Material), i.e. `theme` attribute.
+  The downside of this approach is that you end up adding the selectors and properties to all instances, even though only some instances will need those styles (they won’t apply unless the scoping selector is used on the host element).
 
 === Example: Expose new custom properties
 
@@ -502,7 +533,8 @@ There are two ways to scope styles to specific component instances:
 <vaadin-text-field class="special-field"></vaadin-text-field>
 ----
 
-You can also use the `theme` attribute (i.e. <<theme-variants#custom-variants,custom component variants>>) as a scoping selector for your style overrides, as shown in the example below. The `theme` attribute has the benefit of propagating through the <<sub-components,sub-components>> (other attributes are not).
+You can also use the `theme` attribute (i.e. <<theme-variants#custom-variants,custom component variants>>) as a scoping selector for your style overrides, as shown in the example below.
+The `theme` attribute has the benefit of propagating through the <<sub-components,sub-components>> (other attributes are not).
 
 ==== Example: Scoping using the theme attribute
 
