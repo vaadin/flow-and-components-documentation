@@ -7,7 +7,7 @@ layout: page
 // The following source is in HTML because it's copied from https://github.com/vaadin/vaadin-material-styles/tree/master/demo as is
 include::../themes-shared.asciidoc[]
 
-= Material
+= Overview
 
 ++++
 <p>Material is a complete theme for <a href="https://vaadin.com/components">Vaadin components</a>, inspired by Google’s <a href="https://material.io">Material Design</a> guidelines.</p>

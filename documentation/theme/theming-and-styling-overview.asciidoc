@@ -4,7 +4,7 @@ order: 1
 layout: page
 ---
 
-= Theming and Styling
+= Overview
 
 Learn how to use the <<built-in-themes#,built-in themes>> and their <<theme-variants#,variants>>, how to <<theming-basics#,customize them>> and how to <<styling-vaadin-components#,theme and style Vaadin components>>.
 

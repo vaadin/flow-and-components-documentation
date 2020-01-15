@@ -7,7 +7,7 @@ layout: page
 // The following source is in HTML because it's copied from https://github.com/vaadin/vaadin-lumo-styles/tree/master/demo as is
 include::../themes-shared.asciidoc[]
 
-= Lumo
+= Overview
 
 Lumo is the default theme for Vaadin, which can be customized to fit your visual style requirements.
 
