@@ -52,9 +52,9 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<binding-data/tutorial-flow-components-binder-beans#,Binding Beans to Forms>>
 * <<binding-data/tutorial-flow-data-provider#,Showing a list of data with Data Providers>>
 
-== Importing HTML, JavaScript and CSS files
+== Importing JavaScript and CSS files
 * <<importing-dependencies/tutorial-include-css#,Including Style Sheets>>
-* <<importing-dependencies/tutorial-importing#,Importing html/javascript>>
+* <<importing-dependencies/tutorial-importing#,Importing javascript>>
 * <<importing-dependencies/tutorial-ways-of-importing#,Ways of importing the dependencies>>
 
 == Theming Applications
@@ -133,10 +133,6 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<cdi/tutorial-cdi-service-beans#,Vaadin service interfaces as a CDI bean>>
 * <<cdi/tutorial-cdi-examples#,Getting Started with CDI and Vaadin>>
 
-== Use Vaadin with OSGi
-* <<osgi/tutorial-osgi-basic#,Vaadin OSGi Support>>
-* <<osgi/tutorial-osgi-components#,Create OSGi compatible components>>
-
 == Vaadin Portlet Support
 * <<portlet-support/portlet-01-overview#,Vaadin Portlet Support Overview>>
 * <<portlet-support/portlet-02-creating-vaadin-portlets#,Creating Vaadin Portlets>>
@@ -156,7 +152,6 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<embedding-flow-applications/tutorial-webcomponent-push#,Embedded Application Push Configuration>>
 * <<embedding-flow-applications/tutorial-webcomponent-security#,Securing an Embedded Application>>
 * <<embedding-flow-applications/tutorial-webcomponent-exporter#,Embedding a Vaadin Application>>
-* <<embedding-flow-applications/tutorial-webcomponent-compatibility#,Embedding Application in Compatibility mode>>
 * <<embedding-flow-applications/tutorial-webcomponent-preserveonrefresh#,Preserving Contents of Embedded Applications on Refresh>>
 * <<embedding-flow-applications/tutorial-webcomponent-limitations#,Limitations in Embedded Application>>
 
