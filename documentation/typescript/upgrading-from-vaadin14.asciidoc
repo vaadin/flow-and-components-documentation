@@ -103,6 +103,8 @@ mvn package
 cp target/index.html target/index.ts frontend
 ----
 
+[NOTE]
+To dynamically modify the `index.html` content, you need to replace the deprecated `PageConfigurator` interface with the `AppShellConfigurator` as described in the <<application-shell#application-shell-configurator,Application Shell Configurator>> section.
 
 == Step 3 - Install link:https://lit-element.polymer-project.org/[LitElement^] [[step-3]]
 
