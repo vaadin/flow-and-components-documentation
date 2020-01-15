@@ -214,4 +214,3 @@ public class MainLayout extends Component {
 . The `@JsModule` and `@CssImport` annotations can also be used for importing from an npm package.
 In this case, the path is defined as `@JsModule("@polymer/paper-input")` or `@CssImport("some-package/style.css")`.
 Paths referring to the local frontend directory should be prefixed with `./`.
-[[foot-2]]
