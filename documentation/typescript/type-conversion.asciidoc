@@ -1,10 +1,10 @@
 ---
-title: Type Conversion Between Java and TypeScript
-order: 72
+title: "Appendix: Type Conversion between Java and TypeScript"
+order: 110
 layout: page
 ---
 
-= Type Conversion Between Java and TypeScript
+= Appendix: Type Conversion between Java and TypeScript
 
 == TypeScript to Java [[from-ts-to-java]]
 
@@ -20,7 +20,7 @@ The default conversion rules are summarized as follows (the TypeScript compliant
 
 === To receive primitive types in Java
 
-==== Type `boolean`:
+**Type `boolean`**:
 
 * TypeScript compliant values:
 ** A boolean value: `true` => `true` and `false` => `false`
@@ -28,7 +28,7 @@ The default conversion rules are summarized as follows (the TypeScript compliant
 * Noncompliant values:
 ** Any value that is not a valid `boolean` type in TypeScript.
 
-==== Type `char`:
+**Type `char`**:
 
 * TypeScript compliant values:
 ** A single character string: `'a'` => `'a'`
@@ -39,7 +39,7 @@ The default conversion rules are summarized as follows (the TypeScript compliant
 
 * UTF-16 and Unicode: Both Java and TypeScript internally use UTF-16 for string encoding. This makes string conversion between backend and frontend trivial. However, using UTF-16 has its limitations and corner cases. Most notably, a string like `"🥑"` might seem like a single-character which can be passed to Java as a `char`. However, both in TypeScript and Java it is actually a two-character string (because the `U+1F951` symbol takes 2 characters in UTF-16: `\uD83E\uDD51`). Thus, it is not a valid value for the Java `char` type.
 
-==== Type `byte`:
+**Type `byte`**:
 
 * TypeScript compliant values:
 ** An integer or decimal number in range of `-129 < X < 256`: `100`, `100.0` and `100.9` => `100`
@@ -53,7 +53,7 @@ The default conversion rules are summarized as follows (the TypeScript compliant
 
 * Underflow number: if Java side expects a `byte` value but TypeScript sends an underflow number, e.g. `-129` (`Byte.MIN_VALUE - 1`), the backend returns an error.
 
-==== Type `short`:
+**Type `short`**:
 
 * TypeScript compliant values:
 ** An integer or decimal number in range of `-2^16^ < X < 2^16^ - 1`: `100`, `100.0` and `100.9` => `100`
@@ -64,7 +64,7 @@ The default conversion rules are summarized as follows (the TypeScript compliant
 
 * Overflow and underflow numbers are not accepted for `short`.
 
-==== Type `int`:
+**Type `int`**:
 
 * TypeScript compliant values:
 ** An integer or decimal number: `100`, `100.0` and `100.9` => `100`
@@ -86,7 +86,7 @@ The default conversion rules are summarized as follows (the TypeScript compliant
 
 * Overflow and underflow numbers: bits get rolled over when receiving overflow/underflow number i.e. `2^63^` => `-2^63^`, `-2^63^ - 1` => `2^63^ - 1`
 
-==== Type `float` and `double`:
+**Type `float` and `double`**:
 
 * TypeScript compliant values:
 ** An integer or decimal number: `100` and `100.0` => `100.0`, `100.9` => `100.9`
@@ -105,7 +105,7 @@ The conversion works the same as primitive type.
 Any `String` values are kept the same when sent from TypeScript to Java backend.
 
 === To receive date time types in Java
-==== java.util.Date
+**java.util.Date**
 
 * TypeScript compliant values:
 ** A string that represents an epoch timestamp in milliseconds: `'1546300800000'` is converted to a `java.util.Date` instance which contains value of the date `2019-01-01T00:00:00.000+0000`.
@@ -113,7 +113,7 @@ Any `String` values are kept the same when sent from TypeScript to Java backend.
 * Noncompliant values:
 ** A non-number string: `'foo'`
 
-==== java.time.Instant
+**java.time.Instant**
 
 * TypeScript compliant values:
 ** A string that represents an epoch timestamp in seconds: `'1546300800'` is converted to a `java.time.Instant` instance which contains value of the `2019-01-01T00:00:00Z`.
@@ -121,7 +121,7 @@ Any `String` values are kept the same when sent from TypeScript to Java backend.
 * Noncompliant values:
 ** A non-number string: `'foo'`
 
-==== java.time.LocalDate
+**java.time.LocalDate**
 
 * TypeScript compliant values:
 ** A string which follows the `java.time.format.DateTimeFormatter#ISO_LOCAL_DATE` format `yyyy-MM-dd`: `'2018-12-16'`, `'2019-01-01'`.
@@ -129,7 +129,7 @@ Any `String` values are kept the same when sent from TypeScript to Java backend.
 * Noncompliant values:
 ** An incorrect format string: `'foo'`
 
-==== java.time.LocalDateTime
+**java.time.LocalDateTime**
 
 * TypeScript compliant values:
 ** A string which follows the `java.time.format.DateTimeFormatter#ISO_LOCAL_DATE_TIME` format:
