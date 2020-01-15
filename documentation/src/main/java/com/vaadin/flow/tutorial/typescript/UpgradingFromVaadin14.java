@@ -22,7 +22,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 
 @CodeFor("typescript/upgrading-from-vaadin14.asciidoc")
-public class UpgradingFromVaadin14Guide {
+public class UpgradingFromVaadin14 {
     @Route(value = "dashboard"/*, layout = MainView.class <-- remove this */)
     @RouteAlias(value = ""/*, layout = MainView.class <-- and this */)
     public class DashboardView extends Div {
