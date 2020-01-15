@@ -21,15 +21,19 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class Introduction {
 
     public Introduction() {
-        TextField textField = new TextField();
-        // Simple HTML inline text
-        Span greeting = new Span("Hello stranger");
+    	// A simple HTML inline text element
+    	Span greeting = new Span("Hello stranger");
 
-        textField.addValueChangeListener(event ->
-                greeting.setText("Hello " + event.getValue()));
+    	// A keyboard input field component
+    	TextField textField = new TextField();
 
-        VerticalLayout layout = new VerticalLayout(
-                textField, greeting);
+    	// When text is input, show the value in the text span
+    	textField.addValueChangeListener(event ->
+    	      greeting.setText("Hello " + event.getValue()));
+
+    	// Add both components to a vertical layout
+    	VerticalLayout layout = new VerticalLayout(
+    	      textField, greeting);
     }
 
     @Tag("my-label")
