@@ -9,7 +9,7 @@ layout: page
 == Vaadin Connect client
 
 Vaadin Connect consists of two parts: a backend and a client ones.
-The client part is represented by a `@vaadin/connect` library that is able to support the features the backend part provides.
+The client part is represented by a `@vaadin/flow-frontend/Connect` library that is able to support the features the backend part provides.
 
 One of the main public entities of the library is the `ConnectClient` object, that provides a seamless way to communicate with the
 Vaadin Connect services on a backend side of the application selected.
@@ -31,7 +31,7 @@ and a method `customMethod` requiring a `number` parameter to be specified.
 
 We would like to access this method from the client part.
 Depending on how many generated files are present, one of the approaches below can be used.
-As the only prerequisite for any of the approaches below, `@vaadin/connect` TypeScript library is required to be installed in the
+As the only prerequisite for any of the approaches below, `@vaadin/flow-frontend/Connect` TypeScript library is required to be installed in the
 client side project.
 
 === Generated module using the generated client
@@ -72,7 +72,7 @@ Client library usage requires an extra step where we specify the endpoint of the
 [source, typescript]
 [[client-library]]
 ----
-import {ConnectClient} from '@vaadin/connect';
+import {ConnectClient} from '@vaadin/flow-frontend/Connect';
 const client = new ConnectClient({endpoint: '/customEndpoint'});
 
 (async() => {

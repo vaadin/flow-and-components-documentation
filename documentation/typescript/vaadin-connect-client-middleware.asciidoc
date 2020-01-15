@@ -26,7 +26,7 @@ Here is an example logging middleware with the structure explained.
 .my-log-middleware.ts
 [source, typescript]
 ----
-import {Middleware, MiddlewareContext, MiddlewareNext} from '@vaadin/connect';
+import {Middleware, MiddlewareContext, MiddlewareNext} from '@vaadin/flow-frontend/Connect';
 
 // A middleware is an async function, that receives the `context` and `next`
 export const MyLogMiddleware: Middleware = async function(
@@ -75,7 +75,7 @@ To use a middleware, when the Vaadin Connect client is instantiated, include you
 .connect-client.ts
 [source, typescript]
 ----
-import {ConnectClient} from '@vaadin/connect';
+import {ConnectClient} from '@vaadin/flow-frontend/Connect';
 import {MyLogMiddleware} from './my-log-middleware';
 
 const client = new ConectClient({
@@ -106,7 +106,7 @@ To make a low-level modification on the request in a middleware, replace the `co
 .my-api-dispatcher-middleware.ts
 [source, typescript]
 ----
-import {Middleware, MiddlewareContext, MiddlewareNext} from '@vaadin/connect';
+import {Middleware, MiddlewareContext, MiddlewareNext} from '@vaadin/flow-frontend/Connect';
 
 // An example middleware that uses a different server for selected requests
 export const MyApiDispatcherMiddleware: Middleware = async function(
@@ -132,7 +132,7 @@ A middleware can also replace the response by returning a custom `Response` inst
 .my-stub-middleware.ts
 [source, typescript]
 ----
-import {Middleware, MiddlewareContext, MiddlewareNext} from '@vaadin/connect';
+import {Middleware, MiddlewareContext, MiddlewareNext} from '@vaadin/flow-frontend/Connect';
 
 // An example middleware that returns an empty response instead of calling the backend service
 export const MyStubMiddleware: Middleware = async function(
