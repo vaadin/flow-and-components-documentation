@@ -163,6 +163,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-portlet-cdi</artifactId>
+            <version>${vaadin-portlet.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>javax.portlet</groupId>
             <artifactId>portlet-api</artifactId>
             <version>${portlet-api.version}</version>
