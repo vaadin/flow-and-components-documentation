@@ -68,9 +68,6 @@ We've also imported some dependencies:
 * The `paper-input` Polymer component.
 
 
-[NOTE]
-Earlier Vaadin versions used Polymer 2, HTML imports and the Bower package manager to manage component dependencies. Vaadin 14 can still use components created in this way in a special *compatibility mode*. However, the documentation here covers only Polymer 3 and npm; for guidance on building client-side components with Polymer 2 and HTML imports we refer to the https://vaadin.com/docs/v13/flow/polymer-templates/tutorial-template-basic.html[Vaadin 13 documentation].
-
 == Server side
 
 To be able to use this template you need to create a Java class which extends `PolymerTemplate`,
@@ -163,6 +160,3 @@ HelloWorld hello = new HelloWorld();
 Div layout = new Div();
 layout.add(hello);
 ----
-
-[NOTE]
-To make your template-based product supporting non-ES6 browers like IE 11 and Safari 9, you need to configure the `vaadin-maven-plugin` in your `pom.xml`. See the chapter <<../production/tutorial-production-mode-basic#,Taking your Application into Production>> for more information.

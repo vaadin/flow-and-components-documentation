@@ -28,8 +28,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("typescript/configure-spring-authentication.asciidoc")
-public class ConfigureSpringAuthentication {
+@CodeFor("typescript/adding-login-form-with-spring-security.asciidoc")
+public class AddingLoginFormWithSpringSecurity {
 
     @EnableWebSecurity
     @Configuration

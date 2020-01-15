@@ -1,16 +1,14 @@
 ---
-title: Client-side Security
+title: Configuring Security for TypeScript Views
 order: 70
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Client-side Security
+= Configuring Security for TypeScript Views
 
 When developing server-side views, service access control is done by using regular java approaches: servlet-container based security, third party libraries, or session based solutions.
-
-On the other hand, client-side views do not have any sort of security, hence, it is necessary to secure the endpoint services that they access.
 
 This article describes all the pieces needed for securing client centric applications.
 
@@ -44,7 +42,7 @@ if not specified in Java code explicitly, before invoking a service method, the 
 The `HttpServletRequest#getUserPrincipal()` Java API is used for the check.
 
 At this point, the servlet container or the application needs to be configured appropriately to handle user authentication.
-This is described in <<configure-spring-authentication#,Configure Spring Authentication>> and <<configure-server-authentication#,Configure Servlet-Container>> articles.
+This is described in the <<adding-login-form-with-spring-security#,Adding a Login Form with Spring Security>> and <<../advanced/tutorial-servlet-container-authentication#,Configuring Servlet-Container Authentication>> articles.
 
 == Other security options
 

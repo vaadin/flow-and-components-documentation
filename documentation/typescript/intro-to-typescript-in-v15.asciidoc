@@ -1,12 +1,12 @@
 ---
-title: Intro to TypeScript in Vaadin 15
-order: 40
+title: "Appendix: Intro to TypeScript in Vaadin 15"
+order: 100
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Intro to TypeScript in Vaadin 15
+= Appendix: Intro to TypeScript in Vaadin 15
 
 Vaadin 15+ supports link:https://www.typescriptlang.org/[TypeScript^] for writing client-side code, without needing any additional configuration. That includes live reloading at the development time, and optimized builds for production.
 
@@ -16,16 +16,16 @@ If you have an idea how to make it more useful for you, please share it on link:
 
 In order to write the app bootstrapping code, or create views in TypeScript make sure that:
 
- - <<client-side-bootstrapping#,client-side bootstrapping>> is enabled.
+ - <<starting-the-app#,client-side bootstrapping>> is enabled.
 
- - and the `index.html` page template and the `index.ts` entry point do exist in the `frontend/` folder.
+ - and the `index.html` page template and the `index.ts` entry point do exist in the `frontend/` folder. If they don't, follow the <<upgrading-from-vaadin14#step-2,instruction>> to create them.
 
 After that any `.ts` file imported from `index.ts` (statically or dynamically) is going to be built as a part of the application.
 
-= Bootstrapping with TypeScript
+= Starting the app in TypeScript
 
 Vaadin 15 introduces a new bootstrapping mode where the bootstrap template (`index.html`) and application entry point are readily available for customization. The entry point to the application can be written in TypeScript: using an `index.ts` file is supported as well as using `index.js`. Below is a sample `index.ts` file that adds a button click listener to load the full Vaadin application lazily, only after the button is clicked.
-See the <<client-side-bootstrapping#, Client-side Bootstrapping>> page for details on starting a Vaadin application from client-side code.
+See the <<starting-the-app#, Starting the app in TypeScript>> page for details on starting a Vaadin application from TypeScript code.
 
 .frontend/index.ts
 [source,typescript]
@@ -72,8 +72,7 @@ With the above snippets, the bootstrap page shows "Hello, World!" text with a bu
 
 = Adding a TypeScript View
 
-Since version 15 Vaadin allows defining routes and creating views in client-side code using the <<client-side-routing#, Client-side routing>> approach.
-Client-side views can be created in TypeScript, like in the following example:
+Since version 15 Vaadin allows <<creating-routes#,creating routes in TypeScript>>, like in the following example:
 
 .frontend/my-view.ts
 [source,typescript]
@@ -156,17 +155,17 @@ const router = new Router(document.querySelector('#outlet'));
 router.setRoutes(routes);
 ----
 
-Now `my-view` is accessible via the root path, i.e. `http://localhost:8080/`. All the other routes are handled by the server-side router. See the <<client-side-routing#, Client-side Routing>> page for more information.
+Now `my-view` is accessible via the root path, i.e. `http://localhost:8080/`. All the other routes are handled by the server-side router. See the <<creating-routes#, Creating routes in TypeScript>> page for more information.
 
 = Hot-reload in development mode
 
-When running the application in development mode, all modifications in `frontend` folder are compiled and reloaded automatically. Refreshing browser is enough to get the updates.
+When running the application in development mode, all modifications in `frontend` folder are compiled automatically. Refreshing browser is enough to get the updates.
 
 NOTE: There is an exceptional case when adding `index.ts` or `index.html` for the first time. The application server needs to be restarted to update the entry point and the bootstrap template.
 
 = Accessing Backend Data in TypeScript Views
 
-Vaadin 15 provides a type-safe and secured way to access data from backend in frontend views using the generated TypeScript code. During the development time, Vaadin scans the backend code and generates TypeScript code which can call corresponding Java methods. The generated code are processed through the same build chain as other TypeScript views. So that only necessary code are bundled for your application in production mode. See <<how-to-create-api-endpoint#, How to Create API Endpoint>> and <<how-to-access-backend-from-typescript#, How to Access the Backend from TypeScript>> for more information.
+Vaadin 15 provides a type-safe and secured way to access data from backend in frontend views using the generated TypeScript code. During the development time, Vaadin scans the backend code and generates TypeScript code which can call corresponding Java methods. The generated code are processed through the same build chain as other TypeScript views. So that only necessary code are bundled for your application in production mode. See <<accessing-backend#, Accessing back-end from TypeScript>> for more information.
 
 = Limitations
 

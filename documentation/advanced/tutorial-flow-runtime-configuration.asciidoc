@@ -82,25 +82,5 @@ System properties override application properties ergo if you have both properti
 
 == Parameters and description
 
-* disable.webjars - if set to `true`, webjars would be ignored during request resolving,
-allowing Flow to use external source of web components' files.
-[NOTE]
-Webjars are enabled for development mode and disabled for production mode by default,
-unless explicitly overridden by parameter specified.
-In the future, webjars are expected to the always enabled by default.
-
-Next group of parameters are paths to external web component's locations in development and production modes.
-
-Development mode:
-
-* frontend.url.dev (default value is `context://frontend`) – a location Flow searches web components' files in development mode.
-Supports changes reload on a working application and should be set as a directory, containing `bower.json` file.
-
-Production mode:
-
-* productionMode (default value is `false`) – turns application to work in production mode
-* frontend.url.es5 (default value is `context://frontend-es5`) - a location Flow searches web components' files in production mode
-when the request is coming from older browsers, not supporting http://es6-features.org/[es6], default web components' development language version.
-* frontend.url.es6 (default value is `context://frontend-es6`) - a location Flow searches web components' files in production mode for requests from modern browsers
-* load.es5.adapters (default value is `true`) – include polyfills for browsers that does not support ES6 to their initial page.
+The `productionMode` (default value is `false`) parameter turns application to work in production mode
 In order for web components to work, extra libraries (polyfills) are required to be loaded, can be turned off if different versions or libraries should be included instead.

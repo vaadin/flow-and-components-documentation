@@ -10,7 +10,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 We recommend the following steps to create a new application with Vaadin 15.
 
-* use link:https://start.stg.vaadin.com/[start.stg.vaadin.com^] to create a new project (<<quick-start-guide#step-1,step 1>>)
+* use link:https://start.vaadin.com/[start.vaadin.com^] to create a new project (<<quick-start-guide#step-1,step 1>>)
 * download a project archive and start the app in Dev mode (<<quick-start-guide#step-2,step 2>>)
 * add a new TypeScript view to the app (<<quick-start-guide#step-3,step 3>>)
 * access the backend from the new TypeScript view (<<quick-start-guide#step-4,step 4>>)
@@ -18,15 +18,15 @@ We recommend the following steps to create a new application with Vaadin 15.
 _If you are migrating an existing Vaadin 14 application, please check the <<upgrading-from-vaadin14#,Upgrading from Vaadin 14>> page._
 
 
-== Step 1 - Create a new project at link:https://start.stg.vaadin.com/[start.stg.vaadin.com^] [[step-1]]
+== Step 1 - Create a new project at link:https://start.vaadin.com/[start.vaadin.com^] [[step-1]]
 
 image:starterwizard.gif[New Project Video]
 
 [NOTE]
-Make sure to select `TypeScript + Spring Boot` as the technology stack.
+Make sure to select `TypeScript` implementation when adding views.
 
 
-== Step 2 - Unzip an run the project in Dev-Mode [[step-2]]
+== Step 2 - Unzip and run the project in Dev-Mode [[step-2]]
 
 Run `mvn spring-boot:run` in the console and open the application at link:http://localhost:8080[]. After that, all modifications in `frontend` directory are compiled and reloaded automatically. Refreshing browser is enough to get the updates.
 
@@ -52,7 +52,7 @@ router.setRoutes([
   {
     path: '/help',
     component: 'app-help',
-    action: () => import('./views/help/app-help')
+    action: async () => { await import('./views/help/app-help'); }
   },
   ...
 ]);
@@ -64,22 +64,23 @@ Second create a new client-side view:
 [source, typescript]
 ----
 import {LitElement, html, customElement} from 'lit-element';
+import '@vaadin/vaadin-button/vaadin-button';
 
 @customElement('app-help')
 export class AppHelp extends LitElement {
     render() {
       return html`
-        <vaadin-button @click=${this.click}>Read More</vaadin-button>
+        <vaadin-button @click=${this.onClick}>Read More</vaadin-button>
       `;
     }
 
-    click(e) {
+    onClick() {
       console.log('clicked');
     }
 }
 ----
 
 
-== Step 4 - Access the backend from the new TypeScript view [[step-4]]
+== Step 4 - Access the back-end from the new TypeScript view [[step-4]]
 
-Continue with the <<how-to-access-backend-from-typescript#, 'How to Access the Backend from TypeScript'>> guide for consuming server-side services.
+Continue with the <<accessing-backend#, Accessing back-end from TypeScript>> page for more details on how to consume server-side services.

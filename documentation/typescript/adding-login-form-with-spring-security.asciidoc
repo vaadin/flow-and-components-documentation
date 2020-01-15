@@ -1,6 +1,6 @@
 ---
 title: Adding a Login Form with Spring Security
-order: 72
+order: 80
 layout: page
 ---
 
@@ -175,11 +175,6 @@ export class MainLayoutElement extends LitElement {
   }
 }
 ----
-
-== Handling Authentication errors in Client
-
-When consuming services it 
-
 
 == Appendix: Production Data Sources
 

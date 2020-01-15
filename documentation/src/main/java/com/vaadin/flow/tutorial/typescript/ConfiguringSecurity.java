@@ -24,8 +24,8 @@ import com.vaadin.flow.server.connect.VaadinService;
 import com.vaadin.flow.server.connect.auth.AnonymousAllowed;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("typescript/client-side-security.asciidoc")
-public class ClientSideSecurity {
+@CodeFor("typescript/configuring-security.asciidoc")
+public class ConfiguringSecurity {
 
     @VaadinService
     public class CounterService {
