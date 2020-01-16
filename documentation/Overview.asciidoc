@@ -30,10 +30,8 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 == Installing Development Tools
 * <<installing/installing-overview#,Overview>>
 * <<installing/installing-toolchain#,Working with a Toolchain>>
-
-== Development Workflow
-** <<workflow/workflow-overview#,Workflow Overview>>
-** <<workflow/tutorial-plain-servlet-live-reload#, Live Reload in Web Applications>>
+* <<workflow/workflow-overview#,Improving Development Workflow>>
+** <<workflow/tutorial-plain-servlet-live-reload#, Live Reload in Basic Servlet Applications>>
 ** <<workflow/tutorial-spring-boot-live-reload#, Live Reload in Spring Boot Applications>>
 ** <<workflow/tutorial-cdi-live-reload#, Live Reload in CDI Applications>>
 
