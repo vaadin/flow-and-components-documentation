@@ -139,14 +139,6 @@ service
     .then(response => console.log(response));
 ----
 
-== How Vaadin Services protects from CSRF attacks
+== CSRF protection of Vaadin services
 
-Connect client sends in each XHR request a custom header that protects against CSRF attacks since it cannot be set in 3rd party forms.
-
-The presence of the header is checked before any service invocation, returning an unauthorized response if it fails.
-
-If Cross-Origin Resource Sharing (CORS) is enabled in the Vaadin server, it must be appropriately configured for not accepting requests from unknown sources.
-
-
-
-
+Vaadin services are protected from CSRF attacks using the same approach with the rest of Vaadin. See the <<../advanced/framework-security#_cross_site_request_forgery_csrf_xsrf, Cross-Site Request Forgery>> section in the security guide for more details.
