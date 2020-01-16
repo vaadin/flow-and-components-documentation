@@ -10,7 +10,7 @@ The TypeScript generator produces TypeScript files based on the information from
 
 [NOTE]
 ====
-Vaadin Connect uses https://github.com/OAI/OpenAPI-Specification[OpenAPI Specification] as a middle layer between Java services and TypeScript service wrappers. The current implementation is based on OpenAPI specification 3.0. For details, please refer to <<appendix, the appendix at the end of this page>>.
+Vaadin uses https://github.com/OAI/OpenAPI-Specification[OpenAPI Specification] as a middle layer between Java services and TypeScript service wrappers. The current implementation is based on OpenAPI specification 3.0. For details, please refer to <<appendix, the appendix at the end of this page>>.
 ====
 
 == Examples
@@ -208,7 +208,7 @@ Type and description of each property are used for TsDoc that describes the para
 
 [NOTE]
 ====
-All the other content types of request body object are not ignored by Vaadin Connect Generator. It means that without the `application/json` content type, the method is considered as a no parameter one.
+All the other content types of request body object are not ignored by the Vaadin Generator. It means that without the `application/json` content type, the method is considered as a no parameter one.
 ====
 
 ==== Method's Return Type
@@ -277,7 +277,7 @@ The TsDoc of the generated method is stored as `_description_` value of the `_PO
 }
 ----
 
-<1> As mentioned in https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject[operation object] specification, in Vaadin Connect Generator, `_tags_` are used to classify operations into TypeScript files. It means each tag will have a corresponding generated TypeScript file. The operations, which contain more than one tag, will appear in all generated files. Empty tags operations will be placed in `_Default.ts_` file.
+<1> As mentioned in https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject[operation object] specification, in Vaadin Generator, `_tags_` are used to classify operations into TypeScript files. It means each tag will have a corresponding generated TypeScript file. The operations, which contain more than one tag, will appear in all generated files. Empty tags operations will be placed in `_Default.ts_` file.
 
 [NOTE]
 ====
@@ -297,7 +297,7 @@ Here is an example OpenAPI document which could generate the above <<UserService
   },
   "servers" : [ {
     "url" : "https://myhost.com/myendpoint",
-    "description" : "Vaadin connect backend server"
+    "description" : "Vaadin backend server"
   } ],
   "tags" : [ {
     "name" : "UserService",
