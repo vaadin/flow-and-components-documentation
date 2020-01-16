@@ -8,7 +8,7 @@ layout: page
 
 During application development the code changes happen frequently. There are multiple tools 
 available which speed up the development process and avoid having to manually 
-restart the application every time after a change. IDEs have integrations to servlet containers that automatically reload the servlet context, in debug mode compatiblec class changes can be hotswapped to a running application and many server Maven plugins and detect new changes.
+restart the application every time after a change. IDEs have integrations to servlet containers that automatically reload the servlet context, in debug mode compatible class changes can be hotswapped to a running application and many server Maven plugins and detect new changes.
 
 Here is a list of some of these tools:
 - https://www.eclipse.org/jetty/documentation/9.4.x/jetty-maven-plugin.html[The Jetty Maven plugin] 
