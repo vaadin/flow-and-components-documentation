@@ -13,7 +13,7 @@ TypeScript code.
 
 Vaadin service is a class that defines one or more API endpoints.
 
-Vaadin Connect is a bridge between Java backend services and a TypeScript
+Vaadin acts as a bridge between Java backend services and a TypeScript
 frontend. It allows creating API endpoints and services in Java, and generates
 TypeScript clients to call the Java backend in a type-checkable way.
 
@@ -61,12 +61,11 @@ Where:
 * `${base_url}` — the base url of the application, depends on the framework
 used. For instance, for Spring framework, the default one if the application is
 started locally, is `http://localhost:8080`.
-* `${endpoint}` — the url part that every Vaadin Connect service has,
-same for every service url. By default, `connect` is used, but this can be
-configured in the application properties.
+* `${endpoint}` — the url common part that every exposed service has.
+By default, `connect` is used, but this can be configured in the application properties.
 * `${service_name}` — if not specified explicitly, the corresponding Java
-service class name.
-* `${method_name}` — the public method name from the Java service class.
+class name which exposes methods.
+* `${method_name}` — the public method name from the Java class.
 
 For the application started locally with the `CounterService` service defined
 above, the service url will be the following:
@@ -74,7 +73,7 @@ above, the service url will be the following:
 
 [NOTE]
 ====
-Service name and the method name are not case sensitive for Vaadin Connect, so
+Service name and the method name are not case sensitive for Vaadin, so
 the url above is the same as
 `http://localhost:8080/connect/CounterService/addOne` or
 `http://localhost:8080/connect/COUNTERSERVICE/ADDONE` or any other case
@@ -83,7 +82,7 @@ combination for the service and method name.
 
 == How to configure the API endpoint URL?
 
-Vaadin Connect allows to configure the following url parts:
+Vaadin allows to configure the following url parts:
 
 * `${endpoint}`
 The default value is `connect`. To change it to some other value, provide
@@ -146,7 +145,7 @@ For example, the generated TypeScript module for the Java service defined in
 .CounterService.ts
 ----
 /**
- * A Vaadin Connect service that counts numbers.
+ * A Vaadin service that counts numbers.
  *
  * This module has been generated from CounterService.java
  * @module CounterService
