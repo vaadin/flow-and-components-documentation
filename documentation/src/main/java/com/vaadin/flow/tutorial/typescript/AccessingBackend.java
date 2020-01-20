@@ -15,16 +15,16 @@
  */
 package com.vaadin.flow.tutorial.typescript;
 
-import com.vaadin.flow.server.connect.VaadinService;
+import com.vaadin.flow.server.connect.Endpoint;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("typescript/accessing-backend.asciidoc")
 public class AccessingBackend {
     /**
-     * A Vaadin service that counts numbers.
+     * A Vaadin endpoint that counts numbers.
      */
-    @VaadinService
-    public class CounterService {
+    @Endpoint
+    public class CounterEndpoint {
         /**
          * A method that adds one to the argument.
          */

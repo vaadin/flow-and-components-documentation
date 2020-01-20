@@ -1,30 +1,30 @@
 ---
-title: "Appendix: TypeScript Services Generator"
+title: "Appendix: TypeScript Endpoints Generator"
 order: 120
 layout: page
 ---
 
-= Appendix: TypeScript Services Generator
+= Appendix: TypeScript Endpoints Generator
 
 The TypeScript generator produces TypeScript files based on the information from an OpenApi document which is generated from Java files in `_src/main/java_` folder by default.
 
 [NOTE]
 ====
-Vaadin uses https://github.com/OAI/OpenAPI-Specification[OpenAPI Specification] as a middle layer between Java services and TypeScript service wrappers. The current implementation is based on OpenAPI specification 3.0. For details, please refer to <<appendix, the appendix at the end of this page>>.
+Vaadin uses https://github.com/OAI/OpenAPI-Specification[OpenAPI Specification] as a middle layer between Java endpoints and TypeScript endpoint clients. The current implementation is based on OpenAPI specification 3.0. For details, please refer to <<appendix, the appendix at the end of this page>>.
 ====
 
 == Examples
 
 A simple generated TypeScript files will look like the following snippet:
 
-.UserService.ts [[UserService.ts]]
+.UserEndpoint.ts [[UserEndpoint.ts]]
 [source, typescript]
 ----
 /**
- * User services.
+ * User endpoints.
  *
- * This module has been generated from UserServices.java
- * @module UserServices
+ * This module has been generated from UserEndpoints.java
+ * @module UserEndpoints
  */
 import client from './connect-client.default';
 
@@ -37,7 +37,7 @@ import client from './connect-client.default';
 export function isAdmin(
   id: number
 ): Promise<boolean> {
-  return client.call('UserServices', 'isAdmin', {id});
+  return client.call('UserEndpoints', 'isAdmin', {id});
 }
 
 ----
@@ -45,16 +45,16 @@ export function isAdmin(
 The `_import client from './connect-client.default'_` is a static part of any generated file.
 `_connect-client.default.ts_` is another generated file which includes default configurations for the `_ConnectClient_` and exports its instance as `_client_`.
 
-Each method in the generated modules is corresponding to a Java method in `@VaadinService` annotated classes. For example, the following Java code is corresponding to the generated <<UserServices.ts,UserServices.ts>>:
+Each method in the generated modules is corresponding to a Java method in `@Endpoint` annotated classes. For example, the following Java code is corresponding to the generated <<UserEndpoints.ts,UserEndpoints.ts>>:
 
-.UserService.ts [[UserService.ts]]
+.UserEndpoint.ts [[UserEndpoint.ts]]
 [source, java]
 ----
 /**
- * User services.
+ * User endpoints.
  */
-@VaadinService
-public class UserServices {
+@Endpoint
+public class UserEndpoints {
     /**
      * Check if a user is admin or not.
      *
@@ -68,7 +68,7 @@ public class UserServices {
 }
 ----
 
-By default, all Java types are mapped and generated to a non-nullable type in TypeScript. Therefore, returning a `null` value to TypeScript in a non-optional service method causes a validation exception in runtime.
+By default, all Java types are mapped and generated to a non-nullable type in TypeScript. Therefore, returning a `null` value to TypeScript in a non-optional endpoint method causes a validation exception in runtime.
 
 NOTE: For more information about type mapping between Java and TypeScript, please refer to <<type-conversion#, type conversion page>>.
 
@@ -78,7 +78,7 @@ If a parameter, a bean property or a method in Java method is annotated with `@N
 
 ==== Optional parameter
 
-.Optional parameter in Java service
+.Optional parameter in Java endpoint
 [source, java]
 ----
 public void setName(String firstName, String lastName, @Nullable String middleName) {
@@ -98,7 +98,7 @@ export function setName(
   lastName: string,
   middleName?: string
 ): Promise<void> {
-  return client.call('UserServices', 'setName', {firstName, lastName, middleName});
+  return client.call('UserEndpoints', 'setName', {firstName, lastName, middleName});
 }
 
 export function setNameOptional(
@@ -106,11 +106,11 @@ export function setNameOptional(
   lastName: string,
   middleName?: string
 ): Promise<void> {
-  return client.call('UserServices', 'setNameOptional', {firstName, lastName, middleName});
+  return client.call('UserEndpoints', 'setNameOptional', {firstName, lastName, middleName});
 }
 ----
 
-In this case, if user calls `UserServices.setName('first', 'last')` in TypeScript, the middle name is omitted and set as `null` when receiving in Java `UserServices.setName` method. If the JavaType is `Optional`, the missing parameter is `Optional.empty()`;
+In this case, if user calls `UserEndpoints.setName('first', 'last')` in TypeScript, the middle name is omitted and set as `null` when receiving in Java `UserEndpoints.setName` method. If the JavaType is `Optional`, the missing parameter is `Optional.empty()`;
 
 ==== Optional property
 
@@ -158,11 +158,11 @@ public Optional<String> getPhoneNumberOptional() {
 ----
 
 export function getPhoneNumber(): Promise<string | undefined> {
-  return client.call('UserServices', 'getPhoneNumber');
+  return client.call('UserEndpoints', 'getPhoneNumber');
 }
 
 export function getPhoneNumberOptional(): Promise<string | undefined> {
-  return client.call('UserServices', 'getPhoneNumberOptional');
+  return client.call('UserEndpoints', 'getPhoneNumberOptional');
 }
 ----
 
@@ -179,10 +179,10 @@ Each exported method in a module is corresponding to a https://github.com/OAI/Op
 Currently, the generator only supports `_POST_` operation. If a path item contains other operations than `_POST_`, the generator will stop processing.
 ====
 
-The path *must* start with `/` as described in https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#patterned-fields[Patterned Fields]. It is parsed as `_/<service name>/<method name>_` which are used as parameters to call to Java services in the backend. Method name from the path is also reused as the method name in the generated TypeScript file.
+The path *must* start with `/` as described in https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#patterned-fields[Patterned Fields]. It is parsed as `_/<endpoint name>/<method name>_` which are used as parameters to call to Java endpoints in the backend. Method name from the path is also reused as the method name in the generated TypeScript file.
 
 ==== Method's Parameters
-Parameters of the method are taken from the `_application/json_` content of https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#requestBodyObject[request body object]. To get the result as <<UserService.ts>>, the request body content should be:
+Parameters of the method are taken from the `_application/json_` content of https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#requestBodyObject[request body object]. To get the result as <<UserEndpoint.ts>>, the request body content should be:
 
 .Request Body [[request-body]]
 [source, json]
@@ -245,7 +245,7 @@ The TsDoc of the generated method is stored as `_description_` value of the `_PO
 [source, json]
 ----
 {
-  "tags": ["UserService"], // <1>
+  "tags": ["UserEndpoint"], // <1>
   "description": "Check if a user is admin or not.",
   "requestBody": {
     "content": {
@@ -284,9 +284,9 @@ The TsDoc of the generated method is stored as `_description_` value of the `_PO
 Although multiple tags do not break the generator, it might be confusing in the development time when there are two exact same methods in different TypeScript files. It is recommended to have only one tag per operation.
 ====
 
-Here is an example OpenAPI document which could generate the above <<UserService.ts>>.
+Here is an example OpenAPI document which could generate the above <<UserEndpoint.ts>>.
 
-.User service OpenApi document
+.User endpoint OpenApi document
 [source, json]
 ----
 {
@@ -300,13 +300,13 @@ Here is an example OpenAPI document which could generate the above <<UserService
     "description" : "Vaadin backend server"
   } ],
   "tags" : [ {
-    "name" : "UserService",
-    "description" : "User service class."
+    "name" : "UserEndpoint",
+    "description" : "User endpoint class."
   } ],
   "paths" : {
-    "/UserService/isAdmin" : {
+    "/UserEndpoint/isAdmin" : {
       "post": {
-        "tags": ["UserService"],
+        "tags": ["UserEndpoint"],
         "description": "Check if a user is admin or not.",
         "requestBody": {
           "content": {

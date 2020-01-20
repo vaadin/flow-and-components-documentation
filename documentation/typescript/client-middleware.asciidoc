@@ -6,7 +6,7 @@ layout: page
 
 = Appendix: Client middleware
 
-The middleware in Vaadin is a special TypeScript async callback function that is executed by the frontend client during calls to backend. It intercepts the request and the response for every call. The middleware has access to the call context information, including the service and the method names, the supplied parameters, and other client call options.
+The middleware in Vaadin is a special TypeScript async callback function that is executed by the frontend client during calls to backend. It intercepts the request and the response for every call. The middleware has access to the call context information, including the endpoint and the method names, the supplied parameters, and other client call options.
 
 == When to use a middleware?
 
@@ -35,9 +35,9 @@ export const MyLogMiddleware: Middleware = async function(
 ): Promise<Response> {
   // The context object contains the call arguments. See the `call` method
   // of the `ConnectClient` class for their descriptions.
-  const {service, method, params, options} = context;
+  const {endpoint, method, params, options} = context;
   console.log(
-    `Sending request to service: ${service} ` +
+    `Sending request to endpoint: ${endpoint} ` +
     `method: ${method} ` +
     `parameters: ${JSON.stringify(params)} ` +
     `call options ${JSON.stringify(options)} `
@@ -113,10 +113,10 @@ export const MyApiDispatcherMiddleware: Middleware = async function(
   context: MiddlewareContext,
   next: MiddlewareNext
 ): Promise<Response> {
-  if (context.service === 'ExternalService') {
+  if (context.endpoint === 'ExternalEndpoint') {
     const url = context.request.url.replace(
       'https//my-app.example.com',
-      'https://external-service.example.com'
+      'https://external-endpoint.example.com'
     );
     context.request = new Request(url, context.request);
   }
@@ -134,12 +134,12 @@ A middleware can also replace the response by returning a custom `Response` inst
 ----
 import {Middleware, MiddlewareContext, MiddlewareNext} from '@vaadin/flow-frontend/Connect';
 
-// An example middleware that returns an empty response instead of calling the backend service
+// An example middleware that returns an empty response instead of calling the backend endpoint
 export const MyStubMiddleware: Middleware = async function(
   context: MiddlewareContext,
   next: MiddlewareNext
 ): Promise<Response> {
-  if (context.service === 'StubService') {
+  if (context.endpoint === 'StubEndpoint') {
     //
     return new Response('{}');
   }

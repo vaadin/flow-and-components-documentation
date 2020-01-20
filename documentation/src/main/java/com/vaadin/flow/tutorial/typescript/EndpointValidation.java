@@ -12,8 +12,8 @@ import javax.validation.executable.ExecutableValidator;
 import java.lang.reflect.Method;
 import java.util.Set;
 
-@CodeFor("typescript/service-methods-validation.asciidoc")
-public class ServiceValidation {
+@CodeFor("typescript/endpoint-methods-validation.asciidoc")
+public class EndpointValidation {
 
     private Object bean = null;
     private Object object = null;
