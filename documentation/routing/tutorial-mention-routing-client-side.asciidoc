@@ -20,7 +20,7 @@ The first one is `@Route` annotation and the other one is `TypeScript routing`.
 
 When you want to define any component as a route target for a URL fragment, let's use it.
 
-we will guide how to use `Route` annotation in <<routing/tutorial-routing-annotation#,next chapter>>
+we will guide how to use `Route` annotation in <<tutorial-routing-annotation#,next chapter>>
 and other interesting things related to `@Router` annotation in this section.
 
 == TypeScript routing
@@ -31,7 +31,7 @@ Congratulation!!! You are in the right place.
 TypeScript routing(`@vaadin/router`) allow adding client-side routes and server-side routes
 and navigate between them. You can also use it without server-side views.
 
-We will explain more about `@vaadin/router` how to use it and how it works in <<typescript/creating-routes#, Creating UI in TypeScript>> section.
+We will explain more about `@vaadin/router` how to use it and how it works in <<../typescript/creating-routes#, Creating UI in TypeScript>> section.
 
 [NOTE]
  Now, you know what is Vaadin Router and how many types of routing we have, so you can know which one is better for you.
