@@ -32,7 +32,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 ** <<workflow/tutorial-cdi-live-reload#, Live Reload in CDI Applications>>
 
 == Router and Navigation
-* <<routing/tutorial-mention-routing-client-side#,Router for Both Client-side and Server-side>>
+* <<routing/tutorial-routing-on-client-side-and-server-side#,Routing on Client Side and Server Side>>
 * <<routing/tutorial-routing-annotation#,Defining Routes with @Route>>
 * <<routing/tutorial-routing-lifecycle#,Navigation Lifecycle>>
 * <<routing/tutorial-router-layout#,Router Layouts and Nested Router Targets>>
