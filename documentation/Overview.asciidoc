@@ -117,16 +117,16 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<typescript/starting-the-app#, Starting the Application in TypeScript>>
 * <<typescript/creating-routes#, Creating Routes in TypeScript>>
 * <<typescript/accessing-backend#, Accessing Java Backend in TypeScript>>
-* <<typescript/vaadin-connect-exceptions#, Vaadin Connect Exceptions>>
+* <<typescript/client-exceptions#, Client Side Exceptions>>
 * <<typescript/configuring-security#, Configuring Security for TypeScript Views>>
 * <<typescript/adding-login-form-with-spring-security#, Adding a Login Form with Spring Security>>
 * <<typescript/intro-to-typescript-in-v15#, Appendix: Intro to TypeScript in Vaadin 15>>
 * <<typescript/type-conversion#, Appendix: Type Conversion between Java and TypeScript>>
 * <<typescript/application-shell#, Appendix: The Application Shell>>
 * <<typescript/typescript-services-generator#, Appendix: TypeScript Services Generator>>
-* <<typescript/vaadin-connect-typescript-client#, Vaadin Connect TypeScript Client>>
-* <<typescript/vaadin-connect-client-middleware#, Vaadin Connect Client Middleware>>
-* <<typescript/service-methods-validation#, Vaadin Connect validation in the service methods>>
+* <<typescript/typescript-client#, Appendix: TypeScript Client>>
+* <<typescript/client-middleware#, Appendix: Client Middleware>>
+* <<typescript/service-methods-validation#, Appendix: Service Methods Validation>>
 
 == Using Vaadin with Spring
 * <<spring/tutorial-spring-basic#,Use Vaadin with Spring>>
