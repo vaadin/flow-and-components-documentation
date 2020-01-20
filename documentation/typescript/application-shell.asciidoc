@@ -1,14 +1,14 @@
 ---
-title: Application Shell Configurator
+title: "Appendix: Application Shell Configurator"
 order: 115
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Application Shell
+= Appendix: Application Shell
 
-=== Abstract
+=== Abstract [[application-shell]]
 
 The link:https://developers.google.com/web/fundamentals/architecture/app-shell[App Shell Model] tries to make your website faster by loading the 'important' parts of the web page at first causing a good first impression. The key for this, is to deliver the minimal HTML, CSS and JavaScript required to display the user interface during the first visit, and eventually cache it to be used in future revisits.
 
@@ -23,7 +23,7 @@ In Vaadin 15+ the user has full control on the `index.html` contents, which can 
    - Implement the `AppShellConfigurator` for cases covered by the `AppShellSettings` API, or by annotations.
    - Configure an `IndexHtmlRequestListener` for advanced cases modifying the document structure.
 
-== Customizig the Application Shell Template
+== Customizing the Application Shell Template
 
 By default, during the first request, Vaadin parses the `frontend/index.html` template file and delivers it with a few modifications as described in the <<starting-the-app#default-bootstrap-template-and-entry-point,Default Bootstrap Template>>
 

@@ -1,19 +1,18 @@
 ---
-title: Validation in Vaadin Connect service methods
+title: Appendix: Service Methods Validation
 order: 150
 layout: page
 ---
 
-= Validation in Vaadin Connect service methods
+= Appendix: Service Methods Validation
 
-Whenever Vaadin Connect service method is invoked, its parameters  are automatically validated
+Whenever a Vaadin service method is invoked, its parameters  are automatically validated
 using https://beanvalidation.org/2.0/[JSR 380] Bean validation specification after they are deserialized
 from the service request body.
 
 This is useful in eliminating the boilerplate needed for the initial request validation — the framework automatically
 checks the constraints placed on beans and sends the response back to the client part, if the validation fails.
-The connect-client, on its side, raises the `VaadinConnectValidationError` when receives the
-corresponding response from the server.
+The browser raises the `VaadinConnectValidationError` when receives the corresponding response from the server.
 
 == Built-in validation constraints and how to use them
 
@@ -70,7 +69,7 @@ Set<ConstraintViolation<Object>> violations = executableValidator.validateReturn
 ----
 
 If needed, it's possible to throw a `VaadinConnectValidationException` from the service method.
-This exception will be caught by the `connect-client` library and the corresponding `VaadinConnectValidationError`
+This exception will be caught by TypeScript and the corresponding `VaadinConnectValidationError`
 will be raised.
 
 See the official documentation for more details on validating
@@ -79,13 +78,13 @@ and
 https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-validating-executable-constraints[method]
 constraints.
 
-== Vaadin Connect validation implementation details
+== Vaadin validation implementation details
 
-Vaadin Connect validates only the beans and method parameters that are used in the service classes
+Vaadin validates only the beans and method parameters that are used in the service classes
 (classes, annotated with `@VaadinService` annotation).
 No other types are validated, even if they have a constraint annotations on them.
 
-If any validation errors occur, a non-`200` response is sent back which is interpreted with `connect-client` library as
+If any validation errors occur, a non-`200` response is sent back which is interpreted in TypeScript as
 a reason to throw a `VaadinConnectValidationError`.
 Similar effect is achieved if a `VaadinConnectValidationException` is thrown by any of the Java service methods.
 
