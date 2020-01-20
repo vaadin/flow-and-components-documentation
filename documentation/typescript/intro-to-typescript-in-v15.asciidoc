@@ -100,7 +100,7 @@ TypeScript compiler requires a `tsconfig.json` file, `vaadin-maven-plugin` gener
 }
 ----
 
-= Adding a TypeScript View
+= Adding a TypeScript View [[add-typescript-view]]
 
 Since version 15 Vaadin allows <<creating-routes#,creating routes in TypeScript>>, like in the following example:
 
