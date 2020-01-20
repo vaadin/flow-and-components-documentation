@@ -125,35 +125,6 @@ router.setRoutes(routes);
 
 NOTE: The auto-generated bootstrap template works best for server-side applicaitons. In order add client-side views into the app, please follow the  <<quick-start-guide#step-3, Quick Start Guide>>.
 
-Using TypeScript requires a `tsconfig.json` file for the TypeScript compiler. `vaadin-maven-plugin` generates one in case if there is an `index.ts` file in the frontend folder but there is no `tsconfig.json` in the project root.
-The default config looks similar to the following:
-
-.Default `tsconfig.json`
-[source,json]
-----
-{
-  "compilerOptions": {
-    "sourceMap": true,
-    "inlineSources": true,
-    "module": "esNext",
-    "target": "es2017",
-    "moduleResolution": "node",
-    "strict": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "experimentalDecorators": true
-  },
-  "include": [
-    "frontend/**/*.ts", "frontend/index.js"
-  ],
-  "exclude": []
-}
-----
-
 == Modifying the Bootstrap Page at the Runtime
 
 Before sending the bootstrap page response to the browser, the content can be modified as described in the <<application-shell#,Application Shell>> tutorial.
