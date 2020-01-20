@@ -123,10 +123,10 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<typescript/intro-to-typescript-in-v15#, Appendix: Intro to TypeScript in Vaadin 15>>
 * <<typescript/type-conversion#, Appendix: Type Conversion between Java and TypeScript>>
 * <<typescript/application-shell#, Appendix: The Application Shell>>
-* <<typescript/typescript-services-generator#, Appendix: TypeScript Services Generator>>
+* <<typescript/typescript-endpoints-generator#, Appendix: TypeScript Endpoints Generator>>
 * <<typescript/typescript-client#, Appendix: TypeScript Client>>
 * <<typescript/client-middleware#, Appendix: Client Middleware>>
-* <<typescript/service-methods-validation#, Appendix: Service Methods Validation>>
+* <<typescript/endpoint-methods-validation#, Appendix: Endpoint Methods Validation>>
 
 == Using Vaadin with Spring
 * <<spring/tutorial-spring-basic#,Use Vaadin with Spring>>

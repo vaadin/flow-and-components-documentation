@@ -20,37 +20,37 @@ import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 
 import com.vaadin.flow.server.VaadinRequest;
-import com.vaadin.flow.server.connect.VaadinService;
+import com.vaadin.flow.server.connect.Endpoint;
 import com.vaadin.flow.server.connect.auth.AnonymousAllowed;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("typescript/configuring-security.asciidoc")
 public class ConfiguringSecurity {
 
-    @VaadinService
-    public class CounterService {
+    @Endpoint
+    public class CounterEndpoint {
         public int addOne(int number) {
             return number + 1;
         }
     }
 
-    @VaadinService
+    @Endpoint
     @DenyAll
-    public class MyService {
+    public class MyEndpoint {
 
-    public void deniedService() {
+    public void deniedMethod() {
         // Not possible to call by any request due to class-level annotation
     }
 
     @AnonymousAllowed
-    public void anonymousService() {
+    public void anonymousMethod() {
         // Possible to call by any request (even without
         // authorization) since method level annotation
         // overrides class-level one
     }
 
     @PermitAll
-    public void permittedToAllService() {
+    public void permittedToAllMethod() {
         // Permitted to all authenticated users, same as if
         // there were no security annotations on the class
         // and the methods.
@@ -60,14 +60,14 @@ public class ConfiguringSecurity {
     }
 
     @RolesAllowed("ROLE_ADMIN")
-    public void permittedToToleService() {
+    public void permittedToRoleMethod() {
         // Permited to all authenticated users belonging
         // to the ROLE_ADMIN
     }
     }
 
-    @VaadinService
-    public class EchoService {
+    @Endpoint
+    public class EchoEndpoint {
         public String saySomething(String message) {
             return VaadinRequest.getCurrent().getUserPrincipal().getName() + " says: " + message;
         }

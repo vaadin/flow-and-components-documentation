@@ -25,10 +25,10 @@ This kind of exceptions is a special use case that allows to raise the exception
 a backend side with the particular exception message and the details.
 
 * https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404[404 Not Found]
-** If the request contains a service or a method name that is not present on the backend.
+** If the request contains a endpoint or a method name that is not present on the backend.
 
 * https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500[500 Internal Server Error]
-** When a service Java method invocation fails by some reason, for instance, the method throws an exception,
+** When an endpoint Java method invocation fails by some reason, for instance, the method throws an exception,
 that is not the VaadinConnectException and does not inherit it.
 
 ** The Vaadin server is not able to process a request because of some technical reasons.

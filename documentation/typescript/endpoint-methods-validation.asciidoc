@@ -1,14 +1,14 @@
 ---
-title: Appendix: Service Methods Validation
+title: Appendix: Endpoint Methods Validation
 order: 150
 layout: page
 ---
 
-= Appendix: Service Methods Validation
+= Appendix: Endpoint Methods Validation
 
-Whenever a Vaadin service method is invoked, its parameters  are automatically validated
+Whenever a Vaadin endpoint method is invoked, its parameters  are automatically validated
 using https://beanvalidation.org/2.0/[JSR 380] Bean validation specification after they are deserialized
-from the service request body.
+from the endpoint request body.
 
 This is useful in eliminating the boilerplate needed for the initial request validation — the framework automatically
 checks the constraints placed on beans and sends the response back to the client part, if the validation fails.
@@ -51,7 +51,7 @@ for more details.
 == Manual validation
 
 Since all the dependencies needed for validating beans and methods are present, it's possible to reuse those in any
-part of the project, not only the service methods.
+part of the project, not only the endpoint methods.
 
 In order do to that, you can use the code similar to the next example:
 
@@ -68,7 +68,7 @@ ExecutableValidator executableValidator = validator.forExecutables();
 Set<ConstraintViolation<Object>> violations = executableValidator.validateReturnValue(object, method, returnValue);
 ----
 
-If needed, it's possible to throw a `VaadinConnectValidationException` from the service method.
+If needed, it's possible to throw a `VaadinConnectValidationException` from the endpoint method.
 This exception will be caught by TypeScript and the corresponding `VaadinConnectValidationError`
 will be raised.
 
@@ -80,11 +80,11 @@ constraints.
 
 == Vaadin validation implementation details
 
-Vaadin validates only the beans and method parameters that are used in the service classes
-(classes, annotated with `@VaadinService` annotation).
+Vaadin validates only the beans and method parameters that are used in the endpoint classes
+(classes, annotated with `@Endpoint` annotation).
 No other types are validated, even if they have a constraint annotations on them.
 
 If any validation errors occur, a non-`200` response is sent back which is interpreted in TypeScript as
 a reason to throw a `VaadinConnectValidationError`.
-Similar effect is achieved if a `VaadinConnectValidationException` is thrown by any of the Java service methods.
+Similar effect is achieved if a `VaadinConnectValidationException` is thrown by any of the Java endpoint methods.
 
