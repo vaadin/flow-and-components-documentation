@@ -27,7 +27,7 @@ Vaadin includes:
 ** Gives Java developers full access to all modern web enhancements.
 ** Makes it easier to connect the UI to data via a robust Java backend, instead of using traditional REST-based communication.
 ** Lets you choose either basic HTTP(S) or WebSocket communication protocol for building real-time applications.
-** Gives JavaScript developers full access back-end from TypeScript by using Vaadin service.
+** Gives JavaScript developers full access back-end from TypeScript by using Vaadin endpoint.
 * Two-way data binding: when the UI changes on either the client or the server, the changes automatically reflect on the other side.
 
 image:images/v10-architecture.svg[Vaadin 10 Architecture,1200,430]
