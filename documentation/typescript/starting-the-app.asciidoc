@@ -139,4 +139,4 @@ The reason for this API change is that with client-side bootstrapping the initia
 
  - In Vaadin 15+ with client-side bootstrapping the `index.html` page includes only the basic HTML markup and links to the TypeScript UI code. When <<creating-routes#,adding routes in TypeScript>>, the Flow client and a server-side `UI` instance are loaded and created later if (and when) the user navigates to a route that does not have a client-side implementation.
 
-It can also be provided as a servlet container deployment property with the name `clientSideMode`.
+It can also be provided as a servlet container deployment property with the name `useDeprecatedV14Bootstrapping`.
