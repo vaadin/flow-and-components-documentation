@@ -17,7 +17,7 @@ is missing from the `pom.xml` or it is missing configuration. To fix this simply
 
 == Splitting the Webpack bundle into multiple chunks
 
-This is an upcoming feature in Vaadin Platform 14. For information on customizing bundling when using compatibility mode, see the https://vaadin.com/docs/v13/flow/production/tutorial-production-mode-customising.html[Vaadin 13 documentation on this topic].
+This is an upcoming feature for a Vaadin Platform 14.x minor release, probably during 2020. For information on customizing bundling when using compatibility mode, see the https://vaadin.com/docs/v13/flow/production/tutorial-production-mode-customising.html[Vaadin 13 documentation on this topic]. You can follow & comment on https://github.com/vaadin/flow/issues/5537 if this is important for you.
 
 == Plugin goals and goal parameters
 
@@ -31,10 +31,6 @@ frontend dependencies and webpack which bundles the frontend files served to cli
 In addition, it visits all resources used by the application and copies them under `node_modules` folder so they are available when `webpack` builds the frontend. It also creates or updates `package.json`, `webpack.config.json` and `webpack.generated.json` files.
 
 ==== Goal parameters
-
-* *jarResourcePathsToCopy* (default: `META-INF/resources/frontend`):
-    Comma separated values for the paths that should be analyzed in every project dependency jar and, if files suitable
-    for copying present in those paths, those should be copied.
 
 * *includes* (default: `&#42;&#42;/&#42;.js,&#42;&#42;/&#42;.css`):
     Comma separated wildcards for files and directories that should be copied. Default is only .js and .css files.
@@ -78,7 +74,16 @@ and will be used as entry point of the application.
     Whether to generate a bundle from the project frontend sources or not.
 
 * *runNpmInstall* (default: `true`):
-    Whether to run `npm install` after updating dependencies.
+    Whether to run `pnpm install` (or `npm install`, depending on *disablePnpm* parameter value) after updating dependencies.
 
 * *generateEmbeddableWebComponents* (default: `true`):
     Whether to generate embeddable web components from WebComponentExporter inheritors.
+
+* *optimizeBundle* (default: `true`):
+    Whether to include only frontend resources used from application entry points (the default) or to include all resources found on the class path.
+    Should normally be left to the default, but a value of `false` can be useful for faster production builds or debugging discrepancies between development and production mode.
+    *This feature is available only in Vaadin Platform 14.1 and newer.*
+
+* *disablePnpm* (default: `false`):
+    Whether to use `pnpm` or `npm` tool to handle frontend resources. By default `pnpm`  is used. 
+    *This feature is available only in Vaadin Platform 14.2 and newer.*

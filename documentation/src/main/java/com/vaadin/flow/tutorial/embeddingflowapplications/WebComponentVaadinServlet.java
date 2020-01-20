@@ -6,7 +6,6 @@ import com.vaadin.flow.server.VaadinServlet;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("embedding-flow-applications/tutorial-webcomponent-exporter.asciidoc")
-@WebServlet(urlPatterns = { "/vaadin/*", "/frontend/*" })
-public class WebComponentVaadinServlet
-        extends VaadinServlet {
+@WebServlet(urlPatterns = { "/vaadin/*" })
+public class WebComponentVaadinServlet extends VaadinServlet {
 }

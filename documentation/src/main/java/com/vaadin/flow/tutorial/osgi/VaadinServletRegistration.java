@@ -1,6 +1,7 @@
 package com.vaadin.flow.tutorial.osgi;
 
 import java.util.Hashtable;
+import java.util.Properties;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
@@ -11,6 +12,7 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 
+import com.vaadin.flow.function.DeploymentConfiguration;
 import com.vaadin.flow.server.VaadinServlet;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
@@ -25,6 +27,14 @@ public class VaadinServletRegistration {
 
             getService().setClassLoader(getClass().getClassLoader());
         }
+
+        @Override
+        protected DeploymentConfiguration createDeploymentConfiguration(Properties initParameters) {
+            // npm mode is not currently supported
+            initParameters.setProperty("compatibilityMode", "true");
+            return super.createDeploymentConfiguration(initParameters);
+        }     
+
     }
 
     @Activate

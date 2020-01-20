@@ -98,3 +98,11 @@ Configuration name for the parameter that determines if Flow should automaticall
 |compatibilityMode |
 When set to `true`, enables Vaadin 13 compatibility mode (Vaadin uses Bower and Webjars to handle frontend resources instead of npm and webpack). The purpose of this mode is to ease migration and it will no longer be supported in Vaadin 15.
 See <<../v14-migration/v14-migration-guide#compatibility-mode, Compatibility mode in Vaadin 14 Migration Guide>> for more information.
+
+|devmode.optimizeBundle |
+By default, in development mode all frontend resources found on the class path are included in the generated Webpack bundle.
+When set to `true`, creates an optimized bundle by including only frontend resources that are used from the application entry points (this is the default in production mode).
+Uses bytecode scanning which increases application startup time. *This feature is available only in Vaadin Platform 14.1 and newer.*
+
+|disable.pnpm |
+When set to `true`, disables `pnpm` which means `npm` will be used to handle frontend resources. *This feature is available only in Vaadin Platform 14.2 and newer.*

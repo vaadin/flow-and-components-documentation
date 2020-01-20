@@ -12,6 +12,10 @@ To be able to use a web component from Flow you need two things: to load the HTM
 
 The client-side files for a web component, typically JS module files, are available using https://www.npmjs.com/[npm]. Flow 2.0 and above comes with npm support. It will automatically install and use npm packages and serve the static files to the browser.
 
+Since Vaadin Platform 14.2 `pnpm` tool is used for package management instead of `npm`. This is done transparently for the end
+user and in case there is a reason to use `npm` instead of `pnpm` you may disable `pnpm` (see <<../advanced/tutorial-all-vaadin-properties#,All Vaadin properties>>  or <<../production/tutorial-production-mode-advanced#,Advanced production mode topics>> sections). `pnpm` tool improves the package management in many ways, e.g. it allows to share the same packages between various 
+projects and avoid downloading them every time for every project which also reduce a number of IO operations.  
+
 == Step 1. Integrating a JS module with Vaadin
 
 While you can start from scratch and do all the things manually, it's easiest to start with the component project available at https://vaadin.com/start/lts/component. This will give you a project with Flow dependencies, npm import for the selected component and a stub Java class for your web component integration. It also contains a Maven profile which will handle all things needed to deploy it to Vaadin Directory.
@@ -28,7 +32,7 @@ As an example, if you create a starter project for https://github.com/PolymerEle
 
 The name of the HTML element is defined using `@Tag("paper-slider")` and the JS import for the component is defined using `@JsModule("@polymer/paper-slider/paper-slider.js")` and `@NpmPackage(value = "@polymer/paper-slider", version = "3.0.1")`.
 
-If your component requires in-project front-end files, for example JavaScript modules, add them to the `src/main/resources/META-INF/resources/frontend` directory so that they are packaged in the component jar if you choose to make an add-on of your component. A local JavaScript module should be loaded with a `@JsModule` annotation as follows:
+If your component requires in-project front-end files, for example JavaScript modules, add them to the `src/main/resources/META-INF/frontend` directory so that they are packaged in the component jar if you choose to make an add-on of your component. A local JavaScript module should be loaded with a `@JsModule` annotation as follows:
 
 [source, java]
 ----

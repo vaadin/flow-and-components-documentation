@@ -1,6 +1,6 @@
 ---
 title: Embedded Application Limitations
-order: 8
+order: 9
 layout: page
 ---
 
@@ -11,10 +11,11 @@ Some Vaadin features are not available in embedded applications.
 Limitations in embedded applications include:
 
 * *Navigation and routing*: <<../routing/tutorial-routing-annotation#,Both features>> are not available for embedded applications.
-** There is no point annotating your classes with the<<../routing/tutorial-routing-annotation#using-the-route-annotation, `@Route` annotation>>, because it is not possible to navigate to the route target. 
+** There is no point annotating your classes with the<<../routing/tutorial-routing-annotation#using-the-route-annotation, `@Route` annotation>>, because it is not possible to navigate to the route target.
 ** You can also not use the <<../routing/tutorial-routing-navigation#,router link>>, whether via the `RouterLink` class or in a custom way.
 * *Theming*: You can only specify one `@Theme` annotation. See <<tutorial-webcomponent-theming#,Theming Embedded Applications>> for more.
 * *Push*: You can only use one `@Push` annotation. See <<tutorial-webcomponent-push#,Configuring Push Notifications in Embedded Applications>> for more. 
+* *Progressive Web Applications*: `@PWA` annotation and all PWAs features are not available in embedded applications.
 * *CORS headers*: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS[Cross-Origin Resource Sharing (CORS) headers] are not defined automatically. If the Vaadin servlet providing the embeddable application is outside of the servlet container that provides the page in which it is embedded, these headers need to be provided. 
 +
 The responses from the Vaadin servlet should contain appropriate CORS headers. You can add these by:
@@ -27,7 +28,6 @@ The responses from the Vaadin servlet should contain appropriate CORS headers. Y
 
 [source, java]
 ----
-@WebServlet(urlPatterns = { "/*" }, asyncSupported = true)
 public class CustomServlet extends VaadinServlet {
 
     @Override

@@ -7,7 +7,9 @@ layout: page
 = Migrating from Vaadin 8 to Vaadin 14
 
 [NOTE]
-This migration documentation has been revised for Vaadin 14.0 release. It is recommended to migrate to Vaadin 14 since it is the latest LTS and has more features available than versions 10-13. 
+This migration documentation has been revised for Vaadin 14.2 release. It is recommended to migrate to Vaadin 14 since it is the latest LTS and has more features available than versions 10-13.
+Vaadin 14 also gets new minor releases, which are backward compatible, but add new
+features.
 
 Vaadin 14 belongs to the same continuum with Vaadin 8, even if the implementation details have changed a lot. The core concepts, architecture, and programming model remain largely the same, but the new technology tree based on modern Web Components provides a lot of new and exciting possibilities as well:
 
@@ -52,7 +54,12 @@ The following concepts are not covered, since they have *stayed the same* betwee
 * Minimum server requirements: Java 8 and Servlet 3.0
 * Minimum browsers supported: Internet Explorer 11 and evergreen browsers
 
-For the most part the developer experience of building UIs is still the same. You have access to a similar set of ready-made components and a similar high-level and type-safe Java API. In particular, the API for binding data to components, which is a major part of any application, remains largely the same as in Vaadin 8. All the components have been redesigned to provide better end user experience, and we add new components (or new implementations of old components) to the list frequently. Creating your own components is also a lot easier than before.
+For the most part the developer experience of building UIs is still the same. You have access to a 
+similar set of ready-made components and a similar high-level and type-safe Java API. In particular, the API 
+for binding data to components, which is a major part of any application, remains largely the same as in 
+Vaadin 8. All the components have been redesigned to provide better end user experience, and we add new 
+components (or new implementations of old components) to the list frequently. Creating your own components 
+is also a lot easier than before.
 
 Check out the following pages for some notable differences between Vaadin 8 and Vaadin 14:
 
