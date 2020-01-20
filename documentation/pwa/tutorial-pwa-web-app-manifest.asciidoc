@@ -47,7 +47,7 @@ with `@PWA` -property *manifestPath*.
 To override generated manifest file, place custom manifest with the name defined
 in the *manifestPath* property.
 
-For example, create a custom manifest file and copy it to
+For example, create a custom manifest file and copy it to:
 ```
 src/main/webapp/manifest.webmanifest
 ```
