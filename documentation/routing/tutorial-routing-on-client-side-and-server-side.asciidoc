@@ -16,15 +16,14 @@ The first one is _Java `@Route`_ annotation and the other one is _TypeScript rou
 
 When you want to define any Java component as a route target for a URL fragment, let's use it.
 
-We will guide how to use `@Route` annotation in <<tutorial-routing-annotation#,next chapter>>
-and other interesting things related to `@Route` annotation in this section.
+We will guide how to use `@Route` annotation in <<tutorial-routing-annotation#,the next chapter>>
+and describe other things related to `@Route` annotation in this section.
 
 == TypeScript routing
 
 If you are looking for a way to combine client and server views in an application,
 you are in the right place.
 
-TypeScript routing (`@vaadin/router`) allows adding client-side routes, and using them separately or together with server-side routes defined with the `@Route` annotation
-. You can also use it without server-side views.
+TypeScript routing (`@vaadin/router`) allows adding client-side routes, and using them separately or together with server-side routes defined with the `@Route` annotation. You can also use it without server-side views.
 
-We will explain more about `@vaadin/router` how to use it and how it works in <<../typescript/creating-routes#, Creating UI in TypeScript>> section.
+We will explain more about `@vaadin/router` how to use it and how it works in <<../typescript/creating-routes#, the Creating UI in TypeScript>> section.
