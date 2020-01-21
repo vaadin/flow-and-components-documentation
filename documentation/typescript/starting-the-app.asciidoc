@@ -37,7 +37,7 @@ If there is a need to add a client-side view to the application later, it can be
 See more details on this in the <<default-bootstrap-template-and-entry-point,Default Bootstrap Template and Entry Point>> section below.
 
 [NOTE]
-If you are migrating from an earlier version of Vaadin, check the <<migrating-from-vaadin-10-14,Migrating from Vaadin 10-14>> section below.
+If you are migrating from an earlier version of Vaadin, check the <<upgrading-from-vaadin14#migrating-from-vaadin-10-14,Migrating from Vaadin 10-14>> section below.
 
 
 == Starting a Flow App from Client-side Code
