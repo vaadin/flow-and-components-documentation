@@ -1,5 +1,5 @@
 ---
-title: Appendix: Endpoint Methods Validation
+title: Appendix: "Endpoint Methods Validation"
 order: 150
 layout: page
 ---

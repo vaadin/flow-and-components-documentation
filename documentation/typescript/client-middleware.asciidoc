@@ -1,5 +1,5 @@
 ---
-title: Appendix: Client middleware
+title: "Appendix: Client middleware"
 order: 140
 layout: page
 ---
