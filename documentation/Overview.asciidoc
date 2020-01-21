@@ -123,7 +123,6 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<typescript/adding-login-form-with-spring-security#, Adding a Login Form with Spring Security>>
 * <<typescript/intro-to-typescript-in-v15#, Appendix: Intro to TypeScript in Vaadin 15>>
 * <<typescript/type-conversion#, Appendix: Type Conversion between Java and TypeScript>>
-* <<typescript/application-shell#, Appendix: The Application Shell>>
 * <<typescript/typescript-services-generator#, Appendix: TypeScript Services Generator>>
 * <<typescript/typescript-client#, Appendix: TypeScript Client>>
 * <<typescript/client-middleware#, Appendix: Client Middleware>>
@@ -192,6 +191,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 == Advanced Topics
 * <<advanced/tutorial-application-lifecycle#,Application Lifecycle>>
 * <<advanced/tutorial-i18n-localization#,Application Localization (I18N)>>
+* <<advanced/tutorial-modifying-the-bootstrap-page#,Modifying the Bootstrap Page>>
 * <<advanced/tutorial-flow-runtime-configuration#,Flow runtime configuration>>
 * <<advanced/tutorial-loading-indicator#,Customizing the Loading Indicator>>
 * <<advanced/tutorial-push-configuration#,Server Push Configuration>>

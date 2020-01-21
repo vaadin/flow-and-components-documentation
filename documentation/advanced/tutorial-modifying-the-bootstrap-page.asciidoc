@@ -1,6 +1,6 @@
 ---
-title: "Appendix: Application Shell Configurator"
-order: 115
+title: Modifying the Bootstrap Page at the Runtime
+order: 3
 layout: page
 ---
 
@@ -20,8 +20,8 @@ In Vaadin 15+ the user has full control on the `index.html` contents, which can 
 
 1. In client-side by editing the `frontend/index.html` when the content is static, for instance the `<viewport>` tag.
 2. In server-side for changes that require some dynamic server content or just when Java syntax is preferred, for example making the application installable by enabling the `@PWA` built-in feature.
-   - Implement the `AppShellConfigurator` for cases covered by the `AppShellSettings` API, or by annotations.
-   - Configure an `IndexHtmlRequestListener` for advanced cases modifying the document structure.
+- Implement the `AppShellConfigurator` for cases covered by the `AppShellSettings` API, or by annotations.
+- Configure an `IndexHtmlRequestListener` for advanced cases modifying the document structure.
 
 == Customizing the Application Shell Template
 
