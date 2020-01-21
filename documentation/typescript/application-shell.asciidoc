@@ -147,7 +147,7 @@ Modifications in the  `AppShellConfigurator#configurePage` do have priority over
 [NOTE]
 Annotations do not cover all the cases that can be done when overridding the `AppShellConfigurator#configurePage` method
 
-=== The `IndexHtmlRequestListener` interface
+=== The `IndexHtmlRequestListener` interface [[IndexHtmlRequestListener-interface]]
 
 In addition, for advance cases not covered in the previous section, the content can be modified via an `IndexHtmlRequestListener`.
 
@@ -175,3 +175,5 @@ public class MyIndexHtmlRequestListener implements
     }
 }
 ----
+
+It can also be provided as a servlet container deployment property with the name `useDeprecatedV14Bootstrapping`.

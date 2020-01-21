@@ -200,13 +200,11 @@ public class DashboardView extends Div {
 == Step 6 - Add a TypeScript view [[step-6]]
 Continue with the <<quick-start-guide#step-3,Quick Start Guide - Step 3>> to see how.
 
-== Breaking changes API from Vaadin 10-14 [[migrating-from-vaadin-10-14]]
-For applications migrated from earlier versions of Vaadin, client-side bootstrapping requires replacing the usages of the V10-14 `BootstrapHandler` APIs with their `IndexHtmlRequestHandler` API counterparts as described in link:https://github.com/vaadin/flow/issues/6584[TBD (see flow#6584)].
+== API breaking changes from Vaadin 10-14 [[migrating-from-vaadin-10-14]]
+For applications migrated from earlier versions of Vaadin, client-side bootstrapping requires replacing the usages of the V10-14 `BootstrapHandler` APIs with their `IndexHtmlRequestHandler` API counterparts as described in <<application-shell#IndexHtmlRequestListener-interface, _IndexHtmlRequestListener interface_>> section.
 
 The reason for this API change is that with client-side bootstrapping the initial page HTML generation is separated from loading the Flow client and creating a server-side `UI` instance.
 
 - In Vaadin 10 to 14 these two steps are combined and the `index.html` page includes the code and configuration needed to start the Flow client engine and link the browser page to the server-side `UI` instance.
 
-- In Vaadin 15+ with client-side bootstrapping the `index.html` page includes only the basic HTML markup and links to the TypeScript UI code. When <<creating-routes#,adding routes in TypeScript>>, the Flow client and a server-side `UI` instance are loaded and created later if (and when) the user navigates to a route that does not have a client-side implementation.
-
-It can also be provided as a servlet container deployment property with the name `useDeprecatedV14Bootstrapping`.
+- In Vaadin 15+ with client-side bootstrapping the `index.html` page includes only the basic HTML markup and links to the TypeScript UI code. When <<creating-routes#,adding routes in TypeScript>>, the `UI` is not guaranteed to be created, thus is optional link:https://github.com/vaadin/flow/issues/6940[vaadin/flow#6940^], so the Flow client and a server-side `UI` instance are loaded when the user navigates to a route that does not have a client-side implementation.
