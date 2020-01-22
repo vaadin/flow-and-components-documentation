@@ -9,7 +9,7 @@ layout: page
 Vaadin consists of two parts: a backend and a client.
 The client part is represented by the `@vaadin/flow-frontend/Connect` library that is able to support the features the backend part provides.
 
-One of the main public entities of the library is the `ConnectClient` object, that provides a seamless way to communicate with Vaadin services on the backend.
+One of the main public entities of the library is the `ConnectClient` object, that provides a seamless way to communicate with Vaadin endpoints on the backend.
 
 == Default TypeScript client
 
@@ -19,11 +19,11 @@ The module contains the `ConnectClient` implementation that is set up to communi
 
 == Generated Client Modules
 
-Along with the default TypeScript client, the Vaadin maven plugin is capable of generating specific modules for each Vaadin service defined in the backend part. Those modules use the default TypeScript client described above to communicate with the backend also.
+Along with the default TypeScript client, the Vaadin maven plugin is capable of generating specific modules for each Vaadin endpoint defined in the backend part. Those modules use the default TypeScript client described above to communicate with the backend also.
 
 == Usage example
 
-Consider Vaadin backend that is started on `/customEndpoint` endpoint and has a single service with name `SingleService`
+Consider Vaadin backend that is started on `/customEndpoint` endpoint and has a single endpoint with name `SingleEndpoint`
 and a method `customMethod` requiring a `number` parameter to be specified.
 
 We would like to access this method from the client part.
@@ -32,22 +32,22 @@ The required `@vaadin/flow-frontend/Connect` TypeScript library is automatically
 
 === Using the generated client module
 
-The service method can be called via the generated module method:
+The endpoint method can be called via the generated module method:
 
 .Using generated module
 [source, typescript]
 [[generated-module]]
 ----
-import * as singleService from './generated/SingleService';
+import * as singleEndpoint from './generated/SingleEndpoint';
 
 (async() => {
-  await singleService.customMethod(4);
+  await singleEndpoint.customMethod(4);
 })();
 ----
 
 === Using the generated default client
 
-As an alternative to the generated modules, the default TypeScript client API can be used to access the Vaadin service in the following way:
+As an alternative to the generated modules, the default TypeScript client API can be used to access the Vaadin endpoint in the following way:
 
 .Using generated client
 [source, typescript]
@@ -56,7 +56,7 @@ As an alternative to the generated modules, the default TypeScript client API ca
 import client from './generated/connect-client.default';
 
 (async() => {
-  await client.call('SingleService', 'customMethod', {number: 4});
+  await client.call('SingleEndpoint', 'customMethod', {number: 4});
 });
 ----
 
@@ -72,6 +72,6 @@ import {ConnectClient} from '@vaadin/flow-frontend/Connect';
 const client = new ConnectClient({endpoint: '/customEndpoint'});
 
 (async() => {
-  await client.call('SingleService', 'customMethod', {number: 4});
+  await client.call('SingleEndpoint', 'customMethod', {number: 4});
 });
 ----
