@@ -105,7 +105,7 @@ for advanced users there is also a possibility to customize the webpack build.
 
 Existing Vaadin 10-13 projects can update to 14 without migrating
 to the new toolset. The only thing that you need to do is to upgrade your Vaadin
-version to `14.0.0` in your `pom.xml`. No more changes are needed in your
+version to `14.0.15` (or the latest one) in your `pom.xml`. No more changes are needed in your
 project. Behind the scenes, everything works just as before with using
 Bower & Webjars, Polymer 2 & Html Imports, and Polymer CLI for the production build.
 This is called _the compatibility mode_ in Vaadin 14.
@@ -177,14 +177,14 @@ spring-boot-starter-parent is `2.1.0.RELEASE`.
 
 The first step is to update your maven `pom.xml` configuration file to use the
 latest V14 release. If the Vaadin version is specified in Maven properties,
-change it to the following:
+change it to the following (use the latest Vaadin version):
 
 
 [source, xml]
 ----
 <properties>
     ...
-    <vaadin.version>14.0.0</vaadin.version>
+    <vaadin.version>14.0.15</vaadin.version>
 </properties>
 ----
 
@@ -253,6 +253,9 @@ For the production profile plugin you need to have the goal `build-frontend`:
     </build>
 </profile>
 ----
+
+[NOTE]
+After pom.xml changes, remember to execute `mvn clean install`.
 
 The goal `build-frontend` invokes pnpm/npm to download and cache the npm packages
 (into directory node_modules) and webpack to process the JavaScript modules.
