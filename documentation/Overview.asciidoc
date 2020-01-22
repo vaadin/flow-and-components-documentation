@@ -127,6 +127,8 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<typescript/typescript-client#, Appendix: TypeScript Client>>
 * <<typescript/client-middleware#, Appendix: Client Middleware>>
 * <<typescript/endpoint-methods-validation#, Appendix: Endpoint Methods Validation>>
+* <<typescript/typescript-endpoints-urls#, Appendix: Endpoint URLs>>
+
 
 == Using Vaadin with Spring
 * <<spring/tutorial-spring-basic#,Use Vaadin with Spring>>
