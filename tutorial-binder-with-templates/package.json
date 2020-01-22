@@ -34,7 +34,7 @@
       "@vaadin/vaadin-time-picker": "2.0.4",
       "@vaadin/vaadin-context-menu": "4.3.15",
       "@vaadin/vaadin-tabs": "3.0.5",
-      "@vaadin/vaadin-radio-button": "1.2.3",
+      "@vaadin/vaadin-radio-button": "1.2.4",
       "@vaadin/vaadin-lumo-styles": "1.5.0",
       "@vaadin/vaadin-material-styles": "1.2.3"
     },
@@ -52,7 +52,7 @@
       "webpack-merge": "4.2.2",
       "webpack-dev-server": "3.9.0"
     },
-    "hash": "dfa8228368400af9b87ddb90b4235bf611b608f38da0eeec6fae5a7807275745"
+    "hash": "dba70f2d3ec6f11b058f640e46bbeb938f14858bf4dc9ede34396abe7fa24948"
   },
   "dependencies": {
     "@vaadin/router": "^1.6.0",
@@ -87,7 +87,7 @@
     "@vaadin/vaadin-time-picker": "2.0.4",
     "@vaadin/vaadin-context-menu": "4.3.15",
     "@vaadin/vaadin-tabs": "3.0.5",
-    "@vaadin/vaadin-radio-button": "1.2.3",
+    "@vaadin/vaadin-radio-button": "1.2.4",
     "@vaadin/vaadin-lumo-styles": "1.5.0",
     "@vaadin/vaadin-material-styles": "1.2.3"
   },

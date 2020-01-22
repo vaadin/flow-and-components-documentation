@@ -39,7 +39,7 @@ import com.vaadin.flow.shared.communication.PushMode;
 import com.vaadin.flow.shared.ui.Transport;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("typescript/application-shell.asciidoc")
+@CodeFor("advanced/tutorial-modifying-the-bootstrap-page.asciidoc")
 public class ApplicationShell {
 
     @Viewport("width=device-width, initial-scale=1")

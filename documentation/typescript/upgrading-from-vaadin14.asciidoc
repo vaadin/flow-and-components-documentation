@@ -104,7 +104,7 @@ cp target/index.html target/index.ts frontend
 ----
 
 [NOTE]
-To dynamically modify the `index.html` content, you need to replace the deprecated `PageConfigurator` interface with the `AppShellConfigurator` as described in the <<application-shell#application-shell-configurator,Application Shell Configurator>> section.
+To dynamically modify the `index.html` content, you need to replace the deprecated `PageConfigurator` interface with the `AppShellConfigurator` as described in the <<../advanced/tutorial-modifying-the-bootstrap-page#application-shell-configurator,Application Shell Configurator>> section.
 
 == Step 3 - Install link:https://lit-element.polymer-project.org/[LitElement^] [[step-3]]
 
@@ -201,7 +201,7 @@ public class DashboardView extends Div {
 Continue with the <<quick-start-guide#step-3,Quick Start Guide - Step 3>> to see how.
 
 == API breaking changes from Vaadin 10-14 [[migrating-from-vaadin-10-14]]
-For applications migrated from earlier versions of Vaadin, client-side bootstrapping requires replacing the usages of the V10-14 `BootstrapHandler` APIs with their `IndexHtmlRequestHandler` API counterparts as described in <<application-shell#IndexHtmlRequestListener-interface, _IndexHtmlRequestListener interface_>> section.
+For applications migrated from earlier versions of Vaadin, client-side bootstrapping requires replacing the usages of the V10-14 `BootstrapHandler` APIs with their `IndexHtmlRequestHandler` API counterparts as described in <<../advanced/tutorial-modifying-the-bootstrap-page#IndexHtmlRequestListener-interface, _IndexHtmlRequestListener interface_>> section.
 
 The reason for this API change is that with client-side bootstrapping the initial page HTML generation is separated from loading the Flow client and creating a server-side `UI` instance.
 
@@ -209,4 +209,4 @@ The reason for this API change is that with client-side bootstrapping the initia
 
 - In Vaadin 15+ with client-side bootstrapping the `index.html` page includes only the basic HTML markup and links to the TypeScript UI code. When <<creating-routes#,adding routes in TypeScript>>, the `UI` is not guaranteed to be created, thus is optional. It will be only available after the user navigates to a server-side route.
 
-One more thing to pay attention to in Vaadin 15+ is that annotations in the `MainLayout / MainView` class must be moved to a class that implements the `AppShellConfigurator` interface, see <<application-shell#java-annotations, set annotations to modify Bootstrap page>> for more details.
+One more thing to pay attention to in Vaadin 15+ is that annotations in the `MainLayout / MainView` class must be moved to a class that implements the `AppShellConfigurator` interface, see <<../advanced/tutorial-modifying-the-bootstrap-page#java-annotations, set annotations to modify Bootstrap page>> for more details.
