@@ -1,5 +1,5 @@
 ---
-title: Appendix: TypeScript Client
+title: "Appendix: TypeScript Client"
 order: 130
 layout: page
 ---

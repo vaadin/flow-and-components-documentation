@@ -113,7 +113,7 @@ public class AppShell implements AppShellConfigurator {
 }
 ----
 
-==== Java annotations
+==== Java annotations[[java-annotations]]
 
 Vaadin provide a set annotations for modifying the application shell, though, unlike in previous versions, in Vaadin 15 these annotations must be placed in the application shell class.
 
