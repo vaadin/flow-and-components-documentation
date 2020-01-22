@@ -24,7 +24,7 @@ import com.vaadin.flow.server.connect.Endpoint;
 import com.vaadin.flow.server.connect.auth.AnonymousAllowed;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("typescript/configuring-security.asciidoc")
+@CodeFor("advanced/tutorial-modifying-the-bootstrap-page.asciidoc")
 public class ConfiguringSecurity {
 
     @Endpoint
