@@ -11,26 +11,37 @@ Vaadin connects the Java ecosystem to your web platform. This section provides a
 
 Working with front-end web technologies, such as HTML, CSS and JavaScript, can be challenging and time-consuming for Java developers. In Vaadin, all UI elements are componentized into https://www.webcomponents.org/[Web Components]. This makes development easier than ever before, because each element is decoupled and sandboxed.
 
+On the other side, the creation of Java Component UI API on the server side can be difficult for JavaScript developers, thus, Vaadin allows creating TypeScript views on the client-side. In this case, the application can be started without creating a UI instance in the server side,
+which means that applications might be stateless.
+
 TIP: Watch the https://vaadin.com/learn/training/v14-intro[Vaadin 14: Intro] free training video to learn more about the Vaadin framework, basic Vaadin application architecture and how Vaadin components work.
 
 Vaadin includes:
 
 * A type-safe Java UI Component API on the server side that facilitates the use of the Web Components.
 
+* A TypeScript view on the client side using link:https://lit-element.polymer-project.org/[LitElement^] as a helper library.
+
 * Automated bi-directional communication between the server and the browser, that:
 
 ** Gives Java developers full access to all modern web enhancements.
 ** Makes it easier to connect the UI to data via a robust Java backend, instead of using traditional REST-based communication.
 ** Lets you choose either basic HTTP(S) or WebSocket communication protocol for building real-time applications.
+** Provides JavaScript developers full access to the backend from TypeScript by using the Vaadin endpoint.
 * Two-way data binding: when the UI changes on either the client or the server, the changes automatically reflect on the other side.
 
 image:images/v10-architecture.svg[Vaadin 10 Architecture,1200,430]
 
-Vaadin allows you to access browser APIs, Web Components, and even simple DOM elements, directly from the server-side Java. It is not necessary to understand how the client-to-server communication or Web Components work. This leaves you free to focus on creating components that work at a higher-abstraction level.
+Vaadin allows you to access browser APIs, Web Components, and even simple DOM elements, directly from the server-side Java,
+or access the Java DTO class and generate the corresponding TypeScript module from the client side. It is not necessary to understand how the client-to-server communication or Web Components work. This leaves you free to focus on creating components that work at a higher-abstraction level.
 
 image:images/dom-to-java.svg[dom-to-java,500,432]
 
-== Building UIs with Components
+== Building TypeScript views with Components
+
+To build an application using TypeScript view, please follow <<../typescript/intro-to-typescript-in-v15#add-typescript-view, the Adding a TypeScript View tutorial>>.
+
+== Building Java UIs with Components
 
 UI components that are designed to build interactive web apps are the core of Vaadin.
 In addition, Vaadin provides powerful abstraction layers that you can use to create new components.
@@ -147,7 +158,7 @@ private void updateFavoriteColor(
 See the tutorials in <<../polymer-templates/tutorial-template-basic#,Creating Polymer Templates>> for more.
 
 
-== Routing and Navigation
+== Routing and Navigation in Java component using `@Router` annotation
 
 Vaadin provides the `Router` class to structure the navigation of your web app or site into logical parts.
 
