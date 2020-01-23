@@ -76,7 +76,7 @@ The default conversion rules are summarized as follows (the TypeScript compliant
 
 * Underflow number: it is vice versa with overflow number. Sending `-2^31^ - 1` (`Integer.MIN_VALUE - 1`), Java side gets `2^31^ - 1` (`Integer.MAX_VALUE`).
 
-==== Type `long`:
+**Type `long`**:
 
 * TypeScript compliant values:
 ** An integer or decimal number: `100`, `100.0` and `100.9` => `100`
