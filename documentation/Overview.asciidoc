@@ -197,4 +197,4 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<advanced/tutorial-stream-resources#,Using stream resources>>
 * <<advanced/tutorial-ui-init-listener#,UIInitListener>>
 * <<advanced/tutorial-preserving-state-on-refresh#,Preserving view state between browser refreshes>>
-* <<advanced/tutorial-switch-npm-pnpm#,Differences between NPM and PNPM>>
+* <<advanced/tutorial-switch-npm-pnpm#,Differences between pnpm and npm>>
