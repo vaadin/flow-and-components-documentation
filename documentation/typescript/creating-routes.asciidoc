@@ -181,7 +181,7 @@ router.setRoutes([
     component: 'app-categories'
   },
   // pass all unmatched paths to server-side
-  ...serverSideRoutes
+  ...serverSideRoutes // IMPORTANT: this must be the last line in the array
 ]);
 ----
 
