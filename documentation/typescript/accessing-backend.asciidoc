@@ -44,56 +44,9 @@ public class CounterEndpoint {
 ----
 
 After that, when the application starts, Vaadin analyzes such classes in order
-to be able to process the requests made to such endpoints.
-
-[IMPORTANT]
-====
-At the moment, all API endpoints are secured and only available for authenticated users. Pease refer to the <<configuring-security#, Security page>> for configuring access to each endpoint.'
-====
-
-Any public method in any Vaadin endpoint can be accessed with the following url:
-
-`http://${base_url}/${prefix}/${endpoint_name}/${method_name}`
-
-Where:
-
-* `${base_url}` — the base url of the application, depends on the framework
-used. For instance, for Spring framework, the default one if the application is
-started locally, is `http://localhost:8080`.
-* `${prefix}` — the url common part that every exposed endpoint has.
-By default, `connect` is used, but this can be configured in the application properties.
-* `${endpoint_name}` — if not specified explicitly, the corresponding Java
-class name which exposes methods.
-* `${method_name}` — the public method name from the Java class.
-
-For the application started locally with the `CounterEndpoint` endpoint defined
-above, the endpoint url will be the following:
-`http://localhost:8080/connect/counterendpoint/addone`
-
-[NOTE]
-====
-Endpoint name and the method name are not case sensitive for Vaadin, so
-the url above is the same as
-`http://localhost:8080/connect/CounterEndpoint/addOne` or
-`http://localhost:8080/connect/COUNTERENDPOINT/ADDONE` or any other case
-combination for the endpoint and method name.
-====
-
-== How to configure the API endpoint URL?
-
-Vaadin allows to configure the following url parts:
-
-* `${prefix}`
-The default value is `connect`. To change it to some other value, provide
-`application.properties` file in the project resources:
-`src/main/resources/application.properties` and set the
-`vaadin.connect.prefix` property to the new value.
-
-* `${endpoint_name}`
-By default, the Java class name is taken. It is possible to specify a value in
-the `@Endpoint` annotation to override default one:
-`@Endpoint("customName")`. In this case, the `customName` value will be
-used as a `${endpoint_name}` to accept incoming requests, also case-insensitive.
+to be able to process the requests made to such endpoints, and to appropriately
+verify user access. Please refer to the <<configuring-security#, Security page>>
+for configuring endpoint access.
 
 == Import and use generated TypeScript modules
 
