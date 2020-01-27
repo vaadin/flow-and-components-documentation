@@ -47,6 +47,54 @@ The `@vaadin/router` module facilitates navigation when client and server views 
 
 The glue for mixing views is the `@vaadin/flow-frontend/Flow` module which allows lazy initialization of Flow and navigation to server views.
 
+== Vaadin Flow Client
+
+Flow provides a client module which acts as a bridge between client router and server routes.
+
+Even though it is possible to integrate Flow with any JavaScript based routing solution.
+
+The Flow client is distributed as a part of the link:https://search.maven.org/artifact/com.vaadin/vaadin/[`com.vaadin:vaadin`^] Maven artifact.
+It is automatically included into any Vaadin application and can be imported into any TypeScript file as `import {Flow} from '@vaadin/flow-frontend/Flow';`.
+
+=== Usage
+
+First, you have to import the module, and then you have to create the `Flow` instance.
+
+At this point, it is needed to specify the location to the Flow generated file with the imports for Java views, typically `/target/frontend/generated-flow-imports.js` in a Vaadin maven project.
+
+Notice that the `import()` function should be used in order to lazy load Flow dependencies the first time the user navigates to a server-side view.
+
+[source, typescript]
+----
+import {Flow} from '@vaadin/flow-frontend/Flow';
+const flow = new Flow({
+  imports: () => import('../target/frontend/generated-flow-imports')
+});
+----
+
+Finally, make Vaadin Router pass all unmatched paths to Flow server by adding `...serverSideRoutes` at the end of the router configuration block:
+
+[source, typescript]
+----
+import {Router} from '@vaadin/router';
+import {Flow} from '@vaadin/flow-frontend/Flow';
+
+const router = new Router(document.querySelector('#outlet'));
+const {serverSideRoutes} = new Flow({
+  imports: () => import('../target/frontend/generated-flow-imports')
+});
+
+router.setRoutes([
+  // client-side views
+  {
+    path: '/categories',
+    component: 'app-categories'
+  },
+  // pass all unmatched paths to server-side
+  ...serverSideRoutes // IMPORTANT: this must be the last line in the array
+]);
+----
+
 == Vaadin Router
 
 Vaadin Router is a small yet powerful client-side router JavaScript library. It uses a widely adopted `express.js` syntax for routers (users/:id) to map URLs to views. It has all the features of a modern router: async route resolution, animated transition, child routes, navigation guards, redirects, and more.
@@ -121,67 +169,6 @@ router.setRoutes([
       }
     ]
   }
-]);
-----
-
-== Vaadin Flow Client
-
-Flow provides a client module which acts as a bridge between client router and server routes.
-
-Even though it is possible to integrate Flow with any JavaScript based routing solution, we recommend using Vaadin Router as introduced in the previous section.
-
-The Flow client is distributed as a part of the link:https://search.maven.org/artifact/com.vaadin/vaadin/[`com.vaadin:vaadin`^] Maven artifact.
-It is automatically included into any Vaadin application and can be imported into any TypeScript file as `import {Flow} from '@vaadin/flow-frontend/Flow';`.
-
-=== Usage
-
-First, you have to import the module, and then you have to create the `Flow` instance.
-
-At this point, it is needed to specify the location to the Flow generated file with the imports for Java views, typically `/target/frontend/generated-flow-imports.js` in a Vaadin maven project.
-
-Notice that the `import()` function should be used in order to lazy load Flow dependencies the first time the user navigates to a server-side view.
-
-[source, typescript]
-----
-import {Flow} from '@vaadin/flow-frontend/Flow';
-const flow = new Flow({
-  imports: () => import('../target/frontend/generated-flow-imports')
-});
-----
-
-Finally, make Vaadin Router pass all unmatched paths to Flow server by adding `...serverSideRoutes` at the end of the router configuration block:
-
-[source, html]
-----
-<html>
-  <body>
-    <h1>My App</h1>
-    <a href="categories">Categories</a>
-    <a href="reviews">Reviews</a>
-    <div id="outlet"></div>
-  </body>
-</html>
-----
-
-[source, typescript]
-----
-import {Router} from '@vaadin/router';
-import {Flow} from '@vaadin/flow-frontend/Flow';
-
-const router = new Router(document.querySelector('#outlet'));
-const {serverSideRoutes} = new Flow({
-  imports: () => import('../target/frontend/generated-flow-imports')
-});
-
-router.setRoutes([
-  // client-side views
-  {
-    path: '/categories',
-    title: 'categories',
-    component: 'app-categories'
-  },
-  // pass all unmatched paths to server-side
-  ...serverSideRoutes // IMPORTANT: this must be the last line in the array
 ]);
 ----
 
