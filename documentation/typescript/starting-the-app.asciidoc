@@ -78,9 +78,6 @@ If the `index.html` or `index.ts` files in the frontend folder are missing, `vaa
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Polyfills for the Web Component APIs are required to use Web Components
-     in the browsers that do not support these APIs natively (e.g. MS Edge) -->
-  <script src="./VAADIN/build/webcomponentsjs/webcomponents-loader.js" defer></script>
   <style>
     body, #outlet {
       height: 100vh;
