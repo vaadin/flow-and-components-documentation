@@ -142,7 +142,7 @@ endpoint
 == Checking authentication in client side
 
 Please read the <<check-user-login#, Checking Authentication>> article if in the client side it is
-needed to know whether an user is authenticated.
+needed to know whether a user is authenticated.
 
 == CSRF protection of Vaadin endpoints
 

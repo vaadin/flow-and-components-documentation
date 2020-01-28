@@ -30,7 +30,7 @@ public class CheckUserLogin {
     @Endpoint
     public class DrawEndpoint {
         public String checkWinner() {
-            Authentication auth = 
+            Authentication auth =
                SecurityContextHolder.getContext() .getAuthentication();
             if (auth != null && "peter".equals(auth.getName())) {
                 return "Congrats! you are the winner.";

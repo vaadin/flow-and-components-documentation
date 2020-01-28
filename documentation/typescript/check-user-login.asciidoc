@@ -8,7 +8,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Checking Authentication
 
-Although authorization is defined at endpoint level as described in the <<configuring-security#, Security page>>, the developer might be interested on knowing whether a request is authenticated in Java, or what are the user access rights in TypeScript.
+Although authorization is defined at endpoint level as described in the <<configuring-security#, Security page>>, the developer might be interested on knowing specific authentication parameters in Java code, or even what are the user access rights in TypeScript.
 
 == Checking Authentication in Server Side
 
@@ -36,8 +36,8 @@ public class DrawEndpoint {
 
 === Checking the user name
 
-In TypeScript there is a direct way for checking whether the user is authenticated, nevertheless
-it's possible to expose a service in server side checking user privileges and returning the status.
+In TypeScript there is no direct way for checking whether the user is authenticated, nevertheless
+it's possible to expose an endpoint in server side checking user privileges and returning the status.
 
 The next example returns the username when in the user is logged-in, or the word 'anonymousUser' otherwise:
 
@@ -45,13 +45,13 @@ The next example returns the username when in the user is logged-in, or the word
 ----
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-
+  
 @Endpoint
 public class MyAppEndpoint {
 
     @AnonymousAllowed
     public String checkUser() {
-        Authentication auth = 
+        Authentication auth =
             SecurityContextHolder.getContext().getAuthentication();
         return auth == null ? null : auth.getName();
     }
@@ -73,7 +73,7 @@ if ('anonymousUser' === username) {
 
 === Checking roles
 
-Developer might want to check check whether the user can access certain services so as the
+Developer might want to check whether the user can access certain services so as the
 appropriate options are enabled in the application menu.
 
 The next example exposes a method that can be used to check whether the application is being
