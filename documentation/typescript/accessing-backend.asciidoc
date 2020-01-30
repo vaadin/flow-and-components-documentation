@@ -53,22 +53,19 @@ You cannot use JavaScript reserved words as Java method's name in an Endpoint, e
 
 == TypeScript module
 
-The code we write in TypeScript is the global scope by default. In a project if we have multiple files,
-the variables, functions, classes, and interfaces, etc in one file are accessible in all the other files.
+Project has several TypeScript files, variables, functions, classes etc. in a file will be accessible from other files.
+Hence, having everything in the global scope can lead to conflicts and errors in the code.
 
-It can lead to conflicts/errors in the code.
+Fortunately, TypeScript has the option of using modules to group related variables, functions, classes and interfaces, in order to be
+run in its own scope instead of in the global one. In short, all things declared in a module are not accessible outside the module.
 
-TypeScript provides module to create a group of related variables, functions, classes, interfaces, etc and
-execute within their own scope, not in the global scope. It means that all things declared in a module are
-not accessible outside the module.
+Using the keyword `export` when declaring a module, it is possible to use that module from another file by using the statement `import`.
 
-Using the keyword `export` to create a module and keyword `import` to use another module.
-You can create and use a module as the following example.
-
+The following example demonstrates how to create modules:
 .City.ts
 [source,typescript]
 ----
-// create an interface module
+// define and interface and export it as a module
 export default interface City {
   name: string;
   country: string;
@@ -78,7 +75,7 @@ export default interface City {
 .index.ts
 [source,typescript]
 ----
-// import and use an interface module
+// import and use the exported module
 import {City} from './City';
 const cityObject = new City("Turku", "Finland");
 ----
