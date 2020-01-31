@@ -65,7 +65,7 @@ The following example demonstrates how to create modules:
 .City.ts
 [source,typescript]
 ----
-// define and interface and export it as a module
+// define an interface and export it as a module
 export default interface City {
   name: string;
   country: string;
