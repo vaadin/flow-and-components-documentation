@@ -103,3 +103,10 @@ See <<../v14-migration/v14-migration-guide#compatibility-mode, Compatibility mod
 By default, in development mode all frontend resources found on the class path are included in the generated Webpack bundle.
 When set to `true`, creates an optimized bundle by including only frontend resources that are used from the application entry points (this is the default in production mode).
 Uses bytecode scanning which increases application startup time. *This feature is available only in Vaadin Platform 14.1 and newer.*
+
+|devmode.transpile |
+To improve startup time, Vaadin 14.2 no longer transpiles frontend resources to ES5 in development mode.
+ES5 transpilation is required for the application to function properly on older browsers which are not ES6-compliant (primarily IE11).
+If you want to test your application in development mode on these browsers, set this property to `true` to enable transpilation.
+Note that transpilation is always enabled in production mode, regardless of this property.
+*This feature is available only in 14.2 and newer versions of the Vaadin Platform 14 release series.*

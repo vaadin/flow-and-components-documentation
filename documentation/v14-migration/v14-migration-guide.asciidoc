@@ -83,8 +83,9 @@ As application is started in development mode, the webpack development server is
 to handle serving the frontend resources to the browser.
 
 Unlike in Vaadin 10-13, using webpack enables testing your application with Internet Explorer 11
-on development mode. Previously this required a production build to get the frontend resources
-transpiled to IE11 compatible ES5 syntax. The overhead from this transpilation is about 1-2 seconds.
+in development mode. This requires transpilation of the frontend resources to IE11 compatible
+ES5 syntax, and is not enabled by default for performance reasons since Vaadin 14.2.
+Transpilation can be enabled by setting the system property `vaadin.devmode.transpile` to `true`.
 
 In production mode, webpack is used to create a (transpiled and minified) bundle from
 the resources inside the `frontend` folder. As long as your project file structure
