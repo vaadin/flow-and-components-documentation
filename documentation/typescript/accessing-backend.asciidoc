@@ -51,7 +51,7 @@ for configuring endpoint access.
 [WARNING]
 You cannot use JavaScript reserved words as Java method's name in an Endpoint, e.g., `delete`, `function`, `var`, etc. Otherwise, you will get a runtime exception.
 
-== TypeScript module
+== TypeScript modules
 
 Project has several TypeScript files, variables, functions, classes etc. in a file will be accessible from other files.
 Hence, having everything in the global scope can lead to conflicts and errors in the code.
@@ -59,13 +59,20 @@ Hence, having everything in the global scope can lead to conflicts and errors in
 Fortunately, TypeScript has the option of using modules to group related variables, functions, classes and interfaces, in order to be
 run in its own scope instead of in the global one. In short, all things declared in a module are not accessible outside the module.
 
-Using the keyword `export` when declaring a module, it is possible to use that module from another file by using the statement `import`.
+Basically, modules are files that have the following syntax:
 
-The following example demonstrates how to create modules:
+- Allows using top-level `import` and `export` statements.
+
+- The `export` statement makes the module's definitions available for the other modules.
+
+- Could be imported by other modules using the `import` statement.
+
+The following example demonstrates the `City.ts` module:
+
 .City.ts
 [source,typescript]
 ----
-// define an interface and export it as a module
+// define an interface and export as a module
 export default interface City {
   name: string;
   country: string;
@@ -77,10 +84,13 @@ export default interface City {
 ----
 // import and use the exported module
 import {City} from './City';
-const cityObject = new City("Turku", "Finland");
+const cityObject: City =  {
+    name: "Turku",
+    country: "Finland"
+};
 ----
 
-== Import and use TypeScript modules generated from Vaadin Endpoint
+== Import and use TypeScript modules generated from Vaadin endpoint
 
 There is a generated TypeScript module for every Vaadin endpoint on the backend.
 Each module exports all the methods.
