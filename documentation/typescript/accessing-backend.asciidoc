@@ -48,6 +48,9 @@ to be able to process the requests made to such endpoints, and to appropriately
 verify user access. Please refer to the <<configuring-security#, Security page>>
 for configuring endpoint access.
 
+[WARNING]
+You cannot use JavaScript reserved words as Java method's name in an Endpoint, e.g., `delete`, `function`, `var`, etc. Otherwise, you will get a runtime exception.
+
 == Import and use generated TypeScript modules
 
 There is a generated TypeScript module for every Vaadin endpoint on the backend.
