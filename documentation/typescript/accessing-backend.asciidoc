@@ -53,28 +53,21 @@ You cannot use JavaScript reserved words as Java method's name in an Endpoint, e
 
 == TypeScript modules
 
-Project has several TypeScript files, variables, functions, classes etc. in a file will be accessible from other files.
-Hence, having everything in the global scope can lead to conflicts and errors in the code.
+In JavaScript and TypeScript, modules are files that follow the module syntax. This syntax has the following properties:
 
-Fortunately, TypeScript has the option of using modules to group related variables, functions, classes and interfaces, in order to be
-run in its own scope instead of in the global one. In short, all things declared in a module are not accessible outside the module.
+- The top-level declarations (variables, functions, classes, etc.) are scoped inside the module, meaning that they are not available outside by default.
 
-Basically, modules are files that have the following syntax:
+- Modules support top-level `export` statements, which make declarations available for other modules.
 
-- Allows using top-level `import` and `export` statements.
-
-- The `export` statement makes the module's definitions available for the other modules.
-
-- Could be imported by other modules using the `import` statement.
+- Modules supports top-level `import` statements, which load and execute other modules, and can bring exported declarations.
 
 The following example demonstrates the `City.ts` module:
 
 .City.ts
 [source,typescript]
 ----
-// define an interface and export as a module
+// declare and export an interface
 export default interface City {
-  name: string;
   country: string;
 }
 ----
@@ -82,13 +75,16 @@ export default interface City {
 .index.ts
 [source,typescript]
 ----
-// import and use the exported module
+// import and use a declaration from another module
 import {City} from './City';
-const cityObject: City =  {
+const cityObject: City = {
     name: "Turku",
     country: "Finland"
 };
+// Note: cityObject is not exported, thus it is only available in this file
 ----
+
+In Vaadin applications, the `index.ts` (or, optionally, `index.js`) file is also a module.
 
 == Import and use TypeScript modules generated from Vaadin endpoint
 
