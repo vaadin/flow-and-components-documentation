@@ -11,10 +11,13 @@ available which speed up the development process and avoid having to manually
 restart the application every time after a change.
 
 Here is a list of some of these tools:
-- https://www.eclipse.org/jetty/documentation/9.4.x/jetty-maven-plugin.html[The Jetty Maven plugin] 
+
+- The https://www.eclipse.org/jetty/documentation/9.4.x/jetty-maven-plugin.html[Jetty Maven plugin] 
 with the `scanIntervalSeconds` configuration enabled.
+
 - The commercial https://www.jrebel.com/[JRebel tool] may be used with any Java application including web applications
-- HostSwapAgent[http://hotswapagent.org/] also may be used with any Java applicaiton
+
+- http://hotswapagent.org/[HostSwapAgent] also may be used with any Java applicaiton
 
 HostSwapAgent has issues with existing route target reloading and 
 we don't recommend it at the moment for this reason..
