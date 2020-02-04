@@ -86,10 +86,12 @@ addOne(1).then(result => console.log(result));
 The generation is done automatically when the application compiles, and when
 the application is running in development mode.
 
-By default, the generated files are located under `{project
-directory}/frontend/generated`. You can change the folder by providing the path
-for the generator in the `generatedFrontendDirectory` property for Vaadin Maven
-plugin.
+By default, the generated files are located under `{project.basedir}/frontend/generated`.
+You can change the folder by providing the path for the generator in the
+`generatedFrontendDirectory` property for Vaadin Maven plugin.
+
+Vaadin takes care of type conversion between Java and TypeScript types, for more info
+about supported types visit the <<type-conversion#, Type Conversion>> appendix.
 
 == Example generated TypeScript module contents
 
