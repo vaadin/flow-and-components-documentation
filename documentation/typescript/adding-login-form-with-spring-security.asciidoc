@@ -29,7 +29,7 @@ Add the following dependency to the project maven file.
 
 → *Step 1* - Create a new configuration class extending the link:https://docs.spring.io/spring-security/site/docs/5.2.0.RELEASE/api/org/springframework/security/config/annotation/web/configuration/WebSecurityConfigurerAdapter.html[WebSecurityConfigurerAdapter] class, and annotate it to enable security.
 
-.SpringSecurityConfig.java
+.SecurityConfig.java
 [source,java]
 ----
 @EnableWebSecurity
@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 At the same time, disable CSRF validation because Vaadin endpoints uses its own CSRF protection mechanism.
 
-.SpringSecurityConfig.java
+.SecurityConfig.java
 [source,java]
 ----
 @EnableWebSecurity
@@ -65,7 +65,7 @@ If CSRF is still needed for other endpoints in the application, it is possibe to
 
 → *Step 3* - Allow public access to Vaadin static resources.
 
-.SpringSecurityConfig.java
+.SecurityConfig.java
 [source,java]
 ----
 @EnableWebSecurity
@@ -85,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 In this example, a set of users in memory is used.
 
-.SpringSecurityConfig.java
+.SecurityConfig.java
 [source,java]
 ----
 @EnableWebSecurity
@@ -106,7 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 → *Step 5* - Check that the final configuration class looks like:
 
-.SpringSecurityConfig.java
+.SecurityConfig.java
 [source,java]
 ----
 @EnableWebSecurity
@@ -184,7 +184,7 @@ The example using users in memory above is valid for test applications, though, 
 
 The following example demonstrates how to access a SQL database with tables for users and authorities. 
 
-.SpringSecurityConfig.java
+.SecurityConfig.java
 [source,java]
 ----
 @EnableWebSecurity
@@ -213,7 +213,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 The next examples shows how to configure authentication by using an LDAP repository
 
-.SpringSecurityConfig.java
+.SecurityConfig.java
 [source,java]
 ----
 @EnableWebSecurity
