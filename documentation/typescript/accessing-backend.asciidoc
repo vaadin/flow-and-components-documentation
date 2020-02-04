@@ -48,6 +48,9 @@ to be able to process the requests made to such endpoints, and to appropriately
 verify user access. Please refer to the <<configuring-security#, Security page>>
 for configuring endpoint access.
 
+[WARNING]
+You cannot use JavaScript reserved words as Java method's name in an Endpoint, e.g., `delete`, `function`, `var`, etc. Otherwise, you will get a runtime exception.
+
 == Import and use generated TypeScript modules
 
 There is a generated TypeScript module for every Vaadin endpoint on the backend.
@@ -83,10 +86,12 @@ addOne(1).then(result => console.log(result));
 The generation is done automatically when the application compiles, and when
 the application is running in development mode.
 
-By default, the generated files are located under `{project
-directory}/frontend/generated`. You can change the folder by providing the path
-for the generator in the `generatedFrontendDirectory` property for Vaadin Maven
-plugin.
+By default, the generated files are located under `{project.basedir}/frontend/generated`.
+You can change the folder by providing the path for the generator in the
+`generatedFrontendDirectory` property for Vaadin Maven plugin.
+
+Vaadin takes care of type conversion between Java and TypeScript types, for more info
+about supported types visit the <<type-conversion#, Type Conversion>> appendix.
 
 == Example generated TypeScript module contents
 

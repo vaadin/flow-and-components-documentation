@@ -124,6 +124,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<typescript/check-user-login#, Checking Authentication>>
 * <<typescript/intro-to-typescript-in-v15#, Appendix: Intro to TypeScript in Vaadin 15>>
 * <<typescript/type-conversion#, Appendix: Type Conversion between Java and TypeScript>>
+* <<typescript/custom-serialization#, Appendix: Customizing Serialization>>
 * <<typescript/typescript-endpoints-generator#, Appendix: TypeScript Endpoints Generator>>
 * <<typescript/typescript-client#, Appendix: TypeScript Client>>
 * <<typescript/client-middleware#, Appendix: Client Middleware>>
