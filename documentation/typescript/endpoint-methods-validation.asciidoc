@@ -12,7 +12,7 @@ from the endpoint request body.
 
 This is useful in eliminating the boilerplate needed for the initial request validation — the framework automatically
 checks the constraints placed on beans and sends the response back to the client part, if the validation fails.
-The browser raises the `VaadinConnectValidationError` when receives the corresponding response from the server.
+The browser raises the `EndpointValidationError` when receives the corresponding response from the server.
 
 == Built-in validation constraints and how to use them
 
@@ -69,7 +69,7 @@ Set<ConstraintViolation<Object>> violations = executableValidator.validateReturn
 ----
 
 If needed, it's possible to throw a `EnpointValidationException` from the endpoint method.
-This exception will be caught by TypeScript and the corresponding `VaadinConnectValidationError`
+This exception will be caught by TypeScript and the corresponding `EndpointValidationError`
 will be raised.
 
 See the official documentation for more details on validating
@@ -85,6 +85,6 @@ Vaadin validates only the beans and method parameters that are used in the endpo
 No other types are validated, even if they have a constraint annotations on them.
 
 If any validation errors occur, a non-`200` response is sent back which is interpreted in TypeScript as
-a reason to throw a `VaadinConnectValidationError`.
+a reason to throw a `EndpointValidationError`.
 Similar effect is achieved if a `EnpointValidationException` is thrown by any of the Java endpoint methods.
 
