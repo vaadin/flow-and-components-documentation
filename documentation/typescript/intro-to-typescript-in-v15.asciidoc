@@ -181,7 +181,7 @@ const routes = [
     ...serverSideRoutes
 ];
 
-const router = new Router(document.querySelector('#outlet'));
+export const router = new Router(document.querySelector('#outlet'));
 router.setRoutes(routes);
 ----
 

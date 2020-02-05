@@ -21,7 +21,7 @@ If you have an idea how to make it more useful for you, please share it on link:
 [source, typescript]
 ----
 import {Router} from '@vaadin/router';
-const router = new Router(document.querySelector('#outlet'));
+export const router = new Router(document.querySelector('#outlet'));
 
 import {Flow} from '@vaadin/flow-frontend/Flow';
 const {serverSideRoutes} = new Flow({
@@ -115,7 +115,7 @@ const routes = [
 ];
 
 // Vaadin router needs an outlet in the index.html page to display views
-const router = new Router(document.querySelector('#outlet'));
+export const router = new Router(document.querySelector('#outlet'));
 router.setRoutes(routes);
 ----
 

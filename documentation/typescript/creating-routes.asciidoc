@@ -27,11 +27,11 @@ The following snippet--explained further on this page--shows how to combine clie
 import {Router} from '@vaadin/router';
 import {Flow} from '@vaadin/flow-frontend/Flow';
 
-const router = new Router(document.querySelector('#outlet'));
 const {serverSideRoutes} = new Flow({
   imports: () => import('../target/frontend/generated-flow-imports')
 });
 
+export const router = new Router(document.querySelector('#outlet'));
 router.setRoutes([
   // client-side views
   {
@@ -79,7 +79,7 @@ Finally, make Vaadin Router pass all unmatched paths to Flow server by adding `.
 import {Router} from '@vaadin/router';
 import {Flow} from '@vaadin/flow-frontend/Flow';
 
-const router = new Router(document.querySelector('#outlet'));
+export const router = new Router(document.querySelector('#outlet'));
 const {serverSideRoutes} = new Flow({
   imports: () => import('../target/frontend/generated-flow-imports')
 });
@@ -106,7 +106,7 @@ It is included into link:https://www.npmjs.com/package/@vaadin/vaadin-core[`@vaa
 
 === Usage
 
-Add Vaadin Router into the `index.ts` file by using the `import` statement, then create a `router` instance by passing the outlet element in the `index.html` file:
+Add Vaadin Router into the `index.ts` file by using the `import` statement, then create and export a `router` instance by passing the outlet element in the `index.html` file:
 
 .index.html
 [source, html]
@@ -125,7 +125,7 @@ Add Vaadin Router into the `index.ts` file by using the `import` statement, then
 ----
 import {Router} from '@vaadin/router';
 const outlet = document.querySelector('#outlet');
-const router = new Router(outlet);
+export const router = new Router(outlet);
 ----
 
 Router configuration is done by using a set of routes that map URL paths to components.
@@ -145,6 +145,31 @@ router.setRoutes([
   }
 ]);
 ----
+
+The `router` instance can be imported and used in the component’s file:
+
+[source, typescript]
+.app-help.ts
+----
+import {customElement, html, LitElement, property} from 'lit-element';
+import {router} from './index';
+
+@customElement('app-help')
+class AppHelpElement extends LitElement {
+  @property({type: Object}) location = router.location;
+
+  render() {
+    return html`
+      <p>Your location URL: ${this.location.getUrl()}</p>
+      <nav>
+        <a href="${router.urlForPath('/categories')}">Categories</a>
+      </nav>
+    `;
+  }
+}
+----
+
+See also: link:https://vaadin.github.io/vaadin-router/vaadin-router/#/classes/Router[Vaadin Router API documentation^].
 
 == Layouts
 
@@ -178,30 +203,52 @@ The router executes callbacks on each view to check if the navigation must conti
 
 === Vaadin Router navigation lifecycle (client-side views)
 
-When returning an element or Web Component in a client view, developer might implement the following lifecycle methods:
+When returning an element or Web Component in a client view, developer might implement the following lifecycle interfaces:
 
-- `onBeforeEnter(location, commands, router)` is executed before the outlet container is updated with the new element. At this point, user can cancel the navigation.
-- `onAfterEnter(location, commands, router)` is executed after the new element has been attached to the outlet. he difference between this method and `onBeforeEnter` is that when this method is executed, there is no way to abort the navigation.
-- `onBeforeLeave(location, commands, router)` is executed before the previous element is going to be detached. Navigation can be cancelled at this point.
-- `onAfterLeave(location, commands, router)` is executed before the element is going to be removed from the DOM. When this method is executed, there is no way to abort the navigation.
+- `BeforeEnterObserver`: `onBeforeEnter(location, commands, router)` callback is executed before the outlet container is updated with the new element. At this point, user can cancel the navigation.
+- `AfterEnterObserver`: `onAfterEnter(location, commands, router)` callback is executed after the new element has been attached to the outlet. he difference between this method and `onBeforeEnter` is that when this method is executed, there is no way to abort the navigation.
+- `BeforeLeaveObserver`: `onBeforeLeave(location, commands, router)` callback is executed before the previous element is going to be detached. Navigation can be cancelled at this point.
+- `AfterLeaveObserver`: `onAfterLeave(location, commands, router)` callback is executed before the element is going to be removed from the DOM. When this method is executed, there is no way to abort the navigation.
 
 During the execution of `onBeforeEnter` and `onBeforeLeave` callbacks, user might postpone navigation by returning `commands.prevent()`, but only in `onBeforeEnter`, navigation can be redirected by returning `commands.redirect(path)`.
 
 [NOTE]
 Lifecycle callbacks are asynchronous.
 
-The following snippets show how to cancel navigation in a Web Component
+The following snippets show how to cancel navigation in a Web Component:
 
 [source, typescript]
 .my-demo.ts
 ----
-class MyView extends HTMLElement {
-  onBeforeEnter(location, commands, router) {
-    return location.pathname === '/cancel' ? commands.prevent() : {};
+import {customElement, LitElement} from 'lit-element';
+import {
+  BeforeEnterObserver,
+  PreventAndRedirectCommands,
+  Router,
+  RouterLocation
+} from '@vaadin/router';
+
+@customElement('my-view')
+class MyView extends LitElement implements BeforeEnterObserver {
+  onBeforeEnter(
+      location: RouterLocation,
+      commands: PreventAndRedirectCommands,
+      router: Router) {
+    if (location.pathname === '/cancel') {
+      return commands.prevent();
+    }
   }
 }
-customElements.define('my-view', MyView);
+----
 
+[source, typescript]
+.index.ts
+----
+import {Router} from '@vaadin/router';
+
+...
+
+export const router = new Router(document.querySelector('#outlet'));
 router.setRoutes([
   {
     path: '/view1',
@@ -210,7 +257,7 @@ router.setRoutes([
 ]);
 ----
 
-For more information visit vaadin router link:https://vaadin.github.io/vaadin-router/vaadin-router/#/classes/WebComponentInterface[API documentation^]
+For more information visit Vaadin Router link:https://vaadin.github.io/vaadin-router/vaadin-router/#/classes/WebComponentInterface[API documentation^].
 
 === Flow Router navigation lifecycle (server-side views)
 
