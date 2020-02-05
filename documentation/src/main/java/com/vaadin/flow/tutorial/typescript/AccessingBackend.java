@@ -16,6 +16,7 @@
 package com.vaadin.flow.tutorial.typescript;
 
 import com.vaadin.flow.server.connect.Endpoint;
+import com.vaadin.flow.server.connect.auth.AnonymousAllowed;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("typescript/accessing-backend.asciidoc")
@@ -24,6 +25,7 @@ public class AccessingBackend {
      * A Vaadin endpoint that counts numbers.
      */
     @Endpoint
+    @AnonymousAllowed
     public class CounterEndpoint {
         /**
          * A method that adds one to the argument.

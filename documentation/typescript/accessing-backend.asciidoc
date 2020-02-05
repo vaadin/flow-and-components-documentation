@@ -28,11 +28,13 @@ class from scratch:
 [source,java]
 ----
 import com.vaadin.flow.server.connect.Endpoint;
+import com.vaadin.flow.server.connect.auth.AnonymousAllowed;
 
 /**
  * A Vaadin endpoint that counts numbers.
  */
 @Endpoint
+@AnonymousAllowed
 public class CounterEndpoint {
     /**
      * A method that adds one to the argument.
@@ -45,7 +47,10 @@ public class CounterEndpoint {
 
 After that, when the application starts, Vaadin analyzes such classes in order
 to be able to process the requests made to such endpoints, and to appropriately
-verify user access. Please refer to the <<configuring-security#, Security page>>
+verify user access. For each request that is trying to access the method in the
+corresponding Vaadin endpoint, the permission check is carried on, so
+`@AnonymousAllowed` is needed to permit anyone to call the method via the request
+without the authorization. Please refer to the <<configuring-security#, Security page>>
 for configuring endpoint access.
 
 [WARNING]
