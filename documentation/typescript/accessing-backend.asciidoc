@@ -48,7 +48,45 @@ to be able to process the requests made to such endpoints, and to appropriately
 verify user access. Please refer to the <<configuring-security#, Security page>>
 for configuring endpoint access.
 
-== Import and use generated TypeScript modules
+[WARNING]
+You cannot use JavaScript reserved words as Java method's name in an Endpoint, e.g., `delete`, `function`, `var`, etc. Otherwise, you will get a runtime exception.
+
+== TypeScript modules
+
+In JavaScript and TypeScript, modules are files that follow the module syntax. This syntax has the following properties:
+
+- The top-level declarations (variables, functions, classes, etc.) are scoped inside the module, meaning that they are not available outside by default.
+
+- Modules support top-level `export` statements, which make declarations available for other modules.
+
+- Modules supports top-level `import` statements, which load and execute other modules, and can bring exported declarations.
+
+The following example demonstrates the `City.ts` module:
+
+.City.ts
+[source,typescript]
+----
+// declare and export an interface
+export default interface City {
+  country: string;
+}
+----
+
+.index.ts
+[source,typescript]
+----
+// import and use a declaration from another module
+import {City} from './City';
+const cityObject: City = {
+    name: "Turku",
+    country: "Finland"
+};
+// Note: cityObject is not exported, thus it is only available in this file
+----
+
+In Vaadin applications, the `index.ts` (or, optionally, `index.js`) file is also a module.
+
+== Import and use TypeScript modules generated from Vaadin endpoint
 
 There is a generated TypeScript module for every Vaadin endpoint on the backend.
 Each module exports all the methods.
@@ -83,10 +121,12 @@ addOne(1).then(result => console.log(result));
 The generation is done automatically when the application compiles, and when
 the application is running in development mode.
 
-By default, the generated files are located under `{project
-directory}/frontend/generated`. You can change the folder by providing the path
-for the generator in the `generatedFrontendDirectory` property for Vaadin Maven
-plugin.
+By default, the generated files are located under `{project.basedir}/frontend/generated`.
+You can change the folder by providing the path for the generator in the
+`generatedFrontendDirectory` property for Vaadin Maven plugin.
+
+Vaadin takes care of type conversion between Java and TypeScript types, for more info
+about supported types visit the <<type-conversion#, Type Conversion>> appendix.
 
 == Example generated TypeScript module contents
 

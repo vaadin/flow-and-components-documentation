@@ -179,6 +179,11 @@ const routes = [
 ];
 ----
 
+[NOTE]
+====
+The main layout created in this step is a minimal example. See the <<main-layout#, Main Layout in TypeScript>> article for more examples on typical features, such as creating the layout with navigation menu.
+====
+
 
 == Step 5 - Move the existing Java views into the TypeScript page layout [[step-5]]
 
