@@ -1,0 +1,64 @@
+---
+title: Run on server in IntellJ IDEA
+order: 5
+layout: page
+---
+
+= Run on server in IntellJ IDEA
+
+You can run/debug your Vaadin application in IntelliJ IDEA on the server of your choice (e.g. Tomcat).
+First of all you should create a Run/Debug Configuration for the server you want.
+You can find instructions on how to create one for Tomcat https://mkyong.com/intellij/intellij-idea-run-debug-web-application-on-tomcat/[here].
+
+Then, you should make sure that `prepare-frontend` goal of `vaadin-maven-plugin` is called before the build.
+So, you need to have the plugin added to your `pom.xml` like the following.
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-maven-plugin</artifactId>
+            <version>${vaadin.version}</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>prepare-frontend</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+```
+
+`prepare-frontend` is automatically called when you run your application with a maven plugin e.g with `mvn jetty:run`.
+However, when you want to run your application on a server that you installed separately, IntelliJ builds the war file and doesn't use maven to build it.
+So, we should tell IntelliJ to run `prepare-frontend` before building the war.
+Here, we explain two ways to do that.
+
+== Add `prepare-frontend` to Run/Debug Configuration
+
+These are the steps you need to do.
+
+- In the Run/Debug Configuration dialog, go to the Before launch section in Server tab.
+- Press Add (+) button and select Run Maven Goal.
+
+image:images/tomcat9-run-config.png[Tomcat Run/Debug Configuration]
+
+- In the opened dialog enter `vaadin:prepare-frontend` as the Command line and click OK button.
+- Then you should move the new item to the top of Before launch list by clicking on Up button as many times as needed.
+
+image:images/before-launch-list.png[Before launch list]
+
+- Click OK button.
+
+Now, you can run/debug your application.
+
+== Execute `prepare-frontend` Before Build
+
+You can make IntelliJ to run `prepare-frontend` before each build.
+To do so open Maven window from View -> Tool Windows.
+Then, open `vaadin` under the plugins section, right-click on `prepare-frontend` and select Execute Before Build.
+
+image:images/execute-before-build.png[Execute Before Build]
