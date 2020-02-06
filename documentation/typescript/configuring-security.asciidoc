@@ -31,13 +31,7 @@ public class CounterEndpoint {
 }
 ----
 
-For this endpoint definition, when the application is started locally, it awaits the POST requests to the
-`http://localhost:8080/connect/CounterEndpoint/addOne` endpoint.
-
-But if you try to send any POST request to the endpoint (not using the Vaadin Client), you'll get a
-https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401[401 Unauthorized] response instead of the method invocation.
-
-This happens due to Vaadin access control features enabled by default for any endpoint method:
+Vaadin access control features is enabled by default for any service method:
 if not specified in Java code explicitly, before invoking an endpoint method, the presence of `Principal` object in the the request is required.
 The `HttpServletRequest#getUserPrincipal()` Java API is used for the check.
 
