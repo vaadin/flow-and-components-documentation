@@ -31,7 +31,7 @@ public class CounterEndpoint {
 }
 ----
 
-Vaadin access control features is enabled by default for any service method:
+Vaadin access control features is enabled by default for any endpoint method:
 if not specified in Java code explicitly, before invoking an endpoint method, the presence of `Principal` object in the the request is required.
 The `HttpServletRequest#getUserPrincipal()` Java API is used for the check.
 
