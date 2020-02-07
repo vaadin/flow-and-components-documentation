@@ -114,7 +114,7 @@ There are other ways to create UI in TypeScript, but they are not covered in thi
 Run in the console, in the project folder:
 [source,bash]
 ----
-npx pnpm install --save lit-element
+npm install --save lit-element
 ----
 
 
