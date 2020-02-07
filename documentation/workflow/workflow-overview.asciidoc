@@ -6,7 +6,8 @@ layout: page
 
 = Application Development Workflow
 
-This guide explains how to set up a development workflow where your Java changes automatically trigger redeployment of the Vaadin application and even automatic refresh of the browser window.
+This guide explains how to set up a development workflow where your Java changes automatically trigger redeployment of the Vaadin application and even automatic refresh of the browser window. 
+It also explains how to run your Vaadin application on server in your IDE.
 
 The recommended setup depends on which application framework (plain servlet, Spring Boot or CDI) you are using.
 Each of these are treated in their own subtopic below.
@@ -15,6 +16,7 @@ Each of these are treated in their own subtopic below.
 ** <<tutorial-plain-servlet-live-reload#, Live Reload in Web Applications>>
 ** <<tutorial-spring-boot-live-reload#,Live Reload in Spring Boot Applications>>
 ** <<tutorial-cdi-live-reload#,Live Reload in CDI Applications>>
+** <<run-on-server-intellij#,Run on server in IntellJ IDEA>>
 
 == Live reload limitations
 
