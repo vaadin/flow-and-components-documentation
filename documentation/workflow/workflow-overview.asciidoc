@@ -1,5 +1,5 @@
 ---
-title: Application Development Workflow Overview
+title: Overview
 order: 1
 layout: page
 ---
@@ -13,12 +13,12 @@ The recommended setup depends on which application framework (plain servlet, Spr
 Each of these are treated in their own subtopic below.
 
 == Subtopics
-** <<tutorial-plain-servlet-live-reload#, Live Reload in Web Applications>>
+** <<tutorial-plain-servlet-live-reload#, Live Reload in Plain Servlet Applications>>
 ** <<tutorial-spring-boot-live-reload#,Live Reload in Spring Boot Applications>>
 ** <<tutorial-cdi-live-reload#,Live Reload in CDI Applications>>
 ** <<run-on-server-intellij#,Run on server in IntellJ IDEA>>
 
-== Live reload limitations
+== Live Reload Limitations
 
 There are general limitations as well as some tool- or application framework-specific limitations associated with live reload.
 We cover the general limitations here; the specific limitations are covered in the subtopics.

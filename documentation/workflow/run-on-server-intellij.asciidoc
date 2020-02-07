@@ -1,22 +1,22 @@
 ---
-title: Run on server in IntellJ IDEA
+title: Run on Server in IntelliJ IDEA
 order: 5
 layout: page
 ---
 
-= Run on server in IntellJ IDEA Ultimate Edition
+= Run on Server in IntelliJ IDEA Ultimate Edition
 
-You can run/debug your Vaadin application in IntelliJ IDEA Ultimate Edition on the server of your choice (e.g. Tomcat).
+You can run and debug your Vaadin application in IntelliJ IDEA Ultimate Edition on the server of your choice (such as Tomcat).
 
 ifdef::web[]
 You just need to enable the corresponding application server plugin as explained on Jetbrains' documents https://www.jetbrains.com/help/idea/enabling-application-server-integration-plugins.html[here].
 endif::[]
 
 ifndef::web[]
-You just need to enable the corresponding application server plugin in plugins section in IntelliJ Settings/Preferences.
+You just need to enable the corresponding application server plugin in the Plugins section in IntelliJ Settings/Preferences.
 endif::[]
 
-First of all you should create a Run/Debug Configuration for the server you want.
+First of all, you should create a *Run/Debug Configuration* for the server you want.
 
 ifdef::web[]
 You can find instructions on how to create one for Tomcat https://mkyong.com/intellij/intellij-idea-run-debug-web-application-on-tomcat/[here].
@@ -25,8 +25,8 @@ endif::[]
 
 Note that run on server is not available in IntelliJ IDEA Community Edition.
 
-Then, you should make sure that `prepare-frontend` goal of `vaadin-maven-plugin` is called before the build.
-So, you need to have the plugin added to your `pom.xml` like the following.
+Then, you should make sure that the `prepare-frontend` goal of `vaadin-maven-plugin` is called before the build.
+So, you need to have the plugin added to your `pom.xml`, for example as follows.
 
 ```xml
 <build>
@@ -47,33 +47,33 @@ So, you need to have the plugin added to your `pom.xml` like the following.
 </build>
 ```
 
-`prepare-frontend` is automatically called when you run your application with a Maven plugin e.g with `mvn jetty:run`.
-When you want to run your application on a server that you installed separately, IntelliJ builds the war file and doesn't use Maven to build it.
+The `prepare-frontend` goal is automatically called when you run your application with a Maven plugin, such as with `mvn jetty:run`.
+When you want to run your application on a server that you installed separately, IntelliJ builds the war file and does not use Maven to build it.
 So, we should tell IntelliJ to run `prepare-frontend` before building the war.
-Here, we explain two ways to do that.
+In the following, we explain two ways to do that.
 
 == Add `prepare-frontend` to Run/Debug Configuration
 
-These are the steps you need to do.
+You need to do the following steps:
 
-- In the Run/Debug Configuration dialog, go to the Before launch section in Server tab.
-- Press Add (+) button and select Run Maven Goal.
+- In the *Run/Debug Configuration* dialog, go to menu:Server[Before launch].
+- Press Add (btn:[+]) button and select Run Maven Goal.
 
 image:images/tomcat9-run-config.png[Tomcat Run/Debug Configuration]
 
-- In the opened dialog enter `vaadin:prepare-frontend` as the Command line and click OK button.
-- Then you should move the new item to the top of Before launch list by clicking on Up button as many times as needed.
+- In the opened dialog enter `vaadin:prepare-frontend` as the *"Command line"* and click btn:[OK].
+- Then you should move the new item to the top of *"Before launch"* list by clicking btn:[▲] as many times as needed.
 
-image:images/before-launch-list.png[Before launch list]
+image:images/before-launch-list.png[Before launch]
 
-- Click OK button.
+- Click btn:[OK].
 
 Now, you can run/debug your application.
 
 == Execute `prepare-frontend` Before Build
 
 You can make IntelliJ to run `prepare-frontend` before each build.
-To do so open Maven window from View -> Tool Windows.
-Then, open `vaadin` under the plugins section, right-click on `prepare-frontend` and select Execute Before Build.
+To do so open Maven window with menu:View[Tool Windows > Maven].
+Then, open `vaadin` under the Plugins section, right-click on `prepare-frontend`, and select *Execute Before Build*.
 
 image:images/execute-before-build.png[Execute Before Build, width=75%]
