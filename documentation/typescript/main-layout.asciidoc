@@ -18,7 +18,7 @@ We assume you have a Vaadin 15 application with the client-side routing setup, a
 
 The client-side Vaadin Router instance provides helpful APIs for generating links. This is helpful for the menu links covered later in this article.
 
-In your `index.ts`, export the `router` instance to enable importing it in the client-side views and layouts:
+In your `index.ts`, make sure to export the `router` instance to enable importing it in the client-side views and layouts:
 
 .index.ts
 [source, typescript]
