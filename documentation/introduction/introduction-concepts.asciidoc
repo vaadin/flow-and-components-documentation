@@ -62,7 +62,7 @@ In JavaScript code, you add an event listener to the element:
 
 [source, javascript]
 ----
-const button = new customElements.get('vaadin-button');
+const button = document.createElement('vaadin-button');
 button.textContent = 'Push me!';
 button.addEventListener('click', event => button.textContent = 'You pushed me!');
 ----
