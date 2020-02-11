@@ -1,10 +1,10 @@
 ---
-title: Live Reload in Web Applications
+title: Live Reload in Plain Servlet Applications
 order: 2
 layout: page
 ---
 
-= Live Reload in Web Applications
+= Live Reload in Plain Servlet Applications
 
 During application development the code changes happen frequently. There are multiple tools 
 available which speed up the development process and avoid having to manually 
@@ -15,7 +15,7 @@ Here is a list of some of these tools:
 - The https://www.eclipse.org/jetty/documentation/9.4.x/jetty-maven-plugin.html[Jetty Maven plugin] 
 with the `scanIntervalSeconds` configuration enabled.
 
-- The commercial https://www.jrebel.com/[JRebel tool] may be used with any Java application including web applications
+- The commercial https://www.jrebel.com/[JRebel tool] may be used with any Java application including plain servlet applications
 
 - http://hotswapagent.org/[HostSwapAgent] also may be used with any Java applicaiton
 
