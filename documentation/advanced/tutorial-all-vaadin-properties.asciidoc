@@ -81,5 +81,5 @@ By default, in development mode all frontend resources found on the class path a
 When set to `true`, creates an optimized bundle by including only frontend resources that are used from the application entry points (this is the default in production mode).
 Uses bytecode scanning which increases application startup time. *This feature is available only in Vaadin Platform 14.1 and newer.*
 
-|disable.pnpm |
-When set to `true`, disables `pnpm` which means `npm` will be used to handle frontend resources. *This feature is available only in Vaadin Platform 14.2 and newer.*
+|pnpm.enable |
+**Available since Vaadin 14.2 and 15**, this is by default set to `flase` in 15, which means that _npm_ is used to download and resolve frontend dependencies. Setting it to true enables pnpm, and _pnpm_ will be used instead to handle the frontend resources. More information in the <<tutorial-switch-npm-pnpm#, switch between pnpm and npm documentation>>.
