@@ -70,3 +70,7 @@ To do so open Maven window with menu:View[Tool Windows > Maven].
 Then, open `vaadin` under the Plugins section, right-click on `prepare-frontend`, and select *Execute Before Build*.
 
 image:images/execute-before-build.png[Execute Before Build, width=75%]
+
+[NOTE]
+Some application servers, like Weblogic, cache jar files of applications in temp folders.
+When you are upgrading the Vaadin version of your application, you may have to clear those folder to make sure that the new jar files are picked up and no conflict occurs.
