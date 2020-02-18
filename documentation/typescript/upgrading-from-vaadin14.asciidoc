@@ -66,7 +66,7 @@ Edit the `pom.xml` file and change the versions of the Vaadin platform dependenc
 </build>
 ----
 
-If you use a pre-release version, you also need to add a pre-release repository and pre-release plugin repository to the `pom.xml` file.
+If you use a non-stable version (e.g., alpha, beta), you also need to add pre-release repositories to the `pom.xml` file.
 
 .pom.xml
 [source,xml]
