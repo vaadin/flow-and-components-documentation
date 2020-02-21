@@ -21,8 +21,8 @@ You need at least the following tools during application development:
 
 * Java JDK (8 or newer)
 * Maven (3 or newer)
-* Node.js (10 or newer)
-* npm (5.6 or newer)
+* Node.js (10 or newer, installed automatically by Vaadin 14.2+)
+* npm (5.6 or newer, installed automatically by Vaadin 14.2+)
 
 While Java 8 is supported, we recommend using Java 11 (the latest LTS version) or later, but you need to make sure that your entire toolchain supports it.
 
