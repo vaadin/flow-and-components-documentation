@@ -48,6 +48,17 @@ Vaadin is distributed in the Maven central repository, and can be used with any 
 
 The npm package manager is used for managing Vaadin JavaScript dependencies.
 
+== Automatic Installation of Frontend Toolchain
+
+Since Vaadin 14.2, Vaadin automatically downloads and installs (via its Maven plugin) supported versions of Node.js and npm into the `~/.vaadin` directory in the user's home, unless it detects that these tools are already installed globally.
+If installed globally, Vaadin validates that the installed tools are of valid versions.
+
+Other frontend tooling used by Vaadin, such as Webpack and pnpm, are installed locally into each project by npm.
+pnpm is a caching package manager that reduces the download time across multiple projects.
+
+Older platform versions in the 14 series still require manual installation of Node.js, either globally or in the project directory (the Maven plugin will inform how to do this in a single command if it detects missing tools).
+Node.js can be downloaded from https://nodejs.org/en/download/[https://nodejs.org/en/download/] and installing it automatically installs npm as well.
+
 ////
 Vaadin has a multitude of installation options for different IDEs and dependency
 managers.

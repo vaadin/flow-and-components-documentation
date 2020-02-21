@@ -25,8 +25,12 @@ Here we describe the maven plugin goals and their usage.
 
 === prepare-frontend
 
-The intention of the goal is to validate whether `node` and `npm` tools are installed. Node.js is needed to run npm for installing
-frontend dependencies and webpack which bundles the frontend files served to client. In case they are missing, an exception is thrown and the build process terminates.
+This goal validates whether the `node` and `npm` tools are installed and not too old (`node` version 10 or later and `npm` version 5.6 or later), and also installs them automatically to the `.vaadin` folder in the user's home directory if they are missing.
+If they are installed globally but too old, there will be an error message suggesting to install newer versions instead.
+Node.js is needed to run npm for installing frontend dependencies and webpack which bundles the frontend files served to client.
+
+[NOTE]
+Automatic installation of Node.js and npm is available since Vaadin 14.2. Older platform versions in the 14 series requires manual installation, either globally or in the project directory using a Maven plugin.
 
 In addition, it visits all resources used by the application and copies them under `node_modules` folder so they are available when `webpack` builds the frontend. It also creates or updates `package.json`, `webpack.config.json` and `webpack.generated.json` files.
 
@@ -48,6 +52,9 @@ In addition, it visits all resources used by the application and copies them und
 
 * *generatedFolder* (default: `${project.build.directory}/frontend/`):
     The folder where Flow will put generated files that will be used by Webpack.
+
+* *require.home.node* (default: `false`):
+   **Available since Vaadin 14.2**. If set to `true`, always prefer Node.js automatically downloaded and installed into the `.vaadin` directory in the user's home.
 
 
 === build-frontend
