@@ -12,7 +12,7 @@ upcoming versions.
 
 The <<v14-migration-guide#, main migration guide>> describes all the main
 changes when coming from Vaadin versions 10 - 13 to 14, and it is recommended to
-it before starting with this document.
+read it before starting with this document.
 
 == Supporting Both npm and Compatibility Modes with Your Add-on
 
