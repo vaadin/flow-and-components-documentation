@@ -12,7 +12,7 @@ upcoming versions.
 
 The <<v14-migration-guide#, main migration guide>> describes all the main
 changes when coming from Vaadin versions 10 - 13 to 14, and it is recommended to
-it before starting with this document.
+read it before starting with this document.
 
 == Supporting Both npm and Compatibility Modes with Your Add-on
 
@@ -48,7 +48,8 @@ For creating the Vaadin 14 version of your component add-on, you should first:
 
 * Bump the add-on version to the next major version
 * If missing, install Node.js on your system (<<v14-migration-guide#install.npm,
- see instructions>>)
+see instructions>>). If you are using Vaadin 14.2+, Node.js installation is
+handled automatically by the `vaadin-maven-plugin` so this step can be skipped.
 * Bump the `vaadin` dependency version to the latest available 14 version
 (for either `vaadin-bom`, `vaadin-core` or `vaadin` dependencies and the
 `vaadin-maven-plugin`)
