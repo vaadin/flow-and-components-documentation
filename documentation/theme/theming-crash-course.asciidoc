@@ -229,3 +229,54 @@ You can also include style modules in global styles.
 public class MyApplication extends Div {
 }
 ----
+
+== Override default styles for a Vaadin Component
+
+Sometimes you want to override a default background color or minimun width of a component. To do it, you have to target a correct part of the component Shadow Dom. 
+
+*Example*: overriding a `background-color` property of the first row of a grid can be done this way:
+
+.vaadin-grid-styles.css
+[source,css]
+----
+:host([theme~="grid-first-row-styling"]) [part~="row"]:first-child  [part~="body-cell"]:not([part~="details-cell"]){
+    background-color: red;
+}
+----
+
+`Grid` has a theme attribute set and class that adds the `Grid` to a UI imports a style using `@CSSImport`
+
+.GridView.java
+[source,java]
+----
+@Route("grid")
+@CssImport(value = "./styles/vaadin-grid-styles.css", themeFor = "vaadin-grid")
+public class GridView extends VerticalLayout {
+
+    public GridView(){
+        Label description=new Label("The first row of the grid below doesn't react to user actions.");
+        add(description);
+
+        Grid<Person> grid = new Grid<>();
+        grid.addColumn(Person::getFirstName).setHeader("First Name");
+        grid.addColumn(Person::getLastName).setHeader("Last Name");
+        grid.addColumn(Person::getAge).setHeader("Age");
+        grid.setThemeName("grid-first-row-styling");
+
+
+        grid.setItemDetailsRenderer(
+                new ComponentRenderer<>(s -> {
+                    VerticalLayout layout = new VerticalLayout();
+                    layout.setSizeFull();
+                    Label label = new Label(s.getFirstName() + " " + s.getLastName());
+                    layout.add(label);
+                    return layout;
+                }));
+
+        add(grid);
+        grid.setItems(new Person(24,"Aaron","Tiili"),new Person(28,"Anna","Keski"));
+    }
+}
+----
+
+.
