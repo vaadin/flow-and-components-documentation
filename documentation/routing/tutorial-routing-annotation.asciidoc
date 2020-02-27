@@ -1,6 +1,6 @@
 ---
 title: Defining Routes with @Route
-order: 1
+order: 2
 layout: page
 ---
 

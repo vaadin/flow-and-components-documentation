@@ -6,11 +6,12 @@ import javax.portlet.WindowState;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.portal.PortletView;
+import com.vaadin.flow.portal.PortletViewContext;
 import com.vaadin.flow.portal.VaadinPortlet;
 import com.vaadin.flow.portal.lifecycle.PortletModeEvent;
 import com.vaadin.flow.portal.lifecycle.PortletModeHandler;
-import com.vaadin.flow.portal.PortletView;
-import com.vaadin.flow.portal.PortletViewContext;
 import com.vaadin.flow.portal.lifecycle.WindowStateEvent;
 import com.vaadin.flow.portal.lifecycle.WindowStateHandler;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
@@ -19,7 +20,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class HandlingPortletPhases {
     public class PortletModeListenerDemo {
         public class MyPortletView extends Div implements PortletView {
-            
+
             @Override
             public void onPortletViewContextInit(PortletViewContext context) {
                 context.addPortletModeChangeListener(event -> showHelpText(event.isHelpMode()));
@@ -63,7 +64,7 @@ public class HandlingPortletPhases {
                     .setText("Window state changed to " + event.getWindowState()));
             context.addPortletModeChangeListener(event -> stateInformation
                     .setText("Portlet mode changed to " + event.getPortletMode()));
-            
+
             stateInformation = new Paragraph("Use the portlet controls or the "
                     + "buttons below to change the portlet's state!");
 
@@ -95,6 +96,36 @@ public class HandlingPortletPhases {
             public void windowStateChange(WindowStateEvent event) {
                 stateInformation
                         .setText("Window state changed to " + event.getWindowState());
+            }
+        }
+    }
+
+    public class RenderingInMinimizedStateDemo {
+        public class MyPortlet extends VaadinPortlet<MyView> {
+            @Override
+            protected boolean shouldRenderMinimized() {
+                return true;
+            }
+        }
+
+        public class MyView extends Div implements PortletView {
+            private VerticalLayout normalLayout = new VerticalLayout();
+            private VerticalLayout minimizedLayout = new VerticalLayout();
+
+            @Override
+            public void onPortletViewContextInit(PortletViewContext context) {
+                context.addWindowStateChangeListener(this::handleWindowStateChanged);
+
+                // Initialize layouts here
+
+                minimizedLayout.setVisible(false);
+                add(normalLayout, minimizedLayout);
+            }
+
+            private void handleWindowStateChanged(WindowStateEvent event) {
+                boolean isMinimized = WindowState.MINIMIZED.equals(event.getWindowState());
+                minimizedLayout.setVisible(isMinimized);
+                normalLayout.setVisible(!isMinimized);
             }
         }
     }

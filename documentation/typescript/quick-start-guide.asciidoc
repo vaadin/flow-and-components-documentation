@@ -8,7 +8,11 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Quick Start Guide
 
-We recommend the following steps to create a new application with Vaadin 15.
+We recommend the following steps to create a new Vaadin application with a UI written in TypeScript.
+
+[NOTE]
+Support for TypeScript was added in Vaadin 15.
+See the link:https://vaadin.com/releases/vaadin-15/[Vaadin 15 release page^] to learn more about this version.
 
 * use link:https://start.vaadin.com/[start.vaadin.com^] to create a new project (<<quick-start-guide#step-1,step 1>>)
 * download a project archive and start the app in Dev mode (<<quick-start-guide#step-2,step 2>>)
@@ -83,4 +87,4 @@ export class AppHelp extends LitElement {
 
 == Step 4 - Access the back-end from the new TypeScript view [[step-4]]
 
-Continue with the <<accessing-backend#, Accessing back-end from TypeScript>> page for more details on how to consume server-side services.
+Continue with the <<accessing-backend#, Accessing back-end from TypeScript>> page for more details on how to consume server-side endpoints.
