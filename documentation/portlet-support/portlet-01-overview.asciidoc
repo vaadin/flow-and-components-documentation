@@ -10,6 +10,9 @@ Vaadin Portlet Support for Vaadin 14.x+ is built on top of the <<Portlet 3.0
 specification>> and requires Flow 2.2 and `vaadin-portlet` 1.0.0. Both are currently in alpha-stage
 and expected to change.
 
+[NOTE]
+Some Vaadin features are not available in portlets, that includes e.g. `@PWA` annotation and all PWAs features. 
+
 == Topics
 
 . <<portlet-02-creating-vaadin-portlets#,Creating Vaadin Portlets>>
@@ -35,6 +38,10 @@ Each portlet is in its own module, and frontend assets are in one module.
 . <<portlet-06-adding-portlet-module#,Adding a Vaadin Portlet Module to an Existing Multi-Module Project>>
 +
 Quick guide on how to add a new Vaadin Portlet Module to an existing Vaadin or non-Vaadin multi-module project.
+
+. <<portlet-07-cdi-support#,Vaadin Portlet CDI Support>>
++
+Instructions on adding CDI support to your Vaadin Portlet projects.
 
 . <<portlet-demo-01-address-book#,Demonstration: Address Book>>
 +

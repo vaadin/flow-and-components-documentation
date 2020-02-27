@@ -39,8 +39,8 @@ When starting, Vaadin application tries to registed the following servlets:
 
 This servlet is needed to serve the main application files.
 
-The servlet won't be registered, if any {@link VaadinServlet} is registered already
-or if there are no classes annotated with {@link Route} annotation.
+The servlet won't be registered, if any [classname]#VaadinServlet# is registered already
+or if there is no class annotated with [classname]#Route# annotation.
 
 In addition to the rule mentioned above, a servlet won't be registered, if
   * there is a servlet that had been mapped to the same path already
@@ -218,7 +218,7 @@ The heartbeats occur at an interval of 5 minutes, which can be changed with the
 parameter in [classname]#@VaadinServletConfiguration# or in [filename]#web.xml#.
 
 When the UI cleanup happens, a [classname]#DetachEvent# is sent to all
-[classname]#DetachListener#s added to the UI. When the [classname]#UI# is
+[classname]##DetachListener##s added to the UI. When the [classname]#UI# is
 detached from the session, [methodname]#detach()# is called for it.
 
 

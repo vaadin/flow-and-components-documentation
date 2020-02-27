@@ -11,30 +11,31 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 An API endpoint is a backend method that is exposed for calling from client-side
 TypeScript code.
 
-Vaadin service is a class that defines one or more API endpoints.
+Vaadin endpoint is a class that defines one or more API methods.
 
-Vaadin Connect is a bridge between Java backend services and a TypeScript
-frontend. It allows creating API endpoints and services in Java, and generates
+Vaadin bridges Java backend endpoints and a TypeScript frontend. It generates
 TypeScript clients to call the Java backend in a type-checkable way.
 
 [WARNING]
 This feature is experimental and it *will change* before the next Long-Term-Supported Vaadin version.
 If you have an idea how to make it more useful for you, please share it on link:https://github.com/vaadin/flow/issues/new/[GitHub^].
 
-== How to create a Vaadin service? [[how-to-create-vaadin-service]]
+== How to create a Vaadin endpoint? [[how-to-create-vaadin-endpoint]]
 
-Annotate any existing class with the `@VaadinService` annotation or create such
+Annotate any existing class with the `@Endpoint` annotation or create such
 class from scratch:
 
 [source,java]
 ----
-import com.vaadin.flow.server.connect.VaadinService;
+import com.vaadin.flow.server.connect.Endpoint;
+import com.vaadin.flow.server.connect.auth.AnonymousAllowed;
 
 /**
- * A Vaadin service that counts numbers.
+ * A Vaadin endpoint that counts numbers.
  */
-@VaadinService
-public class CounterService {
+@Endpoint
+@AnonymousAllowed
+public class CounterEndpoint {
     /**
      * A method that adds one to the argument.
      */
@@ -45,83 +46,76 @@ public class CounterService {
 ----
 
 After that, when the application starts, Vaadin analyzes such classes in order
-to be able to process the requests made to such services.
+to be able to process the requests made to such endpoints, and to appropriately
+verify user access. For each request that is trying to access the method in the
+corresponding Vaadin endpoint, a permission check is carried on. `@AnonymousAllowed`
+means that it permits anyone to call the method via the request without the authorization
+. Please refer to the <<configuring-security#, Security page>>
+for configuring endpoint access.
 
-[IMPORTANT]
-====
-At the moment, all API endpoints are secured and only available for authenticated users. Pease refer to the <<configuring-security#, Security page>> for configuring access to each service.'
-====
+[WARNING]
+You cannot use JavaScript reserved words as Java method's name in an Endpoint, e.g., `delete`, `function`, `var`, etc. Otherwise, you will get a runtime exception.
 
-Any public method in any Vaadin service can be accessed with the following url:
+== TypeScript modules
 
-`http://${base_url}/${endpoint}/${service_name}/${method_name}`
+In JavaScript and TypeScript, modules are files that follow the module syntax. This syntax has the following properties:
 
-Where:
+- The top-level declarations (variables, functions, classes, etc.) are scoped inside the module, meaning that they are not available outside by default.
 
-* `${base_url}` — the base url of the application, depends on the framework
-used. For instance, for Spring framework, the default one if the application is
-started locally, is `http://localhost:8080`.
-* `${endpoint}` — the url part that every Vaadin Connect service has,
-same for every service url. By default, `connect` is used, but this can be
-configured in the application properties.
-* `${service_name}` — if not specified explicitly, the corresponding Java
-service class name.
-* `${method_name}` — the public method name from the Java service class.
+- Modules support top-level `export` statements, which make declarations available for other modules.
 
-For the application started locally with the `CounterService` service defined
-above, the service url will be the following:
-`http://localhost:8080/connect/counterservice/addone`
+- Modules supports top-level `import` statements, which load and execute other modules, and can bring exported declarations.
 
-[NOTE]
-====
-Service name and the method name are not case sensitive for Vaadin Connect, so
-the url above is the same as
-`http://localhost:8080/connect/CounterService/addOne` or
-`http://localhost:8080/connect/COUNTERSERVICE/ADDONE` or any other case
-combination for the service and method name.
-====
+The following example demonstrates the `City.ts` module:
 
-== How to configure the API endpoint URL?
+.City.ts
+[source,typescript]
+----
+// declare and export an interface
+export default interface City {
+  country: string;
+}
+----
 
-Vaadin Connect allows to configure the following url parts:
+.index.ts
+[source,typescript]
+----
+// import and use a declaration from another module
+import {City} from './City';
+const cityObject: City = {
+    name: "Turku",
+    country: "Finland"
+};
+// Note: cityObject is not exported, thus it is only available in this file
+----
 
-* `${endpoint}`
-The default value is `connect`. To change it to some other value, provide
-`application.properties` file in the project resources:
-`src/main/resources/application.properties` and set the
-`vaadin.connect.endpoint` property to the new value.
+In Vaadin applications, the `index.ts` (or, optionally, `index.js`) file is also a module.
 
-* `${service_name}`
-By default, the Java class name is taken. It is possible to specify a value in
-the `@VaadinService` annotation to override default one:
-`@VaadinService("customName")`. In this case, the `customName` value will be
-used as a `${service_name}` to accept incoming requests, also case-insensitive.
+== Import and use TypeScript modules generated from Vaadin endpoint
 
-== Import and use generated TypeScript modules
-
-There is a generated TypeScript module for every Vaadin service on the backend.
+There is a generated TypeScript module for every Vaadin endpoint on the backend.
 Each module exports all the methods.
 
-You can either import the whole generated module as a service, or import the
+You can either import the whole generated module as an endpoint, or import the
 methods from the module separately. For instance, the
-`CounterService.ts` could be used as in the following snippets:
+`CounterEndpoint.ts` could be used as in the following snippets:
 
 .index.ts (import the whole module)
 [[index.ts]]
 [source,typescript]
 ----
 // Other imports
-import * as counterService from './generated/CounterService';
+import * as counterEndpoint from './generated/CounterEndpoint';
 
 // Other code
-counterService.addOne(1).then(result => console.log(result));
+counterEndpoint.addOne(1).then(result => console.log(result));
 ----
 
 .index.ts (only import the needed method)
 [source,typescript]
 ----
 // Other imports
-import {addOne} from './generated/CounterService';
+import {addOne} from './generated/CounterEndpoint';
 
 // Other code
 addOne(1).then(result => console.log(result));
@@ -132,24 +126,26 @@ addOne(1).then(result => console.log(result));
 The generation is done automatically when the application compiles, and when
 the application is running in development mode.
 
-By default, the generated files are located under `{project
-directory}/frontend/generated`. You can change the folder by providing the path
-for the generator in the `generatedFrontendDirectory` property for Vaadin Maven
-plugin.
+By default, the generated files are located under `{project.basedir}/frontend/generated`.
+You can change the folder by providing the path for the generator in the
+`generatedFrontendDirectory` property for Vaadin Maven plugin.
+
+Vaadin takes care of type conversion between Java and TypeScript types, for more info
+about supported types visit the <<type-conversion#, Type Conversion>> appendix.
 
 == Example generated TypeScript module contents
 
-For example, the generated TypeScript module for the Java service defined in
- <<accessing-backend#how-to-create-vaadin-service,CounterService.java>> would look like:
+For example, the generated TypeScript module for the Java endpoint defined in
+ <<accessing-backend#how-to-create-vaadin-endpoint,CounterEndpoint.java>> would look like:
 
 [source,typescript]
-.CounterService.ts
+.CounterEndpoint.ts
 ----
 /**
- * A Vaadin Connect service that counts numbers.
+ * A Vaadin endpoint that counts numbers.
  *
- * This module has been generated from CounterService.java
- * @module CounterService
+ * This module has been generated from CounterEndpoint.java
+ * @module CounterEndpoint
  */
 
 import client from './connect-client.default';
@@ -160,13 +156,13 @@ import client from './connect-client.default';
  * @param number
  */
 export function addOne(number: number): Promise<number> {
-  return client.call('CounterService', 'addOne', {number}, {requireCredentials: true});
+  return client.call('CounterEndpoint', 'addOne', {number});
 }
 ----
 
 == Code-completion
 
-As you see in `CounterService.ts`, the Javadoc of `@VaadinService` class
+As you see in `CounterEndpoint.ts`, the Javadoc of `@Endpoint` class
 is preserved the generated TypeScript file, and the type definitions are
 maintained. This helps code-completion work pretty well in *Visual Studio Code*
 and *Intellij IDEA Ultimate Edition*.
