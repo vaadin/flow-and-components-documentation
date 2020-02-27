@@ -25,7 +25,14 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<introduction/introduction-overview#,Introduction to Vaadin Flow>>
 * https://vaadin.com/tutorials/getting-started-with-flow[Getting started with Vaadin Flow]
 
+== Development Workflow
+** <<workflow/workflow-overview#,Workflow Overview>>
+** <<workflow/tutorial-plain-servlet-live-reload#, Live Reload in Web Applications>>
+** <<workflow/tutorial-spring-boot-live-reload#, Live Reload in Spring Boot Applications>>
+** <<workflow/tutorial-cdi-live-reload#, Live Reload in CDI Applications>>
+
 == Router and Navigation
+* <<routing/tutorial-routing-on-client-side-and-server-side#,Routing on Client Side and Server Side>>
 * <<routing/tutorial-routing-annotation#,Defining Routes with @Route>>
 * <<routing/tutorial-routing-lifecycle#,Navigation Lifecycle>>
 * <<routing/tutorial-router-layout#,Router Layouts and Nested Router Targets>>
@@ -111,11 +118,20 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<typescript/starting-the-app#, Starting the Application in TypeScript>>
 * <<typescript/creating-routes#, Creating Routes in TypeScript>>
 * <<typescript/accessing-backend#, Accessing Java Backend in TypeScript>>
+* <<typescript/main-layout#, Main Layout in TypeScript>>
+* <<typescript/client-exceptions#, Client Side Exceptions>>
 * <<typescript/configuring-security#, Configuring Security for TypeScript Views>>
 * <<typescript/adding-login-form-with-spring-security#, Adding a Login Form with Spring Security>>
+* <<typescript/check-user-login#, Checking Authentication>>
 * <<typescript/intro-to-typescript-in-v15#, Appendix: Intro to TypeScript in Vaadin 15>>
 * <<typescript/type-conversion#, Appendix: Type Conversion between Java and TypeScript>>
-* <<typescript/typescript-services-generator#, Appendix: TypeScript Services Generator>>
+* <<typescript/custom-serialization#, Appendix: Customizing Serialization>>
+* <<typescript/typescript-endpoints-generator#, Appendix: TypeScript Endpoints Generator>>
+* <<typescript/typescript-client#, Appendix: TypeScript Client>>
+* <<typescript/client-middleware#, Appendix: Client Middleware>>
+* <<typescript/endpoint-methods-validation#, Appendix: Endpoint Methods Validation>>
+* <<typescript/typescript-endpoints-urls#, Appendix: Endpoint URLs>>
+
 
 == Using Vaadin with Spring
 * <<spring/tutorial-spring-basic#,Use Vaadin with Spring>>
@@ -138,7 +154,9 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<portlet-support/portlet-02-creating-vaadin-portlets#,Creating Vaadin Portlets>>
 * <<portlet-support/portlet-03-handling-portlet-phases#,Handling Portlet Phases>>
 * <<portlet-support/portlet-04-inter-portlet-communication#,Inter-portlet Communication>>
-* <<portlet-support/portlet-05-creating-multi-module-portlet-project#,Creating Multi-module Portlet Project>>
+* <<portlet-support/portlet-05-creating-multi-module-portlet-project#,Creating Multi-Module Portlet Project>>
+* <<portlet-support/portlet-06-adding-portlet-module#,Adding a Vaadin Portlet Module to an Existing Maven Multi-Module Project>>
+* <<portlet-support/portlet-07-cdi-support#,Vaadin Portlet CDI Support>>
 * <<portlet-support/portlet-demo-01-address-book#,Demonstration: Address Book>>
 
 == Packaging for Production
@@ -178,6 +196,7 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 == Advanced Topics
 * <<advanced/tutorial-application-lifecycle#,Application Lifecycle>>
 * <<advanced/tutorial-i18n-localization#,Application Localization (I18N)>>
+* <<advanced/tutorial-modifying-the-bootstrap-page#,Modifying the Bootstrap Page>>
 * <<advanced/tutorial-flow-runtime-configuration#,Flow runtime configuration>>
 * <<advanced/tutorial-loading-indicator#,Customizing the Loading Indicator>>
 * <<advanced/tutorial-push-configuration#,Server Push Configuration>>
@@ -190,3 +209,4 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<advanced/tutorial-stream-resources#,Using stream resources>>
 * <<advanced/tutorial-ui-init-listener#,UIInitListener>>
 * <<advanced/tutorial-preserving-state-on-refresh#,Preserving view state between browser refreshes>>
+* <<advanced/tutorial-switch-npm-pnpm#,Differences between NPM and PNPM>>

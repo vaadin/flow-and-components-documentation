@@ -70,7 +70,37 @@ if (loadButton) {
 
 With the above snippets, the bootstrap page shows "Hello, World!" text with a button. The Vaadin client engine is not loaded until the button is clicked.
 
-= Adding a TypeScript View
+= Configuring TypeScript Compiler
+
+TypeScript compiler requires a `tsconfig.json` file, `vaadin-maven-plugin` generates one in case there is no `tsconfig.json` in the project root. The default config looks similar to the following:
+
+.Default `tsconfig.json`
+[source,json]
+----
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "inlineSources": true,
+    "module": "esNext",
+    "target": "es2017",
+    "moduleResolution": "node",
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "experimentalDecorators": true
+  },
+  "include": [
+    "frontend/**/*.ts", "frontend/index.js"
+  ],
+  "exclude": []
+}
+----
+
+= Adding a TypeScript View [[add-typescript-view]]
 
 Since version 15 Vaadin allows <<creating-routes#,creating routes in TypeScript>>, like in the following example:
 
@@ -151,7 +181,7 @@ const routes = [
     ...serverSideRoutes
 ];
 
-const router = new Router(document.querySelector('#outlet'));
+export const router = new Router(document.querySelector('#outlet'));
 router.setRoutes(routes);
 ----
 

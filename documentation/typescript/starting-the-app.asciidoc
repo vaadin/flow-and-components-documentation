@@ -21,7 +21,7 @@ If you have an idea how to make it more useful for you, please share it on link:
 [source, typescript]
 ----
 import {Router} from '@vaadin/router';
-const router = new Router(document.querySelector('#outlet'));
+export const router = new Router(document.querySelector('#outlet'));
 
 import {Flow} from '@vaadin/flow-frontend/Flow';
 const {serverSideRoutes} = new Flow({
@@ -37,7 +37,7 @@ If there is a need to add a client-side view to the application later, it can be
 See more details on this in the <<default-bootstrap-template-and-entry-point,Default Bootstrap Template and Entry Point>> section below.
 
 [NOTE]
-If you are migrating from an earlier version of Vaadin, check the <<migrating-from-vaadin-10-14,Migrating from Vaadin 10-14>> section below.
+If you are migrating from an earlier version of Vaadin, check the <<upgrading-from-vaadin14#migrating-from-vaadin-10-14,Migrating from Vaadin 10-14>> section below.
 
 
 == Starting a Flow App from Client-side Code
@@ -78,9 +78,6 @@ If the `index.html` or `index.ts` files in the frontend folder are missing, `vaa
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Polyfills for the Web Component APIs are required to use Web Components
-     in the browsers that do not support these APIs natively (e.g. MS Edge) -->
-  <script src="./VAADIN/build/webcomponentsjs/webcomponents-loader.js" defer></script>
   <style>
     body, #outlet {
       height: 100vh;
@@ -111,94 +108,15 @@ const {serverSideRoutes} = new Flow({
 });
 
 const routes = [
-  // Send all routes to  server-side.
-  // If you have client-side views add them above this line.
-  // For more info, please check out the 'Client-side Routing'
-  // page in `https://vaadin.com/docs/v15/flow/typescript/creating-routes.html`
-  ...serverSideRoutes
+  // for client-side, place routes below (more info https://vaadin.com/docs/v15/flow/typescript/creating-routes.html)
+
+  // for server-side, the next magic line sends all unmatched routes:
+  ...serverSideRoutes // IMPORTANT: this must be the last entry in the array
 ];
 
 // Vaadin router needs an outlet in the index.html page to display views
-const router = new Router(document.querySelector('#outlet'));
+export const router = new Router(document.querySelector('#outlet'));
 router.setRoutes(routes);
 ----
 
 NOTE: The auto-generated bootstrap template works best for server-side applicaitons. In order add client-side views into the app, please follow the  <<quick-start-guide#step-3, Quick Start Guide>>.
-
-Using TypeScript requires a `tsconfig.json` file for the TypeScript compiler. `vaadin-maven-plugin` generates one in case if there is an `index.ts` file in the frontend folder but there is no `tsconfig.json` in the project root.
-The default config looks similar to the following:
-
-.Default `tsconfig.json`
-[source,json]
-----
-{
-  "compilerOptions": {
-    "sourceMap": true,
-    "inlineSources": true,
-    "module": "esNext",
-    "target": "es2017",
-    "moduleResolution": "node",
-    "strict": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "experimentalDecorators": true
-  },
-  "include": [
-    "frontend/**/*.ts", "frontend/index.js"
-  ],
-  "exclude": []
-}
-----
-
-== Modifying the Bootstrap Page at the Runtime
-
-Before sending the bootstrap page response to the browser, the content can be modified via an `IndexHtmlRequestListener`. An implementation of the listener should be added via a `ServiceInitEvent` when a `VaadinService` is initialized. Check the <<../advanced/tutorial-service-init-listener#,ServiceInitListener tutorial>> for the details about using Vaadin `ServiceInitListeners`.
-
-The example below shows how to use the `IndexHtmlRequestListener` API to add custom HTML meta tags dynamically for each page request:
-
-[source,java]
-----
-public class MyIndexHtmlRequestListener implements
-            IndexHtmlRequestListener {
-
-    @Override
-    public void modifyIndexHtmlResponse(
-            IndexHtmlResponse indexHtmlResponse) {
-        Document document = indexHtmlResponse.getDocument();
-
-        Element head = document.head();
-
-        head.appendChild(createMeta(document, "og:title", "The Rock"));
-        head.appendChild(createMeta(document, "og:type", "video.movie"));
-        head.appendChild(createMeta(document, "og:url",
-                "http://www.imdb.com/title/tt0117500/"));
-        head.appendChild(createMeta(document, "og:image",
-                "http://ia.media-imdb.com/images/rock.jpg"));
-    }
-
-    private Element createMeta(Document document, String property,
-            String content) {
-        Element meta = document.createElement("meta");
-        meta.attr("property", property);
-        meta.attr("content", content);
-        return meta;
-    }
-}
-----
-
-
-== Migrating from Vaadin 10-14 [[migrating-from-vaadin-10-14]]
-
-For applications migrated from earlier versions of Vaadin, client-side bootstrapping requires replacing the usages of the V10-14 `BootstrapHandler` APIs with their `IndexHtmlRequestHandler` API counterparts as described in link:https://github.com/vaadin/flow/issues/6584[TBD (see flow#6584)].
-
-The reason for this API change is that with client-side bootstrapping the initial page HTML generation is separated from loading the Flow client and creating a server-side `UI` instance.
-
- - In Vaadin 10 to 14 these two steps are combined and the `index.html` page includes the code and configuration needed to start the Flow client engine and link the browser page to the server-side `UI` instance.
-
- - In Vaadin 15+ with client-side bootstrapping the `index.html` page includes only the basic HTML markup and links to the TypeScript UI code. When <<creating-routes#,adding routes in TypeScript>>, the Flow client and a server-side `UI` instance are loaded and created later if (and when) the user navigates to a route that does not have a client-side implementation.
-
-It can also be provided as a servlet container deployment property with the name `clientSideMode`.

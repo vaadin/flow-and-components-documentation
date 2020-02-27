@@ -1,6 +1,6 @@
 ---
 title: Configuring Security for TypeScript Views
-order: 70
+order: 80
 layout: page
 ---
 
@@ -8,37 +8,31 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Configuring Security for TypeScript Views
 
-When developing server-side views, service access control is done by using regular java approaches: servlet-container based security, third party libraries, or session based solutions.
+When developing server-side views, endpoint access control is done by using regular java approaches: servlet-container based security, third party libraries, or session based solutions.
 
 This article describes all the pieces needed for securing client centric applications.
 
 == How to secure server-side endpoints
 
-The first step is to configure authorization of each service that the application exposes.
+The first step is to configure authorization of each endpoint that the application exposes.
 
 === Default security options
 
-Consider the basic Vaadin Connect service defined in the following class:
+Consider the basic Vaadin endpoint defined in the following class:
 
-.CounterService.java
+.CounterEndpoint.java
 [source,java]
 ----
-@VaadinService
-public class CounterService {
+@Endpoint
+public class CounterEndpoint {
     public int addOne(int number) {
         return number + 1;
     }
 }
 ----
 
-For this service definition, when the application is started locally, it awaits the POST requests to the
-`http://localhost:8080/connect/CounterService/addOne` endpoint.
-
-But if you try to send any POST request to the endpoint (not using the Vaadin Client), you'll get a
-https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401[401 Unauthorized] response instead of the method invocation.
-
-This happens due to Vaadin access control features enabled by default for any service method:
-if not specified in Java code explicitly, before invoking a service method, the presence of `Principal` object in the the request is required.
+Vaadin access control features is enabled by default for any endpoint method:
+if not specified in Java code explicitly, before invoking an endpoint method, the presence of `Principal` object in the the request is required.
 The `HttpServletRequest#getUserPrincipal()` Java API is used for the check.
 
 At this point, the servlet container or the application needs to be configured appropriately to handle user authentication.
@@ -46,7 +40,7 @@ This is described in the <<adding-login-form-with-spring-security#,Adding a Logi
 
 == Other security options
 
-In order to change the default behavior, a security Java annotation should either be placed on the service class or on the service method.
+In order to change the default behavior, a security Java annotation should either be placed on the endpoint class or on the endpoint method.
 There are the following annotations:
 
 * `@PermitAll`
@@ -69,26 +63,26 @@ If there are multiple annotations specified on some entity, the following rules 
 
 Example:
 
-.MyService.java
+.MyEndpoint.java
 [source,java]
 ----
-@VaadinService
+@Endpoint
 @DenyAll
-public class MyService {
+public class MyEndpoint {
 
-  public void deniedService() {
+  public void deniedMethod() {
     // Not possible to call by any request due to class-level annotation
   }
 
   @AnonymousAllowed
-  public void anonymousService() {
+  public void anonymousMethod() {
     // Possible to call by any request (even without
     // authorization) since method level annotation
     // overrides class-level one
   }
 
   @PermitAll
-  public void permittedToAllService() {
+  public void permittedToAllMethod() {
     // Permitted to all authenticated users, same as if
     // there were no security annotations on the class
     // and the methods.
@@ -98,7 +92,7 @@ public class MyService {
   }
 
   @RolesAllowed("ROLE_ADMIN")
-  public void permittedToToleService() {
+  public void permittedToRoleMethod() {
     // Permited to all authenticated users belonging
     // to the ROLE_ADMIN
   }
@@ -107,22 +101,22 @@ public class MyService {
 
 == Defining user permissions[[permissions]]
 
-As mentioned in the previous section, every user can have roles and may affect his ability to access some service methods.
+As mentioned in the previous section, every user can have roles and may affect his ability to access some endpoint methods.
 This section explains how to specify those for each user.
 
-Vaadin Services checks the existence of roles by using the `HttpServletRequest#isUserInRole(String)` Java API.
+Vaadin endpoints checks the existence of roles by using the `HttpServletRequest#isUserInRole(String)` Java API.
 
-Once the servlet container has been configured to handle user authentication, when the server receives a request for the secured service, user and its roles are checked, and if everything is alright, the method is executed.
+Once the servlet container has been configured to handle user authentication, when the server receives a request for the secured endpoint, user and its roles are checked, and if everything is alright, the method is executed.
 
-== Accessing user information in a service method
+== Accessing user information in an endpoint method
 
-When access to the `UserPrincipal` is required in a service, call the `VaadinRequest.getCurrent()` method to access the `HttpServletRequest` API.
+When access to the `UserPrincipal` is required in an endpoint, call the `VaadinRequest.getCurrent()` method to access the `HttpServletRequest` API.
 
-.EchoService.java
+.EchoEndpoint.java
 [source,java]
 ----
-@VaadinService
-public class EchoService {
+@Endpoint
+public class EchoEndpoint {
     public String saySomething(String message) {
         return VaadinRequest.getCurrent().getUserPrincipal().getName() + " says: " + message;
     }
@@ -132,21 +126,18 @@ public class EchoService {
 .frontend/index.ts
 [source,typescript]
 ----
-import * as service from './generated/EchoService';
+import * as endpoint from './generated/EchoEndpoint';
 
-service
+endpoint
     .saySomething("It's snowing in Turku")
     .then(response => console.log(response));
 ----
 
-== How Vaadin Services protects from CSRF attacks
+== Checking authentication in client side
 
-Connect client sends in each XHR request a custom header that protects against CSRF attacks since it cannot be set in 3rd party forms.
+Please read the <<check-user-login#, Checking Authentication>> article if in the client side it is
+needed to know whether a user is authenticated.
 
-The presence of the header is checked before any service invocation, returning an unauthorized response if it fails.
+== CSRF protection of Vaadin endpoints
 
-If Cross-Origin Resource Sharing (CORS) is enabled in the Vaadin server, it must be appropriately configured for not accepting requests from unknown sources.
-
-
-
-
+Vaadin endpoints are protected from CSRF attacks using the same approach with the rest of Vaadin. See the <<../advanced/framework-security#_cross_site_request_forgery_csrf_xsrf, Cross-Site Request Forgery>> section in the security guide for more details.
