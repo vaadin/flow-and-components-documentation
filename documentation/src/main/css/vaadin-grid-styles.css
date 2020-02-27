@@ -1,0 +1,5 @@
+tutorial::theme/theming-crash-course.asciidoc
+
+:host([theme~="grid-first-row-styling"]) [part~="row"]:first-child  [part~="body-cell"]:not([part~="details-cell"]){
+        background-color: red;
+}
