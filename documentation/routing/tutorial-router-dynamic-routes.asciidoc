@@ -1,6 +1,6 @@
 ---
 title: Registering Routes Dynamically
-order: 10
+order: 11
 layout: page
 ---
 

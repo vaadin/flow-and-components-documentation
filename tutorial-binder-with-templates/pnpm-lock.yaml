@@ -6,11 +6,11 @@ dependencies:
   '@vaadin/router': 1.6.0
   '@vaadin/vaadin-accordion': 1.0.1
   '@vaadin/vaadin-app-layout': 2.0.4
-  '@vaadin/vaadin-button': 2.2.1
-  '@vaadin/vaadin-checkbox': 2.2.10
+  '@vaadin/vaadin-button': 2.2.2
+  '@vaadin/vaadin-checkbox': 2.2.12
   '@vaadin/vaadin-combo-box': 5.0.9
   '@vaadin/vaadin-context-menu': 4.3.15
-  '@vaadin/vaadin-custom-field': 1.0.10
+  '@vaadin/vaadin-custom-field': 1.0.11
   '@vaadin/vaadin-date-picker': 4.0.5
   '@vaadin/vaadin-details': 1.0.1
   '@vaadin/vaadin-dialog': 2.2.1
@@ -33,7 +33,6 @@ dependencies:
   '@vaadin/vaadin-text-field': 2.5.3
   '@vaadin/vaadin-time-picker': 2.0.4
   '@vaadin/vaadin-upload': 4.2.2
-  '@webcomponents/webcomponentsjs': 2.4.0
 devDependencies:
   awesome-typescript-loader: 5.2.1_typescript@3.5.3
   compression-webpack-plugin: 3.0.1_webpack@4.30.0
@@ -916,7 +915,7 @@ packages:
   /@vaadin/vaadin-app-layout/2.0.4:
     dependencies:
       '@polymer/polymer': 3.2.0
-      '@vaadin/vaadin-button': 2.2.1
+      '@vaadin/vaadin-button': 2.2.2
       '@vaadin/vaadin-element-mixin': 2.2.0
       '@vaadin/vaadin-lumo-styles': 1.5.0
       '@vaadin/vaadin-material-styles': 1.2.3
@@ -924,7 +923,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-dDCQv245aBFjwMhJERgQuWJ8pHVPdfKnd4aOmr/o85BDugOWjdSCD7selugVfYjPR07yhjlUtlZFcA8SdoF+ow==
-  /@vaadin/vaadin-button/2.2.1:
+  /@vaadin/vaadin-button/2.2.2:
     dependencies:
       '@polymer/polymer': 3.2.0
       '@vaadin/vaadin-control-state-mixin': 2.1.3
@@ -934,8 +933,8 @@ packages:
       '@vaadin/vaadin-themable-mixin': 1.5.2
     dev: false
     resolution:
-      integrity: sha512-FjgC/NIRkmV5PVaZz4qvS7h8AJpAStcutZhn71gBeKVyKvSG4QUzZo1cP5XK050ZVOIQA/LFGimZfHVqJV350Q==
-  /@vaadin/vaadin-checkbox/2.2.10:
+      integrity: sha512-FC1+7cTlPByCbcNJGQmWSXroYUNJe5CXSlJcWM1674xjKbeddXpdgD7eEHjfKvMjagT/Ws7s2VUFrTQb/D86vg==
+  /@vaadin/vaadin-checkbox/2.2.12:
     dependencies:
       '@polymer/polymer': 3.2.0
       '@vaadin/vaadin-control-state-mixin': 2.1.3
@@ -945,7 +944,7 @@ packages:
       '@vaadin/vaadin-themable-mixin': 1.5.2
     dev: false
     resolution:
-      integrity: sha512-eRJakdHnheemwoed0FeSVYkksuzOeArUUYpmLWesb+AMUoVeOMswbR21BmAEPOOqLWOeSXXbCfNMmqvidNNTQw==
+      integrity: sha512-BVggVXYF1blOuxk1DBhC9oQ7OoPgHQZKZNGFb/Ll213fx+bgne8nhjxxJ1YXMdcuhQherMwnI2jaNKFrHTHxEg==
   /@vaadin/vaadin-combo-box/5.0.9:
     dependencies:
       '@polymer/iron-a11y-announcer': 3.0.2
@@ -984,7 +983,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-EtLfMN9i/gwToAEuW6E1OA2Q2i/4a+Il6tKkqE/0i7bgu3Xr1IITMcagQn9QSsp1Xkpr/nLtWWKRq7yZZkbHVg==
-  /@vaadin/vaadin-custom-field/1.0.10:
+  /@vaadin/vaadin-custom-field/1.0.11:
     dependencies:
       '@polymer/polymer': 3.2.0
       '@vaadin/vaadin-element-mixin': 2.2.0
@@ -993,7 +992,7 @@ packages:
       '@vaadin/vaadin-themable-mixin': 1.5.2
     dev: false
     resolution:
-      integrity: sha512-4Wmx1ilLlgSsrUTYsBlfgSeR808fpG0htnvRoSMuGZTEFBjJfjt7qMXrPGTipl47+Fsr5vEpOGtdAQUhMadRUQ==
+      integrity: sha512-rDbSBahXAZdTsp4vRVGgwWnQX2gvXDBnmIV5jIDfTpc7GVIpkrd35kM9qUkJzMkTzSq6ewHon9RwbH8n4m+1Wg==
   /@vaadin/vaadin-date-picker/4.0.5:
     dependencies:
       '@polymer/iron-a11y-announcer': 3.0.2
@@ -1001,7 +1000,7 @@ packages:
       '@polymer/iron-media-query': 3.0.1
       '@polymer/iron-resizable-behavior': 3.0.1
       '@polymer/polymer': 3.2.0
-      '@vaadin/vaadin-button': 2.2.1
+      '@vaadin/vaadin-button': 2.2.2
       '@vaadin/vaadin-control-state-mixin': 2.1.3
       '@vaadin/vaadin-element-mixin': 2.2.0
       '@vaadin/vaadin-lumo-styles': 1.5.0
@@ -1064,7 +1063,7 @@ packages:
       '@polymer/iron-resizable-behavior': 3.0.1
       '@polymer/iron-scroll-target-behavior': 3.0.1
       '@polymer/polymer': 3.2.0
-      '@vaadin/vaadin-checkbox': 2.2.10
+      '@vaadin/vaadin-checkbox': 2.2.12
       '@vaadin/vaadin-element-mixin': 2.2.0
       '@vaadin/vaadin-lumo-styles': 1.5.0
       '@vaadin/vaadin-material-styles': 1.2.3
@@ -1111,7 +1110,7 @@ packages:
   /@vaadin/vaadin-login/1.0.1:
     dependencies:
       '@polymer/polymer': 3.2.0
-      '@vaadin/vaadin-button': 2.2.1
+      '@vaadin/vaadin-button': 2.2.2
       '@vaadin/vaadin-element-mixin': 2.2.0
       '@vaadin/vaadin-lumo-styles': 1.5.0
       '@vaadin/vaadin-material-styles': 1.2.3
@@ -1139,7 +1138,7 @@ packages:
     dependencies:
       '@polymer/iron-resizable-behavior': 3.0.1
       '@polymer/polymer': 3.2.0
-      '@vaadin/vaadin-button': 2.2.1
+      '@vaadin/vaadin-button': 2.2.2
       '@vaadin/vaadin-context-menu': 4.3.15
       '@vaadin/vaadin-element-mixin': 2.2.0
       '@vaadin/vaadin-lumo-styles': 1.5.0
@@ -1275,7 +1274,7 @@ packages:
   /@vaadin/vaadin-upload/4.2.2:
     dependencies:
       '@polymer/polymer': 3.2.0
-      '@vaadin/vaadin-button': 2.2.1
+      '@vaadin/vaadin-button': 2.2.2
       '@vaadin/vaadin-element-mixin': 2.2.0
       '@vaadin/vaadin-lumo-styles': 1.5.0
       '@vaadin/vaadin-material-styles': 1.2.3
@@ -1423,10 +1422,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-fRuET+UGrH84hG0UF4iHbFqWZKUoan4/ki+iCOJ/vnKltPSHv/ZVbcA6sT/pRreznt8aKEGqN2KdHvgRxn4xjA==
-  /@webcomponents/webcomponentsjs/2.4.0:
-    dev: false
-    resolution:
-      integrity: sha512-kEClEz2nu9/i6SvyBJTV4pCc6CyCzMhK7zEeJ6QhiJoulBp4YZ06Zfj2E2HUXfWfHJIjtKriJYMtfhettKEjEg==
   /@xtuc/ieee754/1.2.0:
     dev: true
     resolution:
@@ -6157,11 +6152,11 @@ specifiers:
   '@vaadin/router': ^1.6.0
   '@vaadin/vaadin-accordion': 1.0.1
   '@vaadin/vaadin-app-layout': 2.0.4
-  '@vaadin/vaadin-button': 2.2.1
-  '@vaadin/vaadin-checkbox': 2.2.10
+  '@vaadin/vaadin-button': 2.2.2
+  '@vaadin/vaadin-checkbox': 2.2.12
   '@vaadin/vaadin-combo-box': 5.0.9
   '@vaadin/vaadin-context-menu': 4.3.15
-  '@vaadin/vaadin-custom-field': 1.0.10
+  '@vaadin/vaadin-custom-field': 1.0.11
   '@vaadin/vaadin-date-picker': 4.0.5
   '@vaadin/vaadin-details': 1.0.1
   '@vaadin/vaadin-dialog': 2.2.1
@@ -6184,7 +6179,6 @@ specifiers:
   '@vaadin/vaadin-text-field': 2.5.3
   '@vaadin/vaadin-time-picker': 2.0.4
   '@vaadin/vaadin-upload': 4.2.2
-  '@webcomponents/webcomponentsjs': ^2.2.10
   awesome-typescript-loader: 5.2.1
   compression-webpack-plugin: 3.0.1
   copy-webpack-plugin: 5.1.0

@@ -186,3 +186,49 @@ public class MyView extends Div
     }
 }
 ----
+
+=== Rendering in Minimized Window State
+
+Normally, portlets don't render anything when they are minimized.
+But, in your Vaadin portlets, you can render a minimal output when your portlet is minimized.
+`shouldRenderMinimized` method in `VaadinPortlet` determines whether the portlet supports rendering in minimized state or not.
+It returns `false` by default which means no rendering when minimized.
+So, you need to override it in your portlet class and return `true` instead.
+
+[source,java]
+----
+public class MyPortlet extends VaadinPortlet<MyView> {
+    @Override
+    protected boolean shouldRenderMinimized() {
+        return true;
+    }
+}
+----
+
+In your view class, you can add a `WindowStateListener` to your `PortletViewContext` where you can decide what to render in different window states.
+E.g. in the following view, `minimizedLayout` is rendered when the portlet is minimized.
+Otherwise, `normalLayout` is rendered.
+
+[source,java]
+----
+public class MyView extends Div implements PortletView {
+    private VerticalLayout normalLayout = new VerticalLayout();
+    private VerticalLayout minimizedLayout = new VerticalLayout();
+
+    @Override
+    public void onPortletViewContextInit(PortletViewContext context) {
+        context.addWindowStateChangeListener(this::handleWindowStateChanged);
+
+        // Initialize layouts here
+
+        minimizedLayout.setVisible(false);
+        add(normalLayout, minimizedLayout);
+    }
+
+    private void handleWindowStateChanged(WindowStateEvent event) {
+        boolean isMinimized = WindowState.MINIMIZED.equals(event.getWindowState());
+        minimizedLayout.setVisible(isMinimized);
+        normalLayout.setVisible(!isMinimized);
+    }
+}
+----

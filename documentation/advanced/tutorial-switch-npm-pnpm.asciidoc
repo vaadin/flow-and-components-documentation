@@ -1,0 +1,28 @@
+---
+title: Switch between NPM and PNPM
+order: 16
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= Switch between NPM and PNPM
+
+Vaadin Platform 15 uses `npm` as the default package manager. It's also possible to switch to https://pnpm.js.org/[pnpm], the benefit of `pnpm` is that it uses a shared repository, which allows reducing packages download time.
+
+To switch to `pnpm` you can use the `pnpm.enable` system property, e.g., 
+
+`mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dvaadin.pnpm.enable=true"`
+
+The `jvmArguments` is needed because Spring Boot maven plugin forks a process (https://github.com/spring-projects/spring-boot/issues/1095). If you are not using Spring Boot, e.g. jetty, then it's as simple as
+
+`mvn jetty:run -Dvaadin.pnpm.enable=true`
+
+To read more about how to set properties, see the <<tutorial-flow-runtime-configuration#, Application runtime configuration documentation>>.
+
+Alternatively, you could also use `pnpmEnable` configuration parameter for maven plugin in the `pom.xml` file
+```xml
+<configuration>
+    <pnpmEnable>true</pnpmEnable>
+</configuration>
+```
