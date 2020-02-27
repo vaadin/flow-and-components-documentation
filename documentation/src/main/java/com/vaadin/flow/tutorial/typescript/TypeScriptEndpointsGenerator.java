@@ -19,17 +19,17 @@ import javax.annotation.Nullable;
 
 import java.util.Optional;
 
-import com.vaadin.flow.server.connect.VaadinService;
+import com.vaadin.flow.server.connect.Endpoint;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 
-@CodeFor("typescript/typescript-services-generator.asciidoc")
-public class TypeScriptServicesGenerator {
+@CodeFor("typescript/typescript-endpoints-generator.asciidoc")
+public class TypeScriptEndpointsGenerator {
     /**
-    * User services.
+    * User endpoints.
     */
-    @VaadinService
-    public class UserServices {
+    @Endpoint
+    public class UserEndpoints {
         /**
         * Check if a user is admin or not.
         *
