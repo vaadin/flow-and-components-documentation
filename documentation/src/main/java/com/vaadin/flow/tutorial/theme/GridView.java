@@ -7,6 +7,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.tutorial.theme.Person;
+import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("theme/theming-crash-course.asciidoc")
 @Route("grid")
