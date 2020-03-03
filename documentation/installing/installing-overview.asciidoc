@@ -125,9 +125,9 @@ Please refer to https://docs.travis-ci.com/user/languages/javascript-with-nodejs
 
 Vaadin (14.2+) automatically installs `node` if it can't be found. It downloads and
 installs `12.16.0` version. But it happens only if there is no `node` found.
-You may force `node` installation to the `.vaadin`  folder inside a home directory 
+You may force `node` installation to the `.vaadin` folder inside a home directory 
 via `require.home.node` property. This property sets the maven `requireHomeNodeExec` parameter value,
-so you may configure the maven goal using  `<requireHomeNodeExec>true</requireHomeNodeExec>`.
+so you may configure the maven goal using `<requireHomeNodeExec>true</requireHomeNodeExec>`.
 To be able to force node installation into home directory in dev mode you should
-use `vaadin.require.home.node` system property or  `require.home.node` web init parameter.
+use `vaadin.require.home.node` system property or `require.home.node` web init parameter.
 
