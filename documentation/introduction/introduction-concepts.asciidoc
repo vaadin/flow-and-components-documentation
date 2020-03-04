@@ -23,15 +23,9 @@ Vaadin components are Web Components programmed in JavaScript, with a Java API t
 
 Web Components::
 Web Components are a component model based in several technologies: _custom HTML elements_, _shadow DOM_ that enables encapsulation, and _HTML templates_.
-Vaadin components are Polymer web components, which can be used both in JavaScript and through the server-side Java API.
+All Vaadin components are web components, which can be used both in JavaScript and through the server-side Java API.
 +
 See https://www.webcomponents.org/[webcomponents.org] for more information about Web Components.
-
-Polymer::
-Vaadin components are made with Polymer, an open-source JavaScript library for creating web components.
-It simplifies how custom HTML elements are created, provides ways for data binding between the client and the server, and so forth.
-+
-See the tutorial https://vaadin.com/learn/training/v10-custom-elements[Creating Web Components with Polymer].
 
 Cascading Stylesheets (CSS)::
   Vaadin applications are styled using cascading style sheets (CSS).
@@ -239,7 +233,7 @@ static get template() {
 }
 ----
 
-Now in Java, you can inject the text field and the label by their IDs as follows:
+Now, you can inject the text field and the label in Java code by their IDs as follows:
 
 [source,java]
 ----
@@ -259,7 +253,7 @@ private void updateFavoriteColor(
 }
 ----
 
-See the tutorials in <<../polymer-templates/tutorial-template-basic#,Creating Polymer Templates>> for more.
+See the tutorials in <<../polymer-templates/tutorial-template-basic#,Creating Polymer Templates>> for more details.
 
 == Routing and Navigation
 
