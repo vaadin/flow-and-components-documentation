@@ -20,7 +20,7 @@ image:images/installation-steps.svg[width=100%, scaledwidth=100%]
 You need at least the following tools during application development:
 
 * Java JDK (8 or newer)
-* Maven (3 or newer)
+* Maven (3 or newer) or Gradle (5.6 or newer)
 * Node.js (10 or newer, installed automatically by Vaadin 14.2+)
 * npm (5.6 or newer, installed automatically by Vaadin 14.2+)
 
@@ -46,7 +46,7 @@ IDEs include integration with external containers and one can make debugging eas
 Managing Vaadin and other Java libraries can get tedious to do manually, so using a build system that manages dependencies automatically is recommended.
 Vaadin is distributed in the Maven central repository, and can be used with any build or dependency management system that can access Maven repositories, such as Ivy or Gradle, in addition to Maven.
 
-The npm package manager is used for managing Vaadin JavaScript dependencies.
+The npm package manager is used for managing Vaadin frontend JavaScript dependencies.
 
 == Automatic Installation of Frontend Toolchain
 
@@ -125,9 +125,8 @@ Please refer to https://docs.travis-ci.com/user/languages/javascript-with-nodejs
 
 Vaadin (14.2+) automatically installs `node` if it can't be found. It downloads and
 installs `12.16.0` version. But it happens only if there is no `node` found.
-You may force `node` installation to the `.vaadin` folder inside a home directory 
+You may force `node` installation to the `.vaadin` folder inside a home directory
 via `require.home.node` property. This property sets the maven `requireHomeNodeExec` parameter value,
 so you may configure the maven goal using `<requireHomeNodeExec>true</requireHomeNodeExec>`.
 To be able to force node installation into home directory in dev mode you should
 use `vaadin.require.home.node` system property or `require.home.node` web init parameter.
-
