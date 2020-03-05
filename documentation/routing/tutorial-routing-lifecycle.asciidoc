@@ -78,7 +78,7 @@ This event is delivered to any component instance implementing `BeforeEnterObser
 from the UI moving through the child components.
 
 [NOTE]
-Components are instantiated in the chain after a parent handles `BeforeEnter` and doesn't <<Rerouting,reroute>> or <<Forward,forward>>
+Components in the chain are instantiated after a parent handles `BeforeEnter` and doesn't <<Rerouting,reroute>> or <<Forward,forward>>
 
 The event is fired:
 
@@ -95,7 +95,7 @@ Rerouting is typically used when there is a need to show completely different in
 
 When the `reroute` method is called:
 
-* The event is not fired by any further listeners or observers.
+* The event is not fired to any further listeners or observers.
 * The method triggers a new navigation phase, based on the new navigation target, and events are fired based on this instead.
 * For <<BeforeEnterEvent,BeforeEnterEvent>>: Child components of the rerouting component are not instantiated.
 
@@ -139,7 +139,7 @@ Forwarding can be used during <<BeforeEnterEvent,BeforeEnter>> and <<BeforeLeave
 
 When the `forwardTo` method is called:
 
-* The event is not fired by any further listeners or observers.
+* The event is not fired to any further listeners or observers.
 * The method triggers a new navigation phase, based on the new navigation target, and fires new lifecycle events for the new forward navigation target.
 * For <<BeforeEnterEvent,BeforeEnterEvent>>: Child components of the forwarding component are not instantiated.
 
