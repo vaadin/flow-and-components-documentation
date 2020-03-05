@@ -8,21 +8,70 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Switch between NPM and PNPM
 
-Vaadin Platform 15 uses `npm` as the default package manager. It's also possible to switch to https://pnpm.js.org/[pnpm], the benefit of `pnpm` is that it uses a shared repository, which allows reducing packages download time.
+Vaadin Platform 15 uses `npm` as the default package manager. It's also possible to switch to https://pnpm.js.org/[pnpm], the benefit of `pnpm` is that it uses a shared repository, which allows reducing the build time.
 
-To switch to `pnpm` you can use the `pnpm.enable` system property, e.g., 
+To switch to `pnpm` you can use the `pnpm.enable` system property.
 
-`mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dvaadin.pnpm.enable=true"`
+For a Spring Boot based project, you can put `vaadin.pnpm.enable = true` into the `application.properties` files
 
-The `jvmArguments` is needed because Spring Boot maven plugin forks a process (https://github.com/spring-projects/spring-boot/issues/1095). If you are not using Spring Boot, e.g. jetty, then it's as simple as
+For a plain Java or a JavaEE based project, you can use Servlet 3.0 @WebServlet annotation:
+[source,java]
+----
+@WebServlet(urlPatterns = "/*", name = "myservlet", asyncSupported = true, initParams = {
+        @WebInitParam(name = "vaadin.pnpm.enable", value = "true") })
+public class MyServlet extends VaadinServlet {
+}
+----
+or use the traditional `web.xml` file
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app
+  id="WebApp_ID" version="3.0"
+  xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
-`mvn jetty:run -Dvaadin.pnpm.enable=true`
+  <servlet>
+    <servlet-name>myservlet</servlet-name>
+    <servlet-class>
+        com.vaadin.server.VaadinServlet
+    </servlet-class>
+
+    <init-param>
+      <param-name>vaadin.pnpm.enable</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>myservlet</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
+</web-app>
+----
 
 To read more about how to set properties, see the <<tutorial-flow-runtime-configuration#, Application runtime configuration documentation>>.
 
-Alternatively, you could also use `pnpmEnable` configuration parameter for maven plugin in the `pom.xml` file
-```xml
-<configuration>
-    <pnpmEnable>true</pnpmEnable>
-</configuration>
-```
+Alternatively, the property can be also set to the `vaadin-maven-plugin`, using `pnpmEnable`. 
+Note that this only works for production mode.
+
+[source,xml]
+----
+<plugin>
+    <groupId>com.vaadin</groupId>
+    <artifactId>vaadin-maven-plugin</artifactId>
+    <version>${project.version}</version>
+    <executions>
+        <execution>
+            <goals>
+                <goal>build-frontend</goal>
+            </goals>
+        </execution>
+    </executions>
+    <configuration>
+        <pnpmEnable>true</pnpmEnable>
+    </configuration>
+</plugin>
+----
