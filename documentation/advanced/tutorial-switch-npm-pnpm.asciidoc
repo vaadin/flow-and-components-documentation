@@ -19,7 +19,7 @@ For a plain Java or a JavaEE based project, you can use Servlet 3.0 @WebServlet 
 ----
 @WebServlet(urlPatterns = "/*", name = "myservlet", asyncSupported = true, initParams = {
         @WebInitParam(name = "vaadin.pnpm.enable", value = "true") })
-public class MyServlet extends VaadinServlet {
+public class CustomServlet extends VaadinServlet {
 }
 ----
 or use the traditional `web.xml` file
