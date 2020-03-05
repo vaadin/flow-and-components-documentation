@@ -114,7 +114,6 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 
 == Creating UI in TypeScript
 * <<typescript/quick-start-guide#, Quick Start Guide>>
-* <<typescript/upgrading-from-vaadin14#, Upgrading from Vaadin 14>>
 * <<typescript/starting-the-app#, Starting the Application in TypeScript>>
 * <<typescript/creating-routes#, Creating Routes in TypeScript>>
 * <<typescript/accessing-backend#, Accessing Java Backend in TypeScript>>
