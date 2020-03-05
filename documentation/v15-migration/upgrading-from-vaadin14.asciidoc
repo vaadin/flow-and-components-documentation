@@ -1,6 +1,6 @@
 ---
 title: Upgrading from Vaadin 14
-order: 20
+order: 0
 layout: page
 ---
 
@@ -23,7 +23,7 @@ JavaScript is supported as well: any `.ts` file can be replaced with a `.js` alt
 * move the existing Java views into the TypeScript page layout (<<upgrading-from-vaadin14#step-5,step 5>>)
 * add a TypeScript view (<<upgrading-from-vaadin14#step-6,step 6>>)
 
-_If you are starting a new app with Vaadin 15, please check the <<quick-start-guide#,Quick Start Guide>>._
+_If you are starting a new app with Vaadin 15, please check the <<../typescript/quick-start-guide#,Quick Start Guide>>._
 
 
 == Step 1 - Make your project depend on Vaadin 15 [[step-1]]
@@ -125,7 +125,7 @@ If your application uses an older version of Spring, please update it to a compa
 == Step 2 - Create `frontend/index.html` and `frontend/index.ts` [[step-2]]
 
 [NOTE]
-These files are necessary only if you want to add <<creating-routes#,TypeScript views>> to the app (new in Vaadin 15).
+These files are necessary only if you want to add <<../typescript/creating-routes#,TypeScript views>> to the app (new in Vaadin 15).
 If you do not plan adding any TypeScript views, migration from Vaadin 14 to Vaadin 15 is done at this point.
 
 You can create the `frontend/index.html` and `frontend/index.ts` files from scratch, but an easier way is to let Vaadin to generate them.
@@ -209,7 +209,7 @@ const routes = [
 
 [NOTE]
 ====
-The main layout created in this step is a minimal example. See the <<main-layout#, Main Layout in TypeScript>> article for more examples on typical features, such as creating the layout with navigation menu.
+The main layout created in this step is a minimal example. See the <<../typescript/main-layout#, Main Layout in TypeScript>> article for more examples on typical features, such as creating the layout with navigation menu.
 ====
 
 
@@ -231,7 +231,7 @@ public class DashboardView extends Div {
 ----
 
 == Step 6 - Add a TypeScript view [[step-6]]
-Continue with the <<quick-start-guide#step-3,Quick Start Guide - Step 3>> to see how.
+Continue with the <<../typescript/quick-start-guide#step-3,Quick Start Guide - Step 3>> to see how.
 
 == API breaking changes from Vaadin 10-14 [[migrating-from-vaadin-10-14]]
 For applications migrated from earlier versions of Vaadin, client-side bootstrapping requires replacing the usages of the V10-14 `BootstrapHandler` APIs with their `IndexHtmlRequestHandler` API counterparts as described in <<../advanced/tutorial-modifying-the-bootstrap-page#IndexHtmlRequestListener-interface, _IndexHtmlRequestListener interface_>> section.
@@ -240,6 +240,6 @@ The reason for this API change is that with client-side bootstrapping the initia
 
 - In Vaadin 10 to 14 these two steps are combined and the `index.html` page includes the code and configuration needed to start the Flow client engine and link the browser page to the server-side `UI` instance.
 
-- In Vaadin 15+ with client-side bootstrapping the `index.html` page includes only the basic HTML markup and links to the TypeScript UI code. When <<creating-routes#,adding routes in TypeScript>>, the `UI` is not guaranteed to be created, thus is optional. It will be only available after the user navigates to a server-side route.
+- In Vaadin 15+ with client-side bootstrapping the `index.html` page includes only the basic HTML markup and links to the TypeScript UI code. When <<../typescript/creating-routes#,adding routes in TypeScript>>, the `UI` is not guaranteed to be created, thus is optional. It will be only available after the user navigates to a server-side route.
 
 One more thing to pay attention to in Vaadin 15+ is that annotations in the `MainLayout / MainView` class must be moved to a class that implements the `AppShellConfigurator` interface, see <<../advanced/tutorial-modifying-the-bootstrap-page#java-annotations, set annotations to modify Bootstrap page>> for more details.
