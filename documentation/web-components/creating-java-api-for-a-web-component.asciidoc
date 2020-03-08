@@ -6,7 +6,7 @@ layout: page
 
 = Creating a Java API for a Web Component
 
-While there are many way to interact with a Web Component, the most typical are:
+While there are many ways to interact with a Web Component, the most typical are:
 
 * Use properties on the element to define how it should behave.
 * Listen to events on the element to be notified when the user does something.
