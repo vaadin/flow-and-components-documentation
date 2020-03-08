@@ -121,7 +121,7 @@ public class Form extends PolymerTemplate<FormModel> {
 }
 ----
 
-* If you later update the `Person person` bean created in the constructor, the model remains unaffected. The bean values are copied by `setPerson` and the bean is not attached to the model in any way.
+* If you later on update the `Person person` bean created in the constructor, **the model remains unaffected**. The bean values are copied only when the `setPerson` method is called. Thus, the bean is not attached to the model in any way.
 
 
 == Updating the Model
@@ -181,4 +181,3 @@ public class OrderForm extends PolymerTemplate<FormModel> {
     }
 }
 ----
-
