@@ -10,6 +10,9 @@ Vaadin Portlet Support for Vaadin 14.x+ is built on top of the <<Portlet 3.0
 specification>> and requires Flow 2.2 and `vaadin-portlet` 1.0.0. Both are currently in alpha-stage
 and expected to change.
 
+[NOTE]
+Some Vaadin features are not available in portlets, that includes e.g. `@PWA` annotation and all PWAs features. 
+
 == Topics
 
 . <<portlet-02-creating-vaadin-portlets#,Creating Vaadin Portlets>>
@@ -27,9 +30,29 @@ Portlet phases and Portlet requests.
 Outlines how the reader can enable their Portlets to communicate with other
 Portlets (be they Vaadin Portlets or not) on the Portal page.
 
-. <<portlet-05-demo-address-book#,Address Book Demonstration>>
+. <<portlet-05-creating-multi-module-portlet-project#,Creating Multi-Module Portlet Project>>
 +
-A demonstration which shows how to build two functioning Vaadin Portlets that communicate with each other.
-The full code example will be available in https://github.com/vaadin/addressbook-portlet[addressbook-portlet].
+Shows how to create a multi-module Vaadin Portlet maven project.
+Each portlet is in its own module, and frontend assets are in one module.
 
-To help getting started building Vaadin Portlets, there is a https://github.com/vaadin/base-starter-flow-portlet[project base] that you can use. 
+. <<portlet-06-adding-portlet-module#,Adding a Vaadin Portlet Module to an Existing Multi-Module Project>>
++
+Quick guide on how to add a new Vaadin Portlet Module to an existing Vaadin or non-Vaadin multi-module project.
+
+. <<portlet-07-cdi-support#,Vaadin Portlet CDI Support>>
++
+Instructions on adding CDI support to your Vaadin Portlet projects.
+
+. <<portlet-demo-01-address-book#,Demonstration: Address Book>>
++
+Describes how to build two functioning Vaadin Portlets that communicate with each other as a multi-module project.
+The full code example is available in https://github.com/vaadin/addressbook-portlet[addressbook-portlet].
+
+=== Repositories
+
+* https://github.com/vaadin/base-starter-flow-portlet[base-starter-flow-portlet] +
+Simple project to get started with build Vaadin Portlets.
+
+* https://github.com/vaadin/addressbook-portlet[addressbook-portlet] +
+Address book build as multi-module project with inter-portlet communication.
+

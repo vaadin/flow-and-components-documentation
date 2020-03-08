@@ -12,6 +12,11 @@ To be able to use a web component from Flow you need two things: to load the HTM
 
 The client-side files for a web component, typically JS module files, are available using https://www.npmjs.com/[npm]. Flow 2.0 and above comes with npm support. It will automatically install and use npm packages and serve the static files to the browser.
 
+Since Vaadin 14.2 the _pnpm_ tool is used for package management instead of _npm_. This is done transparently for the end
+user and in case there is a reason to use npm instead of pnpm you may disable pnpm (see <<../advanced/tutorial-all-vaadin-properties#,All Vaadin properties>>  or <<../production/tutorial-production-mode-advanced#,Advanced production mode topics>> sections).
+pnpm improves the package management in many ways, e.g. it allows to share the same packages between various
+projects and avoid downloading them every time for every project which also reduces the number of IO operations.
+
 == Step 1. Integrating a JS module with Vaadin
 
 While you can start from scratch and do all the things manually, it's easiest to start with the component project available at https://vaadin.com/start/lts/component. This will give you a project with Flow dependencies, npm import for the selected component and a stub Java class for your web component integration. It also contains a Maven profile which will handle all things needed to deploy it to Vaadin Directory.

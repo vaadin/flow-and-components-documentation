@@ -1,0 +1,59 @@
+---
+title: Differences between NPM and PNPM
+order: 16
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= Differences Between pnpm and npm
+
+Starting from Vaadin 14.2 and 15 _pnpm_ (AKA _performant npm_) tool is used as the default frontend package manager instead of _npm_.
+https://pnpm.js.org/[pnpm] uses a shared repository for all projects in a system which allows to reduce
+packages download time. On the contrast, by default npm will download all dependencies again for every project.
+
+If pnpm is not installed globally the framework will install it locally using npm.
+The `package-lock.json` file which is used by npm may be incompatible with pnpm and it's
+removed automatically if pnpm is used. pnpm uses `pnpm-lock.yaml`
+file instead of `package-lock.json`. This means that any custom dependency configurations
+should go to `pnpm-lock.yaml`.
+
+Another difference is the incompatibility of the `package.json` file between pnpm and npm.
+Vaadin versions using `npm` (default in 14.0 and 14.1) generate the `package.json` file with `@vaadin/flow-deps`
+dependency which refers to an additional package located in the `target/frontend` folder.
+Starting from Vaadin 14.2 and 15, the `package.json` will contain all the package information
+and `target/frontend/package.json` referenced by the `@vaadin/flow-deps` dependency does not exist anymore. The `@vaadin/flow-deps`
+is removed automatically from the `package.json` dependencies for 14.2.
+
+The framework dependency handling uses a `"vaadin"` object inside `package.json` and only touches dependencies named there.
+
+== Switching Between pnpm and npm
+
+By default Vaadin 14.2 and 15 projects uses pnpm. It's possible to switch to npm,
+by setting the `pnpm.enable` configuration property value to `false`.
+This property can be applied using either system properties (NOTE: use prefix `vaadin.` when using system properties),
+servlet initialization parameters, or Spring application properties.
+To read more about how to set properties, see the
+<<tutorial-flow-runtime-configuration#, Application runtime configuration documentation>>.
+
+Alternatively, the property can be also set to the `vaadin-maven-plugin`, using `pnpmEnable`. 
+Note that this only works for production mode.
+
+[source,xml]
+----
+<plugin>
+    <groupId>com.vaadin</groupId>
+    <artifactId>vaadin-maven-plugin</artifactId>
+    <version>${project.version}</version>
+    <executions>
+        <execution>
+            <goals>
+                <goal>build-frontend</goal>
+            </goals>
+        </execution>
+    </executions>
+    <configuration>
+        <pnpmEnable>false</pnpmEnable>
+    </configuration>
+</plugin>
+----

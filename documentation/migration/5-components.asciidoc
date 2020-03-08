@@ -27,7 +27,7 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | Accordion | Accordion (V13) | https://vaadin.com/components/vaadin-accordion/java-examples[Demo]
 
-| Audio | - | Not planned. Use the native `<audio>` element.
+| Audio | - | Use the native `<audio>` element. Search https://vaadin.com/directory[Directory] or https://vaadin.com/business-benefits#contact-us[contact us]
 
 | Button | Button | https://vaadin.com/components/vaadin-button/java-examples[Demo]
 
@@ -37,7 +37,7 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | CheckBoxGroup | CheckBoxGroup (V12) | https://vaadin.com/components/vaadin-checkbox/java-examples[Demo]
 
-| ColorPicker | - | Not planned. See https://vaadin.com/directory[vaadin.com/directory] for alternatives. `<input type="color">` is supported in some browsers.
+| ColorPicker | - | `<input type="color">` is supported in some browsers. Search https://vaadin.com/directory[Directory] or https://vaadin.com/business-benefits#contact-us[contact us]
 
 | ComboBox | ComboBox | https://vaadin.com/components/vaadin-combo-box/java-examples[Demo].
 
@@ -53,7 +53,7 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | DateField | DatePicker | https://vaadin.com/components/vaadin-date-picker/java-examples[Demo]
 
-| DateTimeField | DatePicker (V10) & TimePicker (V12) | Planned for 2019. Possible by combining `DatePicker` and `TimePicker`. `<input type="datetime">` is supported in some browsers.
+| DateTimeField | DatePicker (V10) & TimePicker (V12) | Planned for 2020 (14.x). Possible by combining `DatePicker` and `TimePicker`. `<input type="datetime">` is supported in some browsers.
 
 | Embedded | - | Use `<object>` directly via `@Tag("object")` and `Element` API
 
@@ -61,7 +61,7 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | Grid | Grid | https://vaadin.com/components/vaadin-grid/java-examples[Demo], <<../components/tutorial-flow-grid#,Tutorial>>
 
-| GridLayout | - | Not planned. See <<layouts,detailed notes>> about replacement alternatives below.
+| GridLayout | - | See <<layouts,detailed notes>> about replacement alternatives below. Search https://vaadin.com/directory[Directory] or https://vaadin.com/business-benefits#contact-us[contact us]
 
 | HorizontalLayout | HorizontalLayout | https://vaadin.com/components/vaadin-ordered-layout/java-examples[Demo], more details <<layouts,later in this chapter>>
 
@@ -69,9 +69,9 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | Image | Image | -
 
-| InlineDateField | - | No inline option of DatePicker available nor planned
+| InlineDateField | - | Search https://vaadin.com/directory[Directory] or https://vaadin.com/business-benefits#contact-us[contact us]
 
-| InlineDateTimeField | - | Not planned
+| InlineDateTimeField | - | Search https://vaadin.com/directory[Directory] or https://vaadin.com/business-benefits#contact-us[contact us]
 
 | Label | Text or Span | There is also a `Label` component based on the `<label>` element, and should therefore only be used for form field labels.
 
@@ -89,11 +89,11 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | Notification | Notification | https://vaadin.com/components/vaadin-notification/java-examples[Demo]
 
-| Panel | Planned H2/2019: VerticalLayout & HorizontalLayout | `setScrollable` API for VL & HL will be available in a minor release for 14 in 2019
+| Panel | - | Similar add-on available, search for "Card" in https://vaadin.com/directory[vaadin.com/directory]. Candidate for adding to 14.x in 2020.
 
 | PasswordField | PasswordField | https://vaadin.com/components/vaadin-text-field/java-examples[Demo]
 
-| PopupView | - | Planned for 2019. Can be made by combining `Button` and `ContextMenu` (V12).
+| PopupView | - | Planned. Can be made by combining `Button` and `ContextMenu` (V12).
 
 | ProgressBar | ProgressBar | https://vaadin.com/components/vaadin-progress-bar/java-examples[Demo]
 
@@ -101,21 +101,21 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | RichTextArea | RichTextEditor (V13) | https://vaadin.com/components/rich-text-editor/java-examples[Demo]
 
-| Slider | - | Not planned. There are Web Components available, check https://vaadin.com/directory[vaadin.com/directory]. You can also use DOM API and `<input type=”range”>`
+| Slider | - | There are Web Components available, check https://vaadin.com/directory[vaadin.com/directory]. You can also use DOM API and `<input type=”range”>`, or https://vaadin.com/business-benefits#contact-us[contact us]
 
 | TabSheet | Tabs | https://vaadin.com/components/vaadin-tabs/java-examples[Demo]
 
 | TextArea | TextArea | https://vaadin.com/components/vaadin-text-field/java-examples[Demo]
 
-| TextField | TextField | https://vaadin.com/components/vaadin-text-field/java-examples[Demo]
+| TextField | TextField (BigDecimalField, IntegerField, NumberField) | https://vaadin.com/components/vaadin-text-field/java-examples[Demo]
 
-| Tree | - | Planned, no timeline yet. Go vote https://github.com/vaadin/vaadin-grid-flow/issues/469[issue] if you need it.
+| Tree | - | Planned, https://vaadin.com/directory/component/tree[add-on available], no timeline for integration yet. Go vote https://github.com/vaadin/vaadin-grid-flow/issues/469[issue] or https://vaadin.com/business-benefits#contact-us[contact us] if you need it
 
 | TreeGrid | TreeGrid (V12) | https://vaadin.com/components/vaadin-treegrid/html-examples/grid-tree-demos[Demo]
 
-| TwinColSelect | - | Not planned. Can be built as a composite using `ListBox` and `Button`.
+| TwinColSelect | - | Can be built as a composite using `ListBox` and `Button`. Search https://vaadin.com/directory[Directory] or https://vaadin.com/business-benefits#contact-us[contact us]
 
-| Video | - | Not planned. Can directly use the native `<video>` element.
+| Video | - | Can directly use the native `<video>` element. Search https://vaadin.com/directory[Directory] or https://vaadin.com/business-benefits#contact-us[contact us]
 
 | VerticalLayout | VerticalLayout | https://vaadin.com/components/vaadin-ordered-layout/java-examples[Demo], more details <<layouts,later in this chapter>>
 
@@ -128,6 +128,9 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 | Window | Dialog | https://vaadin.com/components/vaadin-dialog/java-examples[Demo] Note that there is only limited support due to missing eg. minimize / maximize feature.
 
 |=========================================================
+
+[NOTE]
+In case you are missing any component, search https://vaadin.com/directory[Directory] for 3rd party add-on or https://vaadin.com/business-benefits#contact-us[contact us] for help.
 
 For any missing components, you should first look for alternatives in https://vaadin.com/directory[vaadin.com/directory]. It shows both Vaadin platform add-ons with Java API and web components that can be integrated to Java.
 
@@ -261,7 +264,7 @@ The `getCss` method from V8 is not available, but in Vaadin platform you can eas
 
 === Replacing Existing Layouts
 
-In addition to the options listed below, you should also see if https://vaadin.com/directory[directory] has add-ons available that can be used as a replacement.
+In addition to the options listed below, you should also see if https://vaadin.com/directory[directory] has add-ons available that can be used as a replacement. In case you need a custom component implementation, https://vaadin.com/business-benefits#contact-us[contact us] for help.
 
 ==== AbsoluteLayout
 
