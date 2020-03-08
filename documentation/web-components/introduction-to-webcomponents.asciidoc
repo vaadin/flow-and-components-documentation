@@ -11,7 +11,6 @@ Web Components are components built based on collection of web standards in the 
 
 While Web Components are a new set of standards for the browsers, the basic HTML elements like `input`, `select` or `textarea` are native browser Web Components that follow the same concepts.
 
-See https://developer.mozilla.org/en-US/docs/Web/Web_Components[MDN Web Docs] for more. 
 
 
 == Specifications
@@ -30,6 +29,7 @@ Everything in the shadow DOM can still be viewed and accessed
 [NOTE]
 An *HTML Imports* specification was proposed at draft stage. It was not adopted after backlash from some modern browser vendors [2][3] and WebKit engineers [4]. This mechanism allows you to import and reuse custom components (or parts thereof) from an external source.  
 
+See https://developer.mozilla.org/en-US/docs/Web/Web_Components[MDN Web Docs] for more. 
 
 == Vaadin and Web components
 
