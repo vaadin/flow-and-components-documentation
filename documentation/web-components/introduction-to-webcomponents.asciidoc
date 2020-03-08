@@ -6,13 +6,12 @@ layout: page
 
 == What are Web Components?
 
-Web Components are components that comply with the Web Component's https://www.webcomponents.org/specs[specification]. 
 
-The specification defines a collection of web standards that allow you to create new HTML tags with custom names that are reusable and fully encapsulate their functionality and styles. The standards are supported by all modern browsers.
+Web Components are components built based on collection of web standards in the HTML specification. The standards allow you to create new HTML tags with custom names that are reusable and fully encapsulate their functionality and styles. The standards are supported by all modern browsers.
 
-The term "Web Components" (capitalized) is distinct from the term "web components" (non-capitalized) that refers to HTML elements like `input`, `select`, or `textarea` that are native browser web components. 
+While Web Components are a new set of standards for the browsers, the basic HTML elements like `input`, `select` or `textarea` are native browser Web Components that follow the same concepts.
 
-See https://www.webcomponents.org/introduction[WEBCOMPONENTS.ORG] for more. 
+See https://developer.mozilla.org/en-US/docs/Web/Web_Components[MDN Web Docs] for more. 
 
 
 == Specifications
