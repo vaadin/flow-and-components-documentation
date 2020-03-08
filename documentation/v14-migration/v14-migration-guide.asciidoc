@@ -140,6 +140,12 @@ To set the property, you may add the following line to `application.properties`:
 vaadin.compatibilityMode=true
 ----
 
+When using OSGI you need to add the following parameter to the WebServlet:
+[source, text]
+----
+@WebInitParam(name = "compatibilityMode", value = "true")
+----
+
 Alternatively, add the property as a JVM parameter to the `spring-boot` plugin when running
 the application via Maven:
 `mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dvaadin.compatibilityMode=true"`
