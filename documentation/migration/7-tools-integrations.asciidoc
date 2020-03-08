@@ -17,7 +17,7 @@ The plugin is thus not needed during development, except when testing with IE11.
 
 == Maven Archetypes
 
-There are no archetypes available for Vaadin 14. However, you can find in https://vaadin.com/start[vaadin.com/start] several Maven-based example applications and ready-made project bases for Vaadin 14.
+Besides the project bases that you can find at https://vaadin.com/start[vaadin.com/start], there is also a `vaadin-archetype-application` available for you to get your project started. 
 
 == Using Vaadin with Spring
 

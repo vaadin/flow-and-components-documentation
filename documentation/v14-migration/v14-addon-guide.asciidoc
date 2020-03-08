@@ -12,14 +12,14 @@ upcoming versions.
 
 The <<v14-migration-guide#, main migration guide>> describes all the main
 changes when coming from Vaadin versions 10 - 13 to 14, and it is recommended to
-it before starting with this document.
+read it before starting with this document.
 
 == Supporting Both npm and Compatibility Modes with Your Add-on
 
 It is possible to run Vaadin 14 applications in either the new _npm mode_ or
 in the Vaadin 10 - 13 compatibility mode. *For most add-ons, it is recommended
 to create two different versions to support both modes in Vaadin 14.* An add-on
-supporting only the npm mode cannot be used in the compatibility mode, and wise
+supporting only the npm mode cannot be used in the compatibility mode, and vice
 versa.
 
 Any add-on version that supports Vaadin 10 - 13 should work out of the box with
@@ -48,7 +48,8 @@ For creating the Vaadin 14 version of your component add-on, you should first:
 
 * Bump the add-on version to the next major version
 * If missing, install Node.js on your system (<<v14-migration-guide#install.npm,
- see instructions>>)
+see instructions>>). If you are using Vaadin 14.2+, Node.js installation is
+handled automatically by the `vaadin-maven-plugin` so this step can be skipped.
 * Bump the `vaadin` dependency version to the latest available 14 version
 (for either `vaadin-bom`, `vaadin-core` or `vaadin` dependencies and the
 `vaadin-maven-plugin`)
@@ -120,7 +121,7 @@ In this example, the `@polymer/paper-slider` maps to the package name from the
 part after that is the path for the JS module file to import. To check the
 correct location for the module to import, you can look for the package inside
 the `node_modules` folder once the you've built the project once (triggering
-`npm install`) or you can take a look at the sources of the package in version
+`pnpm install` or `npm install`) or you can take a look at the sources of the package in version
 control (eg. github repository).
 
 === Migrating JavaScript Imports

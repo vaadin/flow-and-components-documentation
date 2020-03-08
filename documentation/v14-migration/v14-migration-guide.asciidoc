@@ -6,6 +6,9 @@ layout: page
 
 = Vaadin 14 Migration Guide
 
+[NOTE]
+This migration documentation has been revised for Vaadin 14.2 release (pnpm support). 
+
 For existing Vaadin platform projects (versions 10-13), using most Vaadin 14 new features
 requires just updating the Vaadin version, adding a dependency for compatibility mode, and addressing any API changes in code, which can be backtracked
 from the https://github.com/vaadin/platform/releases[platform release notes].
@@ -50,7 +53,8 @@ in _Vaadin 13 compatibility mode_.
 
 === Web Components: ES6 modules instead of HTML Imports
 
-_EcmaScript 6 modules_ (or JS modules) are a web standard for modulizing and
+_EcmaScript 6 modules_ (or JS modules) are a feature added to JavaScript as part of
+the ECMAScript 2015 Language Specification. They provide a means for modulizing and
 importing JavaScript code in the browser. Vaadin 14 adds support for JS modules
 as a replacement for HTML imports which was used earlier for building web
 components with the Polymer library. This means that the Polymer version has been
@@ -58,19 +62,26 @@ upgraded from version 2 to version 3 (see https://polymer-library.polymer-projec
 new in Polymer 3). In Polymer 3, templates are JavaScript modules that fully
 encapsulate the HTML structure of the component template.
 
-=== Package management: npm instead of Bower
+=== Package management: pnpm instead of Bower
 
-Behind the scenes, Vaadin 14 manages front-end dependencies using _npm_,
-the de-facto standard JavaScript package manager (whereas V13 and older used _Bower_ & webjars).
-Using npm means that all JavaScript dependencies will be downloaded to the `node_modules` directory
-in the root of your project and that `package.json` and `package-lock.json` files will be
+Behind the scenes, Vaadin 14 manages front-end dependencies using _pnpm_ (AKA performant npm).
+This is a fast and widely used JavaScript package manager (whereas V13 and older used _Bower_ & webjars).
+Alternatively, also _npm_ can be used, but it has proven to be slower and less reliable than pnpm.
+Using pnpm/npm means that all JavaScript dependencies will be downloaded to the `node_modules` directory
+in the root of your project and that `package.json` and `pnpm-lock.yaml`/`package-lock.json` files will be
 created to record and resolve the dependencies and their versions respectively.
 
+Since Vaadin 14.2 pnpm tool is used by default for package management.
+This is done transparently for the end user. In case there is a reason to use
+npm instead of pnpm, you may disable pnpm (see <<../advanced/tutorial-all-vaadin-properties#,All Vaadin properties>>
+or <<../production/tutorial-production-mode-advanced#,Advanced production mode topics>> sections).
+Pnpm improves the package management in many ways, adding stability and
+it allows to share the same packages between various projects to avoid downloading them again
+for every project, and reducing a lot of IO operations. Just like Maven does, but npm
+does not.
+
 *Do not be alarmed if you are not familiar with these files or the npm way of doing things.
-The invocation of npm is fully automated by `vaadin-maven-plugin`; the only
-thing you need to make sure is that _Node.js_ (version 10 or later) and npm
-(version 5.6 or later) are installed.* If they are not installed, the application
-will not be started and there will be a notification about installing Node.js instead.
+The installation and invocation of Node.js and pnpm/npm is fully automated by Vaadin.
 
 === Serving frontend resources with webpack
 
@@ -96,7 +107,7 @@ for advanced users there is also a possibility to customize the webpack build.
 
 Existing Vaadin 10-13 projects can update to 14 without migrating
 to the new toolset. The only thing that you need to do is to upgrade your Vaadin
-version to `14.0.0` in your `pom.xml`. No more changes are needed in your
+version to `14.0.15` (or the latest one) in your `pom.xml`. No more changes are needed in your
 project. Behind the scenes, everything works just as before with using
 Bower & Webjars, Polymer 2 & Html Imports, and Polymer CLI for the production build.
 This is called _the compatibility mode_ in Vaadin 14.
@@ -129,6 +140,12 @@ To set the property, you may add the following line to `application.properties`:
 vaadin.compatibilityMode=true
 ----
 
+When using OSGI you need to add the following parameter to the WebServlet:
+[source, text]
+----
+@WebInitParam(name = "compatibilityMode", value = "true")
+----
+
 Alternatively, add the property as a JVM parameter to the `spring-boot` plugin when running
 the application via Maven:
 `mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dvaadin.compatibilityMode=true"`
@@ -147,12 +164,14 @@ add-on specific migration instructions available>>.
 === 1 - Check prerequisites
 
 [install.npm]
-==== Install npm
+==== Node.js and npm
 
-Install Node.js (it includes npm) on your development platform of choice if
-you don't already have it. Either download the installer
-(https://nodejs.org/en/download/[https://nodejs.org/en/download/]) or use your
-preferred package management system (Homebrew, dpkg, ...).
+Since Version 14.2, Vaadin automatically downloads and installs Node.js and npm
+into the `.vaadin` folder in the user's home directory. This step is skipped if
+Node.js and npm are already installed globally. Older platform versions in the 14
+series requires global installation. To install Node.js and npm gobally on your
+system, download it from https://nodejs.org/en/download/[https://nodejs.org/en/download/]
+or use your preferred package management system (Homebrew, dpkg, ...).
 
 ==== Miscellaneous
 
@@ -168,14 +187,14 @@ spring-boot-starter-parent is `2.1.0.RELEASE`.
 
 The first step is to update your maven `pom.xml` configuration file to use the
 latest V14 release. If the Vaadin version is specified in Maven properties,
-change it to the following:
+change it to the following (use the latest Vaadin version):
 
 
 [source, xml]
 ----
 <properties>
     ...
-    <vaadin.version>14.0.0</vaadin.version>
+    <vaadin.version>14.0.15</vaadin.version>
 </properties>
 ----
 
@@ -245,7 +264,16 @@ For the production profile plugin you need to have the goal `build-frontend`:
 </profile>
 ----
 
-The goal `build-frontend` invokes npm to download and cache the npm packages
+The goal `build-frontend` invokes first pnpm to resolve and if necessary download & cache the frontend dependencies,
+and then webpack to process the JavaScript modules. In case npm is used instead of
+pnpm, the packages are always downloaded to the `/node_modules` directory in the project.
+Pnpm only downloads packages once per system and shares them from a global cache.
+
+
+[NOTE]
+After pom.xml changes, remember to execute `mvn clean install`.
+
+The goal `build-frontend` invokes pnpm/npm to download and cache the npm packages
 (into directory node_modules) and webpack to process the JavaScript modules.
 
 ==== Move contents of src/main/webapp/frontend
@@ -518,7 +546,7 @@ name is mentioned in the readme file. For the given example, the owner
 name of the component on GitHub is the last part of the groupId which is `polymerelements`,
 So, after adding the name of the component, the address of its GitHub repository
 can be determined as https://github.com/PolymerElements/paper-slider. Then the
-npm package name can be found under installation section in front of `npm install`
+npm package name can be found under installation section in front of `pnpm install` (or `npm install`)
 command. So, the npm package is `@polymer/paper-slider`.
 
 ** Search on [npmjs.com](https://www.npmjs.com).
@@ -591,16 +619,16 @@ maven plugin, run:
 
 `mvn clean jetty:run`
 
-You should see Maven log messages confirming that npm is downloading the package
+You should see Maven log messages confirming that pnpm/npm is downloading the package
 dependencies and that webpack is emitting `.js` bundles. If there is any error,
 go back and re-check the previous steps.
 
 The following files/folders have been generated in the root of your project:
 
-* `package.json` and `package-lock.json`: These files keep track of npm
+* `package.json` and `pnpm-lock.yaml`/`package-lock.json`: These files keep track of frontend
 packages and pin their versions. You may want to add these to version control,
-in particular, if you added any local package directly with npm.
-* `node_modules` directory: npm package cache, do not add this to version
+in particular, if you added any local package directly with pnpm/npm commands.
+* `node_modules` directory: pnpm/npm package cache, do not add this to version
 control!
 * `webpack.config.js`: webpack configuration. Include in version control. You
 can add custom webpack configuration to this file.
