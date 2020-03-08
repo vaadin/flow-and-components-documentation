@@ -58,7 +58,7 @@ customElements.define(MyTemplate.is, MyTemplate);
 
 == Binding Property Values
 
-To set an element property value based on a model, use the property name in attribute format, that is use dash-case (not camelCase).
+To set an element property value based on a model, use the property name in the attribute format, by using the dash-case format, sometimes referred to as kebab-case, e.g. `my-property-name` (not camelCase `myPropertyName`). 
 
 *Example*: Setting an element property based on a model in a JavaScript Polymer template. 
 
