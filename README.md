@@ -1,17 +1,28 @@
 # Vaadin Flow and Component Java APIs Documentation
 
-This is the documentation for Vaadin Flow, the new Java web framework available in Vaadin platform.
-It also contains documentation on the Java APIs for Vaadin's web components.
+This is the documentation for Vaadin Java framework versions 10+
+It also contains documentation for the Java APIs for Vaadin's web components.
 
 This documentation is available in [vaadin.com/docs](https://vaadin.com/docs/flow/Overview.html).
 Any issues and contributions can be added here, or in vaadin.com/docs via the _report issues_ or _edit page_ actions.
 
-Branching scheme for different platform and Flow versions:
+Branching scheme for different Vaadin versions:
 
- - `master` branch is for the latest Flow version in the platform snapshot
- - `V13` branch is for Flow version 1.4 (Vaadin 13)
- - `V12` branch is for Flow version 1.2 (Vaadin 12, deprecated)
- - `V10` branch is for Flow version 1.0 (Vaadin 10 LTS & 11(deprecated))
+ - `master` branch is for the NEXT major version of Vaadin
+     - It might be in prerelease stage. For example, now it is Vaadin 16
+     - New Vaadin major versions are branched from `master` branch when the stable/beta release is done
+ - `V15` branch for Vaadin 15 (Flow version 3.0)
+ - `V14-next` branch for the next minor release of Vaadin 14 LTS
+     - Any newer minor releases for 14 will be branched from `V14-next` branch when the stable/beta release is done
+     - When a new minor release is done, the previous minor release documentation branch is deprecated
+ - `V14.1` branch for the current stable version of Vaadin 14 LTS (Flow version 2.1)
+ - `V13` branch is for Vaadin 13 **deprecated** (Flow version 1.4)
+ - `V12` branch is for Vaadin 12 **deprecated** (Flow version 1.2)
+ - `V10` branch is for Vaadin 10 LTS & 11 (latter is **deprecated**) (Flow version 1.0)
+
+When making changes, you should first try to make them on top of the `master` branch.
+The changes are later on cherry-picked to correct versions.
+In case the change only applies to a previous version but not the next version, like Vaadin 14, you should then target the correct branch, which in this case would be `V14-next`.
 
 ## Structure
 
