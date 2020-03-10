@@ -21,7 +21,7 @@ import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 
-@CodeFor("typescript/upgrading-from-vaadin14.asciidoc")
+@CodeFor("v15-migration/upgrading-from-vaadin14.asciidoc")
 public class UpgradingFromVaadin14 {
     @Route(value = "dashboard"/*, layout = MainView.class <-- remove this */)
     @RouteAlias(value = ""/*, layout = MainView.class <-- and this */)
