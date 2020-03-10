@@ -15,12 +15,12 @@
  */
 package com.vaadin.flow.tutorial.routing;
 
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("routing/tutorial-routing-url-generation.asciidoc")
@@ -35,7 +35,7 @@ public class RoutingUrlGeneration {
 
     public class Menu extends Div {
         public Menu() {
-            String route = UI.getCurrent().getRouter()
+            String route = RouteConfiguration.forSessionScope()
                     .getUrl(PathComponent.class);
             Anchor link = new Anchor(route, "Path");
             add(link);
@@ -55,9 +55,8 @@ public class RoutingUrlGeneration {
 
     public class ParameterMenu extends Div {
         public ParameterMenu() {
-            String route = UI.getCurrent().getRouter()
-                    .getUrl(GreetingComponent.class,
-                            "anonymous");
+            String route = RouteConfiguration.forSessionScope()
+                    .getUrl(GreetingComponent.class, "anonymous");
             Anchor link = new Anchor(route, "Greeting");
             add(link);
         }
