@@ -60,8 +60,7 @@ public class GridBasic {
         Grid<Person> grid = new Grid<>();
         grid.setItems(people);
         grid.addColumn(Person::getName).setHeader("Name");
-        grid.addColumn(person -> Integer.toString(
-                    person.getYearOfBirth()))
+        grid.addColumn(Person::getYearOfBirth)
                 .setHeader("Year of birth");
 
         layout.add(grid);
