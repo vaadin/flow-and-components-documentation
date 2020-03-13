@@ -111,7 +111,7 @@ You can obtain the `Location` class through the `BeforeEvent` parameter of the `
 
  
 [NOTE]
-A `Location` object represents a relative URL made up of path segments and query parameters, but without the hostname, e.g. `new Location("foo/bar/baz?name1=value1")`.
+A `Location` object represents a relative URL made up of path segments and query parameters, but without the hostname, e.g. `new Location("book/search?keyword=Vaadin")`.
 
 [source,java]
 ----
