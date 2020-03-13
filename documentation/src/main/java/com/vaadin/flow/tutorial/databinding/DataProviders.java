@@ -110,8 +110,7 @@ public class DataProviders {
     public void grid() {
         Grid<Person> grid = new Grid<>();
         grid.addColumn(Person::getName).setHeader("Name");
-        grid.addColumn(person -> Integer.toString(
-                    person.getYearOfBirth()))
+        grid.addColumn(Person::getYearOfBirth)
                 .setHeader("Year of birth");
 
         // Sets items using varargs
