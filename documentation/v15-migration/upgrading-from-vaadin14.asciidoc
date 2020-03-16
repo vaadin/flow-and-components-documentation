@@ -13,6 +13,7 @@ We recommend the following steps to upgrade an existing Vaadin 14 application to
 * Change the Vaadin version in `pom.xml` (<<upgrading-from-vaadin14#step-1,step 1>>)
 * (for Spring-based apps) Use a compatible version of Spring  (<<upgrading-from-vaadin14#step-2,step 2>>)
 * Migrate the annotations from the `MainLayout / MainView` class
+(<<upgrading-from-vaadin14#step-3,step 3>>)
 
 == Step 1 - Make your project depend on Vaadin 15 [[step-1]]
 
