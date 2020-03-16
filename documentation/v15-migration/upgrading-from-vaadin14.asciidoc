@@ -83,8 +83,9 @@ Several annotations typically placed on the `MainLayout / MainView` class must b
 
 [source,java]
 ----
-@PWA(....)
+@PWA(name = "My Vaadin App", shortName = "my-app")
 public class AppShell implements AppShellConfigurator {
+
 }
 ----
 
