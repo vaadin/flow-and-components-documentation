@@ -6,7 +6,7 @@ layout: page
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= API breaking changes from Vaadin 10-14 [[migrating-from-vaadin-10-14]]
+= Breaking API changes in Vaadin 15 [[breaking-api-changes-in-v15]]
 A set of API breaking changes and their replacements are listed below:
 
 - Property synchronization methods in `Element` are replaced with similar API in `DomListenerRegistration`: `getSynchronizedPropertyEvents`, `getSynchronizedProperties`, `removeSynchronizedPropertyEvent`, `removeSynchronizedProperty`, `addSynchronizedPropertyEvent`, `addSynchronizedProperty`,  `synchronizeProperty`.
