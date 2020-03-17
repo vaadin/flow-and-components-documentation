@@ -996,8 +996,8 @@ The default Lumo theme includes different variations that you can use to style t
 
 [source, java]
 ----
-grid.addThemeNames("no-border", "no-row-borders",
-        "row-stripes");
+grid.addThemeVariants(GridVariant.LUMO_NO_ROW_BORDERS,
+        GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_ROW_STRIPES);
 ----
 
 
