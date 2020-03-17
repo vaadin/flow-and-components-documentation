@@ -30,6 +30,7 @@ import com.vaadin.flow.component.grid.Grid.Column;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.grid.GridMultiSelectionModel;
 import com.vaadin.flow.component.grid.GridSingleSelectionModel;
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
@@ -326,9 +327,8 @@ public class GridBasic {
             return image;
         })).setHeader("Image");
 
-        grid.addThemeNames("no-border", "no-row-borders",
-                "row-stripes");
-
+        grid.addThemeVariants(GridVariant.LUMO_NO_ROW_BORDERS,
+                GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_ROW_STRIPES);
     }
 
     public void beanGridColumnOrder() {
