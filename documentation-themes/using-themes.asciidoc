@@ -6,7 +6,7 @@ layout: page
 
 = Using Themes
 
-Use one of the <<themes-and-styling-overview#buit-in-themes,built-in themes>> to get a great starting point for your application, which you can customize further.
+Use one of the built-in themes to get a great starting point for your application, which you can customize further.
 
 If you do not explicitly configure otherwise, the Lumo theme will be used. You can also start from scratch and implement a completely custom theme.
 
