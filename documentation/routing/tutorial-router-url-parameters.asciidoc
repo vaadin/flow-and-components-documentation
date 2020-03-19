@@ -1,10 +1,10 @@
 ---
-title: Routing and URL Parameters
-order: 5
+title: Typed URL Parameters
+order: 6
 layout: page
 ---
 
-= Routing and URL Parameters
+= Typed URL Parameters
 
 == URL Parameters for Navigation Targets
 
