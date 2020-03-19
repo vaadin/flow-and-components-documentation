@@ -5,25 +5,31 @@ layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
-= Vaadin Flow
+= Vaadin Framework
 
-Vaadin Flow is a Java web framework for building modern web apps and websites. It is part of the Vaadin platform and the successor to the Vaadin Framework that brought Web Component support to Java users.
+Vaadin is a Java web framework for building modern web apps and websites.
+You can create UIs in Java, or use HTML templates to create the UI, and then bind it to any backend using Java.
 
-Flow allows developers to be super productive: you can create UIs in Java, or use HTML templates to create the UI and then bind it to any backend using Java.
+Vaadin features:
 
-Vaadin Flow features:
-
-* An architecture that let's you concentrate on the UI. No need to think about client-server communication.
-* A set of beautiful UI components that focus on both the end-user and developer experience.
+* An architecture that lets you concentrate on the UI.
+No need to think about client-server communication.
+* A set of carefully crafted UI components that focus on both the end-user and developer experience.
 * Powerful abstraction layers to build your own reusable UI components with either Java or HTML templates.
-* Data Binding API to connect UI components to any backend using type-safe Java.
+* Data binding API to connect UI components to any backend using type-safe Java.
 * Router API to create hierarchical page structures for the user to navigate.
 
-The Vaadin Flow documentation is arranged in the following sections and we recommend reading it in this order.
+The Vaadin documentation is arranged in the following sections and we recommend reading it in this order.
 
-== Introduction and Getting Started
+== Introduction
 * <<introduction/introduction-overview#,Introduction to Vaadin Flow>>
+* <<introduction/introduction-concepts#,Core Concepts>>
+* <<introduction/introduction-compatibility#,Compatibility and Versioning>>
 * https://vaadin.com/tutorials/getting-started-with-flow[Getting started with Vaadin Flow]
+
+== Installing Development Tools
+* <<installing/installing-overview#,Overview>>
+* <<installing/installing-toolchain#,Working with a Toolchain>>
 
 == Development Workflow
 ** <<workflow/workflow-overview#,Workflow Overview>>
@@ -43,7 +49,6 @@ The Vaadin Flow documentation is arranged in the following sections and we recom
 * <<routing/tutorial-routing-exception-handling#,Router Exception Handling>>
 * <<routing/tutorial-routing-get-registered-routes#,Getting Registered Routes>>
 * <<routing/tutorial-router-dynamic-routes#,Dynamic Route Registration>>
-
 
 == Using Vaadin Components
 * <<components/tutorial-flow-components-setup#,Using Vaadin Components>>
