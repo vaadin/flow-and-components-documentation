@@ -1,17 +1,18 @@
 ---
-title: Styling Vaadin Components
+title: Styling Components
 order: 6
 layout: page
 ---
 
-= Styling Vaadin Components
+= Styling Components
 
 This section describes how you can write style sheets for Vaadin components and customize their internal theme implementation.
 
 Vaadin components utilize Shadow DOM to encapsulate and scope their styles and hides the internal HTML element hierarchy.
 This prevents components and the application from accidentally affecting each other’s styles or from breaking the element hierarchy. The internal style scope is sometimes referred to as “local scope”, whereas the main page scope is called the global scope.
 
-Vaadin components internally use https://github.com/vaadin/vaadin-themable-mixin/[`ThemableMixin`] which allows developers to add custom style sheets to the component’s local scope.
+Vaadin components use the https://github.com/vaadin/vaadin-themable-mixin/[`ThemableMixin`] utility, which allows developers to add custom style sheets to the component’s local scope.
+Your custom components can also utilize the same mixin. This documentation applies only to such components.
 
 
 == Prerequisites
