@@ -8,19 +8,15 @@ layout: page
 
 Learn how to apply app-specific styling across your custom views and components and how to use images and icons.
 
-=== Prerequisites
+
+== Prerequisites
 
 You should be familiar with <<including-style-sheets#,including style sheets>> to the different <<style-scopes#,style scopes>> in your app.
 
-===== Contents
-
-* <<styling-views-and-components>>
-* <<using-images>>
-* <<using-icons>>
 
 == Styling Views and Components
 
-Your app specific views and components are usually built by composing existing lower-level components.
+Your application-specific views and components are usually built by composing existing lower-level components.
 Styling these components is a little different from <<styling-vaadin-components#,styling the internals of built-in Vaadin components>>.
 
 === Server-side Views

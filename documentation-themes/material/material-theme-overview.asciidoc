@@ -4,61 +4,56 @@ order: 1
 layout: page
 ---
 
-// The following source is in HTML because it's copied from https://github.com/vaadin/vaadin-material-styles/tree/master/demo as is
-include::../themes-shared.asciidoc[]
+include::../themes-shared.asciidoc[opts=optional]
 
 = Overview
 
-++++
-<p>Material is a complete theme for <a href="https://vaadin.com/components">Vaadin components</a>, inspired by Google’s <a href="https://material.io">Material Design</a> guidelines.</p>
+Material is a theme inspired by the https://material.io[Material Design guidelines].
 
-++++
+The core Material package defines the basic building blocks for component themes as CSS custom properties, also known as design tokens, such as colors, typography and other visual styles.
+
 == Getting started
-++++
 
-<h3 demo-section>1. Install</h3>
-<p>To start using the Material theme you need to install the
-  <a href="https://github.com/vaadin/vaadin-material-styles">vaadin-material-styles</a> package using
-  <a href="https://www.npmjs.com/">npm</a>.</p>
+=== Install
 
-++++
-```
+The Material theme comes bundled with Vaadin, including all individual components. If you need, you can also install the core Material package separately from https://www.npmjs.com[npm].
+
+[source,terminal]
+----
 npm i @vaadin/vaadin-material-styles
-```
-++++
-
-<h3 demo-section>2. Import and include main style modules</h3>
-<p>Import and include the main style modules in the global scope:</p>
-++++
-[source,html]
 ----
-<!-- Place these in your index.html -->
-<script type="module">
-  import '@vaadin/vaadin-material-styles/color.js';
-  import '@vaadin/vaadin-material-styles/typography.js';
-</script>
 
-<!-- Include the main style modules in global scope (index.html) -->
-<custom-style>
-  <style include="material-color-light material-typography"></style>
-</custom-style>
+=== Import and Include Style Sheets
+
+The global style sheets, which define the global custom properties (a.k.a. design tokens) and define basic color and typography rules, are automatically included in your Vaadin app when you are using Material as your theme.
+
+You can import and include these style sheets manually if needed, for example if you are building a client-side only app.
+
+
+.`Java`
+[source,java]
 ----
-[NOTE]
-See link:https://polymer-library.polymer-project.org/3.0/api/elements/custom-style[documentation for the <custom-style> element]
-++++
+@Route("")
+@Theme(Material.class)
+public class MaterialApp extends Div {
+}
+----
 
-<div class="note">
-  <p>Learn more about the main style modules in the <a href="typography.html">Typography</a> and <a href="colors.html">Color</a> sections.</p>
-</div>
+.`JavaScript`
+[source,javascript]
+----
+// Import the main style sheets which set global font styles and colors
+import '@vaadin/vaadin-material-styles/color.js';
+import '@vaadin/vaadin-material-styles/typography.js';
 
-<h3 demo-section>3. Next steps</h3>
-<ul>
-  <li>Get to know the foundation which defines the overall look and feel of the theme.
-    <ul>
-      <li><b><a href="typography.html">Typography</a></b></li>
-      <li><b><a href="colors.html">Color</a></b></li>
-    </ul>
-  </li>
-</ul>
+// Import the <custom-style> element from Polymer and include the style sheets in the global scope
+import '@polymer/polymer/lib/elements/custom-style.js';
+const style = document.createElement('custom-style');
+style.innerHTML = `<style include="material-color material-typography"></style>`;
+document.head.appendChild(style);
 
-++++
+// Import a theme-specific component, for example <vaadin-button>
+import '@vaadin/vaadin-button/theme/material/vaadin-button.js';
+----
+
+See <<../../flow/theme/including-style-sheets#,Including style sheets>> for more information

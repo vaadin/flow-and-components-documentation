@@ -1,0 +1,100 @@
+---
+title: Overview
+order: 1
+layout: page
+---
+
+= Overview
+
+Vaadin separates the appearance of the user interface from its logic using themes. Using a theme helps in making an application look and feel consistent to the end user, and offers a shared visual language which you can apply to your application-specific styling.
+
+
+== Prerequisites
+
+To set a theme for you application, you only need to know a bit of Java or JavaScript.
+
+Themes and application-specific styles are implemented using https://developer.mozilla.org/en-US/docs/Web/CSS[Cascading Style Sheets] (CSS).
+Style sheets are authored as `.css` files. If you are including style sheets in client-side code they can also be authored as `.js` files (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules[JavaScript modules]).
+
+You should be comfortable writing CSS to be able to effectively customize themes and style components.
+The https://developer.mozilla.org/en-US/docs/Learn/CSS[CSS tutorials on MDN] are a great way to learn the basics of CSS. After that, <<style-scopes#,Style Scopes>> and <<css-custom-properties#,CSS Custom Properties and Variables>> are especially important topics to understand.
+
+
+== Concepts
+
+Theme::
+
+A theme is a collection of style sheets which are loaded when the application starts.
+It defines global font styles and text and background colors.
++
+A theme defines the styles of all components and can also affect component behavior.
+For example, where the date picker overlay opens on small viewport sizes.
++
+Learn more about <<using-themes#,Using Themes>>.
+
+Theming::
+
+The term “theming” is used for styles that apply across all style scopes, and in general affect the shared visual aspects of an application.
++
+For example, you could choose the primary color, choose a certain font to be used for all components, and apply a certain background color for all buttons across the application.
++
+Learn more about <<theming-basics#,Theming Basics>>.
+
+Styling::
+
+The term “styling” is used for styles that apply to particular instances of components.
+For example, you could style an individual button in one view to have a different background color than all the other buttons in the app, or increase the cell padding of a data grid in one view.
++
+The techniques used for theming and styling are mostly the same.
+The main difference is how you scope the CSS: for all instances of a certain component, to certain theme variants, or only to specific component instances.
++
+Learn more about <<styling-vaadin-components#,Styling Vaadin Components>> and <<styling-applications#,Styling Applications>>.
+
+
+== Built-in Themes
+
+Vaadin comes with two built-in themes you can use as-is or as the basis for your own customization.
+
+The built-in themes come with:
+
+* Clean typographic hierarchy
+* Carefully adjusted spacing of elements in all components
+* Animations
+* Hundreds of cohesive design decisions
+* CSS custom properties and variables for customizing fonts, colors, border radius, and spacing, and to be used as building blocks for application-specific styling.
+* Ability to override individual component styles
+* Light and dark color palettes
+
+
+=== Lumo
+
+image:images/lumo-theme.png[Screenshot of an application using the Lumo theme]
+
+All Vaadin components implement the Lumo theme by default, which gives your application a coherent and polished look out-of-the-box. In addition to the **dark** palette, which is useful in low-light conditions, Lumo has a built-in **compact** variant. It reduced space between elements, and is useful when you have a lot of data on the display.
+
+See <<../../themes/lumo/lumo-theme-overview#,Lumo>> for more details.
+
+
+=== Material
+
+image:images/material-theme.png[Screenshot of an application using the Material theme]
+
+The Material theme is an implementation of Google’s https://material.io[Material Design] guidelines.
+The guidelines are followed whenever possible, and for features which are not described in the them, we take inspiration and make them fit in seamlessly.
+
+See <<../../themes/material/material-theme-overview#,Material>> for more details.
+
+
+
+
+== In This Section
+
+* <<using-themes#,Using Themes>>
+* <<theme-variants#,Theme Variants>>
+* <<including-style-sheets#,Including Style Sheets>>
+* <<theming-basics#,Theming Basics>>
+* <<styling-vaadin-components#,Styling Vaadin Components>>
+* <<styling-applications#,Styling Applications>>
+* <<creating-a-custom-theme#,Creating a Custom Theme>>
+* <<style-scopes#,Style Scopes>>
+* <<css-custom-properties#,CSS Custom Properties and Variables>>

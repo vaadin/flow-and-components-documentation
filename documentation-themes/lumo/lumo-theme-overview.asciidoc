@@ -4,61 +4,86 @@ order: 1
 layout: page
 ---
 
-// The following source is in HTML because it's copied from https://github.com/vaadin/vaadin-lumo-styles/tree/master/demo as is
-include::../themes-shared.asciidoc[]
+// Needed to show embedded live previews
+include::../themes-shared.asciidoc[opts=optional]
 
 = Overview
 
-Lumo is the default theme for Vaadin, which can be customized to fit your visual style requirements.
+Lumo is the default theme for all Vaadin apps and components, which can be customized to fit your visual style requirements.
 
-The core Lumo package defines the basic building blocks for component themes as CSS custom properties, also known as design tokens, such as colors, typography and other visual styles.
+The core Lumo package defines the basic building blocks for component themes as <<../flow/theme/css-custom-properties#,CSS custom properties>> (also known as design tokens) such as colors, typography and other visual styles.
 
-In addition to the custom properties, Lumo comes with a ready-made <<badges#,Badge>> component and a collection of <<icons#,icons>> which match the default Lumo visual style.
+In addition to the custom properties, Lumo includes a ready-made <<badges#,Badge>> component and a collection of <<icons#,icons>> which match the default Lumo visual style.
 
-
-== Lumo Theme Editor
-
-To quickly adjust most of the global styles of Lumo, you can use the https://demo.vaadin.com/lumo-editor/[Lumo theme editor].
-
-The Lumo theme editor is not yet an officially supported tool and does not necessarily support the latest versions of Vaadin. You can still use the CSS it produces by copying them to the correct files in your project. Visit the Labs page to https://vaadin.com/labs/lumo-editor/[give feedback about the Lumo theme editor tool].
-
-
-== Getting started
+== Getting Started
 
 === Install
 
-Lumo comes bundled with Vaadin (including all individual components). If you need, you can also install the core Lumo package separately using https://www.npmjs.com[npm].
+The Lumo theme comes bundled with Vaadin, including all individual components. If you need, you can also install the core Lumo package separately from https://www.npmjs.com[npm].
 
-[source]
+[source,terminal]
 ----
 npm i @vaadin/vaadin-lumo-styles
 ----
 
 === Import and Include Style Sheets
 
-The global style sheets, which define the global custom properties (a.k.a. design tokens) and define basic color and typography rules, are automatically included in your Vaadin app when you are using Lumo as your theme. excluding <<badges>> which needs to be imported and included explicitly.
+If you do not explicitly choose a theme, Lumo will be used. You can also explicitly choose to use it.
+
+The global style sheets, which define the global custom properties (a.k.a. design tokens) and define basic color and typography rules, are automatically included in your Vaadin app when you are using Lumo as your theme, excluding <<badges#,Badges>> which needs to be imported and included explicitly.
 
 You can import and include these style sheets manually if needed, for example if you are building a client-side only app.
 
-[source,html]
+.`Java`
+[source,java]
 ----
-<script type="module">
-  import '@vaadin/vaadin-lumo-styles/color.js';
-  import '@vaadin/vaadin-lumo-styles/sizing.js';
-  import '@vaadin/vaadin-lumo-styles/spacing.js';
-  import '@vaadin/vaadin-lumo-styles/style.js';
-  import '@vaadin/vaadin-lumo-styles/typography.js';
-  import '@vaadin/vaadin-lumo-styles/icons.js';
-  import '@vaadin/vaadin-lumo-styles/badges.js';
-</script>
+@Route("")
+public class LumoApp extends Div {
+}
 
-<!-- Include the core style sheets in global scope (index.html) -->
-<custom-style>
-  <style include="lumo-color lumo-typography lumo-badge"></style>
-</custom-style>
+// or
 
-<!-- Include the style sheets in the local scope of a component -->
+@Route("")
+@Theme(Lumo.class)
+public class LumoApp extends Div {
+}
 ----
 
-[NOTE]
-See <<../../flow/theme/including-style-sheets#,Including style sheets>> for more information
+.`JavaScript`
+[source,javascript]
+----
+// Import the main style sheets which set all the global custom properties
+import '@vaadin/vaadin-lumo-styles/color.js';
+import '@vaadin/vaadin-lumo-styles/typography.js';
+import '@vaadin/vaadin-lumo-styles/sizing.js';
+import '@vaadin/vaadin-lumo-styles/spacing.js';
+import '@vaadin/vaadin-lumo-styles/style.js';
+import '@vaadin/vaadin-lumo-styles/typography.js';
+import '@vaadin/vaadin-lumo-styles/icons.js';
+import '@vaadin/vaadin-lumo-styles/badges.js';
+
+// Import the <custom-style> element from Polymer and include
+// the style sheets in the global scope
+import '@polymer/polymer/lib/elements/custom-style.js';
+const style = document.createElement('custom-style');
+style.innerHTML = `<style include="lumo-color lumo-typography"></style>`;
+document.head.appendChild(style);
+
+// Import a theme-specific component, for example <vaadin-button>
+import '@vaadin/vaadin-button/theme/lumo/vaadin-button.js';
+
+// The default component import uses Lumo as well
+import '@vaadin/vaadin-button/vaadin-button.js';
+----
+
+See <<../../flow/theme/including-style-sheets#,Including Style Sheets>> for more information.
+
+== Customization
+
+Lumo can be customized to fit your visual style requirements by adjusting the <<../flow/theme/css-custom-properties#,CSS custom properties>> it exposes as its public API.
+
+=== Lumo Theme Editor
+
+To quickly adjust most of the global styles of Lumo, you can use the https://demo.vaadin.com/lumo-editor/[Lumo theme editor].
+
+The Lumo theme editor is not yet an officially supported tool and does not necessarily support the latest versions of Vaadin. You can still use the CSS it produces by copying them to the correct files in your project. Visit the Labs page to https://vaadin.com/labs/lumo-editor/[give feedback about the Lumo theme editor tool].

@@ -83,7 +83,7 @@ Imports on other classes could be before or after the imports present here (with
 You can control the load order of dependencies of different file types, by adding imports within an JavaScript import.
 
 *Example*: Ensuring `custom-css.js` runs before `javascript-file.js`.
-The `custom-css.js` uses the technique for wrapping CSS into JavaScript presented in <<tutorial-include-css#,Including Style Sheets>>.
+The `custom-css.js` uses the technique for wrapping CSS into JavaScript presented in <<../theme/including-style-sheets#,Including Style Sheets>>.
 
 [source, javascript]
 ----

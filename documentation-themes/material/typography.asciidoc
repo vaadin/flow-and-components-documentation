@@ -5,7 +5,7 @@ layout: page
 ---
 
 // The following source is in HTML because it's copied from https://github.com/vaadin/vaadin-material-styles/tree/master/demo as is
-include::../themes-shared.asciidoc[]
+include::../themes-shared.asciidoc[opts=optional]
 
 = Typography
 

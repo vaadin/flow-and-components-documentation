@@ -9,7 +9,7 @@ layout: page
 Learn the basics of customizing the built-in themes with CSS.
 To learn how to theme and style Vaadin components, see <<styling-vaadin-components#,Styling Vaadin Components>>.
 
-=== Prerequisites
+== Prerequisites
 
 You should be familiar with <<built-in-themes#,built-in themes>>, <<including-style-sheets#,including style sheets>> and <<themes-and-styling#prerequisites,writing CSS>>.
 

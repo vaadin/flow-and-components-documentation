@@ -14,19 +14,10 @@ This prevents components and the application from accidentally affecting each ot
 Vaadin components internally use https://github.com/vaadin/vaadin-themable-mixin/[`ThemableMixin`] which allows developers to add custom style sheets to the component’s local scope.
 
 
-=== Prerequisites
+== Prerequisites
 
 You should be familiar with <<style-scopes#,style scopes>> and how to <<including-style-sheets#component-local-scope, include style sheets into component scopes>> before you can style Vaadin components effectively.
 
-===== Contents
-
-* <<custom-properties>>
-* <<stylable-parts>>
-* <<states>>
-* <<sub-components>>
-* <<overlays>>
-// * <<icons>>
-* <<scoping-component-styles>>
 
 === Example
 
@@ -97,7 +88,7 @@ See the https://vaadin.com/components/vaadin-text-field/html-api/elements/Vaadin
 === Example
 
 .Stylable parts of <vaadin-text-field>
-image:images/vaadin-text-field-parts.png[vaadin-text-field with stylable parts highlighted in the UI and in shadow DOM markup]
+image::images/vaadin-text-field-parts.png[vaadin-text-field with stylable parts highlighted in the UI and in shadow DOM markup]
 
 As an example, let's modify the Text Field component's internal "input field" to have a border and a different background color than the default Lumo theme has.
 
@@ -115,7 +106,7 @@ As an example, let's modify the Text Field component's internal "input field" to
 
 === Supported selectors
 
-==== :host
+==== Host element
 
 The host element can be targeted using the `:host` selector.
 
@@ -126,7 +117,12 @@ The host element can be targeted using the `:host` selector.
 }
 ----
 
-==== [part="..."]
+
+==== Slotted
+
+TODO
+
+==== Stylable Parts TODO rethink the heading structure
 
 The stylable elements (marked with a `part` attribute) should only be targeted using the `[part="..."]` attribute selector.
 
@@ -138,11 +134,9 @@ The stylable elements (marked with a `part` attribute) should only be targeted u
 }
 ----
 
-==== [part~="..."]
-
 Use `part~="..."` to match a part which might have multiple names. For example, the cells inside a `<vaadin-grid>` have multiple part names like `"cell"` and `"body-cell"`.
 
-image:images/vaadin-grid-cell-parts.png[vaadin-grid shadow DOM where the stylable part names of header and body cells are highlighted]
+image::images/vaadin-grid-cell-parts.png[vaadin-grid shadow DOM where the stylable part names of header and body cells are highlighted]
 
 You can use this kind of attribute selector in all cases, if you want to be safe.
 It will work for parts with only one name as well.
@@ -164,7 +158,7 @@ For example, given `<input type="text" part="value">`, you should not rely on th
 This is considered as an internal implementation detail.
 The element type could change in the future while the part name stays the same, for example, to `<div contenteditable="true" part="value">`.
 
-==== ::before and ::after
+==== Pseudo-elements
 
 Pseudo-element selectors (`::before` and `::after`) can be used in combination with the `:host` and `[part]` selectors.
 The built-in themes can also use the pseudo-elements, so be aware of potential collisions.
@@ -233,6 +227,7 @@ Sometimes you only want to target the Text Field inside a single Combo Box.
 Theme variants (the `theme` attribute values) are propagated from the parent component to all of its sub-components.
 They allow you to scope sub-component styles per-instance.
 
+====
 ++++
 <details>
 <summary>
@@ -424,12 +419,17 @@ Styles are inherited when components are extended.
 </details>
 ++++
 
-.`Using the Text Field "small" theme variant on Combo Box`
-```html
-<vaadin-combo-box theme="small"></vaadin-combo-box>
-```
+====
 
-image:images/vaadin-combo-box-theme-propagation.png[vaadin-combo-box theme attribute propagating to its sub-components]
+.Using the Text Field "small" theme variant on Combo Box
+====
+[source, html]
+----
+<vaadin-combo-box theme="small"></vaadin-combo-box>
+----
+
+image::images/vaadin-combo-box-theme-propagation.png[vaadin-combo-box theme attribute propagating to its sub-components]
+====
 
 Theme variant propagation is not limited to the built-in variants.
 Your custom theme variants will propagate in the same way.
@@ -529,7 +529,7 @@ There are two ways to scope styles to specific component instances:
 
 [source,html]
 ----
-<!-- Use the new scoping selector anywhere in your app -->
+<!-- Use the new scoping selector anywhere in your application -->
 <vaadin-text-field class="special-field"></vaadin-text-field>
 ----
 
@@ -551,6 +551,6 @@ The `theme` attribute has the benefit of propagating through the <<sub-component
 
 [source,html]
 ----
-<!-- Apply the theme attribute to any text-field in your app -->
+<!-- Apply the theme attribute to any text-field in your application -->
 <vaadin-text-field theme="special-field"></vaadin-text-field>
 ----

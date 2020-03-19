@@ -4,8 +4,8 @@ order: 3
 layout: page
 ---
 
-// The following source is in HTML because it's copied from https://github.com/vaadin/vaadin-lumo-styles/tree/master/demo as is
-include::../themes-shared.asciidoc[]
+// Needed to show embedded live previews
+include::../themes-shared.asciidoc[opts=optional]
 
 = Color
 
