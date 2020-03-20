@@ -27,7 +27,7 @@ public class CompanyView extends Composite<Div> {
 ----
 
 Thus, when migrating from using `Navigator`, any `View` from Vaadin 8 can be migrated to Vaadin 14 by removing the registration
-from the now optional `UI` class and instead applying the `@Route` annotation the class.
+from the now optional `UI` class and instead applying the `@Route` annotation to the class.
 *Note* that there is no `View` interface in Vaadin 14, but instead the class must be a `Component`!
 
 To receive an event when the user navigates to or from a view,

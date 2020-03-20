@@ -105,7 +105,7 @@ public class NumericField extends TextField {
 As an alternative, you can extend the `Composite` class that has a minimal API. This hides methods available in the more extensive API that is exposed when your custom components extends an implementation of `Component`. 
 
 [NOTE]
-The `Element` API contains methods to update and query various parts of the element, such as the attributes. Every component has a `getElement()` method that allows you to to access it. See <<tutorial-component-many-elements#,Creating a Component Using Multiple Elements>> for more.
+The `Element` API contains methods to update and query various parts of the element, such as the attributes. Every component has a `getElement()` method that allows you to access it. See <<tutorial-component-many-elements#,Creating a Component Using Multiple Elements>> for more.
 
 It may also be necessary to add CSS styles for the new component.
 

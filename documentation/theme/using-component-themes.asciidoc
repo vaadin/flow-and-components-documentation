@@ -78,8 +78,7 @@ public class MaterialApplication extends Div {
 [source,java]
 ----
 @Theme(MyTheme.class)
-public class MainLayout extends Div
-        implements RouterLayout {
+public class MainLayout extends Div implements RouterLayout {
 }
 
 @Route(value = "", layout = MainLayout.class)
@@ -201,8 +200,7 @@ Button button = new Button("Themed button");
 [source,java]
 ----
 Button button = new Button("Themed button");
-button.getThemeNames().addAll(
-        Arrays.asList("contrast", "primary"));
+button.getThemeNames().addAll(Arrays.asList("contrast", "primary"));
 ----
 * *Example*: Adding variants to the `theme` attribute of the `Button` component by manipulating the `theme` attribute.
 +
@@ -210,13 +208,11 @@ button.getThemeNames().addAll(
 ----
 Button button = new Button("Themed button");
 String themeAttributeName = "theme";
-String oldValue = button.getElement()
-        .getAttribute(themeAttributeName);
+String oldValue = button.getElement().getAttribute(themeAttributeName);
 String variantsToAdd = "contrast primary";
 button.getElement().setAttribute(themeAttributeName,
-        oldValue == null || oldValue.isEmpty() ?
-            variantsToAdd
-            : ' ' + variantsToAdd);
+        oldValue == null || oldValue.isEmpty() ? variantsToAdd
+                : ' ' + variantsToAdd);
 ----
 ** This example provides more flexibility. It allows you to manipulate the value of the `theme` attribute directly. This is useful when adding non-standard theme variants to a component.
 
@@ -232,7 +228,6 @@ The Lumo theme include a compact preset that defines values for sizing and spaci
 ----
 @JsModule("@vaadin/vaadin-lumo-styles/presets/compact.js")
 @Theme(Lumo.class)
-public class CompactMainLayout extends Div
-        implements RouterLayout {
+public class CompactMainLayout extends Div implements RouterLayout {
 }
 ----
