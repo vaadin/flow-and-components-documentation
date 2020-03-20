@@ -119,7 +119,7 @@ public class UserProfileEdit extends Div implements BeforeEnterObserver {
 The wildcard parameter may be defined only as the last segment of the route template matching all segments at the end of the URL.
 A wildcard parameter is also optional so it'll match also no segments at the end of the URL, in which case, it's value when retrieved from `UrlParameters` is an empty `Optional`.
 
-*Example*: `api/:path*` template may resolve for instance URL path `api/com/vaadin/flow`, where the value of parameter `path` is `com/vaadin/flow`.
+*Example*: `api/:path*` template may resolve for instance URL path `api/com/vaadin/flow`, where the value of parameter `path` is `"com/vaadin/flow"`.
 
 [source,java]
 ----
@@ -190,18 +190,17 @@ In case one segment fails to match the regex the whole template fails to match t
 *Example*: Following route `api/:path*(com|vaadin|flow)` accepts only one of the `com`, `vaadin` or `flow` values as any value of the segments which follow after `api` segment.
 
 * Resolved URLs examples:
-** `api/com/vaadin/flow`
-** `api/com/flow`
-** `api/flow/vaadin`.
+** `api/com/vaadin/flow`, where parameter `path` has value `"com/vaadin/flow"`.
+** `api/com/flow`, where parameter `path` has value `"com/flow"`
+** `api/flow/vaadin`, where parameter `path` has value `"flow/vaadin"`
 * Unresolved URL:
 ** `api/com/vaadin/framework`.
 
 [source,java]
 ----
-    @Route("api/:path*(com|vaadin|flow)")
-    public class ApiViewer extends Div implements BeforeEnterObserver {
-
-    }
+@Route("api/:path*(com|vaadin|flow)")
+public class ApiViewer extends Div implements BeforeEnterObserver {
+}
 ----
 
 == URL template priority
@@ -210,8 +209,114 @@ For an application with a complex structure, the list of route templates may bri
 
 The Router engine will deny by default any attempt to register the same route for more than one view.
 Also a route containing optional parameters is in conflict with the same route without the parameters and the last to be register will fail.
+The failure consists in a `InvalidRouteConfigurationException` being thrown during route registration leading to the termination of the application.
+
+*Example*: Following configuration will fail since both are resolving the same URL `items/show` and this is obvious at configure time.
+
+[source,java]
+----
+@Route("items/show")
+public static class ShowAllView extends Div {
+}
+
+// This route will fail when registered and application is terminated.
+@Route("items/show/:filter?")
+public static class SearchView extends Div {
+}
+----
+
+[NOTE]
+One way to fix this is to make `filter` parameter mandatory, by removing the optional modifier.
+The resulted route will look like `@Route("items/show/:filter")`.
+The other possibility is to remove `ShowAllView` class and show all items using `SearchView` when the `filter` parameter is missing.
 
 However since the options of combining templates with regex parameters is theoretically infinite, a priority mechanism has to be used when the URL is resolved, instead of failing the application when a conflicting route is registered.
 Thus, depending on the parameter modifier and the order the routes are registered, one route has priority over the others.
 This is applicable for any defined route, on the same navigation view or another view, and using both `@Route` or `@RouteAlias`.
 
+This is the order is which segments in the registered URL templates are trying to resolve the URL:
+
+1. Static segment.
+2. Mandatory parameter.
+3. Optional parameter.
+4. Next segments following the optional parameter.
+5. Wildcard parameter.
+
+*Example*: In the example bellow:
+
+* `items/show` will always resolve into `ShowAllView` navigation target, regardless of the order the routes are registered.
+* `items/phone` will be resolved into `ItemView` and `identifier` parameter will have value `"phone"`.
+That's because `show` is a static segment within a registered route and has priority over any other sibling segments in other routes.
+
+[source,java]
+----
+@Route("items/:identifier")
+public static class ItemView extends Div {
+}
+
+@Route("items/show")
+public static class ShowAllView extends Div {
+}
+----
+
+Same is valid when using `@RouteAlias` on the same navigation target.
+
+*Example*: Folowing URLs are resolved by different routes registered on the same navigation target.
+
+* `thread/last` is resolved by `@RouteAlias("last")`.
+* `thread/123` is resolved by `@RouteAlias(":messageID(" + RouteParameterRegex.INTEGER + ")")` and parameter `messageID` will be provided with value `"123"`.
+* `thread/web` is resolved by `@RouteAlias(":something?")` and parameter `something` is provided with value `"web"`.
+
+[source,java]
+----
+@Route(":something?")
+@RouteAlias(":messageID(" + RouteParameterRegex.INTEGER + ")")
+@RouteAlias("last")
+@RoutePrefix("thread")
+public static class ThreadView extends Div {
+
+        private Integer messageID;
+
+        private String something;
+
+        private boolean last;
+
+        @Override
+        public void beforeEnter(BeforeEnterEvent event) {
+            last = "last".equals(getLastSegment(event));
+
+            messageID = null;
+            something = null;
+
+            if (!last) {
+                final UrlParameters urlParameters = event.getUrlParameters();
+
+                urlParameters.getInteger("messageID").ifPresent(value -> messageID = value);
+                urlParameters.get("something").ifPresent(value -> something = value);
+            }
+        }
+}
+----
+
+[NOTE]
+Even though `@Route(":something?")` is the first one defined, it's the last to process a URL because it's parameter is optional.
+
+[NOTE]
+In above example, since all templates resolve into the same navigation target, different parameters are passed to the view.
+And even though `messageID` is a mandatory parameter, it might miss from the `UrlParameters` when the URL is resolved by one of the routes not containing `messageID` parameter.
+
+A wildcard template is the last to process the ending segments of a URL.
+
+*Example*: Here we define 3 route templates where the first two contain wildcard parameters.
+
+TBC
+
+[source,java]
+----
+    @Route(":path*")
+    @RouteAlias(":tab(api)/:apiPath*")
+    @RouteAlias(":tab(overview|samples|links|reviews|discussions)")
+    @RoutePrefix("directory/component/:identifier/:version?(v?\\d.*)")
+    public static class DetailsView extends Div {
+    }
+----

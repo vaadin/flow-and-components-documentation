@@ -23,6 +23,9 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.router.RouteParameterRegex;
+import com.vaadin.flow.router.RoutePrefix;
+import com.vaadin.flow.router.RouterLayout;
+import com.vaadin.flow.router.UrlParameters;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("routing/tutorial-router-url-templates.asciidoc")
@@ -54,7 +57,53 @@ public class RegexUrlTemplates {
         }
     }
 
+    @Route("items/show")
+    public static class ShowAllView extends Div {
+    }
 
+    // This route will fail when registered and application is terminated.
+    @Route("items/show/:filter?")
+    public static class SearchView extends Div {
+    }
+
+    @Route("items/:identifier")
+    public static class ItemView extends Div {
+    }
+
+    @Route(":something?")
+    @RouteAlias(":messageID(" + RouteParameterRegex.INTEGER + ")")
+    @RouteAlias("last")
+    @RoutePrefix("thread")
+    public static class ThreadView extends Div implements BeforeEnterObserver {
+
+        private Integer messageID;
+
+        private String something;
+
+        private boolean last;
+
+        @Override
+        public void beforeEnter(BeforeEnterEvent event) {
+            last = "last".equals(getLastSegment(event));
+
+            messageID = null;
+            something = null;
+
+            if (!last) {
+                final UrlParameters urlParameters = event.getUrlParameters();
+
+                urlParameters.getInteger("messageID").ifPresent(value -> messageID = value);
+                urlParameters.get("something").ifPresent(value -> something = value);
+            }
+        }
+    }
+
+    @Route(":path*")
+    @RouteAlias(":tab(api)/:apiPath*")
+    @RouteAlias(":tab(overview|samples|links|reviews|discussions)")
+    @RoutePrefix("directory/component/:identifier/:version?(v?\\d.*)")
+    public static class DetailsView extends Div {
+    }
 
     static class CurrentUser {
 
@@ -69,6 +118,11 @@ public class RegexUrlTemplates {
         public Integer getUserID() {
             return userID;
         }
+    }
+
+    private static String getLastSegment(BeforeEnterEvent beforeEnterEvent) {
+        final List<String> segments = beforeEnterEvent.getLocation().getSegments();
+        return segments.get(segments.size() - 1);
     }
 
 }
