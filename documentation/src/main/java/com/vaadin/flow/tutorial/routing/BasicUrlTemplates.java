@@ -33,8 +33,22 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @CodeFor("routing/tutorial-router-url-templates.asciidoc")
 public class BasicUrlTemplates {
 
+    /* User profile example */
+
+    @Route("user/:userID/edit")
+    public class UserProfileEdit extends Div implements BeforeEnterObserver {
+
+        private String userID;
+
+        @Override
+        public void beforeEnter(BeforeEnterEvent event) {
+            userID = event.getUrlParameters().get("userID").get();
+        }
+    }
+
+    /* Forum thread example */
+
     @Route(value = "")
-    @RouteAlias(value = "forum/:categoryID", absolute = true)
     @RoutePrefix("forum/category/:categoryID")
     public class ForumView extends Div implements RouterLayout,
             BeforeEnterObserver {
@@ -47,15 +61,16 @@ public class BasicUrlTemplates {
         public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
             final UrlParameters urlParameters = beforeEnterEvent.getUrlParameters();
 
+            threadID = null;
+
             categoryID = urlParameters.get("categoryID").get();
-            threadID = urlParameters.get("threadID").get();
+            urlParameters.get("threadID").ifPresent(value -> threadID = value);
         }
     }
 
     @Route(value = "threadID/:threadID", layout = ForumView.class)
     @RouteAlias(value = "threadID/:threadID/comment", layout = ForumView.class)
-    @RouteAlias(value = "forum/:threadID", layout = ForumView.class, absolute = true)
-    public class ForumThread extends Div implements BeforeEnterObserver {
+    public class ForumThreadView extends Div implements BeforeEnterObserver {
 
         private String threadID;
 
@@ -64,8 +79,7 @@ public class BasicUrlTemplates {
             threadID = beforeEnterEvent.getUrlParameters().get("threadID").get();
 
             if ("comment".equals(getLastSegment(beforeEnterEvent))) {
-                CommentDialog dialog = new CommentDialog();
-                dialog.open();
+                new CommentDialog().open();
             }
         }
     }
@@ -81,7 +95,6 @@ public class BasicUrlTemplates {
         }
 
         private void submit() {
-            // Logic to persist the comment.
         }
     }
 

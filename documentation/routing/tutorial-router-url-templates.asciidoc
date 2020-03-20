@@ -1,7 +1,5 @@
 ---
-title: URL Templates
-order: 5
-layout: page
+title: URL Templates order: 5 layout: page
 ---
 
 = URL Templates
@@ -23,121 +21,197 @@ Parameter values may be retrieve from a `BeforeEvent` instance on any `Component
 The final URL template is the result of the value composition from the `@Route`, `@RouteAlias` and `@RoutePrefix` annotations as explain in <<tutorial-router-layout#,Router Layouts and Nested Router Targets>>.
 Any URL segment defined by these annotations may represent a URL parameter.
 
-[source,java]
-----
-    @Route(value = "threadID/:threadID", layout = ForumView.class)
-    public class ForumThread extends Div implements BeforeEnterObserver {
-
-    }
-----
+*Example*: A simple route where the parameter is defined as a middle segment.
 
 [source,java]
 ----
-    @Route(value = "")
-    @RouteAlias(value = "forum/:categoryID", absolute = true)
-    @RoutePrefix("forum/category/:categoryID")
-    public class ForumView extends Div implements RouterLayout,
-            BeforeEnterObserver {
+@Route("user/:userID/edit")
+public class UserProfileEdit extends Div implements BeforeEnterObserver {
 
-    }
-
-    @Route(value = "threadID/:threadID", layout = ForumView.class)
-    @RouteAlias(value = "threadID/:threadID/comment", layout = ForumView.class)
-    @RouteAlias(value = "forum/:threadID", layout = ForumView.class, absolute = true)
-    public class ForumThread extends Div implements BeforeEnterObserver {
-
-    }
-----
-
-* On startup, the navigation target is automatically configured for every `greet/<anything>` path, except where a separate navigation target with the exact `@Route` is configured to match `greet/<some specific path>`.
-
-[NOTE]
-An exact navigation target always takes precedence when resolving the URL.
-
-== Optional URL parameters
-
-URL parameters can be annotated as optional using `@OptionalParameter`.
-
-*Example*: Defining the route to match both `greet` and `greet/<anything>`:
-
-[source,java]
-----
-@Route("greet")
-public class OptionalGreeting extends Div
-        implements HasUrlParameter<String> {
+    private String userID;
 
     @Override
-    public void setParameter(BeforeEvent event,
-            @OptionalParameter String parameter) {
-        if (parameter == null) {
-            setText("Welcome anonymous.");
-        } else {
-            setText(String.format("Welcome %s.",
-                  parameter));
+    public void beforeEnter(BeforeEnterEvent event) {
+        userID = event.getUrlParameters().get("userID").get();
+    }
+}
+----
+
+[NOTE]
+`BeforeEnterEvent` provides `getUrlParameters()` which return a `UrlParameters` instance.
+This object contains the parameter values retrieved from the handled URL.
+
+*Example*: Following example demonstrates the use of all annotations to configure two routes on the same view.
+In case of routes defined for `ForumThreadView`:
+
+* `"threadID/:threadID"` route will resolve URLs matching `forum/category/:categoryID/threadID/:threadID` and
+* `"threadID/:threadID/comment"` route alias resolves into template `forum/category/:categoryID/threadID/:threadID/comment`.
+
+`ForumView` has an empty route for which only the value of its `@RoutePrefix` will be used, so it will resolve URLs matching `forum/category/:categoryID`.
+
+[source,java]
+----
+@Route(value = "")
+@RoutePrefix("forum/category/:categoryID")
+public class ForumView extends Div implements RouterLayout,
+        BeforeEnterObserver {
+
+    private String categoryID;
+
+    private String threadID;
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
+        final UrlParameters urlParameters = beforeEnterEvent.getUrlParameters();
+
+        threadID = null;
+
+        categoryID = urlParameters.get("categoryID").get();
+        urlParameters.get("threadID").ifPresent(value -> threadID = value);
+    }
+}
+
+@Route(value = "threadID/:threadID", layout = ForumView.class)
+@RouteAlias(value = "threadID/:threadID/comment", layout = ForumView.class)
+public class ForumThreadView extends Div implements BeforeEnterObserver {
+
+    private String threadID;
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
+        threadID = beforeEnterEvent.getUrlParameters().get("threadID").get();
+
+        if ("comment".equals(getLastSegment(beforeEnterEvent))) {
+            new CommentDialog().open();
         }
     }
 }
 ----
 
 [NOTE]
-A more specific route always takes precedence over a parameterised route.
+As seen in `ForumView`, the defined route contains only one parameter, i.e. `categoryID`.
+However, when used as a layout together with `ForumThreadView` target, it's also able to access the parameter defined by `ForumThreadView` routing annotations.
 
-== Wildcard URL parameters
+== Optional URL parameter modifier
 
-Where more parameters are needed, the URL parameter can also be annotated with `@WildcardParameter`.
+A URL parameter may be defined as optional, which means that it may or may not be present in the resolved URL.
 
-*Example*: Defining the route to match `greet` and anything after it, for instance `greet/one/five/three`:
+*Example*: Following route defined as `user/:userID?/edit` accepts both `user/edit` and `user/123/edit` resolved URLs.
+In the second case, parameter's value `userID` is `123`, while in the first case the `Optional` provided by `event.getUrlParameters().get("userID")` wraps a `null` value.
 
 [source,java]
 ----
-@Route("greet")
-public class WildcardGreeting extends Div
-        implements HasUrlParameter<String> {
+@Route("user/:userID?/edit")
+public class UserProfileEdit extends Div implements BeforeEnterObserver {
+
+    private String userID;
 
     @Override
-    public void setParameter(BeforeEvent event,
-            @WildcardParameter String parameter) {
-        if (parameter.isEmpty()) {
-            setText("Welcome anonymous.");
-        } else {
-            setText(String.format(
-                  "Handling parameter %s.",
-                  parameter));
-        }
+    public void beforeEnter(BeforeEnterEvent event) {
+        userID = event.getUrlParameters().get("userID").
+                orElse(CurrentUser.get().getUserID());
+    }
+}
+----
+
+== Wildcard URL parameter modifier
+
+The wildcard parameter may be defined only as the last segment of the route template matching all segments at the end of the URL.
+A wildcard parameter is also optional so it'll match also no segments at the end of the URL, in which case, it's value when retrieved from `UrlParameters` is an empty `Optional`.
+
+*Example*: `api/:path*` template may resolve for instance URL path `api/com/vaadin/flow`, where the value of parameter `path` is `com/vaadin/flow`.
+
+[source,java]
+----
+@Route("api/:path*")
+public class ApiViewer extends Div implements BeforeEnterObserver {
+
+    private String path;
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        path = event.getUrlParameters().get("path").orElse("");
     }
 }
 ----
 
 [NOTE]
-The wildcard parameter will never be `null`.
+Please notice that since the value can be `null` we're using `orElse("")` method of `Optional` to retrieve it.
 
-[NOTE]
-More specific routes always take precedence over wildcard routes.
-
-== Query parameters
-
-It is possible to get any query parameters contained in a URL, for example `?name1=value1&name2=value2`.
-
-Use the `getQueryParameters()` method of the `Location` class to access query parameters.
-You can obtain the `Location` class through the `BeforeEvent` parameter of the `setParameter` method.
-
-[NOTE]
-A `Location` object represents a relative URL made up of path segments and query parameters, but without the hostname, e.g. `new Location("foo/bar/baz?name1=value1")`.
+A more convenient method of accessing the value of a wildcard parameter is `getWildcard` method of `UrlParameters`.
+`getWildcard` method returns an empty list if the value of the parameter is missing.
 
 [source,java]
 ----
-@Override
-public void setParameter(BeforeEvent event,
-        @OptionalParameter String parameter) {
+@Route("api/:path*")
+public class ApiViewer extends Div implements BeforeEnterObserver {
 
-    Location location = event.getLocation();
-    QueryParameters queryParameters = location
-            .getQueryParameters();
+    private List<String> pathSegments;
 
-    Map<String, List<String>> parametersMap =
-            queryParameters.getParameters();
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        pathSegments = event.getUrlParameters().getWildcard("path");
+    }
+}
+----
+
+== URL parameters matching a regex
+
+So far, in all examples discussed, the parameter templates accept any value.
+However, in many cases we expect a specific value for a parameter and we want the view to be shown only when that specific value is present in the URL.
+This may be achieved by defining a regex for the parameter.
+
+*Example*: Following example limit the value of the `userID` parameter to contain only 9 digits at most making it suitable for an `Integer`:
+
+[source,java]
+----
+@Route("user/:userID?([0-9]{1,9})/edit")
+public class UserProfileEdit extends Div implements BeforeEnterObserver {
+
+    private Integer userID;
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        userID = event.getUrlParameters().getInteger("userID").
+                orElse(CurrentUser.get().getUserID());
+    }
 }
 ----
 
 [NOTE]
-`getQueryParameters()` supports multiple values associated with the same key, for example `https://example.com/?one=1&two=2&one=3` will result in the corresponding map `{"one" : [1, 3], "two": [2]}}`.
+`UrlParameters` provide also methods to access typed parameter values, i.e. `getInteger`, `getLong` and `getBoolean`.
+Also `RouteParameterRegex` class define the regex values for these types so the route defined in the above example may be written as `@Route("user/:userID?(" + RouteParameterRegex.INTEGER + ")/edit")`
+
+== Wildcard URL parameter using regex
+
+In case of wildcard parameters the regex is applied to all segments at the end of the URL, individually.
+In case one segment fails to match the regex the whole template fails to match the URL.
+
+*Example*: Following route `api/:path*(com|vaadin|flow)` accepts only one of the `com`, `vaadin` or `flow` values as any value of the segments which follow after `api` segment.
+
+* Resolved URLs examples:
+** `api/com/vaadin/flow`
+** `api/com/flow`
+** `api/flow/vaadin`.
+* Unresolved URL:
+** `api/com/vaadin/framework`.
+
+[source,java]
+----
+    @Route("api/:path*(com|vaadin|flow)")
+    public class ApiViewer extends Div implements BeforeEnterObserver {
+
+    }
+----
+
+== URL template priority
+
+For an application with a complex structure, the list of route templates may bring some overlapping in the definition of parameters for each route.
+
+The Router engine will deny by default any attempt to register the same route for more than one view.
+Also a route containing optional parameters is in conflict with the same route without the parameters and the last to be register will fail.
+
+However since the options of combining templates with regex parameters is theoretically infinite, a priority mechanism has to be used when the URL is resolved, instead of failing the application when a conflicting route is registered.
+Thus, depending on the parameter modifier and the order the routes are registered, one route has priority over the others.
+This is applicable for any defined route, on the same navigation view or another view, and using both `@Route` or `@RouteAlias`.
+
