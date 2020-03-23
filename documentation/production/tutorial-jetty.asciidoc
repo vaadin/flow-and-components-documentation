@@ -61,8 +61,6 @@ To be able to deploy and run applications with it, it is only needed to add the 
 </build>
 ----
 
-[NOTE]
-
 To run the application after adding the plugin, it is necessary to be situated in the project's root directory where `pom.xml` is located and run the following command:
 
 [source,ini]
