@@ -91,6 +91,6 @@ and will be used as entry point of the application.
     Should normally be left to the default, but a value of `false` can be useful for faster production builds or debugging discrepancies between development and production mode.
     *This configuration is available only in Vaadin Platform 14.1 and newer.*
 
-* *pnpmEnable* (default: `true`):
-    Whether to use _pnpm_ or _npm_ tool to handle frontend resources. By default _pnpm_ is used.
+* *pnpmEnable* (default: `false`):
+    Whether to use _pnpm_ or _npm_ tool to handle frontend resources. By default _npm_ is used.
     *This configuration is available only in Vaadin 14.2 and newer.*

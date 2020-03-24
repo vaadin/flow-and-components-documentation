@@ -79,25 +79,6 @@ You may increase this if your application exhibits an undue amount of resynchron
 (as these degrade the UX due to flickering and loss of client-side-only state such as scroll
 position).
 
-|load.es5.adapters |
-Include polyfills for browsers that do not support ES6 to their initial page. In order for
-web components to work, extra libraries (polyfills) are required to be loaded, can be turned off
-if different versions or libraries should be included instead.
-
-|frontend.url.es5 |
-A location Flow searches web components' files in production mode when the request is coming
-from older browsers, not supporting es6, default web components' development language version.
-
-|frontend.url.es6 |
-A location Flow searches web components' files in production mode for requests from modern browsers.
-
-|disable.webjars |
-Configuration name for the parameter that determines if Flow should use webJars or not.
-If set to true, webjars would be ignored during request resolving, allowing Flow to use an external source of web components' files.
-
-|original.frontend.resources |
-Configuration name for the parameter that determines if Flow should use bundled fragments or not.
-
 |i18n.provider |
 I18N provider property. To use localization and translation strings the application only needs to implement `I18NProvider` and define the fully qualified class name in the property `i18n.provider`.
 Please consult <<tutorial-i18n-localization#, I18N localization>> documentation.

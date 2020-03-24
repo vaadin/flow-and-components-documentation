@@ -8,7 +8,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Switch between NPM and PNPM
 
-Vaadin Platform 15 uses `npm` as the default package manager. It's also possible to switch to https://pnpm.js.org/[pnpm], the benefit of `pnpm` is that it uses a shared repository, which allows reducing the build time.
+Vaadin 15 uses `npm` as the default package manager. It's also possible to switch to https://pnpm.js.org/[pnpm], the benefit of `pnpm` is that it uses a shared repository, which allows reducing the build time.
 
 To switch to `pnpm` you can use the `pnpm.enable` system property.
 
