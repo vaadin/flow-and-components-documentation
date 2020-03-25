@@ -1,18 +1,20 @@
 ---
-title: URL Templates order: 5 layout: page
+title: URL Templates
+order: 5
+layout: page
 ---
 
 = URL Templates
 
 URL templates define the mean of including parameters into a route url.
-URL template parameters are defined as URL segments within `@Route`, `@RouteAlias` and `@RoutePrefix` annotation values, using `:parameter_name[modifier][(matching_regex)]` syntax, where:
+URL template parameters are defined as URL segments within `@Route`, `@RouteAlias` and `@RoutePrefix` annotation values, using `:parameter_name[modifier][(regex)]` syntax, where:
 
 * `parameter_name` is the name of the parameter used to retrive the value of the parameter when a url matching the template is resolved on the server.
 * `modifier` is optional and may be one of the following:
 ** `?` defines an optional parameter which might be missing from the url being resolved,
 ** `*` defines a wildcard parameter which can be used only as the last segment in the template, resolving all segment values at the end of the url.
-* `matching_regex` is also optional and defines the regex used to match the parameter value in the url.
-If it's missing, the parameter template accepts any value.
+* `regex` is also optional and defines the regex used to match the parameter value in the url.
+If it's missing, the parameter accepts any value.
 
 Parameter values may be retrieve from a `BeforeEvent` instance on any `Component` in the navigation chain, either parent layout or navigation target.
 
@@ -275,26 +277,28 @@ Same is valid when using `@RouteAlias` on the same navigation target.
 @RoutePrefix("thread")
 public static class ThreadView extends Div {
 
-        private Integer messageID;
+    private Integer messageID;
 
-        private String something;
+    private String something;
 
-        private boolean last;
+    private boolean last;
 
-        @Override
-        public void beforeEnter(BeforeEnterEvent event) {
-            last = "last".equals(getLastSegment(event));
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        last = "last".equals(getLastSegment(event));
 
-            messageID = null;
-            something = null;
+        messageID = null;
+        something = null;
 
-            if (!last) {
-                final UrlParameters urlParameters = event.getUrlParameters();
+        if (!last) {
+            final UrlParameters urlParameters = event.getUrlParameters();
 
-                urlParameters.getInteger("messageID").ifPresent(value -> messageID = value);
-                urlParameters.get("something").ifPresent(value -> something = value);
-            }
+            urlParameters.getInteger("messageID")
+                    .ifPresent(value -> messageID = value);
+            urlParameters.get("something")
+                    .ifPresent(value -> something = value);
         }
+    }
 }
 ----
 
@@ -305,18 +309,45 @@ Even though `@Route(":something?")` is the first one defined, it's the last to p
 In above example, since all templates resolve into the same navigation target, different parameters are passed to the view.
 And even though `messageID` is a mandatory parameter, it might miss from the `UrlParameters` when the URL is resolved by one of the routes not containing `messageID` parameter.
 
-A wildcard template is the last to process the ending segments of a URL.
+A wildcard template is the last to process the ending segments of a URL, if any other registered URL templates failed.
 
 *Example*: Here we define 3 route templates where the first two contain wildcard parameters.
+Here, the templates are:
 
-TBC
+* `component/:identifier/:path*`
+* `component/:identifier/:tab(api)/:path*`
+* `component/:identifier/:tab(overview|samples|links|reviews|discussions)`
+
+By definition, any URL matched by the any of last two templates will be matched by the first one as well.
+However, due to the priority rules, only URLs not matched by the last two templates will end up being processed by the first one, thus:
+
+* `component/button/api/com/vaadin/flow/button` will be processed by the `component/:identifier/:tab(api)/:path*` with parameters:
+** `identifier` = `button`
+** `tab` = `api`
+** `path` = `com/vaadin/flow/button`
+* `component/grid/com/vaadin/flow/grid` will be processed by the `component/:identifier/:path*` with parameters:
+** `identifier` = `grid`
+** `path` = `com/vaadin/flow/grid`
+* `component/label/links` will be processed by the `component/:identifier/:tab(overview|samples|links|reviews|discussions)` with parameters:
+** `identifier` = `label`
+** `tab` = `links`
+
 
 [source,java]
 ----
-    @Route(":path*")
-    @RouteAlias(":tab(api)/:apiPath*")
-    @RouteAlias(":tab(overview|samples|links|reviews|discussions)")
-    @RoutePrefix("directory/component/:identifier/:version?(v?\\d.*)")
-    public static class DetailsView extends Div {
-    }
+@Route(value = ":path*" , layout = ParentView.class)
+public static class PathView extends Div {
+}
+
+@Route(value = ":tab(api)/:path*", layout = ParentView.class)
+public static class ApiView extends Div {
+}
+
+@Route(value = ":tab(overview|samples|links|reviews|discussions)", layout = ParentView.class)
+public static class OthersView extends Div {
+}
+
+@RoutePrefix("component/:identifier")
+public static class ParentView extends Div implements RouterLayout {
+}
 ----

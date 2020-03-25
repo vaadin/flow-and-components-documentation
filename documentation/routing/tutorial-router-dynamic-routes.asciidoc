@@ -1,6 +1,6 @@
 ---
 title: Registering Routes Dynamically
-order: 12
+order: 13
 layout: page
 ---
 
@@ -8,7 +8,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Registering Routes Dynamically
 
-In addition to registering routes using the <<tutorial-routing-annotation#,`@Route` annotation>>, you can add and remove routes dynamically during runtime. This is useful when a route should be added or removed based on changed business data or application configuration at startup, for example. 
+In addition to registering routes and route templates using the <<tutorial-routing-annotation#,`@Route` annotation>>, you can add and remove routes dynamically during runtime. This is useful when a route should be added or removed based on changed business data or application configuration at startup, for example.
 
 The `RouteConfiguration` class allows you to configure routes to a specific scope. You can configure routes to:
 
@@ -42,7 +42,7 @@ When removing routes, you need to define precisely which route to remove.
 
 *Examples*:
 
-* Removing a navigation target (`AdminView.class`) with all possible route aliases registered to it.
+* Removing a navigation target (`AdminView.class`) with all possible route aliases and route templates registered to it.
 +
 [source, java]
 ----
@@ -60,19 +60,11 @@ configuration.removeRoute(AdminView.class);
 configuration.removeRoute("admin");
 ----
 
-* Removing a single navigation target registered to a path (`"users"` from `UsersView.class`,  without removing target with parameter, like `"users/{id}"`).
-+
-[source, java]
-----
-// Remove the "/users" path but keep e.g.
-// "/users/123"
-configuration.removeRoute("users", UsersView.class);
-----
-
 For more related information, see: 
 
 * <<Adding Route Aliases for Dynamic Routes>> (below).
-* <<tutorial-router-url-parameters#,Routing and URL Parameters>> (multiple navigation targets on a single path).
+* <<tutorial-router-url-templates#,URL Templates>>
+* <<tutorial-router-url-parameters#,Typed URL Parameters>>
 
 
 [NOTE]
@@ -102,7 +94,7 @@ public class ApplicationServiceInitListener
             RouteConfiguration configuration =
                RouteConfiguration.forApplicationScope();
 
-            configuration.setRoute("crud",
+            configuration.setRoute("item/:id/edit",
                DBCrudView.class);
         }
     }
@@ -115,7 +107,7 @@ See <<../advanced/tutorial-service-init-listener#,VaadinServiceInitListener>> fo
 
 When routes are registered dynamically, you may need to update UI components, like navigation menus, based on the added or removed routes.
 
-You can retrieve the registered routes using the `getAvailableRoutes()` method from the registry. To be notified of route changes, you can register a listener using the `addRoutesChangeListener` method.
+You can retrieve the registered route templates using the `getAvailableRoutes()` method from the `RouteConfiguration`. To be notified of route changes, you can register a listener using the `addRoutesChangeListener` method.
 
 [NOTE]
 You should use the session registry to monitor changes, because it contains all the routes that are available for the current user.
@@ -146,7 +138,9 @@ configuration.addRoutesChangeListener(event -> {
 
 == Adding Route Aliases for Dynamic Routes
 
-When adding dynamic routes, the first path for which a navigation target is added is marked as the main path. The main path is returned by the `getUrl` methods in a `RouteConfiguration`. Any additional registered path is seen as a route alias.
+When adding dynamic routes, the first route for which a navigation target is added is marked as the main route.
+The main route url is returned by the `getUrl` methods in a `RouteConfiguration`.
+Any additional registered route is seen as a route alias.
 
 *Example*: Adding multiple routes as navigation targets in a `RouteConfiguration`. 
 

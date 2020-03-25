@@ -16,6 +16,7 @@
 package com.vaadin.flow.tutorial.routing;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.BeforeEnterEvent;
@@ -29,7 +30,7 @@ import com.vaadin.flow.router.UrlParameters;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("routing/tutorial-router-url-templates.asciidoc")
-public class RegexUrlTemplates {
+public class UrlTemplatesRegex {
 
     /* User profile example */
 
@@ -92,18 +93,30 @@ public class RegexUrlTemplates {
             if (!last) {
                 final UrlParameters urlParameters = event.getUrlParameters();
 
-                urlParameters.getInteger("messageID").ifPresent(value -> messageID = value);
-                urlParameters.get("something").ifPresent(value -> something = value);
+                urlParameters.getInteger("messageID")
+                        .ifPresent(value -> messageID = value);
+                urlParameters.get("something")
+                        .ifPresent(value -> something = value);
             }
         }
     }
 
-    @Route(":path*")
-    @RouteAlias(":tab(api)/:apiPath*")
-    @RouteAlias(":tab(overview|samples|links|reviews|discussions)")
-    @RoutePrefix("directory/component/:identifier/:version?(v?\\d.*)")
-    public static class DetailsView extends Div {
+    @Route(value = ":path*" , layout = ParentView.class)
+    public static class PathView extends Div {
     }
+
+    @Route(value = ":tab(api)/:path*", layout = ParentView.class)
+    public static class ApiView extends Div {
+    }
+
+    @Route(value = ":tab(overview|samples|links|reviews|discussions)", layout = ParentView.class)
+    public static class OthersView extends Div {
+    }
+
+    @RoutePrefix("component/:identifier")
+    public static class ParentView extends Div implements RouterLayout {
+    }
+
 
     static class CurrentUser {
 

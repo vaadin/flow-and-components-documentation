@@ -22,7 +22,9 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.router.UrlParameters;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
+import com.vaadin.flow.tutorial.routing.UrlTemplatesModifier.UserProfileEdit;
 
 @CodeFor("routing/tutorial-routing-navigation.asciidoc")
 public class RouterNavigation {
@@ -34,6 +36,14 @@ public class RouterNavigation {
             button.getUI().ifPresent(ui ->
                     ui.navigate("company"))
         );
+
+        NativeButton editButton = new NativeButton(
+                "Edit user details");
+        editButton.addClickListener(e ->
+                button.getUI().ifPresent(ui -> ui.navigate(
+                        UserProfileEdit.class,
+                        new UrlParameters("userID", "123")))
+        );
     }
 
     void routerLink() {
@@ -41,6 +51,12 @@ public class RouterNavigation {
         menu.add(new RouterLink("Home", HomeView.class));
         menu.add(new RouterLink("Greeting",
                 GreetingComponent.class, "default"));
+        // user/123/edit
+        menu.add(new RouterLink("Edit user details",
+                UserProfileEdit.class, new UrlParameters("userID", "123")));
+        // user/edit
+        menu.add(new RouterLink("Edit my details",
+                UserProfileEdit.class));
     }
 
     @Route(value = "greet")
@@ -54,5 +70,8 @@ public class RouterNavigation {
         }
     }
 
-    private class HomeView extends Component {}
+    @Route(value = "")
+    public class HomeView extends Component {
+
+    }
 }

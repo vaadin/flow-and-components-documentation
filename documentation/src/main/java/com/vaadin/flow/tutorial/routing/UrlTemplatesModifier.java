@@ -31,7 +31,7 @@ import com.vaadin.flow.router.UrlParameters;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("routing/tutorial-router-url-templates.asciidoc")
-public class ModifierUrlTemplates {
+public class UrlTemplatesModifier {
 
     /* User profile example */
 
