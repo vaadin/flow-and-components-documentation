@@ -24,8 +24,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class Listeners {
 
     public void addResizeListener() {
-        UI someUI = null;
-        Page page = someUI.getPage();
+        Page page = UI.getCurrent().getPage();
         page.addBrowserWindowResizeListener(
                 event -> Notification.show("Window width="
                         + event.getWidth()

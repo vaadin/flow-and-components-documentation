@@ -34,8 +34,7 @@ List<Person> people = Arrays.asList(
 Grid<Person> grid = new Grid<>();
 grid.setItems(people);
 grid.addColumn(Person::getName).setHeader("Name");
-grid.addColumn(person -> Integer.toString(
-               person.getYearOfBirth()))
+grid.addColumn(Person::getYearOfBirth)
         .setHeader("Year of birth");
 
 layout.add(grid);
@@ -997,8 +996,8 @@ The default Lumo theme includes different variations that you can use to style t
 
 [source, java]
 ----
-grid.addThemeNames("no-border", "no-row-borders",
-        "row-stripes");
+grid.addThemeVariants(GridVariant.LUMO_NO_ROW_BORDERS,
+        GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_ROW_STRIPES);
 ----
 
 

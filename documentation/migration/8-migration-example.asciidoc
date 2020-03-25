@@ -207,7 +207,7 @@ in routing and navigation since version 8. So, `navigator`
 field is removed from `Menu`. In `addView` method it can be seen that
 navigation is done by `RouterLink` component.
 
-At this stage, a pretty look is not aimed and it will be made nicer in
+At this stage, a pretty look is not aimed for. It will be made nicer in
 later steps.
 
 === MainScreen
@@ -260,7 +260,7 @@ binding notation can also be used. In `ProductGrid`, there are three
 TemplateRenderers:
 
 ** Price and StockCount columns leverage `TemplateRenderer` to align their
-text to right.
+text to the right.
 ** Availability column template uses a Vaadin component named `iron-icon` to
 show a circle colored based on availability value. In order to set different
 styles to the circle, three CSS classes with equivalent names to three values
