@@ -30,7 +30,7 @@
       "@vaadin/vaadin-checkbox": "2.2.12",
       "@vaadin/vaadin-details": "1.0.1",
       "@polymer/iron-icon": "3.0.1",
-      "@vaadin/vaadin-time-picker": "2.0.6",
+      "@vaadin/vaadin-time-picker": "2.0.7",
       "@vaadin/vaadin-context-menu": "4.3.15",
       "@vaadin/vaadin-tabs": "3.0.5",
       "@vaadin/vaadin-radio-button": "1.2.6",
@@ -52,7 +52,7 @@
       "webpack-merge": "4.2.2",
       "webpack-dev-server": "3.10.3"
     },
-    "hash": "dc8dd58a50048cdf6ef64d36ab511d2813095f58a424d8172e2f7e493712eae8"
+    "hash": "629a8b83f640921ebc1695faa09b4a28a1596e3a1a9dd87af9cc97ea536f2ff6"
   },
   "dependencies": {
     "@vaadin/router": "^1.6.0",
@@ -83,7 +83,7 @@
     "@vaadin/vaadin-checkbox": "2.2.12",
     "@vaadin/vaadin-details": "1.0.1",
     "@polymer/iron-icon": "3.0.1",
-    "@vaadin/vaadin-time-picker": "2.0.6",
+    "@vaadin/vaadin-time-picker": "2.0.7",
     "@vaadin/vaadin-context-menu": "4.3.15",
     "@vaadin/vaadin-tabs": "3.0.5",
     "@vaadin/vaadin-radio-button": "1.2.6",
