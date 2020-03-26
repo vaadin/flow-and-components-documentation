@@ -1,6 +1,6 @@
 ---
 title: Routing and URL Parameters
-order: 4
+order: 5
 layout: page
 ---
 
@@ -27,8 +27,7 @@ public class GreetingComponent extends Div
         implements HasUrlParameter<String> {
 
     @Override
-    public void setParameter(BeforeEvent event,
-                             String parameter) {
+    public void setParameter(BeforeEvent event, String parameter) {
         setText(String.format("Hello, %s!", parameter));
     }
 }
@@ -58,8 +57,7 @@ public class OptionalGreeting extends Div
         if (parameter == null) {
             setText("Welcome anonymous.");
         } else {
-            setText(String.format("Welcome %s.",
-                  parameter));
+            setText(String.format("Welcome %s.", parameter));
         }
     }
 }
@@ -88,9 +86,7 @@ public class WildcardGreeting extends Div
         if (parameter.isEmpty()) {
             setText("Welcome anonymous.");
         } else {
-            setText(String.format(
-                  "Handling parameter %s.",
-                  parameter));
+            setText(String.format("Handling parameter %s.", parameter));
         }
     }
 }
@@ -120,11 +116,10 @@ public void setParameter(BeforeEvent event,
         @OptionalParameter String parameter) {
 
     Location location = event.getLocation();
-    QueryParameters queryParameters = location
-            .getQueryParameters();
+    QueryParameters queryParameters = location .getQueryParameters();
 
-    Map<String, List<String>> parametersMap =
-            queryParameters.getParameters();
+    Map<String, List<String>> parametersMap = queryParameters
+            .getParameters();
 }
 ----
 [NOTE]

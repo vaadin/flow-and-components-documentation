@@ -16,13 +16,10 @@
 package com.vaadin.flow.tutorial.theme;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
@@ -52,8 +49,7 @@ public class UsingComponentThemes {
     }
 
     @Theme(MyTheme.class)
-    public class MainLayout extends Div
-            implements RouterLayout {
+    public class MainLayout extends Div implements RouterLayout {
     }
 
     @Route(value = "", layout = MainLayout.class)
@@ -87,8 +83,10 @@ public class UsingComponentThemes {
     public class Button extends Component {
         public Button(String string) {
         }
+
         public void addThemeVariants(ButtonVariant... vars) {
         }
+
         public List<String> getThemeNames() {
             return null;
         }
@@ -101,25 +99,21 @@ public class UsingComponentThemes {
     }
     {
         Button button = new Button("Themed button");
-        button.getThemeNames().addAll(
-                Arrays.asList("contrast", "primary"));
+        button.getThemeNames().addAll(Arrays.asList("contrast", "primary"));
     }
     {
         Button button = new Button("Themed button");
         String themeAttributeName = "theme";
-        String oldValue = button.getElement()
-                .getAttribute(themeAttributeName);
+        String oldValue = button.getElement().getAttribute(themeAttributeName);
         String variantsToAdd = "contrast primary";
         button.getElement().setAttribute(themeAttributeName,
-                oldValue == null || oldValue.isEmpty() ?
-                        variantsToAdd
+                oldValue == null || oldValue.isEmpty() ? variantsToAdd
                         : ' ' + variantsToAdd);
     }
 
     @JsModule("@vaadin/vaadin-lumo-styles/presets/compact.js")
     @Theme(Lumo.class)
-    public class CompactMainLayout extends Div
-            implements RouterLayout {
+    public class CompactMainLayout extends Div implements RouterLayout {
     }
 
     @JsModule("@vaadin/vaadin-lumo-styles/color.js")

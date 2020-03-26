@@ -151,7 +151,13 @@ You can navigate through the component's hierarchy using `component.getParent()`
 
 The component hierarchy is constructed based on the element hierarchy. Changes in the component hierarchy are reflected in the element hierarchy (but not vice versa).
 
-== Creating New Components in Java
+== Building TypeScript views with Components
+
+To build an application using TypeScript view, please follow <<../typescript/intro-to-typescript-in-v15#add-typescript-view, the Adding a TypeScript View tutorial>>.
+
+== Building Java UIs with Components
+
+=== Creating New Components in Java
 
 On the higher abstraction layers, you can easily create custom components by adapting or combining existing components to meet your requirements.
 
@@ -176,7 +182,7 @@ public class MyLabel extends Component {
 
 See the tutorials in <<../creating-components/tutorial-component-basic#,Creating Components>> to learn how to build components with a reusable API, and <<../element-api/tutorial-event-listener#,Element API>> to learn how to access and customize the DOM from the server side.
 
-== Integrating a Web Component
+=== Integrating a Web Component
 
 Vaadin allows you to create a Java API for any available Web Component and then use the API in your projects.
 
@@ -195,7 +201,7 @@ See the tutorials in <<../web-components/integrating-a-web-component#,Integratin
 
 You can also find prebuilt Java APIs for Web Components that have been published by the Vaadin Community in the https://vaadin.com/directory/search?framework=Vaadin%2010[Vaadin Directory.]
 
-== HTML Templates
+=== HTML Templates
 
 As an alternative to creating the DOM in Java, you can use HTML templates. In this case, Java is only used for server-side control and interaction with elements, for example via event listeners.
 
@@ -206,7 +212,7 @@ Possible benefits of this approach include:
 
 *NEXT*: Follow the tutorial to build your first Vaadin application: *https://vaadin.com/tutorials/getting-started-with-flow[Getting started with Vaadin]*
 
-== Building Components with HTML Templates
+=== Building Components with HTML Templates
 
 Another way to create components is to separate the layout from the UI logic.
 The best way to do this is to use JavaScript modules and HTML templates together with Java classes.
@@ -255,7 +261,7 @@ private void updateFavoriteColor(
 
 See the tutorials in <<../polymer-templates/tutorial-template-basic#,Creating Polymer Templates>> for more details.
 
-== Routing and Navigation
+== Routing and Navigation in Java component using `@Router` annotation
 
 Vaadin provides the `Router` class to structure the navigation of your web app or site into logical parts.
 

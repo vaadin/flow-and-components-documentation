@@ -89,12 +89,12 @@ For an old project running with bower see V13 documentation about the production
 
 == What is transpilation and bundling
 
-Transpilation in Flow means converting all ES6 JavaScript to ES5 JavaScript format for older browsers which for us is IE 11 and Safari 9.
+Transpilation in Flow means converting all ES6 JavaScript to ES5 JavaScript format for older browsers.
 
 [NOTE]
 IOS 10 has a known issue with https://caniuse.com/#search=let[`let bindings in for loops are incorrectly treated as function-scoped instead of block scoped`], in this case, all browsers running on it need the transpilation, too.
 
-Minimisation is done to make the file smaller. When minifying the code of also often obscured making it harder to read.
+Minimisation is done to make the file smaller. When minifying the code it's also often obscured making it harder to read.
 
 Bundling is an optimisation where we merge multiple files to a collection so that the browser doesn't need to
 request so many files making loading faster.
