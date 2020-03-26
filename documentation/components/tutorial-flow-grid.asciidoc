@@ -993,7 +993,7 @@ grid.addColumn(new ComponentRenderer<>(person -> {
 
 The default Lumo theme includes different variations that you can use to style the grid. You can provide one or more variations.
 
-*Example*: Using the `addThemeNames` method to define theme variations for the grid.
+*Example*: Using the `addThemeVariants` method to define theme variations for the grid.
 
 [source, java]
 ----
