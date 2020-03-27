@@ -22,7 +22,7 @@ All list components have a `setItems` method to define which items display. They
 
 By default, most components use the `toString()` method to display items. If this is not suitable, you can change the behavior by configuring the component. Components are configured with one or more callbacks that define how to display the items.
 
-*Example*: A `ComboBox` component that lists status items and uses the `Status.getLabel()` method to represent each status. There is also a `Grid` with two columns, Name and Year of birth. .
+*Example*: A `ComboBox` component that lists status items and uses the `Status.getLabel()` method to represent each status. There is also a `Grid` with two columns, Name and Year of birth.
 
 [source, java]
 ----
