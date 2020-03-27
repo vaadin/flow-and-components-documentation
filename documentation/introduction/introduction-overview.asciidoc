@@ -79,15 +79,8 @@ You can use the same Vaadin components in JavaScript as follows, with code equiv
 // Create the div element
 const layout = document.createElement('div');
 
-<<<<<<< HEAD
-See the tutorials in <<../polymer-templates/tutorial-template-basic#,Creating Polymer Templates>> for more.
-
-
-== Routing and Navigation in Java component using `@Router` annotation
-=======
 // Create the vaadin-text-field element
 const textField = document.createElement('vaadin-text-field');
->>>>>>> master
 
 // Create the vaadin-button element
 const button = document.createElement('vaadin-button');
