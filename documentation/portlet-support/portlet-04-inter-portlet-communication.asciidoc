@@ -19,7 +19,7 @@ This form of IPC happens entirely on the server-side.
 Portlet 3.0 specification brings `PortletHub` - a client-side API for portlets to use for various tasks.
 One aspect of this is firing client-side events and creating action requests to the server-side portlets.
 
-Vaadin Portlets allows the developer to leverage all of these different methods for using IPC and provides helper APIs for common use-cases.
+Vaadin Portlets allows the developer to leverage the latest Portlet 3.0 style IPC and provides helper APIs for common use-cases.
 
 == Vaadin Portlet IPC with 3.0 Specification
 
@@ -66,29 +66,31 @@ public class ReceivingPortletView extends Div
 ----
 
 `FiringPortletView.java` implements `PortletView` interface which allows it to get `PortletViewContext` when it is initialized.
-Then it calls `PortletViewContext::fireEvent(...)` method to fire our event.
-The event is fired using the available delivery method, preferring `PortletHub`.
-If you would like to fire events as specified in the 2.0 specification, see <<ipc-20>>.
-
-`ReceivingPortletView.java` also implements `PortletView` interface, which allows it to add event listeners via `PortletViewContext::addEventChangeListener` when it is initialized.
+Then it calls `PortletViewContext::fireEvent(...)` method to fire our event. `ReceivingPortletView.java` also implements `PortletView` interface, which allows it to add event listeners via `PortletViewContext::addEventChangeListener` when it is initialized.
 When adding an event listener, we can specify the event name for which we'd like to receive updates.
 
-Using `PortletHub` for IPC has the following benefits:
+Events are fired using the `PortletHub` delivery method.
+Using `PortletHub` for IPC has the following benefits over the older Portlet 2.0 event mechanism:
 
 - Non-Vaadin portlets may receive these events on the client-side just as easily.
 - Firing these events does not require the code to be executed inside a portlet request.
 - These events do not need to be registered into the portlet.xml or defined using the 3.0 specification annotations.
 
 [NOTE]
-If the portlet is deployed to a portal which only supports 2.0 specification instead of 3.0, the event delivery mechanism attempts to fallback onto 2.0 event delivery.
-In order to send and receive 2.0 specification events reliably, the events need to be defined in the portlet.xml.
+Vaadin Portlet IPC API does not support Portlet 2.0 style event handling.
+The basic Portlet API can of course still be used if desired.
 
 === Registering JavaScript Event Handler
-(TODO)
+Occasionally, you may want to receive a portlet event on the client side, without a server roundtrip.
+A client-side event listener handling events of type `EVENT` can be registered directly to the portlet hub:
 
-[#ipc-20]
-== Vaadin Portlet IPC with 2.0 Specification
-(TODO)
+[source,js]
+----
+const hub = window.Vaadin.Flow.Portlets[PORTLET_NS].hub();
+hub.addEventListener(EVENT, function (type, state) { /* event handling code */ })
+----
 
-== Vaadin Portlet IPC with Public Parameters
-(TODO)
+The portlet hub registrations for all Vaadin Portlets are stored in the `window.Vaadin.Flow.Portlets` object.
+To access the registration belonging to a specific portlet you need the namespace  `PORTLET_NS` of your portlet.
+On the server side, this can be obtained by calling the method `PortletResponse::getNamespace` of the current portlet response.
+The latter can be accessed in any portlet request handling context by calling `VaadinPortletService.getCurrentResponse().getPortletResponse()`.
