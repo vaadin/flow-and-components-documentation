@@ -1,0 +1,182 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.vaadin:documentation >----------------------
+[INFO] Building Tutorials' code 2.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ documentation ---
+[INFO] com.vaadin:documentation:jar:2.0-SNAPSHOT
+[INFO] +- com.vaadin:vaadin-core:jar:15.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:flow-push:jar:3.0-SNAPSHOT:compile
+[INFO] |  |  \- com.vaadin.external.atmosphere:atmosphere-runtime:jar:2.4.30.slf4jvaadin1:compile
+[INFO] |  +- com.vaadin:flow-data:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:flow-dnd:jar:3.0-SNAPSHOT:compile
+[INFO] |  |  +- org.webjars.npm:vaadin__vaadin-mobile-drag-drop:jar:1.0.0:compile
+[INFO] |  |  \- org.webjars.npm:mobile-drag-drop:jar:2.3.0-rc.1:compile
+[INFO] |  +- com.vaadin:vaadin-lumo-theme:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-material-theme:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-accordion-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-button-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-checkbox-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-combo-box-flow:jar:4.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-custom-field-flow:jar:4.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-date-picker-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-details-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-time-picker-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-select-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-dialog-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-form-layout-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-grid-flow:jar:5.0-SNAPSHOT:compile
+[INFO] |  |  \- org.apache.commons:commons-lang3:jar:3.9:compile
+[INFO] |  +- com.vaadin:vaadin-icons-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-iron-list-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-list-box-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-login-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-ordered-layout-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-progress-bar-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-radio-button-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-split-layout-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-tabs-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-text-field-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-upload-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-notification-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-app-layout-flow:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- com.vaadin:vaadin-context-menu-flow:jar:4.0-SNAPSHOT:compile
+[INFO] |  \- com.vaadin:vaadin-menu-bar-flow:jar:2.0-SNAPSHOT:compile
+[INFO] +- com.vaadin:flow-osgi:jar:3.0-SNAPSHOT:compile
+[INFO] +- com.vaadin:vaadin-spring:jar:13.0-SNAPSHOT:compile
+[INFO] |  +- org.springframework:spring-webmvc:jar:5.2.0.RELEASE:compile
+[INFO] |  |  +- org.springframework:spring-expression:jar:5.2.0.RELEASE:compile
+[INFO] |  |  \- org.springframework:spring-web:jar:5.2.0.RELEASE:compile
+[INFO] |  \- org.springframework:spring-websocket:jar:5.2.0.RELEASE:compile
+[INFO] +- org.springframework.boot:spring-boot-starter-security:jar:2.2.0.RELEASE:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter:jar:2.2.0.RELEASE:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot:jar:2.2.0.RELEASE:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot-autoconfigure:jar:2.2.0.RELEASE:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot-starter-logging:jar:2.2.0.RELEASE:compile
+[INFO] |  |  |  +- ch.qos.logback:logback-classic:jar:1.2.3:compile
+[INFO] |  |  |  |  \- ch.qos.logback:logback-core:jar:1.2.3:compile
+[INFO] |  |  |  +- org.apache.logging.log4j:log4j-to-slf4j:jar:2.12.1:compile
+[INFO] |  |  |  |  \- org.apache.logging.log4j:log4j-api:jar:2.12.1:compile
+[INFO] |  |  |  \- org.slf4j:jul-to-slf4j:jar:1.7.28:compile
+[INFO] |  |  +- jakarta.annotation:jakarta.annotation-api:jar:1.3.5:compile
+[INFO] |  |  \- org.yaml:snakeyaml:jar:1.25:compile
+[INFO] |  +- org.springframework:spring-aop:jar:5.2.0.RELEASE:compile
+[INFO] |  +- org.springframework.security:spring-security-config:jar:5.2.0.RELEASE:compile
+[INFO] |  \- org.springframework.security:spring-security-web:jar:5.2.0.RELEASE:compile
+[INFO] +- org.springframework.security:spring-security-ldap:jar:5.2.0.RELEASE:compile
+[INFO] |  +- org.springframework.ldap:spring-ldap-core:jar:2.3.2.RELEASE:compile
+[INFO] |  +- org.springframework.security:spring-security-core:jar:5.2.0.RELEASE:compile
+[INFO] |  +- org.springframework:spring-beans:jar:5.2.0.RELEASE:compile
+[INFO] |  +- org.springframework:spring-context:jar:5.2.0.RELEASE:compile
+[INFO] |  +- org.springframework:spring-core:jar:5.2.0.RELEASE:compile
+[INFO] |  |  \- org.springframework:spring-jcl:jar:5.2.0.RELEASE:compile
+[INFO] |  \- org.springframework:spring-tx:jar:5.2.0.RELEASE:compile
+[INFO] +- com.vaadin:vaadin-cdi:jar:11.2-SNAPSHOT:compile
+[INFO] |  +- org.apache.deltaspike.core:deltaspike-core-api:jar:1.8.1:compile
+[INFO] |  \- org.apache.deltaspike.core:deltaspike-core-impl:jar:1.8.1:runtime
+[INFO] +- com.vaadin:flow-server:jar:3.0-SNAPSHOT:compile
+[INFO] |  +- org.slf4j:slf4j-api:jar:1.7.25:compile
+[INFO] |  +- com.vaadin.external.gwt:gwt-elemental:jar:2.8.2.vaadin2:compile
+[INFO] |  +- commons-fileupload:commons-fileupload:jar:1.3.3:compile
+[INFO] |  +- commons-io:commons-io:jar:2.5:compile
+[INFO] |  +- org.jsoup:jsoup:jar:1.12.1:compile
+[INFO] |  +- com.helger:ph-css:jar:6.1.1:compile
+[INFO] |  +- com.helger:ph-commons:jar:9.1.2:compile
+[INFO] |  +- net.bytebuddy:byte-buddy:jar:1.10.1:compile
+[INFO] |  +- com.vaadin.external:gentyref:jar:1.2.0.vaadin1:compile
+[INFO] |  +- javax.validation:validation-api:jar:2.0.1.Final:compile
+[INFO] |  +- com.fasterxml.jackson.core:jackson-core:jar:2.9.7:compile
+[INFO] |  +- com.fasterxml.jackson.core:jackson-databind:jar:2.9.7:compile
+[INFO] |  +- javax.annotation:javax.annotation-api:jar:1.3.2:compile
+[INFO] |  +- com.github.javaparser:javaparser-symbol-solver-core:jar:3.15.1:compile
+[INFO] |  |  +- com.github.javaparser:javaparser-symbol-solver-logic:jar:3.15.1:compile
+[INFO] |  |  +- org.javassist:javassist:jar:3.24.0-GA:compile
+[INFO] |  |  \- com.github.javaparser:javaparser-symbol-solver-model:jar:3.15.1:compile
+[INFO] |  |     \- com.github.javaparser:javaparser-core:jar:3.15.1:compile
+[INFO] |  +- org.apache.commons:commons-configuration2:jar:2.6:compile
+[INFO] |  |  +- org.apache.commons:commons-text:jar:1.8:compile
+[INFO] |  |  \- commons-logging:commons-logging:jar:1.2:compile
+[INFO] |  +- io.swagger.codegen.v3:swagger-codegen:jar:3.0.2:compile
+[INFO] |  |  +- io.swagger.core.v3:swagger-models:jar:2.0.4:compile
+[INFO] |  |  +- io.swagger:swagger-parser:jar:1.0.39:compile
+[INFO] |  |  |  \- io.swagger:swagger-core:jar:1.5.21:compile
+[INFO] |  |  |     \- io.swagger:swagger-models:jar:1.5.21:compile
+[INFO] |  |  |        \- io.swagger:swagger-annotations:jar:1.5.21:compile
+[INFO] |  |  +- io.swagger.core.v3:swagger-core:jar:2.0.4:compile
+[INFO] |  |  |  +- javax.xml.bind:jaxb-api:jar:2.3.0:compile
+[INFO] |  |  |  +- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:jar:2.9.5:compile
+[INFO] |  |  |  \- io.swagger.core.v3:swagger-annotations:jar:2.0.4:compile
+[INFO] |  |  +- io.swagger.parser.v3:swagger-parser-core:jar:2.0.5:compile
+[INFO] |  |  +- io.swagger.parser.v3:swagger-parser-v3:jar:2.0.5:compile
+[INFO] |  |  +- io.swagger.parser.v3:swagger-parser:jar:2.0.5:compile
+[INFO] |  |  |  \- io.swagger.parser.v3:swagger-parser-v2-converter:jar:2.0.5:compile
+[INFO] |  |  +- io.swagger:swagger-codegen:jar:2.3.1:compile
+[INFO] |  |  |  \- io.swagger:swagger-compat-spec-parser:jar:1.0.33:compile
+[INFO] |  |  |     +- com.github.java-json-tools:json-schema-validator:jar:2.2.8:compile
+[INFO] |  |  |     |  +- com.github.java-json-tools:json-schema-core:jar:1.2.8:compile
+[INFO] |  |  |     |  |  \- com.github.fge:uri-template:jar:0.9:compile
+[INFO] |  |  |     |  +- javax.mail:mailapi:jar:1.4.3:compile
+[INFO] |  |  |     |  |  \- javax.activation:activation:jar:1.1:compile
+[INFO] |  |  |     |  +- com.googlecode.libphonenumber:libphonenumber:jar:8.0.0:compile
+[INFO] |  |  |     |  \- net.sf.jopt-simple:jopt-simple:jar:5.0.3:compile
+[INFO] |  |  |     +- com.github.fge:json-patch:jar:1.6:compile
+[INFO] |  |  |     |  \- com.github.fge:jackson-coreutils:jar:1.6:compile
+[INFO] |  |  |     |     \- com.github.fge:msg-simple:jar:1.1:compile
+[INFO] |  |  |     |        \- com.github.fge:btf:jar:1.2:compile
+[INFO] |  |  |     \- org.apache.httpcomponents:httpclient:jar:4.5.2:compile
+[INFO] |  |  |        +- org.apache.httpcomponents:httpcore:jar:4.4.4:compile
+[INFO] |  |  |        \- commons-codec:commons-codec:jar:1.9:compile
+[INFO] |  |  +- com.samskivert:jmustache:jar:1.12:compile
+[INFO] |  |  +- org.slf4j:slf4j-ext:jar:1.7.25:compile
+[INFO] |  |  +- commons-cli:commons-cli:jar:1.2:compile
+[INFO] |  |  +- com.github.jknack:handlebars:jar:4.0.6:compile
+[INFO] |  |  |  +- org.antlr:antlr4-runtime:jar:4.5.1-1:compile
+[INFO] |  |  |  \- org.mozilla:rhino:jar:1.7R4:compile
+[INFO] |  |  \- com.atlassian.commonmark:commonmark:jar:0.9.0:compile
+[INFO] |  \- io.swagger.codegen.v3:swagger-codegen-generators:jar:1.0.2:compile
+[INFO] +- com.vaadin:flow-client:jar:3.0-SNAPSHOT:compile
+[INFO] +- com.vaadin:flow-html-components:jar:3.0-SNAPSHOT:compile
+[INFO] +- javax.enterprise:cdi-api:jar:1.2:compile
+[INFO] |  +- javax.el:javax.el-api:jar:3.0.0:compile
+[INFO] |  +- javax.interceptor:javax.interceptor-api:jar:1.2:compile
+[INFO] |  \- javax.inject:javax.inject:jar:1:compile
+[INFO] +- com.fasterxml.jackson.core:jackson-annotations:jar:2.9.7:compile
+[INFO] +- javax.servlet:javax.servlet-api:jar:3.1.0:compile
+[INFO] +- com.google.guava:guava:jar:23.0:compile
+[INFO] |  +- com.google.code.findbugs:jsr305:jar:1.3.9:compile
+[INFO] |  +- com.google.errorprone:error_prone_annotations:jar:2.0.18:compile
+[INFO] |  +- com.google.j2objc:j2objc-annotations:jar:1.1:compile
+[INFO] |  \- org.codehaus.mojo:animal-sniffer-annotations:jar:1.14:compile
+[INFO] +- org.osgi:org.osgi.core:jar:6.0.0:provided
+[INFO] +- org.osgi:osgi.cmpn:jar:6.0.0:provided
+[INFO] +- org.eclipse.jetty:jetty-server:jar:9.4.17.v20190418:compile
+[INFO] |  +- org.eclipse.jetty:jetty-http:jar:9.4.17.v20190418:compile
+[INFO] |  |  \- org.eclipse.jetty:jetty-util:jar:9.4.17.v20190418:compile
+[INFO] |  \- org.eclipse.jetty:jetty-io:jar:9.4.17.v20190418:compile
+[INFO] +- org.eclipse.jetty:jetty-webapp:jar:9.4.17.v20190418:compile
+[INFO] |  +- org.eclipse.jetty:jetty-xml:jar:9.4.17.v20190418:compile
+[INFO] |  \- org.eclipse.jetty:jetty-servlet:jar:9.4.17.v20190418:compile
+[INFO] |     \- org.eclipse.jetty:jetty-security:jar:9.4.17.v20190418:compile
+[INFO] +- org.slf4j:slf4j-simple:jar:1.7.25:compile
+[INFO] +- junit:junit:jar:4.12:compile
+[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:compile
+[INFO] +- com.vaadin:docs-helpers:jar:2.0-SNAPSHOT:compile
+[INFO] +- com.vaadin:tutorial-binder-with-templates:jar:classes:2.0-SNAPSHOT:test
+[INFO] |  \- org.jfairy:jfairy:jar:0.3.0:test
+[INFO] |     +- com.google.inject:guice:jar:3.0:test
+[INFO] |     |  \- aopalliance:aopalliance:jar:1.0:test
+[INFO] |     +- org.iban4j:iban4j:jar:2.1.1:test
+[INFO] |     +- com.google.inject.extensions:guice-assistedinject:jar:3.0:test
+[INFO] |     \- joda-time:joda-time:jar:2.3:compile
+[INFO] +- com.vaadin:vaadin-portlet:jar:1.0-SNAPSHOT:compile
+[INFO] |  \- com.vaadin:license-checker:jar:1.0.0:compile
+[INFO] |     \- com.google.gwt:gwt-elemental:jar:2.8.2:compile
+[INFO] +- com.vaadin:vaadin-portlet-cdi:jar:1.0-SNAPSHOT:compile
+[INFO] \- javax.portlet:portlet-api:jar:3.0.0:compile
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.936 s
+[INFO] Finished at: 2020-01-29T17:21:36+01:00
+[INFO] ------------------------------------------------------------------------

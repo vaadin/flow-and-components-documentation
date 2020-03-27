@@ -34,8 +34,7 @@ List<Person> people = Arrays.asList(
 Grid<Person> grid = new Grid<>();
 grid.setItems(people);
 grid.addColumn(Person::getName).setHeader("Name");
-grid.addColumn(person -> Integer.toString(
-               person.getYearOfBirth()))
+grid.addColumn(Person::getYearOfBirth)
         .setHeader("Year of birth");
 
 layout.add(grid);
@@ -993,12 +992,12 @@ grid.addColumn(new ComponentRenderer<>(person -> {
 
 The default Lumo theme includes different variations that you can use to style the grid. You can provide one or more variations.
 
-*Example*: Using the `addThemeNames` method to define theme variations for the grid.
+*Example*: Using the `addThemeVariants` method to define theme variations for the grid.
 
 [source, java]
 ----
-grid.addThemeNames("no-border", "no-row-borders",
-        "row-stripes");
+grid.addThemeVariants(GridVariant.LUMO_NO_ROW_BORDERS,
+        GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_ROW_STRIPES);
 ----
 
 
