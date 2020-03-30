@@ -77,9 +77,6 @@ Some Web Components do not show a UI when they are added to the page as empty ta
 [NOTE]
 While the project setup is easy to use for development and testing, it does not allow you to easily produce a demo WAR file for deployment. It is usually better to create a separate project (or convert the project into a multi-module project) for this purpose. The demo files included in the starter, are intended as test UIs, whereas your result should be aimed at the end user.
 
-[NOTE]
-See <<../advanced/tutorial-making-components-osgi-compatible#,Making a Component Add-on OSGi Compatible>> if you need to make your component OSGI-compatible.
-
 [IMPORTANT]
 If your project is configured as a multi-module project, for example because the base project is an older version or you have manually converted it, source monitoring does not work and changes to the component are not automatically reflected to your demo application.
 
