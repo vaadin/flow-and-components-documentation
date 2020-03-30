@@ -248,7 +248,7 @@ This is the order is which segments in the registered URL templates are trying t
 
 * `items/show` will always resolve into `ShowAllView` navigation target, regardless of the order the routes are registered.
 * `items/phone` will be resolved into `ItemView` and `identifier` parameter will have value `"phone"`.
-That's because `show` is a static segment within a registered route and has priority over any other sibling segments in other routes.
+That's because `show` is a static segment within a registered route and has priority over the parameter in the other route.
 
 [source,java]
 ----
