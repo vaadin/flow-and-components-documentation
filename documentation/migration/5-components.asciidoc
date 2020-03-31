@@ -53,7 +53,7 @@ The mentioned components are available starting from Vaadin 10 or from the speci
 
 | DateField | DatePicker | https://vaadin.com/components/vaadin-date-picker/java-examples[Demo]
 
-| DateTimeField | DatePicker (V10) & TimePicker (V12) | Planned for 2020 (14.x). Possible by combining `DatePicker` and `TimePicker`. `<input type="datetime">` is supported in some browsers.
+| DateTimeField | DateTimePicker (V14.2) | https://vaadin.com/components/vaadin-date-time-picker/java-examples[Demo]
 
 | Embedded | - | Use `<object>` directly via `@Tag("object")` and `Element` API
 
