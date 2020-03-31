@@ -1,69 +1,23 @@
 ---
-title: Style
-order: 4
+title: Elevation
 layout: page
 ---
+
+= Lumo Elevation
 
 // Needed to show embedded live previews
 include::../themes-shared.asciidoc[opts=optional]
 
-= Style
 
-++++
-    <p>Lumo defines a set of CSS custom properties you can use to apply consistent visual styles across your application.</p>
-
-    <p>Import <code>style.js</code> to use them.</p>
-++++
-[source,html]
-----
-<script type="module">
-  import '@vaadin/vaadin-lumo-styles/style.js';
-</script>
-----
-== Border radius
-++++
-
-    <p>The border radius values are defined as <code>em</code> by default, so they scale with the font size.</p>
-
-++++
-[NOTE]
-If you want to set a border radius property to zero, you need to specify a unit for it as well (i.e. `0px` or `0em`), as it can be used in `calc` functions which will be undefined if the border radius is a unitless value.
-++++
-
-<content-preview class="block">
-++++
-[source,html]
-----
-<div class="box s radius">S</div>
-<div class="box m radius">M</div>
-<div class="box l radius">L</div>
-
-<custom-style>
-  <style>
-    .radius.s {
-      border-radius: var(--lumo-border-radius-s);
-    }
-    .radius.m {
-      border-radius: var(--lumo-border-radius-m);
-    }
-    .radius.l {
-      border-radius: var(--lumo-border-radius-l);
-    }
-  </style>
-</custom-style>
-----
-++++
-</content-preview>
-
-++++
 == Shadow
+
+Shadows are used to indicate elements which are stacked on top of other elements in the UI.
+
 ++++
-
-    <p>Shadows are used to indicate elements which are stacked on top of other elements in the UI.</p>
-
 <content-preview class="block background-shade">
 ++++
-[source,html]
+
+[source, html]
 ----
 <div class="box xs shadow">XS</div>
 <div class="box s shadow">S</div>
@@ -129,18 +83,6 @@ If you want to set a border radius property to zero, you need to specify a unit 
 == Custom properties
 ++++
   <content-preview class="block" hidesource raw>
-    <h5>Border radius</h5>
-    <dl class="custom-properties">
-      <dt>--lumo-border-radius-s: <code>0.25em</code></dt>
-        <dd>Use for small elements. To ensure they never turn into full circles, keep this value below <code>0.5em</code>.</dd>
-      <dt>--lumo-border-radius-m: <code>0.25em</code></dt>
-        <dd>The most commonly used roundness. It’s recommended to keep the value between <code>0em</code> and <code>calc(var(--lumo-size-m) / 2)</code></dd>
-      <dt>--lumo-border-radius-l: <code>0.5em</code></dt>
-        <dd>Use for large containers, such as cards and dialogs. It’s recommended to keep the value between <code>0em</code> and <code>0.5em</code></dd>
-      <dt>--lumo-border-radius: <code>0.25em</code></dt>
-        <dd>Deprecated. Use <code>--lumo-border-radius-m</code> instead.</dd>
-    </dl>
-
     <h5>Shadow</h5>
     <p theme="font-size-s">The shadows use various <code>--lumo-shade</code> colors. Computed values are shown here instead of the declared values.</p>
     <dl class="custom-properties">

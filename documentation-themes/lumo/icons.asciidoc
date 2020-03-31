@@ -1,13 +1,12 @@
 ---
 title: Icons
-order: 6
 layout: page
 ---
 
+= Lumo Icons
+
 // Needed to show embedded live previews
 include::../themes-shared.asciidoc[opts=optional]
-
-= Icons
 
 ++++
    <p>Lumo comes with a set of icons that are designed to fit in with the default Lumo style.</p>
@@ -103,7 +102,7 @@ include::../themes-shared.asciidoc[opts=optional]
 == Icon size
 ++++
 
-    <p>Use the icon size custom properties to set consistent sizes for all icons across your app. The Lumo icons are drawn on a 24&times;24 pixel canvas – the <b>M size</b> fits that by default.</p>
+    <p>Use the icon size custom properties to set consistent sizes for all icons across your application. The Lumo icons are drawn on a 24&times;24 pixel canvas – the <b>M size</b> fits that by default.</p>
     <p>You need to import <code>sizing.html</code> to use the sizing properties.</p>
 
 ++++

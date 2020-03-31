@@ -1,57 +1,61 @@
 ---
 title: Using Themes
-order: 2
+order: 20
 layout: page
 ---
 
 = Using Themes
 
-Use one of the built-in themes to get a great starting point for your application, which you can customize further.
-
-If you do not explicitly configure otherwise, the Lumo theme will be used. You can also start from scratch and implement a completely custom theme.
+Use one of the built-in themes to get a great starting point for your application, which you can customize further. You can also start from scratch and implement a completely custom theme.
 
 == Existing Themes
 
 You can choose to use one of the built-in themes or a theme provided by another package.
+If you do not explicitly configure otherwise, the Lumo theme will be used.
 
-In server-side UIs (Java), use the [classname]#@Theme# annotation to choose the theme. The annotation has to be set to your <<../routing/tutorial-routing-annotation#,root navigation>> level class or to the <<../routing/tutorial-router-layout#,router layout>> component defined in its [classname]#@Route# annotation. Otherwise an exception is thrown on startup.
+[.example]
+--
+In server-side views (Java), use the [classname]#@Theme# annotation to choose the theme. The annotation has to be set to your <<../flow/routing/tutorial-routing-annotation#,root navigation>> level class or to the <<../flow/routing/tutorial-router-layout#,router layout>> component defined in its [classname]#@Route# annotation. Otherwise an exception is thrown on startup.
 
 [source, java]
 ----
-@Route("")
-@Theme(Material.class)
-public class MaterialApp extends Div {
-}
+include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=lumo, indent=0, group=Java]
 ----
 
 In client-side views/templates (HTML/JS), import the themed version of each component. For Vaadin components, the built-in themes are located in the [filename]#theme# folder of each component package. Import any additional theme style sheets, if you use some of the custom properties in that view/template.
 
 [source, javascript]
 ----
-// Import a theme-specific component, for example <vaadin-button>
-import '@vaadin/vaadin-button/theme/lumo/vaadin-button.js';
-
-// Import the color style sheet if you are using some of
-// the custom color properties Lumo offers
-import '@vaadin/vaadin-lumo-styles/color.js';
+include::../documentation/src/main/js/WaysOfImporting.js[tags=client-side-theme, indent=0, group=HTML/JavaScript]
 ----
+--
 
 
 == Custom Themes
 
-TODODOTODO mention that there’s to options you can choose.
+There are two ways to customize themes.
 
-If you want to control all styling manually, you can opt-out of loading any theme.
-In that case, you might want to learn how to create a completely new custom theme, as described in <<creating-a-custom-theme#, Creating a Custom Theme>>.
+1. Customize existing themes
+2. Create a completely custom theme from scratch
 
-For server-side UIs, use the [classname]#@NoTheme# annotation to opt-out of loading any theme style sheets.
+The easier way is to customize one of the existing themes, by overriding the CSS custom properties they expose as their public API and by writing and importing additional style sheets to further override styles.
+This approach works best when you only need to make small adjustments.
+See <<styling-components#,Styling Components>>, <<./lumo/lumo-overview#,Lumo>>, and <<./material/material-overview#,Material>> for more information.
+
+If you need to make more substantial changes, which will effectively override a large portion of an existing themes CSS, it can be better to create a completely custom theme from scratch.
+See <<creating-a-custom-theme#, Creating a Custom Theme>> for more information.
+
+== No Theme
+
+If you want to control the importing of style sheets manually, you can opt-out of loading any theme.
+This means that you rely on application-specific style sheets to handle component styling as well.
+It also means that you are responsible for any lazy-loading or code-splitting of the style sheets.
+
+For server-side views, use the [classname]#@NoTheme# annotation to opt-out of loading any theme style sheets.
 
 [source,java]
 ----
-@Route("")
-@NoTheme
-public class UnthemedApp extends Div {
-}
+include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=notheme, indent=0]
 ----
 
 In client-side views/templates, to get a minimal starting point, import the un-themed version of each component. For Vaadin components, the un-themed versions are located in the [filename]#src# folder of each component package.
@@ -67,7 +71,7 @@ import '@vaadin/vaadin-button/src/vaadin-button.js';
 
 For server-side UIs, the following resolving logic is used to determine which theme is used:
 
-. If the `@Theme` annotation is found at the <<../routing/tutorial-routing-annotation#,root navigation>> level, the theme set in the annotation is used
+. If the `@Theme` annotation is found at the <<../flow/routing/tutorial-routing-annotation#,root navigation>> level, the theme set in the annotation is used
 . If the `@NoTheme` annotation is found at the root navigation level, theming is disabled
 . If the `com.vaadin.flow.theme.lumo.Lumo` class is available in the classpath, the Lumo theme is used
 

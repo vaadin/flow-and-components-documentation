@@ -1,26 +1,23 @@
 ---
 title: Styling Components
-order: 6
+order: 60
 layout: page
 ---
 
 = Styling Components
 
-This section describes how you can write style sheets for Vaadin components and customize their internal theme implementation.
+Write style sheets for Vaadin components and customize their internal theme implementation.
 
-Vaadin components utilize Shadow DOM to encapsulate and scope their styles and hides the internal HTML element hierarchy.
-This prevents components and the application from accidentally affecting each other’s styles or from breaking the element hierarchy. The internal style scope is sometimes referred to as “local scope”, whereas the main page scope is called the global scope.
+
+== Prerequisites
+
+You should be familiar with <<style-scopes#,Style Scopes>> and how to include style sheets into component scopes (see <<importing-style-sheets#component-local-scope, Importing Style Sheets>>) before you can style Vaadin components effectively.
 
 Vaadin components use the https://github.com/vaadin/vaadin-themable-mixin/[`ThemableMixin`] utility, which allows developers to add custom style sheets to the component’s local scope.
 Your custom components can also utilize the same mixin. This documentation applies only to such components.
 
 
-== Prerequisites
-
-You should be familiar with <<style-scopes#,style scopes>> and how to <<including-style-sheets#component-local-scope, include style sheets into component scopes>> before you can style Vaadin components effectively.
-
-
-=== Example
+== Example
 
 Customizing the scoped styles of Text Field.
 
@@ -33,7 +30,7 @@ Customizing the scoped styles of Text Field.
 
 [part="input-field"] {
   box-shadow: inset 0 0 0 1px var(--lumo-contrast-30pct);
-  background-color:var(--lumo-base-color);
+  background-color: var(--lumo-base-color);
 }
 
 [part="input-field"]:hover {
@@ -66,7 +63,7 @@ html {
 
 [NOTE]
 When including CSS in your client-side code (JavaScript or HTML), remember to take care of cross-browser compatibility.
-See <<including-style-sheets#global-client-side, Global Scope / Client-side>> for more info.
+See <<importing-style-sheets#global-client-side, Importing Style Sheets>> for more info.
 
 You can find component-specific custom properties from the component's HTML API documentation.
 For example, see the https://vaadin.com/components/vaadin-text-field/html-api/elements/Vaadin.TextFieldElement[Styling section for Text Field].
@@ -172,6 +169,10 @@ The built-in themes can also use the pseudo-elements, so be aware of potential c
   ...
 }
 ----
+
+== Theme Variants
+
+TODO
 
 == States
 
@@ -414,8 +415,6 @@ Styles are inherited when components are extended.
 * `<vaadin-upload>`
 * `<vaadin-upload-file>`
 
----
-
 ++++
 </details>
 ++++
@@ -429,10 +428,11 @@ Styles are inherited when components are extended.
 <vaadin-combo-box theme="small"></vaadin-combo-box>
 ----
 
+.The theme attribute is propagated to sub-components of Combo Box
 image::images/vaadin-combo-box-theme-propagation.png[vaadin-combo-box theme attribute propagating to its sub-components]
 ====
 
-Theme variant propagation is not limited to the built-in variants.
+Theme variant propagation is not limited to the built-in variants (theme attribute values).
 Your custom theme variants will propagate in the same way.
 
 
@@ -484,7 +484,7 @@ Changing the background color and padding of the Dialog overlay component.
 
 == Scoping Component Styles
 
-A style sheet defined for a <<including-style-sheets#component-local-scope,component’s local scope>> affects all the instances of the component.
+A style sheet imported into a component’s local scope (see <<importing-style-sheets#component-local-scope,Importing Style Sheets>> and <<style-scopes#,Style Scopes>>) affects all the instances of the component.
 But what if you only want to target a single instance of a component with custom styles?
 
 There are two ways to scope styles to specific component instances:
@@ -496,7 +496,8 @@ There are two ways to scope styles to specific component instances:
   This approach is used by the built-in variations in Vaadin themes (Lumo and Material), i.e. `theme` attribute.
   The downside of this approach is that you end up adding the selectors and properties to all instances, even though only some instances will need those styles (they won’t apply unless the scoping selector is used on the host element).
 
-=== Example: Expose new custom properties
+.Expose new custom properties
+====
 
 .`Styles included into the local scope of <vaadin-text-field>`
 [source,css]
@@ -514,8 +515,10 @@ There are two ways to scope styles to specific component instances:
   --input-field-background-color: #eee;
 }
 ----
+====
 
-=== Example: Use scoping selectors
+.Use scoping selectors
+====
 
 .`Styles included into the local scope of <vaadin-text-field>`
 [source,css]
@@ -533,11 +536,13 @@ There are two ways to scope styles to specific component instances:
 <!-- Use the new scoping selector anywhere in your application -->
 <vaadin-text-field class="special-field"></vaadin-text-field>
 ----
+====
 
 You can also use the `theme` attribute (i.e. <<theme-variants#custom-variants,custom component variants>>) as a scoping selector for your style overrides, as shown in the example below.
-The `theme` attribute has the benefit of propagating through the <<sub-components,sub-components>> (other attributes are not).
+The `theme` attribute has the benefit of propagating through the <<sub-components,sub-components>> (other attributes do not propagate).
 
-==== Example: Scoping using the theme attribute
+.Scoping using the theme attribute
+====
 
 .`Styles included into the local scope of <vaadin-text-field>`
 [source,css]
@@ -555,3 +560,4 @@ The `theme` attribute has the benefit of propagating through the <<sub-component
 <!-- Apply the theme attribute to any text-field in your application -->
 <vaadin-text-field theme="special-field"></vaadin-text-field>
 ----
+====

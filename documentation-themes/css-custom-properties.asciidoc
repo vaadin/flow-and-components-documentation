@@ -1,6 +1,6 @@
 ---
 title: CSS Custom Properties
-order: 10
+order: 100
 layout: page
 ---
 
@@ -73,7 +73,7 @@ You can also define a fallback value for cases when the custom property is not d
 == Custom properties and Shadow DOM
 
 Custom properties inherit by default, allowing them to “pierce” shadow DOM boundaries.
-This makes it possible to theme/style components from outside their <<style-scopes#,local style scope>>, assuming a component is using a custom property in its local styles (with `var()`).
+This makes it possible to theme/style components from outside their local style scope (see <<style-scopes#,Style Scopes>>), assuming a component is using a custom property in its local styles (with `var()`).
 
 
 == Using with JavaScript
@@ -104,8 +104,9 @@ document.querySelector('html').style.setProperty('--lumo-font-size-m', '0.875rem
 
 Custom properties are different from traditional CSS-preprocessor (Sass, Less, Stylus, etc.) variables. They do not need to be compiled before sending them to the browser and they are capable of changing their value at runtime, even based on the DOM hierarchy.
 
-
+ifdef::web[]
 == Related Tutorials
 
 - https://vaadin.com/tutorials/css-variables[Styling Web Components with CSS variables]
 - https://vaadin.com/tutorials/css-encapsulation-with-shadow-dom[CSS Encapsulation with Shadow DOM]
+endif::web[]

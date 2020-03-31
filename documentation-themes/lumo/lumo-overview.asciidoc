@@ -4,14 +4,14 @@ order: 1
 layout: page
 ---
 
-// Needed to show embedded live previews
-include::../themes-shared.asciidoc[opts=optional]
-
 = Overview
 
 Lumo is the default theme for all Vaadin apps and components, which can be customized to fit your visual style requirements.
 
-The core Lumo package defines the basic building blocks for component themes as <<../flow/theme/css-custom-properties#,CSS custom properties>> (also known as design tokens) such as colors, typography and other visual styles.
+// Needed to show embedded live previews
+include::../themes-shared.asciidoc[opts=optional]
+
+The core Lumo package defines the basic building blocks for component themes as <<../css-custom-properties#,CSS Custom Properties>> (also known as design tokens) such as colors, typography and other visual styles.
 
 In addition to the custom properties, Lumo includes a ready-made <<badges#,Badge>> component and a collection of <<icons#,icons>> which match the default Lumo visual style.
 
@@ -32,7 +32,7 @@ If you do not explicitly choose a theme, Lumo will be used. You can also explici
 
 The global style sheets, which define the global custom properties (a.k.a. design tokens) and define basic color and typography rules, are automatically included in your Vaadin app when you are using Lumo as your theme, excluding <<badges#,Badges>> which needs to be imported and included explicitly.
 
-You can import and include these style sheets manually if needed, for example if you are building a client-side only app.
+You can import and include these style sheets manually if needed, for example if you are building a client-side only application.
 
 .`Java`
 [source,java]
@@ -76,11 +76,11 @@ import '@vaadin/vaadin-button/theme/lumo/vaadin-button.js';
 import '@vaadin/vaadin-button/vaadin-button.js';
 ----
 
-See <<../../flow/theme/including-style-sheets#,Including Style Sheets>> for more information.
+See <<../importing-style-sheets#,Importing Style Sheets>> for more information.
 
 == Customization
 
-Lumo can be customized to fit your visual style requirements by adjusting the <<../flow/theme/css-custom-properties#,CSS custom properties>> it exposes as its public API.
+Lumo can be customized to fit your visual style requirements by adjusting the <<../css-custom-properties#,CSS Custom Properties>> it exposes as its public API.
 
 === Lumo Theme Editor
 

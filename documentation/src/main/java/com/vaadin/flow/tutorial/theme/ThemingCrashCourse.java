@@ -9,18 +9,26 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class ThemingCrashCourse {
 
     @Route(value = "")
+
+    // tag::cssimport[]
     @CssImport("./styles/shared-styles.css")
-    @CssImport(value = "./styles/shared-styles.css",
-            include = "common-styles")
-    @CssImport(value = "./styles/common-styles.css",
-            id = "common-styles")
-    @CssImport(value = "./styles/specific-styles.css",
-            include = "common-styles")
+    // end::cssimport[]
+
+    @CssImport(value = "./styles/shared-styles.css", include = "common-styles")
+
+    // tag::cssimport-id[]
+    @CssImport(value = "./styles/common-styles.css", id = "common-styles")
+    // end::cssimport-id[]
+
+    // tag::cssimport-include[]
+    @CssImport(value = "./styles/specific-styles.css", include = "common-styles")
+    // end::cssimport-include[]
+
+    // tag::cssimport-themefor[]
+    @CssImport(value = "./styles/text-field.css", themeFor = "vaadin-text-field")
+    // end::cssimport-themefor[]
+
     public class MyApplication extends Div {
     }
 
-
-
 }
-
-

@@ -1,13 +1,12 @@
 ---
-title: Sizing and spacing
-order: 5
+title: Sizing and Spacing
 layout: page
 ---
 
+= Lumo Sizing and Spacing
+
 // Needed to show embedded live previews
 include::../themes-shared.asciidoc[opts=optional]
-
-= Sizing and spacing
 
 ++++
     <p>Lumo defines a set of CSS custom properties you can use to apply consistent sizing and spacing across your application.</p>

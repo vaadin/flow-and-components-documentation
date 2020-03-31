@@ -1,10 +1,11 @@
 ---
 title: Overview
-order: 1
+order: 10
 layout: page
 ---
 
 = Overview
+:toc: macro
 
 Vaadin separates the appearance of the user interface from its logic using themes. Using a theme helps in making an application look and feel consistent to the end user, and offers a shared visual language which you can apply to your application-specific styling.
 
@@ -48,53 +49,27 @@ For example, you could style an individual button in one view to have a differen
 The techniques used for theming and styling are mostly the same.
 The main difference is how you scope the CSS: for all instances of a certain component, to certain theme variants, or only to specific component instances.
 +
-Learn more about <<styling-vaadin-components#,Styling Vaadin Components>> and <<styling-applications#,Styling Applications>>.
+Learn more about <<styling-components#,Styling Components>> and <<styling-applications#,Styling Applications>>.
 
 
 == Built-in Themes
 
 Vaadin comes with two built-in themes you can use as-is or as the basis for your own customization.
 
-The built-in themes come with:
-
-* Clean typographic hierarchy
-* Carefully adjusted spacing of elements in all components
-* Animations
-* Hundreds of cohesive design decisions
-* CSS custom properties and variables for customizing fonts, colors, border radius, and spacing, and to be used as building blocks for application-specific styling.
-* Ability to override individual component styles
-* Light and dark color palettes
-
-
 === Lumo
 
 image:images/lumo-theme.png[Screenshot of an application using the Lumo theme]
 
-All Vaadin components implement the Lumo theme by default, which gives your application a coherent and polished look out-of-the-box. In addition to the **dark** palette, which is useful in low-light conditions, Lumo has a built-in **compact** variant. It reduced space between elements, and is useful when you have a lot of data on the display.
+All Vaadin components implement the Lumo theme by default, which gives your application a coherent and polished look out-of-the-box. In addition to *light* and *dark* modes (color palette variants), Lumo has a built-in **compact** variant. It reduces space between elements, and is useful when you need to present a lot of data on the screen.
 
-See <<../../themes/lumo/lumo-theme-overview#,Lumo>> for more details.
+See <<./lumo/lumo-overview#,Lumo>> for more details.
 
 
 === Material
 
 image:images/material-theme.png[Screenshot of an application using the Material theme]
 
-The Material theme is an implementation of Google’s https://material.io[Material Design] guidelines.
+The Material theme is an implementation of Google’s https://material.io[Material Design] guidelines, and comes with both *light* and *dark* modes (color palette variants).
 The guidelines are followed whenever possible, and for features which are not described in the them, we take inspiration and make them fit in seamlessly.
 
-See <<../../themes/material/material-theme-overview#,Material>> for more details.
-
-
-
-
-== In This Section
-
-* <<using-themes#,Using Themes>>
-* <<theme-variants#,Theme Variants>>
-* <<including-style-sheets#,Including Style Sheets>>
-* <<theming-basics#,Theming Basics>>
-* <<styling-vaadin-components#,Styling Vaadin Components>>
-* <<styling-applications#,Styling Applications>>
-* <<creating-a-custom-theme#,Creating a Custom Theme>>
-* <<style-scopes#,Style Scopes>>
-* <<css-custom-properties#,CSS Custom Properties and Variables>>
+See <<./material/material-overview#,Material>> for more details.

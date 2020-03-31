@@ -31,7 +31,7 @@ Cascading Stylesheets (CSS)::
   Vaadin applications are styled using cascading style sheets (CSS).
   Styling begins with a built-in _theme_, which can be modified and refined with application-specific style sheets.
 +
-See <<../theme/theming-overview#, Theming Applications with CSS>>.
+See <<../../themes/themes-and-styling-overview#, Themes and Styling>>.
 
 Java Servlets::
 Vaadin server-side applications run as Java servlets.

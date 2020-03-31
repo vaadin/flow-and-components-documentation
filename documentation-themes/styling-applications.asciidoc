@@ -1,6 +1,6 @@
 ---
 title: Styling Applications
-order: 7
+order: 70
 layout: page
 ---
 
@@ -11,13 +11,15 @@ Learn how to apply app-specific styling across your custom views and components 
 
 == Prerequisites
 
-You should be familiar with <<including-style-sheets#,including style sheets>> to the different <<style-scopes#,style scopes>> in your app.
+You should be familiar with <<importing-style-sheets#,Importing Style Sheets>> to the different <<style-scopes#,Style Scopes>> in your application.
 
 
 == Styling Views and Components
 
 Your application-specific views and components are usually built by composing existing lower-level components.
-Styling these components is a little different from <<styling-vaadin-components#,styling the internals of built-in Vaadin components>>.
+Styling these components is a little different from styling the internals of built-in component.
+TODO
+Learn more about <<styling-components#,Styling Components>>.
 
 === Server-side Views
 
@@ -72,7 +74,7 @@ The <<client-side,instructions for client-side views and components>> apply to t
 Client-side views and components are usually authored using Polymer, extending `PolymerElement`.
 Polymer elements render their HTML template inside shadow DOM and create a new style scope.
 
-The instructions in <<../polymer-templates/styling-polymer-templates#,Styling Polymer Templates>> apply to client-side views.
+The instructions in <<../../flow/polymer-templates/styling-polymer-templates#,Styling Polymer Templates>> apply to client-side views.
 
 If you wish to author your client-side views using some other technology (for example https://lit-element.polymer-project.org[LitElement]), refer to the styling instructions for that technology.
 
@@ -93,7 +95,7 @@ Use absolute paths in your HTM and CSS for static assets.
 
 === Example
 
-If you have an image in `/src/main/webapp/img/logo.png`, you can re reference it from a style sheet (see <<including-style-sheets#,Including style sheets>>) as shown below:
+If you have an image in `/src/main/webapp/img/logo.png`, you can re reference it from a style sheet (see <<importing-style-sheets#,Importing Style Sheets>>) as shown below:
 
 [source,css]
 ----

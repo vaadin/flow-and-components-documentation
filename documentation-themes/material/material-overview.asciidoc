@@ -1,6 +1,6 @@
 ---
 title: Overview
-order: 1
+order: 10
 layout: page
 ---
 
@@ -25,9 +25,9 @@ npm i @vaadin/vaadin-material-styles
 
 === Import and Include Style Sheets
 
-The global style sheets, which define the global custom properties (a.k.a. design tokens) and define basic color and typography rules, are automatically included in your Vaadin app when you are using Material as your theme.
+The global style sheets, which define the global custom properties (a.k.a. design tokens) and define basic color and typography rules, are automatically included in your Vaadin application when you are using Material as your theme.
 
-You can import and include these style sheets manually if needed, for example if you are building a client-side only app.
+You can import and include these style sheets manually if needed, for example if you are building a client-side only application.
 
 
 .`Java`
@@ -56,4 +56,4 @@ document.head.appendChild(style);
 import '@vaadin/vaadin-button/theme/material/vaadin-button.js';
 ----
 
-See <<../../flow/theme/including-style-sheets#,Including style sheets>> for more information
+See <<../importing-style-sheets#,Importing Style Sheets>> for more information

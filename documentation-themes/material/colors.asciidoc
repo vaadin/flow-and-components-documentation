@@ -1,13 +1,13 @@
 ---
 title: Colors
-order: 3
+order: 30
 layout: page
 ---
 
 // The following source is in HTML because it's copied from https://github.com/vaadin/vaadin-material-styles/tree/master/demo as is
 include::../themes-shared.asciidoc[opts=optional]
 
-= Colors
+= Material Colors
 
 ++++
 <p>The theme defines a set of CSS custom properties you can use to apply a consistent color palette across your application.</p>

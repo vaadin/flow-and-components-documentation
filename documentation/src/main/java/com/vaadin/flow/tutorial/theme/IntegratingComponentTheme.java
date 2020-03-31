@@ -26,6 +26,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @CodeFor("theme/integrating-component-theme.asciidoc")
 public class IntegratingComponentTheme {
 
+    // tag::getUrls[]
     @JsModule("@vaadin/vaadin-lumo-styles/color.js")
     public class MyTheme implements AbstractTheme {
         @Override
@@ -37,7 +38,9 @@ public class IntegratingComponentTheme {
         public String getThemeUrl() {
             return "/theme/myTheme/";
         }
+        // end::getUrls[]
 
+        // tag::getHeaderInlineContents[]
         @Override
         public List<String> getHeaderInlineContents() {
             return Collections.singletonList("<custom-style>\n"
@@ -45,7 +48,9 @@ public class IntegratingComponentTheme {
                     + "</style>\n"
                     + "</custom-style>");
         }
+        // end::getHeaderInlineContents[]
 
+        // tag::getHtmlAttributes[]
         @Override
         public Map<String, String> getHtmlAttributes(
                 String variant) {
@@ -57,5 +62,7 @@ public class IntegratingComponentTheme {
             }
             return Collections.emptyMap();
         }
+        // end::getHtmlAttributes[]
+
     }
 }

@@ -1,160 +1,144 @@
 ---
 title: Theme Variants
-order: 3
+order: 50
 layout: page
 ---
 
 = Theme Variants
 
 Variants are opt-in features of each theme which affect the visual presentation of components.
+They do not affect their behavior or functionality.
+
+Examples of variants include light and dark modes, density presets (compact, small, large), and visual prominence (primary, tertiary, no-borders).
+
 Themes can define global and component-specific variants.
-Theme variants can be used in all style scopes across an app.
+Theme variants can be used across all <<style-scopes#,Style Scopes>> – you don’t need to define or import them individually for each style scope.
 
-The documentation shows how to do things using either Java or JavaScript/HTML.
-The end result will be identical regardless. Choose the approach you are most comfortable with.
+== Global Variants
 
-Technically, theme variants are applied in HTML using the `theme` attribute.
+Global variants affect all component instances in an application.
+Light and dark modes are a good example of global variants.
 
-== Built-in Variants
+See the documentation for <<lumo/variants#,Lumo Variants>> and <<material/variants#,Material Variants>> to learn more about the built-in variants.
 
-The built-in themes have global variants that you can use to quickly customize all components and built-in component variants that can be used to style individual component instances quickly.
+[.example]
+--
 
-=== Dark
+In server-side views, use the `variant` attribute of the [classname]#@Theme# annotation.
+See <<../using-themes#,Using Themes>> for more information.
 
-The built-in themes come with a dark palette variant.
-Dark palettes are commonly used in low-light environments or during night-time.
-
-.`Java`
-[source,java]
+[source, java]
 ----
-@Theme(value = Lumo.class, variant = Lumo.DARK)
-// or
-@Theme(value = Material.class, variant = Material.DARK)
+include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=lumo-dark, indent=0, group=Java]
 ----
 
-.`JavaScript`
-[source,javascript]
-----
-document.documentElement.setAttribute('theme', 'dark');
-----
+In client-side views, set the `theme` attribute on the `document.documentElement` object.
 
-You can also use the same attribute on any element which is in the global scope, meaning that it’s not inside any https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM[Shadow DOM].
-
-.`Java`
-[source,java]
+[source, javascript]
 ----
-VerticalLayout dark = new VerticalLayout();
-dark.getElement().setAttribute("theme", Lumo.DARK);
+include::../documentation/src/main/js/ThemeVariants.js[tags=global-dark, indent=0, group=JavaScript]
 ----
 
-.`HTML`
-[source,html]
+In client-side templates, set the `theme` attribute on the `<html>` element.
+
+[source, html]
 ----
-<vaadin-vertical-layout theme="dark"></vaadin-vertical-layout>
+include::../documentation/src/main/html/ThemeVariants.html[group=HTML]
+----
+--
+
+
+== Component Variants
+
+Component Variants affect selected component instances.
+Primary buttons, and small buttons and text fields are common examples of component variants.
+You can combine multiple variants together for a single component, for example a small primary button.
+
+Many components have built-in variants in both the Lumo and the Material theme.
+See the documentation for <<lumo/variants#,Lumo Variants>> and <<material/variants#,Material Variants>> to learn more about the built-in variants.
+
+[.example]
+--
+
+Components which have built-in variants implement the [classname]#HasTheme# interface and have convenient Java APIs for using them.
+For other components, use the <<../flow/element-api/tutorial-properties-attributes#,Element API>> and the [methodname]#setAttribute# method.
+
+[source, java]
+----
+include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=themed-button, indent=0, group=Java]
+
+include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=themed-button2, indent=0, group=Java]
+
+include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=themed-button3, indent=0, group=Java]
 ----
 
-[CAUTION]
-The dark variant is not supported in Internet Explorer 11. https://github.com/vaadin/vaadin-lumo-styles/issues/50[See the issue in GitHub].
+In client-side JavaScript views, use the standard [methodname]#setAttribute# DOM method to set the [propertyname]#theme# attribute value.
 
-=== Compact
-
-The Lumo theme has a compact preset which will reduce the font size and the sizing and spacing of all components, allowing you to place more components on the screen.
-
-.`Java`
-[source,java]
+[source, javascript]
 ----
-@JsModule("@vaadin/vaadin-lumo-styles/presets/compact.js")
-@Theme(Lumo.class)
-public class CompactApp extends Div {
+include::../documentation/src/main/js/ThemeVariants.js[tags=themed-button, indent=0, group=JavaScript]
+----
+
+In client-side HTML templates, use the [propertyname]#theme# attribute value.
+
+[source, html]
+----
+include::../documentation/src/main/html/ThemeVariants.html[tags=themed-button, indent=0, group=HTML]
+----
+--
+
+
+=== Custom Variants
+
+Custom variants allow you to freely customize the visual appearance of components.
+They are defined in an additional stylesheet which you import.
+Technically, custom variants work exactly like built-in variants.
+
+To create a custom variant, first we need to write the styles for that variant.
+For example, to create a new variant for Button, the following CSS would work:
+
+[source, css]
+----
+:host([theme~="my-custom-variant"]) {
+  /* Set the CSS properties you want to customize */
 }
 ----
 
-.`JavaScript`
-[source,javascript]
-----
-import '@vaadin/vaadin-lumo-styles/presets/compact.js';
-----
+To learn how to correctly target internal parts of components and how to write the correct CSS selectors, see <<styling-components#,Styling Components>>.
 
-Technically, it adds a `<style>` element to the page which sets new values for the https://cdn.vaadin.com/vaadin-lumo-styles/1.5.0/demo/sizing-and-spacing.html[Lumo sizing and spacing] CSS properties.
-You can https://github.com/vaadin/vaadin-lumo-styles/blob/master/presets/compact.html[view the values] from the source code.
+Then, you need to import the style sheet into the corresponding component’s style scope. See <<importing-style-sheets#component-local-scope,Importing Style Sheets>> to learn more.
 
-=== Component Variants
+Finally, you can use the `my-custom-variant` on a Button component, as shown before.
 
-Many of the components have built-in variants in both the Lumo and the Material theme.
-You can use multiple variants for a single component.
-
-Those components that have variants (components that implement the `HasTheme` interface) have an explicit Java API for using them.
-
-.`Java`
-[source,java]
-----
-Button button = new Button("OK");
-button.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_SMALL);
-----
-
-.`HTML`
-[source,html]
-----
-<vaadin-button theme="primary small">OK</vaadin-button>
-----
-
-==== Lumo Variants
-You can find a component's Lumo variants from the component's HTML examples on vaadin.com, from the "Theme Variants" section.
-For example, see https://vaadin.com/components/vaadin-button/html-examples/button-theme-variants-demos[Button Lumo variants].
-
-==== Material Variants
-You can find a component's Material variants from the https://vaadin.com/themes/material[Material theme documentation site].
-For example, see https://cdn.vaadin.com/vaadin-material-styles/1.2.3/demo/buttons.html[Button Material variants].
-
-
-== Custom Variants
-
-Custom variants allow you to create new component styles that can be used in all style scopes across your app.
-
-The styles for those variants should then be defined in an additional stylesheet which you import.
-Learn how to <<including-style-sheets#component-local-scope,include style sheets into component scopes>> and how to <<styling-vaadin-components#,style Vaadin components>>.
-
-.`Java`
-[source,java]
-----
-Button button = new Button("Button");
-button.getThemeNames().add("custom-variant");
-// Or, for components that do not implement HasTheme
-ComboBox combo = new ComboBox();
-combo.getElement().setAttribute("theme", "custom-variant");
-----
-
-[NOTE]
-Using `setAttribute` will remove any previous values set using either `addThemeVariants()` or `getThemeNames().add()`.
-
-.`HTML`
-[source,html]
-----
-<vaadin-button theme="custom-variant">Button</vaadin-button>
-<vaadin-combo-box theme="custom-variant">Button</vaadin-combo-box>
-----
 
 == Sub-component Variants
 
-Components which internally use another component (sub-component) can utilize the sub-component variants.
-For example, while Combo Box doesn't have its own variants, it can still use the Text Field component's "small" variant, since Combo Box has a Text Field inside it.
+Theme variants propagate to sub-components. For example, the Combo Box component internally contains the Text Field component. Setting a theme variant on a Combo Box will also be applied on the internal Text Field component.
 
-.`Java`
-[source,java]
-----
-ComboBox combo = new ComboBox();
-combo.getElement().setAttribute("theme", TextFieldVariant.LUMO_SMALL);
-----
+This also means, that even though Combo Box does not have a built-in “small” variant of its own, it can still utilize the built-in “small” variant of the Text Field component. For example:
 
-.`HTML`
-[source,html]
+[.example]
+--
+In server-side views (Java):
+
+[source, java]
 ----
-<vaadin-combo-box theme="small"></vaadin-combo-box>
+include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=combobox-variant, indent=0, group=Java]
 ----
 
-Learn more about <<styling-vaadin-components#sub-components,styling sub-components>> (including the component hierarchy in Vaadin components).
+In client-side view (JavaScript):
 
+[source, javascript]
+----
+include::../documentation/src/main/js/ThemeVariants.js[tags=combobox-variant, indent=0, group=JavaScript]
+----
 
-== Related Tutorials
+In client-side templates (HTML):
 
-* https://vaadin.com/learn/tutorials/toggle-dark-theme[Toggle dark Lumo theme variant dynamically]
+[source, html]
+----
+include::../documentation/src/main/html/ThemeVariants.html[tags=combobox-variant, indent=0, group=HTML]
+----
+--
+
+See <<styling-components#sub-components,Styling Components>> to learn about the hierarchy of built-in Vaadin components, so you can use variants more effectively and know which exact components you need to target in order to customize components with sub-components.

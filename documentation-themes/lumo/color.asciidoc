@@ -1,13 +1,12 @@
 ---
 title: Color
-order: 3
 layout: page
 ---
 
+= Lumo Color
+
 // Needed to show embedded live previews
 include::../themes-shared.asciidoc[opts=optional]
-
-= Color
 
 Lumo defines a set of style modules and CSS custom properties you can use to apply a consistent color palette across your application.
 

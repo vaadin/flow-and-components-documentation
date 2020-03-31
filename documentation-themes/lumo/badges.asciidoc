@@ -1,13 +1,12 @@
 ---
 title: Badges
-order: 7
 layout: page
 ---
 
+= Lumo Badges
+
 // Needed to show embedded live previews
 include::../themes-shared.asciidoc[opts=optional]
-
-= Badges
 
 Import and include the badge style module:
 
