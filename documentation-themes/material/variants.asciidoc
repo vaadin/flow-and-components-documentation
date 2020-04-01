@@ -31,7 +31,7 @@ include::../../documentation/src/main/js/ThemeVariants.js[tags=global-dark, inde
 
 [source, html]
 ----
-include::../../documentation/src/main/html/ThemeVariants.html[group=HTML]
+include::../../documentation/src/main/html/ThemeVariants.html[tags=global-dark, indent=0, group=HTML]
 ----
 --
 

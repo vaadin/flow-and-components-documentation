@@ -20,7 +20,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("theme/migrate-p2-to-p3.asciidoc")
+@CodeFor("v14-migration/v14-theming-migration.asciidoc")
 public class MigrateP2ToP3 {
     @Route(value = "")
     // will be imported as a <dom-module> tag for theming components

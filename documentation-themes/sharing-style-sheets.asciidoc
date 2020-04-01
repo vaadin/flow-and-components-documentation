@@ -117,7 +117,7 @@ Similarly as before, you can either bundle or link your shared style sheets to t
 [[shared-global-bundled]]
 ==== Bundled Shared Styles
 
-To use a shared style sheet in the global scope use the `include` attribute with a <<global-bundled,global style sheet>>.
+To use a shared style sheet in the global scope use the `include` attribute with a <<importing-style-sheets#global-bundled,global style sheet>>.
 
 .`Java`
 [source,java]

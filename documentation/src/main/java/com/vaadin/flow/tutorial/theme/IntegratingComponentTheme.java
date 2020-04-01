@@ -23,7 +23,7 @@ import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.theme.AbstractTheme;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("theme/integrating-component-theme.asciidoc")
+@CodeFor("../../themes/creating-a-custom-theme.asciidoc")
 public class IntegratingComponentTheme {
 
     // tag::getUrls[]

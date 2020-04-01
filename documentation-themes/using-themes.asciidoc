@@ -15,34 +15,38 @@ If you do not explicitly configure otherwise, the Lumo theme will be used.
 
 [.example]
 --
-In server-side views (Java), use the [classname]#@Theme# annotation to choose the theme. The annotation has to be set to your <<../flow/routing/tutorial-routing-annotation#,root navigation>> level class or to the <<../flow/routing/tutorial-router-layout#,router layout>> component defined in its [classname]#@Route# annotation. Otherwise an exception is thrown on startup.
+In server-side views (Java), use the [classname]#@Theme# annotation to choose the theme.
+The annotation has to be set to your <<../flow/routing/tutorial-routing-annotation#,root navigation>> level class or to the <<../flow/routing/tutorial-router-layout#,router layout>> component defined in its [classname]#@Route# annotation.
+Otherwise an exception is thrown on startup.
 
 [source, java]
 ----
 include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=lumo, indent=0, group=Java]
 ----
 
-In client-side views/templates (HTML/JS), import the themed version of each component. For Vaadin components, the built-in themes are located in the [filename]#theme# folder of each component package. Import any additional theme style sheets, if you use some of the custom properties in that view/template.
+In client-side views (JavaScript), import the themed version of each component.
+For Vaadin components, the built-in themes are located in the [filename]#theme# folder of each component package.
+Import any additional theme style sheets, if you use some of the custom properties in that view.
 
 [source, javascript]
 ----
-include::../documentation/src/main/js/WaysOfImporting.js[tags=client-side-theme, indent=0, group=HTML/JavaScript]
+include::../documentation/src/main/js/WaysOfImporting.js[tags=client-side-theme, indent=0, group=JavaScript]
 ----
 --
 
 
 == Custom Themes
 
-There are two ways to customize themes.
+There are two ways to customize themes:
 
 1. Customize existing themes
-2. Create a completely custom theme from scratch
+2. Create a completely new theme
 
 The easier way is to customize one of the existing themes, by overriding the CSS custom properties they expose as their public API and by writing and importing additional style sheets to further override styles.
 This approach works best when you only need to make small adjustments.
 See <<styling-components#,Styling Components>>, <<./lumo/lumo-overview#,Lumo>>, and <<./material/material-overview#,Material>> for more information.
 
-If you need to make more substantial changes, which will effectively override a large portion of an existing themes CSS, it can be better to create a completely custom theme from scratch.
+If you need to make more substantial changes, which will effectively override a large portion of an existing theme’s CSS, it can be better to create a completely new theme from scratch.
 See <<creating-a-custom-theme#, Creating a Custom Theme>> for more information.
 
 == No Theme
@@ -58,7 +62,8 @@ For server-side views, use the [classname]#@NoTheme# annotation to opt-out of lo
 include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=notheme, indent=0]
 ----
 
-In client-side views/templates, to get a minimal starting point, import the un-themed version of each component. For Vaadin components, the un-themed versions are located in the [filename]#src# folder of each component package.
+In client-side views/templates, to get a minimal starting point, import the un-themed version of each component.
+For Vaadin components, the un-themed versions are located in the [filename]#src# folder of each component package.
 
 [source,javascript]
 ----
@@ -69,10 +74,10 @@ import '@vaadin/vaadin-button/src/vaadin-button.js';
 
 == Theme Resolving Order
 
-For server-side UIs, the following resolving logic is used to determine which theme is used:
+For server-side views, the following logic is used to determine which theme is used:
 
 . If the `@Theme` annotation is found at the <<../flow/routing/tutorial-routing-annotation#,root navigation>> level, the theme set in the annotation is used
-. If the `@NoTheme` annotation is found at the root navigation level, theming is disabled
+. If the `@NoTheme` annotation is found at the root navigation level, no theme style sheets are loaded
 . If the `com.vaadin.flow.theme.lumo.Lumo` class is available in the classpath, the Lumo theme is used
 
 Resolving stops when a match is found.
@@ -86,4 +91,7 @@ Full page reload is required.
 That means you can’t, for example, use a different theme for different views/routes of your application.
 
 It is not possible to mix component themes::
-For example, you can't use the Lumo theme for Date Picker and the Material theme for Button at the same time, because Date Picker internally uses the Button component. If you did, both themes would be applied simultaneously and would cause style conflicts. This mainly affects client-side development, where you have fine-grained control over the component imports which you use in your views and templates.
+For example, you can't use the Lumo theme for Date Picker and the Material theme for Button at the same time, because Date Picker internally uses the Button component.
+If you did, both themes would be applied simultaneously and would cause style conflicts.
++
+This mainly affects client-side development, where you have fine-grained control over the component imports which you use in your views and templates.

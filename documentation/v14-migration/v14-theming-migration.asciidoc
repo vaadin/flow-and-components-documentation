@@ -12,7 +12,7 @@ One of the biggest changes in Vaadin 14 is the move from Bower, HTML imports and
 
 The instructions below assume the following Polymer 2 example in a Vaadin version 13 application:
 
-[source,html]
+[source, html]
 ----
 <link rel="import" href="../bower_components/polymer/lib/elements/custom-style.html">
 
@@ -43,7 +43,7 @@ To convert your files to Polymer 3 and make them them usable in a Vaadin version
 . Generate as many `.css` files as HTML blocks in your `.html` file
 
 .`frontend/styles/my-app-layout-theme.css`
-[source,css]
+[source, css]
 ----
 :host {
   background-color: var(--lumo-shade-5pct) !important;
@@ -55,7 +55,7 @@ To convert your files to Polymer 3 and make them them usable in a Vaadin version
 
 
 .`frontend/styles/my-custom-styles.css`
-[source,css]
+[source, css]
 ----
 .v-system-error {
     color: red;
@@ -65,7 +65,7 @@ To convert your files to Polymer 3 and make them them usable in a Vaadin version
 
 . Instruct Vaadin to import these CSS files using the `CssImport` annotation.
 
-[source,java]
+[source, java]
 ----
 @Route(value = "")
 // will be imported as a <dom-module> tag for theming components
