@@ -133,7 +133,7 @@ The `:host` selector also accepts a simple selector as an argument for it, scopi
 ----
 +
 ifdef::web[]
-Read more about the https://developer.mozilla.org/en-US/docs/Web/CSS/:host[`:host`] and https://developer.mozilla.org/en-US/docs/Web/CSS/:host()[`:host()`] selectors on MDN.
+Read more about the https://developer.mozilla.org/en-US/docs/Web/CSS/:host[:host] and https://developer.mozilla.org/en-US/docs/Web/CSS/:host()[:host()] selectors on MDN.
 endif::web[]
 
 
@@ -190,7 +190,7 @@ The built-in themes can also use the pseudo-elements, so be aware of potential c
 ----
 +
 ifdef::web[]
-Read more about the https://developer.mozilla.org/en-US/docs/Web/CSS/::before[`::before`] and https://developer.mozilla.org/en-US/docs/Web/CSS/::after[`::after`] selectors on MDN.
+Read more about the https://developer.mozilla.org/en-US/docs/Web/CSS/::before[::before] and https://developer.mozilla.org/en-US/docs/Web/CSS/::after[::after] selectors on MDN.
 endif::web[]
 
 
@@ -208,7 +208,7 @@ The `::slotted()` pseudo-element selector represents any element that has been p
 ----
 +
 ifdef::web[]
-Read more about the https://developer.mozilla.org/en-US/docs/Web/CSS/::slotted[`::slotted()`] selector on MDN.
+Read more about the https://developer.mozilla.org/en-US/docs/Web/CSS/::slotted[::slotted()] selector on MDN.
 endif::web[]
 
 
