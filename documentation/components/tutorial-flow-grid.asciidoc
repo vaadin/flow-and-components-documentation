@@ -675,9 +675,9 @@ grid.setItems(people);
 
 grid.addColumn(new ComponentRenderer<>(person -> {
     if (person.getGender() == Gender.MALE) {
-        return new Icon(VaadinIcon.MALE);
+        return VaadinIcon.MALE.create();
     } else {
-        return new Icon(VaadinIcon.FEMALE);
+        return VaadinIcon.FEMALE.create();
     }
 })).setHeader("Gender");
 ----
@@ -701,7 +701,7 @@ If the component is the same for every item, you only need to provide the `Suppl
 ----
 grid.addColumn(
     new ComponentRenderer<>(
-            () -> new Icon(VaadinIcon.ARROW_LEFT)));
+             () -> VaadinIcon.ARROW_LEFT.create()));
 ----
 
 You can create complex content for the grid cells by using the component APIs.
@@ -737,6 +737,9 @@ grid.addColumn(new ComponentRenderer<>(person -> {
     return new VerticalLayout(name, buttons);
 })).setHeader("Actions");
 ----
+[NOTE]
+`addComponentColumn` is a shorthand for `addColumn` with a `ComponentRenderer`.
+
 * Editing grid items requires refreshing the grid's `DataProvider`. The reasoning is the same as for <<Handling Events>> above.
 
 See <<../binding-data/tutorial-flow-data-provider#,Data Providers>> for more.
