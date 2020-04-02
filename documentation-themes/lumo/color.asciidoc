@@ -1,5 +1,6 @@
 ---
 title: Color
+order: 50
 layout: page
 ---
 

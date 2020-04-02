@@ -1,5 +1,6 @@
 ---
 title: Cursor
+order: 60
 layout: page
 ---
 

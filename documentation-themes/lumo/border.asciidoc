@@ -1,5 +1,6 @@
 ---
 title: Border
+order: 40
 layout: page
 ---
 

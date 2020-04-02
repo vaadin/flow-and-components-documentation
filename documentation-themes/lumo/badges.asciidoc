@@ -1,5 +1,6 @@
 ---
 title: Badges
+order: 30
 layout: page
 ---
 
