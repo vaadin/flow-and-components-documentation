@@ -1,0 +1,70 @@
+---
+title: Creating a Project with the Project Wizard
+order: 10
+layout: page
+---
+
+[[getting-started.project-wizard]]
+= Creating a Project with the Project Wizard
+
+== Creating a Downloadable Project
+
+In the following, we describe how you can create a downloadable project with the project wizard.
+
+. Navigate to http://vaadin.com/start[vaadin.com/start].
+
+. Choose the Vaadin version for the project.
+The latest LTS (Long-Term Service) version is suggested, but you can also choose a newer sversion if one is available.
++
+.Choosing the Vaadin version.
+image::images/project-wizard-01.png[Project Wizard]
+
+. Select *Download* (default)
+
+. Select a technology stack.
++
+See the descriptions of the technology stacks in <<getting-started-overview#getting-started.overview.stacks, Technology Stacks>>.
++
+image::images/project-wizard-02.png[Download]
+
+. Enter a *Maven Group ID*.
+This is usually your corporation ID or a personal ID.
+You are welcome to use one under `org.vaadin`, especially for open-source projects.
+
+. Enter a *Project Name*.
+It will also be used for the project ID in lowercase, with spaces replaced by dashes.
+
+. Click *Download* _or_ proceed to customize it as described in <<#getting-started.project-wizard.customizing, Customizing a Project>>.
+
+. Unzip the downloaded archive to a file location of your choice.
++
+TIP: Avoid unzipping to the download folder, as you could unintentionally delete your project when clearing out old downloads.
+
+Once you have the project unzipped, go on with importing it in your IDE as described in IDE specific sections.
+
+[[getting-started.project-wizard.customizing]]
+== Customizing a Project
+
+To customize a starter application, click [guibutton]#Customize App# in the project wizard, or navigate directly to the https://start.vaadin.com/[start.vaadin.com] to create a new project.
+
+.Customizing a project
+image::images/project-customizing-01.png[Customizing a Project]
+
+With the customization wizard, you can:
+
+* Configure views and routing from some example views:
+** A dashboard view
+** A master-detail view (requires Pro subscription)
+** A form
+** A card view
+* Choose how the views are built
+** Pure Java (Vaadin 14)
+** Java + HTML templates (Vaadin 14)
+** TypeScript + HTML (Vaadin 15)
+* Configure theme customization
+** Light/dark mode, palette, fonts, style details, size, spacing, etc.
+* Download the customized application
+
+
+After downloading the package and uncompressing it, you are nowready to import the project in your IDE, as described in subsequent sections.
+Please see the instructions for your IDE in <<getting-started-eclipse#getting-started.eclipse.importing, Importing a Project in the Eclipse IDE>> or <<getting-started-eclipse#getting-started.eclipse.importing, Importing a Project in IntelliJ>>.
