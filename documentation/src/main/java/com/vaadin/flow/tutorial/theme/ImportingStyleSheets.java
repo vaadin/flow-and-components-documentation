@@ -18,11 +18,13 @@ public class ImportingStyleSheets {
     @CssImport(value = "./styles/shared-styles.css", include = "common-styles")
 
     // tag::cssimport-id[]
-    @CssImport(value = "./styles/common-styles.css", id = "common-styles")
+    @CssImport(value = "./styles/shared-typography.css",
+               id = "shared-typography")
     // end::cssimport-id[]
 
     // tag::cssimport-include[]
-    @CssImport(value = "./styles/specific-styles.css", include = "common-styles")
+    @CssImport(value = "./styles/shared-styles.css",
+               include = "shared-typography")
     // end::cssimport-include[]
 
     // tag::cssimport-themefor[]
@@ -32,7 +34,13 @@ public class ImportingStyleSheets {
     // tag::cssimport-themefor-multiple[]
     @CssImport(value = "./styles/shared-overlays.css",
                themeFor = "vaadin-select-overlay vaadin-combo-box-overlay")
-   // end::cssimport-themefor-multiple[]
+    // end::cssimport-themefor-multiple[]
+
+    // tag::cssimport-themefor-include[]
+    @CssImport(value = "./styles/shared-styles.css",
+               include = "shared-typography",
+               themeFor = "vaadin-confirm-dialog-overlay")
+    // end::cssimport-themefor-include[]
 
     // tag::stylesheet[]
     @StyleSheet("context://custom-font.css")

@@ -47,9 +47,17 @@ public class UsingComponentThemes {
     }
     // end::lumo[]
 
+    // tag::material[]
+    @Route(value = "")
+    @Theme(value = Material.class)
+    public class MaterialApplication extends Div {
+    }
+    // end::material[]
+    //
+
     @Route(value = "")
     @Theme(MyTheme.class)
-    public class MaterialApplication extends Div {
+    public class MyApplication extends Div {
     }
 
     @Theme(MyTheme.class)
@@ -103,6 +111,7 @@ public class UsingComponentThemes {
 
     {
         // tag::themed-button[]
+        // Using the high-level HasTheme API
         Button button = new Button("Themed button");
         button.addThemeVariants(ButtonVariant.LUMO_PRIMARY,
                 ButtonVariant.LUMO_SMALL);
@@ -117,6 +126,7 @@ public class UsingComponentThemes {
     }
     {
         // tag::themed-button3[]
+        // Using the low-level Element API
         Button button = new Button("Themed button");
         String themeAttributeName = "theme";
         String oldValue = button.getElement()

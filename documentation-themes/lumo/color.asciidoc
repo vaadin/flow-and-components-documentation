@@ -10,62 +10,257 @@ include::../themes-shared.asciidoc[opts=optional]
 
 Lumo defines a set of style modules and CSS custom properties you can use to apply a consistent color palette across your application.
 
-Import `color.js` to use them.
-
-[source,html]
-----
-<script type="module">
-  import '@vaadin/vaadin-lumo-styles/color.js';
-</script>
-----
-
 [NOTE]
-The default color palette is link:https://www.w3.org/TR/WCAG20/#visual-audio-contrast[WCAG 2.0] AA level compliant unless otherwise noted.
-
-== Style Sheet
-
-Include the color style sheet to apply basic colors for any style scope. It will set the background, text and link colors and enable you to use the dark palette colors inside that style scope.
-
-[source,html]
-----
-<custom-style>
-  <style include="lumo-color"></style>
-</custom-style>
-----
-
-== Dark palette
-
-The dark color palette is available when you include the main style sheet.
-
-You can apply the `theme="dark"` attribute on any element inside the style scope where you include the main style module.
-
-[NOTE]
-The dark variant is not supported in Internet Explorer 11. https://github.com/vaadin/vaadin-lumo-styles/issues/50[See the issue in GitHub].
-
-If you include the main style module in the global scope (i.e. index.html), you can apply the `theme="dark"` attribute on the `<html>` element directly, to make the whole page adopt the dark color palette.
-
-
-[source,html]
-----
-<!-- Import the style sheet -->
-<script type="module">
-  import '@vaadin/vaadin-lumo-styles/color.js';
-</script>
-
-<!-- Include the "lumo-color" style sheet -->
-<custom-style>
-  <style include="lumo-color"></style>
-</custom-style>
-
-<div theme="dark">
-  <!-- Everything inside this element will use the dark palette colors -->
-</div>
-----
+The default color palette is not fully link:https://www.w3.org/TR/WCAG20/#visual-audio-contrast[WCAG 2.0] AA level compliant.
+ifdef::web[]
+Follow the https://github.com/vaadin/vaadin-lumo-styles/issues/22[issue on GitHub].
+endif::web[]
 
 == Base
 
 The base color is used as the main background color for the system. The <<grayscale>> colors are designed to be used on top of it, and the <<text>> colors are designed to have sufficient contrast with it.
 
+++++
+<content-preview class="block" hidesource raw>
+    <dl class="custom-properties color">
+      <dt>--lumo-base-color: <span class="color-swatch" style="background-color: #FFF"></span><code>#FFF</code></dt>
+    </dl>
+
+    <h5>Primary</h5>
+    <p>The most prominent color in the system. It is used to bring attention to certain elements in the interface. Accompanying text and contrast colors are also defined.</p>
+    <dl class="custom-properties color">
+      <dt>--lumo-primary-color-10pct: <span class="color-swatch" style="background-color: hsla(214, 90%, 52%, 0.1)"></span><code>hsla(214, 90%, 52%, 0.1)</code></dt>
+      <dt>--lumo-primary-color-50pct: <span class="color-swatch" style="background-color: hsla(214, 90%, 52%, 0.5)"></span><code>hsla(214, 90%, 52%, 0.5)</code></dt>
+      <dt>--lumo-primary-color: <span class="color-swatch" style="background-color: hsl(214, 90%, 52%)"></span><code>hsl(214, 90%, 52%)</code></dt>
+      <dt>--lumo-primary-contrast-color: <span class="color-swatch" style="background-color: #FFF"></span><code>#FFF</code></dt>
+    </dl>
+</content-preview>
+++++
+== Grayscale
+These colors form the foundation for your application colors. The grayscale colors consist of 11 different shades of “black” and “white”, each with a degree of transparency.
+
+The tint and shade colors not always pure grayscale by default, but tinted slightly with the primary color.
+
+The grayscale colors are useful for dividing pages into sections with different backgrounds and borders, or used as text colors, for example.
+
+.Accessibility
+[NOTE]
+The default text colors are tested to have enough contrast on top of the Base color and “Base + 5–20% Contrast color”. Avoid using a a higher Contrast color as a background color for any important content.
+
+++++
+<content-preview class="block" hidesource raw>
+
+    <h5>Tint</h5>
+    <dl class="custom-properties color">
+      <dt>--lumo-tint-5pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.3)"></span><code>hsla(0, 0%, 100%, 0.3)</code></dt>
+      <dt>--lumo-tint-10pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.37)"></span><code>hsla(0, 0%, 100%, 0.37)</code></dt>
+      <dt>--lumo-tint-20pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.44)"></span><code>hsla(0, 0%, 100%, 0.44)</code></dt>
+      <dt>--lumo-tint-30pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.5)"></span><code>hsla(0, 0%, 100%, 0.5)</code></dt>
+      <dt>--lumo-tint-40pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.57)"></span><code>hsla(0, 0%, 100%, 0.57)</code></dt>
+      <dt>--lumo-tint-50pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.64)"></span><code>hsla(0, 0%, 100%, 0.64)</code></dt>
+      <dt>--lumo-tint-60pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.7)"></span><code>hsla(0, 0%, 100%, 0.7)</code></dt>
+      <dt>--lumo-tint-70pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.77)"></span><code>hsla(0, 0%, 100%, 0.77)</code></dt>
+      <dt>--lumo-tint-80pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.84)"></span><code>hsla(0, 0%, 100%, 0.84)</code></dt>
+      <dt>--lumo-tint-90pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.9)"></span><code>hsla(0, 0%, 100%, 0.9)</code></dt>
+      <dt>--lumo-tint: <span class="color-swatch" style="background-color: #FFF"></span><code>#FFF</code></dt>
+    </dl>
+
+    <h5>Shade</h5>
+    <dl class="custom-properties color">
+      <dt>--lumo-shade-5pct: <span class="color-swatch" style="background-color: hsla(214, 61%, 25%, 0.05)"></span><code>hsla(214, 61%, 25%, 0.05)</code></dt>
+      <dt>--lumo-shade-10pct: <span class="color-swatch" style="background-color: hsla(214, 57%, 24%, 0.1)"></span><code>hsla(214, 57%, 24%, 0.1)</code></dt>
+      <dt>--lumo-shade-20pct: <span class="color-swatch" style="background-color: hsla(214, 53%, 23%, 0.16)"></span><code>hsla(214, 53%, 23%, 0.16)</code></dt>
+      <dt>--lumo-shade-30pct: <span class="color-swatch" style="background-color: hsla(214, 50%, 22%, 0.26)"></span><code>hsla(214, 50%, 22%, 0.26)</code></dt>
+      <dt>--lumo-shade-40pct: <span class="color-swatch" style="background-color: hsla(214, 47%, 21%, 0.38)"></span><code>hsla(214, 47%, 21%, 0.38)</code></dt>
+      <dt>--lumo-shade-50pct: <span class="color-swatch" style="background-color: hsla(214, 45%, 20%, 0.5)"></span><code>hsla(214, 45%, 20%, 0.5)</code></dt>
+      <dt>--lumo-shade-60pct: <span class="color-swatch" style="background-color: hsla(214, 43%, 19%, 0.61)"></span><code>hsla(214, 43%, 19%, 0.61)</code></dt>
+      <dt>--lumo-shade-70pct: <span class="color-swatch" style="background-color: hsla(214, 42%, 18%, 0.72)"></span><code>hsla(214, 42%, 18%, 0.72)</code></dt>
+      <dt>--lumo-shade-80pct: <span class="color-swatch" style="background-color: hsla(214, 41%, 17%, 0.83)"></span><code>hsla(214, 41%, 17%, 0.83)</code></dt>
+      <dt>--lumo-shade-90pct: <span class="color-swatch" style="background-color: hsla(214, 40%, 16%, 0.94)"></span><code>hsla(214, 40%, 16%, 0.94)</code></dt>
+      <dt>--lumo-shade: <span class="color-swatch" style="background-color: hsl(214, 35%, 15%)"></span><code>hsl(214, 35%, 15%)</code></dt>
+    </dl>
+
+    <h5>Contrast</h5>
+    <p>The contrast colors work automatically for both light and dark variations. For the light palette the shade colors are used, and for the dark palette the tint colors are used.</p>
+    <dl class="custom-properties color">
+      <dt>--lumo-contrast-5pct: <span class="color-swatch" style="background-color: hsla(214, 61%, 25%, 0.05)"></span><code>hsla(214, 61%, 25%, 0.05)</code></dt>
+      <dt>--lumo-contrast-10pct: <span class="color-swatch" style="background-color: hsla(214, 57%, 24%, 0.1)"></span><code>hsla(214, 57%, 24%, 0.1)</code></dt>
+      <dt>--lumo-contrast-20pct: <span class="color-swatch" style="background-color: hsla(214, 53%, 23%, 0.16)"></span><code>hsla(214, 53%, 23%, 0.16)</code></dt>
+      <dt>--lumo-contrast-30pct: <span class="color-swatch" style="background-color: hsla(214, 50%, 22%, 0.26)"></span><code>hsla(214, 50%, 22%, 0.26)</code></dt>
+      <dt>--lumo-contrast-40pct: <span class="color-swatch" style="background-color: hsla(214, 47%, 21%, 0.38)"></span><code>hsla(214, 47%, 21%, 0.38)</code></dt>
+      <dt>--lumo-contrast-50pct: <span class="color-swatch" style="background-color: hsla(214, 45%, 20%, 0.5)"></span><code>hsla(214, 45%, 20%, 0.5)</code></dt>
+      <dt>--lumo-contrast-60pct: <span class="color-swatch" style="background-color: hsla(214, 43%, 19%, 0.61)"></span><code>hsla(214, 43%, 19%, 0.61)</code></dt>
+      <dt>--lumo-contrast-70pct: <span class="color-swatch" style="background-color: hsla(214, 42%, 18%, 0.72)"></span><code>hsla(214, 42%, 18%, 0.72)</code></dt>
+      <dt>--lumo-contrast-80pct: <span class="color-swatch" style="background-color: hsla(214, 41%, 17%, 0.83)"></span><code>hsla(214, 41%, 17%, 0.83)</code></dt>
+      <dt>--lumo-contrast-90pct: <span class="color-swatch" style="background-color: hsla(214, 40%, 16%, 0.94)"></span><code>hsla(214, 40%, 16%, 0.94)</code></dt>
+      <dt>--lumo-contrast: <span class="color-swatch" style="background-color: hsl(214, 35%, 15%)"></span><code>hsl(214, 35%, 15%)</code></dt>
+    </dl>
+</content-preview>
+++++
+== Error
+
+Usually a red color, used for error indicators, error messages and buttons that can cause permanent data loss. Accompanying text and contrast colors are also defined.
+
+++++
+<content-preview class="block" hidesource raw>
+    <dl class="custom-properties color">
+      <dt>--lumo-error-color-10pct: <span class="color-swatch" style="background-color: hsla(3, 100%, 60%, 0.1)"></span><code>hsla(3, 100%, 60%, 0.1)</code></dt>
+      <dt>--lumo-error-color-50pct: <span class="color-swatch" style="background-color: hsla(3, 100%, 60%, 0.5)"></span><code>hsla(3, 100%, 60%, 0.5)</code></dt>
+      <dt>--lumo-error-color: <span class="color-swatch" style="background-color: hsl(3, 100%, 61%)"></span><code>hsl(3, 100%, 61%)</code></dt>
+      <dt>--lumo-error-contrast-color: <span class="color-swatch" style="background-color: #FFF"></span><code>#FFF</code></dt>
+    </dl>
+</content-preview>
+++++
+== Success
+
+Usually a green color, used for success messages and buttons that complete a certain task. Accompanying text and contrast colors are also defined.
+
+++++
+<content-preview class="block" hidesource raw>
+    <dl class="custom-properties color">
+      <dt>--lumo-success-color-10pct: <span class="color-swatch" style="background-color: hsla(145, 76%, 44%, 0.12)"></span><code>hsla(145, 76%, 44%, 0.12)</code></dt>
+      <dt>--lumo-success-color-50pct: <span class="color-swatch" style="background-color: hsla(145, 76%, 44%, 0.55)"></span><code>hsla(145, 76%, 44%, 0.55)</code></dt>
+      <dt>--lumo-success-color: <span class="color-swatch" style="background-color: hsl(145, 80%, 42%)"></span><code>hsl(145, 80%, 42%)</code></dt>
+      <dt>--lumo-success-contrast-color: <span class="color-swatch" style="background-color: #FFF"></span><code>#FFF</code></dt>
+    </dl>
+</content-preview>
+++++
+
+== Text
+
+The following text colors have the desired contrast with the <a href="#base">Base</a> color.
+
+==== Separate text colors
+Note, that `--lumo-primary-text-color` is not necessarily the same as `--lumo-primary-color`. Use the main color for backgrounds and the “text” version for text.
+
+The same applies for the “error” and “success” colors as well.
+
+
+.Accessibility
+[NOTE]
+The “tertiary” and “disabled” text colors do not have enough contrast to meet WCAG 2.0 AA level requirements (4.5:1). Only use them for text which is not crucial for the end user to see.
+
+++++
+<content-preview class="block" hidesource raw>
+    <dl class="custom-properties color">
+      <dt>--lumo-header-text-color: <span class="color-swatch" style="background-color: hsl(214, 35%, 15%)"></span><code>hsl(214, 35%, 15%)</code></dt>
+      <dt>--lumo-body-text-color: <span class="color-swatch" style="background-color: hsla(214, 40%, 16%, 0.94)"></span><code>hsla(214, 40%, 16%, 0.94)</code></dt>
+      <dt>--lumo-secondary-text-color: <span class="color-swatch" style="background-color: hsla(214, 42%, 18%, 0.72)"></span><code>hsla(214, 42%, 18%, 0.72)</code></dt>
+      <dt>--lumo-tertiary-text-color: <span class="color-swatch" style="background-color: hsla(214, 45%, 20%, 0.5)"></span><code>hsla(214, 45%, 20%, 0.5)</code></dt>
+      <dt>--lumo-disabled-text-color: <span class="color-swatch" style="background-color: hsla(214, 50%, 22%, 0.26)"></span><code>hsla(214, 50%, 22%, 0.26)</code></dt>
+      <dt>--lumo-primary-text-color: <span class="color-swatch" style="background-color: hsl(214, 90%, 52%)"></span><code>hsl(214, 90%, 52%)</code></dt>
+      <dt>--lumo-error-text-color: <span class="color-swatch" style="background-color: hsl(3, 92%, 53%)"></span><code>hsl(3, 92%, 53%)</code></dt>
+      <dt>--lumo-success-text-color: <span class="color-swatch" style="background-color: hsl(145, 100%, 32%)"></span><code>hsl(145, 100%, 32%)</code></dt>
+      <dt>--lumo-link-color: <code>var(--lumo-primary-text-color)</code></dt>
+    </dl>
+  </content-preview>
+++++
+== Dark palette
+
+The custom properties are the same, but their values are different when using the dark palette.
+
+++++
+    <details>
+    <summary>Show dark palette values</summary>
+
+  <content-preview class="block" hidesource raw>
+    <div theme="dark" style="margin: 0 -1em; padding: 0 1em;">
+
+      <h5>Base color</h5>
+      <dl class="custom-properties color">
+        <dt>--lumo-base-color: <span class="color-swatch" style="background-color: hsl(214, 35%, 21%)"></span><code>hsl(214, 35%, 21%)</code></dt>
+      </dl>
+
+      <h5>Primary</h5>
+      <dl class="custom-properties color">
+        <dt>--lumo-primary-color-10pct: <span class="color-swatch" style="background-color: hsla(214, 90%, 63%, 0.1)"></span><code>hsla(214, 90%, 63%, 0.1)</code></dt>
+        <dt>--lumo-primary-color-50pct: <span class="color-swatch" style="background-color: hsla(214, 86%, 55%, 0.5)"></span><code>hsla(214, 86%, 55%, 0.5)</code></dt>
+        <dt>--lumo-primary-color: <span class="color-swatch" style="background-color: hsl(214, 86%, 55%)"></span><code>hsl(214, 86%, 55%)</code></dt>
+        <dt>--lumo-primary-contrast-color: <span class="color-swatch" style="background-color: #FFF"></span><code>#FFF</code></dt>
+      </dl>
+
+      <h5>Tint</h5>
+      <dl class="custom-properties color">
+        <dt>--lumo-tint-5pct: <span class="color-swatch" style="background-color: hsla(214, 65%, 85%, 0.06)"></span><code>hsla(214, 65%, 85%, 0.06)</code></dt>
+        <dt>--lumo-tint-10pct: <span class="color-swatch" style="background-color: hsla(214, 60%, 80%, 0.14)"></span><code>hsla(214, 60%, 80%, 0.14)</code></dt>
+        <dt>--lumo-tint-20pct: <span class="color-swatch" style="background-color: hsla(214, 64%, 82%, 0.23)"></span><code>hsla(214, 64%, 82%, 0.23)</code></dt>
+        <dt>--lumo-tint-30pct: <span class="color-swatch" style="background-color: hsla(214, 69%, 84%, 0.32)"></span><code>hsla(214, 69%, 84%, 0.32)</code></dt>
+        <dt>--lumo-tint-40pct: <span class="color-swatch" style="background-color: hsla(214, 73%, 86%, 0.41)"></span><code>hsla(214, 73%, 86%, 0.41)</code></dt>
+        <dt>--lumo-tint-50pct: <span class="color-swatch" style="background-color: hsla(214, 78%, 88%, 0.5)"></span><code>hsla(214, 78%, 88%, 0.5)</code></dt>
+        <dt>--lumo-tint-60pct: <span class="color-swatch" style="background-color: hsla(214, 82%, 90%, 0.6)"></span><code>hsla(214, 82%, 90%, 0.6)</code></dt>
+        <dt>--lumo-tint-70pct: <span class="color-swatch" style="background-color: hsla(214, 87%, 92%, 0.7)"></span><code>hsla(214, 87%, 92%, 0.7)</code></dt>
+        <dt>--lumo-tint-80pct: <span class="color-swatch" style="background-color: hsla(214, 91%, 94%, 0.8)"></span><code>hsla(214, 91%, 94%, 0.8)</code></dt>
+        <dt>--lumo-tint-90pct: <span class="color-swatch" style="background-color: hsla(214, 96%, 96%, 0.9)"></span><code>hsla(214, 96%, 96%, 0.9)</code></dt>
+        <dt>--lumo-tint: <span class="color-swatch" style="background-color: hsl(214, 100%, 98%)"></span><code>hsl(214, 100%, 98%)</code></dt>
+      </dl>
+
+      <h5>Shade</h5>
+      <dl class="custom-properties color">
+        <dt>--lumo-shade-5pct: <span class="color-swatch" style="background-color: hsla(214, 0%, 0%, 0.07)"></span><code>hsla(214, 0%, 0%, 0.07)</code></dt>
+        <dt>--lumo-shade-10pct: <span class="color-swatch" style="background-color: hsla(214, 4%, 2%, 0.15)"></span><code>hsla(214, 4%, 2%, 0.15)</code></dt>
+        <dt>--lumo-shade-20pct: <span class="color-swatch" style="background-color: hsla(214, 8%, 4%, 0.23)"></span><code>hsla(214, 8%, 4%, 0.23)</code></dt>
+        <dt>--lumo-shade-30pct: <span class="color-swatch" style="background-color: hsla(214, 12%, 6%, 0.32)"></span><code>hsla(214, 12%, 6%, 0.32)</code></dt>
+        <dt>--lumo-shade-40pct: <span class="color-swatch" style="background-color: hsla(214, 16%, 8%, 0.41)"></span><code>hsla(214, 16%, 8%, 0.41)</code></dt>
+        <dt>--lumo-shade-50pct: <span class="color-swatch" style="background-color: hsla(214, 20%, 10%, 0.5)"></span><code>hsla(214, 20%, 10%, 0.5)</code></dt>
+        <dt>--lumo-shade-60pct: <span class="color-swatch" style="background-color: hsla(214, 24%, 12%, 0.6)"></span><code>hsla(214, 24%, 12%, 0.6)</code></dt>
+        <dt>--lumo-shade-70pct: <span class="color-swatch" style="background-color: hsla(214, 28%, 13%, 0.7)"></span><code>hsla(214, 28%, 13%, 0.7)</code></dt>
+        <dt>--lumo-shade-80pct: <span class="color-swatch" style="background-color: hsla(214, 32%, 13%, 0.8)"></span><code>hsla(214, 32%, 13%, 0.8)</code></dt>
+        <dt>--lumo-shade-90pct: <span class="color-swatch" style="background-color: hsla(214, 33%, 13%, 0.9)"></span><code>hsla(214, 33%, 13%, 0.9)</code></dt>
+        <dt>--lumo-shade: <span class="color-swatch" style="background-color: hsl(214, 33%, 13%)"></span><code>hsl(214, 33%, 13%)</code></dt>
+      </dl>
+
+      <h5>Contrast</h5>
+      <dl class="custom-properties color">
+        <dt>--lumo-contrast-5pct: <span class="color-swatch" style="background-color: hsla(214, 65%, 85%, 0.06)"></span><code>hsla(214, 65%, 85%, 0.06)</code></dt>
+        <dt>--lumo-contrast-10pct: <span class="color-swatch" style="background-color: hsla(214, 60%, 80%, 0.14)"></span><code>hsla(214, 60%, 80%, 0.14)</code></dt>
+        <dt>--lumo-contrast-20pct: <span class="color-swatch" style="background-color: hsla(214, 64%, 82%, 0.23)"></span><code>hsla(214, 64%, 82%, 0.23)</code></dt>
+        <dt>--lumo-contrast-30pct: <span class="color-swatch" style="background-color: hsla(214, 69%, 84%, 0.32)"></span><code>hsla(214, 69%, 84%, 0.32)</code></dt>
+        <dt>--lumo-contrast-40pct: <span class="color-swatch" style="background-color: hsla(214, 73%, 86%, 0.41)"></span><code>hsla(214, 73%, 86%, 0.41)</code></dt>
+        <dt>--lumo-contrast-50pct: <span class="color-swatch" style="background-color: hsla(214, 78%, 88%, 0.5)"></span><code>hsla(214, 78%, 88%, 0.5)</code></dt>
+        <dt>--lumo-contrast-60pct: <span class="color-swatch" style="background-color: hsla(214, 82%, 90%, 0.6)"></span><code>hsla(214, 82%, 90%, 0.6)</code></dt>
+        <dt>--lumo-contrast-70pct: <span class="color-swatch" style="background-color: hsla(214, 87%, 92%, 0.7)"></span><code>hsla(214, 87%, 92%, 0.7)</code></dt>
+        <dt>--lumo-contrast-80pct: <span class="color-swatch" style="background-color: hsla(214, 91%, 94%, 0.8)"></span><code>hsla(214, 91%, 94%, 0.8)</code></dt>
+        <dt>--lumo-contrast-90pct: <span class="color-swatch" style="background-color: hsla(214, 96%, 96%, 0.9)"></span><code>hsla(214, 96%, 96%, 0.9)</code></dt>
+        <dt>--lumo-contrast: <span class="color-swatch" style="background-color: hsl(214, 100%, 98%)"></span><code>hsl(214, 100%, 98%)</code></dt>
+      </dl>
+
+      <h5>Error</h5>
+      <dl class="custom-properties color">
+        <dt>--lumo-error-color-10pct: <span class="color-swatch" style="background-color: hsla(3, 90%, 63%, 0.1)"></span><code>hsla(3, 90%, 63%, 0.1)</code></dt>
+        <dt>--lumo-error-color-50pct: <span class="color-swatch" style="background-color: hsla(3, 90%, 63%, 0.5)"></span><code>hsla(3, 90%, 63%, 0.5)</code></dt>
+        <dt>--lumo-error-color: <span class="color-swatch" style="background-color: hsl(3, 90%, 63%)"></span><code>hsl(3, 90%, 63%)</code></dt>
+        <dt>--lumo-error-contrast-color: <span class="color-swatch" style="background-color: #FFF"></span><code>#FFF</code></dt>
+      </dl>
+
+      <h5>Success</h5>
+      <dl class="custom-properties color">
+        <dt>--lumo-success-color-10pct: <span class="color-swatch" style="background-color: hsla(145, 65%, 42%, 0.1)"></span><code>hsla(145, 65%, 42%, 0.1)</code></dt>
+        <dt>--lumo-success-color-50pct: <span class="color-swatch" style="background-color: hsla(145, 65%, 42%, 0.5)"></span><code>hsla(145, 65%, 42%, 0.5)</code></dt>
+        <dt>--lumo-success-color: <span class="color-swatch" style="background-color: hsl(145, 65%, 42%)"></span><code>hsl(145, 65%, 42%)</code></dt>
+        <dt>--lumo-success-contrast-color: <span class="color-swatch" style="background-color: #FFF"></span><code>#FFF</code></dt>
+      </dl>
+
+      <h5>Text</h5>
+      <dl class="custom-properties color">
+        <dt>--lumo-header-text-color: <span class="color-swatch" style="background-color: hsl(214, 100%, 98%)"></span><code>hsl(214, 100%, 98%)</code></dt>
+        <dt>--lumo-body-text-color: <span class="color-swatch" style="background-color: hsla(214, 96%, 96%, 0.9)"></span><code>hsla(214, 96%, 96%, 0.9)</code></dt>
+        <dt>--lumo-secondary-text-color: <span class="color-swatch" style="background-color: hsla(214, 87%, 92%, 0.7)"></span><code>hsla(214, 87%, 92%, 0.7)</code></dt>
+        <dt>--lumo-tertiary-text-color: <span class="color-swatch" style="background-color: hsla(214, 78%, 88%, 0.5)"></span><code>hsla(214, 78%, 88%, 0.5)</code></dt>
+        <dt>--lumo-disabled-text-color: <span class="color-swatch" style="background-color: hsla(214, 69%, 84%, 0.32)"></span><code>hsla(214, 69%, 84%, 0.32)</code></dt>
+        <dt>--lumo-primary-text-color: <span class="color-swatch" style="background-color: hsl(214, 100%, 70%)"></span><code>hsl(214, 100%, 70%)</code></dt>
+        <dt>--lumo-error-text-color: <span class="color-swatch" style="background-color: hsl(3, 100%, 67%)"></span><code>hsl(3, 100%, 67%)</code></dt>
+        <dt>--lumo-success-text-color: <span class="color-swatch" style="background-color: hsl(145, 85%, 47%)"></span><code>hsl(145, 85%, 47%)</code></dt>
+        <dt>--lumo-link-color: <code>var(--lumo-primary-text-color)</code></dt>
+      </dl>
+
+    </div>
+  </content-preview>
+  </detail>
+++++
+
+
+== Examples
+=== Base
 ++++
 <content-preview class="background-shade">
 ++++
@@ -86,10 +281,8 @@ The base color is used as the main background color for the system. The <<graysc
 </content-preview>
 
 ++++
-== Primary
+=== Primary
 ++++
-    <p>The most prominent color in the system. It is used to bring attention to certain elements in the interface. Accompanying text and contrast colors are also defined.</p>
-
 <content-preview>
 ++++
 [source,html]
@@ -119,10 +312,8 @@ The base color is used as the main background color for the system. The <<graysc
 </content-preview>
 
 ++++
-== Error
+=== Error
 ++++
-    <p>Usually a red color, used for error indicators, error messages and buttons that can cause permanent data loss. Accompanying text and contrast colors are also defined.</p>
-
 <content-preview>
 ++++
 [source,html]
@@ -152,15 +343,8 @@ The base color is used as the main background color for the system. The <<graysc
 </content-preview>
 
 ++++
-== Success
+=== Success
 ++++
-    <p>Usually a green color, used for success messages and buttons that complete a certain task. Accompanying text and contrast colors are also defined.</p>
-    <div class="note warn">
-      <h6>Accessibility</h6>
-      <p>The <code style=""><span class="color-swatch" style="background-color: var(--lumo-success-color);"></span>--lumo-success-color</code> does not have enough contrast by default to meet WCAG 2.0 AA level requirements (3:1). Use <code><span class="color-swatch" style="background-color: hsl(144, 82%, 38%);"></span>hsl(144, 82%, 38%)</code> for compliant contrast.</p>
-      <p>The <code><span class="color-swatch" style="background-color: var(--lumo-success-text-color);"></span>--lumo-success-text-color</code> is compliant by default.</p>
-    </div>
-
 <content-preview>
 ++++
 [source,html]
@@ -190,19 +374,8 @@ The base color is used as the main background color for the system. The <<graysc
 </content-preview>
 
 ++++
-== Grayscale
+=== Grayscale
 ++++
-    <p>These colors form the foundation for your application colors. The grayscale colors consist of 11 different shades of “black” and “white”, each with a degree of transparency.</p>
-
-    <p>The tint and shade colors not always pure grayscale by default, but tinted slightly with the primary color.</p>
-
-    <p>The grayscale colors are useful for dividing pages into sections with different backgrounds and borders, or used as text colors, for example.</p>
-
-    <div class="note warn">
-      <h6>Accessibility</h6>
-      <p>The default text colors are tested to have enough contrast on top of the <a href="#base">Base</a> color and “Base + 5–20% <a href="#contrast">Contrast</a> color”. Avoid using a a higher Contrast color as a background color for any important content.</p>
-    </div>
-
     <h4 id="tint">Tint</h4>
 
 <content-preview class="background-shade">
@@ -332,8 +505,8 @@ The base color is used as the main background color for the system. The <<graysc
 ++++
 </content-preview>
 
-    <h4 id="contrast">Contrast</h4>
-    <p>The contrast colors work automatically for both light and dark variations. For the light palette the shade colors are used, and for the dark palette the tint colors are used.</p>
+    <h4>Contrast</h4>
+
 
 <content-preview>
 ++++
@@ -398,20 +571,8 @@ The base color is used as the main background color for the system. The <<graysc
 </content-preview>
 
 ++++
-== Text
+=== Text
 ++++
-    <p>The following text colors have the desired contrast with the <a href="#base">Base</a> color.</p>
-
-    <div>
-      <h6>Separate text colors</h6>
-      <p>Note, that <code><span class="color-swatch" style="background-color: var(--lumo-primary-text-color);"></span>--lumo-primary-text-color</code> is not necessarily the same as <code><span class="color-swatch" style="background-color: var(--lumo-primary-color);"></span>--lumo-primary-color</code>. Use the main color for backgrounds and the “text” version for text.</p>
-      <p>The same applies for the “error” and “success” colors as well.</p>
-    </div>
-    <div class="note warn">
-      <h6>Accessibility</h6>
-      <p>The “tertiary” and “disabled” text colors do not have enough contrast by default to meet WCAG 2.0 AA level requirements (3:1). Only use them for text which is not crucial for the end user to see.</p>
-    </div>
-
 <content-preview>
 ++++
 [source,html]
@@ -460,198 +621,4 @@ The base color is used as the main background color for the system. The <<graysc
 </content-preview>
 
 
-++++
-== Custom properties
-++++
-
-    <h3>Light palette</h3>
-
-<content-preview class="block" hidesource raw>
-    <h5>Base color</h5>
-    <dl class="custom-properties color">
-      <dt>--lumo-base-color: <span class="color-swatch" style="background-color: #FFF"></span><code>#FFF</code></dt>
-    </dl>
-
-    <h5>Primary</h5>
-    <dl class="custom-properties color">
-      <dt>--lumo-primary-color-10pct: <span class="color-swatch" style="background-color: hsla(214, 90%, 52%, 0.1)"></span><code>hsla(214, 90%, 52%, 0.1)</code></dt>
-      <dt>--lumo-primary-color-50pct: <span class="color-swatch" style="background-color: hsla(214, 90%, 52%, 0.5)"></span><code>hsla(214, 90%, 52%, 0.5)</code></dt>
-      <dt>--lumo-primary-color: <span class="color-swatch" style="background-color: hsl(214, 90%, 52%)"></span><code>hsl(214, 90%, 52%)</code></dt>
-      <dt>--lumo-primary-contrast-color: <span class="color-swatch" style="background-color: #FFF"></span><code>#FFF</code></dt>
-    </dl>
-
-    <h5>Tint</h5>
-    <dl class="custom-properties color">
-      <dt>--lumo-tint-5pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.3)"></span><code>hsla(0, 0%, 100%, 0.3)</code></dt>
-      <dt>--lumo-tint-10pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.37)"></span><code>hsla(0, 0%, 100%, 0.37)</code></dt>
-      <dt>--lumo-tint-20pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.44)"></span><code>hsla(0, 0%, 100%, 0.44)</code></dt>
-      <dt>--lumo-tint-30pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.5)"></span><code>hsla(0, 0%, 100%, 0.5)</code></dt>
-      <dt>--lumo-tint-40pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.57)"></span><code>hsla(0, 0%, 100%, 0.57)</code></dt>
-      <dt>--lumo-tint-50pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.64)"></span><code>hsla(0, 0%, 100%, 0.64)</code></dt>
-      <dt>--lumo-tint-60pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.7)"></span><code>hsla(0, 0%, 100%, 0.7)</code></dt>
-      <dt>--lumo-tint-70pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.77)"></span><code>hsla(0, 0%, 100%, 0.77)</code></dt>
-      <dt>--lumo-tint-80pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.84)"></span><code>hsla(0, 0%, 100%, 0.84)</code></dt>
-      <dt>--lumo-tint-90pct: <span class="color-swatch" style="background-color: hsla(0, 0%, 100%, 0.9)"></span><code>hsla(0, 0%, 100%, 0.9)</code></dt>
-      <dt>--lumo-tint: <span class="color-swatch" style="background-color: #FFF"></span><code>#FFF</code></dt>
-    </dl>
-
-    <h5>Shade</h5>
-    <dl class="custom-properties color">
-      <dt>--lumo-shade-5pct: <span class="color-swatch" style="background-color: hsla(214, 61%, 25%, 0.05)"></span><code>hsla(214, 61%, 25%, 0.05)</code></dt>
-      <dt>--lumo-shade-10pct: <span class="color-swatch" style="background-color: hsla(214, 57%, 24%, 0.1)"></span><code>hsla(214, 57%, 24%, 0.1)</code></dt>
-      <dt>--lumo-shade-20pct: <span class="color-swatch" style="background-color: hsla(214, 53%, 23%, 0.16)"></span><code>hsla(214, 53%, 23%, 0.16)</code></dt>
-      <dt>--lumo-shade-30pct: <span class="color-swatch" style="background-color: hsla(214, 50%, 22%, 0.26)"></span><code>hsla(214, 50%, 22%, 0.26)</code></dt>
-      <dt>--lumo-shade-40pct: <span class="color-swatch" style="background-color: hsla(214, 47%, 21%, 0.38)"></span><code>hsla(214, 47%, 21%, 0.38)</code></dt>
-      <dt>--lumo-shade-50pct: <span class="color-swatch" style="background-color: hsla(214, 45%, 20%, 0.5)"></span><code>hsla(214, 45%, 20%, 0.5)</code></dt>
-      <dt>--lumo-shade-60pct: <span class="color-swatch" style="background-color: hsla(214, 43%, 19%, 0.61)"></span><code>hsla(214, 43%, 19%, 0.61)</code></dt>
-      <dt>--lumo-shade-70pct: <span class="color-swatch" style="background-color: hsla(214, 42%, 18%, 0.72)"></span><code>hsla(214, 42%, 18%, 0.72)</code></dt>
-      <dt>--lumo-shade-80pct: <span class="color-swatch" style="background-color: hsla(214, 41%, 17%, 0.83)"></span><code>hsla(214, 41%, 17%, 0.83)</code></dt>
-      <dt>--lumo-shade-90pct: <span class="color-swatch" style="background-color: hsla(214, 40%, 16%, 0.94)"></span><code>hsla(214, 40%, 16%, 0.94)</code></dt>
-      <dt>--lumo-shade: <span class="color-swatch" style="background-color: hsl(214, 35%, 15%)"></span><code>hsl(214, 35%, 15%)</code></dt>
-    </dl>
-
-    <h5>Contrast</h5>
-    <dl class="custom-properties color">
-      <dt>--lumo-contrast-5pct: <span class="color-swatch" style="background-color: hsla(214, 61%, 25%, 0.05)"></span><code>hsla(214, 61%, 25%, 0.05)</code></dt>
-      <dt>--lumo-contrast-10pct: <span class="color-swatch" style="background-color: hsla(214, 57%, 24%, 0.1)"></span><code>hsla(214, 57%, 24%, 0.1)</code></dt>
-      <dt>--lumo-contrast-20pct: <span class="color-swatch" style="background-color: hsla(214, 53%, 23%, 0.16)"></span><code>hsla(214, 53%, 23%, 0.16)</code></dt>
-      <dt>--lumo-contrast-30pct: <span class="color-swatch" style="background-color: hsla(214, 50%, 22%, 0.26)"></span><code>hsla(214, 50%, 22%, 0.26)</code></dt>
-      <dt>--lumo-contrast-40pct: <span class="color-swatch" style="background-color: hsla(214, 47%, 21%, 0.38)"></span><code>hsla(214, 47%, 21%, 0.38)</code></dt>
-      <dt>--lumo-contrast-50pct: <span class="color-swatch" style="background-color: hsla(214, 45%, 20%, 0.5)"></span><code>hsla(214, 45%, 20%, 0.5)</code></dt>
-      <dt>--lumo-contrast-60pct: <span class="color-swatch" style="background-color: hsla(214, 43%, 19%, 0.61)"></span><code>hsla(214, 43%, 19%, 0.61)</code></dt>
-      <dt>--lumo-contrast-70pct: <span class="color-swatch" style="background-color: hsla(214, 42%, 18%, 0.72)"></span><code>hsla(214, 42%, 18%, 0.72)</code></dt>
-      <dt>--lumo-contrast-80pct: <span class="color-swatch" style="background-color: hsla(214, 41%, 17%, 0.83)"></span><code>hsla(214, 41%, 17%, 0.83)</code></dt>
-      <dt>--lumo-contrast-90pct: <span class="color-swatch" style="background-color: hsla(214, 40%, 16%, 0.94)"></span><code>hsla(214, 40%, 16%, 0.94)</code></dt>
-      <dt>--lumo-contrast: <span class="color-swatch" style="background-color: hsl(214, 35%, 15%)"></span><code>hsl(214, 35%, 15%)</code></dt>
-    </dl>
-
-    <h5>Error</h5>
-    <dl class="custom-properties color">
-      <dt>--lumo-error-color-10pct: <span class="color-swatch" style="background-color: hsla(3, 100%, 60%, 0.1)"></span><code>hsla(3, 100%, 60%, 0.1)</code></dt>
-      <dt>--lumo-error-color-50pct: <span class="color-swatch" style="background-color: hsla(3, 100%, 60%, 0.5)"></span><code>hsla(3, 100%, 60%, 0.5)</code></dt>
-      <dt>--lumo-error-color: <span class="color-swatch" style="background-color: hsl(3, 100%, 61%)"></span><code>hsl(3, 100%, 61%)</code></dt>
-      <dt>--lumo-error-contrast-color: <span class="color-swatch" style="background-color: #FFF"></span><code>#FFF</code></dt>
-    </dl>
-
-    <h5>Success</h5>
-    <dl class="custom-properties color">
-      <dt>--lumo-success-color-10pct: <span class="color-swatch" style="background-color: hsla(145, 76%, 44%, 0.12)"></span><code>hsla(145, 76%, 44%, 0.12)</code></dt>
-      <dt>--lumo-success-color-50pct: <span class="color-swatch" style="background-color: hsla(145, 76%, 44%, 0.55)"></span><code>hsla(145, 76%, 44%, 0.55)</code></dt>
-      <dt>--lumo-success-color: <span class="color-swatch" style="background-color: hsl(145, 80%, 42%)"></span><code>hsl(145, 80%, 42%)</code></dt>
-      <dt>--lumo-success-contrast-color: <span class="color-swatch" style="background-color: #FFF"></span><code>#FFF</code></dt>
-    </dl>
-
-    <h5>Text</h5>
-    <dl class="custom-properties color">
-      <dt>--lumo-header-text-color: <span class="color-swatch" style="background-color: hsl(214, 35%, 15%)"></span><code>hsl(214, 35%, 15%)</code></dt>
-      <dt>--lumo-body-text-color: <span class="color-swatch" style="background-color: hsla(214, 40%, 16%, 0.94)"></span><code>hsla(214, 40%, 16%, 0.94)</code></dt>
-      <dt>--lumo-secondary-text-color: <span class="color-swatch" style="background-color: hsla(214, 42%, 18%, 0.72)"></span><code>hsla(214, 42%, 18%, 0.72)</code></dt>
-      <dt>--lumo-tertiary-text-color: <span class="color-swatch" style="background-color: hsla(214, 45%, 20%, 0.5)"></span><code>hsla(214, 45%, 20%, 0.5)</code></dt>
-      <dt>--lumo-disabled-text-color: <span class="color-swatch" style="background-color: hsla(214, 50%, 22%, 0.26)"></span><code>hsla(214, 50%, 22%, 0.26)</code></dt>
-      <dt>--lumo-primary-text-color: <span class="color-swatch" style="background-color: hsl(214, 90%, 52%)"></span><code>hsl(214, 90%, 52%)</code></dt>
-      <dt>--lumo-error-text-color: <span class="color-swatch" style="background-color: hsl(3, 92%, 53%)"></span><code>hsl(3, 92%, 53%)</code></dt>
-      <dt>--lumo-success-text-color: <span class="color-swatch" style="background-color: hsl(145, 100%, 32%)"></span><code>hsl(145, 100%, 32%)</code></dt>
-      <dt>--lumo-link-color: <code>var(--lumo-primary-text-color)</code></dt>
-    </dl>
-  </content-preview>
-
-    <h3>Dark palette</h3>
-
-++++
-// [NOTE]
-// You will see the light palette colors here on Edge 14. See link:compatibility.html#dark-color-palette[Browser compatibility] for more info.
-++++
-
-  <content-preview class="block" hidesource raw>
-    <div theme="dark" style="margin: 0 -1em; padding: 2em;">
-
-      <h5>Base color</h5>
-      <dl class="custom-properties color">
-        <dt>--lumo-base-color: <span class="color-swatch" style="background-color: hsl(214, 35%, 21%)"></span><code>hsl(214, 35%, 21%)</code></dt>
-      </dl>
-
-      <h5>Primary</h5>
-      <dl class="custom-properties color">
-        <dt>--lumo-primary-color-10pct: <span class="color-swatch" style="background-color: hsla(214, 90%, 63%, 0.1)"></span><code>hsla(214, 90%, 63%, 0.1)</code></dt>
-        <dt>--lumo-primary-color-50pct: <span class="color-swatch" style="background-color: hsla(214, 86%, 55%, 0.5)"></span><code>hsla(214, 86%, 55%, 0.5)</code></dt>
-        <dt>--lumo-primary-color: <span class="color-swatch" style="background-color: hsl(214, 86%, 55%)"></span><code>hsl(214, 86%, 55%)</code></dt>
-        <dt>--lumo-primary-contrast-color: <span class="color-swatch" style="background-color: #FFF"></span><code>#FFF</code></dt>
-      </dl>
-
-      <h5>Tint</h5>
-      <dl class="custom-properties color">
-        <dt>--lumo-tint-5pct: <span class="color-swatch" style="background-color: hsla(214, 65%, 85%, 0.06)"></span><code>hsla(214, 65%, 85%, 0.06)</code></dt>
-        <dt>--lumo-tint-10pct: <span class="color-swatch" style="background-color: hsla(214, 60%, 80%, 0.14)"></span><code>hsla(214, 60%, 80%, 0.14)</code></dt>
-        <dt>--lumo-tint-20pct: <span class="color-swatch" style="background-color: hsla(214, 64%, 82%, 0.23)"></span><code>hsla(214, 64%, 82%, 0.23)</code></dt>
-        <dt>--lumo-tint-30pct: <span class="color-swatch" style="background-color: hsla(214, 69%, 84%, 0.32)"></span><code>hsla(214, 69%, 84%, 0.32)</code></dt>
-        <dt>--lumo-tint-40pct: <span class="color-swatch" style="background-color: hsla(214, 73%, 86%, 0.41)"></span><code>hsla(214, 73%, 86%, 0.41)</code></dt>
-        <dt>--lumo-tint-50pct: <span class="color-swatch" style="background-color: hsla(214, 78%, 88%, 0.5)"></span><code>hsla(214, 78%, 88%, 0.5)</code></dt>
-        <dt>--lumo-tint-60pct: <span class="color-swatch" style="background-color: hsla(214, 82%, 90%, 0.6)"></span><code>hsla(214, 82%, 90%, 0.6)</code></dt>
-        <dt>--lumo-tint-70pct: <span class="color-swatch" style="background-color: hsla(214, 87%, 92%, 0.7)"></span><code>hsla(214, 87%, 92%, 0.7)</code></dt>
-        <dt>--lumo-tint-80pct: <span class="color-swatch" style="background-color: hsla(214, 91%, 94%, 0.8)"></span><code>hsla(214, 91%, 94%, 0.8)</code></dt>
-        <dt>--lumo-tint-90pct: <span class="color-swatch" style="background-color: hsla(214, 96%, 96%, 0.9)"></span><code>hsla(214, 96%, 96%, 0.9)</code></dt>
-        <dt>--lumo-tint: <span class="color-swatch" style="background-color: hsl(214, 100%, 98%)"></span><code>hsl(214, 100%, 98%)</code></dt>
-      </dl>
-
-      <h5>Shade</h5>
-      <dl class="custom-properties color">
-        <dt>--lumo-shade-5pct: <span class="color-swatch" style="background-color: hsla(214, 0%, 0%, 0.07)"></span><code>hsla(214, 0%, 0%, 0.07)</code></dt>
-        <dt>--lumo-shade-10pct: <span class="color-swatch" style="background-color: hsla(214, 4%, 2%, 0.15)"></span><code>hsla(214, 4%, 2%, 0.15)</code></dt>
-        <dt>--lumo-shade-20pct: <span class="color-swatch" style="background-color: hsla(214, 8%, 4%, 0.23)"></span><code>hsla(214, 8%, 4%, 0.23)</code></dt>
-        <dt>--lumo-shade-30pct: <span class="color-swatch" style="background-color: hsla(214, 12%, 6%, 0.32)"></span><code>hsla(214, 12%, 6%, 0.32)</code></dt>
-        <dt>--lumo-shade-40pct: <span class="color-swatch" style="background-color: hsla(214, 16%, 8%, 0.41)"></span><code>hsla(214, 16%, 8%, 0.41)</code></dt>
-        <dt>--lumo-shade-50pct: <span class="color-swatch" style="background-color: hsla(214, 20%, 10%, 0.5)"></span><code>hsla(214, 20%, 10%, 0.5)</code></dt>
-        <dt>--lumo-shade-60pct: <span class="color-swatch" style="background-color: hsla(214, 24%, 12%, 0.6)"></span><code>hsla(214, 24%, 12%, 0.6)</code></dt>
-        <dt>--lumo-shade-70pct: <span class="color-swatch" style="background-color: hsla(214, 28%, 13%, 0.7)"></span><code>hsla(214, 28%, 13%, 0.7)</code></dt>
-        <dt>--lumo-shade-80pct: <span class="color-swatch" style="background-color: hsla(214, 32%, 13%, 0.8)"></span><code>hsla(214, 32%, 13%, 0.8)</code></dt>
-        <dt>--lumo-shade-90pct: <span class="color-swatch" style="background-color: hsla(214, 33%, 13%, 0.9)"></span><code>hsla(214, 33%, 13%, 0.9)</code></dt>
-        <dt>--lumo-shade: <span class="color-swatch" style="background-color: hsl(214, 33%, 13%)"></span><code>hsl(214, 33%, 13%)</code></dt>
-      </dl>
-
-      <h5>Contrast</h5>
-      <dl class="custom-properties color">
-        <dt>--lumo-contrast-5pct: <span class="color-swatch" style="background-color: hsla(214, 65%, 85%, 0.06)"></span><code>hsla(214, 65%, 85%, 0.06)</code></dt>
-        <dt>--lumo-contrast-10pct: <span class="color-swatch" style="background-color: hsla(214, 60%, 80%, 0.14)"></span><code>hsla(214, 60%, 80%, 0.14)</code></dt>
-        <dt>--lumo-contrast-20pct: <span class="color-swatch" style="background-color: hsla(214, 64%, 82%, 0.23)"></span><code>hsla(214, 64%, 82%, 0.23)</code></dt>
-        <dt>--lumo-contrast-30pct: <span class="color-swatch" style="background-color: hsla(214, 69%, 84%, 0.32)"></span><code>hsla(214, 69%, 84%, 0.32)</code></dt>
-        <dt>--lumo-contrast-40pct: <span class="color-swatch" style="background-color: hsla(214, 73%, 86%, 0.41)"></span><code>hsla(214, 73%, 86%, 0.41)</code></dt>
-        <dt>--lumo-contrast-50pct: <span class="color-swatch" style="background-color: hsla(214, 78%, 88%, 0.5)"></span><code>hsla(214, 78%, 88%, 0.5)</code></dt>
-        <dt>--lumo-contrast-60pct: <span class="color-swatch" style="background-color: hsla(214, 82%, 90%, 0.6)"></span><code>hsla(214, 82%, 90%, 0.6)</code></dt>
-        <dt>--lumo-contrast-70pct: <span class="color-swatch" style="background-color: hsla(214, 87%, 92%, 0.7)"></span><code>hsla(214, 87%, 92%, 0.7)</code></dt>
-        <dt>--lumo-contrast-80pct: <span class="color-swatch" style="background-color: hsla(214, 91%, 94%, 0.8)"></span><code>hsla(214, 91%, 94%, 0.8)</code></dt>
-        <dt>--lumo-contrast-90pct: <span class="color-swatch" style="background-color: hsla(214, 96%, 96%, 0.9)"></span><code>hsla(214, 96%, 96%, 0.9)</code></dt>
-        <dt>--lumo-contrast: <span class="color-swatch" style="background-color: hsl(214, 100%, 98%)"></span><code>hsl(214, 100%, 98%)</code></dt>
-      </dl>
-
-      <h5>Error</h5>
-      <dl class="custom-properties color">
-        <dt>--lumo-error-color-10pct: <span class="color-swatch" style="background-color: hsla(3, 90%, 63%, 0.1)"></span><code>hsla(3, 90%, 63%, 0.1)</code></dt>
-        <dt>--lumo-error-color-50pct: <span class="color-swatch" style="background-color: hsla(3, 90%, 63%, 0.5)"></span><code>hsla(3, 90%, 63%, 0.5)</code></dt>
-        <dt>--lumo-error-color: <span class="color-swatch" style="background-color: hsl(3, 90%, 63%)"></span><code>hsl(3, 90%, 63%)</code></dt>
-        <dt>--lumo-error-contrast-color: <span class="color-swatch" style="background-color: #FFF"></span><code>#FFF</code></dt>
-      </dl>
-
-      <h5>Success</h5>
-      <dl class="custom-properties color">
-        <dt>--lumo-success-color-10pct: <span class="color-swatch" style="background-color: hsla(145, 65%, 42%, 0.1)"></span><code>hsla(145, 65%, 42%, 0.1)</code></dt>
-        <dt>--lumo-success-color-50pct: <span class="color-swatch" style="background-color: hsla(145, 65%, 42%, 0.5)"></span><code>hsla(145, 65%, 42%, 0.5)</code></dt>
-        <dt>--lumo-success-color: <span class="color-swatch" style="background-color: hsl(145, 65%, 42%)"></span><code>hsl(145, 65%, 42%)</code></dt>
-        <dt>--lumo-success-contrast-color: <span class="color-swatch" style="background-color: #FFF"></span><code>#FFF</code></dt>
-      </dl>
-
-      <h5>Text</h5>
-      <dl class="custom-properties color">
-        <dt>--lumo-header-text-color: <span class="color-swatch" style="background-color: hsl(214, 100%, 98%)"></span><code>hsl(214, 100%, 98%)</code></dt>
-        <dt>--lumo-body-text-color: <span class="color-swatch" style="background-color: hsla(214, 96%, 96%, 0.9)"></span><code>hsla(214, 96%, 96%, 0.9)</code></dt>
-        <dt>--lumo-secondary-text-color: <span class="color-swatch" style="background-color: hsla(214, 87%, 92%, 0.7)"></span><code>hsla(214, 87%, 92%, 0.7)</code></dt>
-        <dt>--lumo-tertiary-text-color: <span class="color-swatch" style="background-color: hsla(214, 78%, 88%, 0.5)"></span><code>hsla(214, 78%, 88%, 0.5)</code></dt>
-        <dt>--lumo-disabled-text-color: <span class="color-swatch" style="background-color: hsla(214, 69%, 84%, 0.32)"></span><code>hsla(214, 69%, 84%, 0.32)</code></dt>
-        <dt>--lumo-primary-text-color: <span class="color-swatch" style="background-color: hsl(214, 100%, 70%)"></span><code>hsl(214, 100%, 70%)</code></dt>
-        <dt>--lumo-error-text-color: <span class="color-swatch" style="background-color: hsl(3, 100%, 67%)"></span><code>hsl(3, 100%, 67%)</code></dt>
-        <dt>--lumo-success-text-color: <span class="color-swatch" style="background-color: hsl(145, 85%, 47%)"></span><code>hsl(145, 85%, 47%)</code></dt>
-        <dt>--lumo-link-color: <code>var(--lumo-primary-text-color)</code></dt>
-      </dl>
-
-    </div>
-  </content-preview>
 ++++

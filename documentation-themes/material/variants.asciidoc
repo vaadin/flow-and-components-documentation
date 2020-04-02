@@ -1,6 +1,6 @@
 ---
 title: Variants
-order: 80
+order: 10
 layout: page
 ---
 
@@ -58,8 +58,8 @@ For client-side components/templates you can add the attribute directly to the H
 
 You can find a component's Material variants from the
 ifdef::web[]
-https://vaadin.com/themes/material[Material theme documentation site].
+https://cdn.vaadin.com/vaadin-material-styles/1.3.2/demo/[Material theme example site].
 endif::web[]
 ifndef::web[]
-Material theme documentation site.
+Material theme example site.
 endif::web[]

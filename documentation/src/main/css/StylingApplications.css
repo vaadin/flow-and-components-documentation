@@ -1,0 +1,22 @@
+tutorial::../documentation-themes/styling-applications.asciidoc
+
+/* tag::my-view[] */
+.heading {
+  margin-top: 0;
+}
+
+p {
+  /* Assuming we are using the Lumo theme. If not, fall back to 1.2em */
+  font-size: var(--lumo-font-size-l, 1.2em);
+}
+
+.back-button {
+  background-color: var(--lumo-shade-90pct);
+}
+/* end::my-view[] */
+
+/* tag::css-img[] */
+.image-bg {
+  background-image: url("/my-image.png");
+}
+/* end::css-img[] */

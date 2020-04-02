@@ -8,9 +8,16 @@ layout: page
 
 Lumo has global variants that you can use to quickly customize all components and built-in component variants that can be used to style individual component instances quickly.
 
+
 == Dark Mode
 
 Dark mode is commonly used in low-light environments or during night-time.
+
+[CAUTION]
+The dark variant is not supported in Internet Explorer 11.
+ifdef::web[]
+https://github.com/vaadin/vaadin-lumo-styles/issues/50[See the issue in GitHub].
+endif::web[]
 
 [.example]
 --
@@ -52,12 +59,6 @@ For client-side components/templates you can add the attribute directly to the H
 <vaadin-vertical-layout theme="dark"></vaadin-vertical-layout>
 ----
 
-[CAUTION]
-The dark variant is not supported in Internet Explorer 11.
-ifdef::web[]
-https://github.com/vaadin/vaadin-lumo-styles/issues/50[See the issue in GitHub].
-endif::web[]
-
 
 == Compact
 
@@ -70,7 +71,7 @@ You can https://github.com/vaadin/vaadin-lumo-styles/blob/master/presets/compact
 endif::web[]
 
 .`Java`
-[source,java]
+[source, java]
 ----
 @JsModule("@vaadin/vaadin-lumo-styles/presets/compact.js")
 @Theme(Lumo.class)
@@ -79,7 +80,7 @@ public class CompactApp extends Div {
 ----
 
 .`JavaScript`
-[source,javascript]
+[source, javascript]
 ----
 import '@vaadin/vaadin-lumo-styles/presets/compact.js';
 ----

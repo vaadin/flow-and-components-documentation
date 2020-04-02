@@ -6,7 +6,7 @@ layout: page
 
 = Styling Applications
 
-Learn how to apply app-specific styling across your custom views and components and how to use images and icons.
+Learn how to apply app-specific styling across application views and application-specific components and how to use images and icons.
 
 
 == Prerequisites
@@ -14,16 +14,15 @@ Learn how to apply app-specific styling across your custom views and components 
 You should be familiar with <<importing-style-sheets#,Importing Style Sheets>> to the different <<style-scopes#,Style Scopes>> in your application.
 
 
-== Styling Views and Components
+== Styling Views and Application-specific Components
 
-Your application-specific views and components are usually built by composing existing lower-level components.
-Styling these components is a little different from styling the internals of built-in component.
-TODO
-Learn more about <<styling-components#,Styling Components>>.
+Your views and application-specific components are usually built by composing existing lower-level components.
+Styling these components is a little different from styling the internals of built-in components.
+See <<styling-components#,Styling Components>> for more information on styling built-in components.
 
-=== Server-side Views
+=== Server-side Views and Custom Components
 
-Java-based views and components (extending from `Component`) are rendered in the global scope.
+Server-side views and custom components (Java), extending from `Component`, are rendered in the global style scope.
 You can apply traditional CSS styling techniques for them.
 
 The most common technique is to add CSS classes to the components in the view and target those classes in your style sheets.
@@ -31,92 +30,109 @@ The most common technique is to add CSS classes to the components in the view an
 .`MyView.java`
 [source,java]
 ----
-@CssImport("./styles/my-view.css")
-class MyView extends VerticalLayout {
-  public MyView() {
-    addClassName("my-view");
-
-    H1 heading = new H1("My View Title");
-    heading.addClassName("heading");
-
-    Paragraph text = new Paragraph("Thanks for stopping by. Not much to see here. Click the button below to go back to start.");
-
-    Button backButton = new Button("Go Back");
-    backButton.addClassName("back-button");
-
-    add(heading, text, backButton);
-  }
-}
+include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/StylingApplications.java[tags=MyView, indent=0]
 ----
 
 .`styles/my-view.css`
 [source,css]
 ----
-.heading {
-  margin-top: 0;
-}
-
-p {
-  /* Assuming we are using the Lumo theme. If not, fall back to 1.2em */
-  font-size: var(--lumo-font-size-l, 1.2em);
-}
-
-.back-button {
-  background-color: var(--lumo-shade-90pct);
-}
+include::../documentation/src/main/css/StylingApplications.css[tags=my-view, indent=0]
 ----
 
-The <<client-side,instructions for client-side views and components>> apply to template-based views and components (i.e. extending `PolymerTemplate`).
 
+=== Client-side Views, Templates and Components
 
-=== Client-side Views
-
-Client-side views and components are usually authored using Polymer, extending `PolymerElement`.
+Client-side view, templates, and components are usually authored using Polymer, extending `PolymerElement`.
 Polymer elements render their HTML template inside shadow DOM and create a new style scope.
 
 The instructions in <<../../flow/polymer-templates/styling-polymer-templates#,Styling Polymer Templates>> apply to client-side views.
 
-If you wish to author your client-side views using some other technology (for example https://lit-element.polymer-project.org[LitElement]), refer to the styling instructions for that technology.
+If you wish to author your client-side views using some other technology (for example https://lit-element.polymer-project.org[LitElement]), refer to the styling instructions of that technology.
 
-== Using Images and Fonts
 
-Images, web fonts, and other static assets, which need to be accessible by the browser, should be placed in the `/src/main/webapp/` folder.
-For _Spring Boot -based projects_ use `/src/main/resources/META-INF/resources/`.
+== Using Images
 
-See <<../importing-dependencies/tutorial-ways-of-importing#,Storing and Loading Resources>> for a comprehensive documentation how static resources are handled.
+Static images, which need to be accessible by the browser, should be placed in the [filename]#/src/main/webapp/# folder.
+For _Spring Boot -based projects_ use [filename]#/src/main/resources/META-INF/resources/#.
 
-=== Server-side
+See <<../importing-dependencies/tutorial-ways-of-importing#,Storing and Loading Resources>> for more information about how static resources are handled.
 
-TODO the Image component
+[.example]
+--
+In server-side views (Java), use the [classname]#Image# component.
 
-=== Client-side
-
-Use absolute paths in your HTM and CSS for static assets.
-
-=== Example
-
-If you have an image in `/src/main/webapp/img/logo.png`, you can re reference it from a style sheet (see <<importing-style-sheets#,Importing Style Sheets>>) as shown below:
-
-[source,css]
+[source, java]
 ----
-.logo {
-  background-image: url"(/img/logo.png");
-}
+include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/StylingApplications.java[tags=Image, indent=0, group=Java]
 ----
+
+In client-side views (JavaScript), use the standard HTML `<img>` component/element.
+Use an absolute path for the image.
+
+[source, javascript]
+----
+include::../documentation/src/main/js/StylingApplications.js[tags=image, indent=0, group=JavaScript]
+----
+
+You can also use images from CSS.
+
+[source, css]
+----
+include::../documentation/src/main/css/StylingApplications.css[tags=css-img, indent=0, group=CSS]
+----
+--
 
 
 == Using Icons
 
-In general, icons are not different from images, as they show a graphic on the page. For bitmap-based icons (JPG, PNG, WebP, etc.) you s
+In general, icons are not different from images, as they show a graphic on the page.
+For bitmap-based icons (JPG, PNG, WebP, etc.), follow the above instructions for using images.
 
-Since icons have some addition requirements, such as the need to be able to change their size and color using CSS, they are usually created using the SVG vector format and embedded directly inside the resulting HTML, instead of being referenced via CSS `background-image: url(icon.svg)` or HTML `<img src="icon.svg">`.
+Since icons have some additional requirements on top of images, such as the need to be able to change their size and color using CSS, they are usually created using the SVG vector format and embedded directly inside the resulting HTML, instead of being referenced via CSS `background-image: url(icon.svg)` or HTML `<img src="icon.svg">`.
 
-Vaadin has a component specifically for showing SVG icons. In addition, Vaadin offers a large https://vaadin.com/components/vaadin-icons/[collection of icons] for you to use (with both SVG and font formats).
+Vaadin has a component specifically for showing SVG icons.
+In addition, Vaadin offers a large https://vaadin.com/components/vaadin-icons/[collection of icons] for you to use (with both SVG and font formats).
 
-=== Server-side
+Note, that SVG icons are considered as the best practice.
+Font icons have some https://cloudfour.com/thinks/seriously-dont-use-icon-fonts/[well documented caveats], especially regarding screen reader usage.
 
-TODO the Icon component, VaadinIcons and LumoIcons, and how to build your own iconset
+[.example]
+--
+In server-side views (Java), use the [classname]#Icon# component.
+There are two ways to create an icon from the Vaadin Icons collection.
 
-=== Client-side
+The Icon component can be used in all the same places as any other component. Some components, such as Button, have API specifically for using icons.
 
-TODO <iron-icon>, vaadin-icons and lumo-icons, and how to build your own iconset
+[source, java]
+----
+include::../documentation/src/main/java/com/vaadin/flow/tutorial/components/IconBasic.java[tags=VaadinIcons, indent=0, group=Java]
+----
+
+In client-side views (JavaScript), use the `<iron-icon>` component/element.
+
+[source, javascript]
+----
+include::../documentation/src/main/js/StylingApplications.js[tags=vaadin-icons, indent=0, group=JavaScript]
+----
+--
+
+The Lumo theme has its own set of icons (see <<lumo/icons#,Lumo Icons>>), which you can also use.
+
+[.example]
+--
+[source, java]
+----
+include::../documentation/src/main/java/com/vaadin/flow/tutorial/components/IconBasic.java[tags=LumoIcon, indent=0, group=Java]
+----
+
+[source, javascript]
+----
+include::../documentation/src/main/js/StylingApplications.js[tags=lumo-icon, indent=0, group=JavaScript]
+----
+--
+
+=== Creating a Custom Icon Set
+
+If you want to create your own set of icons to use, you first need to package the SVG icons into a https://github.com/PolymerElements/iron-iconset-svg[`<iron-iconset-svg>`] bundle. That makes them usable in client-side views and the `<iron-icon>` component/element.
+
+For server-side views, you can create a similar Enum as [classname]#VaadinIcon# to make it easy to use your custom icon set. See the https://github.com/vaadin/vaadin-icons-flow/tree/master/vaadin-icons-flow/src/main/java/com/vaadin/flow/component/icon[implementation of Vaadin Icons] for inspiration.

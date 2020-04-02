@@ -5,30 +5,74 @@ layout: page
 
 = Lumo Sizing and Spacing
 
+Lumo defines a set of CSS custom properties you can use to apply consistent sizing and spacing across your application.
+
 // Needed to show embedded live previews
 include::../themes-shared.asciidoc[opts=optional]
 
-++++
-    <p>Lumo defines a set of CSS custom properties you can use to apply consistent sizing and spacing across your application.</p>
+== Size
 
-    <p>Import <code>sizing.js</code> and <code>spacing.js</code> to use them.</p>
-++++
-[source,html]
-----
-<script type="module">
-  import '@vaadin/vaadin-lumo-styles/sizing.js';
-  import '@vaadin/vaadin-lumo-styles/spacing.js';
-</script>
-----
-++++
+Use these properties to adjust the sizing of regular elements (buttons, text fields, list items).
+
+*M is the standard size*, and it is primarily used to size buttons, text fields and list items.
+If you adjust the sizing, make sure to keep it large enough for touch targets.
+
+See <<icons#,Icons>> for properties that affect the sizing of icons.
 
 ++++
-== Sizing
+  <content-preview class="block" hidesource raw>
+    <dl class="custom-properties">
+      <dt>--lumo-size-xs: <code>1.625rem</code></dt>
+      <dt>--lumo-size-s: <code>1.875rem</code></dt>
+      <dt>--lumo-size-m: <code>2.25rem</code></dt>
+      <dt>--lumo-size-l: <code>2.75rem</code></dt>
+      <dt>--lumo-size-xl: <code>3.5rem</code></dt>
+    </dl>
+    </content-preview>
 ++++
-    <p>Use these properties to adjust the sizing of regular elements (buttons, text fields, list items).</p>
 
-    <p><b>M is the standard size</b>, and it is primarily used to size buttons, text fields and list items. If you adjust the sizing, make sure to keep it large enough for touch targets.</p>
+== Space
 
+Use these properties to adjust the inter-component spacings, i.e. space outside a regular component (button, text field) or inside a container component (layouts, grid cells).
+
+++++
+    <h5>Uniform</h5>
+    <p>Use these properties for margin or padding in a single direction or uniformly on all sides.</p>
+    <dl class="custom-properties">
+      <dt>--lumo-space-xs: <code>0.25rem</code></dt>
+      <dt>--lumo-space-s: <code>0.5rem</code></dt>
+      <dt>--lumo-space-m: <code>1rem</code></dt>
+      <dt>--lumo-space-l: <code>1.5rem</code></dt>
+      <dt>--lumo-space-xl: <code>2.5rem</code></dt>
+    </dl>
+
+    <h5>Wide</h5>
+    <p>Use these properties for margin or padding to have a bigger horizontal space than vertical space.</p>
+    <dl class="custom-properties">
+      <dt>--lumo-space-wide-xs: <code>calc( 0.25rem / 2)  0.25rem</code></dt>
+      <dt>--lumo-space-wide-s: <code>calc( 0.5rem / 2)  0.5rem</code></dt>
+      <dt>--lumo-space-wide-m: <code>calc( 1rem / 2)  1rem</code></dt>
+      <dt>--lumo-space-wide-l: <code>calc( 1.5rem / 2)  1.5rem</code></dt>
+      <dt>--lumo-space-wide-xl: <code>calc( 2.5rem / 2)  2.5rem</code></dt>
+    </dl>
+
+    <h5>Tall</h5>
+    <p>Use these properties for margin or padding to have a bigger vertical space than horizontal space.</p>
+    <dl class="custom-properties">
+      <dt>--lumo-space-tall-xs: <code>0.25rem calc( 0.25rem / 2)</code></dt>
+      <dt>--lumo-space-tall-s: <code>0.5rem calc( 0.5rem / 2)</code></dt>
+      <dt>--lumo-space-tall-m: <code>1rem calc( 1rem / 2)</code></dt>
+      <dt>--lumo-space-tall-l: <code>1.5rem calc( 1.5rem / 2)</code></dt>
+      <dt>--lumo-space-tall-xl: <code>2.5rem calc( 2.5rem / 2)</code></dt>
+    </dl>
+  </content-preview>
+++++
+
+== Examples
+
+=== Sizing
+
+++++
 <content-preview>
 ++++
 [source,html]
@@ -68,13 +112,9 @@ include::../themes-shared.asciidoc[opts=optional]
 </content-preview>
 
 ++++
-== Spacing
+=== Spacing
 ++++
-    <p>Use these properties to adjust the inter-component spacings, i.e. space outside a regular component (button, text field) or inside a container component (layouts, grid cells)</p>
-
-    <h3>Uniform</h3>
-    <p>Use these properties for margin or padding in a single direction or uniformly on all sides.</p>
-
+<h4>Uniform</h4>
 <content-preview>
 ++++
 [source,html]
@@ -107,10 +147,7 @@ include::../themes-shared.asciidoc[opts=optional]
 ----
 ++++
 </content-preview>
-
-    <h3>Wide</h3>
-    <p>Use these properties for margin or padding to have a bigger horizontal space than vertical space.</p>
-
+<h4>Wide</h4>
 <content-preview>
 ++++
 [source,html]
@@ -143,10 +180,7 @@ include::../themes-shared.asciidoc[opts=optional]
 ----
 ++++
 </content-preview>
-
-    <h3>Tall</h3>
-    <p>Use these properties for margin or padding to have a bigger vertical space than horizontal space.</p>
-
+<h4>Tall</h4>
 <content-preview>
 ++++
 [source,html]
@@ -179,67 +213,4 @@ include::../themes-shared.asciidoc[opts=optional]
 ----
 ++++
 </content-preview>
-
-++++
-== Compact preset
-++++
-    <p>The compact preset defines values for the sizing and spacing properties to reduce the visual space required by components to better fit a large amount of content on the screen</p>
-    <p>The preset can be taken into use by importing the file from under the "presets" folder.</p>
-
-++++
-[WARNING]
-====
-Make sure to import the preset before all the other components to make it apply on all browsers.
-====
-
-[source,html]
-----
-<!-- Import the compact preset  -->
-<link rel="import" href="bower_components/vaadin-lumo-styles/presets/compact.html">
-<!-- Import the rest of the dependencies  -->
-<link rel="import" href="all-imports.html">
-----
-++++
-
-++++
-== Custom properties
-++++
-
-  <content-preview class="block" hidesource raw>
-    <h5>Size</h5>
-    <dl class="custom-properties">
-      <dt>--lumo-size-xs: <code>1.625rem</code></dt>
-      <dt>--lumo-size-s: <code>1.875rem</code></dt>
-      <dt>--lumo-size-m: <code>2.25rem</code></dt>
-      <dt>--lumo-size-l: <code>2.75rem</code></dt>
-      <dt>--lumo-size-xl: <code>3.5rem</code></dt>
-    </dl>
-
-    <h5>Space</h5>
-    <dl class="custom-properties">
-      <dt>--lumo-space-xs: <code>0.25rem</code></dt>
-      <dt>--lumo-space-s: <code>0.5rem</code></dt>
-      <dt>--lumo-space-m: <code>1rem</code></dt>
-      <dt>--lumo-space-l: <code>1.5rem</code></dt>
-      <dt>--lumo-space-xl: <code>2.5rem</code></dt>
-    </dl>
-
-    <h5>Space, wide</h5>
-    <dl class="custom-properties">
-      <dt>--lumo-space-wide-xs: <code>calc( 0.25rem / 2)  0.25rem</code></dt>
-      <dt>--lumo-space-wide-s: <code>calc( 0.5rem / 2)  0.5rem</code></dt>
-      <dt>--lumo-space-wide-m: <code>calc( 1rem / 2)  1rem</code></dt>
-      <dt>--lumo-space-wide-l: <code>calc( 1.5rem / 2)  1.5rem</code></dt>
-      <dt>--lumo-space-wide-xl: <code>calc( 2.5rem / 2)  2.5rem</code></dt>
-    </dl>
-
-    <h5>Space, tall</h5>
-    <dl class="custom-properties">
-      <dt>--lumo-space-tall-xs: <code>0.25rem calc( 0.25rem / 2)</code></dt>
-      <dt>--lumo-space-tall-s: <code>0.5rem calc( 0.5rem / 2)</code></dt>
-      <dt>--lumo-space-tall-m: <code>1rem calc( 1rem / 2)</code></dt>
-      <dt>--lumo-space-tall-l: <code>1.5rem calc( 1.5rem / 2)</code></dt>
-      <dt>--lumo-space-tall-xl: <code>2.5rem calc( 2.5rem / 2)</code></dt>
-    </dl>
-  </content-preview>
 ++++

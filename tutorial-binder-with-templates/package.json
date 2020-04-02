@@ -10,13 +10,13 @@
       "@vaadin/vaadin-split-layout": "4.1.1",
       "@vaadin/vaadin-combo-box": "5.0.11",
       "@vaadin/vaadin-upload": "4.2.2",
-      "@vaadin/vaadin-dialog": "2.3.0-alpha4",
+      "@vaadin/vaadin-dialog": "2.3.0-alpha5",
       "@vaadin/vaadin-select": "2.1.7",
       "@vaadin/vaadin-app-layout": "2.0.4",
       "@vaadin/vaadin-item": "2.1.1",
       "@vaadin/vaadin-notification": "1.4.0",
       "@vaadin/vaadin-progress-bar": "1.1.2",
-      "@vaadin/vaadin-ordered-layout": "1.2.0-alpha3",
+      "@vaadin/vaadin-ordered-layout": "1.2.0",
       "@vaadin/vaadin-login": "1.0.1",
       "@vaadin/vaadin-button": "2.2.2",
       "@vaadin/vaadin-date-picker": "4.0.5",
@@ -46,9 +46,10 @@
       "webpack-cli": "3.3.11",
       "webpack": "4.42.0",
       "webpack-merge": "4.2.2",
-      "webpack-dev-server": "3.10.3"
+      "webpack-dev-server": "3.10.3",
+      "terser": "4.6.7"
     },
-    "hash": "1775207bc9e02c897873b63e6ff4e3c474f401a16eca6987fa8ce6d1bdbe17ad"
+    "hash": "e8b794077fd41bca9ae2bf7515fdaab089c19d05c27fa4502e9bbf7bda007ec1"
   },
   "dependencies": {
     "@polymer/polymer": "3.2.0",
@@ -58,13 +59,13 @@
     "@vaadin/vaadin-split-layout": "4.1.1",
     "@vaadin/vaadin-combo-box": "5.0.11",
     "@vaadin/vaadin-upload": "4.2.2",
-    "@vaadin/vaadin-dialog": "2.3.0-alpha4",
+    "@vaadin/vaadin-dialog": "2.3.0-alpha5",
     "@vaadin/vaadin-select": "2.1.7",
     "@vaadin/vaadin-app-layout": "2.0.4",
     "@vaadin/vaadin-item": "2.1.1",
     "@vaadin/vaadin-notification": "1.4.0",
     "@vaadin/vaadin-progress-bar": "1.1.2",
-    "@vaadin/vaadin-ordered-layout": "1.2.0-alpha3",
+    "@vaadin/vaadin-ordered-layout": "1.2.0",
     "@vaadin/vaadin-login": "1.0.1",
     "@vaadin/vaadin-button": "2.2.2",
     "@vaadin/vaadin-date-picker": "4.0.5",
@@ -94,6 +95,7 @@
     "webpack-cli": "3.3.11",
     "webpack": "4.42.0",
     "webpack-merge": "4.2.2",
-    "webpack-dev-server": "3.10.3"
+    "webpack-dev-server": "3.10.3",
+    "terser": "4.6.7"
   }
 }

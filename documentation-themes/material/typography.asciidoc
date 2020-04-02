@@ -1,82 +1,63 @@
 ---
 title: Typography
-order: 20
 layout: page
 ---
 
-// The following source is in HTML because it's copied from https://github.com/vaadin/vaadin-material-styles/tree/master/demo as is
-include::../themes-shared.asciidoc[opts=optional]
-
 = Material Typography
 
-++++
-    <h3>Importing the style module</h3>
+The Material theme defines a set of CSS custom properties you can use to apply consistent typographic styles across your application.
 
-    <p>If you are not importing any element themes, and want to use the font properties, you need to import them manually.</p>
+include::../themes-shared.asciidoc[opts=optional]
 
-++++
-[source,html]
-----
-<script type="module">
-  import '@vaadin/vaadin-material-styles/typography.js';
-</script>
-----
-
-[NOTE]
-Importing the typography modules imports the Roboto font from link:https://fonts.google.com/specimen/Roboto[Google Fonts] automatically.
-
-== Global typography styles
-++++
-    <p>To easily apply basic typographic styles for your app, include the following style module in the global scope. It will set the font family, font size and line height for the body element, as well as specify consistent header styles.</p>
-    <p>If needed, you can include the style module in any other style scopes (i.e. shadow roots) as well.</p>
+== Font Family
 
 ++++
+<content-preview-md class="block" hidesource raw>
+    <dl class="custom-properties">
+      <dt>--material-font-family: <code>"Roboto", sans-serif</code></dt>
+    </dl>
+</content-preview-md>
+++++
+
+== Font Size
+
+The following font sizes are available to use.
+The default font size for most elements is `--material-body-font-size`.
+
+++++
+<content-preview-md class="block" hidesource raw>
+    <dl class="custom-properties">
+      <dt>--material-h1-font-size: <code>6rem</code></dt>
+      <dt>--material-h2-font-size: <code>3.75rem</code></dt>
+      <dt>--material-h3-font-size: <code>3rem</code></dt>
+      <dt>--material-h4-font-size: <code>2.125rem</code></dt>
+      <dt>--material-h5-font-size: <code>1.5rem</code></dt>
+      <dt>--material-h6-font-size: <code>1.25rem</code></dt>
+      <dt>--material-body-font-size: <code>1rem</code></dt>
+      <dt>--material-small-font-size: <code>0.875rem</code></dt>
+      <dt>--material-button-font-size: <code>0.875rem</code></dt>
+      <dt>--material-caption-font-size: <code>0.75rem</code></dt>
+    </dl>
+</content-preview-md>
+++++
+
+== Examples
+
+=== Font family
+
 [source,html]
 ----
 <custom-style>
-  <style include="material-typography"></style>
+  <style>
+    html {
+      --material-font-family: "Helvetica Neue", Arial, sans-serif;
+    }
+  </style>
 </custom-style>
 ----
-++++
 
-<content-preview-md class="block" shady-disclaimer>
-++++
-[source,html]
-----
-<h1>Header 1</h1>
-<h2>Header 2</h2>
-<h3>Header 3</h3>
-<h4>Header 4</h4>
-<h5>Header 5</h5>
-<h6>Header 6</h6>
-----
-++++
-</content-preview-md>
-
-++++
-== Font family
-++++
-    <p>The Roboto font is used by default. You can apply or change the font family using the <code>--material-font-family</code> custom property.</p>
-
-++++
-[source,html]
-----
-        <custom-style>
-          <style>
-            html {
-              --material-font-family: "Helvetica Neue", Arial, sans-serif;
-            }
-          </style>
-        </custom-style>
-----
-++++
-
-++++
 == Font size
 ++++
-
-    <p>The following font sizes are available to use. The default font size for most elements is <code>--material-body-font-size</code>.</p>
-
 <content-preview-md class="block">
 ++++
 [source,html]
@@ -137,29 +118,5 @@ Importing the typography modules imports the Roboto font from link:https://fonts
 </custom-style>
 ----
 ++++
-</content-preview-md>
-
-++++
-== Custom properties
-++++
-<content-preview-md class="block" hidesource raw>
-    <h5>Font family</h5>
-    <dl class="custom-properties">
-      <dt>--material-font-family: <code>"Roboto", sans-serif</code></dt>
-    </dl>
-
-    <h5>Font size</h5>
-    <dl class="custom-properties">
-      <dt>--material-h1-font-size: <code>6rem</code></dt>
-      <dt>--material-h2-font-size: <code>3.75rem</code></dt>
-      <dt>--material-h3-font-size: <code>3rem</code></dt>
-      <dt>--material-h4-font-size: <code>2.125rem</code></dt>
-      <dt>--material-h5-font-size: <code>1.5rem</code></dt>
-      <dt>--material-h6-font-size: <code>1.25rem</code></dt>
-      <dt>--material-body-font-size: <code>1rem</code></dt>
-      <dt>--material-small-font-size: <code>0.875rem</code></dt>
-      <dt>--material-button-font-size: <code>0.875rem</code></dt>
-      <dt>--material-caption-font-size: <code>0.75rem</code></dt>
-    </dl>
 </content-preview-md>
 ++++

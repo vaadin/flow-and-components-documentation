@@ -25,10 +25,7 @@ The `@CssImport` annotation can also be used to import component-specific style 
 
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport, indent=0, group=Java]
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport-themefor, indent=0, group=Java]
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=stylesheet, indent=0, group=Java]
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=app-class, indent=0, group=Java]
+include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport;cssimport-themefor;stylesheet;app-class, indent=0, group=Java]
 ----
 
 In client-side views (JavaScript), you need to write style sheets as JavaScript modules.
@@ -36,15 +33,14 @@ You can only import local/bundled, component-specific style sheets using this me
 
 [source, javascript]
 ----
-include::../documentation/src/main/js/ImportStyleSheets.js[tags=register-styles, indent=0, group=JavaScript]
+include::../documentation/src/main/js/ImportStyleSheets.js[tags=import-register-styles-function;import-css-function;register-styles, indent=0, group=JavaScript]
 ----
 
 In HTML templates, use the standard `<link rel="stylesheet">` and `<style>` elements.
 
 [source, html]
 ----
-include::../documentation/src/main/html/ImportStyleSheets.html[tags=stylesheets, indent=0, group=HTML]
-include::../documentation/src/main/html/ImportStyleSheets.html[tags=inline-stylesheet, indent=0, group=HTML]
+include::../documentation/src/main/html/ImportStyleSheets.html[tags=stylesheets;inline-stylesheet, indent=0, group=HTML]
 ----
 --
 
@@ -71,7 +67,7 @@ The `@CssImport` annotation does not work in Vaadin 14 compatibility mode (Bower
 
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport, indent=0, group=Java]
+include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport;app-class, indent=0, group=Java]
 ----
 
 When importing style sheets in client-side views, you need to take polyfilled browsers into consideration – namely Internet Explorer 11.
@@ -107,7 +103,7 @@ Use local style sheets in cases where this might be an issue, for example when i
 --
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=stylesheet, indent=0, group=Java]
+include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=stylesheet;app-class, indent=0, group=Java]
 ----
 
 [source, html]
@@ -144,7 +140,7 @@ You *need to call `registerStyles` before the component it targets* is registere
 
 [source, javascript]
 ----
-include::../documentation/src/main/js/ImportStyleSheets.js[tags=register-styles, indent=0, group=JavaScript]
+include::../documentation/src/main/js/ImportStyleSheets.js[tags=import-register-styles-function;import-css-function;register-styles, indent=0, group=JavaScript]
 ----
 --
 

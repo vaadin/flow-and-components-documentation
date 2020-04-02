@@ -8,17 +8,31 @@ layout: page
 // Needed to show embedded live previews
 include::../themes-shared.asciidoc[opts=optional]
 
-++++
-   <p>Lumo comes with a set of icons that are designed to fit in with the default Lumo style.</p>
+Lumo comes with a set of icons that are designed to fit in with the default Lumo style.
 
-++++
 == Available icons
 ++++
 
     <lumo-icons-viewer></lumo-icons-viewer>
 
 ++++
-== Usage instructions
+== Icons Size
+
+Use the icon size custom properties to set consistent sizes for all icons across your application.
+The Lumo icons are drawn on a 24&times;24 pixel canvas – the <b>M size</b> fits that by default.
+
+You need to import the style sheet for <<sizing-and-spacing#,Sizing and Spacing>> to use the sizing properties.
+++++
+    <content-preview class="block" hidesource raw>
+
+      <dl class="custom-properties">
+        <dt>--lumo-icon-size-s: <code>1.25em</code></dt>
+        <dt>--lumo-icon-size-m: <code>1.5em</code></dt>
+        <dt>--lumo-icon-size-l: <code>2.25em</code></dt>
+      </dl>
+    </content-preview>
+++++
+== Examples
 ++++
 
     <h3>SVG sprites</h3>
@@ -59,6 +73,7 @@ include::../themes-shared.asciidoc[opts=optional]
 ++++
 
     <h3>Font icons</h3>
+    <p>Note, that the use of SVG icons is preferable over font icons. There are <a href="https://cloudfour.com/thinks/seriously-dont-use-icon-fonts/">well documented caveats</a> when using font icons.</p>
 
 ++++
 [source,html]
@@ -99,11 +114,8 @@ include::../themes-shared.asciidoc[opts=optional]
 </content-preview>
 
 ++++
-== Icon size
+=== Icon size
 ++++
-
-    <p>Use the icon size custom properties to set consistent sizes for all icons across your application. The Lumo icons are drawn on a 24&times;24 pixel canvas – the <b>M size</b> fits that by default.</p>
-    <p>You need to import <code>sizing.html</code> to use the sizing properties.</p>
 
 ++++
 [source,html]
@@ -167,15 +179,4 @@ include::../themes-shared.asciidoc[opts=optional]
 ++++
 </content-preview>
 
-++++
-== Custom properties
-++++
-    <content-preview class="block" hidesource raw>
-      <h5>Icon size</h5>
-      <dl class="custom-properties">
-        <dt>--lumo-icon-size-s: <code>1.25em</code></dt>
-        <dt>--lumo-icon-size-m: <code>1.5em</code></dt>
-        <dt>--lumo-icon-size-l: <code>2.25em</code></dt>
-      </dl>
-    </content-preview>
 ++++

@@ -17,39 +17,44 @@ Styling sub-components, including overlays, require
 
 == Prerequisites
 
-You should be familiar with <<style-scopes#,Style Scopes>>, <<css-custom-properties#,CSS Custom Properties>>, and <<importing-style-sheets#component-local-scope, Importing Style Sheets>> before you can style Vaadin components effectively.
+You should be familiar with <<style-scopes#,Style Scopes>>, <<css-custom-properties#,CSS Custom Properties>>, and <<importing-style-sheets#, Importing Style Sheets>> before you can style Vaadin components effectively.
 
 Vaadin components use the https://github.com/vaadin/vaadin-themable-mixin/[`ThemableMixin`] utility, which allows developers to add custom style sheets to the component’s local scope.
 Your custom components can also utilize the same mixin. This documentation applies only to such components.
 
+== Example
 
-// .Customizing the scoped styles of Text Field
-// ====
-//
-// .`Styles included into the local scope of <vaadin-text-field>`
-// [source,css]
-// ----
-// :host {
-//   padding: 0;
-// }
-//
-// [part="input-field"] {
-//   box-shadow: inset 0 0 0 1px var(--lumo-contrast-30pct);
-//   background-color: var(--lumo-base-color);
-// }
-//
-// [part="input-field"]:hover {
-//   box-shadow: inset 0 0 0 1px var(--lumo-contrast-50pct);
-// }
-//
-// :host([invalid]) [part="input-field"] {
-//   box-shadow: inset 0 0 0 1px var(--lumo-error-color);
-// }
-// ----
-//
-// You might need to use more specific selectors to override the current theme’s styles.
-// Use the browser inspector to identify the applied styles for the element that you wish to customize.
-// ====
+As an example, we customize the styles of the Text Field component.
+
+.`Styles included into the local scope of <vaadin-text-field>`
+[source, css]
+----
+:host {
+  padding: 0;
+}
+
+[part="input-field"] {
+  box-shadow: inset 0 0 0 1px var(--lumo-contrast-30pct);
+  background-color: var(--lumo-base-color);
+}
+
+[part="input-field"]:hover {
+  box-shadow: inset 0 0 0 1px var(--lumo-contrast-50pct);
+}
+
+:host([invalid]) [part="input-field"] {
+  box-shadow: inset 0 0 0 1px var(--lumo-error-color);
+}
+
+:host([focused]) [part="input-field"] {
+  box-shadow: 0 0 0 2px var(--lumo-primary-color-50pct);
+}
+----
+
+You might need to use more specific selectors to override the current theme’s styles.
+Use the browser inspector to identify the applied styles for the element that you wish to customize.
+
+See <<importing-style-sheets#, Importing Style Sheets>> for instructions how to import the above styles into the local style scope of the Text Field component.
 
 == Custom Properties
 
@@ -86,38 +91,25 @@ These stylable elements are marked with the `part` attribute.
 The internal parts of each component are listed in the component's HTML API documentation.
 See the https://vaadin.com/components/vaadin-text-field/html-api/elements/Vaadin.TextFieldElement[Styling section in Text Field API docs] for an example.
 
-=== Example
-
 .Stylable parts of <vaadin-text-field>
 image::images/vaadin-text-field-parts.png[vaadin-text-field with stylable parts highlighted in the UI and in shadow DOM markup]
 
-As an example, let's modify the Text Field component's internal "input field" to have a border and a different background color than the default Lumo theme has.
-
-.`Styles included into the local scope of <vaadin-text-field>`
-[source, css]
-----
-[part="input-field"] {
-  /* We use box-shadow for the border to avoid changing the
-     dimensions of the element */
-  /* We use the Lumo custom properties to make our changes
-     automatically adapt to dark mode */
-  box-shadow: inset 0 0 0 1px var(--lumo-contrast-30pct);
-  background-color:var(--lumo-base-color);
-}
-----
 
 == Supported CSS Selectors
 
-A subset of CSS selectors is considered as a part of a component’s public styling API.
+When writing style sheets for a component’s local style scope (inside shadow DOM), a subset of CSS selectors is considered as part of a component’s public styling API.
 Other selectors (including the `.class` and `#id` selectors) may stop working with any release because they are considered as internal implementation details.
 
 In general, the `[part]` attribute selector is the only one you should use to target elements inside a component.
 
-The list of supported selectors includes:
+*Do not rely on the element type* which a part applies to.
+For example, given `<input type="text" part="value">`, you should not rely on the information that the element is actually a native `<input>` element, for example by using a selector like `input[part="value"]`.
+This is considered as an internal implementation detail.
+The element type could change in the future while the part name stays the same, for example, to `<div contenteditable="true" part="value">`.
 
 
 +:host+::
-The host element can be targeted using the `:host` selector.
+The `:host` selector allows you to select the host of the shadow DOM from within the local style scope. For example, the `<vaadin-text-field>` element from within its local scope.
 +
 [source, css]
 ----
@@ -125,10 +117,27 @@ The host element can be targeted using the `:host` selector.
   /* For example, styles for <vaadin-text-field> element */
 }
 ----
++
+The `:host` selector also accepts a simple selector as an argument for it, scoping the selector to match the host only if the added selector matches it as well. It is useful, for example, for matching specific <<states>> and <<theme-variants#,Theme Variants>> of a component (using an attribute selector).
++
+[source, css]
+----
+:host([state]) {
+  /* For example, styles for <vaadin-text-field> element
+     in a particular state (focused, invalid, etc) */
+}
+
+:host([theme~="small"]) {
+  /* Styles for the small variant */
+}
+----
++
+ifdef::web[]
+Read more about the https://developer.mozilla.org/en-US/docs/Web/CSS/:host[`:host`] and https://developer.mozilla.org/en-US/docs/Web/CSS/:host()[`:host()`] selectors on MDN.
+endif::web[]
 
 
 [part]::
-+
 The stylable elements (marked with a `part` attribute) should only be targeted using the `[part="..."]` attribute selector.
 +
 .`Styles included into the local scope of <vaadin-text-field>`
@@ -159,44 +168,56 @@ It will work for parts with only one name as well.
 ----
 +
 ifdef::web[]
-Read more about the standard https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors[CSS attribute selectors on MDN].
+Read more about https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors[attribute selectors] on MDN.
 endif::web[]
-+
-**Do not rely on the element type** which a part applies to.
-For example, given `<input type="text" part="value">`, you should not rely on the information that the element is actually a native `<input>` element.
-This is considered as an internal implementation detail.
-The element type could change in the future while the part name stays the same, for example, to `<div contenteditable="true" part="value">`.
 
 
 ::before and ::after::
-+
-Pseudo-element selectors (`::before` and `::after`) can be used in combination with the `:host` and `[part]` selectors.
+The `::before` and `::after` pseudo-element selectors can be used in combination with the `:host` and `[part]` selectors.
 The built-in themes can also use the pseudo-elements, so be aware of potential collisions.
 +
 .`Styles included into the local scope of <vaadin-text-field>`
 [source, css]
 ----
+:host::before {
+  ...
+}
+
 [part="input-field"]::after {
   content: "";
   ...
 }
 ----
++
+ifdef::web[]
+Read more about the https://developer.mozilla.org/en-US/docs/Web/CSS/::before[`::before`] and https://developer.mozilla.org/en-US/docs/Web/CSS/::after[`::after`] selectors on MDN.
+endif::web[]
 
 
 ::slotted()::
-TODO
+The `::slotted()` pseudo-element selector represents any element that has been placed into a slot inside an HTML template. It always expects a simple selector as an argument.
++
+.`Styles included into the local scope of <vaadin-app-layout>`
+[source, css]
+----
+[part="drawer"] ::slotted(*) {
+  /* Styles for any element which is in
+    the light DOM of <vaadin-app-layout>
+    and has the slot="drawer" attribute */
+}
+----
++
+ifdef::web[]
+Read more about the https://developer.mozilla.org/en-US/docs/Web/CSS/::slotted[`::slotted()`] selector on MDN.
+endif::web[]
 
 
-== Theme Variants
-
-TODO
 
 == States
 
-Some custom elements expose some of their internal state as top-level attributes for styling purposes.
+Some components expose their internal state as top-level attributes for styling purposes.
 
-Let's add one more detail to our custom text field styles: a different border-color when the field is invalid, using the `+[invalid]+` state attribute selector.
-Learn more about <<styling-component-states#,styling component states>>.
+For example, we can style the Text Field component when it is invalid, using the `+[invalid]+` state attribute selector.
 
 .`Styles included into the local scope of <vaadin-text-field>`
 [source,css]
@@ -219,7 +240,7 @@ In addition to the `[state]` attributes, standard CSS pseudo-classes (`:hover`, 
 }
 ----
 
-Similarly to the host element, named parts can also expose state attributes for themselves, which can be used for styling.
+Just like the host element, named internal parts can also expose state attributes for themselves, which can be used for styling.
 These are also listed in the element’s API documentation.
 
 For example, you can target a selected date in a `<vaadin-date-picker>`:
@@ -234,7 +255,7 @@ For example, you can target a selected date in a `<vaadin-date-picker>`:
 
 == Sub-components
 
-Components contain other components inside their shadow DOM.
+Components can contain other components inside their shadow DOM.
 This creates a hierarchy of style scopes.
 
 The customizations we did for the Text Field component end up affecting other components as well, which internally use Text Field.
@@ -246,11 +267,14 @@ Sometimes you only want to target the Text Field inside a single Combo Box.
 Theme variants (the `theme` attribute values) are propagated from the parent component to all of its sub-components.
 They allow you to scope sub-component styles per-instance.
 
+Theme variant propagation is not limited to the built-in variants (theme attribute values).
+Your <<theme-variants#custom-variants,custom theme variants>> will propagate in the same way.
+
 ====
 ++++
 <details>
 <summary>
-  <b>Hierarchy of stylable Vaadin components</b> (Click to expand)
+  <b>Hierarchy of Vaadin components and sub-components</b> (Click to expand)
 </summary>
 ++++
 
@@ -270,7 +294,7 @@ Styles are inherited when components are extended.
 *App Layout*
 
 * `<vaadin-app-layout>`
-* `<vaadin-drawer-toggle>`
+* `<vaadin-drawer-toggle>` (extends `<vaadin-button>`)
 
 *Button*
 
@@ -449,9 +473,6 @@ Styles are inherited when components are extended.
 image::images/vaadin-combo-box-theme-propagation.png[vaadin-combo-box theme attribute propagating to its sub-components]
 ====
 
-Theme variant propagation is not limited to the built-in variants (theme attribute values).
-Your custom theme variants will propagate in the same way.
-
 
 == Overlays
 
@@ -470,13 +491,13 @@ An overlay is considered as a sub-component of the main component and <<theme-va
 
 In some cases the parent component can be completely hidden (e.g. Dialog) whereas sometimes both the parent component and its overlay component can contain content (e.g. Date Picker).
 
-=== Stylable Parts
+=== Stylable Parts of Overlay
 
 The `<vaadin-overlay>` component, including and all components extending it, contains the following stylable parts:
 
-* `overlay`: The visual container of the overlay. It is typically also a scrolling container so you should avoid setting padding to it.
-* `content`: The content area inside the `overlay`. You can apply padding to this part.
-* `backdrop`: The optional modality curtain that covers the whole viewport and is visually behind the `overlay` part.
+`overlay`:: The visual container of the overlay. It is typically also a scrolling container so you should avoid setting padding to it.
+`content`:: The content area inside the `overlay`. You can apply padding to this part.
+`backdrop`:: The optional modality curtain that covers the whole viewport and is visually behind the `overlay` part.
 
 
 ==== Example

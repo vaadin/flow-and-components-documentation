@@ -10,15 +10,13 @@ Use CSS custom properties to adjust Lumo to fit the needs of your application.
 
 == Prerequisites
 
-You should be familiar with <<../using-themes#,Using Themes>>, <<../importing-style-sheets#,Importing Style Sheets>> and <<../themes-and-styling-overview#prerequisites,writing CSS>>.
+You should be familiar with <<../using-themes#,Using Themes>>, <<../importing-style-sheets#,Importing Style Sheets>>, <<../themes-and-styling-overview#prerequisites,writing CSS>>, and <<../css-custom-properties#,CSS Custom Properties and Variables>>.
 
 == Fonts and Colors
 
 The most common theme customization is to adjust the global font and color properties.
 
-=== Lumo theme
-
-[source,css]
+[source, css]
 ----
 html {
   --lumo-font-family: Arial, Helvetica, sans-serif;

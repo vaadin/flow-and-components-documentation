@@ -17,14 +17,14 @@ Theme variants can be used across all <<style-scopes#,Style Scopes>> – you do
 == Global Variants
 
 Global variants affect all component instances in an application.
-Light and dark modes are a good example of global variants.
+Light and dark modes are good examples of global variants.
 
 See the documentation for <<lumo/variants#,Lumo Variants>> and <<material/variants#,Material Variants>> to learn more about the built-in variants.
 
 [.example]
 --
 
-In server-side views, use the `variant` attribute of the [classname]#@Theme# annotation.
+In server-side views (Java), use the `variant` attribute of the [classname]#@Theme# annotation.
 See <<../using-themes#,Using Themes>> for more information.
 
 [source, java]
@@ -32,25 +32,25 @@ See <<../using-themes#,Using Themes>> for more information.
 include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=lumo-dark, indent=0, group=Java]
 ----
 
-In client-side views, set the `theme` attribute on the `document.documentElement` object.
+In client-side views (JavaScript), set the `theme` attribute on the `document.documentElement` object.
 
 [source, javascript]
 ----
 include::../documentation/src/main/js/ThemeVariants.js[tags=global-dark, indent=0, group=JavaScript]
 ----
 
-In client-side templates, set the `theme` attribute on the `<html>` element.
+In client-side templates (HTML), set the `theme` attribute on the `<html>` element.
 
 [source, html]
 ----
-include::../documentation/src/main/html/ThemeVariants.html[group=HTML]
+include::../documentation/src/main/html/ThemeVariants.html[tags=global-dark, indent=0, group=HTML]
 ----
 --
 
 
 == Component Variants
 
-Component Variants affect selected component instances.
+Component variants affect selected component instances.
 Primary buttons, and small buttons and text fields are common examples of component variants.
 You can combine multiple variants together for a single component, for example a small primary button.
 
@@ -88,10 +88,43 @@ include::../documentation/src/main/html/ThemeVariants.html[tags=themed-button, i
 --
 
 
-=== Custom Variants
+== Sub-component Variants
+
+Theme variants propagate to sub-components. For example, the Combo Box component internally contains the Text Field component. Setting a theme variant on a Combo Box will also be applied on the internal Text Field component.
+
+This also means, that even though Combo Box does not have a built-in “small” variant of its own, it can still utilize the built-in “small” variant of the Text Field component. For example:
+
+[.example]
+--
+In server-side views (Java):
+
+[source, java]
+----
+include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=combobox-variant, indent=0, group=Java]
+----
+
+In client-side views (JavaScript):
+
+[source, javascript]
+----
+include::../documentation/src/main/js/ThemeVariants.js[tags=combobox-variant, indent=0, group=JavaScript]
+----
+
+In client-side templates (HTML):
+
+[source, html]
+----
+include::../documentation/src/main/html/ThemeVariants.html[tags=combobox-variant, indent=0, group=HTML]
+----
+--
+
+See <<styling-components#sub-components,Styling Components>> to learn about the hierarchy of built-in Vaadin components, so you can use variants more effectively and know which exact components you need to target in order to customize components with sub-components.
+
+
+== Custom Variants
 
 Custom variants allow you to freely customize the visual appearance of components.
-They are defined in an additional stylesheet which you import.
+They are defined in an additional stylesheet which you import (see <<importing-style-sheets#,Importing Style Sheets>>).
 Technically, custom variants work exactly like built-in variants.
 
 To create a custom variant, first we need to write the styles for that variant.
@@ -109,36 +142,3 @@ To learn how to correctly target internal parts of components and how to write t
 Then, you need to import the style sheet into the corresponding component’s style scope. See <<importing-style-sheets#component-local-scope,Importing Style Sheets>> to learn more.
 
 Finally, you can use the `my-custom-variant` on a Button component, as shown before.
-
-
-== Sub-component Variants
-
-Theme variants propagate to sub-components. For example, the Combo Box component internally contains the Text Field component. Setting a theme variant on a Combo Box will also be applied on the internal Text Field component.
-
-This also means, that even though Combo Box does not have a built-in “small” variant of its own, it can still utilize the built-in “small” variant of the Text Field component. For example:
-
-[.example]
---
-In server-side views (Java):
-
-[source, java]
-----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=combobox-variant, indent=0, group=Java]
-----
-
-In client-side view (JavaScript):
-
-[source, javascript]
-----
-include::../documentation/src/main/js/ThemeVariants.js[tags=combobox-variant, indent=0, group=JavaScript]
-----
-
-In client-side templates (HTML):
-
-[source, html]
-----
-include::../documentation/src/main/html/ThemeVariants.html[tags=combobox-variant, indent=0, group=HTML]
-----
---
-
-See <<styling-components#sub-components,Styling Components>> to learn about the hierarchy of built-in Vaadin components, so you can use variants more effectively and know which exact components you need to target in order to customize components with sub-components.
