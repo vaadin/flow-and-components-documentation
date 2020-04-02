@@ -27,7 +27,7 @@ The framework dependency handling uses a `"vaadin"` object inside `package.json`
 == Switching Between pnpm and npm
 
 By default Vaadin 14.2 and 15 projects uses npm. Switching between pnpm / npm is possible
-by setting the `pnpm.enable` configuration property value to `true´ or `false` respectively (`false` is the default).
+by setting the `pnpm.enable` configuration property value to `true` or `false` respectively (`false` is the default).
 This property can be applied using either system properties (NOTE: use prefix `vaadin.` when using system properties),
 servlet initialization parameters, or Spring application properties.
 To read more about how to set properties, see the
