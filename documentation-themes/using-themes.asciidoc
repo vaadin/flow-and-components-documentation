@@ -5,8 +5,17 @@ layout: page
 ---
 
 = Using Themes
+ifdef::web[]
+:toc: macro
+:toc-title: Contents
+:toclevels: 1
+endif::web[]
 
 Use one of the built-in themes to get a great starting point for your application, which you can customize further. You can also start from scratch and implement a completely custom theme.
+
+ifdef::web[]
+toc::[]
+endif::web[]
 
 == Existing Themes
 

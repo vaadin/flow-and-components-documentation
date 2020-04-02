@@ -5,7 +5,6 @@ layout: page
 ---
 
 = Overview
-:toc: macro
 
 Vaadin separates the appearance of the user interface from its logic using themes. Using a theme helps in making an application look and feel consistent to the end user, and offers a shared visual language which you can apply to your application-specific styling.
 

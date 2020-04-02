@@ -5,6 +5,11 @@ layout: page
 ---
 
 = CSS Custom Properties and Variables
+ifdef::web[]
+:toc: macro
+:toc-title: Contents
+:toclevels: 1
+endif::web[]
 
 CSS custom properties and variables allow you to define arbitrarily named properties and their values, which you can then later reference in other style sheets.
 They reduce copy-paste, ensure consistency and make it easier to read and understand style sheets.
@@ -14,6 +19,10 @@ The built-in themes in Vaadin and their customizability are based on custom prop
 [CAUTION]
 CSS custom properties are not natively supported in Internet Explorer 11.
 A polyfill is automatically loaded which makes it possible to use them, but with some https://github.com/webcomponents/polyfills/tree/master/packages/shadycss#limitations[limitations].
+
+ifdef::web[]
+toc::[]
+endif::web[]
 
 
 == Defining Custom Properties
