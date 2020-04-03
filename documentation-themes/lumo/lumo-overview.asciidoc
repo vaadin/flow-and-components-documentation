@@ -4,7 +4,7 @@ order: 1
 layout: page
 ---
 
-= Overview
+= Lumo
 ifdef::web[]
 :toc: macro
 :toc-title: Contents
