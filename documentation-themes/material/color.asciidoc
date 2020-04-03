@@ -38,8 +38,6 @@ Note, that `--material-primary-text-color` is not necessarily the same as `--mat
 Use the main color for backgrounds and the “text” version for text.
 The same applies for the “error” and “success” colors as well.
 
-.Accessibility
-[NOTE]
 The “disabled” text color does not have enough contrast by default to meet WCAG 2.0 AA level requirements (4.5:1).
 Only use it for text which is not crucial for the end user to see.
 

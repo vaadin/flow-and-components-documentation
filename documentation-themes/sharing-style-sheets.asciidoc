@@ -86,7 +86,7 @@ include::src/main/js/ImportStyleSheets.js[tags=import-shared-css;import-css, ind
 [.example]
 --
 
-To use a shared style sheet in a component scope add the `include` attribute to a component scoped [classname]#@CssImport# annotation.
+To use a shared style sheet in a component scope, add the `include` attribute to a component scoped [classname]#@CssImport# annotation.
 
 [source, java]
 ----

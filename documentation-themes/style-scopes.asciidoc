@@ -11,7 +11,7 @@ ifdef::web[]
 :toclevels: 1
 endif::web[]
 
-With the addition of https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM[Shadow DOM], styles on a webpage can be divided into two groups, also known as *style scopes*: *global* and *local*.
+With the addition of https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM[shadow DOM], styles on a webpage can be divided into two groups, also known as *style scopes*: *global* and *local*.
 
 ifdef::web[]
 toc::[]

@@ -43,7 +43,7 @@ See <<icons#,Icons>> for properties that affect the sizing of icons.
 
 == Space
 
-Use these properties to adjust the inter-component spacings, i.e. space outside a regular component (button, text field) or inside a container component (layouts, grid cells).
+Use these properties to adjust the inter-component spacings: the space outside a regular component (button, text field) or inside a container component (layouts, grid cells).
 
 ++++
     <h5>Uniform</h5>

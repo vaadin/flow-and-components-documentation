@@ -57,21 +57,21 @@ include::src/main/html/ImportStyleSheets.html[tags=stylesheets;inline-stylesheet
 
 There are two ways to import style sheets to the global scope:
 
- 1. Local/bundled style sheets which are loaded with the app’s frontend bundle, together with all JavaScript
- 2. External/linked style sheets which are not bundled with the app’s frontend bundle but loaded and cached separately by the browser
+ . Local/bundled style sheets, which are loaded with the application’s frontend bundle, together with all JavaScript.
+ . External/linked style sheets, which are not bundled with the application’s frontend bundle but loaded and cached separately by the browser.
 
 [[global-bundled]]
 === Local Style Sheets
 
 Local/bundled style sheets are inlined to the application bundle during a production build, together with other client-side resources.
-Bundling is recommended for styles which change together with the application logic or component implementations, as the browser can cache them as a single, closely related unit.
+Bundling is recommended for styles that change together with the application logic or component implementations, as the browser can cache them as a single unit made of closely related resources.
 
 [.example]
 --
 In server-side views (Java), the https://vaadin.com/api/platform/com/vaadin/flow/component/dependency/CssImport.html[`@CssImport`] annotation will handle all the boilerplate for you, you only need to reference a regular CSS file.
 
 [CAUTION]
-The `@CssImport` annotation does not work in Vaadin 14 compatibility mode (Bower and HTML imports).
+The [classname]#@CssImport# annotation does not work in Vaadin 14 compatibility mode (Bower and HTML imports).
 
 [source, java]
 ----
@@ -79,7 +79,7 @@ include::src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[
 ----
 
 When importing style sheets in client-side views, you need to take polyfilled browsers into consideration – namely Internet Explorer 11.
-Those browsers do not have native style encapsulation via Shadow DOM and require that styles are scoped (using CSS selectors) manually or via polyfills.
+Those browsers do not have native style encapsulation via shadow DOM and require that styles are scoped (using CSS selectors) manually or via polyfills.
 
 One way to scope global styles and prevent them from affecting Polymer-based components in polyfilled browsers is to use the `<custom-style>` element from the Polymer library.
 
@@ -103,16 +103,16 @@ This allows the browser to load and cache the style sheet separately from the re
 External style sheets need to be accessible from a URL, and therefore need to be placed in the public resource folder in your web application.
 They can also come from outside your web application, for example from a different domain or a Content Delivery Network (CDN).
 
-[CAUTION]
-The CSS rules in external style sheets are not protected from overriding component-specific styles in browsers without native style encapsulation (Shadow DOM) – namely Internet Explorer 11.
-Use local style sheets in cases where this might be an issue, for example when including CSS which is not maintained by you.
-
 [.example]
 --
+In server-side views (Java), the [classname]#@StyleSheet# annotation can be used to import style sheets from an external URL, or from a URL within your application. The latter type of URLs are prefixed with `context://`, which points to the root of the public resources folder of your application.
+
 [source, java]
 ----
 include::src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=stylesheet;app-class, indent=0, group=Java]
 ----
+
+In client-side templates (HTML), use the standard `<link rel="stylesheet">` element to import external style sheets.
 
 [source, html]
 ----
@@ -120,10 +120,14 @@ include::src/main/html/ImportStyleSheets.html[tags=stylesheets, indent=0, group=
 ----
 --
 
+[CAUTION]
+The CSS rules in external style sheets are not protected from overriding component-specific styles in browsers without native style encapsulation (shadow DOM) – namely Internet Explorer 11.
+Use local style sheets in cases where this might be an issue, for example when including CSS which is not maintained by you.
+
 
 == Component Styles
 
-These instructions only apply to components which use https://github.com/vaadin/vaadin-themable-mixin/[`ThemableMixin`], including all Vaadin components.
+These instructions apply to components that use https://github.com/vaadin/vaadin-themable-mixin/[`ThemableMixin`], including all Vaadin components.
 
 Component styles are scoped per component and allow you to customize components without worrying about side-effects to other parts of your application.
 Component styles are always inlined to the application bundle – they can’t be external/linked style sheets.
@@ -144,7 +148,7 @@ include::src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[
 In client-side views, use the [methodname]#registerStyles# function.
 Specify the tag/element name of the component and provide string of CSS that you wish to apply to the component.
 
-You *need to call `registerStyles` before the component it targets* is registered and upgraded (before the first instantiation of the component).
+You *need to call `registerStyles` before the component it targets* is registered and upgraded by the browser. In other words, before the first instantiation of the component.
 
 [source, javascript]
 ----
@@ -152,7 +156,7 @@ include::src/main/js/ImportStyleSheets.js[tags=import-register-styles-function;i
 ----
 --
 
-You can use the same style sheet for multiple components simultaneously by providing a space-separated list of component names instead of a single component name. Wildcard element names are supported as well, for example `vaadin-*-overlay`.
+You can use the same style sheet for multiple components simultaneously by providing a space-separated list of component names instead of a single component name. Wildcard element names are supported as well, for example, `vaadin-*-overlay`.
 
 [.example]
 --

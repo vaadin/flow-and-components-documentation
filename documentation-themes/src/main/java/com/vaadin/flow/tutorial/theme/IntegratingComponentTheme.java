@@ -55,7 +55,7 @@ public class IntegratingComponentTheme {
         public Map<String, String> getHtmlAttributes(
                 String variant) {
             if ("dark".equals(variant)) {
-                // the <body> element will have the "theme"
+                // The <body> element will have the "theme"
                 // attribute set to "dark" when the dark variant
                 // is used
                 return Collections.singletonMap("theme", "dark");

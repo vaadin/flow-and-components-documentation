@@ -34,13 +34,13 @@ To do this, you need to create a https://vaadin.com/api/platform/com/vaadin/flow
 
 The most important methods are:
 
-* `getBaseUrl`: This should return the part of the import that is used to determine if it is an import that can be changed into a theme import.
-For Vaadin components this is `/src/`.
+* [methodname]#getBaseUrl()#: This should return the import base path that is used to determine if it is an import that can be changed into a theme import.
+For Vaadin components that is `/src/`.
 
-* `getThemeUrl`: This should return what the base URL part should be changed into to get the correct theme import.
-For Vaadin components this is `/theme/[_themeName_]`.
+* [methodname]#getThemeUrl()#: This should return what the base URL part should be changed into to get the correct theme import.
+For Vaadin components that is `/theme/[_themeName_]`.
 
-*Example*: Overriding the `getBaseUrl` and `getThemeUrl` methods in the `MyTheme` class.
+For example, overriding [methodname]#getBaseUrl()# and [methodname]#getThemeUrl()# in the `MyTheme` class would go as follows:
 
 .MyTheme.java
 [source, java]
@@ -49,9 +49,10 @@ include::src/main/java/com/vaadin/flow/tutorial/theme/IntegratingComponentTheme.
 }
 ----
 
-If you need more control, you can use the `getHeaderInlineContents()` method that returns a collection of HTML that will be inlined to the `BootstrapPage` body.
+If you need more control, you can use the [methodname]#getHeaderInlineContents()# method.
+It returns a collection of HTML that will be inlined to the `BootstrapPage` body.
 
-*Example*: Using the `getHeaderInlineContents()` method to add a custom style that includes the correct typography styles.
+Implement [methodname]#getHeaderInlineContents()# to add a custom style that includes the correct typography styles:
 
 .MyTheme.java
 [source, java]
@@ -62,9 +63,9 @@ include::src/main/java/com/vaadin/flow/tutorial/theme/IntegratingComponentTheme.
 Your can also support theme variants.
 The Lumo theme, for example, supports both light and dark variants.
 
-Override the `getHtmlAttributes` method in your custom theme class to add support for variants.
+Override [methodname]#getHtmlAttributes()# in your custom theme class to add support for variants.
 
-*Example*: Overriding the `getHtmlAttributes` method.
+For example, override [methodname]#getHtmlAttributes()# as follows:
 
 .MyTheme.java
 [source, java]
@@ -74,14 +75,19 @@ include::src/main/java/com/vaadin/flow/tutorial/theme/IntegratingComponentTheme.
 
 == Create Style Sheets
 
-Create style sheets as JavaScript modules (`.js` files) for all the Vaadin elements in the `/frontend/theme/myTheme/` folder.
+You need to provide a style sheet for each component used in your application.
+Omitted components display without any styles.
+This is because all Vaadin components are imported using the `/src/` path, and it is the responsibility of the theme class to replace the [methodname]#getBaseUrl()# pattern with an appropriate path to the themed elements (as returned in the [methodname]#getThemeUrl()#).
 
-*Example*: Modifying  the `vaadin-button` component by adding custom rules to the original Lumo rules in `frontend/theme/myTheme/vaadin-button.js`.
+Create style sheets as JavaScript modules (`.js` files) for each of the Vaadin elements in the `/frontend/theme/myTheme/` folder.
+
+For example, modify  the `vaadin-button` component by adding custom rules to the original Lumo rules in `frontend/theme/myTheme/vaadin-button.js`:
 
 [source,js]
 ----
 // Import the non-themed component
 import '@vaadin/vaadin-button/src/vaadin-button.js';
+
 // Optional: reuse Lumo styles for button
 import '@vaadin/vaadin-button/theme/lumo/vaadin-button-styles.js';
 
@@ -94,7 +100,3 @@ registerStyles('vaadin-button', css`
     }
 `);
 ----
-
-You need to provide theme files for all components used in your application.
-Omitted component display without any styles.
-This is because all Vaadin components are imported using the `/src/` path, and it is the responsibility of the theme class to replace the `getBaseUrl()` pattern with an appropriate path to the themed elements (as returned in the `getThemeUrl()`).

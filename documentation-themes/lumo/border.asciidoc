@@ -24,7 +24,7 @@ include::../themes-shared.asciidoc[opts=optional]
 The border radius values are defined as `em` by default, so they scale with the font size.
 
 [NOTE]
-If you want to set a border radius property to zero, you need to specify a unit for it as well (i.e. `0px` or `0em`), as it can be used in `calc` functions which will be undefined if the border radius is a unitless value.
+If you want to set a border radius property to zero, you need to specify a unit for it as well (for example `0px`), as it can be used in `calc` functions which will be undefined if the border radius is a unitless value.
 
 ++++
 <content-preview class="block" hidesource raw>

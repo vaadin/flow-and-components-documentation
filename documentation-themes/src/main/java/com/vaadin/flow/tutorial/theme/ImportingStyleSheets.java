@@ -12,6 +12,7 @@ public class ImportingStyleSheets {
     @Route(value = "")
 
     // tag::cssimport[]
+    // Import a style sheet into the global scope
     @CssImport("./styles/shared-styles.css")
     // end::cssimport[]
 
@@ -28,7 +29,10 @@ public class ImportingStyleSheets {
     // end::cssimport-include[]
 
     // tag::cssimport-themefor[]
-    @CssImport(value = "./styles/text-field.css", themeFor = "vaadin-text-field")
+
+    // Import a style sheet into the local scope of the TextField component
+    @CssImport(value = "./styles/text-field.css",
+               themeFor = "vaadin-text-field")
     // end::cssimport-themefor[]
 
     // tag::cssimport-themefor-multiple[]
@@ -43,6 +47,8 @@ public class ImportingStyleSheets {
     // end::cssimport-themefor-include[]
 
     // tag::stylesheet[]
+
+    // Link to external style sheets
     @StyleSheet("context://custom-font.css")
     @StyleSheet("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
     // end::stylesheet[]

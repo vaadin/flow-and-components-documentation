@@ -29,7 +29,7 @@ Your views and application-specific components are usually built by composing ex
 Styling these components is a little different from styling the internals of built-in components.
 See <<styling-components#,Styling Components>> for more information on styling built-in components.
 
-=== Server-side Views and Custom Components
+=== Server-Side Views and Custom Components
 
 Server-side views and custom components (Java), extending from `Component`, are rendered in the global style scope.
 You can apply traditional CSS styling techniques for them.

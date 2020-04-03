@@ -157,8 +157,7 @@
 
             <div id="shady-disclaimer" class="admonitionblock note" hidden="[[_shouldHideShadyDisclaimer(shadyDisclaimer)]]" style="margin-bottom: -1rem">
               <p>
-                The demo above might appear differently on browsers without native Shadow DOM support
-                due to leaking unscoped styles from the host environment.
+                The demo above might appear differently on browsers without native shadow DOM support due to leaking unscoped styles from the host environment.
                 This isn't an issue with Vaadin applications in general. Sorry for the inconvenience.
               </p>
             </div>

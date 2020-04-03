@@ -22,10 +22,13 @@ include::../themes-shared.asciidoc[opts=optional]
 
 
 [NOTE]
+====
 The default color palette is not fully link:https://www.w3.org/TR/WCAG20/#visual-audio-contrast[WCAG 2.0] AA level compliant.
+
 ifdef::web[]
 Follow the https://github.com/vaadin/vaadin-lumo-styles/issues/22[issue on GitHub].
 endif::web[]
+====
 
 == Base
 
@@ -54,9 +57,7 @@ The tint and shade colors not always pure grayscale by default, but tinted sligh
 
 The grayscale colors are useful for dividing pages into sections with different backgrounds and borders, or used as text colors, for example.
 
-.Accessibility
-[NOTE]
-The default text colors are tested to have enough contrast on top of the Base color and “Base + 5–20% Contrast color”. Avoid using a a higher Contrast color as a background color for any important content.
+The default text colors are tested to have enough contrast on top of the <<base>> color and “Base + 5–20% Contrast color”. Avoid using a a higher Contrast color as a background color for any important content.
 
 ++++
 <content-preview class="block" hidesource raw>
@@ -139,12 +140,9 @@ Usually a green color, used for success messages and buttons that complete a cer
 
 == Text
 
-The following text colors have the desired contrast with the Base color.
+The following text colors have the desired contrast with the <<base>> color.
 
-==== Separate text colors
-Note, that `--lumo-primary-text-color` is not necessarily the same as `--lumo-primary-color`. Use the main color for backgrounds and the “text” version for text.
-
-The same applies for the “error” and “success” colors as well.
+Note, that `--lumo-primary-text-color` is not necessarily the same as `--lumo-primary-color`. Use the main color for backgrounds and the “text” version for text. The same applies for the <<error>> and <<success>> colors as well.
 
 
 .Accessibility
