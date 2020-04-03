@@ -36,8 +36,7 @@ public class RoutingUrlGeneration {
 
     public class Menu extends Div {
         public Menu() {
-            String route = RouteConfiguration
-                    .forRegistry(UI.getCurrent().getRouter().getRegistry())
+            String route = RouteConfiguration.forSessionScope()
                     .getUrl(PathComponent.class);
             Anchor link = new Anchor(route, "Path");
             add(link);
@@ -56,8 +55,7 @@ public class RoutingUrlGeneration {
 
     public class ParameterMenu extends Div {
         public ParameterMenu() {
-            String route = RouteConfiguration
-                    .forRegistry(UI.getCurrent().getRouter().getRegistry())
+            String route = RouteConfiguration.forSessionScope()
                     .getUrl(GreetingComponent.class, "anonymous");
             Anchor link = new Anchor(route, "Greeting");
             add(link);

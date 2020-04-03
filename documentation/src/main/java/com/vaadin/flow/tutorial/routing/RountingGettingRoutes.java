@@ -15,9 +15,7 @@
  */
 package com.vaadin.flow.tutorial.routing;
 
-import java.util.List;
-
-import com.vaadin.flow.component.UI;
+import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouteData;
 import com.vaadin.flow.router.Router;
 import com.vaadin.flow.router.RouterLayout;
@@ -28,8 +26,11 @@ public class RountingGettingRoutes {
 
     public void getRoutes() {
         //@formatter:off
-        Router router = UI.getCurrent().getRouter();
-        List<RouteData> routes = router.getRegistry().getRegisteredRoutes();
+        List<RouteData> routes = RouteConfiguration.forSessionScope().getAvailableRoutes();
+
+        List<RouteData> myRoutes =routes.stream()
+                .filter(routeData -> MyParentLayout.class.equals((routeData.getParentLayout())))
+                .collect(Collectors.toList());
         //@formatter:on
     }
 
