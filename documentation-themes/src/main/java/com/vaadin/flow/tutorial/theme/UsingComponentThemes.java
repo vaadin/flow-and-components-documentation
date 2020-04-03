@@ -61,8 +61,7 @@ public class UsingComponentThemes {
     }
 
     @Theme(MyTheme.class)
-    public class MainLayout extends Div
-            implements RouterLayout {
+    public class MainLayout extends Div implements RouterLayout {
     }
 
     @Route(value = "", layout = MainLayout.class)
@@ -102,8 +101,10 @@ public class UsingComponentThemes {
     public class Button extends Component {
         public Button(String string) {
         }
+
         public void addThemeVariants(ButtonVariant... vars) {
         }
+
         public List<String> getThemeNames() {
             return null;
         }
@@ -120,8 +121,7 @@ public class UsingComponentThemes {
     {
         // tag::themed-button2[]
         Button button = new Button("Themed button");
-        button.getThemeNames().addAll(
-                Arrays.asList("primary", "small"));
+        button.getThemeNames().addAll(Arrays.asList("primary", "small"));
         // end::themed-button2[]
     }
     {
@@ -129,12 +129,10 @@ public class UsingComponentThemes {
         // Using the low-level Element API
         Button button = new Button("Themed button");
         String themeAttributeName = "theme";
-        String oldValue = button.getElement()
-                .getAttribute(themeAttributeName);
+        String oldValue = button.getElement().getAttribute(themeAttributeName);
         String variantsToAdd = "primary small";
         button.getElement().setAttribute(themeAttributeName,
-                oldValue == null || oldValue.isEmpty() ?
-                        variantsToAdd
+                oldValue == null || oldValue.isEmpty() ? variantsToAdd
                         : ' ' + variantsToAdd);
         // end::themed-button3[]
     }
@@ -149,8 +147,7 @@ public class UsingComponentThemes {
     @JsModule("@vaadin/vaadin-lumo-styles/presets/compact.js")
     @Theme(Lumo.class)
     // end::lumo-compact[]
-    public class CompactMainLayout extends Div
-            implements RouterLayout {
+    public class CompactMainLayout extends Div implements RouterLayout {
     }
 
     @JsModule("@vaadin/vaadin-lumo-styles/color.js")

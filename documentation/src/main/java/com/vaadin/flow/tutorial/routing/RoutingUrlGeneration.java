@@ -15,6 +15,7 @@
  */
 package com.vaadin.flow.tutorial.routing;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.BeforeEvent;
@@ -35,7 +36,8 @@ public class RoutingUrlGeneration {
 
     public class Menu extends Div {
         public Menu() {
-            String route = RouteConfiguration.forSessionScope()
+            String route = RouteConfiguration
+                    .forRegistry(UI.getCurrent().getRouter().getRegistry())
                     .getUrl(PathComponent.class);
             Anchor link = new Anchor(route, "Path");
             add(link);
@@ -47,15 +49,15 @@ public class RoutingUrlGeneration {
             implements HasUrlParameter<String> {
 
         @Override
-        public void setParameter(BeforeEvent event,
-                String parameter) {
+        public void setParameter(BeforeEvent event, String parameter) {
             setText(String.format("Hello, %s!", parameter));
         }
     }
 
     public class ParameterMenu extends Div {
         public ParameterMenu() {
-            String route = RouteConfiguration.forSessionScope()
+            String route = RouteConfiguration
+                    .forRegistry(UI.getCurrent().getRouter().getRegistry())
                     .getUrl(GreetingComponent.class, "anonymous");
             Anchor link = new Anchor(route, "Greeting");
             add(link);
