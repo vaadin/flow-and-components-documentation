@@ -34,7 +34,7 @@ See the documentation for <<lumo/variants#,Lumo Variants>> and <<material/varian
 --
 
 In server-side views (Java), use the `variant` attribute of the [classname]#@Theme# annotation.
-See <<../using-themes#,Using Themes>> for more information.
+See <<using-themes#,Using Themes>> for more information.
 
 [source, java]
 ----
