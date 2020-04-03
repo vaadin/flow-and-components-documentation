@@ -74,7 +74,7 @@ For client-side components/templates you can add the attribute directly to the H
 The compact variant reduces the font size and the sizing and spacing of all components, allowing you to place more components on the screen.
 
 The compact variant is applied by importing an additional style sheet, which sets new values for the
-https://cdn.vaadin.com/vaadin-lumo-styles/1.5.0/demo/typography.html[Typography] and https://cdn.vaadin.com/vaadin-lumo-styles/1.5.0/demo/sizing-and-spacing.html[Sizing and Spacing] CSS properties.
+<<typography#,Typography>> and <<sizing-and-spacing#,Sizing and Spacing>> CSS properties.
 ifdef::web[]
 You can https://github.com/vaadin/vaadin-lumo-styles/blob/master/presets/compact.html[view the values] from the source code.
 endif::web[]
