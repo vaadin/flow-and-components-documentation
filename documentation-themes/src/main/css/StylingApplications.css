@@ -1,6 +1,4 @@
-tutorial::../documentation-themes/styling-applications.asciidoc
-
-/* tag::shared-css[] */
+// tag::shared-css[]
 h1 {
   font-weight: 300;
   font-size: 40px;
@@ -15,9 +13,9 @@ h3 {
   font-weight: 400;
   font-size: 24px;
 }
-/* end::shared-css[] */
+// end::shared-css[]
 
-/* tag::my-view[] */
+// tag::my-view[]
 .heading {
   margin-top: 0;
 }
@@ -30,10 +28,10 @@ p {
 .back-button {
   background-color: var(--lumo-shade-90pct);
 }
-/* end::my-view[] */
+// end::my-view[]
 
-/* tag::css-img[] */
+// tag::css-img[]
 .image-bg {
   background-image: url("/my-image.png");
 }
-/* end::css-img[] */
+// end::css-img[]

@@ -5,6 +5,7 @@ layout: page
 ---
 
 = Material Color
+ifdef::web[]
 :toc: macro
 :toc-title: Contents
 :toclevels: 1
