@@ -30,7 +30,7 @@ Otherwise an exception is thrown on startup.
 
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=lumo, indent=0, group=Java]
+include::src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=lumo, indent=0, group=Java]
 ----
 
 In client-side views (JavaScript), import the themed version of each component.
@@ -39,7 +39,7 @@ Import any additional theme style sheets, if you use some of the custom properti
 
 [source, javascript]
 ----
-include::../documentation/src/main/js/WaysOfImporting.js[tags=client-side-theme, indent=0, group=JavaScript]
+include::src/main/js/ImportStyleSheets.js[tags=client-side-theme, indent=0, group=JavaScript]
 ----
 --
 
@@ -68,7 +68,7 @@ For server-side views, use the [classname]#@NoTheme# annotation to opt-out of lo
 
 [source,java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=notheme, indent=0]
+include::src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=notheme, indent=0]
 ----
 
 In client-side views/templates, to get a minimal starting point, import the un-themed version of each component.
@@ -76,7 +76,8 @@ For Vaadin components, the un-themed versions are located in the [filename]#src#
 
 [source,javascript]
 ----
-// For example, if you are using the <vaadin-button> component, import the un-themed version
+// For example, if you are using the <vaadin-button> component,
+// import the un-themed version
 import '@vaadin/vaadin-button/src/vaadin-button.js';
 ----
 

@@ -139,7 +139,7 @@ Usually a green color, used for success messages and buttons that complete a cer
 
 == Text
 
-The following text colors have the desired contrast with the <a href="#base">Base</a> color.
+The following text colors have the desired contrast with the Base color.
 
 ==== Separate text colors
 Note, that `--lumo-primary-text-color` is not necessarily the same as `--lumo-primary-color`. Use the main color for backgrounds and the “text” version for text.

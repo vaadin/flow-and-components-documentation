@@ -27,16 +27,12 @@ public class IconBasic {
         Icon icon = VaadinIcon.VAADIN_H.create();
         new Button("Vaadin", icon);
 
-        // tag::VaadinIcons[]
         Icon edit = new Icon(VaadinIcon.EDIT);
         Icon close = VaadinIcon.CLOSE.create();
-        // end::VaadinIcons[]
     }
 
     public void customCollection() {
-        // tag::LumoIcon[]
         Icon icon = new Icon("lumo", "clock");
-        // end::LumoIcon[]
         new Button("Clock", icon);
     }
 }

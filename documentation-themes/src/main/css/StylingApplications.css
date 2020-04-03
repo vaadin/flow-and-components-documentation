@@ -1,5 +1,22 @@
 tutorial::../documentation-themes/styling-applications.asciidoc
 
+/* tag::shared-css[] */
+h1 {
+  font-weight: 300;
+  font-size: 40px;
+}
+
+h2 {
+  font-weight: 300;
+  font-size: 32px;
+}
+
+h3 {
+  font-weight: 400;
+  font-size: 24px;
+}
+/* end::shared-css[] */
+
 /* tag::my-view[] */
 .heading {
   margin-top: 0;

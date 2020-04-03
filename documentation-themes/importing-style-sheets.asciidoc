@@ -33,7 +33,7 @@ The `@CssImport` annotation can also be used to import component-specific style 
 
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport;cssimport-themefor;stylesheet;app-class, indent=0, group=Java]
+include::src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport;cssimport-themefor;stylesheet;app-class, indent=0, group=Java]
 ----
 
 In client-side views (JavaScript), you need to write style sheets as JavaScript modules.
@@ -41,14 +41,14 @@ You can only import local/bundled, component-specific style sheets using this me
 
 [source, javascript]
 ----
-include::../documentation/src/main/js/ImportStyleSheets.js[tags=import-register-styles-function;import-css-function;register-styles, indent=0, group=JavaScript]
+include::src/main/js/ImportStyleSheets.js[tags=import-register-styles-function;import-css-function;register-styles, indent=0, group=JavaScript]
 ----
 
 In HTML templates, use the standard `<link rel="stylesheet">` and `<style>` elements.
 
 [source, html]
 ----
-include::../documentation/src/main/html/ImportStyleSheets.html[tags=stylesheets;inline-stylesheet, indent=0, group=HTML]
+include::src/main/html/ImportStyleSheets.html[tags=stylesheets;inline-stylesheet, indent=0, group=HTML]
 ----
 --
 
@@ -75,7 +75,7 @@ The `@CssImport` annotation does not work in Vaadin 14 compatibility mode (Bower
 
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport;app-class, indent=0, group=Java]
+include::src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport;app-class, indent=0, group=Java]
 ----
 
 When importing style sheets in client-side views, you need to take polyfilled browsers into consideration – namely Internet Explorer 11.
@@ -89,7 +89,7 @@ endif::web[]
 
 [source, html]
 ----
-include::../documentation/src/main/html/ImportStyleSheets.html[tags=style-scoping, indent=0, group=HTML]
+include::src/main/html/ImportStyleSheets.html[tags=style-scoping, indent=0, group=HTML]
 ----
 --
 
@@ -111,12 +111,12 @@ Use local style sheets in cases where this might be an issue, for example when i
 --
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=stylesheet;app-class, indent=0, group=Java]
+include::src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=stylesheet;app-class, indent=0, group=Java]
 ----
 
 [source, html]
 ----
-include::../documentation/src/main/html/ImportStyleSheets.html[tags=stylesheets, indent=0, group=HTML]
+include::src/main/html/ImportStyleSheets.html[tags=stylesheets, indent=0, group=HTML]
 ----
 --
 
@@ -138,7 +138,7 @@ Refer to a `.css` file and specify the tag/element name of the component you wis
 
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport-themefor, indent=0, group=Java]
+include::src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport-themefor, indent=0, group=Java]
 ----
 
 In client-side views, use the [methodname]#registerStyles# function.
@@ -148,7 +148,7 @@ You *need to call `registerStyles` before the component it targets* is registere
 
 [source, javascript]
 ----
-include::../documentation/src/main/js/ImportStyleSheets.js[tags=import-register-styles-function;import-css-function;register-styles, indent=0, group=JavaScript]
+include::src/main/js/ImportStyleSheets.js[tags=import-register-styles-function;import-css-function;register-styles, indent=0, group=JavaScript]
 ----
 --
 
@@ -158,11 +158,11 @@ You can use the same style sheet for multiple components simultaneously by provi
 --
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport-themefor-multiple, indent=0, group=Java]
+include::src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport-themefor-multiple, indent=0, group=Java]
 ----
 
 [source, javascript]
 ----
-include::../documentation/src/main/js/ImportStyleSheets.js[tags=register-styles-multiple, indent=0, group=JavaScript]
+include::src/main/js/ImportStyleSheets.js[tags=register-styles-multiple, indent=0, group=JavaScript]
 ----
 --

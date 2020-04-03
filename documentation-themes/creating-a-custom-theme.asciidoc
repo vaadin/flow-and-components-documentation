@@ -45,7 +45,7 @@ For Vaadin components this is `/theme/[_themeName_]`.
 .MyTheme.java
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/IntegratingComponentTheme.java[tags=getUrls, indent=0]
+include::src/main/java/com/vaadin/flow/tutorial/theme/IntegratingComponentTheme.java[tags=getUrls, indent=0]
 }
 ----
 
@@ -56,7 +56,7 @@ If you need more control, you can use the `getHeaderInlineContents()` method tha
 .MyTheme.java
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/IntegratingComponentTheme.java[tags=getHeaderInlineContents, indent=0]
+include::src/main/java/com/vaadin/flow/tutorial/theme/IntegratingComponentTheme.java[tags=getHeaderInlineContents, indent=0]
 ----
 
 Your can also support theme variants.
@@ -69,7 +69,7 @@ Override the `getHtmlAttributes` method in your custom theme class to add suppor
 .MyTheme.java
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/IntegratingComponentTheme.java[tags=getHtmlAttributes, indent=0]
+include::src/main/java/com/vaadin/flow/tutorial/theme/IntegratingComponentTheme.java[tags=getHtmlAttributes, indent=0]
 ----
 
 == Create Style Sheets

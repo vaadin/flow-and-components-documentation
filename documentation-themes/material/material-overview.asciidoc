@@ -33,13 +33,13 @@ In server-side views (Java), use the [classname]#@Theme# annotation, as describe
 
 [source, java]
 ----
-include::../../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=material, indent=0, group=Java]
+include::../src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=material, indent=0, group=Java]
 ----
 
 In client-side views, import and include the core style sheet.
 [source, javascript]
 ----
-include::../../documentation/src/main/js/Material.js[tags=imports;include, indent=0, group=JavaScript]
+include::../src/main/js/Material.js[tags=imports;include, indent=0, group=JavaScript]
 ----
 --
 

@@ -38,21 +38,21 @@ See <<../using-themes#,Using Themes>> for more information.
 
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=lumo-dark, indent=0, group=Java]
+include::src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=lumo-dark, indent=0, group=Java]
 ----
 
 In client-side views (JavaScript), set the `theme` attribute on the `document.documentElement` object.
 
 [source, javascript]
 ----
-include::../documentation/src/main/js/ThemeVariants.js[tags=global-dark, indent=0, group=JavaScript]
+include::src/main/js/ThemeVariants.js[tags=global-dark, indent=0, group=JavaScript]
 ----
 
 In client-side templates (HTML), set the `theme` attribute on the `<html>` element.
 
 [source, html]
 ----
-include::../documentation/src/main/html/ThemeVariants.html[tags=global-dark, indent=0, group=HTML]
+include::src/main/html/ThemeVariants.html[tags=global-dark, indent=0, group=HTML]
 ----
 --
 
@@ -74,25 +74,25 @@ For other components, use the <<../flow/element-api/tutorial-properties-attribut
 
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=themed-button, indent=0, group=Java]
+include::src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=themed-button, indent=0, group=Java]
 
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=themed-button2, indent=0, group=Java]
+include::src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=themed-button2, indent=0, group=Java]
 
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=themed-button3, indent=0, group=Java]
+include::src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=themed-button3, indent=0, group=Java]
 ----
 
 In client-side JavaScript views, use the standard [methodname]#setAttribute# DOM method to set the [propertyname]#theme# attribute value.
 
 [source, javascript]
 ----
-include::../documentation/src/main/js/ThemeVariants.js[tags=themed-button, indent=0, group=JavaScript]
+include::src/main/js/ThemeVariants.js[tags=themed-button, indent=0, group=JavaScript]
 ----
 
 In client-side HTML templates, use the [propertyname]#theme# attribute value.
 
 [source, html]
 ----
-include::../documentation/src/main/html/ThemeVariants.html[tags=themed-button, indent=0, group=HTML]
+include::src/main/html/ThemeVariants.html[tags=themed-button, indent=0, group=HTML]
 ----
 --
 
@@ -109,21 +109,21 @@ In server-side views (Java):
 
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=combobox-variant, indent=0, group=Java]
+include::src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=combobox-variant, indent=0, group=Java]
 ----
 
 In client-side views (JavaScript):
 
 [source, javascript]
 ----
-include::../documentation/src/main/js/ThemeVariants.js[tags=combobox-variant, indent=0, group=JavaScript]
+include::src/main/js/ThemeVariants.js[tags=combobox-variant, indent=0, group=JavaScript]
 ----
 
 In client-side templates (HTML):
 
 [source, html]
 ----
-include::../documentation/src/main/html/ThemeVariants.html[tags=combobox-variant, indent=0, group=HTML]
+include::src/main/html/ThemeVariants.html[tags=combobox-variant, indent=0, group=HTML]
 ----
 --
 

@@ -19,19 +19,19 @@ In server-side views, use the `variant` attribute of the [classname]#@Theme# ann
 
 [source, java]
 ----
-include::../../documentation/src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=material-dark, indent=0, group=Java]
+include::../src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[tags=material-dark, indent=0, group=Java]
 ----
 
 In client-side views, set the `theme` attribute on the `<html>` element.
 
 [source, javascript]
 ----
-include::../../documentation/src/main/js/ThemeVariants.js[tags=global-dark, indent=0, group=JavaScript]
+include::../src/main/js/ThemeVariants.js[tags=global-dark, indent=0, group=JavaScript]
 ----
 
 [source, html]
 ----
-include::../../documentation/src/main/html/ThemeVariants.html[tags=global-dark, indent=0, group=HTML]
+include::../src/main/html/ThemeVariants.html[tags=global-dark, indent=0, group=HTML]
 ----
 --
 

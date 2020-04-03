@@ -38,13 +38,13 @@ The style sheet will not be imported to any scope until another style sheet incl
 
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport-id, indent=0, group=Java]
+include::src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport-id, indent=0, group=Java]
 ----
 
 .`shared-typograhy.css`
 [source, css]
 ----
-include::../documentation/src/main/css/Theming.css[tags=shared-css, indent=0, group=Java]
+include::src/main/css/StylingApplications.css[tags=shared-css, indent=0, group=Java]
 ----
 
 If you want to share style sheets in client-side views (JavaScript), the recommended way is to package CSS in https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules[JavaScript modules] (`.js` files) and export them using the `css` tagged template literal.
@@ -52,7 +52,7 @@ If you want to share style sheets in client-side views (JavaScript), the recomme
 .`shared-typography.css.js`
 [source, javascript]
 ----
-include::../documentation/src/main/js/ImportStyleSheets.js[tags=import-css-function;export-css, indent=0, group=JavaScript]
+include::src/main/js/ImportStyleSheets.js[tags=import-css-function;export-css, indent=0, group=JavaScript]
 ----
 --
 
@@ -69,14 +69,14 @@ In server-side views (Java), reference the `id` of the shared style sheet in the
 
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport-include, indent=0, group=Java]
+include::src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport-include, indent=0, group=Java]
 ----
 
 In client-side views (JavaScript), import the CSS string from a https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules[JavaScript module] and append it to a `<style>` element.
 
 [source, javascript]
 ----
-include::../documentation/src/main/js/ImportStyleSheets.js[tags=import-shared-css;import-css, indent=0, group=JavaScript]
+include::src/main/js/ImportStyleSheets.js[tags=import-shared-css;import-css, indent=0, group=JavaScript]
 ----
 --
 
@@ -90,12 +90,12 @@ To use a shared style sheet in a component scope add the `include` attribute to 
 
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport-themefor-include, indent=0, group=Java]
+include::src/main/java/com/vaadin/flow/tutorial/theme/ImportingStyleSheets.java[tags=cssimport-themefor-include, indent=0, group=Java]
 ----
 
 [source, javascript]
 ----
-include::../documentation/src/main/js/ImportStyleSheets.js[tags=register-styles-include, indent=0, group=JavaScript]
+include::src/main/js/ImportStyleSheets.js[tags=register-styles-include, indent=0, group=JavaScript]
 ----
 --
 
@@ -103,5 +103,5 @@ If you want to share a style sheet with a custom web component or client-side te
 
 [source, javascript]
 ----
-include::../documentation/src/main/js/ImportStyleSheets.js[tags=import-polymer;import-shared-css;custom-element, indent=0, group=JavaScript]
+include::src/main/js/ImportStyleSheets.js[tags=import-polymer;import-shared-css;custom-element, indent=0, group=JavaScript]
 ----

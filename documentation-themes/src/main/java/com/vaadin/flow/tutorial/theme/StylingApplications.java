@@ -21,6 +21,8 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
@@ -50,6 +52,18 @@ public class StylingApplications {
     // tag::Image[]
     Image image = new Image("context://my-image.png", "Alternative text");
     // end::Image[]
+  }
+
+  public void icons() {
+    // tag::VaadinIcons[]
+    Icon edit = new Icon(VaadinIcon.EDIT);
+    Icon close = VaadinIcon.CLOSE.create();
+    // end::VaadinIcons[]
+    //
+    // tag::LumoIcon[]
+    Icon icon = new Icon("lumo", "clock");
+    // end::LumoIcon[]
+    new Button("Clock", icon);
   }
 
 }

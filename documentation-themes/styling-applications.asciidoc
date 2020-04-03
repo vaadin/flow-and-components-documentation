@@ -39,13 +39,13 @@ The most common technique is to add CSS classes to the components in the view an
 .`MyView.java`
 [source,java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/StylingApplications.java[tags=MyView, indent=0]
+include::src/main/java/com/vaadin/flow/tutorial/theme/StylingApplications.java[tags=MyView, indent=0]
 ----
 
 .`styles/my-view.css`
 [source,css]
 ----
-include::../documentation/src/main/css/StylingApplications.css[tags=my-view, indent=0]
+include::src/main/css/StylingApplications.css[tags=my-view, indent=0]
 ----
 
 
@@ -72,7 +72,7 @@ In server-side views (Java), use the [classname]#Image# component.
 
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/theme/StylingApplications.java[tags=Image, indent=0, group=Java]
+include::src/main/java/com/vaadin/flow/tutorial/theme/StylingApplications.java[tags=Image, indent=0, group=Java]
 ----
 
 In client-side views (JavaScript), use the standard HTML `<img>` component/element.
@@ -80,14 +80,14 @@ Use an absolute path for the image.
 
 [source, javascript]
 ----
-include::../documentation/src/main/js/StylingApplications.js[tags=image, indent=0, group=JavaScript]
+include::src/main/js/StylingApplications.js[tags=image, indent=0, group=JavaScript]
 ----
 
 You can also use images from CSS.
 
 [source, css]
 ----
-include::../documentation/src/main/css/StylingApplications.css[tags=css-img, indent=0, group=CSS]
+include::src/main/css/StylingApplications.css[tags=css-img, indent=0, group=CSS]
 ----
 --
 
@@ -114,14 +114,14 @@ The Icon component can be used in all the same places as any other component. So
 
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/components/IconBasic.java[tags=VaadinIcons, indent=0, group=Java]
+include::src/main/java/com/vaadin/flow/tutorial/theme/StylingApplications.java[tags=VaadinIcons, indent=0, group=Java]
 ----
 
 In client-side views (JavaScript), use the `<iron-icon>` component/element.
 
 [source, javascript]
 ----
-include::../documentation/src/main/js/StylingApplications.js[tags=vaadin-icons, indent=0, group=JavaScript]
+include::src/main/js/StylingApplications.js[tags=vaadin-icons, indent=0, group=JavaScript]
 ----
 --
 
@@ -131,12 +131,12 @@ The Lumo theme has its own set of icons (see <<lumo/icons#,Lumo Icons>>), which 
 --
 [source, java]
 ----
-include::../documentation/src/main/java/com/vaadin/flow/tutorial/components/IconBasic.java[tags=LumoIcon, indent=0, group=Java]
+include::src/main/java/com/vaadin/flow/tutorial/theme/StylingApplications.java[tags=LumoIcon, indent=0, group=Java]
 ----
 
 [source, javascript]
 ----
-include::../documentation/src/main/js/StylingApplications.js[tags=lumo-icon, indent=0, group=JavaScript]
+include::src/main/js/StylingApplications.js[tags=lumo-icon, indent=0, group=JavaScript]
 ----
 --
 

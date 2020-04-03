@@ -57,7 +57,7 @@ The default font size for most elements is `--material-body-font-size`.
 </custom-style>
 ----
 
-== Font size
+=== Font size
 ++++
 <content-preview-md class="block">
 ++++
