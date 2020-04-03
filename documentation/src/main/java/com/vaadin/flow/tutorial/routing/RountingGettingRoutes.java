@@ -15,9 +15,11 @@
  */
 package com.vaadin.flow.tutorial.routing;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouteData;
-import com.vaadin.flow.router.Router;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
