@@ -1,0 +1,49 @@
+---
+title: Binding Data to Forms
+order: 1
+layout: page
+---
+
+= Binding Data to Forms
+
+In many applications users provide structured data by completing fields in forms. This data is typically represented in code as an instance of a business object (JavaBean), for example a Person in an HR application.
+
+TO-BE-IMPLEMENTED
+
+It is also possible to validate user input and present the validation status to the user in different ways. 
+
+
+== How to Bind Form Data
+
+The following steps include everything needed to load, edit and save values for a form.
+
+To bind data to a form:
+
+. Create a `Binder` and bind the input fields. 
+
++
+[NOTE]
+There can only be one `Binder` instance for each form. You should use it for all fields in the form.
++
+
+. Use the `Binder` to:
+.. Load values from a `person` into the field.
+.. Allow the user to edit the values.
+.. Save the values back into a `person` instance.
++
+
+* Every time `writeBean` is called, the data is validated and then copied from the UI to the business object. 
+* If the data is invalid, a `ValidationException` that includes all errors in the data, is thrown. This is the reason `writeBean` is in a try/catch block.
+
+It is also possible to use a Lambda expression, instead of a method reference. 
+
+== Binding Read-only Data
+
+To bind a component to read-only data, you can use a `null` value for the `setter`. 
+
+*Example*: Using a `null` value setter.
+
+To bind components that do not implement the `HasValue` interface to read-only data, you can use the `ReadOnlyHasValue` helper class. 
+
+*Example*: Using the `ReadOnlyHasValue` helper class.
+
