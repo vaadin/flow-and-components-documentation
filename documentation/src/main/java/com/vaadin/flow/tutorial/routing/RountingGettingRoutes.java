@@ -15,24 +15,27 @@
  */
 package com.vaadin.flow.tutorial.routing;
 
-import com.vaadin.flow.router.RouteConfiguration;
+import java.util.List;
+import java.util.Map;
+
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.RouteData;
+import com.vaadin.flow.router.Router;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @CodeFor("routing/tutorial-routing-get-registered-routes.asciidoc")
 public class RountingGettingRoutes {
 
     public void getRoutes() {
         //@formatter:off
-        List<RouteData> routes = RouteConfiguration.forSessionScope().getAvailableRoutes();
+        Router router = UI.getCurrent().getRouter();
+        List<RouteData> routes = router.getRoutes();
 
-        List<RouteData> myRoutes =routes.stream()
-                .filter(routeData -> MyParentLayout.class.equals((routeData.getParentLayout())))
-                .collect(Collectors.toList());
+        Map<Class<? extends RouterLayout>, List<RouteData>>
+                routesByParent = router.getRoutesByParent();
+        List<RouteData> myRoutes =
+                routesByParent.get(MyParentLayout.class);
         //@formatter:on
     }
 

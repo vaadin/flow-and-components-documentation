@@ -20,6 +20,7 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.tutorial.advanced.BootstrapPage.MyView;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("theme/tutorial-theming-overlay.asciidoc")

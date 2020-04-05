@@ -10,10 +10,10 @@ layout: page
 
 There is a Maven Plugin available for Vaadin 14.
 The plugin handles transpilation, minification and bundling of the front-end resources for the production version of the application.
-This is only necessary when you take the application into production.
+This is only necessary when you take the application into production, or want to test it with IE11.
 
 By default there are no custom widgetsets or Sass themes that need compilation for development time in Vaadin 14.
-The plugin is thus not needed during development.
+The plugin is thus not needed during development, except when testing with IE11.
 
 == Maven Archetypes
 

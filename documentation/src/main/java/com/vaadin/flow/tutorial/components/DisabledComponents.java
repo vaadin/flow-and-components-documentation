@@ -75,7 +75,10 @@ public class DisabledComponents extends Component {
         private Element enable;
 
         public RegistrationForm() {
-            enable.addPropertyChangeListener("checked", "checked-changed",
+            enable.synchronizeProperty("checked",
+                    "checked-changed",
+                    DisabledUpdateMode.ALWAYS);
+            enable.addPropertyChangeListener("checked",
                     this::handleEnabled);
             setEnabled(false);
         }

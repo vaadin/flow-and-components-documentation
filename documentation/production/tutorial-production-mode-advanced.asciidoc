@@ -17,7 +17,7 @@ is missing from the `pom.xml` or it is missing configuration. To fix this simply
 
 == Splitting the Webpack bundle into multiple chunks
 
-This is an upcoming feature for a Vaadin Platform 14.x minor release, probably during 2020. You can follow & comment on https://github.com/vaadin/flow/issues/5537 if this is important for you.
+This is an upcoming feature for a Vaadin Platform 14.x minor release, probably during 2020. For information on customizing bundling when using compatibility mode, see the https://vaadin.com/docs/v13/flow/production/tutorial-production-mode-customising.html[Vaadin 13 documentation on this topic]. You can follow & comment on https://github.com/vaadin/flow/issues/5537 if this is important for you.
 
 == Plugin goals and goal parameters
 
@@ -91,6 +91,6 @@ and will be used as entry point of the application.
     Should normally be left to the default, but a value of `false` can be useful for faster production builds or debugging discrepancies between development and production mode.
     *This configuration is available only in Vaadin Platform 14.1 and newer.*
 
-* *pnpmEnable* (default: `false`):
-    Whether to use _pnpm_ or _npm_ tool to handle frontend resources. By default _npm_ is used.
+* *pnpmEnable* (default: `true`):
+    Whether to use _pnpm_ or _npm_ tool to handle frontend resources. By default _pnpm_ is used.
     *This configuration is available only in Vaadin 14.2 and newer.*

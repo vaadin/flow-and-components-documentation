@@ -28,7 +28,7 @@ public abstract class UserInput extends Div {
         textInput.setAttribute("placeholder",
                 "Please enter your name");
 
-        textInput.addPropertyChangeListener("value", "change", e -> {});
+        textInput.synchronizeProperty("value", "change");
 
         Element button = ElementFactory.createDiv();
         button.addEventListener("click", e -> {

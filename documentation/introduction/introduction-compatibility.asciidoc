@@ -9,7 +9,7 @@ layout: page
 
 Vaadin is designed to be a one-stop solution to create web UIs, but you can also use some of its parts in isolation.
 
-For the best effect, we recommend that you combine Vaadin with a well-documented Java back-end framework such as Spring or JavaEE/CDI.
+For the best effect, we recommend that you combine Vaadin with a well-documented Java back-end framework such as Spring, JavaEE/CDI, or OSGi.
 With these combinations, Vaadin can provide everything you need for fully featured web applications.
 
 [cols="1,2",options=header]
@@ -17,7 +17,7 @@ With these combinations, Vaadin can provide everything you need for fully featur
 |Category|Products
 |JDK|Java 8 or later; OpenJDK, Amazon Corretto, Oracle JDK
 |Programming Languages|Java, Groovy, Kotlin, etc.
-|Java Frameworks|Spring, JavaEE/CDI, etc.
+|Java Frameworks|Spring, JavaEE/CDI, OSGi, etc.
 |IDEs|Eclipse IDE, NetBeans IDE, IntelliJ IDEA, VS Code, etc.
 |Servlet Containers|Apache Tomcat, Apache TomEE, Wildfly, Glassfish, JBoss, Jetty, etc.
 |Server-Side Build Management|Maven (3 or newer), Ivy, Gradle (5.6)
