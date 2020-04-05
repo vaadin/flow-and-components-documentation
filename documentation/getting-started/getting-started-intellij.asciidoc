@@ -87,7 +87,7 @@ You can use a similar approach to run any Maven goal.
 For example, you can double-click the `jetty:run` goal in the *Plugins* sub-tree to deploy and run the web application implemented in the project you imported.
 Similarly, if you are using https://vaadin.com/spring[Spring Boot], you can double-click `spring-boot:run` to run the application.
 
-=== Creating a running configuration
+=== Creating a Running Configuration
 
 Since using a goal to run the application could be a frequent task during the development, you may want to create a _running configuration_ for it.
 
@@ -95,32 +95,37 @@ A _running configuration_ is a _shortcut_ to run a specific task from within the
 In the following, we create a running configuration for the `jetty:run` Maven goal to make it simpler to run the web application.
 
 . Open the *Maven* view.
-. Right-click the "`jetty` > `jetty:run`", `tomee:run`, or `spring-boot:run` option.
-. Select *Create 'webapp [jetty:run]'* (or similar):
+. Right-click the `jetty:run`, `tomee:run`, or `spring-boot:run` item under the appropriate folder.
 +
-image::images/intellij/create-running-config.png[Create running configuration option]
+[cols=3*,options=header]
+|===
+| Technology Stack | Embedded Server | Goal to Run
+| Spring Boot | – | `spring-boot:run`
+| CDI / Java EE | Apache TomEE | `tomee:run`
+| Plain Java | Jetty | `jetty:run`
+|===
 
-. For simplicity, change the name of the configuration to *Run on Jetty*
+. Select *Create 'webapp [jetty:run]'* (or `tomee:run` or `spring-boot:run`):
++
+image:images/intellij/create-running-config.png[Create running configuration option]
+
+. For simplicity, change the name of the configuration to *Run on Jetty* (or *TomEE* or *Spring Boot*)
++
+image:images/intellij/run-on-jetty.png[Run on Jetty]
+
 . Click [guibutton]#OK#:
-
-image::images/intellij/run-on-jetty.png[Run on Jetty]
-
-NOTE: If you are using https://vaadin.com/spring[Spring Boot], use the `spring-boot:run` goal.
 
 You should see the new option on the top right corner of IntelliJ IDEA:
 
-image::images/intellij/config-created.png[Running configuration created]
+image:images/intellij/config-created.png[Running configuration created]
 
 Now you can deploy and run the web application by clicking the run (or the debug) icon in the toolbar:
 
 image::images/intellij/run-icon.png[Run icon]
 
-NOTE: If you use the https://vaadin.com/[Vaadin] project used in the tutorial, you can invoke the web application at http://localhost:8080.
-
-That's it. Now you can use IntelliJ IDEA to develop your Maven application. To learn more about:
-
 * The key concepts in Maven, see https://vaadin.com/learn/tutorials/learning-maven-concepts[Learning Maven Concepts].
 * How to develop a Java web application without coding JavaScript or HTML, see https://vaadin.com/learn/tutorials/vaadin-quick-start[Vaadin Quick Start Tutorial].
+endif::web[]
 
 [[getting-started.intellij.running.spring-boot]]
 === Running a Spring Boot Project
@@ -149,6 +154,18 @@ Tomcat started on port(s): 8080 (http) with context path ''
 Started Application in 80.189 seconds (JVM running for 83.42)
 ----
 
+You should now be able to open the web application at http://localhost:8080.
+
 You can now open localhost:8080 in your browser. You’ll see a *Say hello* button and *Your name* field on the screen. Enter your name and click the button to see the notification that displays.
 
-image:images/intellij/running-app.png[running app view]
+image::images/intellij/running-app.png[running app view]
+
+== Redeploying During Development
+
+If you edit and save any of the source files, they will be compiled automatically, but you can only see the changes by restarting the server.
+In the *Run* panel, click the *Rerun* icon, or press kbd:[Ctrl+5] in the editor.
+You can then refresh the page to use the updated version.
+You can also enable _live reload_ to have the page refreshed automatically, as described in <<../workflow/workflow-overview.html#, Application Development Workflow>>.
+
+ifdef::web[]
+To learn more about the topics covered here:
