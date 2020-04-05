@@ -47,8 +47,7 @@ public class RoutingUrlGeneration {
             implements HasUrlParameter<String> {
 
         @Override
-        public void setParameter(BeforeEvent event,
-                String parameter) {
+        public void setParameter(BeforeEvent event, String parameter) {
             setText(String.format("Hello, %s!", parameter));
         }
     }

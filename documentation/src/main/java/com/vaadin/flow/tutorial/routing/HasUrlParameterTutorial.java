@@ -36,8 +36,7 @@ public class HasUrlParameterTutorial {
             implements HasUrlParameter<String> {
 
         @Override
-        public void setParameter(BeforeEvent event,
-                                 String parameter) {
+        public void setParameter(BeforeEvent event, String parameter) {
             setText(String.format("Hello, %s!", parameter));
         }
     }
@@ -52,8 +51,7 @@ public class HasUrlParameterTutorial {
             if (parameter == null) {
                 setText("Welcome anonymous.");
             } else {
-                setText(String.format("Welcome %s.",
-                        parameter));
+                setText(String.format("Welcome %s.", parameter));
             }
         }
     }
@@ -68,9 +66,7 @@ public class HasUrlParameterTutorial {
             if (parameter.isEmpty()) {
                 setText("Welcome anonymous.");
             } else {
-                setText(String.format(
-                        "Handling parameter %s.",
-                        parameter));
+                setText(String.format("Handling parameter %s.", parameter));
             }
         }
     }
@@ -79,15 +75,15 @@ public class HasUrlParameterTutorial {
     public class QueryParametersGreeting extends Div
             implements HasUrlParameter<String> {
 
+        @Override
         public void setParameter(BeforeEvent event,
-                                 @OptionalParameter String parameter) {
+                @OptionalParameter String parameter) {
 
             Location location = event.getLocation();
-            QueryParameters queryParameters = location
-                    .getQueryParameters();
+            QueryParameters queryParameters = location.getQueryParameters();
 
-            Map<String, List<String>> parametersMap =
-                    queryParameters.getParameters();
+            Map<String, List<String>> parametersMap = queryParameters
+                    .getParameters();
         }
     }
 

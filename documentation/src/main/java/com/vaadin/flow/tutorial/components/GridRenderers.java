@@ -15,21 +15,10 @@
  */
 package com.vaadin.flow.tutorial.components;
 
-import java.text.NumberFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Year;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -44,6 +33,16 @@ import com.vaadin.flow.data.renderer.TemplateRenderer;
 import com.vaadin.flow.function.SerializableBiConsumer;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.databinding.Person.Gender;
+
+import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Year;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 
 @CodeFor("components/tutorial-flow-grid.asciidoc")
 public class GridRenderers {
@@ -149,9 +148,9 @@ public class GridRenderers {
 
         grid.addColumn(new ComponentRenderer<>(person -> {
             if (person.getGender() == Gender.MALE) {
-                return new Icon(VaadinIcon.MALE);
+                return VaadinIcon.MALE.create();
             } else {
-                return new Icon(VaadinIcon.FEMALE);
+                return VaadinIcon.FEMALE.create();
             }
         })).setHeader("Gender");
 
@@ -163,7 +162,7 @@ public class GridRenderers {
 
         grid.addColumn(
                 new ComponentRenderer<>(
-                        () -> new Icon(VaadinIcon.ARROW_LEFT)));
+                        () -> VaadinIcon.ARROW_LEFT.create()));
 
         grid.addColumn(new ComponentRenderer<>(person -> {
 
