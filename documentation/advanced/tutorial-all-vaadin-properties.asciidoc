@@ -115,8 +115,8 @@ When set to `true`, creates an optimized bundle by including only frontend resou
 Uses bytecode scanning which increases application startup time. *This feature is available only in Vaadin Platform 14.1 and newer.*
 
 |pnpm.enable |
-**Available since Vaadin 14.2 and 15**, this is by default set to `true` in
-14.2, which means that _pnpm_ is used to download and resolve frontend
-dependencies. Setting it to false disables pnpm, and _npm_ will be used
-instead to handle the frontend resources. More information in the
+**Available since Vaadin 14.2 and 15**, this flag can be used to enable pnpm 
+instead of npm for resolving and downloading frontend dependencies.
+By default it is `false` and npm is used, but setting it to `true` enables pnpm.
+More information in the
 <<tutorial-switch-npm-pnpm#, switch between pnpm and npm documentation>>.
