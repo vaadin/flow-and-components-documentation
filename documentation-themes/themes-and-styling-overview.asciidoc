@@ -68,7 +68,7 @@ See <<./lumo/lumo-overview#,Lumo>> for more details.
 
 image:images/material-theme.png[Screenshot of an application using the Material theme]
 
-The Material theme is an implementation of Google’s https://material.io[Material Design] guidelines, and comes with both *light and *dark modes* (color palette variants).
+The Material theme is an implementation of Google’s https://material.io[Material Design] guidelines, and comes with both *light and dark modes* (color palette variants).
 The guidelines are followed whenever possible, and for features which are not described in the them, we take inspiration and make them fit in seamlessly.
 
 See <<./material/material-overview#,Material>> for more details.
