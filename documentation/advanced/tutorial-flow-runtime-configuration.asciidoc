@@ -8,8 +8,8 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 = Changing the Application Behavior with Runtime Configuration
 
 Vaadin applications have extra parameters that may be configured to change its behavior.
-This section describes how to apply the properties described in <<tutorial-all-vaadin-properties, all Vaadin properties documentation>>.
-For Spring applications, there is <<../spring/tutorial-spring-configuration, Spring specific instructions available>>.
+This section describes how to apply the properties described in <<tutorial-all-vaadin-properties#, all Vaadin properties documentation>>.
+For Spring applications, there is <<../spring/tutorial-spring-configuration#, Spring specific instructions available>>.
 
 == Configuration Using System Properties
 
