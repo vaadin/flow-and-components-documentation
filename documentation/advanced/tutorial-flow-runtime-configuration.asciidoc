@@ -7,7 +7,9 @@ layout: page
 ifdef::env-github[:outfilesuffix: .asciidoc]
 = Changing Flow behavior with runtime configuration.
 
-Flow application have extra parameters that may be set to change its behavior.
+Vaadin applications have extra parameters that may be configured to change its behavior.
+This section describes how to apply the properties described in <<tutorial-all-vaadin-properties#, all Vaadin properties documentation>>.
+For Spring applications, there is <<../spring/tutorial-spring-configuration#, Spring specific instructions available>>.
 
 == How to set parameters
 
