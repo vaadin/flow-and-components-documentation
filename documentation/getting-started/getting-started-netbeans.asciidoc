@@ -41,7 +41,7 @@ NetBeans will show common https://vaadin.com/learn/tutorials/learning-maven-conc
 +
 image:images/netbeans/navigator-view.png[Navigator view]
 
-. Double-ckick a goal to execute it.
+. Double-click a goal to execute it.
 
 [[getting-started.netbeans.maven.running]]
 === Running the Web Application

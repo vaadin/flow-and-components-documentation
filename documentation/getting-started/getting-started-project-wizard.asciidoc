@@ -1,15 +1,23 @@
 ---
-title: Creating a Project with the Project Wizard
+title: Creating a Project with a Project Wizard
 order: 10
 layout: page
 ---
 
 [[getting-started.project-wizard]]
-= Creating a Project with the Project Wizard
+= Creating a Project with a Project Wizard
 
-== Creating a Downloadable Project
+The Vaadin website offers two ways to create a downloadable starter project:
 
-In the following, we describe how you can create a downloadable project with the project wizard.
+* Using the quick starter wizard at http://vaadin.com/start[vaadin.com/start], as described in <<getting-started.project-wizard.quick, Using the Quick Starter Wizard>>
+
+* Using the customization wizard at http://start.vaadin.com[start.vaadin.com], as described in <<#getting-started.project-wizard.customizing, Creating a Customized Project>>.
+
+[[getting-started.project-wizard.quick]]
+== Using the Quick Starter Wizard
+
+In the following, we describe how you can create a simple downloadable project with the quick starter wizard.
+The project has a minimalistic UI with an input field and a button, and a service layer stub.
 
 . Navigate to http://vaadin.com/start[vaadin.com/start].
 
@@ -34,18 +42,20 @@ You are welcome to use one under `org.vaadin`, especially for open-source projec
 . Enter a *Project Name*.
 It will also be used for the project ID in lowercase, with spaces replaced by dashes.
 
-. Click *Download* _or_ proceed to customize it as described in <<#getting-started.project-wizard.customizing, Customizing a Project>>.
+. Click *Download*.
 
 . Unzip the downloaded archive to a file location of your choice.
 +
 TIP: Avoid unzipping to the download folder, as you could unintentionally delete your project when clearing out old downloads.
 
-Once you have the project unzipped, go on with importing it in your IDE as described in IDE specific sections.
+After downloading the package and uncompressing it, you are now ready to import the project in your IDE, as described in subsequent sections.
+Please see the instructions for your IDE in <<getting-started-eclipse#getting-started.eclipse.importing, Importing a Project in the Eclipse IDE>>, <<getting-started-eclipse#getting-started.eclipse.importing, Importing a Project in IntelliJ>>, or <<getting-started-netbeans#getting-started.netbeans.importing, Importing a Project in NetBeans>>.
 
 [[getting-started.project-wizard.customizing]]
-== Customizing a Project
+== Creating a Customized Starter Project
 
-To customize a starter application, click [guibutton]#Customize App# in the project wizard, or navigate directly to the https://start.vaadin.com/[start.vaadin.com] to create a new project.
+To create customized starter application, click [guibutton]#Customize App# in the project wizard, or navigate directly to the https://start.vaadin.com/[start.vaadin.com] to create a new project.
+The customization wizard allows creating Vaadin 15 projects.
 
 .Customizing a project
 image::images/project-customizing-01.png[Customizing a Project]
@@ -54,17 +64,16 @@ With the customization wizard, you can:
 
 * Configure views and routing from some example views:
 ** A dashboard view
-** A master-detail view (requires Pro subscription)
+** A master-detail view (requires Pro subscription or trial)
 ** A form
 ** A card view
 * Choose how the views are built
-** Pure Java (Vaadin 14)
-** Java + HTML templates (Vaadin 14)
+** Pure Java (Vaadin 14 [LTS] or later)
+** Java + HTML templates (Vaadin 14 [LTS] or later)
 ** TypeScript + HTML (Vaadin 15)
 * Configure theme customization
 ** Light/dark mode, palette, fonts, style details, size, spacing, etc.
 * Download the customized application
 
-
-After downloading the package and uncompressing it, you are nowready to import the project in your IDE, as described in subsequent sections.
-Please see the instructions for your IDE in <<getting-started-eclipse#getting-started.eclipse.importing, Importing a Project in the Eclipse IDE>> or <<getting-started-eclipse#getting-started.eclipse.importing, Importing a Project in IntelliJ>>.
+After downloading the package and uncompressing it, you are now ready to import the project in your IDE, as described in subsequent sections.
+Please see the instructions for your IDE in <<getting-started-eclipse#getting-started.eclipse.importing, Importing a Project in the Eclipse IDE>>, <<getting-started-eclipse#getting-started.eclipse.importing, Importing a Project in IntelliJ>>, or <<getting-started-netbeans#getting-started.netbeans.importing, Importing a Project in NetBeans>>.

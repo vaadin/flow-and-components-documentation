@@ -11,11 +11,23 @@ Once you have installed a development toolchain, as described in the previous ch
 
 You have a number of choices for creating a project:
 
-* Create a https://vaadin.com/start/latest[Vaadin Starter] project
-* Download an https://vaadin.com/start/latest[example application], which you can then modify to your purposes.
-* Create and theming a project at https://start.vaadin.com/[start.vaadin.com]
-* Create a project from a Maven archetype.
-* In the Eclipse IDE, create a project with the Vaadin Plugin.
+Create a starter project at https://vaadin.com/start/latest[vaadin.com/start]::
+The application wizard lets you choose Vaadin version to use, technology stack to use (plain Java, CDI, or Spring Boot), set up the project name parameters, and then download it.
+
+Download an example application at https://vaadin.com/start[vaadin.com/start]::
+These are example applications for various purposes that you can use as a starting point.
+
+Customize a starter project at https://start.vaadin.com/[start.vaadin.com]::
+The starter wizard lets you create, customize, and download a custom starter application with some views that you can use as starting points.
+It lets you customize the application theme.
+
+Create a project from a Maven archetype::
+You can create a project from a Maven archetype either on command-line or with IDEs that support Maven.
+This way does not support any customization, except for project IDs and names.
+
+Create a project with the Vaadin Plugin for Eclipse::
+The new-project wizard lets you create a Vaadin application just like you would with the application wizard at vaadin.com/start, as described earlier.
+Using the plugin, you avoid the small effort with downloading and importing the application package.
 
 The workflow with the above choices is illustrated in the following:
 

@@ -59,7 +59,14 @@ Building the application downloads dependencies from the https://vaadin.com/lear
 
 You can find additional useful options in the *Maven* submenu.
 
-== Running the Application
+ifdef::web[]
+To learn more about the topics covered here:
+
+* The key concepts in Maven, see https://vaadin.com/learn/tutorials/learning-maven-concepts[Learning Maven Concepts].
+endif::web[]
+
+[[getting-started.eclipse.running]]
+== Running the Application with Maven
 
 To run the application in an embedded web server, you need to create a _run configuration_, a shortcut to run a task in Eclipse, in this case a Maven goal.
 
@@ -100,3 +107,41 @@ image:images/eclipse/terminate.png[Terminate]
 Once the run configuration is created, you can deploy and run the web application by clicking the *Run* (or *Debug*) icon in the toolbar and selecting the corresponding run or debug configuration:
 
 image:images/eclipse/toolbar.png[Toolbar]
+
+[[getting-started.eclipse.spring-boot]]
+== Running a Spring Boot Project
+
+If you are developing a Spring Boot project, Spring Boot makes it easier to run a Java web application, because it takes care of starting and configuring the server.
+
+[NOTE]
+You can also run the application with the `spring-boot:run` Maven goal as described in <<getting-started.eclipse.running, Running the Application with Maven>>.
+
+To run your application, all you need to do is to run the *Application* class that contains the main method that starts Spring Boot.
+Eclipse automatically detects that you have such a class with a [methodname]#main()# method and lets you run it.
+
+To start your application, you can do any of the following:
+
+* Click *Run Application* ("play" icon) in the toolbar.
+* Select *"Run > Run"* in the menu.
+* Press kbd:[Ctrl+F11].
+* Select the `Application.java` in the *Project Explorer*, right-click, and select *"Run As > Java Application"*.
+
+The first time you start a Vaadin application, it downloads front-end dependencies and builds a JavaScript bundle.
+This can take several minutes, depending on your computer and internet speed.
+
+You will know that your application has started when you see the following output in the console:
+
+----
+Tomcat started on port(s): 8080 (http) with context path ''
+Started Application in 80.189 seconds (JVM running for 83.42)
+----
+
+You should now be able to open the web application at http://localhost:8080.
+
+== Redeploying During Development
+
+When you save a source file, Eclipse automatically compiles it.
+The web server tracks the compiled files and automatically redeploys the application when it notices a change.
+You can then refresh the page to use the updated version.
+
+You can also enable _live reload_ to have the page refreshed automatically, as described in <<../workflow/workflow-overview#, Application Development Workflow>>.
