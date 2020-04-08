@@ -11,7 +11,7 @@ The Vaadin website offers two ways to create a downloadable starter project:
 
 * Using the quick starter wizard at http://vaadin.com/start[vaadin.com/start], as described in <<getting-started.project-wizard.quick, Using the Quick Starter Wizard>>
 
-* Using the customization wizard at http://start.vaadin.com[start.vaadin.com], as described in <<#getting-started.project-wizard.customizing, Creating a Customized Project>>.
+* Using the customization wizard at http://start.vaadin.com[start.vaadin.com], as described in <<getting-started.project-wizard.customizing, Creating a Customized Project>>.
 
 [[getting-started.project-wizard.quick]]
 == Using the Quick Starter Wizard
