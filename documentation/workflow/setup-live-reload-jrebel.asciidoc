@@ -12,20 +12,17 @@ More information about JRebel is available at https://www.jrebel.com/products/jr
 == Step-by-step guide
 
 . Setup and activate JRebel in your favourite IDE by following the Quick Start guides available at https://www.jrebel.com/products/jrebel/learn
-. Add `jrebel-flow-plugin` as an artifact to your Vaadin application `pom.xml` like so:
+. Add `flow-jrebel-plugin` as an artifact to your Vaadin application `pom.xml` like so:
 +
 ----
-<build>
-        <defaultGoal>jetty:run</defaultGoal>
-        <plugins>
-            <plugin>
-                <id>vaadin-jrebel-plugin</id>
-                <groupId>com.vaadin</groupId>
-                <artifactId>flow-jrebel-plugin</artifactId>
-            </plugin>
-            ...
-        </plugins>
-</build>
+<dependencies>
+    ....
+    <dependency>
+        <groupId>com.vaadin</groupId>
+        <artifactId>flow-jrebel-plugin</artifactId>
+        <version>3.1-SNAPSHOT</version>
+    </dependency>
+</dependencies>
 ----
 +
 [NOTE]
@@ -37,4 +34,12 @@ You might want to disable JRebel from running in production builds, since JRebel
 
 == Known issues
 
-* At the moment, running a Vaadin application with JRebel might cause some related exceptions to be logged on the console. These can be safely ignored as no unexpected behavior will affect your application.
+* At the moment, running a Vaadin application with JRebel might cause some related exceptions to be logged on the console. These can be safely ignored as no unexpected behavior will affect your application. These exeptions look like this:
++
+----
+JRebel: ERROR Class 'com.vaadin.flow.server.startup.RouteRegistryInitializer' could not be processed by org.zeroturnaround.jrebel.vaadin.cbp.RouteRegistryInitializerCBP@org.eclipse.jetty.webapp.WebAppClassLoader@139f1a94: org.zeroturnaround.bundled.javassist.CannotCompileException: [source error] getInstance(javax.servlet.ServletContext) not found in com.vaadin.flow.server.startup.ApplicationRouteRegistry
+	at org.zeroturnaround.bundled.javassist.CtNewMethod.make(SourceFile:84)
+	at org.zeroturnaround.bundled.javassist.CtNewMethod.make(SourceFile:50)
+	at org.zeroturnaround.bundled.javassist.CtMethod.make(SourceFile:140)
+  ...
+----
