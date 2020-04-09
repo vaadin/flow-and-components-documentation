@@ -25,3 +25,15 @@ More information about Spring Boot Automatic Restart and other developer tools i
 ----
 . Run the application using `mvn spring-boot:run` or by running the `Application` class directly from your IDE
 . Navigate to your Vaadin application on the browser, make some changes, recompile and the browser will reload automatically
+
+== Additional configurations
+
+* If after changing code and reloading the browser page, you cannot access a view in your application,
+but instead get an error page with message like `Could not navigate to ...` or `Error creating bean with name ...`,
+you need to adjust the dev tools configuration to ensure code changes get picked up. You can do this by
+adding the following lines to your `application.properties` file:
+
+----
+spring.devtools.restart.poll-interval=2s
+spring.devtools.restart.quiet-period=1s
+----
