@@ -1,0 +1,27 @@
+---
+title: Setup Live Reload using Spring Boot
+order: 8
+layout: page
+---
+
+= Setup Live Reload using Spring Boot
+
+Live Reload makes use of Spring Boot Developer tools to automatically restart whenever files on the classpath change.
+More information about Spring Boot Automatic Restart and other developer tools is available at https://docs.spring.io/spring-boot/docs/1.5.16.RELEASE/reference/html/using-boot-devtools.html.
+
+== Step-by-step guide
+
+. Verify if `spring-boot-devtools` is added as a dependency in your Vaadin application `pom.xml`. If not add it like so:
++
+----
+<dependencies>
+    ...
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+        <optional>true</optional>
+    </dependency>
+</dependencies>
+----
+. Run the application using `mvn spring-boot:run` or by running the `Application` class directly from your IDE
+. Navigate to your Vaadin application on the browser, make some changes, recompile and the browser will reload automatically
