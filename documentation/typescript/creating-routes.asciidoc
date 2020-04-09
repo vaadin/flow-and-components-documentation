@@ -35,7 +35,7 @@ export const router = new Router(document.querySelector('#outlet'));
 router.setRoutes([
   // client-side views
   {
-    path: '/categories',
+    path: 'categories',
     component: 'app-categories'
   },
   // pass all unmatched paths to server-side
@@ -87,7 +87,7 @@ const {serverSideRoutes} = new Flow({
 router.setRoutes([
   // client-side views
   {
-    path: '/categories',
+    path: 'categories',
     component: 'app-categories'
   },
   // pass all unmatched paths to server-side
@@ -136,11 +136,11 @@ Vaadin Router goes through the routes until the first match is found, then it cr
 ----
 router.setRoutes([
   {
-    path: '/help',
+    path: 'help',
     component: 'app-help',
   },
   {
-    path: '/categories',
+    path: 'categories',
     component: 'app-categories'
   }
 ]);
@@ -181,15 +181,15 @@ Vaadin Router allows to group related routes together under a common parent by u
 ----
 router.setRoutes([
   {
-    path: '/',
+    path: '',
     component: 'app-layout'
     children: [
       {
-        path: '/help',
+        path: 'help',
         component: 'app-help',
       },
       {
-        path: '/categories',
+        path: 'categories',
         component: 'app-categories'
       }
     ]
@@ -251,7 +251,7 @@ import {Router} from '@vaadin/router';
 export const router = new Router(document.querySelector('#outlet'));
 router.setRoutes([
   {
-    path: '/view1',
+    path: 'view1',
     component: 'my-view'
   }
 ]);
