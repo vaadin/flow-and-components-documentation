@@ -1,0 +1,40 @@
+---
+title: Setup Live Reload using JRebel
+order: 7
+layout: page
+---
+
+= Setup Live Reload using JRebel
+
+Live Reload works with JRebel allowing for code changes to affect Vaadin applications in real time, skipping rebuilds and redeploys.
+More information about JRebel is available at https://www.jrebel.com/products/jrebel.
+
+== Step-by-step guide
+
+. Setup and activate JRebel in your favourite IDE by following the Quick Start guides available at https://www.jrebel.com/products/jrebel/learn
+. Add `jrebel-flow-plugin` as an artifact to your Vaadin application `pom.xml` like so:
++
+----
+<build>
+        <defaultGoal>jetty:run</defaultGoal>
+        <plugins>
+            <plugin>
+                <id>vaadin-jrebel-plugin</id>
+                <groupId>com.vaadin</groupId>
+                <artifactId>flow-jrebel-plugin</artifactId>
+            </plugin>
+            ...
+        </plugins>
+</build>
+----
++
+[NOTE]
+====
+You might want to disable JRebel from running in production builds, since JRebel is suited for development time only.
+====
+. Run your Vaadin application using the JRebel Agent
+. Navigate to your Vaadin application on the browser, make and save some changes, and the browser will reload automatically
+
+== Known issues
+
+* At the moment, running a Vaadin application with JRebel might cause some related exceptions to be logged on the console. These can be safely ignored as no unexpected behavior will affect your application.
