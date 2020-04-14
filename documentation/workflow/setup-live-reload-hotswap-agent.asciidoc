@@ -1,6 +1,6 @@
 ---
 title: Setup Live Reload using HotswapAgent
-order: 6
+order: 4
 layout: page
 ---
 

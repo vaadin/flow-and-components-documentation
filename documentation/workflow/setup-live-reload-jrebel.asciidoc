@@ -1,6 +1,6 @@
 ---
 title: Setup Live Reload using JRebel
-order: 7
+order: 3
 layout: page
 ---
 
