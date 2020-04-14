@@ -93,3 +93,8 @@ Uses bytecode scanning which increases application startup time. *This feature i
 
 |pnpm.enable |
 **Available since Vaadin 14.2 and 15**, this is by default set to `true` in 16, which means that _pnpm_ is used to download and resolve frontend dependencies. Setting it to false disables pnpm, and _npm_ will be used instead to handle the frontend resources. More information in the <<tutorial-switch-npm-pnpm#, switch between pnpm and npm documentation>>.
+
+|devmode.liveReload.enabled |
+**Available since Vaadin 16.2**, this is by default set to `true`, which means that if you are using
+some live reload tool on the server side the browser will be refreshed automatically once code
+is reloaded on the server side. See <<../workflow/workflow-overview#,Workflow Overview>>.
