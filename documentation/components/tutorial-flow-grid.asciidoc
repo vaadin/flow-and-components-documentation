@@ -34,8 +34,7 @@ List<Person> people = Arrays.asList(
 Grid<Person> grid = new Grid<>();
 grid.setItems(people);
 grid.addColumn(Person::getName).setHeader("Name");
-grid.addColumn(person -> Integer.toString(
-               person.getYearOfBirth()))
+grid.addColumn(Person::getYearOfBirth)
         .setHeader("Year of birth");
 
 layout.add(grid);
@@ -676,9 +675,9 @@ grid.setItems(people);
 
 grid.addColumn(new ComponentRenderer<>(person -> {
     if (person.getGender() == Gender.MALE) {
-        return new Icon(VaadinIcon.MALE);
+        return VaadinIcon.MALE.create();
     } else {
-        return new Icon(VaadinIcon.FEMALE);
+        return VaadinIcon.FEMALE.create();
     }
 })).setHeader("Gender");
 ----
@@ -702,7 +701,7 @@ If the component is the same for every item, you only need to provide the `Suppl
 ----
 grid.addColumn(
     new ComponentRenderer<>(
-            () -> new Icon(VaadinIcon.ARROW_LEFT)));
+             () -> VaadinIcon.ARROW_LEFT.create()));
 ----
 
 You can create complex content for the grid cells by using the component APIs.
@@ -738,6 +737,9 @@ grid.addColumn(new ComponentRenderer<>(person -> {
     return new VerticalLayout(name, buttons);
 })).setHeader("Actions");
 ----
+[NOTE]
+`addComponentColumn` is a shorthand for `addColumn` with a `ComponentRenderer`.
+
 * Editing grid items requires refreshing the grid's `DataProvider`. The reasoning is the same as for <<Handling Events>> above.
 
 See <<../binding-data/tutorial-flow-data-provider#,Data Providers>> for more.
@@ -993,12 +995,12 @@ grid.addColumn(new ComponentRenderer<>(person -> {
 
 The default Lumo theme includes different variations that you can use to style the grid. You can provide one or more variations.
 
-*Example*: Using the `addThemeNames` method to define theme variations for the grid.
+*Example*: Using the `addThemeVariants` method to define theme variations for the grid.
 
 [source, java]
 ----
-grid.addThemeNames("no-border", "no-row-borders",
-        "row-stripes");
+grid.addThemeVariants(GridVariant.LUMO_NO_ROW_BORDERS,
+        GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_ROW_STRIPES);
 ----
 
 

@@ -31,9 +31,9 @@ public class ComponentManyElements {
 
         public TextField() {
             inputElement
-                    .synchronizeProperty("value", "change");
+                .addPropertyChangeListener("value", "change", e -> {});
             getElement()
-                    .appendChild(labelElement, inputElement);
+                .appendChild(labelElement, inputElement);
         }
 
         public String getLabel() {
