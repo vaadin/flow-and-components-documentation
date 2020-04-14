@@ -29,7 +29,7 @@ public class IconBasic {
     }
 
     public void customCollection() {
-        Icon icon = new Icon("lumo", "clock");
+        IronIcon icon = new IronIcon("lumo", "clock");
         new Button("Clock", icon);
     }
 }
