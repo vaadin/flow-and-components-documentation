@@ -55,8 +55,7 @@ router.setRoutes([
   ...
   {
     path: 'help',
-    component: 'app-help',
-    action: async () => { await import('./views/help/app-help'); }
+    component: 'app-help'
   },
   ...
 ]);
