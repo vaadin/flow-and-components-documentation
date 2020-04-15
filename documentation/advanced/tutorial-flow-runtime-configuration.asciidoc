@@ -96,3 +96,8 @@ Yet another approach is to use the `web.xml` file:
 
 [NOTE]
 System properties override application properties ergo if you have both properties with the same name specified, the system one will be used.
+
+== Parameters and description
+
+The `productionMode` (default value is `false`) parameter turns application to work in production mode
+In order for web components to work, extra libraries (polyfills) are required to be loaded, can be turned off if different versions or libraries should be included instead.

@@ -1,6 +1,6 @@
 ---
 title: Live Reload in CDI Applications
-order: 4
+order: 6
 layout: page
 ---
 
