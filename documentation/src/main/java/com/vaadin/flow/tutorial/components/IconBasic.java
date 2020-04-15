@@ -17,6 +17,7 @@ package com.vaadin.flow.tutorial.components;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.IronIcon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
@@ -29,7 +30,7 @@ public class IconBasic {
     }
 
     public void customCollection() {
-        Icon icon = new Icon("lumo", "clock");
+        IronIcon icon = new IronIcon("lumo", "clock");
         new Button("Clock", icon);
     }
 }
