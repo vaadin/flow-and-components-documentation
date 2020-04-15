@@ -128,6 +128,8 @@ If we wanted to move the border to the actual text input element, we would need 
 .Text Field with a border around the input only
 image::images/vaadin-text-field-input-border.png[Text Field with a border around the input only,188,70]
 
+See the documentation for <<styling-components#supported-css-selectors,Supported CSS Selectors>> to learn more about what selectors you can use in the local scope of components.
+
 ifdef::web[]
 == Related Tutorials
 
