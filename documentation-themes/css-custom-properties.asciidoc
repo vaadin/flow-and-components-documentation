@@ -88,6 +88,7 @@ You can also define a fallback value for cases where the custom property is not 
 Custom properties are inherited by default, allowing them to “pierce” shadow DOM boundaries.
 This makes it possible to theme/style components from outside their local style scope (see <<style-scopes#,Style Scopes>>), assuming a component is using a custom property in its local styles (with `var()`).
 
+A use case for this is documented in <<styling-components#scoping-component-styles,Scoping Component Styles>>.
 
 == Using with JavaScript
 

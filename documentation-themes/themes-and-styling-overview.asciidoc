@@ -13,13 +13,12 @@ They offer a shared visual language which you can apply to your application-spec
 
 == Prerequisites
 
-To set an application’s theme one needs to know some Java or JavaScript.
+To style components and theme your application you should be comfortable writing CSS and willing to learn a few lines of Java or JavaScript.
 
 Themes and application-specific styles are implemented using https://developer.mozilla.org/en-US/docs/Web/CSS[Cascading Style Sheets] (CSS).
 Style sheets are authored as `.css` files.
 If you are including style sheets in client-side code they can also be authored as `.js` files (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules[JavaScript modules]).
 
-You should be comfortable writing CSS to effectively customize themes and style components.
 The https://developer.mozilla.org/en-US/docs/Learn/CSS[CSS tutorials on MDN] are a great way to learn the basics of CSS.
 It is also important to understand <<style-scopes#,Style Scopes>> and <<css-custom-properties#,CSS Custom Properties and Variables>> are especially important topics to understand.
 

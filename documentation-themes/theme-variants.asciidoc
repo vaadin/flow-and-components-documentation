@@ -133,7 +133,7 @@ See <<styling-components#sub-components,Styling Components>> to learn about the 
 == Custom Variants
 
 Custom variants allow you to freely customize the visual appearance of components.
-They are defined in an additional stylesheet which you import (see <<importing-style-sheets#,Importing Style Sheets>>).
+They are defined in an additional stylesheet which you import as component styles (see <<importing-style-sheets#,Importing Style Sheets>>).
 Technically, custom variants work exactly like built-in variants.
 
 To create a custom variant, first we need to write the styles for that variant.

@@ -77,10 +77,6 @@ html {
 }
 ----
 
-[NOTE]
-When including CSS in your client-side code (JavaScript or HTML), remember to take care of cross-browser compatibility.
-See <<importing-style-sheets#global-client-side, Importing Style Sheets>> for more info.
-
 You can find component-specific custom properties from the component's HTML API documentation.
 For example, see the https://vaadin.com/components/vaadin-text-field/html-api/elements/Vaadin.TextFieldElement[Styling section for Text Field].
 
@@ -136,6 +132,12 @@ The `:host` selector also accepts a simple selector as an argument for it, scopi
 :host([theme~="small"]) {
   /* Styles for the small variant */
 }
+
+:host([has-value][theme~="borderless"]:hover) {
+  /* Styles for when the component state is "has-value",
+     the "borderless" variant is used, and when the user
+     is hover over the component. */
+}
 ----
 +
 ifdef::web[]
@@ -156,10 +158,8 @@ The stylable elements (marked with a `part` attribute) should only be targeted u
 +
 Use `part~="..."` to match a part which might have multiple names. For example, the cells inside a `<vaadin-grid>` have multiple part names like `"cell"` and `"body-cell"`.
 +
+.The effective DOM of the <vaadin-grid> element
 image::images/vaadin-grid-cell-parts.png[vaadin-grid shadow DOM where the stylable part names of header and body cells are highlighted]
-+
-You can use this kind of attribute selector in all cases, if you want to be safe.
-It will work for parts with only one name as well.
 +
 .`Styles included into the local scope of <vaadin-grid>`
 [source, css]
@@ -172,6 +172,9 @@ It will work for parts with only one name as well.
   /* Styles that only affect all body cells */
 }
 ----
++
+You can use this kind of attribute selector in all cases, if you want to be safe.
+It will work for parts with only one name as well.
 +
 ifdef::web[]
 Read more about https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors[attribute selectors] on MDN.
@@ -217,6 +220,160 @@ ifdef::web[]
 Read more about the https://developer.mozilla.org/en-US/docs/Web/CSS/::slotted[::slotted()] selector on MDN.
 endif::web[]
 
+=== Example
+
+Let’s look at a concrete example how these selectors work.
+We’ll use the Tabs, Tab, and Icon components to build the following composition:
+
+image::images/tabs.png[Three Tab components with icons and text labels]
+
+The DOM hierarchy of the above component structure is the following:
+
+[source, html]
+----
+<vaadin-tabs>
+  <vaadin-tab>
+    <iron-icon icon="lumo:user"></iron-icon>
+    <span>Tab one</span>
+  </vaadin-tab>
+  <vaadin-tab>
+    <iron-icon icon="lumo:cog"></iron-icon>
+    <span>Tab two</span>
+  </vaadin-tab>
+  <vaadin-tab>
+    <iron-icon icon="lumo:bell"></iron-icon>
+    <span>Tab three</span>
+  </vaadin-tab>
+</vaadin-tabs>
+----
+
+The resulting effective DOM, when the components are rendered, including shadow DOM, is the following:
+
+image::images/tabs-rendered-dom.png[The effective DOM of the HTML code above]
+
+Elements in the global style scope are outlined in blue.
+The local style scope of the `<vaadin-tabs>` element is outlined in orange, and the local style scope of the first `<vaadin-tab>` element (not expanded) is outlined in green.
+
+To select the `<vaadin-tabs>` element we could, for example, use the following selectors in the global style scope:
+
+[source, css]
+----
+/* All tabs containers */
+vaadin-tabs {
+  ...
+}
+
+/* Only the horizontal tabs containers */
+vaadin-tabs[orientation="horizontal"] {
+  ...
+}
+----
+
+To select the same element from its local style scope we could use the following selectors:
+
+[source, css]
+----
+/* All tabs containers */
+:host {
+  ...
+}
+
+/* Only the horizontal tabs containers */
+:host([orientation="horizontal"]) {
+
+}
+----
+
+To select all or some of the `<vaadin-tab>` elements we could use the following selectors in the global style scope:
+
+.`Styles included into the global scope`
+[source, css]
+----
+/* All tabs */
+vaadin-tab {
+  ...
+}
+
+/* Only the selected tab */
+vaadin-tabs[selected] {
+  ...
+}
+----
+
+To select the same elements from the local style scope of the `<vaadin-tabs>` element, we could use the following selectors:
+
+.`Styles included into the local scope of <vaadin-tabs>`
+[source, css]
+----
+/* All tabs */
+[part="tabs"] ::slotted(vaadin-tab) {
+  ...
+}
+
+/* Only the selected tab */
+[part="tabs"] ::slotted(vaadin-tab[selected]) {
+  ...
+}
+----
+
+We could also select the same `<vaadin-tab>` elements their local style scope using the following selectors:
+
+.`Styles included into the local scope of <vaadin-tab>`
+[source, css]
+----
+/* All tabs */
+:host {
+  ...
+}
+
+/* Only the selected tab */
+:host([selected]) {
+  ...
+}
+----
+
+
+To select the `<iron-icon>` elements we could, for example, use the following selectors in the global style scope:
+
+.`Styles included into the global scope`
+[source, css]
+----
+vaadin-tabs iron-icon {
+  ...
+}
+
+vaadin-tab > iron-icon {
+  ...
+}
+----
+
+We could also select the same icon elements from the local style scope of `<vaadin-tab>`:
+
+.`Styles included into the local scope of <vaadin-tab>`
+[source, css]
+----
+::slotted(iron-icon) {
+  ...
+}
+----
+
+But we can’t select the same icon elements from the local style scope of `<vaadin-tabs>` because the `::slotted()` selector only allows us to select the direct children of the host element. The following selectors won’t work:
+
+.`Styles included into the local scope of <vaadin-tabs>`
+[source, css]
+----
+/* Doesn’t select anything */
+[part="tabs"] ::slotted(vaadin-tab iron-icon) {
+  ...
+}
+
+/* Doesn’t select anything */
+[part="tabs"] ::slotted(vaadin-tab) iron-icon {
+  ...
+}
+----
+
+If the DOM hierarchy would contain more deeply nested elements, for example another element inside the `<iron-icon>` or `<span>` elements, those could only be selected from the global style scope.
 
 
 == States

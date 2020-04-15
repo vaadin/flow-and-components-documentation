@@ -22,6 +22,9 @@ endif::web[]
 You can choose to use one of the built-in themes or a theme provided by another package.
 The Lumo theme is used by default unless explicitly configured otherwise.
 
+[NOTE]
+It is recommended to start with an existing theme and customize it (instead of creating a completely custom theme) as it is the easier approach and works for the majority of applications.
+
 [.example]
 --
 In server-side views (Java), use the [classname]#@Theme# annotation to choose the theme.

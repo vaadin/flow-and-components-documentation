@@ -20,16 +20,23 @@ endif::web[]
 
 == Global Style Scope
 
-The global style scope is the “classic” way of styling web pages. Styles defined in a global style sheet – either `<link rel="stylesheet">` or `<style>` elements – apply to all elements/components in the main HTML document. All elements which are not inside a shadow root (the parts of the DOM which are referred to as “shadow DOM”), are in the global style scope.
+The global style scope is the “classic” way of styling web pages.
+Styles defined in a global style sheet – either `<link rel="stylesheet">` or `<style>` elements – apply to all elements/components in the main HTML document.
+All elements which are not inside a shadow root (the parts of the DOM which are referred to as “shadow DOM”), are in the global style scope.
 
-Styles in a global style sheet do not apply to component internals, like the label inside the Text Field component or drag handle inside the Split Layout component. Template-based components and views are also protected from global styles. This means you can safely write global CSS without worrying about breaking component styling and/or behavior.
+Styles in a global style sheet do not apply to component internals, like the label inside the Text Field component or drag handle inside the Split Layout component.
+Template-based components and views (built using PolymerElement or LitElement) are also protected from global styles.
+This means you can safely write global CSS without worrying about breaking component styling and/or behavior.
 
-As an example, let’s look a Text Field component.
+Inherited properties, including <<css-custom-properties#,CSS Custom Properties>>, which are defined in the global scope do cascade into shadow roots.
+
+As an example, let’s look at the Text Field component.
 
 .Text Field light DOM
 image::images/vaadin-text-field-light-dom.png[Text Field light DOM,523,120]
 
-The only thing we can style using global styles is the whole `<vaadin-text-field>` element, which contains both the *label* and the *input field* parts. The label and input field parts are inside the Text Field component’s shadow DOM, and global styles won’t affect them.
+The only thing we can style using global styles is the whole `<vaadin-text-field>` element, which contains both the *label* and the *input field* parts.
+The label and input field parts are inside the Text Field component’s shadow DOM, and global styles won’t affect them (excluding inherited properties).
 
 Assuming we could have the following styles in an imported stylesheet:
 
@@ -50,10 +57,18 @@ image::images/vaadin-text-field-border.png[Text Field with a border around the w
 
 Styling web components, which use shadow DOM, require a new perspective on using CSS.
 
-When a web component has its own shadow root, the browser creates a new style scope for the elements that are placed inside the shadow DOM hierarchy. CSS selectors in a global stylesheet can’t affect those elements.
+When a web component has its own shadow root, the browser creates a new style scope for the elements that are placed inside the shadow DOM hierarchy.
+CSS selectors in a global stylesheet can’t affect those elements.
 
-The only CSS selectors that can affect the elements inside shadow DOM need to be in a `<style>` element which is somewhere inside the same shadow DOM hierarchy. At the same time, the styles inside shadow DOM can’t affect elements outside the shadow DOM. The styles are placed in the “local style scope” of the shadow DOM.
+The only CSS selectors that can affect the elements inside shadow DOM need to be in a `<style>` element which is somewhere inside the same shadow DOM hierarchy.
+At the same time, the styles inside shadow DOM can’t affect elements outside the shadow DOM.
+The styles are placed in the “local style scope” of the shadow DOM.
 
+Inherited properties, including <<css-custom-properties#,CSS Custom Properties>>, which are defined in the global scope do cascade into shadow roots.
+They offer an easy way to customize styles in local scopes – assuming a local style scope is using those properties – without the need to add additional style sheets into the local scope.
+As an example, the <<lumo/color#,Lumo Color>> properties can be defined in the global scope and they will affect the styles of all components.
+
+[NOTE]
 https://wicg.github.io/construct-stylesheets/[Constructable and adopted style sheets] are upcoming additions to web standards (currently implemented in Chrome/Edge/Opera, March 2020) that allow developers to add style sheets to shadow roots.
 
 As an example, let’s look at the same Text Field component again, but this time inside its shadow DOM.
