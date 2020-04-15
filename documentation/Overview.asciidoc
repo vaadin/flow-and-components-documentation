@@ -33,8 +33,10 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 
 == Development Workflow
 ** <<workflow/workflow-overview#,Workflow Overview>>
+** <<workflow/setup-live-reload-springboot#, Setup Live Reload using Spring Boot>>
+** <<workflow/setup-live-reload-jrebel#, Setup Live Reload using JRebel>>
+** <<workflow/setup-live-reload-hotswap-agent#, Setup Live Reload using HotswapAgent>>
 ** <<workflow/tutorial-plain-servlet-live-reload#, Live Reload in Web Applications>>
-** <<workflow/tutorial-spring-boot-live-reload#, Live Reload in Spring Boot Applications>>
 ** <<workflow/tutorial-cdi-live-reload#, Live Reload in CDI Applications>>
 
 == Router and Navigation
