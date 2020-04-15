@@ -11,7 +11,7 @@ ifdef::web[]
 :toclevels: 1
 endif::web[]
 
-Use one of the built-in themes to get a great starting point for your application, which you can customize further. You can also start from scratch and implement a completely custom theme.
+The built-in themes are all customisable and provide a great starting point for an application. Completely custom themes can also be built from scratch.
 
 ifdef::web[]
 toc::[]
@@ -20,12 +20,12 @@ endif::web[]
 == Existing Themes
 
 You can choose to use one of the built-in themes or a theme provided by another package.
-If you do not explicitly configure otherwise, the Lumo theme will be used.
+The Lumo theme is used by default unless explicitly configured otherwise.
 
 [.example]
 --
 In server-side views (Java), use the [classname]#@Theme# annotation to choose the theme.
-The annotation has to be set to your <<../flow/routing/tutorial-routing-annotation#,root navigation>> level class or to the <<../flow/routing/tutorial-router-layout#,router layout>> component defined in its [classname]#@Route# annotation.
+The annotation must be set for the <<../flow/routing/tutorial-routing-annotation#,root navigation>> class or the <<../flow/routing/tutorial-router-layout#,router layout>> defined in the [classname]#@Route# annotation.
 Otherwise an exception is thrown on startup.
 
 [source, java]
@@ -34,8 +34,8 @@ include::src/main/java/com/vaadin/flow/tutorial/theme/UsingComponentThemes.java[
 ----
 
 In client-side views (JavaScript), import the themed version of each component.
-For Vaadin components, the built-in themes are located in the [filename]#theme# folder of each component package.
-Import any additional theme style sheets, if you use some of the custom properties in that view.
+The built-in themes are located in the [filename]#theme# folder of each Vaadin component package.
+Remember to import the needed style sheets if your view is using a theme’s custom properties.
 
 [source, javascript]
 ----
@@ -51,7 +51,8 @@ There are two ways to customize themes:
 1. Customize existing themes
 2. Create a completely new theme
 
-The easier way is to customize one of the existing themes, by overriding the CSS custom properties they expose as their public API and by writing and importing additional style sheets to further override styles.
+It's easier to customise one of the existing themes.
+This is accomplished by overriding custom properties and by writing and importing additional style sheets (to further override styles).
 This approach works best when you only need to make small adjustments.
 See <<styling-components#,Styling Components>>, <<./lumo/lumo-overview#,Lumo>>, and <<./material/material-overview#,Material>> for more information.
 
@@ -60,9 +61,9 @@ See <<creating-a-custom-theme#, Creating a Custom Theme>> for more information.
 
 == No Theme
 
-If you want to control the importing of style sheets manually, you can opt-out of loading any theme.
-This means that you rely on application-specific style sheets to handle component styling as well.
-It also means that you are responsible for any lazy-loading or code-splitting of the style sheets.
+You can opt-out of loading any theme if you want to control the importing of style sheets manually.
+This means that you rely on application-specific style sheets to handle component styling.
+You are also responsible for any lazy-loading or code-splitting of the style sheets.
 
 For server-side views, use the [classname]#@NoTheme# annotation to opt-out of loading any theme style sheets.
 
@@ -98,7 +99,7 @@ No theme is used if none of the conditions are met.
 
 It is not possible to switch themes at runtime::
 Full page reload is required.
-That means you can’t, for example, use a different theme for different views/routes of your application.
+You can't for example use different themes for different views.
 
 It is not possible to mix component themes::
 For example, you can't use the Lumo theme for Date Picker and the Material theme for Button at the same time, because Date Picker internally uses the Button component.
