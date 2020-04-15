@@ -172,7 +172,7 @@ public class MyLocale extends Div {
 
 === Supporting Right-to-Left mode in the application
 
-Vaadin components have now support for RTL languages, so to make your
+Vaadin components have support for RTL languages, so to make your
 application handle this mode, a few changes are needed:
 
 On top of the last examples, let's say that your application is now also
