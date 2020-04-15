@@ -1,6 +1,6 @@
 ---
 title: Run on Server in IntelliJ IDEA
-order: 5
+order: 7
 layout: page
 ---
 
