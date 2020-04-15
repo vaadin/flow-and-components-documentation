@@ -51,7 +51,7 @@ public class MenuView extends Div {
     private void addItemEditLink() {
         String url = routeConfiguration.getUrl(
                 ComponentView.class,
-                new UrlParameters("id", "123"));
+                new RouteParameters("id", "123"));
 
         // The generated url is `item/123/edit`
         Anchor link = new Anchor(url, "Button Api");
@@ -80,7 +80,7 @@ public class MenuView extends Div {
     private void addButtonApiLink() {
         String url = routeConfiguration.getUrl(
                 ComponentView.class,
-                new UrlParameters(
+                new RouteParameters(
                         "identifier", "button",
                         "tab", "api",
                         "path", "com/vaadin/flow/button"));

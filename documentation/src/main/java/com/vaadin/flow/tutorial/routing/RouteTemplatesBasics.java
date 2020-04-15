@@ -27,11 +27,11 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.router.RoutePrefix;
 import com.vaadin.flow.router.RouterLayout;
-import com.vaadin.flow.router.UrlParameters;
+import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("routing/tutorial-router-url-templates.asciidoc")
-public class UrlTemplatesBasics {
+@CodeFor("routing/tutorial-router-templates.asciidoc")
+public class RouteTemplatesBasics {
 
     /* User profile example */
 
@@ -42,7 +42,7 @@ public class UrlTemplatesBasics {
 
         @Override
         public void beforeEnter(BeforeEnterEvent event) {
-            userID = event.getUrlParameters().get("userID").get();
+            userID = event.getRouteParameters().get("userID").get();
         }
     }
 
@@ -59,7 +59,7 @@ public class UrlTemplatesBasics {
 
         @Override
         public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-            final UrlParameters urlParameters = beforeEnterEvent.getUrlParameters();
+            final RouteParameters urlParameters = beforeEnterEvent.getRouteParameters();
 
             threadID = null;
 
@@ -76,7 +76,7 @@ public class UrlTemplatesBasics {
 
         @Override
         public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-            threadID = beforeEnterEvent.getUrlParameters().get("threadID").get();
+            threadID = beforeEnterEvent.getRouteParameters().get("threadID").get();
 
             if ("comment".equals(getLastSegment(beforeEnterEvent))) {
                 new CommentDialog().open();

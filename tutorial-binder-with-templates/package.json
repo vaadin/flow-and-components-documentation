@@ -6,7 +6,7 @@
       "@vaadin/router": "^1.6.0",
       "@polymer/polymer": "3.2.0",
       "@webcomponents/webcomponentsjs": "^2.2.10",
-      "@vaadin/vaadin-grid": "5.5.1",
+      "@vaadin/vaadin-grid": "5.6.0-alpha3",
       "@vaadin/vaadin-icons": "4.3.1",
       "@vaadin/vaadin-split-layout": "4.1.1",
       "@vaadin/vaadin-combo-box": "5.0.11",
@@ -26,10 +26,10 @@
       "@vaadin/vaadin-custom-field": "1.0.11",
       "@vaadin/vaadin-form-layout": "2.1.7",
       "@polymer/iron-list": "3.0.2",
-      "@vaadin/vaadin-accordion": "1.0.1",
-      "@vaadin/vaadin-list-box": "1.2.0",
-      "@vaadin/vaadin-checkbox": "2.2.13",
-      "@vaadin/vaadin-details": "1.0.1",
+      "@vaadin/vaadin-accordion": "1.1.0-alpha1",
+      "@vaadin/vaadin-list-box": "1.3.0-alpha3",
+      "@vaadin/vaadin-checkbox": "2.3.0-alpha1",
+      "@vaadin/vaadin-details": "1.1.0-alpha1",
       "@polymer/iron-icon": "3.0.1",
       "@vaadin/vaadin-time-picker": "2.0.7",
       "@vaadin/vaadin-context-menu": "4.3.15",
@@ -52,15 +52,17 @@
       "typescript": "3.8.3",
       "webpack-merge": "4.2.2",
       "webpack-dev-server": "3.10.3",
-      "progress-webpack-plugin": "0.0.24"
+      "progress-webpack-plugin": "0.0.24",
+      "terser": "4.6.7",
+      "lit-element": "2.3.1"
     },
-    "hash": "3bd441bcdbd6c42df620cae62fa2aa09ca84c36286ee6cf5bf97d31c15a9c021"
+    "hash": "d86939fcda13a52f26745893c02ff532b1f7a481a73137d3f1b984cfe63e8544"
   },
   "dependencies": {
     "@vaadin/router": "^1.6.0",
     "@polymer/polymer": "3.2.0",
     "@vaadin/flow-frontend": "./target/flow-frontend",
-    "@vaadin/vaadin-grid": "5.5.1",
+    "@vaadin/vaadin-grid": "5.6.0-alpha3",
     "@vaadin/vaadin-icons": "4.3.1",
     "@vaadin/vaadin-split-layout": "4.1.1",
     "@vaadin/vaadin-combo-box": "5.0.11",
@@ -80,10 +82,10 @@
     "@vaadin/vaadin-custom-field": "1.0.11",
     "@vaadin/vaadin-form-layout": "2.1.7",
     "@polymer/iron-list": "3.0.2",
-    "@vaadin/vaadin-accordion": "1.0.1",
-    "@vaadin/vaadin-list-box": "1.2.0",
-    "@vaadin/vaadin-checkbox": "2.2.13",
-    "@vaadin/vaadin-details": "1.0.1",
+    "@vaadin/vaadin-accordion": "1.1.0-alpha1",
+    "@vaadin/vaadin-list-box": "1.3.0-alpha3",
+    "@vaadin/vaadin-checkbox": "2.3.0-alpha1",
+    "@vaadin/vaadin-details": "1.1.0-alpha1",
     "@polymer/iron-icon": "3.0.1",
     "@vaadin/vaadin-time-picker": "2.0.7",
     "@vaadin/vaadin-context-menu": "4.3.15",
@@ -106,6 +108,8 @@
     "typescript": "3.8.3",
     "webpack-merge": "4.2.2",
     "webpack-dev-server": "3.10.3",
-    "progress-webpack-plugin": "0.0.24"
+    "progress-webpack-plugin": "0.0.24",
+    "terser": "4.6.7",
+    "lit-element": "2.3.1"
   }
 }

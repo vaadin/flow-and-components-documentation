@@ -15,25 +15,18 @@
  */
 package com.vaadin.flow.tutorial.routing;
 
-import java.util.List;
-
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.router.RouteConfiguration;
-import com.vaadin.flow.router.RouteParameterRegex;
+import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.router.RoutePrefix;
-import com.vaadin.flow.router.RouterLayout;
-import com.vaadin.flow.router.UrlParameters;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("routing/tutorial-routing-url-generation.asciidoc")
-public class UrlTemplatesConfiguration {
+public class RouteTemplatesConfiguration {
 
     @Route(value = "item/:id([0-9]*)/edit")
     public static class ItemEdit extends Component {
@@ -57,7 +50,7 @@ public class UrlTemplatesConfiguration {
         private void addButtonApiLink() {
             String url = routeConfiguration.getUrl(
                     ComponentView.class,
-                    new UrlParameters(
+                    new RouteParameters(
                             "identifier", "button",
                             "tab", "api",
                             "path", "com/vaadin/flow/button"));
@@ -70,7 +63,7 @@ public class UrlTemplatesConfiguration {
         private void addItemEditLink() {
             String url = routeConfiguration.getUrl(
                     ComponentView.class,
-                    new UrlParameters("id", "123"));
+                    new RouteParameters("id", "123"));
 
             // The generated url is `item/123/edit`
             Anchor link = new Anchor(url, "Button Api");

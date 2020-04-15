@@ -63,7 +63,7 @@ configuration.removeRoute("admin");
 For more related information, see: 
 
 * <<Adding Route Aliases for Dynamic Routes>> (below).
-* <<tutorial-router-url-templates#,URL Templates>>
+* <<tutorial-router-templates#,Route Templates>>
 * <<tutorial-router-url-parameters#,Typed URL Parameters>>
 
 

@@ -17,21 +17,14 @@ package com.vaadin.flow.tutorial.routing;
 
 import java.util.List;
 
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
-import com.vaadin.flow.router.RoutePrefix;
-import com.vaadin.flow.router.RouterLayout;
-import com.vaadin.flow.router.UrlParameters;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("routing/tutorial-router-url-templates.asciidoc")
-public class UrlTemplatesModifier {
+@CodeFor("routing/tutorial-router-templates.asciidoc")
+public class RouteTemplatesModifier {
 
     /* User profile example */
 
@@ -42,7 +35,7 @@ public class UrlTemplatesModifier {
 
         @Override
         public void beforeEnter(BeforeEnterEvent event) {
-            userID = event.getUrlParameters().get("userID").
+            userID = event.getRouteParameters().get("userID").
                     orElse(CurrentUser.get().getUserID());
         }
     }
@@ -57,8 +50,8 @@ public class UrlTemplatesModifier {
 
         @Override
         public void beforeEnter(BeforeEnterEvent event) {
-            path = event.getUrlParameters().get("path").orElse("");
-            pathSegments = event.getUrlParameters().getWildcard("path");
+            path = event.getRouteParameters().get("path").orElse("");
+            pathSegments = event.getRouteParameters().getWildcard("path");
         }
     }
 

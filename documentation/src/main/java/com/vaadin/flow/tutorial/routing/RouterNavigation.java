@@ -18,13 +18,14 @@ package com.vaadin.flow.tutorial.routing;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.NativeButton;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.router.RouterLink;
-import com.vaadin.flow.router.UrlParameters;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
-import com.vaadin.flow.tutorial.routing.UrlTemplatesModifier.UserProfileEdit;
 
 @CodeFor("routing/tutorial-routing-navigation.asciidoc")
 public class RouterNavigation {
@@ -33,8 +34,8 @@ public class RouterNavigation {
         NativeButton button = new NativeButton(
                 "Navigate to company");
         button.addClickListener(e ->
-            button.getUI().ifPresent(ui ->
-                    ui.navigate("company"))
+                button.getUI().ifPresent(ui ->
+                        ui.navigate("company"))
         );
 
         NativeButton editButton = new NativeButton(
@@ -42,7 +43,7 @@ public class RouterNavigation {
         editButton.addClickListener(e ->
                 button.getUI().ifPresent(ui -> ui.navigate(
                         UserProfileEdit.class,
-                        new UrlParameters("userID", "123")))
+                        new RouteParameters("userID", "123")))
         );
     }
 
@@ -53,7 +54,7 @@ public class RouterNavigation {
                 GreetingComponent.class, "default"));
         // user/123/edit
         menu.add(new RouterLink("Edit user details",
-                UserProfileEdit.class, new UrlParameters("userID", "123")));
+                UserProfileEdit.class, new RouteParameters("userID", "123")));
         // user/edit
         menu.add(new RouterLink("Edit my details",
                 UserProfileEdit.class));
@@ -65,7 +66,7 @@ public class RouterNavigation {
 
         @Override
         public void setParameter(BeforeEvent event,
-                String parameter) {
+                                 String parameter) {
             setText(String.format("Hello, %s!", parameter));
         }
     }
@@ -74,4 +75,29 @@ public class RouterNavigation {
     public class HomeView extends Component {
 
     }
+
+    @Route("user/:userID?/edit")
+    public class UserProfileEdit extends Div implements BeforeEnterObserver {
+
+        private String userID;
+
+        @Override
+        public void beforeEnter(BeforeEnterEvent event) {
+            userID = event.getRouteParameters().get("userID").
+                    orElse(CurrentUser.get().getUserID());
+        }
+
+    }
+
+    static class CurrentUser {
+
+        public static CurrentUser get() {
+            return null;
+        }
+
+        public String getUserID() {
+            return null;
+        }
+    }
+
 }
