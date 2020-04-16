@@ -33,13 +33,14 @@ const {serverSideRoutes} = new Flow({
 
 export const router = new Router(document.querySelector('#outlet'));
 router.setRoutes([
-  // client-side views
+  // for client-side, place routes below (more info https://vaadin.com/docs/v15/flow/typescript/creating-routes.html)
   {
     path: 'categories',
-    component: 'app-categories'
+    component: 'app-categories',
+    action: async () => { await import('./views/app-categories-view'); }
   },
-  // pass all unmatched paths to server-side
-  ...serverSideRoutes
+  // for server-side, the next magic line sends all unmatched routes:
+  ...serverSideRoutes // IMPORTANT: this must be the last entry in the array
 ]);
 ----
 
@@ -85,13 +86,14 @@ const {serverSideRoutes} = new Flow({
 });
 
 router.setRoutes([
-  // client-side views
+  // for client-side, place routes below (more info https://vaadin.com/docs/v15/flow/typescript/creating-routes.html)
   {
     path: 'categories',
-    component: 'app-categories'
+    component: 'app-categories',
+    action: async () => { await import('./views/app-categories-view'); }
   },
-  // pass all unmatched paths to server-side
-  ...serverSideRoutes // IMPORTANT: this must be the last line in the array
+  // for server-side, the next magic line sends all unmatched routes:
+  ...serverSideRoutes // IMPORTANT: this must be the last entry in the array
 ]);
 ----
 
