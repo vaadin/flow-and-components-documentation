@@ -6,12 +6,12 @@ layout: page
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= I18N localization
+= Localization
 
 To use localization and translation strings the application only needs to implement
 `I18NProvider` and define the fully qualified class name in the property `i18n.provider`.
 
-== Defining the i18n provider property
+== Defining the I18n Provider Property
 
 The `i18n.provider` property can be set from the command line as a system property,
 as a Servlet init parameter in the `web.xml` or using the `@WebServlet` annotation.
@@ -68,7 +68,7 @@ Spring add-on will automatically use it in case if it's available. See the class
 https://github.com/vaadin/flow-spring-tutorial/blob/master/src/main/java/org/vaadin/spring/tutorial/SimpleI18NProvider.java[SimpleI18NProvider.java]
 implemented in the tutorial project as an example.
 
-== Locale selection for new session
+== Locale Selection for New Session
 The initial locale is decided by matching the locales provided by the `I18NProvider`
 against the `Accept-Language` header in the initial response from the client.
 
@@ -77,7 +77,7 @@ will try to match on only language. If neither is found the locale will be set
 to the first 'supported' locale from `I18NProvider.getProvidedLocales()` and if
 that is empty `Locale.getDefault()` will be used.
 
-== Provider sample for translation
+== Provider Sample for Translation
 
 For this example we enable Finnish and English to be used with Finnish being the
 *"default"* that is used if the user client doesn't specify english as an accepted language.
@@ -133,7 +133,7 @@ public class TranslationProvider implements I18NProvider {
 }
 ----
 
-=== Using localization in the application
+=== Using Localization in the Application
 
 Using the internationalization in the application is a combination of using the
 I18NProvider and updating the translations on locale change.
@@ -157,7 +157,7 @@ public class LocaleObserver extends Div implements LocaleChangeObserver {
 }
 ----
 
-==== Using localization without using LocaleChangeObserver
+==== Using Localization without Using LocaleChangeObserver
 
 .I18NProvider without LocaleChangeObserver
 [source,java]
@@ -170,10 +170,11 @@ public class MyLocale extends Div {
 }
 ----
 
-=== Supporting Right-to-Left mode in the application
+== Supporting Right-to-Left Mode
 
-Vaadin components have support for RTL languages, so to make your
-application handle this mode, a few changes are needed:
+Vaadin components have support for RTL languages. The components will work
+out-of-the-box on this mode, but to make your application handle this mode, a
+few changes are needed.
 
 On top of the last examples, let's say that your application is now also
 translated into a RTL Language, such as Arabic. Besides <<Provider sample for
@@ -196,7 +197,7 @@ public class MainLayout extends VerticalLayout {
 
 This will work if changing of locale is only based on the `Accept-Language`
 coming from the client, but if user can define their language, for instance,
-on your application's setting page, then you can make your main layout implement
+at your application's setting page, then you can make your main layout implement
 the `LocaleChangeObserver` interface, so it will receive the changes of locale
 and then you can set the direction based on the locale set:
 
@@ -215,11 +216,11 @@ public class MainLayout extends VerticalLayout implements LocaleChangeObserver {
 }
 ----
 
-==== Frontend projects
+== Frontend Projects
 
 For frontend applications only, to set the RTL mode you can call `document.dir = 'rtl'`.
 
-==== Adding RTL support to your custom elements
+== Adding RTL Support to Your Custom Elements
 
 If you have your own custom elements, there are a few steps needed in order to
 add RTL support to them:
@@ -267,9 +268,15 @@ You may want to define the proper style for the RTL, like:
 ----
 +
 You may want to pay attention to declarations such as `padding`, `margin`,
-`text-align`, `float` and `transform` on your styles. Flex containers usually
-are handled well by the browser and don't require extra work. More details can
-https://rtlstyling.com/posts/rtl-styling/[be found here].
+`text-align`, `float` and `transform` on your styles. In case your custom
+element doesn't have to support old browsers (such as IE11), you can replace
+some properties with *CSS Logical Properties*. The
+https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties[MDN web
+docs] has a full list of CSS Logical Properties and Values available along with
+the browsers support for each property. Flex and Grid containers usually are
+handled well by the browser and don't require extra work. More information can
+be found at this https://rtlstyling.com/posts/rtl-styling/[extensive RTL styling
+guide].
 +
 To help adjusting the styles for the RTL mode, you can go to the
 https://rtlcss.com/playground/#[RTL CSS] page. There you can paste your original
