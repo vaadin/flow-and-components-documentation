@@ -250,7 +250,7 @@ public class DataProviders {
         ConfigurableFilterDataProvider<Employee, String,
                 Department> configurableFilterDataProvider =
                 dataProvider.withConfigurableFilter(
-                        (filterText,department) ->
+                        (filterText, department) ->
                                 new EmployeeFilter(filterText, department));
 
         return configurableFilterDataProvider;
