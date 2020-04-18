@@ -220,10 +220,10 @@ public class MainLayout extends VerticalLayout implements LocaleChangeObserver {
 
 For frontend applications only, to set the RTL mode you can call `document.dir = 'rtl'`.
 
-== Adding RTL Support to Your Custom Elements
+== Adding RTL Support to Your Custom Elements or Application
 
-If you have your own custom elements, there are a few steps needed in order to
-add RTL support to them:
+If you have your own custom elements or your application has custom styles,
+there are a few steps needed in order to add RTL support to them:
 
 . If your element extends Vaadin's `ElementMixin`, make sure that it depends on
 the version starting from `2.3.0`. If not, you can make the element extends it
