@@ -15,7 +15,7 @@ Currently, Live Reload works on HotswapAgent version 1.4.1-SNAPSHOT and newer. S
 
 . Download https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases[DCEVM JDK], unpack it and set `JAVA_HOME` to it's location. Alternatively, you can add the JDK to your IDE.
 . Download https://github.com/HotswapProjects/HotswapAgent/releases[HotswapAgent 1.4.1-SNAPSHOT]
-. Set your `javaagent` VM argument as such `-javaagent:<path-to-file>/hotswap-agent-1.4.1.jar`
+. Rename the downloaded HotswapAgent JAR to `hotswap-agent.jar`. Move it to the `lib/hotswap` directory of the unpacked DCEVM JDK. When prompted, replace the existing file.
 . When using an IDE, follow setup guides available in http://hotswapagent.org/
 . Depending on your project technology stack, you might have to apply <<Additional configurations>>
 . Run (or Debug) Vaadin application in Dev Mode
