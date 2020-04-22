@@ -114,8 +114,13 @@ By default, in development mode all frontend resources found on the class path a
 When set to `true`, creates an optimized bundle by including only frontend resources that are used from the application entry points (this is the default in production mode).
 Uses bytecode scanning which increases application startup time. *This feature is available only in Vaadin Platform 14.1 and newer.*
 
+|devmode.liveReload.enabled |
+This is by default set to `true`, which means that if you are using
+some live reload tool on the server side the browser will be refreshed automatically once code
+is reloaded on the server side. See <<../workflow/workflow-overview#,Workflow Overview>>.
+
 |pnpm.enable |
-**Available since Vaadin 14.2 and 15**, this flag can be used to enable pnpm 
+**Available since Vaadin 14.2 and 15**, this flag can be used to enable pnpm
 instead of npm for resolving and downloading frontend dependencies.
 By default it is `false` and npm is used, but setting it to `true` enables pnpm.
 More information in the
