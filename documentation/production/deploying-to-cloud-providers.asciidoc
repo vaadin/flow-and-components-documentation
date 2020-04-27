@@ -8,7 +8,10 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Deploying to Cloud Providers
 
-Vaadin applications are standard Java Web Applications, and as such can be deployed on most cloud services that support Java applications. Since Vaadin is a stateful framework, it does require sticky sessions be enabled on the server.
+Vaadin applications are standard Java Web Applications, and as such can be deployed on most cloud services that support Java applications. If your deployment requires multiple servers, then sticky session needs to be enabled on the server.
+
+[NOTE]
+Sticky sessions are a load balancer feature that makes sure all requests from a particular user (session) are sent to the same server in a cluster. This means that sessions do not need to be replicated between servers, significantly reducing server cluster complexity.
 
 Some providers will require a pre-built JAR or WAR file, while some allow you to deploy e.g. directly from GitHub. For all cases we recommend you read the <<.tutorial-production-mode-basic#, introductory chapter>> of this section before proceeding with the linked tutorials.
 
