@@ -35,7 +35,7 @@ public final class ManualJetty {
         }
 
         WebAppContext context = new WebAppContext();
-        context.setInitParameter("productionMode", "false");
+        context.setInitParameter("productionMode", "true");
         // Context path of the application.
         context.setContextPath("");
         // Exploded war or not.

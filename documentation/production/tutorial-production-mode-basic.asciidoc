@@ -37,7 +37,7 @@ All Vaadin POM files downloaded from vaadin.com have the following built-in Mave
                  <phase>compile</phase>
              </execution>
          </executions>
-		 <! --
+		 <!--
 		 .. more configuration ..
 		 -->
     </profile>
