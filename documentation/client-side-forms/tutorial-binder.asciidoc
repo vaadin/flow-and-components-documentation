@@ -1,49 +1,91 @@
 ---
-title: Binding Data to Forms
+title: Binding Data to Client-Side Forms
 order: 1
 layout: page
 ---
 
-= Binding Data to Forms
+= Binding Data to Client-Side Forms
 
-In many applications users provide structured data by completing fields in forms. This data is typically represented in code as an instance of a business object (JavaBean), for example a Person in an HR application.
+Vaadin 17+ provides means for binding UI components in TypeScript form views. There is a client-side `Binder` class that is responsible of keeping the state of the form, the default and current values, and validation of the data.
 
-TO-BE-IMPLEMENTED
-
-It is also possible to validate user input and present the validation status to the user in different ways. 
-
+The client-side `Binder` supports Java backend endpoints for loading and saving the form data, and reuses the metadata form Java Bean validation annotations for client-side validation.
 
 == How to Bind Form Data
 
-The following steps include everything needed to load, edit and save values for a form.
+For example, let us consider a Java endpoint with methods for loading and saving a `Person` bean:
 
-To bind data to a form:
+[source, java]
+----
+/**
+ * A Vaadin endpoint for the person-view.ts form view.
+ */
+@Endpoint
+public class PersonEndpoint {
+    /**
+     * Loads a Person to edit into the view.
+     * @return default form data
+     */
+    public Person loadPerson() {
+        // ...
+    }
 
-. Create a `Binder` and bind the input fields. 
+    /**
+     * Saves the edited Person from the view.
+     * @param person form data to save
+     */
+    public void savePerson(Person person) {
+        // ...
+    }
+}
+----
 
+To bind data to a form, follow these steps in your `frontend/views/person/person-view.ts` client-side LitElement view:
+
+. Import the `Binder` class, the `field` template directive, your `personEndpoint` data endpoint and the generated `PersonModel`:
++
+[source, typescript]
+----
+import {Binder, field} from '@vaadin/flow-frontend/Binder';
+
+import * as personEndpoint from '../../generated/PersonEndpoint';
+import PersonModel from '../../generated/com/example/application/PersonModel';
+----
+
+. Create a `Binder` instance for your view using generated `PersonModel`:
++
+[source, typescript]
+----
+@customElement('person-form')
+class PersonForm extends LitElement {
+  // ...
+
+  private binder = new Binder(this, PersonModel, () => this.requestUpdate());
+
+  // ...
+}
+----
++
+The `PersonModel` here is generated alongside with a `Person` TypeScript data intefrace from the `Person.java` bean. It describes the structure of the data and the validation-related metadata for the client-side form binding.
+
+. Bind the UI components in the template using the `field` directive:
++
+[source, typescript]
+----
+class PersonForm extends LitElement {
+  // ...
+
+  render() {
+    return html`
+      <vaadin-text-field
+       label="Full name"
+       ...="${field(this.binder.model.fullName)}"
+      ></vaadin-text-field>
+    `;
+  }
+}
+----
++
+In this example, `this.binder.model` is an instance of `PersonModel`.
 +
 [NOTE]
-There can only be one `Binder` instance for each form. You should use it for all fields in the form.
-+
-
-. Use the `Binder` to:
-.. Load values from a `person` into the field.
-.. Allow the user to edit the values.
-.. Save the values back into a `person` instance.
-+
-
-* Every time `writeBean` is called, the data is validated and then copied from the UI to the business object. 
-* If the data is invalid, a `ValidationException` that includes all errors in the data, is thrown. This is the reason `writeBean` is in a try/catch block.
-
-It is also possible to use a Lambda expression, instead of a method reference. 
-
-== Binding Read-only Data
-
-To bind a component to read-only data, you can use a `null` value for the `setter`. 
-
-*Example*: Using a `null` value setter.
-
-To bind components that do not implement the `HasValue` interface to read-only data, you can use the `ReadOnlyHasValue` helper class. 
-
-*Example*: Using the `ReadOnlyHasValue` helper class.
-
+Models do not contain any actual data. Use `this.binder.value` or `this.binder.defaultValue` to access the actual current or default value of the form respectively.

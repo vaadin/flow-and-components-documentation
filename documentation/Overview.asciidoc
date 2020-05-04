@@ -136,6 +136,9 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<typescript/endpoint-methods-validation#, Appendix: Endpoint Methods Validation>>
 * <<typescript/typescript-endpoints-urls#, Appendix: Endpoint URLs>>
 
+== Client-Side Form Binding
+* <<client-side-forms/tutorial-binder#, Binding Data to Client-Side Forms>>
+* <<client-side-forms/tutorial-binder-load#, Loading From and Saving To Business Objects>>
 
 == Using Vaadin with Spring
 * <<spring/tutorial-spring-basic#,Use Vaadin with Spring>>
