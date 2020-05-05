@@ -31,11 +31,11 @@ this.binder.reset();
 
 == Saving data
 
-You can use the `submitTo()` method to submit the value to a callback. 
+You can use the `submitTo()` method to submit the value to a callback. Note the `submitTo()` is an asynchronous function, you can use `await` to wait for the result
 
 *Example*: Using the `submitTo()` method to submit to an endpoint method.
 
 [source, typescript]
 ----
-await this.binder.submitTo(viewEndpoint.saveEmployee);
+await this.binder.submitTo(viewEndpoint.savePerson);
 ----
