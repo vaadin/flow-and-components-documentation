@@ -3,10 +3,12 @@ package com.vaadin.flow.tutorial.creatingcomponents;
 import org.apache.commons.lang3.StringUtils;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("creating-components/tutorial-extending-component.asciidoc")
+@CssImport("./styles/numeric-field-styles.css")
 public class NumericField extends TextField {
 
     private Button substractBtn;
@@ -52,6 +54,7 @@ public class NumericField extends TextField {
                     incrementValue);
         });
 
+        getElement().setAttribute("theme", "numeric");
         styleBtns();
 
         addToPrefix(substractBtn);
