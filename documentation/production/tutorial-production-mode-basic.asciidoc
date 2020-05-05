@@ -14,7 +14,7 @@ By default (such as when downloading a project from vaadin.com/start), Vaadin ap
 This requires a bit more memory and CPU power, but enables easier debugging. 
 When deploying your app to your users, you will want to switch to the production mode instead.
 
-The main difference between the development and production modes is that in development mode Vaadin uses Webpack to serve JavaScript files to the browser, instead of the Java server the app is running on. 
+The main difference between the development and production modes is that in the development mode Vaadin uses Webpack to serve JavaScript files to the browser, instead of the Java server the app is running on. 
 This is so that if you change a JS or CSS file, your changes are picked up and served automatically. 
 When in production mode, you do not want this extra overhead since the files will not change; it is more efficient to prepare JavaScript and CSS files once, during build, and let one server (the Java Server) serve all requests. 
 At the same time, the client resources can be optimized and minified to reduce the load on the network and browser even further.
@@ -79,7 +79,7 @@ Transpilation makes sure this newer JavaScript code also works in older browsers
 IOS 10 has a known issue with https://caniuse.com/#search=let[`let bindings in for loops are incorrectly treated as function-scoped instead of block scoped`], in this case, all browsers running on it need the transpilation, too.
 
 During the build, minimization is done to make the files smaller. 
-When minifying code, it is often obscured which makes it harder to read, hence this is not done in the development mode.
+When minifying code, it is often obscured, which makes it harder to read, hence this is not done in the development mode.
 
 Bundling is an optimization where we merge multiple files to a single collection so that the browser doesn't need to
 request so many files from the server. 
