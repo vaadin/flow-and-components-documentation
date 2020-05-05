@@ -26,6 +26,9 @@ public class IconBasic {
     public void basics() {
         Icon icon = VaadinIcon.VAADIN_H.create();
         new Button("Vaadin", icon);
+
+        Icon edit = new Icon(VaadinIcon.EDIT);
+        Icon close = VaadinIcon.CLOSE.create();
     }
 
     public void customCollection() {
