@@ -8,23 +8,23 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = How to Deploy a Flow Application on Jetty
 
-This document explains how to deploy a Vaadin Flow application on Jetty.
+This article explains how to deploy a Vaadin Flow application on Jetty.
 
 Jetty is an open-source project providing an HTTP server, HTTP client, and javax.servlet container.
 
-Jetty servers can be deployed in 2 different ways:
+Applications can be deployed to Jetty servers in 2 different ways:
 
 . Embedded Jetty
-    * (Jetty Maven Plugin, only during development)
-    * Programmatically
+    * (Using the Jetty Maven Plugin, only during development)
+    * Starting the Jetty server Programmatically
 . Standalone Jetty
-    * WAR
-    * Exploded directory
-    * Context File
+    * Deploy web applications as a WAR package
+    * Deploy web applications as an exploded directory
+    * Deploy web applications using a Context File
 
 == Embedded Jetty
 
-Using Jetty has the advantage that it can be instantiated and used in a standard Java program, meaning it does not need to be separately installed on the server.
+Using Jetty has the advantage that it can be instantiated and used in a standard Java program, meaning that it does not need to be separately installed on the server.
 
 "Don't deploy your application in Jetty, deploy Jetty in your application!" by Jetty.
 
@@ -90,7 +90,7 @@ public final class ManualJetty {
 }
 ----
 
-This programmatic configuration also requires some extra dependencies in `pom.xml`:
+This programmatic configuration requires some extra dependencies in `pom.xml`:
 
 .pom.xml
 [source, xml]
@@ -113,7 +113,7 @@ For more information about jetty, please consult https://wiki.eclipse.org/Jetty[
 
 == Standalone Jetty
 
-Deploying to a standalone Jetty server can be done either using a WAR file or an exploded directory with the application in it.
+Deploying to a standalone Jetty server can be done either by using a WAR file or an exploded directory with the application in it.
 
 It is possible to change the name of the WAR file and exploded directory specifying the `finalName` in `pom.xml`:
 
@@ -137,17 +137,17 @@ The WAR file can be generated executing the following Maven goal:
 mvn package -Pproduction
 ----
 
-After copying the WAR file into the `webapps` directory, Jetty can be started by navigating to Jetty's folder and running the command:
+After copying the WAR file into the `webapps` directory, you can start Jetty by navigating to Jetty's folder and running the following command:
 
 [source,ini]
 ----
-`java -jar start.jar`
+java -jar start.jar
 ----
 
-=== Deploying by Copying exploded directory
+=== Deploying by Copying Exploded Directory
 
 An exploded directory is a folder containing the unzipped (exploded) contents and all the application files.
-It is actually an extracted WAR file (since WAR files are ZIP files).
+It is actually an extracted WAR file (as WAR files are ZIP files).
 
 The command `mvn package` creates the exploded directory before creating the WAR file, and can be used here as well.
 

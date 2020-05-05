@@ -36,13 +36,15 @@ public final class ManualJetty {
 
         WebAppContext context = new WebAppContext();
         context.setInitParameter("productionMode", "true");
-        // Context path of the application.
+		
+        // Context path of the application
         context.setContextPath("");
-        // Exploded war or not.
+		
+        // Exploded WAR or not
         context.setExtractWAR(false);
         context.setTempDirectory(tempDir);
 
-        // It pulls the respective config from the VaadinServlet.
+        // It pulls the respective config from the VaadinServlet
         context.addServlet(VaadinServlet.class, "/*");
 
         context.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern", ".*");
@@ -50,7 +52,7 @@ public final class ManualJetty {
         context.setParentLoaderPriority(true);
         server.setHandler(context);
 
-        // This add jars to the jetty classpath in a certain syntax and the pattern makes sure to load all of them.
+        // This add jars to the jetty classpath in a certain syntax and the pattern makes sure to load all of them
         List<Resource> resourceList = new ArrayList<>();
         for (String entry : ClassPathHelper.getAllClassPathEntries()) {
             File file = new File(entry);
@@ -63,7 +65,8 @@ public final class ManualJetty {
 
         // It adds the web application resources. Styles, client-side components, ...
         resourceList.add(Resource.newResource("./src/main/webapp"));
-        // The base resource is where jetty serves its static content from.
+		
+        // The base resource is where jetty serves its static content from
         context.setBaseResource(new ResourceCollection(resourceList.toArray(new Resource[0])));
 
         server.start();
