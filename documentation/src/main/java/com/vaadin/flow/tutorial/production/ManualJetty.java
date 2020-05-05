@@ -19,12 +19,12 @@ public final class ManualJetty {
     public static void main(String[] args) throws Exception {
         Server server = new Server(8080);
 
-        // Specifies the order in which the configurations are scanned.
+        // Specifies the order in which the configurations are scanned
         Configuration.ClassList classlist = Configuration.ClassList.setServerDefault(server);
         classlist.addAfter("org.eclipse.jetty.webapp.FragmentConfiguration", "org.eclipse.jetty.plus.webapp.EnvConfiguration", "org.eclipse.jetty.plus.webapp.PlusConfiguration");
         classlist.addBefore("org.eclipse.jetty.webapp.JettyWebXmlConfiguration", "org.eclipse.jetty.annotations.AnnotationConfiguration");
 
-        // Creation of a temporal directory.
+        // Creation of a temporal directory
         File tempDir = new File(System.getProperty("java.io.tmpdir"), "JettyTest");
         if (tempDir.exists()) {
             if (!tempDir.isDirectory()) {
