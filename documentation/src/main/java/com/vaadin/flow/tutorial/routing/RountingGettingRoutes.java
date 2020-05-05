@@ -15,13 +15,13 @@
  */
 package com.vaadin.flow.tutorial.routing;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouteData;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @CodeFor("routing/tutorial-routing-get-registered-routes.asciidoc")
 public class RountingGettingRoutes {
