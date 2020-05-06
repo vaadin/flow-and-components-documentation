@@ -53,9 +53,6 @@ means that it permits anyone to call the method via the request without the auth
 . Please refer to the <<configuring-security#, Security page>>
 for configuring endpoint access.
 
-[WARNING]
-You cannot use JavaScript reserved words as Java method's name in an Endpoint, e.g., `delete`, `function`, `var`, etc. Otherwise, you will get a runtime exception.
-
 == TypeScript modules
 
 In JavaScript and TypeScript, modules are files that follow the module syntax. This syntax has the following properties:
