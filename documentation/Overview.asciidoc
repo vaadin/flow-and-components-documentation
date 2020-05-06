@@ -138,8 +138,9 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<portlet-support/portlet-07-cdi-support#,Vaadin Portlet CDI Support>>
 * <<portlet-support/portlet-demo-01-address-book#,Demonstration: Address Book>>
 
-== Packaging for Production
+== Deploying Vaadin Applications
 * <<production/tutorial-production-mode-basic#,Taking your Application into Production>>
+* <<production/tutorial-jetty#,Deploying to Jetty>>
 * <<production/tutorial-production-mode-advanced#,Advanced production mode topics>>
 
 == Embedding Flow Applications
