@@ -5,9 +5,9 @@ layout: page
 ---
 = Debugging a Web Component Integration
 
-Web Component integrations can be problematic. If your component does not work as expected, or as you would like, there are a number of things that you can try. 
+Web Component integrations can be problematic. If your component does not work as expected, or as you would like, there are a number of things that you can try.
 
-In this section, we detail the most common integration issues and what to do about them. 
+In this section, we detail the most common integration issues and what to do about them.
 
 == Java Issues
 
@@ -20,15 +20,15 @@ When the problem is in the browser, things can be tricky. The https://developers
 
 === Configuration Issues
 
-Use the DOM inspector to check that the element is configured correctly and contains the expected attributes. Problems often occur because properties are synchronized to attributes and _vice versa_. 
+Use the DOM inspector to check that the element is configured correctly and contains the expected attributes. Problems often occur because properties are synchronized to attributes and _vice versa_.
 
 If a property is not correctly synchronized to an attribute, select the element in the inspector and enter `$0.somePropertyName` in the console to check that the value is the expected one.
 
 == Events Not Sent to the Server
 
-If an event not sent to the server as expected, select the element, and enter `monitorEvents($0,'event-name');` in the console. If the event is triggered, you will see a log row and will know that you have the correct event name and that the Web Component actually fires the event. 
+If an event not sent to the server as expected, select the element, and enter `monitorEvents($0,'event-name');` in the console. If the event is triggered, you will see a log row and will know that you have the correct event name and that the Web Component actually fires the event.
 
-To log all events, you can leave out the `'event-name'`, but be prepared for a lot of `mousemove` events. 
+To log all events, you can leave out the `'event-name'`, but be prepared for a lot of `mousemove` events.
 
 You can also use this to establish which properties are defined for the event, and therefore what to include in your `@EventData` annotation.
 

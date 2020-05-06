@@ -15,12 +15,12 @@
  */
 package com.vaadin.flow.tutorial.components;
 
+import com.vaadin.flow.component.upload.Upload;
+import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
+import com.vaadin.flow.component.upload.receivers.MultiFileMemoryBuffer;
+import com.vaadin.flow.tutorial.annotations.CodeFor;
 import org.junit.Test;
 
-import com.vaadin.flow.component.upload.Upload;
-import com.vaadin.flow.component.upload.receivers.FileBuffer;
-import com.vaadin.flow.component.upload.receivers.MultiFileBuffer;
-import com.vaadin.flow.tutorial.annotations.CodeFor;
 import java.io.InputStream;
 
 @CodeFor("components/tutorial-flow-upload.asciidoc")
@@ -28,20 +28,20 @@ public class UploadBasic {
 
     @Test
     public void singleFileUpload() {
-        FileBuffer fileBuffer = new FileBuffer();
-        Upload upload = new Upload(fileBuffer);
+        MemoryBuffer memoryBuffer = new MemoryBuffer();
+
+        Upload upload = new Upload(memoryBuffer);
         upload.addFinishedListener(e -> {
-            InputStream inputStream =
-                    fileBuffer.getInputStream();
-            // read the contents of the buffered file
+            InputStream inputStream = memoryBuffer.getInputStream();
+            // read the contents of the buffered memory
             // from inputStream
         });
     }
 
     @Test
-    public void multipleFileUpload() {
-        MultiFileBuffer multiFileBuffer = new MultiFileBuffer();
-        Upload upload = new Upload(multiFileBuffer);
+    public void multipleMemoryUpload() {
+        MultiFileMemoryBuffer multiFileMemoryBuffer = new MultiFileMemoryBuffer();
+        Upload upload = new Upload(multiFileMemoryBuffer);
     }
 
 }
