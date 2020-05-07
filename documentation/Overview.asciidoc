@@ -66,17 +66,8 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<binding-data/tutorial-flow-components-binder-beans#,Binding Beans to Forms>>
 * <<binding-data/tutorial-flow-data-provider#,Showing a list of data with Data Providers>>
 
-== Importing JavaScript and CSS files
-* <<importing-dependencies/tutorial-include-css#,Including Style Sheets>>
-* <<importing-dependencies/tutorial-importing#,Importing javascript>>
-* <<importing-dependencies/tutorial-ways-of-importing#,Ways of importing the dependencies>>
-
-== Theming Applications
-* <<theme/theming-overview#,Theming Overview>>
-* <<theme/using-component-themes#,Using Component Themes>>
-* <<theme/application-theming-basics#,Application Theming Basics>>
-* <<theme/theming-crash-course#,Theming Web Components>>
-* <<theme/integrating-component-theme#,Integrating Your Own Component Theme>>
+== Importing JavaScript
+* <<importing-dependencies/tutorial-importing#,Importing JavaScript>>
 
 == Creating Components
 * <<creating-components/tutorial-component-basic#,Creating A Simple Component Using the Element API>>
@@ -165,8 +156,9 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<portlet-support/portlet-07-cdi-support#,Vaadin Portlet CDI Support>>
 * <<portlet-support/portlet-demo-01-address-book#,Demonstration: Address Book>>
 
-== Packaging for Production
+== Deploying Vaadin Applications
 * <<production/tutorial-production-mode-basic#,Taking your Application into Production>>
+* <<production/tutorial-jetty#,Deploying to Jetty>>
 * <<production/tutorial-production-mode-advanced#,Advanced production mode topics>>
 
 == Embedding Flow Applications
