@@ -17,7 +17,6 @@ You can use the `reset()` method to read values from a business object instance 
 
 [source, typescript]
 ----
-const person = await viewEndpoint.getPerson(1);
 
 this.binder.reset(person);
 ----
