@@ -98,7 +98,7 @@ To use this service with a listing component, you can create a data provider tha
 *Example*: Data provider with callbacks that fetch specified items and the number of items available.
 
 * The first callback loads specific items. 
-* The second callback finds out how many items are currently available in the datasource matching the first callback. Since there is no filtering empoyed in this example, the returned value is equal to the total amount of items in the datasource.
+* The second callback finds out how many items there are in total in the datasource matching with current filters. Since there is no filtering empoyed in this example, the returned value is equal to the total amount of items in the datasource.
 * Information about the items to fetch is made available in a `Query` object that is passed to both callbacks
 * Information about the items to fetch includes `offset`, `limit`.
 
