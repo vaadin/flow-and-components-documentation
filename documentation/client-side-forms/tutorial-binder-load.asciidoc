@@ -29,8 +29,18 @@ this.binder.reset();
 ----
 
 == Saving data
+You can get the value from the binder at any time using `binder.value`. The following
+example shows how can you save the value form the binder to an Endpoint.
 
-You can use the `submitTo()` method to submit the value to a callback. Note the `submitTo()` is an asynchronous function, you can use `await` to wait for the result
+*Example*: Using the `binder.value` to get the value from the form.
+
+[source, typescript]
+----
+this.viewEndpoint.save(binder.value);
+----
+
+Alternatively, you can use the `submitTo()` method to submit the value to a callback. Note the `submitTo()` is an asynchronous function, you can use `await` to wait for the result. The benefit of using `submitTo()`
+is that submission failures are handled automatically, no need to do an explicit try-catch.
 
 *Example*: Using the `submitTo()` method to submit to an endpoint method.
 
@@ -38,3 +48,4 @@ You can use the `submitTo()` method to submit the value to a callback. Note the 
 ----
 await this.binder.submitTo(viewEndpoint.savePerson);
 ----
+
