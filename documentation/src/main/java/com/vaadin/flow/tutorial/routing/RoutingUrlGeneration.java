@@ -15,6 +15,7 @@
  */
 package com.vaadin.flow.tutorial.routing;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.BeforeEvent;
