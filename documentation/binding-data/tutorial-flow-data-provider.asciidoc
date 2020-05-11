@@ -129,7 +129,7 @@ grid.setDataProvider(dataProvider);
 
 // Columns are configured in the same way as before
 ----
-* The results of the first and second callbacks must be symmetric. The second callback must always return the correct number of items fullfilling the first query callback. Since this example doesn't impose any restrictions such as filtering, the returned number of items is equal to the total items in the datasource.
+* The results of the first and second callbacks must go hand in hand. If you do filtering for the items in the first query, the second callback reporting the total amount of items must apply the same filter (without limit/offset). Since this example doesn't impose any filtering, the returned number of items is equal to the total items in the datasource.
 * The second `DataProvider` type parameter defines how the provider can be filtered. In the example, the filter type is `Void`, meaning filtering in not supported. See <<Filtering Lazy-loaded Data>> below for more. 
 
 [NOTE]
