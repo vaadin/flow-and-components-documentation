@@ -314,8 +314,8 @@ public class DataProviders {
 
                     return persons.stream();
                 },
-                // Second callback fetches the number of items
-                // for a query
+                // Second callback fetches the total number of items currently in the Grid.
+                // The grid can then use it to properly adjust the "virtual scrolling area".
                 query -> getPersonService().getPersonCount());
 
         Grid<Person> grid = new Grid<>();
