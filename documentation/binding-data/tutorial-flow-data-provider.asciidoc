@@ -255,7 +255,7 @@ public interface DepartmentService {
     int getCount(String filterText);
 }
 ----
-* Note, `getCount` method takes into account the filtering criteria when returning amount of avaiable items.
+* Note, `getCount` method takes into account the filtering criteria when returning the total amount of available items.
 
 *Example*: `DataProvider` that uses the `DepartmentService` interface service methods to fill a `ComboBox` component with data.
 [source, java]
