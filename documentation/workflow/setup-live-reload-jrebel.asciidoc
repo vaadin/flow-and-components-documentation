@@ -11,32 +11,7 @@ More information about JRebel is available at https://www.jrebel.com/products/jr
 
 == Step-by-step guide
 
-. Setup and activate JRebel in your favourite IDE by following the Quick Start guides available at https://www.jrebel.com/products/jrebel/learn
-. In your `pom.xml` create a new development build profile and add `flow-jrebel-plugin` as an artifact to this profile, like so:
-+
-----
-<profiles>
-       <profile>
-           <id>development</id>
-           <activation>
-               <activeByDefault>true</activeByDefault>
-           </activation>
-           <dependencies>
-               <dependency>
-                   <groupId>com.vaadin</groupId>
-                   <artifactId>flow-jrebel-plugin</artifactId>
-                   <version>3.1-SNAPSHOT</version>
-               </dependency>
-           </dependencies>
-       </profile>
-       ...
-   </profiles>
-----
-+
-[NOTE]
-====
-Since JRebel it's not tipically used in production, this profile is created in order to avoid packaging `flow-jrebel-plugin` into the production war file.
-====
+. Setup and activate JRebel in your favorite IDE by following the Quick Start guides available at https://www.jrebel.com/products/jrebel/learn. Use at least `2020.2.1` version which contains built-in live reload integration.
 . Run your Vaadin application using the JRebel Agent
 . Navigate to your Vaadin application on the browser, make and save some changes, and the browser will reload automatically
 
