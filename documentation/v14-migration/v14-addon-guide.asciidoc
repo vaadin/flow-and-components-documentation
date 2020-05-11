@@ -54,7 +54,7 @@ handled automatically by the `vaadin-maven-plugin` so this step can be skipped.
 (for either `vaadin-bom`, `vaadin-core` or `vaadin` dependencies and the
 `vaadin-maven-plugin`)
 * Add the `prepare-frontend` goal for the Vaadin Maven Plugin as explained
-<<v14-migration-guide#maven.plugin, here>> for the demo & integration test
+<<v14-migration-guide#add-vaadin-maven-plugin, here>> for the demo & integration test
 modules or profiles of your add-on
 * If you test your add-on in production mode, you need to switch the goal for
 the production build profile to `build-frontend` (previously two goals)
