@@ -11,7 +11,7 @@
       "@vaadin/vaadin-split-layout": "4.1.1",
       "@vaadin/vaadin-combo-box": "5.0.11",
       "@vaadin/vaadin-upload": "4.2.2",
-      "@vaadin/vaadin-dialog": "2.2.1",
+      "@vaadin/vaadin-dialog": "2.3.0",
       "@vaadin/vaadin-select": "2.1.7",
       "@vaadin/vaadin-app-layout": "2.0.5",
       "@vaadin/vaadin-item": "2.1.1",
@@ -36,7 +36,8 @@
       "@vaadin/vaadin-tabs": "3.0.5",
       "@vaadin/vaadin-radio-button": "1.2.6",
       "@vaadin/vaadin-lumo-styles": "1.5.0",
-      "@vaadin/vaadin-material-styles": "1.2.3"
+      "@vaadin/vaadin-material-styles": "1.2.3",
+      "@vaadin/router": "^1.6.0"
     },
     "devDependencies": {
       "webpack-babel-multi-target-plugin": "2.3.3",
@@ -64,7 +65,7 @@
     "@vaadin/vaadin-split-layout": "4.1.1",
     "@vaadin/vaadin-combo-box": "5.0.11",
     "@vaadin/vaadin-upload": "4.2.2",
-    "@vaadin/vaadin-dialog": "2.2.1",
+    "@vaadin/vaadin-dialog": "2.3.0",
     "@vaadin/vaadin-select": "2.1.7",
     "@vaadin/vaadin-app-layout": "2.0.5",
     "@vaadin/vaadin-item": "2.1.1",
@@ -89,7 +90,8 @@
     "@vaadin/vaadin-tabs": "3.0.5",
     "@vaadin/vaadin-radio-button": "1.2.6",
     "@vaadin/vaadin-lumo-styles": "1.5.0",
-    "@vaadin/vaadin-material-styles": "1.2.3"
+    "@vaadin/vaadin-material-styles": "1.2.3",
+    "@vaadin/vaadin-date-time-picker": "1.0.0-alpha6"
   },
   "devDependencies": {
     "webpack-babel-multi-target-plugin": "2.3.3",
