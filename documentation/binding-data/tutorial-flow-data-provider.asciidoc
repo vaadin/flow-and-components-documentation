@@ -98,9 +98,9 @@ To use this service with a listing component, you can create a data provider tha
 *Example*: Data provider with callbacks that fetch specified items and the number of items available.
 
 * The first callback loads specific items. 
-* The second callback finds out how many items are currently available.
+* The second callback finds out how many items there are in total in the datasource matching with current filters. Since there is no filtering employed in this example, the returned value is equal to the total amount of items in the datasource.
 * Information about the items to fetch is made available in a `Query` object that is passed to both callbacks
-* Information about the items to fetch includes `offset`, `limit`, and additional details. 
+* Information about the items to fetch includes `offset`, `limit`.
 
 [source, java]
 ----
@@ -119,8 +119,8 @@ DataProvider<Person, Void> dataProvider =
 
             return persons.stream();
         },
-        // Second callback fetches the number of items
-        // for a query
+        // Second callback fetches the total number of items currently in the Grid.
+        // The grid can then use it to properly adjust the scrollbars.
         query -> getPersonService().getPersonCount());
 );
 
@@ -129,8 +129,7 @@ grid.setDataProvider(dataProvider);
 
 // Columns are configured in the same way as before
 ----
-* The results of the first and second callbacks must be symmetric, so that fetching all available items using the first callback returns the number of items indicated by the second callback.
-* If you impose any restrictions in the first callback, you must add the same restrictions for the second callback. 
+* The results of the first and second callbacks must go hand in hand. If you do filtering for the items in the first query, the second callback reporting the total amount of items must apply the same filter (without limit/offset). Since this example doesn't impose any filtering, the returned number of items is equal to the total items in the datasource.
 * The second `DataProvider` type parameter defines how the provider can be filtered. In the example, the filter type is `Void`, meaning filtering in not supported. See <<Filtering Lazy-loaded Data>> below for more. 
 
 [NOTE]
@@ -256,7 +255,7 @@ public interface DepartmentService {
     int getCount(String filterText);
 }
 ----
-
+* Note, `getCount` method takes into account the filtering criteria when returning the total amount of available items.
 
 *Example*: `DataProvider` that uses the `DepartmentService` interface service methods to fill a `ComboBox` component with data.
 [source, java]
