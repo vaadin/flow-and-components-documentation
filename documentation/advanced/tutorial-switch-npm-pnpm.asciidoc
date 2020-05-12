@@ -33,7 +33,8 @@ servlet initialization parameters, or Spring application properties.
 To read more about how to set properties, see the
 <<tutorial-flow-runtime-configuration#, Application runtime configuration documentation>>.
 
-Alternatively, the property can be also set to the `vaadin-maven-plugin`, using `pnpmEnable`. 
+Alternatively, the property can be also set to the `vaadin-maven-plugin`, using `pnpmEnable`.
+Note that this only works for production mode.
 
 [source,xml]
 ----
