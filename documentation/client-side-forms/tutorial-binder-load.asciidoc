@@ -21,7 +21,7 @@ You can use the `reset()` method to read values from a business object instance 
 this.binder.reset(person);
 ----
 
-Using `reset()` without a parameter will reset to the previously value, which is initially empty.
+Using `reset()` without a parameter will reset to the previous value, which is initially empty.
 
 [source, typescript]
 ----
@@ -29,18 +29,11 @@ this.binder.reset();
 ----
 
 == Saving data
-You can get the value from the binder at any time using `binder.value`. The following
-example shows how can you save the value form the binder to an Endpoint.
+You can use the `submitTo()` method to submit the value to a callback. Note the `submitTo()` is an asynchronous function, you can use `await` to wait for the result. The benefits of using `submitTo()` are:
 
-*Example*: Using the `binder.value` to get the value from the form.
+* The binder can track the submission progress, e.g. disable the save button when a submission is ongoing.
+* Submission failures are handled automatically, no need to do an explicit try-catch.
 
-[source, typescript]
-----
-this.viewEndpoint.save(binder.value);
-----
-
-Alternatively, you can use the `submitTo()` method to submit the value to a callback. Note the `submitTo()` is an asynchronous function, you can use `await` to wait for the result. The benefit of using `submitTo()`
-is that submission failures are handled automatically, no need to do an explicit try-catch.
 
 *Example*: Using the `submitTo()` method to submit to an endpoint method.
 
