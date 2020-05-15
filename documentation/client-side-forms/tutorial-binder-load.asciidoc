@@ -17,18 +17,28 @@ You can use the `reset()` method to read values from a business object instance 
 
 [source, typescript]
 ----
-Employee employee = endpoint.getEmployee(1);
 
-this.binder.reset(employee);
+this.binder.reset(person);
+----
+
+Using `reset()` without a parameter will reset to the previous value, which is initially empty.
+
+[source, typescript]
+----
+this.binder.reset();
 ----
 
 == Saving data
+You can use the `submitTo()` method to submit the value to a callback. Note the `submitTo()` is an asynchronous function, you can use `await` to wait for the result. The benefits of using `submitTo()` are:
 
-You can use the `submitTo()` method to submit the value to a callback. 
+* The binder can track the submission progress, e.g. disable the save button when a submission is ongoing.
+* Submission failures are handled automatically, no need to do an explicit try-catch.
+
 
 *Example*: Using the `submitTo()` method to submit to an endpoint method.
 
 [source, typescript]
 ----
-await this.binder.submitTo(viewEndpoint.saveEmployee);
+await this.binder.submitTo(viewEndpoint.savePerson);
 ----
+
