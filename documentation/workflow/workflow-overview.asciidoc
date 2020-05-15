@@ -14,18 +14,15 @@ Each of these are treated in their own subtopic below.
 
 == Subtopics
 === Setup Live Reload using supported Java Hotpatching and Server restart tools
+Live Reload combines the power of established hotpatching and hotswapping technologies for Java with the ability for the browser to reload automatically, making it a perfect tool for development time.
+
 ** <<setup-live-reload-springboot#, Spring Boot Hotswapping>>
 ** <<setup-live-reload-jrebel#, JRebel>>
 ** <<setup-live-reload-hotswap-agent#, HotswapAgent class and resource redefinition>>
 
-=== Live Reload specifics when using different it in Vaadin technology stacks
-** <<tutorial-plain-servlet-live-reload#, Live Reload in Plain Servlet Applications>>
-** <<tutorial-cdi-live-reload#,Live Reload in CDI Applications>>
+Each technology supported by Live Reload is meant to be run solely. Any overlap or simultaneous use of different hotpatching technologies might cause Live Reload to misbehave.
 
-=== Run on Server in IDE
-** <<run-on-server-intellij#,Run on server in IntellJ IDEA>>
-
-== Live Reload Limitations
+==== Live Reload Limitations
 
 There are general limitations as well as some tool- or application framework-specific limitations associated with live reload.
 We cover the general limitations here; the specific limitations are covered in the subtopics.
@@ -35,3 +32,13 @@ We cover the general limitations here; the specific limitations are covered in t
 - Adding frontend resources that are connected to Java classes, such as template-based components, require a server restart as part of the live reloading.
 
 - The  <<../advanced/tutorial-preserving-state-on-refresh#,`@PreserveOnRefresh`>> annotation on a view causes the component tree to be reused when the view is refreshed in the browser; hence, any code changes to the component constructors and initializers are not reflected. To see the update, either open the view in another browser window/tab or ensure that a new instance is created in some other way.
+
+
+=== Hotswapping specifics when using it in different Vaadin technology stacks
+Hotswapping provides a way to  load changed code into a running JVM and immediately see the effects of your changes without server restarts.
+
+** <<tutorial-plain-servlet-hotswap#, Hotswapping in Plain Servlet Applications>>
+** <<tutorial-cdi-hotswap#,Hotswapping in CDI Applications>>
+
+=== Run on Server in IDE
+** <<run-on-server-intellij#,Run on server in IntellJ IDEA>>
