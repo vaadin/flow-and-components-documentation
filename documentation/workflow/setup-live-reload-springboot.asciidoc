@@ -26,6 +26,12 @@ More information about Spring Boot Automatic Restart and other developer tools i
 ----
 . Run the application using `mvn spring-boot:run` or by running the `Application` class directly from your IDE
 . Navigate to your Vaadin application on the browser, make some changes, recompile and the browser will reload automatically
++
+[NOTE]
+====
+If you have some browser extension to trigger Spring Dev Tools reloads, we recommend disabling such tools as Vaadin handles reloads automatically once the server has restarted.
+Having these enabled when using Live Reload might cause unexpected behaviour.
+====
 
 == Additional configurations
 
