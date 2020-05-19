@@ -28,6 +28,12 @@ Using `reset()` without a parameter will reset to the previous value, which is i
 this.binder.reset();
 ----
 
+There is also a `clear()` method which will set the form to empty.
+[source, typescript]
+----
+this.binder.clear();
+----
+
 == Saving data
 You can use the `submitTo()` method to submit the value to a callback. Note the `submitTo()` is an asynchronous function, you can use `await` to wait for the result. The benefits of using `submitTo()` are:
 
