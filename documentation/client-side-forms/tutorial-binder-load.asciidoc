@@ -48,3 +48,12 @@ You can use the `submitTo()` method to submit the value to a callback. Note the 
 await this.binder.submitTo(viewEndpoint.savePerson);
 ----
 
+Alternatively, you can set up a `onSubmit` callback in a configuration object when creating Binder, then when submitting, you can just call the `binder.submit()` method.
+[source, typescript]
+----
+private binder = new Binder(this, PersonModel, {
+    onSubmit: viewEndpoint.savePerson
+  });
+
+binder.submit();
+----
