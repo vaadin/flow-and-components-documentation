@@ -1,10 +1,10 @@
 ---
-title: Live Reload in Plain Servlet Applications
+title: Hotswapping in Plain Servlet Applications
 order: 5
 layout: page
 ---
 
-= Live Reload in Plain Servlet Applications
+= Hotswapping in Plain Servlet Applications
 
 During application development the code changes happen frequently. There are multiple tools
 available which speed up the development process and avoid having to manually
