@@ -29,7 +29,7 @@ More information about Spring Boot Automatic Restart and other developer tools i
 +
 [NOTE]
 ====
-If you have some browser extension to trigger Spring Dev Tools reloads, we recommend disabling such tools as Vaadin handles reloads automatically once the server has restarted.
+If you have some browser extension that triggers Spring Dev Tools reloads on the browser, we recommend disabling such tools as Vaadin handles reloads automatically once the server has restarted.
 Having these enabled when using Live Reload might cause unexpected behaviour.
 ====
 

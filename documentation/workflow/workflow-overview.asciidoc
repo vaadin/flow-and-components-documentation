@@ -20,7 +20,8 @@ Live Reload combines the power of established hotpatching and hotswapping techno
 ** <<setup-live-reload-jrebel#, JRebel>>
 ** <<setup-live-reload-hotswap-agent#, HotswapAgent class and resource redefinition>>
 
-Each technology supported by Live Reload is meant to be run solely. Any overlap or simultaneous use of different hotpatching technologies might cause Live Reload to misbehave.
+[NOTE]
+Each technology supported by Live Reload is meant to be run exclusively. Any overlap or simultaneous use of different hotpatching technologies might cause Live Reload to misbehave.
 
 ==== Live Reload Limitations
 
@@ -35,7 +36,7 @@ We cover the general limitations here; the specific limitations are covered in t
 
 
 === Hotswapping specifics when using it in different Vaadin technology stacks
-Hotswapping provides a way to  load changed code into a running JVM and immediately see the effects of your changes without server restarts.
+Hotswapping provides a way to load changed code into a running JVM and immediately see the effects of your changes without server restarts.
 
 ** <<tutorial-plain-servlet-hotswap#, Hotswapping in Plain Servlet Applications>>
 ** <<tutorial-cdi-hotswap#,Hotswapping in CDI Applications>>
