@@ -1,10 +1,10 @@
 ---
-title: Setup Live Reload using HotswapAgent
+title: Setting Up Live Reload Using HotswapAgent
 order: 4
 layout: page
 ---
 
-= Setup Live Reload using HotswapAgent
+= Setting Up Live Reload Using HotswapAgent
 
 Live Reload works seamlessly on development mode using HotswapAgent for runtime class and resource redefinition.
 If you want to know more about the features of HotswapAgent, the documentation in the http://hotswapagent.org/[HotswapAgent webpage] is a good resource.

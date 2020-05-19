@@ -1,5 +1,5 @@
 ---
-title: Automatic Restart with Jetty
+title: Automatic Restart with Jetty Maven Plugin
 order: 5
 layout: page
 ---

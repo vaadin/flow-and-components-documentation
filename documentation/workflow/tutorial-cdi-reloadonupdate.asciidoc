@@ -1,5 +1,5 @@
 ---
-title: Automatic Restart of CDI Applications
+title: Automatic Restart with TomEE Maven Plugin
 order: 6
 layout: page
 ---
