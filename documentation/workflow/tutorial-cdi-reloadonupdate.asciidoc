@@ -1,10 +1,10 @@
 ---
-title: Hotswapping in CDI Applications
+title: Automatic Restart with TomEE Maven Plugin
 order: 6
 layout: page
 ---
 
-= Hot Deploy of CDI Applications
+= Automatic Restart with TomEE Maven Plugin
 
 This page demonstrates how to enable hotswap when developing Vaadin applications using CDI (Context and Dependency Injection,the standard dependency injection framework for Java EE).
 
