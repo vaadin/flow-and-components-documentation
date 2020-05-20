@@ -28,6 +28,12 @@ Using `reset()` without a parameter will reset to the previous value, which is i
 this.binder.reset();
 ----
 
+There is also a `clear()` method which will set the form to empty.
+[source, typescript]
+----
+this.binder.clear();
+----
+
 == Saving data
 You can use the `submitTo()` method to submit the value to a callback. Note the `submitTo()` is an asynchronous function, you can use `await` to wait for the result. The benefits of using `submitTo()` are:
 
@@ -42,3 +48,12 @@ You can use the `submitTo()` method to submit the value to a callback. Note the 
 await this.binder.submitTo(viewEndpoint.savePerson);
 ----
 
+Alternatively, you can set up a `onSubmit` callback in a configuration object when creating Binder, then when submitting, you can just call the `binder.submit()` method.
+[source, typescript]
+----
+private binder = new Binder(this, PersonModel, {
+    onSubmit: viewEndpoint.savePerson
+  });
+
+binder.submit();
+----

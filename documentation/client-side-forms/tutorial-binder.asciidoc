@@ -41,11 +41,11 @@ public class PersonEndpoint {
 
 To bind data to a form, follow these steps in your `frontend/views/person/person-view.ts` client-side LitElement view:
 
-. Import the `Binder` class, the `field` template directive, your `personEndpoint` data endpoint and the generated `PersonModel`:
+. Import the `Binder` class, the `field` template directive from the `@vaadin/form` package. Import your `personEndpoint` data endpoint and the generated `PersonModel` from the `frontend/generated` folder:
 +
 [source, typescript]
 ----
-import {Binder, field} from '@vaadin/flow-frontend/Binder';
+import {Binder, field} from '@vaadin/form';
 
 import * as personEndpoint from '../../generated/PersonEndpoint';
 import PersonModel from '../../generated/com/example/application/PersonModel';
@@ -59,7 +59,7 @@ import PersonModel from '../../generated/com/example/application/PersonModel';
 class PersonForm extends LitElement {
   // ...
 
-  private binder = new Binder(this, PersonModel, () => this.requestUpdate());
+  private binder = new Binder(this, PersonModel);
 
   // ...
 }
