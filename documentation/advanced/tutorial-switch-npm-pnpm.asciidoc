@@ -10,7 +10,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 Starting from Vaadin 14.2 _pnpm_ (AKA _performant npm_) tool is available for managing frontend dependencies as a faster alternative to _npm_, which is still the default tool. The benefit of pnpm is that it uses a shared repository for all projects in a system which allows to reduce packages download time. Npm will download all dependencies again for every project.
 
-If pnpm is not installed globally the framework will install it automatically once to the system.
+If pnpm is not installed globally the framework will install it once to `{home_folder}/.vaadin`.
 The `package-lock.json` file which is used by npm is incompatible with pnpm and it's
 removed automatically if pnpm is used. pnpm uses `pnpm-lock.yaml`
 file instead of `package-lock.json`. This means that any custom dependency configurations
