@@ -16,10 +16,11 @@ generated model.
 [source, java]
 ----
 public class Person {
-    @Max(2000)
+    @Max(value = 2000, message =
+                "Year of Birth must be less than or equal to 2000")
     private int yearOfBirth;
 
-    @NotEmpty
+    @NotEmpty(message = "Name cannot be empty")
     private String name;
 
     // + other fields, constructors, setters and getters
