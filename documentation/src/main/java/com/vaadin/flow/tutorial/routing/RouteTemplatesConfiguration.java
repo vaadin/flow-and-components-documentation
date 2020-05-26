@@ -21,6 +21,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.router.RouteConfiguration;
+import com.vaadin.flow.router.RouteParam;
 import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.router.RoutePrefix;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
@@ -51,9 +52,9 @@ public class RouteTemplatesConfiguration {
             String url = routeConfiguration.getUrl(
                     ComponentView.class,
                     new RouteParameters(
-                            "identifier", "button",
-                            "tab", "api",
-                            "path", "com/vaadin/flow/button"));
+                            new RouteParam("identifier", "button"),
+                            new RouteParam("tab", "api"),
+                            new RouteParam("path", "com/vaadin/flow/button")));
 
             // The generated url is `component/button/api/com/vaadin/flow/button`
             Anchor link = new Anchor(url, "Button Api");

@@ -81,9 +81,9 @@ public class MenuView extends Div {
         String url = routeConfiguration.getUrl(
                 ComponentView.class,
                 new RouteParameters(
-                        "identifier", "button",
-                        "tab", "api",
-                        "path", "com/vaadin/flow/button"));
+                        new RouteParam("identifier", "button"),
+                        new RouteParam("tab", "api"),
+                        new RouteParam("path", "com/vaadin/flow/button")));
 
         // The generated url is `component/button/api/com/vaadin/flow/button`
         Anchor link = new Anchor(url, "Button Api");
