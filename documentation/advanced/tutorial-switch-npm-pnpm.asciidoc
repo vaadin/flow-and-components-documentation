@@ -8,7 +8,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Switch between npm and pnpm
 
-Starting from Vaadin 14.2 _pnpm_ (AKA _performant npm_) tool is available for managing frontend dependencies as a faster alternative to _npm_, which is still the default tool. The benefit of pnpm is that it uses a shared repository, which allows reducing the build time.
+Starting from Vaadin 14.2 _pnpm_ (AKA _performant npm_) tool is available for managing frontend dependencies as a faster alternative to _npm_, which is still the default tool. The benefit of pnpm is that it uses a shared repository for all projects in a system which allows to reduce packages download time. Npm will download all dependencies again for every project.
 
 If pnpm is not installed globally the framework will install it automatically.
 The `package-lock.json` file which is used by npm is incompatible with pnpm and it's
@@ -18,7 +18,7 @@ should go to `pnpm-lock.yaml`.
 
 To switch between npm and pnpm you can use the `vaadin.pnpm.enable` system property - setting it to `true` switches to pnpm.
 
-For a Spring Boot based project, you can put `vaadin.pnpm.enable = false` into the `application.properties` files
+For a Spring Boot based project, you can put `vaadin.pnpm.enable = false` into the `application.properties` file.
 
 For a plain Java or a JavaEE based project, you can use Servlet 3.0 @WebServlet annotation:
 [source,java]
@@ -60,8 +60,7 @@ or use the traditional `web.xml` file
 
 To read more about how to set properties, see the <<tutorial-flow-runtime-configuration#, Application runtime configuration documentation>>.
 
-Alternatively, the property can be also set to the `vaadin-maven-plugin`, using `pnpmEnable`. Note that you should add it for both `prepare-frontend` and `build-frontend` goals.
-
+Alternatively, the property can be also set to the `vaadin-maven-plugin`, using `pnpmEnable`. Note that you need to add it for both `prepare-frontend` and `build-frontend` goals.
 
 [source,xml]
 ----
