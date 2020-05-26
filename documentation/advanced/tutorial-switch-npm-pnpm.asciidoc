@@ -85,6 +85,7 @@ Alternatively, the property can be also set to the `vaadin-maven-plugin`, using 
 </build>
 <profiles>
     <profile>
+        <id>production</id>
         <!-- Skipping unrelated production build configuration... -->
         <build>
             <plugins>
