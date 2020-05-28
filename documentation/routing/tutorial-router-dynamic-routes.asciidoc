@@ -78,7 +78,7 @@ When dynamically registering a route, any annotations on the classes *are ignore
 
 You can register routes during application startup using the `ServiceInitLister`.
 
-*Example*: Using `ServiceInitLister` to register a route during deployement. 
+*Example*: Using `ServiceInitLister` to register a route during deployment.
 
 [source,java]
 ----
@@ -94,7 +94,7 @@ public class ApplicationServiceInitListener
             RouteConfiguration configuration =
                RouteConfiguration.forApplicationScope();
 
-            configuration.setRoute("item/:id/edit",
+            configuration.setRoute("crud",
                DBCrudView.class);
         }
     }

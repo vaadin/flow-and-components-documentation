@@ -208,7 +208,7 @@ public class DynamicRoutes {
                 RouteConfiguration configuration =
                         RouteConfiguration.forApplicationScope();
 
-                configuration.setRoute("item/:id/edit",
+                configuration.setRoute("crud",
                         DBCrudView.class);
             }
         }

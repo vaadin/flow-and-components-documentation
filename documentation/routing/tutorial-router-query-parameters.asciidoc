@@ -8,12 +8,13 @@ layout: page
 
 It is possible to get any query parameters contained in a URL, for example `?name1=value1&name2=value2`.
 
-Use the `getQueryParameters()` method of the `Location` class to access query parameters.
-You can obtain the `Location` class through the `BeforeEvent` parameter of the `setParameter` method.
-
+Use the `getQueryParameters()` method of a `Location` instance to access query parameters.
+You can obtain the `Location` class through the `BeforeEnterEvent` parameter of the `BeforeEnterObserver::beforeEnter` or the `BeforeEvent` parameter of the `HasUrlParameter::setParameter` method.
 
 [NOTE]
 A `Location` object represents a relative URL made up of path segments and query parameters, but without the hostname, e.g. `new Location("book/search?keyword=Vaadin")`.
+
+*Example*: Retrieving query parameters from a `BeforeEvent`.
 
 [source,java]
 ----

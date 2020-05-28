@@ -7,21 +7,27 @@ layout: page
 = Route Templates
 
 Route templates define the mean of including parameters into a route.
-Route template parameters are defined as segments within `@Route`, `@RouteAlias` and `@RoutePrefix` annotation values, using `:parameter_name[modifier][(regex)]` syntax, where:
+A route template is a sequence of segments ``/``seg_1``/``seg_2``/``...``/``seg_n, where each seg_i (1≤i≤n) is either a fixed segment (a string not starting with `:`) or a parameter segment according to the below rule, and at least one segment is of the latter kind.
+
+Route template parameters must comply to following syntax, ``:``parameter_name[modifier][``(``regex``)``] where:
 
 * `parameter_name` is the name of the parameter used to retrieve the value of the parameter when a url matching the template is resolved on the server.
 * `modifier` is optional and may be one of the following:
 ** `?` defines an optional parameter which might be missing from the url being resolved,
-** `*` defines a wildcard parameter which can be used only as the last segment in the template, resolving all segment values at the end of the url.
-* `regex` is also optional and defines the regex used to match the parameter value.
-If it's missing, the parameter accepts any value.
+** `*` defines a wildcard parameter which can be used only as the last segment in the template, resolving all segment values at the end of the URL.
+* `regex` is also optional and defines the regex used to match the parameter value. The regex is compiled using `java.util.regex.Pattern` and should not contain segment delimiter sign `/`. If regex it's missing, the parameter accepts any value.
+
+Route template parameters are defined as segments within `@Route`, `@RouteAlias` and `@RoutePrefix` annotation values.
 
 Parameter values may be retrieve from a `BeforeEvent` instance on any `Component` in the navigation chain, either parent layout or navigation target.
 
 == Defining Route Templates using `@Route`, `@RouteAlias` and `@RoutePrefix`
 
-The final Route template is the result of the value composition from the `@Route`, `@RouteAlias` and `@RoutePrefix` annotations as explain in <<tutorial-router-layout#,Router Layouts and Nested Router Targets>>.
+The final Route Template is the result of the value composition from the `@Route`, `@RouteAlias` and `@RoutePrefix` annotations as explain in <<tutorial-router-layout#,Router Layouts and Nested Router Targets>>.
 Any route segment defined by these annotations may represent a route parameter.
+
+[NOTE]
+Considering the final template composed from `@Route`, `@RouteAlias` and `@RoutePrefix` values, the parameter names have to be unique. If a parameter name is found more than once, then when a url is processed the values in the parameters matching will overwrite and only the last value is provided.
 
 *Example*: A simple route where the parameter is defined as a middle segment.
 
@@ -41,7 +47,7 @@ public class UserProfileEdit extends Div implements BeforeEnterObserver {
 
 [NOTE]
 `BeforeEnterEvent` provides `getRouteParameters()` which return a `RouteParameters` instance.
-This object contains the parameter values retrieved from the handled url.
+This object contains the parameter values retrieved from the handled URL.
 
 *Example*: Following example demonstrates the use of all annotations to configure two routes on the same view.
 In case of routes defined for `ForumThreadView`:
@@ -96,7 +102,7 @@ However, when used as a layout together with `ForumThreadView` target, it's also
 
 == Optional Route parameter modifier
 
-A Route parameter may be defined as optional, which means that it may or may not be present in the resolved url.
+A Route parameter may be defined as optional, which means that it may or may not be present in the resolved URL.
 
 *Example*: Following route defined as `user/:userID?/edit` accepts both `user/edit` and `user/123/edit` resolved URLs.
 In the second case, parameter's value `userID` is `123`, while in the first case the `Optional` provided by `event.getRouteParameters().get("userID")` wraps a `null` value.
@@ -118,7 +124,7 @@ public class UserProfileEdit extends Div implements BeforeEnterObserver {
 
 == Wildcard Route parameter modifier
 
-The wildcard parameter may be defined only as the last segment of the route template matching all segments at the end of the url.
+The wildcard parameter may be defined only as the last segment of the route template matching all segments at the end of the URL.
 A wildcard parameter is also optional so it'll match also no segments at the end of the url, in which case, it's value when retrieved from `RouteParameters` is an empty `Optional`.
 
 *Example*: `api/:path*` template may resolve path `api/com/vaadin/flow`, where the value of parameter `path` is `"com/vaadin/flow"`.
@@ -160,7 +166,7 @@ public class ApiViewer extends Div implements BeforeEnterObserver {
 == Route parameters matching a regex
 
 So far, in all examples discussed, the parameter templates accept any value.
-However, in many cases we expect a specific value for a parameter and we want the view to be shown only when that specific value is present in the url.
+However, in many cases we expect a specific value for a parameter and we want the view to be shown only when that specific value is present in the URL.
 This may be achieved by defining a regex for the parameter.
 
 *Example*: Following example limit the value of the `userID` parameter to contain only 9 digits at most making it suitable for an `Integer`:
@@ -187,7 +193,7 @@ Also `RouteParameterRegex` class define the regex values for these types so the 
 == Wildcard Route parameter using regex
 
 In case of wildcard parameters the regex is applied to all segments at the end of the url, individually.
-In case one segment fails to match the regex the whole template fails to match the url.
+In case one segment fails to match the regex the whole template fails to match the URL.
 
 *Example*: Following route `api/:path*(com|vaadin|flow)` accepts only one of the `com`, `vaadin` or `flow` values as any value of the segments which follow after `api` segment.
 
@@ -232,7 +238,7 @@ One way to fix this is to make `filter` parameter mandatory, by removing the opt
 The resulted route will look like `@Route("items/show/:filter")`.
 The other possibility is to remove `ShowAllView` class and show all items using `SearchView` when the `filter` parameter is missing.
 
-However since the options of combining templates with regex parameters is theoretically infinite, a priority mechanism has to be used when the url is resolved, instead of failing the application when a conflicting route is registered.
+However, since identifying all possible ambiguities between route templates is computationally intractable, a priority mechanism has to be used when the url is resolved, instead of failing the application when a conflicting route is registered.
 Thus, depending on the parameter modifier and the order the routes are registered, one route has priority over the others.
 This is applicable for any defined route, on the same navigation view or another view, and using both `@Route` or `@RouteAlias`.
 
