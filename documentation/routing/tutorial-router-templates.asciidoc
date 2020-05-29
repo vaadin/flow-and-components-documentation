@@ -227,7 +227,7 @@ Regarding optional parameters which are greedily matched from left to right, giv
 * `path/to/123`, where `param1` = `123`,
 * `path/to/123/qwe`, where `param1` = `123` and `param2` = `qwe`,
 
-while `path/to/123/qwe` do not match the template.
+while `path/to/qwe/123` do not match the template.
 
 == Route template priority
 
