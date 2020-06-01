@@ -20,6 +20,8 @@ If regex is missing, the parameter accepts any value.
 Route template parameters are defined as segments within `@Route`, `@RouteAlias` and `@RoutePrefix` annotation values.
 
 Parameter values may be retrieve from a `BeforeEvent` instance on any `Component` in the navigation chain, either parent layout or navigation target.
+Parameter values are strings, and convenience methods (described later) exist for converting them to numeric and Boolean types.
+Values may be empty, except if the parameter is defined in the last segment (this is because trailing slashes are removed before the URL is parsed).
 
 == Defining route templates using `@Route`, `@RouteAlias` and `@RoutePrefix`
 
@@ -259,8 +261,6 @@ The other possibility is to remove `ShowAllView` class and show all items using 
 However, since identifying all possible ambiguities between route templates is computationally intractable, a priority mechanism has to be used when the url is resolved, instead of failing the application when a conflicting route is registered.
 Thus, depending on the parameter modifier and the order the routes are registered, one route has priority over the others.
 This is applicable for any defined route, on the same navigation view or another view, and using both `@Route` or `@RouteAlias`.
-It is the developer's responsibility to define these static routes in a way that they are independent of the order of annotation discovery, since the annotation discovery is not very well defined by the `AnnotatedElement`'s javadoc.
-In case of dynamically registered routes the registration order is straightforward.
 
 This is the order is which segments in the registered route templates are trying to resolve the url:
 
@@ -269,6 +269,10 @@ This is the order is which segments in the registered route templates are trying
 3. Optional parameter.
 4. Next segments following the optional parameter.
 5. Wildcard parameter.
+
+[NOTE]
+We recommend taking care to avoid overlap when defining static routes using annotations, because not all conflicts are caught and annotation discovery order is not fully deterministic.
+In case of dynamically registered route, the registration order is the developer's responsibility.
 
 *Example*: In the example bellow:
 
