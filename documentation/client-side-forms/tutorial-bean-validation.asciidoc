@@ -6,8 +6,7 @@ layout: page
 
 = Using JSR 380 Bean Validation
 
-If you have JSR 380 Bean Validation annotations such as `Max`, `Min`, `Size`, etc. in your entity, Vaadin will automatically add corresponding client-side validators to the
-generated model.
+If you have JSR 380 Bean Validation annotations such as `Max`, `Min`, `Size`, etc. in your entity, Vaadin will automatically add corresponding client-side validators to the generated model.
 
 === Defining Constraints for Properties
 
@@ -43,7 +42,7 @@ So if you bind your form to the model like below, the form will have the validat
 image:images/bean-validation-errors.png[The validation errors]
 
 [NOTE]
-Currently Vaadin only support assigning JSR 380 validations to properties.
+Currently Vaadin only support assigning https://beanvalidation.org/2.0-jsr380/spec/#builtinconstraints[JSR 380 built-in validations] to properties. 
 
 === Automatically Marking Form Fields as Required
 

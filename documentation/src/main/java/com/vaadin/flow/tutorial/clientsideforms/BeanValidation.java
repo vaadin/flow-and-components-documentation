@@ -22,7 +22,7 @@ import javax.validation.constraints.NotEmpty;
 
 @CodeFor("client-side-forms/tutorial-bean-validation.asciidoc")
 public class BeanValidation {
-    
+
     public class Person {
 
         @Max(value = 2000, message =
