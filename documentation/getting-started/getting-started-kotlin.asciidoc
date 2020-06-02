@@ -6,38 +6,41 @@ layout: page
 
 = Using Vaadin with Kotlin
 
-Vaadin supports the Kotlin programming language through the Karibu-DSL library, which contains various extensions to use Vaadin with Kotlin.
+Vaadin supports the Kotlin programming language through the https://github.com/mvysny/karibu-dsl[Karibu-DSL] library, which contains various extensions to use Vaadin with Kotlin.
 Perhaps most importantly, the library allows you to create your Vaadin UI in a declarative way using a _domain-specific language_ (DSL).
 These features are enabled by the http://www.vaadinonkotlin.eu/index.html[Vaadin on Kotlin] project.
 
 For a quick introduction to the DSL, to have a form with two text input fields, you define them hierarchically under the `init` method (a block itself) as follows:
 
+[source, kotlin]
 ----
 @Route("")
-class MyView : VerticalLayout() { <1>
-    init {
-        formLayout { <2>
-            textField("Name:") { <3>
-                description = "Last name, first name" <4>
-            }
-            textField("Age:") {
-                width = "5em"
-            }
-        }
+class MyView : KComposite() { <1>
+    private val root = ui {<2>
+        verticalLayout {
+            formLayout { <3>
+                textField("Name:") { <4>
+                    placeholder = "Last name, first name" <5>
+                }
+                textField("Age:") {
+                    width = "5em"
+                }
+          }
     }
 }
 ----
-<1> A view should always extend a Vaadin layout component.
-<2> A Vaadin `FormLayout` component.
-<3> A Vaadin `TextField` component with caption given.
-<4> Define component attributes; `description` defines the tooltip text.
+<1> A view should normally extend the `KComposite` component, or a Vaadin layout component (in which case the class is defined in a bit different way).
+<2> The `ui {}` function produces a component that you will see on the screen.
+<3> A Vaadin `FormLayout` component.
+<4> A Vaadin `TextField` component with caption given.
+<5> Define component attributes. For example, setting the value of the `placeholder` property calls `setPlaceholder()` in the `TextField` component, setting the placeholder text that is shown as a hint when there is no text entered into the field.
 
 You can mix such declarative blocks with normal code, as demonstrated later.
 
 ifdef::web[]
 For further information, please visit the following resources:
 
-* http://www.vaadinonkotlin.eu/dsl_explained-v10.html[DSL: explained] – a more detailed description of building Vaadin UIs with the Vaadin-on-Kotlin DSL.
+* http://www.vaadinonkotlin.eu/dsl_explained-v10.html[DSL: explained] – a more detailed description of building Vaadin UIs with Karibu-DSL.
 
 * The Karibu DSL library repository at https://github.com/mvysny/karibu-dsl[github.com/mvysny/karibu-dsl].
 endif::web[]
@@ -67,6 +70,7 @@ image::images/kotlin-starter.png[]
 
 The code looks as follows:
 
+[source, kotlin]
 ----
 @Route("") <1>
 @PWA(name = "Project Base for Vaadin", shortName = "Project Base") <2>
