@@ -8,7 +8,6 @@ layout: page
 
 Vaadin supports the Kotlin programming language through the https://github.com/mvysny/karibu-dsl[Karibu-DSL] library, which contains various extensions to use Vaadin with Kotlin.
 Perhaps most importantly, the library allows you to create your Vaadin UI in a declarative way using a _domain-specific language_ (DSL).
-These features are enabled by the http://www.vaadinonkotlin.eu/index.html[Vaadin on Kotlin] project.
 
 For a quick introduction to the DSL, to have a form with two text input fields, you define them hierarchically under the `init` method (a block itself) as follows:
 
@@ -16,7 +15,7 @@ For a quick introduction to the DSL, to have a form with two text input fields, 
 ----
 @Route("")
 class MyView : KComposite() { <1>
-    private val root = ui {<2>
+    private val root = ui { <2>
         verticalLayout {
             formLayout { <3>
                 textField("Name:") { <4>
@@ -30,7 +29,7 @@ class MyView : KComposite() { <1>
 }
 ----
 <1> A view should normally extend the `KComposite` component, or a Vaadin layout component (in which case the class is defined in a bit different way).
-<2> The `ui {}` function produces a component that you will see on the screen.
+<2> The `ui {}` function takes care of nesting the `VerticalLayout` component, produced by the `verticalLayout{}` DSL function, correctly into the `KComposite`, thereby making the `VerticalLayout` effectively the root component of the view.
 <3> A Vaadin `FormLayout` component.
 <4> A Vaadin `TextField` component with caption given.
 <5> Define component attributes. For example, setting the value of the `placeholder` property calls `setPlaceholder()` in the `TextField` component, setting the placeholder text that is shown as a hint when there is no text entered into the field.
