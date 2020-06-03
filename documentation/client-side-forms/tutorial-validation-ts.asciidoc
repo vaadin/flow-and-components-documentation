@@ -1,0 +1,100 @@
+---
+title: Adding TS Custom Validators
+order: 4
+layout: page
+---
+
+= Validators in TypeScript
+
+As indicated in the <<tutorial-validation-java#,Java Bean Validators>> article, the easiest way to add validation to your forms is by annotating your Java Beans.
+
+But for special cases, it might be necessary to add custom validators in TS views.
+
+Validators are added to data models, hence, it is possible to add validators to any level of the data structure: field models, or entity models
+
+=== Custom Validators for Field Models
+
+Validators that are added to a model bound to a UI field, will be executed either on its value changes, or when the whole form is validated before submitting.
+
+In the next snippet, a custom validator is added to a text field.
+When the user types a name that does not starts with the character 'B', the field is invalidated as it is shown in the image.
+
+image:images/custom-validation-errors-1.gif[Custom Field Validation Error]
+
+[source, typescript]
+----
+import PersonModel from '[.....]/PersonModel';
+import { field, Binder, getModelValidators } from '@vaadin/form';
+
+@customElement('my-demo-view')
+export class MyDemoView extends LitElement {
+  private binder = new Binder(this, PersonModel);
+
+  async firstUpdated(arg: any) {
+    super.firstUpdated(arg);
+
+    getModelValidators(this.binder.model.name).add({
+      message: 'Name must start with letter B',
+      validate: value => value.startsWith('B')
+    });
+  }
+
+  render() {
+    return html`
+      <vaadin-text-field ...="${field(this.binder.model.name)}" label="Name"></vaadin-text-field>
+    `;
+  }
+}
+----
+
+[NOTE]
+Custom validators need to implement the `Validator` interface.
+
+=== Custom Validators for Entity Models
+
+When adding a validator to an Entity Model, i.e. a model not bound to any UI field, it only gets executed when the form is validated before the submit action.
+
+In the following example, a custom validator is added to the parent model of both fields. On submit, the validator is run and an alert indicates that password fields do not match.
+
+image:images/custom-validation-errors-2.gif[Custom Field Validation Error]
+
+[source, typescript]
+----
+import {customElement, LitElement, html} from 'lit-element';
+import { Binder, field, getModelValidators, getValue } from '@vaadin/form';
+import PersonModel from '[.....]/PersonModel';
+
+@customElement('vaadin-person-view')
+export class VaadinPersonView extends LitElement {
+  private binder = new Binder(this, PersonModel);
+
+  async firstUpdated(arg: any) {
+    super.firstUpdated(arg);
+
+    getModelValidators(this.binder.model).add({
+      message: 'password entries must match',
+      validate: () => 
+        getValue(this.binder.model.password) === getValue(this.binder.model.repeatPassword)
+    });
+  }
+  render() {
+    return html`
+      <vaadin-password-field label="password"
+        ...="${field(this.binder.model.password)}" ></vaadin-password-field>
+      <vaadin-password-field label="repeat password"
+        ...="${field(this.binder.model.repeatPassword)}" ></vaadin-password-field>
+
+      <vaadin-button @click="${this.submit}">submit</vaadin-button>      
+    `;
+  }
+
+  async submit() {
+    return this.binder.submitTo(Promise.resolve)
+      .catch(error => alert(error.errors[0].validator.message));
+  }
+}
+
+----
+
+
+
