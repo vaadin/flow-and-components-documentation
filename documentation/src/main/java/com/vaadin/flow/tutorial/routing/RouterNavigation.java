@@ -41,7 +41,7 @@ public class RouterNavigation {
         NativeButton editButton = new NativeButton(
                 "Edit user details");
         editButton.addClickListener(e ->
-                button.getUI().ifPresent(ui -> ui.navigate(
+                editButton.getUI().ifPresent(ui -> ui.navigate(
                         UserProfileEdit.class,
                         new RouteParameters("userID", "123")))
         );

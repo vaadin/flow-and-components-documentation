@@ -17,7 +17,7 @@ List<RouteData> routes = RouteConfiguration.forSessionScope().getAvailableRoutes
 
 == Getting Registered Routes by Parent Layout
 
-To retrieve all the routes defined by parent layout, use:UrlTemplatesRegex.javaUrlTemplatesRegex.jav
+To retrieve all the routes defined by parent layout, use:
 
 [source,java]
 ----

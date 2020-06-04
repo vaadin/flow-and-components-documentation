@@ -17,7 +17,8 @@ Route template parameters must comply to following syntax, ``:``_parameter_name[
 The regex is compiled using `java.util.regex.Pattern` and should not contain segment delimiter sign `/`.
 If regex is missing, the parameter accepts any value.
 
-*Example*: route template parameters example `product/:identifier/:category?/resource/:id([0-9]*)/:path*`
+*Example*: route template parameters example:
+`product/:identifier/:category?/resource/:id([0-9]\*)/:path*`
 
 Route template parameters are defined as segments within `@Route`, `@RouteAlias` and `@RoutePrefix` annotation values.
 
@@ -264,7 +265,7 @@ However, since identifying all possible ambiguities between route templates is c
 Thus, depending on the parameter modifier and the order the routes are registered, one route has priority over the others.
 This is applicable for any defined route, on the same navigation view or another view, and using both `@Route` or `@RouteAlias`.
 
-This is the order is which segments in the registered route templates are trying to resolve the url:
+This is the order in which a segments in the registered route templates are trying to resolve the url:
 
 1. Static segment.
 2. Mandatory parameter.
