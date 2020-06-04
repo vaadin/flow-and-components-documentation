@@ -28,46 +28,22 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.WildcardParameter;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("routing/tutorial-router-url-parameters.asciidoc")
-public class HasUrlParameterTutorial {
-
-    @Route(value = "greet")
-    public class GreetingComponent extends Div
-            implements HasUrlParameter<String> {
-
-        @Override
-        public void setParameter(BeforeEvent event, String parameter) {
-            setText(String.format("Hello, %s!", parameter));
-        }
-    }
+@CodeFor("routing/tutorial-router-query-parameters.asciidoc")
+public class QueryParameterTutorial {
 
     @Route("greet")
-    public class OptionalGreeting extends Div
+    public class QueryParametersGreeting extends Div
             implements HasUrlParameter<String> {
 
         @Override
         public void setParameter(BeforeEvent event,
                 @OptionalParameter String parameter) {
-            if (parameter == null) {
-                setText("Welcome anonymous.");
-            } else {
-                setText(String.format("Welcome %s.", parameter));
-            }
-        }
-    }
 
-    @Route("greet")
-    public class WildcardGreeting extends Div
-            implements HasUrlParameter<String> {
+            Location location = event.getLocation();
+            QueryParameters queryParameters = location.getQueryParameters();
 
-        @Override
-        public void setParameter(BeforeEvent event,
-                @WildcardParameter String parameter) {
-            if (parameter.isEmpty()) {
-                setText("Welcome anonymous.");
-            } else {
-                setText(String.format("Handling parameter %s.", parameter));
-            }
+            Map<String, List<String>> parametersMap = queryParameters
+                    .getParameters();
         }
     }
 
