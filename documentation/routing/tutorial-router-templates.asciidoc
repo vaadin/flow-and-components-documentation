@@ -17,6 +17,8 @@ Route template parameters must comply to following syntax, ``:``_parameter_name[
 The regex is compiled using `java.util.regex.Pattern` and should not contain segment delimiter sign `/`.
 If regex is missing, the parameter accepts any value.
 
+*Example*: route template parameters example `product/:identifier/:category?/resource/:id([0-9]*)/:path*`
+
 Route template parameters are defined as segments within `@Route`, `@RouteAlias` and `@RoutePrefix` annotation values.
 
 Parameter values may be retrieved from a `BeforeEvent` instance on any `Component` in the navigation chain, either parent layout or navigation target.
