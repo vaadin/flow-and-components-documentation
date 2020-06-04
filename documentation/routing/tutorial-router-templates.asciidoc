@@ -265,7 +265,8 @@ However, since identifying all possible ambiguities between route templates is c
 Thus, depending on the parameter modifier and the order the routes are registered, one route has priority over the others.
 This is applicable for any defined route, on the same navigation view or another view, and using both `@Route` or `@RouteAlias`.
 
-This is the order in which a segments in the registered route templates are trying to resolve the url:
+When resolving a URL, the matcher determines the final route template to apply by matching each URL segment with a template segment in the same position.
+If at any URL segment there is more than one matching template segment, the following priority order applies:
 
 1. Static segment.
 2. Mandatory parameter.
