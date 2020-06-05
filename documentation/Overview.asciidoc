@@ -138,8 +138,10 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 
 == Client-Side Form Binding
 * <<client-side-forms/tutorial-binder#, Binding Data to Client-Side Forms>>
-* <<client-side-forms/tutorial-binder-load#, Loading From and Saving To Business Objects>>
+* <<client-side-forms/tutorial-binder-load#, Loading From and Saving to Business Objects>>
+* <<client-side-forms/tutorial-bean-validation#, Using JSR 380 Bean Validation>>
 * <<client-side-forms/appendix-vaadin-components#, Appendix: Binding Data to Vaadin Components>>
+* <<client-side-forms/appendix-web-component-field-strategy#, Appendix: Using a Custom Web Component Field>>
 
 == Using Vaadin with Spring
 * <<spring/tutorial-spring-basic#,Use Vaadin with Spring>>
