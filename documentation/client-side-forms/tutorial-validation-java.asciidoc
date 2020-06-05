@@ -1,5 +1,5 @@
 ---
-title: Bean Validation
+title: Adding Java Bean Validators
 order: 3
 layout: page
 ---

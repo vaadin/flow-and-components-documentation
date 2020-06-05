@@ -1,0 +1,117 @@
+---
+title: Adding TS Custom Validators
+order: 4
+layout: page
+---
+
+= Validators in TypeScript
+
+As indicated in the <<tutorial-validation-java#,Java Bean Validators>> article, the easiest way to add validation to your forms is by annotating your Java Beans.
+
+But for special cases, it might be necessary to add custom validators in TS views.
+
+For each model, there is an associated `BinderNode`, which you can add validators to. To get the `BinderNode` of a model, you can use `binder.for(model)`.
+[source, typescript]
+----
+BinderNode name =  binder.for(this.binder.model.name);
+----
+
+The `binder` itself is also the root level `BinderNode`. So Validators can be added any level of the data structure; hence it's possible to have both field-level and 
+record-level validators.
+
+=== Field-level Validator
+
+A field-level validator is a validator added to a child `BinderNode`, which binds to a UI field. It will be executed either when the field value changes or when the whole form is validated before submitting.
+
+In the next snippet, a custom validator is added to a text field.
+When the user types a name that does not start with the character 'B', the field is invalidated, as shown in the image.
+
+image:images/custom-validation-errors-1.gif[Custom Field Validation Error]
+
+[source, typescript]
+----
+import PersonModel from '[.....]/PersonModel';
+import { field, Binder, getModelValidators } from '@vaadin/form';
+
+@customElement('my-demo-view')
+export class MyDemoView extends LitElement {
+  private binder = new Binder(this, PersonModel);
+
+  async firstUpdated(arg: any) {
+    super.firstUpdated(arg);
+
+    binder.for(this.binder.model.name).addValidator({
+      message: 'Name must start with letter B',
+      validate: value => value.startsWith('B')
+    });
+  }
+
+  render() {
+    return html`
+      <vaadin-text-field ...="${field(this.binder.model.name)}" label="Name"></vaadin-text-field>
+    `;
+  }
+}
+----
+
+[NOTE]
+Custom validators need to implement the `Validator` interface.
+
+=== Record-level Validator
+
+A record-level validator is a validator added to the `binder`, which is the root level `BinderNode`. 
+One important use case could be cross-field validation, i.e., the validity of a field depends on the value of another field.
+
+One challenge of the record-level validation is to specify where to display the error message when the validation fails.
+This can be achieved in the validator, instead of passing a validation callback to the validator that returns a 
+`boolean` value, you can return a `ValueError` object, inside which you can a `property` would be used to determine where
+to display the validation error message. The value of the `property` is the model that binds to a field.
+
+
+In the following example, a custom validator is added to the binder. When either field changes, the validation is triggered and the
+error message is displayed in the password field as specified in the validator.
+
+image:images/custom-validation-errors-2.gif[Custom Field Validation Error]
+
+[source, typescript]
+----
+import {customElement, LitElement, html} from 'lit-element';
+import { Binder, field} from '@vaadin/form';
+import PersonModel from '[.....]/PersonModel';
+
+@customElement('vaadin-person-view')
+export class VaadinPersonView extends LitElement {
+  private binder = new Binder(this, PersonModel);
+
+  async firstUpdated(arg: any) {
+    super.firstUpdated(arg);
+
+    const password = this.binder.model.password;
+
+    this.binder.addValidator({
+      message: 'Password entries must match',
+      validate(person: Person){
+        if (person.password === person.repeatPassword) {
+          return { property: password, value: person, validator: this };
+        }
+        return;
+      }
+
+    });
+  }
+  render() {
+    return html`
+      <vaadin-password-field label="password"
+        ...="${field(this.binder.model.password)}" ></vaadin-password-field>
+      <vaadin-password-field label="repeat password"
+        ...="${field(this.binder.model.repeatPassword)}" ></vaadin-password-field>
+
+      <vaadin-button @click="${this.submit}">submit</vaadin-button>      
+    `;
+  }
+}
+
+----
+
+
+

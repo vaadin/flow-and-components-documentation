@@ -20,8 +20,8 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 
-@CodeFor("client-side-forms/tutorial-bean-validation.asciidoc")
-public class BeanValidation {
+@CodeFor("client-side-forms/tutorial-validation-java.asciidoc")
+public class TutorialValidationJava {
 
     public class Person {
 
