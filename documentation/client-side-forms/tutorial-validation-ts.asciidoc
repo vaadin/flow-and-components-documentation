@@ -10,14 +10,21 @@ As indicated in the <<tutorial-validation-java#,Java Bean Validators>> article, 
 
 But for special cases, it might be necessary to add custom validators in TS views.
 
-Validators are added to data models, hence, it is possible to add validators to any level of the data structure: field models, or entity models
+For each model, there is an associated `BinderNode`, which you can add validators to. To get the `BinderNode` of a model, you can use `binder.for(model)`.
+[source, typescript]
+----
+BinderNode name =  binder.for(this.binder.model.name);
+----
 
-=== Custom Validators for Field Models
+The `binder` itself is also the root level `BinderNode`. So Validators can be added any level of the data structure; hence it's possible to have both field-level and 
+record-level validators.
 
-Validators that are added to a model bound to a UI field, will be executed either on its value changes, or when the whole form is validated before submitting.
+=== Field-level Validator
+
+A field-level validator is a validator added to a child `BinderNode`, which binds to a UI field. It will be executed either when the field value changes or when the whole form is validated before submitting.
 
 In the next snippet, a custom validator is added to a text field.
-When the user types a name that does not starts with the character 'B', the field is invalidated as it is shown in the image.
+When the user types a name that does not start with the character 'B', the field is invalidated, as shown in the image.
 
 image:images/custom-validation-errors-1.gif[Custom Field Validation Error]
 
@@ -33,7 +40,7 @@ export class MyDemoView extends LitElement {
   async firstUpdated(arg: any) {
     super.firstUpdated(arg);
 
-    getModelValidators(this.binder.model.name).add({
+    binder.for(this.binder.model.name).addValidator({
       message: 'Name must start with letter B',
       validate: value => value.startsWith('B')
     });
@@ -50,18 +57,26 @@ export class MyDemoView extends LitElement {
 [NOTE]
 Custom validators need to implement the `Validator` interface.
 
-=== Custom Validators for Entity Models
+=== Record-level Validator
 
-When adding a validator to an Entity Model, i.e. a model not bound to any UI field, it only gets executed when the form is validated before the submit action.
+A record-level validator is a validator added to the `binder`, which is the root level `BinderNode`. 
+One important use case could be cross-field validation, i.e., the validity of a field depends on the value of another field.
 
-In the following example, a custom validator is added to the parent model of both fields. On submit, the validator is run and an alert indicates that password fields do not match.
+One challenge of the record-level validation is to specify where to display the error message when the validation fails.
+This can be achieved in the validator, instead of passing a validation callback to the validator that returns a 
+`boolean` value, you can return a `ValueError` object, inside which you can a `property` would be used to determine where
+to display the validation error message. The value of the `property` is the model that binds to a field.
+
+
+In the following example, a custom validator is added to the binder. When either field changes, the validation is triggered and the
+error message is displayed in the password field as specified in the validator.
 
 image:images/custom-validation-errors-2.gif[Custom Field Validation Error]
 
 [source, typescript]
 ----
 import {customElement, LitElement, html} from 'lit-element';
-import { Binder, field, getModelValidators, getValue } from '@vaadin/form';
+import { Binder, field} from '@vaadin/form';
 import PersonModel from '[.....]/PersonModel';
 
 @customElement('vaadin-person-view')
@@ -71,10 +86,17 @@ export class VaadinPersonView extends LitElement {
   async firstUpdated(arg: any) {
     super.firstUpdated(arg);
 
-    getModelValidators(this.binder.model).add({
-      message: 'password entries must match',
-      validate: () => 
-        getValue(this.binder.model.password) === getValue(this.binder.model.repeatPassword)
+    const password = this.binder.model.password;
+
+    this.binder.addValidator({
+      message: 'Password entries must match',
+      validate(person: Person){
+        if (person.password === person.repeatPassword) {
+          return { property: password, value: person, validator: this };
+        }
+        return;
+      }
+
     });
   }
   render() {
@@ -86,11 +108,6 @@ export class VaadinPersonView extends LitElement {
 
       <vaadin-button @click="${this.submit}">submit</vaadin-button>      
     `;
-  }
-
-  async submit() {
-    return this.binder.submitTo(Promise.resolve)
-      .catch(error => alert(error.errors[0].validator.message));
   }
 }
 
