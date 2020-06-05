@@ -41,7 +41,7 @@ Note that this only works for production mode.
 <plugin>
     <groupId>com.vaadin</groupId>
     <artifactId>vaadin-maven-plugin</artifactId>
-    <version>${project.version}</version>
+    <version>${vaadin.version}</version>
     <configuration>
         <pnpmEnable>true</pnpmEnable>
     </configuration>
