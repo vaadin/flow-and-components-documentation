@@ -142,6 +142,7 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<client-side-forms/tutorial-validation-java#, Adding Java Bean Validators>>
 * <<client-side-forms/tutorial-validation-ts#, Adding TS Custom Validators>>
 * <<client-side-forms/appendix-vaadin-components#, Appendix: Binding Data to Vaadin Components>>
+* <<client-side-forms/appendix-web-component-field-strategy#, Appendix: Using a Custom Web Component Field>>
 
 == Using Vaadin with Spring
 * <<spring/tutorial-spring-basic#,Use Vaadin with Spring>>
