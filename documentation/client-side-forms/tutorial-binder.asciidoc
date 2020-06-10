@@ -6,9 +6,9 @@ layout: page
 
 = Binding Data to Client-Side Forms
 
-Vaadin 17+ provides means for binding UI components in TypeScript form views. There is a client-side `Binder` class that is responsible of keeping the state of the form, the default and current values, and validation of the data.
+Vaadin 17+ provides means for binding UI components in TypeScript form views. There is a client-side `Binder` class that is responsible for keeping the state of the form, the default and current values, and validation of the data.
 
-The client-side `Binder` supports Java backend endpoints for loading and saving the form data, and reuses the metadata form Java Bean validation annotations for client-side validation.
+The client-side `Binder` supports Java backend endpoints for loading and saving the form data, and reuses the metadata from Java Bean validation annotations for client-side validation.
 
 == How to Bind Form Data
 
@@ -65,7 +65,7 @@ class PersonForm extends LitElement {
 }
 ----
 +
-The `PersonModel` here is generated alongside with a `Person` TypeScript data intefrace from the `Person.java` bean. It describes the structure of the data and the validation-related metadata for the client-side form binding.
+The `PersonModel` here is generated alongside with a `Person` TypeScript data interface from the `Person.java` bean. It describes the structure of the data and the validation-related metadata for the client-side form binding.
 
 . Bind the UI components in the template using the `...="${field()}"` syntax:
 +
