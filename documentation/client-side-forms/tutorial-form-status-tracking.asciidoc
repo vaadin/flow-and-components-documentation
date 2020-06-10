@@ -14,7 +14,7 @@ You can get the status of the form or a field through `BinderNode`, e.g.:
 
 Some statuses are only available in `Binder` for the whole form but not a specific field.
 
-- validating: if the form is performing som validation.
+- validating: if the form is performing some validation.
 - submitting: if the form is submitting the data to a callback.
 
 You can bind these statuses to some UI components so that the form's UI can be updated automatically when the form status changes, e.g., disable the reset button when the form is not dirty. 

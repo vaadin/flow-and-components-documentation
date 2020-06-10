@@ -16,7 +16,7 @@ For each model, there is an associated `BinderNode`, which you can add validator
 BinderNode name =  binder.for(this.binder.model.name);
 ----
 
-The `binder` itself is also the root level `BinderNode`. So Validators can be added any level of the data structure; hence it's possible to have both field-level and 
+The `binder` itself is also the root level `BinderNode`. So Validators can be added to any level of the data structure; hence it's possible to have both field-level and 
 record-level validators.
 
 === Field-level Validator
@@ -64,7 +64,7 @@ One important use case could be cross-field validation, i.e., the validity of a 
 
 One challenge of the record-level validation is to specify where to display the error message when the validation fails.
 This can be achieved in the validator, instead of passing a validation callback to the validator that returns a 
-`boolean` value, you can return a `ValueError` object, inside which you can a `property` would be used to determine where
+`boolean` value, you can return a `ValueError` object, inside which you can specify a `property` which would be used to determine where
 to display the validation error message. The value of the `property` is the model that binds to a field.
 
 
