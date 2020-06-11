@@ -13,7 +13,7 @@ But for special cases, it might be necessary to add custom validators in TS view
 For each model, there is an associated `BinderNode`, which you can add validators to. To get the `BinderNode` of a model, you can use `binder.for(model)`.
 [source, typescript]
 ----
-BinderNode name =  binder.for(this.binder.model.name);
+const binderNode = this.binder.for(this.binder.model.name);
 ----
 
 The `binder` itself is also the root level `BinderNode`. So Validators can be added to any level of the data structure; hence it's possible to have both field-level and 
