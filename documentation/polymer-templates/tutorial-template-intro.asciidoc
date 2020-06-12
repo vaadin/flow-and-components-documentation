@@ -12,7 +12,7 @@ In Vaadin, you have a few different options on how to build your views.
 
 . Build your views purely with Java. This is the recommended way to build views in Vaadin.
 . Define your layouts declaratively and implement the UI logic in Java.
-. Build your views purely client-side with TypeScript and Lit. Available from Vaadin 15 forward.
+. Build your views purely client-side with TypeScript and LitElement. Available from Vaadin 15 forward.
 
 These ways to build views can be mixed and matched within an application. All Vaadin components are available through Java API as well as declaratively in HTML. Choosing the correct way depends on your use case and preferences. This chapter goes through the second option, how to build your UIs declaratively while implementing the logic in Java.
 
@@ -20,7 +20,7 @@ These ways to build views can be mixed and matched within an application. All Va
 
 Some developers prefer to separate defining the structure of a view from defining the logic of said view. It gives a clear and maintainable structure to the UI code as the definition and updating of that data is separated. HTML templates are a robust way of defining the UI structure, while Java is a great way to define the logic of the view. 
 
-Vaadin has support for two declarative template languages, Polymer and Lit. The Lit library is the successor of the Polymer library. Vaadin will support both for the foreseeable future, but eventually, Polymer will be deprecated in favor of Lit. We recommend choosing Lit as the templating language when deciding to build new templates to your Vaadin applications. It is future proof, lightweight, and more focused templating language.
+Vaadin has support for two declarative template languages, Polymer and LitElement. The LitElement library is the successor of the Polymer library. Vaadin will support both for the foreseeable future, but eventually, Polymer will be deprecated in favor of LitElement. We recommend choosing LitElement as the templating language when deciding to build new templates to your Vaadin applications. It is future proof, lightweight, and more focused templating language.
 
 Vaadin can refer to and access components in Java defined by a template. Components in the template are given unique ids, and any component with an id can be accessed with Java API to configure logic further. For example `<vaadin-button id="my-button">Press me</vaadin-button>` can be accessed with `@Id("my-button") Button button;` in Java.
 
