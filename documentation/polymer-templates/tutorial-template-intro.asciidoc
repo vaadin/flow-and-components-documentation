@@ -16,7 +16,7 @@ In Vaadin, you have a few different options on how to build your views.
 
 These ways to build views can be mixed and matched within an application. All Vaadin components are available through Java API as well as declaratively in HTML. Choosing the correct way depends on your use case and preferences. This chapter goes through the second option, how to build your UIs declaratively while implementing the logic in Java.
 
-== When Should You Use Templates
+== Benefits of Using Templates
 
 Separately defining the structure of a view from defining the logic of said view gives a clear and maintainable code. It makes it easier to find how the view is defined and where it is updated. HTML templates are a robust way of defining the UI structure, while Java is a great way to define the logic of the view. 
 
@@ -31,7 +31,7 @@ As declarative layouts are a robust and maintainable way for defining views, htt
 
 == Known Limitations of Templates
 
-The template API has intentional limitations that you need to be aware of before using it.
+The template API has limitations that you need to be aware of before using it.
 
 * Currently HTML templates are not processed on the server before being sent to the client. Server side is not aware of the content of the template, like the attributes used by a component. This means that many getter methods return the incorrect value because the client never sent them to the server. We plan to remove this limitation in the near future.
 * You can add components and a DOM to a template structure, but you cannot remove anything present in the original template. However, overriding component properties do work. 
