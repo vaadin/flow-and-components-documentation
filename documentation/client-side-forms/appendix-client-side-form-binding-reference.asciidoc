@@ -1,0 +1,211 @@
+---
+title: "Appendix: Client-Side Form Binding Reference"
+order: 100
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= Appendix: Client-Side Form Binding Reference
+
+The key concepts behind client-side form binding are: the `field` directive, the `Model`, the `Binder` and binder nodes.
+
+== The field directive
+
+Client-side form binding in Vaadin works together with LitElement web component library, and its underlying template rendering library `lit-html`.
+
+`field` is a `lit-html` directive that does the main job of binding the form field components in the template, namely:
+
+- sets the `name` attribute
+- implements two-way binding for the value state
+- sets the `required` boolean state
+- sets the boolean `invalid` state and the `errorMessage` string state when the current value is invalid
+
+.Using the field directive
+[source, html]
+----
+<vaadin-text-field
+ label="Full name"
+ ...="${field(model.fullName)}"
+ ></vaadin-text-field>
+----
+
+Depending on the type of the bound component, the field directive selects a strategy, which defines how exacly the states above are applied on the component, e. g., which attributes and properties of the element are used.
+
+[NOTE]
+You can find more information on field strategy customization in the <<appendix-web-component-field-strategy#, Appendix: Using a Web Component Field>> article.
+
+The field directive supports Vaadin components and HTML input elements. While Vaadin components have support for all the states, for HTML input elements the `invalid`, `required` and `errorMessage` are not displayed in the bound component. As a workaround, you can bind those manually in the template:
+
+[source, html]
+----
+<label for="fullName">
+  Full name
+  ${binder.for(binder.model.fullName).required ? '*' : ''}
+</label>
+<input id="fullName" ...="${field(binder.model.fullName)}"/><br/>
+${
+  binder.for(binder.model.fullName).invalid
+    ? html`
+      <strong>
+        ${binder.for(binder.model.fullName).errors[0]}
+      </strong>`
+    : ''
+}
+----
+
+[NOTE]
+See also: <<appendix-vaadin-components.asciidoc#, Appendix: Binding Data to Vaadin Components>>
+
+== Model
+
+When binding components in the template, the `field` directive requires a model instance argument.
+
+The model represents the metadata of the form. It describes the structure of the data, and provides means to get and set the current value and other related properties and states from the binder.
+
+Vaadin automatically generates Model classes for server-side endpoints from Java beans. Usually there is no need to define models manually.
+
+Models are instanciated by the `Binder`, which recieves the form model class as the `Binder` constructor argument. The nested model instances are created automatically for every field.
+
+Technically, every model instance represents either a key of a parent model, or the value of the Binder itself. The model constructors receive the following arguments:
+
+- `parent: ModelParent<T>` — the parent object reference: either the parent model instance, or the `Binder` instance
+- `key: keyof any` — the key in the parent object to get the value from / set the value to, could be `string` when the parent is an object or `number` when the parent is an array
+- `...validators: ReadonlyArray<Validator<T>>` — the default validators, typically exported from Java JSR-380 annotations
+
+=== AbstractModel
+
+All models subclass from the `AbstractModel<T>` TypeScript class, where the `T` type argument refers to the value type.
+
+AbstractModel, as well as any subclass, define a static method `static createEmptyValue(): T`, that returns the empty value of the subject model type:
+
+[source, typescript]
+----
+const emptyPerson: Person = PersonModel.createEmptyValue();
+console.log(emptyPerson); // {"fullName": ""}
+----
+
+As with any JavaScript object, `AbstractModel` has `toString(): string` and `valueOf(): T` instance methods, that are handy for template expressions:
+
+[soruce, html]
+----
+<p>
+  Full name:
+  ${model.firstName.toString()}
+  ${model.middleName.toString()}
+  ${model.lastName.toString()}
+</p>
+
+<p>
+  Cost:
+   ${model.quantity.valueOf() * model.price.valueOf()}
+</p>
+----
+
+=== Primitive models
+
+There are the builtin models that represent the common primitive field types:
+
+|===
+| Type | Value type `T` | Empty value (`Model.createEmptyValue()` result)
+
+| `StringModel` | `string` | `''`
+| `NumberModel` | `number` | `0`
+| `BooleanModel`  | `boolean` | `false`
+|===
+
+Primitive models subclass `PrimitiveModel<T>`. Primitive models are leaf, i. e., do not have nested field keys.
+
+=== Object models
+
+`ObjectModel<T>` is a common superclass for all generated bean models.
+
+There is no API added in the `ObjectModel<T>` over `AbstractModel<T>` itself.
+
+The generated subclasses of `ObjectModel<T>` define the type argument constrains and the default type, as well as list the bean fields as in Java , e. g. for the following Java bean:
+
+.IdEntity.java
+[source, java]
+----
+public class IdEntity {
+    private String idString;
+
+    public String getIdString() {
+        return idString;
+    }
+
+    public void setIdString(String idString) {
+        this.idString = idString;
+    }
+}
+----
+
+.Person.java
+[source,java]
+----
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
+
+public class Person extends IdString {
+    @NotEmpty(message = "Cannot be empty")
+    private String fullName;
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+}
+----
+
+The following TypeScript interfaces are generated for type-checking endpoints:
+
+.IdEntity.ts
+[souces, typescript]
+----
+export default interface IdEntity {
+  idString: string;
+}
+----
+
+.Person.ts
+[source, typescript]
+----
+import IdEntity from './IdEnity';
+
+export default interface Person extends IdEntity {
+  fullName: string;
+}
+----
+
+And the following models are generated for client-side form binding:
+
+.IdEntityModel.ts
+[source, typescript]
+----
+import IdEntity from './IdEntity';
+
+export default class IdEntityModel<T extends IdEntity = IdEntity> extends ObjectModel<T> {
+  static createEmptyValue: () => IdEntity;
+  readonly idString = new StringModel(this, 'idString');
+}
+----
+
+.PersonModel.ts
+[source, typescript]
+----
+import IdEntityModel from './IdEntityModel';
+
+import Person from './Person';
+
+export default class PersonModel<T extends Person = Person> extends IdEntityModel<T> {
+  static createEmptyValue: () => Person;
+  readonly fullName = new StringModel(this, 'fullName', new NotEmpty({message: 'Cannot be empty'}));
+}
+----
+
+All the model instance properties represent the user-defined fields. To avoid naming collisions, the models do not have any public builtin instance properties or methods, aside form the `toString` and `valueOf` exceptions mentioned above.
+
+The data associated with the model instance, (such as the current value, the validators, the required flag, and the validation state) is available on the `BinderNode` (see below).
