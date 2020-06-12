@@ -27,7 +27,6 @@ HotswapAgent is made to run on IDEs on Debug mode only. If you would like to run
 == Additional configurations
 
 * [[a-runtime-hotswap]] If you want to use HotswapAgent in Run mode you must add an additional configuration parameter to the JVM options by adding `-javaagent:<path-to-hotswap-directory>/lib/hotswap/hotswap-agent.jar=autoHotswap=true` or adding the line `autoHotswap=true` to `hotswap-agent.properties`.
-* If you have installed JRebel previously when using IntelliJ IDEA, the `Build project automatically` compiler option should be turned off since it might trigger HotswapAgent reloads without swapping classes properly. The ideal fix for this issue is having a fresh install of IDEA when using HotswapAgent.
 * If you are running HotswapAgent using DCEVM 8 and Netbeans, adding the configuration parameter `autoHotswap=true` might be needed for Live Reload to work. VM configuration for debugging (available at `Project Properties > Actions > Actions: Debug project > Set Properties`) should look like this `Env.MAVEN_OPTS=-XXaltjvm=dcevm -javaagent:<path-to-file>/hotswap-agent-1.4.1-SNAPSHOT.jar=autoHotswap=true` (or add the line `autoHotswap=true` to `hotswap-agent.properties`).
-* When using Jetty as server set `<scanIntervalSeconds>` in your Vaadin application `pom.xml` to `0`
-* The Live Reload quiet time (milliseconds after last Java change before refreshing the browser) and be modifying by setting `vaadin.liveReloadQuietTime` in `hotswap-agent.properties`. The default is 1000 ms.
+* For Jetty make sure to disable resource scanning and automatic restarts (if using the Maven Plugin, omit or set `<scanIntervalSeconds>` to a value of  `0` or less).
+* The Live Reload quiet time (milliseconds after last Java change before refreshing the browser) can be adjusted by the parameter `vaadin.liveReloadQuietTime` in `hotswap-agent.properties`. The default is 1000 ms.
