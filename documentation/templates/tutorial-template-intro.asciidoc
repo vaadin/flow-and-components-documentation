@@ -1,0 +1,42 @@
+---
+title: Using Templates from Server-side Java Code
+order: 1
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= Using Templates from Server-side Java Code
+
+In Vaadin, you have a few different options on how to build your views.
+
+. Build your views purely with Java. This is the recommended way to build views in Vaadin.
+. Define your layouts declaratively and implement the UI logic in Java.
+. Build your views purely client-side with TypeScript and Lit. Available from Vaadin 15 forward.
+
+These ways to build views can be mixed and matched within an application. All Vaadin components are available through Java API as well as declaratively in HTML. Choosing the correct way depends on your use case and preferences. This chapter goes through the second option, how to build your UIs declaratively while implementing the logic in Java.
+
+// Polymer (HTML) template support in Vaadin allows you to create pre-formatted HTML components (declarative layouts) that can be used from Java in the same way as any other component. Polymer templates give you full control over the appearance (look) of the DOM. You can use any Vaadin component in your design, as well as JavaScript logic, and even CSS. Declarative layouts have many benefits, but there are also disadvantages.
+
+== When Should You Use Templates
+
+Some developers prefer to separate defining the structure of a view from defining the logic of said view. It gives a clear and maintainable structure to the UI code as the definition and updating of that data is separated. HTML templates are a robust way of defining the UI structure, while Java is a great way to define the logic of the view. 
+
+Vaadin has support for two declarative template languages, Polymer and Lit. The Lit library is the successor of the Polymer library. Vaadin will support both for the foreseeable future, but eventually, Polymer will be deprecated in favor of Lit. We recommend choosing Lit as the templating language when deciding to build new templates to your Vaadin applications. It is future proof, lightweight, and more focused templating language.
+
+Vaadin can refer to and access components in Java defined by a template. Components in the template are given unique ids, and any component with an id can be accessed with Java API to configure logic further. For example `<vaadin-button id="my-button">Press me</vaadin-button>` can be accessed with `@Id("my-button") Button button;` in Java.
+
+As declarative layouts are a robust and maintainable way for defining views, https://vaadin.com/designer[Vaadin Designer], the visual tool to build UI for Vaadin apps, uses them as its format.
+
+== Known Limitations of Templates
+
+The template API has intentional limitations that you need to be aware of before choosing to use it. These limitations are by design. The root cause of the limitations is that HTML templates are not processed on the server before being sent to the client. Because templates are not checked on the server:
+
+* Errors are only detected by the browser, or the layouts show up as incorrect
+* By default, the server is not aware of it, nor does it have any information about the template's content, like the attributes used by a component. This means that many getter methods return the incorrect value because the client never sent them to the server. While it is possible to add synchronization of components, data, and events, it is not available by default. 
+
+To understand this behavior, assume using a `vaadin-grid` in a template. In the template itself, you can configure the `Grid`, add columns, and add data. However, if you use the `@Id` annotation to <<tutorial-template-components#,bind the Grid in the associated Java file>>, you will soon run into issues. This is because on the server (in the Java file), the `Grid` object is not aware of anything configured (such as the columns) in the template.
+
+You can add components and a DOM to a template structure, but you cannot remove anything present in the original template. However, overriding component properties do work. For example, you can add an empty `Grid` to a template, bind it using the `@Id` annotation, and add columns and data from Java code.
+
+Effectively, this means you should strive only to define things that do not change in the template and leave all that is dynamic parts to Java. In the case of `Grid` above, the columns and data go strongly hand-in-hand. We recommend defining a `vaadin-grid` with static attributes in the template and defining columns and data in Java.
