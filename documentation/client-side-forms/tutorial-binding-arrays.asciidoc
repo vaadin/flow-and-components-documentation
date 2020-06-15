@@ -13,7 +13,12 @@ Let us consider a form for the Java bean of this structure:
 .Group.java
 [source, java]
 ----
+/**
+ * Example bean with array field
+ */
 public class Group {
+    ...
+
     public Person[] getPeople() {
         ...
     }
