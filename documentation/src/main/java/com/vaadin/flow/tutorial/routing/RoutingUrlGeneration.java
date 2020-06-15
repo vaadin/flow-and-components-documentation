@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2017 Vaadin Ltd.
+ * Copyright 2000-2020 Vaadin Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -21,6 +21,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("routing/tutorial-routing-url-generation.asciidoc")
@@ -35,7 +36,7 @@ public class RoutingUrlGeneration {
 
     public class Menu extends Div {
         public Menu() {
-            String route = UI.getCurrent().getRouter()
+            String route = RouteConfiguration.forSessionScope()
                     .getUrl(PathComponent.class);
             Anchor link = new Anchor(route, "Path");
             add(link);
@@ -47,17 +48,15 @@ public class RoutingUrlGeneration {
             implements HasUrlParameter<String> {
 
         @Override
-        public void setParameter(BeforeEvent event,
-                String parameter) {
+        public void setParameter(BeforeEvent event, String parameter) {
             setText(String.format("Hello, %s!", parameter));
         }
     }
 
     public class ParameterMenu extends Div {
         public ParameterMenu() {
-            String route = UI.getCurrent().getRouter()
-                    .getUrl(GreetingComponent.class,
-                            "anonymous");
+            String route = RouteConfiguration.forSessionScope()
+                    .getUrl(GreetingComponent.class, "anonymous");
             Anchor link = new Anchor(route, "Greeting");
             add(link);
         }

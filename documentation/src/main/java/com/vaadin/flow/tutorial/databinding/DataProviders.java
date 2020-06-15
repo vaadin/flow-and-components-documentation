@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2017 Vaadin Ltd.
+ * Copyright 2000-2020 Vaadin Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -110,8 +110,7 @@ public class DataProviders {
     public void grid() {
         Grid<Person> grid = new Grid<>();
         grid.addColumn(Person::getName).setHeader("Name");
-        grid.addColumn(person -> Integer.toString(
-                    person.getYearOfBirth()))
+        grid.addColumn(Person::getYearOfBirth)
                 .setHeader("Year of birth");
 
         // Sets items using varargs
@@ -251,7 +250,7 @@ public class DataProviders {
         ConfigurableFilterDataProvider<Employee, String,
                 Department> configurableFilterDataProvider =
                 dataProvider.withConfigurableFilter(
-                        (String filterText, Department department) ->
+                        (filterText, department) ->
                                 new EmployeeFilter(filterText, department));
 
         return configurableFilterDataProvider;

@@ -1,25 +1,19 @@
 ---
-title: Advanced production mode topics
-order: 3
+title: Advanced Production Mode Topics
+order: 5
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Advanced production mode topics
+= Advanced Production Mode Topics
 
-== Production mode issues
+== Splitting the Webpack Bundle Into Multiple Chunks
 
-===  After adding the `flow-server-production-mode` dependency the application no longer starts.
-One likely cause of this problem is that the `build-frontend` of the `flow-maven-plugin` was not executed, either because the plugin
-is missing from the `pom.xml` or it is missing configuration. To fix this simply add the `flow-maven-plugin` to your maven `build` block
-(make sure it's visible in your production mode profile), and enable the `build-frontend` goal.
+This is an upcoming feature of a Vaadin Platform 14.x minor release, probably during 2020. You can follow & comment on https://github.com/vaadin/flow/issues/5537 if this is important for you.
 
-== Splitting the Webpack bundle into multiple chunks
 
-This is an upcoming feature for a Vaadin Platform 14.x minor release, probably during 2020. For information on customizing bundling when using compatibility mode, see the https://vaadin.com/docs/v13/flow/production/tutorial-production-mode-customising.html[Vaadin 13 documentation on this topic]. You can follow & comment on https://github.com/vaadin/flow/issues/5537 if this is important for you.
-
-== Plugin goals and goal parameters
+== Plugin Goals and Goal Parameters
 
 Here we describe the maven plugin goals and their usage.
 
@@ -91,6 +85,13 @@ and will be used as entry point of the application.
     Should normally be left to the default, but a value of `false` can be useful for faster production builds or debugging discrepancies between development and production mode.
     *This configuration is available only in Vaadin Platform 14.1 and newer.*
 
-* *pnpmEnable* (default: `true`):
-    Whether to use _pnpm_ or _npm_ tool to handle frontend resources. By default _pnpm_ is used.
+* *pnpmEnable* (default: `false`):
+    Whether to use the _pnpm_ or _npm_ tool to handle frontend resources. By default _npm_ is used.
     *This configuration is available only in Vaadin 14.2 and newer.*
+
+== Production Mode Troubleshooting
+
+===  After adding the `flow-server-production-mode` dependency, the application no longer starts.
+One likely cause of this problem is that the `build-frontend` of the `flow-maven-plugin` was not executed, either because the plugin is missing from the `pom.xml` or it is missing configuration. 
+To fix this, add the `flow-maven-plugin` to your maven `build` block (make sure it is visible in your production mode profile), and enable the `build-frontend` goal.
+

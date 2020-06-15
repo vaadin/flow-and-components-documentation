@@ -152,8 +152,6 @@ public class WebComponentVaadinServlet extends VaadinServlet {
 }
 ----
 * As mentioned above, the `/vaadin/*` mapping allows the `VaadinServlet` to handle web component requests. You can use any URI, but be sure to use the same URI in the mapping and in the import declaration.
-* If you are operating in compatibility mode, see <<tutorial-webcomponent-compatibility#,Embedding Applications in Compatibility and Production Mode>> for more information about implementing the `VaadinServlet`.
-+
 [NOTE]
 If you deploy your web component exporter(s) as a standalone WAR application, an explicit servlet registration is unnecessary. A servlet instance is registered automatically with the `"/*"` mapping.
 

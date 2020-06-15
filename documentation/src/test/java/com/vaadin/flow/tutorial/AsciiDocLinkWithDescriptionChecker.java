@@ -56,6 +56,10 @@ class AsciiDocLinkWithDescriptionChecker implements TutorialLineChecker {
 
     private Optional<String> validateAsciiDocLink(Path tutorialPath,
             String tutorialName, String asciiDocLink, int lineNumber) {
+        // Themes and styling documentation is located in separate folder adjacent to the main 'documentation' folder
+        if (asciiDocLink.startsWith("../../themes")) {
+            asciiDocLink = asciiDocLink.replace("../../themes", "../../documentation-themes");
+        }
         Path externalTutorialPath = Paths.get(
                 tutorialPath.getParent().toString(),
                 asciiDocLink + fileExtension);
