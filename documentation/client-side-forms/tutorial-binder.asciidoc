@@ -6,11 +6,21 @@ layout: page
 
 = Binding Data to Client-Side Forms
 
-Vaadin 17+ provides means for binding UI components in TypeScript form views. There is a client-side `Binder` class that is responsible for keeping the state of the form, the default and current values, and validation of the data.
+Vaadin 17+ provides means for binding UI components in TypeScript form views.
 
 The client-side `Binder` supports Java backend endpoints for loading and saving the form data, and reuses the metadata from Java Bean validation annotations for client-side validation.
 
-== How to Bind Form Data
+== The API basics
+
+The client-side form binding API consists of three key concepts:
+
+- The `field` directive for binding the field components in `LitElement` form view templates
+- The generated TypeScript models for POJO classes used in endpoints, that are used as field references and provide the necessary metadata
+- The client-side `Binder` TypeScript class that is responsible for keeping the state of the form, the default and current values, and validation of the data.
+
+NOTE: See the <<appendix-client-side-form-binding-reference.asciidoc#, Appendix: Client-Side Form Binding Reference>> for more details.
+
+== How to bind form data
 
 For example, let us consider a Java endpoint with methods for loading and saving a `Person` bean:
 
