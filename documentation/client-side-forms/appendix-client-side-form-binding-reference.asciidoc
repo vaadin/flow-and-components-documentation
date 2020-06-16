@@ -4,17 +4,16 @@ order: 100
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
 
 = Appendix: Client-Side Form Binding Reference
 
 The key concepts behind client-side form binding are: the `field` directive, the `Model`, the `Binder` and binder nodes.
 
-== The field directive
+== The Field Directive
 
 Client-side form binding in Vaadin works together with LitElement web component library, and its underlying template rendering library `lit-html`.
 
-`field` is a `lit-html` directive that does the main job of binding the form field components in the template, namely:
+The `field` directive does the main job of binding the form field components in the template, namely:
 
 - sets the `name` attribute
 - implements two-way binding for the value state
@@ -30,7 +29,7 @@ Client-side form binding in Vaadin works together with LitElement web component 
  ></vaadin-text-field>
 ----
 
-Depending on the type of the bound component, the field directive selects a strategy, which defines how exacly the states above are applied on the component, e. g., which attributes and properties of the element are used.
+Depending on the type of the bound component, the field directive selects a strategy, which defines how exactly the states above are applied on the component, for example, which attributes and properties of the element are used.
 
 [NOTE]
 You can find more information on field strategy customization in the <<appendix-web-component-field-strategy#, Appendix: Using a Web Component Field>> article.
@@ -55,11 +54,12 @@ ${
 ----
 
 [NOTE]
-See also: <<appendix-vaadin-components.asciidoc#, Appendix: Binding Data to Vaadin Components>>
+See also: <<appendix-vaadin-components#, Appendix: Binding Data to Vaadin Components>>
 
 == Model
 
-The model is a type-safe reference to a value stored in the binder. Models describe the structure of the data, and are used to read and modify current form values and other related properties and states.
+The model is a type-safe reference to a value stored in the binder. 
+Models describe the structure of the data, and are used to read and modify current form values and other related properties and states.
 
 Vaadin automatically generates Model classes for server-side endpoints from Java beans. Usually there is no need to define models manually.
 
@@ -90,7 +90,7 @@ console.log(emptyPerson); // {"fullName": ""}
 
 As with any JavaScript object, `AbstractModel` has `toString(): string` and `valueOf(): T` instance methods, that are handy for template expressions:
 
-[soruce, html]
+[source, html]
 ----
 <p>
   Full name:
@@ -149,7 +149,7 @@ public class IdEntity {
 ----
 
 .Person.java
-[source,java]
+[source, java]
 ----
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.NotEmpty;
@@ -171,7 +171,7 @@ public class Person extends IdString {
 The following TypeScript interfaces are generated for type-checking endpoints:
 
 .IdEntity.ts
-[souces, typescript]
+[source, typescript]
 ----
 export default interface IdEntity {
   idString: string;
