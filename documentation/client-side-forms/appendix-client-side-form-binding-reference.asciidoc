@@ -59,25 +59,28 @@ See also: <<appendix-vaadin-components.asciidoc#, Appendix: Binding Data to Vaad
 
 == Model
 
-When binding components in the template, the `field` directive requires a model instance argument.
-
-The model represents the metadata of the form. It describes the structure of the data, and provides means to get and set the current value and other related properties and states from the binder.
+The model is a type-safe reference to a value stored in the binder. Models describe the structure of the data, and are used to read and modify current form values and other related properties and states.
 
 Vaadin automatically generates Model classes for server-side endpoints from Java beans. Usually there is no need to define models manually.
 
-Models are instanciated by the `Binder`, which recieves the form model class as the `Binder` constructor argument. The nested model instances are created automatically for every field.
+Technically, every model instance represents either a key of a parent model, or the value of the Binder itself (e. g., the form data object).
 
-Technically, every model instance represents either a key of a parent model, or the value of the Binder itself. The model constructors receive the following arguments:
+[NOTE]
+====
+The `Binder` constructor receives the form model class, and takes care of creating model instances. More on that in the `Binder` section below.
+====
 
-- `parent: ModelParent<T>` — the parent object reference: either the parent model instance, or the `Binder` instance
-- `key: keyof any` — the key in the parent object to get the value from / set the value to, could be `string` when the parent is an object or `number` when the parent is an array
-- `...validators: ReadonlyArray<Validator<T>>` — the default validators, typically exported from Java JSR-380 annotations
+//The model constructors receive and store the following arguments:
+//
+//- `parent: ModelParent<T>` — the parent object reference: either the parent model instance, or the `Binder` instance
+//- `key: keyof any` — the key in the parent object to get the value from / set the value to, could be `string` when the parent is an object or `number` when the parent is an array
+//- `...validators: ReadonlyArray<Validator<T>>` — the default validators, typically exported from Java JSR-380 annotations
 
-=== AbstractModel
+=== Abstract model
 
-All models subclass from the `AbstractModel<T>` TypeScript class, where the `T` type argument refers to the value type.
+All the models subclass from the `AbstractModel<T>` TypeScript class, where the `T` type argument refers to the value type.
 
-AbstractModel, as well as any subclass, define a static method `static createEmptyValue(): T`, that returns the empty value of the subject model type:
+`AbstractModel<T>`, as well as any subclass, define a static method `static createEmptyValue(): T`, that returns the empty value of the subject model type:
 
 [source, typescript]
 ----
@@ -102,6 +105,11 @@ As with any JavaScript object, `AbstractModel` has `toString(): string` and `val
 </p>
 ----
 
+[NOTE]
+====
+The actual data referenced with every model instance, such as the current value, the validators, the required flag, and the validation state, is available on the corresponding `BinderNode` (see below).
+====
+
 === Primitive models
 
 There are the builtin models that represent the common primitive field types:
@@ -118,11 +126,11 @@ Primitive models subclass `PrimitiveModel<T>`. Primitive models are leaf, i. e.,
 
 === Object models
 
-`ObjectModel<T>` is a common superclass for all generated bean models.
+Typically, the primitive editable values of the form are grouped in objects. `ObjectModel<T>` accommodates that. `ObjectModel<T>` is also a common superclass for all the models generated from Java beans.
 
-There is no API added in the `ObjectModel<T>` over `AbstractModel<T>` itself.
+The subclasses of `ObjectModel<T>` define the type argument constrains and the default type. In addition, the subclasses list all the public properties, following the shape of the described object.
 
-The generated subclasses of `ObjectModel<T>` define the type argument constrains and the default type, as well as list the bean fields as in Java , e. g. for the following Java bean:
+For example, for the following Java bean:
 
 .IdEntity.java
 [source, java]
@@ -206,6 +214,135 @@ export default class PersonModel<T extends Person = Person> extends IdEntityMode
 }
 ----
 
-All the model instance properties represent the user-defined fields. To avoid naming collisions, the models do not have any public builtin instance properties or methods, aside form the `toString` and `valueOf` exceptions mentioned above.
+[IMPORTANT]
+====
+To avoid naming collisions with user-defined object model fields, the builtin models and model superclasses do not have any public instance properties or methods, aside form the `toString` and `valueOf` exceptions mentioned above.
+====
 
-The data associated with the model instance, (such as the current value, the validators, the required flag, and the validation state) is available on the `BinderNode` (see below).
+[NOTE]
+====
+The properties of object models are intentionally read-only.
+====
+
+=== Array model
+
+The `ArrayModel<T>` is used to represent array properties.
+
+The type argument `T` in array models indicates the type of values in the array.
+
+An array model instance contains the item model class reference. The item model is instantiated for every array entry, as necessary.
+
+Array models are iterable, iterating yields binder nodes for entries:
+
+[source, html]
+----
+${repeat(this.binder.model.people, personBinder => html`
+  <div>
+    <vaadin-text-field
+     label="Full name"
+     ...="${field(personBinder.model.fullName)}"
+     ></vaadin-text-field>
+    <strong>Full name:</strong>
+    ${personBinder.value.fullName}
+  </div>
+`)}
+----
+
+The array entries are not available for indexing with bracket notation (`[]`).
+
+== Binder
+
+The `Binder` class acts as a controller. It hosts the form top-level model instance, the default and the current value, performs validation on value changes, as well as updates the form view component to display any changes of the values and the validation state.
+
+The form model is instantiated by the `Binder`.
+
+The `Binder` constructor arguments are:
+
+`context: Element`::
+The form view component instance to update.
+`Model: ModelConstructor<T, M>`::
+The constructor (the class reference) of the form model. The `Binder` instantiates the top-level model and
+`config?: BinderConfiguration<T>`::
+The options object.
+  `onChange?: (oldValue?: T) => void`:::
+  The callback that updates the form view, by default uses `context.requestUpdate()` is used.
+  `onSubmit?: (value: T) => Promise<T | void>`:::
+  The endpoint for submitting the form data into.
+
+The `Binder` has the following instance properties:
+
+`model: M`::
+The form model, the top-level model instance created by the `Binder`.
+`value: T`::
+The current value of the form, two-way bound to the field components.
+`defaultValue: T`::
+The initial value of the form, before any fields are edited by the user.
+`readonly validating: boolean`::
+True when there is an ongoing validation.
+`readonly submitting: boolean`::
+True if the form was submitted, but the submit promise is not resolved yet.
+
+The `Binder` instance methods are:
+
+`reset(defaultValue?: T): void`::
+Reset the form to the default value. If the argument is given, sets the default value property to the argument value first.
+`clear(): void`::
+Sets the form to empty value, as defined in the Model.
+`getFieldStrategy(element: any): FieldStrategy`::
+Determines and returns the `field` directive strategy for the bound element. Override to customise the binding strategy for a component.
+
+The `Binder` extends `BinderNode`, see the inherited properties and methods below.
+
+== Binder nodes
+
+The `BinderNode<T, M>` class provides the from binding related APIs with respect to a particular model instance.
+
+Structurally, model instances form a tree, in which the object and array models have child nodes of field and array item model instances.
+
+There is a one-to-one mapping from every model instance to the corresponding `BinderNode` instance. The `Binder` itself is a `BinderNode` for the top-level form model.
+
+Use the `binderNode.for(model)` method to obtain the binder node related with the model.
+
+The binder nodes have the following properties:
+
+`model: M`::
+The model instance mapped to this binder node.
+`value: T`::
+The current value related to the model, two-way bound to the field components.
+`readonly defaultValue: T`::
+The default value related to the model. Note: this is read-only here, use the top-level `binder.defaultValue` to change.
+`parent: BinderNode<any, AbstractModel<any>> | undefined`::
+The parent node, if this binder node corresponds to a nested model, otherwise `undefined` for the top-level binder.
+`binder: Binder<any, AbstractModel<any>>`::
+The binder for the top-level model.
+`readonly name: string`::
+The name generated from the model structure, used to set the `name` attribute on the field components.
+`readonly required: boolean`::
+True if the value is required to be non-empty. Based on presence of validators, that have `impliesRequired: true` flag.
+`dirty: boolean`::
+True if the current `value` is different from the `defaultValue`.
+`visited: boolean`::
+True if the bound field was ever focused and blurred by the user. The value is set by the `field` directive.
+`validators: ReadonlyArray<Validator<T>>`::
+The array of validators for the model. The default value is defined in the model.
+`readonly ownErrors: ReadonlyArray<ValueError<T>>`::
+The array of validation errors directly related with the model.
+`readonly errors: ReadonlyArray<ValueError<any>>`::
+The combined array of all errors for this node’s model and all its nested models.
+`readonly invalid: boolean`::
+True when the `errors` array is not empty.
+
+The binder node has the following instance methods:
+
+`for<NM extends AbstractModel<any>>(model: NM): BinderNode<ModelType<NM>, NM>`::
+Returns a binder node for the nested model instance.
+`async validate(): Promise<ReadonlyArray<ValueError<any>>>`::
+Runs all validation callbacks potentially affecting this or any nested model. Returns the combined array of all errors as in the `errors` property.
+`addValidator(validator: Validator<T>): void`::
+A helper method to add a validator to the `validators`.
+`appendItem(itemValue?): void`::
+A helper method for array models. If the node’s model is an `ArrayModel`, appends an item to the array, otherwise throws. If the argument is given, the argument value is used for the new item, otherwise an new empty item is created.
+`prependItem(itemValue?): void`::
+A helper method for array modes, similar with `appendItem`, but prepends an item to the array.
+`removeItem(): void`::
+A helper method for array item models. If the node’s model **parent model** is an `ArrayModel`, removes the item the array, otherwise throws.
