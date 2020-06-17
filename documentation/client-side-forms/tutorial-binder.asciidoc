@@ -10,7 +10,7 @@ Vaadin provides means for binding UI components in TypeScript form views.
 
 The client-side [classname]#Binder# supports Java backend endpoints for loading and saving the form data, and reuses the metadata from Java Bean validation annotations for client-side validation.
 
-== The API Basics
+== API Basics
 
 The client-side form binding API consists of three key concepts:
 
