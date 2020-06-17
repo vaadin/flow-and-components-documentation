@@ -60,7 +60,7 @@ See also: <<appendix-vaadin-components#, Appendix: Binding Data to Vaadin Compon
 
 == The Form Model
 
-A form model descrobes the structure of the form. It allows referencing individual fields in a type-safe way (an alternative to strigs like `'person.firstName'`).
+A form model describes the structure of the form. It allows referencing individual fields in a type-safe way (an alternative to strings like `'person.firstName'`).
 
 Typically a model is used as an argument for the [methodname]#field()# directive or the [methodname]#binder.for()# method to specify the target form property to create a binding or to access the state. In contrast with string names like `'person.firstName'`, typed form models allow auto-completion and static type checking, which makes creating forms faster and safer.
 
