@@ -113,9 +113,8 @@ When set to `true`, creates an optimized bundle by including only frontend resou
 Uses bytecode scanning which increases application startup time. *This feature is available only in Vaadin Platform 14.1 and newer.*
 
 |devmode.transpile |
-This flag can be used to enable ES5 transpilation in development mode for older browsers like Internet Explorer 11.
-**Since Vaadin 14.2**, this flag is disabled by default.
-*This feature is available only in Vaadin Platform 14.1 and newer.*
+When set to `true`, enables ES5 transpilation in development mode for older browsers like Internet Explorer 11.
+*This feature is available only in version 14.2 or newer of the Vaadin Platform 14 series. By default, this flag is disabled.*
 
 |pnpm.enable |
 **Available since Vaadin 14.2 and 15**, this flag can be used to enable pnpm 
