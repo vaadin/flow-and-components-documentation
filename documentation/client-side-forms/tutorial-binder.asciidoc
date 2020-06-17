@@ -8,21 +8,21 @@ layout: page
 
 Vaadin provides means for binding UI components in TypeScript form views.
 
-The client-side `Binder` supports Java backend endpoints for loading and saving the form data, and reuses the metadata from Java Bean validation annotations for client-side validation.
+The client-side [classname]#Binder# supports Java backend endpoints for loading and saving the form data, and reuses the metadata from Java Bean validation annotations for client-side validation.
 
 == The API basics
 
 The client-side form binding API consists of three key concepts:
 
-- The `field` directive for binding the field components in `LitElement` form view templates
+- The [methodname]#field()# directive for binding the field components in [classname]#LitElement# form view templates
 - The generated TypeScript models for POJO classes used in endpoints, that are used as field references and provide the necessary metadata
-- The client-side `Binder` TypeScript class that is responsible for keeping track of the form state, the default and current values, and validation of the data.
+- The client-side [classname]#Binder# TypeScript class that is responsible for keeping track of the form state, the default and current values, and validation of the data.
 
 NOTE: See the <<appendix-client-side-form-binding-reference#, Appendix: Client-Side Form Binding Reference>> for more details.
 
 == How to bind form data
 
-For example, let us consider a Java endpoint with methods for loading and saving a `Person` bean:
+For example, let us consider a Java endpoint with methods for loading and saving a [classname]#Person# bean:
 
 [source, java]
 ----
@@ -51,7 +51,7 @@ public class PersonEndpoint {
 
 To bind data to a form, follow these steps in your `frontend/views/person/person-view.ts` client-side LitElement view:
 
-. Import the `Binder` class, the `field` template directive from the `@vaadin/form` package. Import your `personEndpoint` data endpoint and the generated `PersonModel` from the `frontend/generated` folder:
+. Import the [classname]#Binder# class, the [methodname]#field()# template directive from the `@vaadin/form` package. Import your [classname]#personEndpoint# data endpoint and the generated [classname]#PersonModel# from the `frontend/generated` folder:
 +
 [source, typescript]
 ----
@@ -61,7 +61,7 @@ import * as personEndpoint from '../../generated/PersonEndpoint';
 import PersonModel from '../../generated/com/example/application/PersonModel';
 ----
 
-. Create a `Binder` instance for your view using generated `PersonModel`:
+. Create a [classname]#Binder# instance for your view using generated [classname]#PersonModel#:
 +
 [source, typescript]
 ----
@@ -75,7 +75,7 @@ class PersonForm extends LitElement {
 }
 ----
 +
-The `PersonModel` here is generated alongside with a `Person` TypeScript data interface from the `Person.java` bean. It describes the structure of the data and the validation-related metadata for the client-side form binding.
+The [classname]#PersonModel# here is generated alongside with a [classname]#Person# TypeScript data interface from the `Person.java` bean. It describes the structure of the data and the validation-related metadata for the client-side form binding.
 
 . Bind the UI components in the template using the `...="${field()}"` syntax:
 +
@@ -95,7 +95,7 @@ class PersonForm extends LitElement {
 }
 ----
 +
-In this example, `this.binder.model` is an instance of `PersonModel`.
+In this example, `this.binder.model` is an instance of [classname]#PersonModel#.
 +
 [NOTE]
 Models do not contain any actual data. Use `this.binder.value` or `this.binder.defaultValue` to access the actual current or default value of the form respectively.
