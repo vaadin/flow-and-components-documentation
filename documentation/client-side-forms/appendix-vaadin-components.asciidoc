@@ -6,9 +6,9 @@ layout: page
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Appendix: Binding Data to Vaadin Components
+= Binding Data to Vaadin Components
 
-Client <<tutorial-binder#,Form binder>> supports out-of-the-box the set of form elements present in Vaadin Components. 
+Client <<tutorial-binder#,Form binder>> supports out-of-the-box the set of form elements present in Vaadin Components.
 It means that data binding, type mapping, required flag, and validation messages will work without any extra work.
 
 
@@ -62,7 +62,7 @@ public class MyEndpoint {
 
 == Configuring client fields
 
-Before using form binders, you need to import your entity models and instantiate the binder, 
+Before using form binders, you need to import your entity models and instantiate the binder,
 as well as perform the endpoint call for getting the entity value, as it is explained
 in tutorials <<tutorial-binder#,Binding Data to Client-Side Forms>> and <<tutorial-binder-load#,Loading from and Saving to Business Objects>> respectively.
 
@@ -149,7 +149,7 @@ render() {
   ...
     ${until(endpoint.getMyOptions().then(opts => repeat(opts, (item) => html`
       <div>${item}</div>
-    `)))}    
+    `)))}
   ...
   `;
 }
