@@ -5,7 +5,7 @@ layout: page
 ---
 
 
-= Appendix: Client-Side Form Binding Reference
+= Client-Side Form Binding Reference
 
 The key concepts behind client-side form binding are: the `field` directive, the `Model`, the `Binder` and binder nodes.
 
@@ -17,8 +17,8 @@ The `field` directive does the main job of binding the form field components in 
 
 - sets the `name` attribute
 - implements two-way binding for the value state
-- sets the `required` boolean state
-- sets the boolean `invalid` state and the `errorMessage` string state when the current value is invalid
+- sets the `required` (boolean) state
+- sets the `invalid` (boolean) state and the `errorMessage` (string) when the current value is invalid
 
 .Using the field directive
 [source, html]
@@ -53,66 +53,29 @@ ${
 }
 ----
 
-[NOTE]
+[NOTE]:
+====
 See also: <<appendix-vaadin-components#, Appendix: Binding Data to Vaadin Components>>
+====
 
-== Model
+== The Form Model
 
-The model is a type-safe reference to a value stored in the binder. 
-Models describe the structure of the data, and are used to read and modify current form values and other related properties and states.
+A form model descrobes the structure of the form. It allows referencing individual fields in a type-safe way (an alternative to strigs like `'person.firstName'`).
+
+Typically a model is used as an argument for the `field` directive or the `binder.for()` method to specify the target form property to create a binding or to access the state. In contrast with string names like `'person.firstName'`, typed form models allow auto-completion and static type checking, which makes creating forms faster and safer.
 
 Vaadin automatically generates Model classes for server-side endpoints from Java beans. Usually there is no need to define models manually.
 
-Technically, every model instance represents either a key of a parent model, or the value of the Binder itself (e. g., the form data object).
+Technically, every model instance represents either a key of a parent model, or the value of the Binder itself (for example, the form data object).
 
 [NOTE]
 ====
-The `Binder` constructor receives the form model class, and takes care of creating model instances. More on that in the `Binder` section below.
+The model classes are not intended to be instantiated manually. Instead, the `Binder` constructor receives the form model class and takes care of creating model instances.
 ====
 
-//The model constructors receive and store the following arguments:
-//
-//- `parent: ModelParent<T>` — the parent object reference: either the parent model instance, or the `Binder` instance
-//- `key: keyof any` — the key in the parent object to get the value from / set the value to, could be `string` when the parent is an object or `number` when the parent is an array
-//- `...validators: ReadonlyArray<Validator<T>>` — the default validators, typically exported from Java JSR-380 annotations
+=== Primitive Models
 
-=== Abstract model
-
-All the models subclass from the `AbstractModel<T>` TypeScript class, where the `T` type argument refers to the value type.
-
-`AbstractModel<T>`, as well as any subclass, define a static method `static createEmptyValue(): T`, that returns the empty value of the subject model type:
-
-[source, typescript]
-----
-const emptyPerson: Person = PersonModel.createEmptyValue();
-console.log(emptyPerson); // {"fullName": ""}
-----
-
-As with any JavaScript object, `AbstractModel` has `toString(): string` and `valueOf(): T` instance methods, that are handy for template expressions:
-
-[source, html]
-----
-<p>
-  Full name:
-  ${model.firstName.toString()}
-  ${model.middleName.toString()}
-  ${model.lastName.toString()}
-</p>
-
-<p>
-  Cost:
-   ${model.quantity.valueOf() * model.price.valueOf()}
-</p>
-----
-
-[NOTE]
-====
-The actual data referenced with every model instance, such as the current value, the validators, the required flag, and the validation state, is available on the corresponding `BinderNode` (see below).
-====
-
-=== Primitive models
-
-There are the builtin models that represent the common primitive field types:
+These are the built-in models that represent the common primitive field types:
 
 |===
 | Type | Value type `T` | Empty value (`Model.createEmptyValue()` result)
@@ -122,9 +85,9 @@ There are the builtin models that represent the common primitive field types:
 | `BooleanModel`  | `boolean` | `false`
 |===
 
-Primitive models subclass `PrimitiveModel<T>`. Primitive models are leaf, i. e., do not have nested field keys.
+Primitive models extend `PrimitiveModel<T>`. Primitive models are leaf nodes of the data structure, that is, they do not have nested field keys.
 
-=== Object models
+=== Object Models
 
 Typically, the primitive editable values of the form are grouped in objects. `ObjectModel<T>` accommodates that. `ObjectModel<T>` is also a common superclass for all the models generated from Java beans.
 
@@ -151,10 +114,9 @@ public class IdEntity {
 .Person.java
 [source, java]
 ----
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.NotEmpty;
 
-public class Person extends IdString {
+public class Person extends IdEntity {
     @NotEmpty(message = "Cannot be empty")
     private String fullName;
 
@@ -216,15 +178,12 @@ export default class PersonModel<T extends Person = Person> extends IdEntityMode
 
 [IMPORTANT]
 ====
-To avoid naming collisions with user-defined object model fields, the builtin models and model superclasses do not have any public instance properties or methods, aside form the `toString` and `valueOf` exceptions mentioned above.
+To avoid naming collisions with user-defined object model fields, the built-in models and model superclasses do not have any public instance properties or methods, aside form the `.toString()` and `.valueOf()` exceptions inherited from `AbstractModel<T>` (see below).
 ====
 
-[NOTE]
-====
 The properties of object models are intentionally read-only.
-====
 
-=== Array model
+=== The Array Model
 
 The `ArrayModel<T>` is used to represent array properties.
 
@@ -250,11 +209,49 @@ ${repeat(this.binder.model.people, personBinder => html`
 
 The array entries are not available for indexing with bracket notation (`[]`).
 
-== Binder
+=== The Abstract Model Superclass
 
-The `Binder` class acts as a controller. It hosts the form top-level model instance, the default and the current value, performs validation on value changes, as well as updates the form view component to display any changes of the values and the validation state.
+All models subclass from the `AbstractModel<T>` TypeScript class, where the `T` type argument refers to the value type.
 
-The form model is instantiated by the `Binder`.
+==== The Empty Value Definition
+
+Model classes define an empty value, which is used to initialise `binder.defaultValue` and `binder.value` properties, and also for `binder.clear()`.
+
+For that purpose, `AbstractModel<T>`, as well as every subclass, has a method `static createEmptyValue(): T`, that returns the empty value of the subject model type.
+
+[source, typescript]
+----
+const emptyPerson: Person = PersonModel.createEmptyValue();
+console.log(emptyPerson); // {"fullName": ""}
+----
+
+==== Models in Expressions
+
+As with any JavaScript object, `AbstractModel` has `toString(): string` and `valueOf(): T` instance methods, that are handy for template expressions.
+
+For `StringModel` in string expressions, the following are equivalent:
+
+[source, typescript]
+----
+html`
+  ${model.fullName.toString()}
+  ${model.fullName.valueOf()}
+  ${model.fullName}
+`;
+----
+
+You can use `NumberModel` in formulas using `.valueOf()`:
+
+[source, typescript]
+----
+html`
+  Cost: ${model.quantity.valueOf() * model.price.valueOf()}
+`;
+----
+
+== The Binder
+
+A form binder controls all aspects of a single form. Typically it is used to get and set the form value, access the form model, validate, reset, and submit the form.
 
 The `Binder` constructor arguments are:
 
@@ -265,7 +262,7 @@ The constructor (the class reference) of the form model. The `Binder` instantiat
 `config?: BinderConfiguration<T>`::
 The options object.
   `onChange?: (oldValue?: T) => void`:::
-  The callback that updates the form view, by default uses `context.requestUpdate()` is used.
+  The callback that updates the form view, by default uses `context.requestUpdate()`.
   `onSubmit?: (value: T) => Promise<T | void>`:::
   The endpoint for submitting the form data into.
 
@@ -290,12 +287,11 @@ Reset the form to the default value. If the argument is given, sets the default 
 Sets the form to empty value, as defined in the Model.
 `getFieldStrategy(element: any): FieldStrategy`::
 Determines and returns the `field` directive strategy for the bound element. Override to customise the binding strategy for a component.
-
 The `Binder` extends `BinderNode`, see the inherited properties and methods below.
 
-== Binder nodes
+== Binder Nodes
 
-The `BinderNode<T, M>` class provides the from binding related APIs with respect to a particular model instance.
+The `BinderNode<T, M>` class provides the form binding related APIs with respect to a particular model instance.
 
 Structurally, model instances form a tree, in which the object and array models have child nodes of field and array item model instances.
 

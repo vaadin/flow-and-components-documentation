@@ -1,12 +1,12 @@
 ---
-title: "Using a Web Component Field"
+title: "Appendix: Using a Web Component Field"
 order: 100
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Appendix: Using a Web Component Field
+= Using a Web Component Field
 
 While Vaadin Components are supported out-of-the-box, the client-side <<tutorial-binder#,Form binder>> can be configured to support any web component. This article explains how to configure the binder for using a custom text-field web component.
 
