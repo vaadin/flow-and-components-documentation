@@ -16,6 +16,8 @@ The https://vaadin.com/directory/component/vaadin-cdi/[Vaadin CDI] add-on refere
 * `ErrorHandler`.
 
 To ensure that the beans are recognized, they should be qualified by the `@VaadinServiceEnabled` annotation.
+This is required because this marks the bean which is used as I18N provider by the service. 
+If there are any other I18N beans, always the one, which is also used by the service is used.
 
 *Example*: Using the `@VaadinServiceEnabled` annotation to qualify `TestSystemMessagesProvider`.
 
