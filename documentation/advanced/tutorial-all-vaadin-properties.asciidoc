@@ -40,8 +40,6 @@ For these cases, the check can be disabled by setting the init parameter.
 |heartbeatInterval |
 Vaadin UIs that are open on the client side send a regular heartbeat to the server to indicate they are still alive, even though there is no ongoing user interaction.
 When the server does not receive a valid heartbeat for a given UI, it will eventually remove that UI from the session.
-Vaadin UIs that are open on the client side send a regular heartbeat to the server to indicate they are still alive, even though there is no ongoing user interaction.
-When the server does not receive a valid heartbeat for a given UI, it will eventually remove that UI from the session.
 
 |closeIdleSessions |
 When it is set to true (the default is false), the session will be closed if no UI is active.
@@ -113,6 +111,10 @@ See <<../v14-migration/v14-migration-guide#compatibility-mode, Compatibility mod
 By default, in development mode all frontend resources found on the class path are included in the generated Webpack bundle.
 When set to `true`, creates an optimized bundle by including only frontend resources that are used from the application entry points (this is the default in production mode).
 Uses bytecode scanning which increases application startup time. *This feature is available only in Vaadin Platform 14.1 and newer.*
+
+|devmode.transpile |
+When set to `true`, enables ES5 transpilation in development mode for older browsers like Internet Explorer 11.
+*This feature is available only in version 14.2 or newer of the Vaadin Platform 14 series. By default, this flag is disabled.*
 
 |pnpm.enable |
 **Available since Vaadin 14.2 and 15**, this flag can be used to enable pnpm 
