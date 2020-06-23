@@ -18,7 +18,7 @@ should go to `pnpm-lock.yaml`.
 
 To switch between npm and pnpm you can use the `vaadin.pnpm.enable` system property - setting it to `true` switches to pnpm.
 
-For a Spring Boot based project, you can put `vaadin.pnpm.enable = false` into the `application.properties` file.
+For a Spring Boot based project, you can put `vaadin.pnpm.enable = true` into the `application.properties` file.
 
 For a plain Java or a JavaEE based project, you can use Servlet 3.0 @WebServlet annotation:
 [source,java]
@@ -60,7 +60,7 @@ or use the traditional `web.xml` file
 
 To read more about how to set properties, see the <<tutorial-flow-runtime-configuration#, Application runtime configuration documentation>>.
 
-Alternatively, the property can be also set to the `vaadin-maven-plugin`, using `pnpmEnable`. Note that you need to add it for both `prepare-frontend` and `build-frontend` goals.
+Alternatively, the property can be also set to the `vaadin-maven-plugin`, using `pnpmEnable`. Note that you need to add it for each plugin definition.
 
 [source,xml]
 ----
@@ -97,7 +97,6 @@ Alternatively, the property can be also set to the `vaadin-maven-plugin`, using 
                             <goals>
                                 <goal>build-frontend</goal>
                             </goals>
-                            <phase>compile</phase>
                         </execution>
                     </executions>
                     <configuration>
