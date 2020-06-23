@@ -3,7 +3,7 @@
   "license": "UNLICENSED",
   "vaadin": {
     "dependencies": {
-      "@vaadin/router": "^1.6.0",
+      "@vaadin/router": "1.7.2",
       "@polymer/polymer": "3.2.0",
       "@webcomponents/webcomponentsjs": "^2.2.10",
       "@vaadin/vaadin-grid": "5.6.0-alpha3",
@@ -56,10 +56,10 @@
       "terser": "4.6.7",
       "lit-element": "2.3.1"
     },
-    "hash": "2fde3716f877bc204ee671d44fe4e72a18b46c8602bacdc3851f5383259513c2"
+    "hash": "e8ef2dd6505a18553220cd5e11cc5df07ca0fe7ea44df7470c4c4174c8d7aa46"
   },
   "dependencies": {
-    "@vaadin/router": "^1.6.0",
+    "@vaadin/router": "1.7.2",
     "@polymer/polymer": "3.2.0",
     "@vaadin/flow-frontend": "./target/flow-frontend",
     "@vaadin/vaadin-grid": "5.6.0-alpha3",
