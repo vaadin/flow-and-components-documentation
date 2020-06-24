@@ -22,7 +22,7 @@ Separately defining the layout of a view from defining the logic of said view gi
 
 Vaadin has support for two declarative template languages, Polymer and LitElement. The LitElement library is the successor of the Polymer library. Vaadin will support both for the foreseeable future. We recommend choosing LitElement as the template language when deciding to build new templates for your Vaadin applications. It is a future proof, lightweight, and more focused template language.
 
-Vaadin can refer to and access components in Java defined by a template. Components in the template are given unique ids, and any component with an id can be accessed with Java API to configure logic further. 
+Vaadin can refer to and access components in Java defined by a template. Components in the template are given unique ids, and any component with an id can be accessed with Java API to configure logic further. Java-only components like compositions built with Java can be added to a HTML template by giving a layout an id in the template and adding the Java component in Java code.
 
 
 For example `<vaadin-button id="my-button">Press me</vaadin-button>` can be accessed with `@Id("my-button") Button button;` in Java.
