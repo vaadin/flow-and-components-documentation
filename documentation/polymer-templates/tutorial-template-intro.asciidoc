@@ -20,7 +20,7 @@ These ways to build views can be mixed and matched within an application. All Va
 
 Separately defining the layout of a view from defining the logic of said view gives a clear and maintainable code. It makes it easier to find how the view is defined and where it is updated. HTML templates are a robust way of defining the UI structure, while Java is a great way to define the logic of the view. 
 
-Vaadin has support for two declarative template languages, Polymer and LitElement. The LitElement library is the successor of the Polymer library. Vaadin will support both for the foreseeable future. We recommend choosing LitElement as the templating language when deciding to build new templates for your Vaadin applications. It is a future proof, lightweight, and more focused template language.
+Vaadin has support for two declarative template languages, Polymer and LitElement. The LitElement library is the successor of the Polymer library. Vaadin will support both for the foreseeable future. We recommend choosing LitElement as the template language when deciding to build new templates for your Vaadin applications. It is a future proof, lightweight, and more focused template language.
 
 Vaadin can refer to and access components in Java defined by a template. Components in the template are given unique ids, and any component with an id can be accessed with Java API to configure logic further. 
 
