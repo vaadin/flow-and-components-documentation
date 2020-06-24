@@ -99,19 +99,19 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<web-components/creating-an-in-project-web-component#,Creating an In-project Web Component>>
 * <<web-components/introduction-to-webcomponents#,Introduction to Web Components>>
 
-== Building views with templates
+== Building Views with Templates
 * <<polymer-templates/tutorial-template-intro#,Using Templates from Server-side Java Code>>
 * <<polymer-templates/tutorial-template-basic#,Creating A Simple Component Using the Template API>>
 * <<polymer-templates/tutorial-template-components#,Binding Template Components>>
 * <<polymer-templates/tutorial-template-and-binder#,Combining Templates and Binders>>
 * <<polymer-templates/tutorial-template-subtemplate#,Using sub-templates>>
 * <<polymer-templates/styling-polymer-templates.asciidoc#,Styling Templates>>
-* <<polymer-templates/tutorial-template-bindings#,PolymerTemplate, Binding Model Data>>
+* <<polymer-templates/tutorial-template-components-in-slot#,Dynamically Adding Server-side Components to Templates>>
 * <<polymer-templates/tutorial-template-event-handlers#,PolymerTemplate, Handling User Events>>
+* <<polymer-templates/tutorial-template-bindings#,PolymerTemplate, Binding Model Data>>
 * <<polymer-templates/tutorial-template-model-bean#,PolymerTemplate, Using Model Beans>>
 * <<polymer-templates/tutorial-template-model-encoders#,PolymerTemplate, Using Model Encoders>>
 * <<polymer-templates/tutorial-template-list-bindings#,PolymerTemplate, Creating Contents Dynamically Based on Items List>>
-* <<polymer-templates/tutorial-template-components-in-slot#,PolymerTemplate, Using the Element>>
 * <<polymer-templates/tutorial-component-integration.asciidoc#,PolymerTemplate, Detecting Components Mappings>>
 
 == Creating UI in TypeScript
