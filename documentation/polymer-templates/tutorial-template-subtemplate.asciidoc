@@ -1,6 +1,6 @@
 ---
-title: Using sub-template from PolymerTemplate / Using Child Templates in a PolymerTemplate
-order: 10
+title: Using sub-templates
+order: 5
 layout: page
 ---
 

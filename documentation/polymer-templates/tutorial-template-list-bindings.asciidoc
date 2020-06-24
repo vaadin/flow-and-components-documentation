@@ -1,6 +1,6 @@
 ---
-title: Creating Template Contents Dynamically Based on a List of Items
-order: 8
+title: PolymerTemplate, Creating Contents Dynamically Based on Items List
+order: 11
 layout: page
 ---
 

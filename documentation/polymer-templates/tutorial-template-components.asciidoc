@@ -1,5 +1,5 @@
 ---
-title: Binding Components from a PolymerTemplate
+title: Binding Template Components
 order: 3
 layout: page
 ---

@@ -1,6 +1,6 @@
 ---
-title: Using the <slot> Element in a Polymer Template
-order: 11
+title: PolymerTemplate, Using the Element
+order: 12
 layout: page
 ---
 

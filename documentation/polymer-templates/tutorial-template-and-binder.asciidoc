@@ -1,6 +1,6 @@
 ---
-title: Combining PolymerTemplates and Binders
-order: 9
+title: Combining Templates and Binders
+order: 4
 layout: page
 ---
 

@@ -1,6 +1,6 @@
 ---
-title: Detecting PolymerTemplate Mappings in Components
-order: 12
+title: PolymerTemplate, Detecting Components Mappings
+order: 13
 layout: page
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Creating a Simple Component Using the PolymerTemplate API
+title: Creating a Simple Component Using the Template API
 order: 2
 layout: page
 ---

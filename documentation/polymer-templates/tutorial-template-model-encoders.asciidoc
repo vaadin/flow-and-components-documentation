@@ -1,6 +1,6 @@
 ---
-title: Using Model Encoders with a PolymerTemplate Model
-order: 7
+title: PolymerTemplate, Using Model Encoders
+order: 10
 layout: page
 ---
 
