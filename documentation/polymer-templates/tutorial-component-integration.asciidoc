@@ -4,7 +4,7 @@ order: 13
 layout: page
 ---
 
-== Detecting PolymerTemplate Mappings in Components
+==  PolymerTemplate, Detecting Components Mappings
 
 You can detect whether a component is part of a Polymer template using the `isTemplateMapped` method. 
 

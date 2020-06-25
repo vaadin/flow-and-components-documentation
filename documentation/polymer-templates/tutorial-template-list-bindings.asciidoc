@@ -5,7 +5,7 @@ layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
-= Creating Template Content Dynamically Based on a List of Items
+= PolymerTemplate, Creating Contents Dynamically Based on Items List
 
 Polymer allows you to generate elements based on a list of items using a template repeater (`<dom-repeat>` element).
 
