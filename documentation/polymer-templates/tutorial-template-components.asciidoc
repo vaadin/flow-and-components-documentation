@@ -10,7 +10,7 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 
 The `@Id` annotation allows you to interact with client-side templates on the server side. You can use the `@Id` annotation to get a `Component` or `Element` reference for an element defined in a JavaScript template.
 
-In this section, we demonstrate how to use the `@Id` annotation to reference a JavaScript LitElement template. Same logic applies to PolymerTemplate.
+In this section, we demonstrate how to use the `@Id` annotation to reference a JavaScript LitElement template. Same logic applies to Polymer template.
 
 *Example*: `MainPage` JavaScript LitElement template file.
 

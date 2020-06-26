@@ -31,8 +31,6 @@ import './form-buttons-bar.js'
 class UserForm extends LitElement {
     render() {
         return html`
-            <style>
-            </style>
             <vaadin-form-layout id="form">
                 <vaadin-text-field id="email" label="Email (login)" colspan="2"></vaadin-text-field>
                 <vaadin-text-field id="first-name" label="First Name"></vaadin-text-field>
@@ -253,8 +251,6 @@ import './user-form.js';
 class MainView extends LitElement {
     render() {
         return html`
-            <style>
-            </style>
             <div id="main-container">
                 <vaadin-grid id="users-grid"></vaadin-grid>
                 <user-form id="user-form"></user-form>

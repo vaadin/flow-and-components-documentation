@@ -28,15 +28,16 @@ The first step is to create the LitElement JavaScript template file on the clien
 [source,js]
 ----
 import {LitElement, html} from 'lit-element';
-import '@polymer/paper-input/paper-input.js';
+import '@vaadin/vaadin-text-field/vaadin-text-field.js';
+import '@vaadin/vaadin-button/vaadin-button.js';
 
 class HelloWorld extends LitElement {
 
     render() {
         return html`
             <div>
-                <paper-input id="inputId"></paper-input>
-                <button id="helloButton">Click me!</button>
+                <vaadin-text-field id="inputId"></vaadin-text-field>
+                <vaadin-button id="helloButton">Click me!</vaadin-button>
             </div>`;
     }
 }
@@ -47,7 +48,7 @@ customElements.define('hello-world', HelloWorld);
 * The tag name should contain at least one dash (`-`). For example, `hello-world` is a valid tag name, but `helloworld` is not.
 * The imported dependencies are:
 ** `LitElement` (from the LitElement library): This is the required superclass of all LitElement templates.
-** https://github.com/PolymerElements/paper-input[`paper-input`] Polymer component: You can use any component you like, for example the Vaadin `TextField`.
+** `vaadin-text-field` and `vaadin-button` components.
 ** `html` for inline DOM templating.
 
 === PolymerTemplate
@@ -59,15 +60,16 @@ The first step is to create the Polymer JavaScript template file on the client s
 [source,js]
 ----
 import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
-import '@polymer/paper-input/paper-input.js';
+import '@vaadin/vaadin-text-field/vaadin-text-field.js';
+import '@vaadin/vaadin-button/vaadin-button.js';
 
 class HelloWorld extends PolymerElement {
 
     static get template() {
         return html`
             <div>
-                <paper-input id="inputId"></paper-input>
-                <button id="helloButton">Click me!</button>
+                <vaadin-text-field id="inputId"></vaadin-text-field>
+                <vaadin-button id="helloButton">Click me!</vaadin-button>
             </div>`;
     }
 
@@ -82,21 +84,20 @@ customElements.define(HelloWorld.is, HelloWorld);
 * The `is()` function defines the name of the HTML tag that is used to reference this module. The tag name should contain at least one dash (`-`). For example, `hello-world` is a valid tag name, but `helloworld` is not.
 * The imported dependencies are:
 ** `PolymerElement` (from the Polymer library): This is the required superclass of all Polymer templates.
-** https://github.com/PolymerElements/paper-input[`paper-input`] Polymer component: You can use any component you like, for example the Vaadin `TextField`.
+** `vaadin-text-field` and `vaadin-button` components.
 ** `html` for inline DOM templating.
 
 == Creating the Java Template Class
 
 === LitElement
 
-To use the client-side JavaScript template on the server side, you need to create an associated Java class that extends the `LitTemplate` class.
+To use the client-side LitElement template on the server side, you need to create an associated Java class that extends the `LitTemplate` class.
 
 *Example*: Creating the `HelloWorld` Java template class.
 
 [source,java]
 ----
 @Tag("hello-world")
-@NpmPackage(value = "@polymer/paper-input", version = "3.0.2")
 @NpmPackage(value = "lit-element", version = "2.1.0")
 @JsModule("./src/hello-world.js")
 public class HelloWorld extends LitTemplate {
@@ -110,18 +111,17 @@ public class HelloWorld extends LitTemplate {
 ----
 * The `@Tag` annotation name matches from the JavaScript template. This ensures that the tag name is the same on the server and the client.
 * The `@JsModule` annotation binds the Java class to the `hello-world.js` template class by specifying the relative path to the JavaScript module in the `frontend` folder in the project root. You can import multiple JavaScript resources using the `@JsModule` annotation, if needed.
-* The `@NpmPackage` annotation declares a dependency to the `paper-input` npm package: `@polymer/paper-input 3.0.2`. This annotation can be used to declare a dependency to any npm package.
+* The `@NpmPackage` annotation declares a dependency to the `lit-element` npm package. This annotation can be used to declare a dependency to any npm package.
 
 === PolymerTemplate
 
-To use the client-side JavaScript template on the server side, you need to create an associated Java class that extends the `PolymerTemplate` class.
+To use the client-side Polymer template on the server side, you need to create an associated Java class that extends the `PolymerTemplate` class.
 
 *Example*: Creating the `HelloWorld` Java template class.
 
 [source,java]
 ----
 @Tag("hello-world")
-@NpmPackage(value = "@polymer/paper-input", version = "3.0.2")
 @JsModule("./src/hello-world.js")
 public class HelloWorld extends PolymerTemplate<HelloWorld.HelloWorldModel> {
 
@@ -137,7 +137,6 @@ public class HelloWorld extends PolymerTemplate<HelloWorld.HelloWorldModel> {
 ----
 * The `@Tag` annotation name matches the return value of the `is()` function (static getter) in the JavaScript template. This ensures that the tag name is the same on the server and the client.
 * The `@JsModule` annotation binds the Java class to the `hello-world.js` template class by specifying the relative path to the JavaScript module in the `frontend` folder in the project root. You can import multiple JavaScript resources using the `@JsModule` annotation, if needed.
-* The `@NpmPackage` annotation declares a dependency to the `paper-input` npm package: `@polymer/paper-input 3.0.2`. This annotation can be used to declare a dependency to any npm package.
 
 == Using the Component
 
