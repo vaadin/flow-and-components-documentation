@@ -1,6 +1,6 @@
 ---
 title: Dynamically Adding Server-side Components to Templates
-order: 7
+order: 6
 layout: page
 ---
 
