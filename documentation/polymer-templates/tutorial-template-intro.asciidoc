@@ -4,8 +4,6 @@ order: 1
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
-
 = Using Templates from Server-side Java Code
 
 In Vaadin, you have a few different options on how to build your views.

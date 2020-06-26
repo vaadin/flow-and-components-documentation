@@ -4,7 +4,6 @@ order: 5
 layout: page
 ---
 
-ifdef::env-github[:outfilesuffix: .asciidoc]
 = Using sub-templates
 
 A client-side template can include child templates that are defined in other files. LitElement template is used in the examples below, but Polymer templates are also supported.
