@@ -106,15 +106,15 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<polymer-templates/tutorial-template-and-binder#,Combining Templates and Binders>>
 * <<polymer-templates/tutorial-template-subtemplate#,Using sub-templates>>
 * <<polymer-templates/tutorial-template-components-in-slot#,Dynamically Adding Server-side Components to Templates>>
-* <<polymer-templates/styling-polymer-templates.asciidoc#,Styling Templates>>
+* <<polymer-templates/styling-polymer-templates#,Styling Templates>>
 * <<polymer-templates/tutorial-template-event-handlers#,PolymerTemplate, Handling User Events>>
 * <<polymer-templates/tutorial-template-bindings#,PolymerTemplate, Binding Model Data>>
 * <<polymer-templates/tutorial-template-model-bean#,PolymerTemplate, Using Model Beans>>
 * <<polymer-templates/tutorial-template-model-encoders#,PolymerTemplate, Using Model Encoders>>
 * <<polymer-templates/tutorial-template-list-bindings#,PolymerTemplate, Creating Contents Dynamically Based on Items List>>
-* <<polymer-templates/tutorial-template-parent-layout.asciidoc#,PolymerTemplate, Using Parent Layout>>
-* <<polymer-templates/tutorial-component-integration.asciidoc#,PolymerTemplate, Detecting Components Mappings>>
-* <<polymer-templates/tutorial-template-mapped-components-limitations.asciidoc#,PolymerTemplate, Mapped Components Limitations>>
+* <<polymer-templates/tutorial-template-parent-layout#,PolymerTemplate, Using Parent Layout>>
+* <<polymer-templates/tutorial-component-integration#,PolymerTemplate, Detecting Components Mappings>>
+* <<polymer-templates/tutorial-template-mapped-components-limitations#,PolymerTemplate, Mapped Components Limitations>>
 
 == Creating UI in TypeScript
 * <<typescript/quick-start-guide#, Quick Start Guide>>

@@ -4,6 +4,8 @@ order: 13
 layout: page
 ---
 
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
 = PolymerTemplate, Using Parent Layout
 
 A `PolymerTemplate` can be used as a parent layout, by using the `<slot>` in the position where the child view should be displayed.
