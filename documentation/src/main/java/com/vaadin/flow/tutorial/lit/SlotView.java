@@ -13,25 +13,23 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.vaadin.flow.tutorial.polymer;
+package com.vaadin.flow.tutorial.lit;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
+import com.vaadin.flow.component.dependency.NpmPackage;
+import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.dom.ElementFactory;
-import com.vaadin.flow.router.ParentLayout;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouterLayout;
-import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("polymer-templates/tutorial-template-components-in-slot.asciidoc")
-public class PolymerSlotView {
+public class SlotView {
+
     @Tag("component-container")
+    @NpmPackage(value = "lit-element", version = "2.1.0")
     @JsModule("./com/example/component-container.js")
-    public class ComponentContainer extends PolymerTemplate<TemplateModel> {
+    public class ComponentContainer extends LitTemplate {
 
         public ComponentContainer() {
             Element label = ElementFactory.createLabel("Main layout header");
@@ -42,8 +40,9 @@ public class PolymerSlotView {
     }
 
     @Tag("name-element")
+    @NpmPackage(value = "lit-element", version = "2.1.0")
     @JsModule("./com/example/name-element.js")
-    public class NameElement extends PolymerTemplate<TemplateModel> {
+    public class NameElement extends LitTemplate {
         public NameElement() {
             Element firstName = ElementFactory.createSpan("Jack");
             Element middleName = ElementFactory.createSpan(" James");
