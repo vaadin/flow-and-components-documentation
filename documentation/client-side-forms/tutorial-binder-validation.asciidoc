@@ -6,11 +6,6 @@ layout: page
 
 = Validating User Input
 
-[NOTE]
-Validation ALWAYS needs to run on the server for your application to be secure.
-Additionally, you may validate input in the browser--immediately as users type--to give a better user experience.
-Vaadin supports both out-of-the box.
-
 Vaadin helps you validate user input based on the backend Java data model.
 It reads the Bean Validation (https://beanvalidation.org/2.0-jsr380/spec[JSR-380]) annotations on your Java data types and applies these constraints to the user input.
 Validation is enabled by default in all forms created with the Vaadin `Binder` API.
@@ -77,13 +72,6 @@ render() {
 ----
 
 image:images/bean-validation-errors.gif[The validation errors]
-
-=== Marking Fields as Required
-
-Certain constraints mark fields as required, i.e. add a visual "required" indicator.
-The standard constraints that make fields required are `@NotNull`, `@NotEmpty` and `@Size` (if `min()` value is greater than 0).
-
-For custom constraints this is controlled by the `impliesRequired` property in the TypeScript `validator` object, as shown in the <<tutorial-binder-validation#single-field-ts-validators>> section below.
 
 
 === Defining Custom Constraints
@@ -186,7 +174,9 @@ In order to give instant feedback to users as they type, you can define validato
 The Vaadin form `Binder` API allows adding validators both for individual fields, and for the entire form value as a whole (e.g. to implement cross-field validation).
 Client-side validators are executed before the server-side is invoked.
 
-While usually it makes sense to create client-side validators to match server-side constraints, you could add client-side-only validators as well.
+[WARNING]
+Validation ALWAYS needs to run on the server for your application to be secure.
+Additionally, you may validate input in the browser--immediately as users type--to give a better user experience.
 
 ==== Adding Validators for a Single Field [[single-field-ts-validators]]
 
@@ -264,6 +254,17 @@ When record-level validation fails, there are cases when you want to mark severa
 In order to do that with the `@vaadin/form` validator APIs, you can return an _array_ of `{ property, message }` records from the `validate()` callback.
 Returning an empty array would be equivalent to returning `true`, i.e. validation would pass.
 In case if you need to indicate a validation failure without marking any particular field as invalid, return `false`.
+
+
+=== Marking Fields as Required
+
+In order to mark a form field as 'required', you can add a `@NotNull` or `@NotEmpty` constraints to the corresponding property in the Java type.
+`@Size` with a `min` value greater than 0 makes a field required as well.
+
+Alternatively, you can set the `impliesRequired` property when adding a custom validator in TypeScript as shown in the <<tutorial-binder-validation#single-field-ts-validators>> section above.
+
+The fields marked as _required_ get the `required` property set by the `field()` directive, and cause validation failure if left empty.
+
 
 === Built-in Client-Side Validators [[built-in-client-side-validators]]
 
