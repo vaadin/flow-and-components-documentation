@@ -17,7 +17,6 @@ package com.vaadin.flow.tutorial.lit;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
-import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.dom.ElementFactory;
@@ -27,7 +26,6 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class SlotView {
 
     @Tag("component-container")
-    @NpmPackage(value = "lit-element", version = "2.1.0")
     @JsModule("./com/example/component-container.js")
     public class ComponentContainer extends LitTemplate {
 
@@ -40,7 +38,6 @@ public class SlotView {
     }
 
     @Tag("name-element")
-    @NpmPackage(value = "lit-element", version = "2.1.0")
     @JsModule("./com/example/name-element.js")
     public class NameElement extends LitTemplate {
         public NameElement() {

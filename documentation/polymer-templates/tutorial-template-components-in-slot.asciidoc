@@ -21,7 +21,7 @@ To overcome this, you can add a `<slot>` element to mark the place where the lig
 import {LitElement, html} from 'lit-element';
 
 class ComponentContainer extends LitElement {
-    static get render() {
+    get render() {
         return html`
             <div>
                 <slot></slot>
@@ -37,7 +37,6 @@ customElements.define('component-container', ComponentContainer);
 [source,java]
 ----
 @Tag("component-container")
-@NpmPackage(value = "lit-element", version = "2.1.0")
 @JsModule("./com/example/component-container.js")
 public class ComponentContainer extends LitTemplate {
 
@@ -152,7 +151,6 @@ The default slot and any named slot can contain multiple elements.
 [source,java]
 ----
 @Tag("name-element")
-@NpmPackage(value = "lit-element", version = "2.1.0")
 @JsModule("./com/example/name-element.js")
 public class NameElement extends LitTemplate {
     public NameElement() {

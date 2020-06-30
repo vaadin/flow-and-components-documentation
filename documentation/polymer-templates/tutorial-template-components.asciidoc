@@ -35,7 +35,6 @@ customElements.define('main-page', MainPage);
 ----
 @Tag("main-page")
 @JsModule("./com/example/main-page.js")
-@NpmPackage(value = "lit-element", version = "2.1.0")
 public class MainPage extends LitTemplate {
 
     @Id("content")

@@ -113,7 +113,7 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<polymer-templates/tutorial-template-model-encoders#,PolymerTemplate, Using Model Encoders>>
 * <<polymer-templates/tutorial-template-list-bindings#,PolymerTemplate, Creating Contents Dynamically Based on Items List>>
 * <<polymer-templates/tutorial-template-parent-layout#,PolymerTemplate, Using Parent Layout>>
-* <<polymer-templates/tutorial-component-integration#,PolymerTemplate, Detecting Components Mappings>>
+* <<polymer-templates/tutorial-component-integration#,PolymerTemplate, Detecting Component Mappings>>
 * <<polymer-templates/tutorial-template-mapped-components-limitations#,PolymerTemplate, Mapped Components Limitations>>
 
 == Creating UI in TypeScript

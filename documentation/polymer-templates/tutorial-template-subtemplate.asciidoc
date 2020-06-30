@@ -37,7 +37,6 @@ customElements.define('parent-template', ParentTemplate);
 [source,java]
 ----
 @Tag("parent-template")
-@NpmPackage(value = "lit-element", version = "2.1.0")
 @JsModule("./com/example/parent-template.js")
 public class ParentTemplate extends LitTemplate {
 
@@ -69,7 +68,6 @@ customElements.define('child-template', ChildTemplate);
 [source,java]
 ----
 @Tag("child-template")
-@NpmPackage(value = "lit-element", version = "2.1.0")
 @JsModule("./com/example/child-template.js")
 public  class ChildTemplate extends LitTemplate {
 }

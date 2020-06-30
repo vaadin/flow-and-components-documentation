@@ -17,6 +17,7 @@ package com.vaadin.flow.tutorial.polymer;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.templatemodel.TemplateModel;
@@ -24,6 +25,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("polymer-templates/tutorial-template-basic.asciidoc")
 @Tag("hello-world")
+@NpmPackage(value = "@polymer/paper-input", version = "3.0.2")
 @JsModule("./src/hello-world.js")
 public class HelloWorld extends PolymerTemplate<HelloWorld.HelloWorldModel> {
 

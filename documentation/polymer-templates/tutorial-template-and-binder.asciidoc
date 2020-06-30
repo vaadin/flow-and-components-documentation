@@ -48,7 +48,6 @@ customElements.define('user-form', UserForm);
 [source,java]
 ----
 @Tag("user-form")
-@NpmPackage(value = "lit-element", version = "2.1.0")
 @JsModule("./src/user-form.js")
 public class UserForm extends LitTemplate {
 
@@ -265,7 +264,6 @@ customElements.define('main-view', MainView);
 [source,java]
 ----
 @Tag("main-view")
-@NpmPackage(value = "lit-element", version = "2.1.0")
 @JsModule("./src/main-view.js")
 @Route("")
 public class MainView extends LitTemplate {

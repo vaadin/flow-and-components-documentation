@@ -17,7 +17,6 @@ package com.vaadin.flow.tutorial.lit;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
-import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
@@ -26,13 +25,11 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class SubTemplates {
 
     @Tag("child-template")
-    @NpmPackage(value = "lit-element", version = "2.1.0")
     @JsModule("./com/example/child-template.js")
     public class ChildTemplate extends LitTemplate {
     }
 
     @Tag("parent-template")
-    @NpmPackage(value = "lit-element", version = "2.1.0")
     @JsModule("./com/example/parent-template.js")
     public class ParentTemplate extends LitTemplate {
 

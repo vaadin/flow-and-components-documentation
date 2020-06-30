@@ -33,7 +33,7 @@ public class HelloWorldTutorial {
     }
 
     @Tag("hello-world")
-    @NpmPackage(value = "lit-element", version = "2.1.0")
+    @NpmPackage(value = "@polymer/paper-input", version = "3.0.2")
     @JsModule("./src/hello-world.js")
     public class HelloWorld extends LitTemplate {
 

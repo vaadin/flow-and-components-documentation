@@ -13,36 +13,27 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.vaadin.flow.tutorial.lit;
+package com.vaadin.flow.tutorial.polymer;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.html.NativeButton;
-import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.polymertemplate.Id;
+import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
+import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-components.asciidoc")
-public class Components {
+@CodeFor("polymer-templates/tutorial-template-mapped-components-limitations.asciidoc")
+public class MappedComponentsLimitations {
 
     @Tag("main-page")
     @JsModule("./com/example/main-page.js")
-    public class MainPage extends LitTemplate {
+    public class MainPage extends PolymerTemplate<TemplateModel> {
 
         @Id("content")
         private Div content;
-
-        @Id("helloButton")
-        private NativeButton helloButton;
-
-        public MainPage() {
-            helloButton.addClickListener(event -> {
-                System.out.println("Clicked!");
-            });
-        }
 
         public void setContent(Component content) {
             this.content.removeAll();

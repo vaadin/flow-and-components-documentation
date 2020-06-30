@@ -17,7 +17,6 @@ package com.vaadin.flow.tutorial.lit;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
-import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.textfield.TextArea;
@@ -29,7 +28,6 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class Binder {
 
     @Tag("user-form")
-    @NpmPackage(value = "lit-element", version = "2.1.0")
     @JsModule("./src/user-form.js")
     public class UserForm extends LitTemplate {
 
@@ -50,7 +48,6 @@ public class Binder {
     }
 
     @Tag("main-view")
-    @NpmPackage(value = "lit-element", version = "2.1.0")
     @JsModule("./src/main-view.js")
     @Route("")
     public class MainView extends LitTemplate {
