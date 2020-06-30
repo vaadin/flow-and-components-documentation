@@ -19,9 +19,9 @@ Some statuses are only available in `Binder` for the whole form but not a specif
 
 You can bind these statuses to some UI components so that the form's UI can be updated automatically when the form status changes, e.g., disable the reset button when the form is not dirty. 
 
-[source, HTML]
+[source, html]
 ----
-<vaadin-button ?disabled="${!this.binder.dirty}"
+<vaadin-button ?disabled="${!this.binder.dirty}">
   Reset
 </vaadin-button>
 ----
