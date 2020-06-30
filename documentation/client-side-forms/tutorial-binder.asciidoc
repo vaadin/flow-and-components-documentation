@@ -77,7 +77,7 @@ class PersonForm extends LitElement {
 +
 The [classname]#PersonModel# here is generated alongside with a [classname]#Person# TypeScript data interface from the `Person.java` bean. It describes the structure of the data and the validation-related metadata for the client-side form binding.
 
-. Bind the UI components in the template using the `...="${field()}"` syntax:
+. Bind the UI components in the template using the `+...="${field()}"+` syntax:
 +
 [source, typescript]
 ----
