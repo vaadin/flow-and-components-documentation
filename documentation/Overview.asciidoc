@@ -133,8 +133,7 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 == Client-Side Form Binding
 * <<client-side-forms/tutorial-binder#, Binding Data to Client-Side Forms>>
 * <<client-side-forms/tutorial-binder-load#, Loading From and Saving To Business Objects>>
-* <<client-side-forms/tutorial-validation-java#, Adding Java Bean Validators>>
-* <<client-side-forms/tutorial-validation-ts#, Adding TS Custom Validators>>
+* <<client-side-forms/tutorial-binder-validation#, Validating User Input>>
 * <<client-side-forms/tutorial-form-status-tracking#, Form Status Tracking>>
 * <<client-side-forms/tutorial-binding-arrays#, Binding Arrays>>
 * <<client-side-forms/appendix-client-side-form-binding-reference#, Appendix: Client-Side Form Binding Reference>>

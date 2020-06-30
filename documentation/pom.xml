@@ -140,5 +140,10 @@
             <artifactId>portlet-api</artifactId>
             <version>${portlet-api.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.nulab-inc</groupId>
+            <artifactId>zxcvbn</artifactId>
+            <version>1.3.0</version>
+        </dependency>
     </dependencies>
 </project>
