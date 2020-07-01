@@ -68,3 +68,6 @@ A virtually-mapped `Element` is connected to the `ShadowRoot` of the
 
 [NOTE]
 You can detect whether a component is used in a `PolymerTemplate` using the `isTemplateMapped` method. See the <<tutorial-component-integration#,PolymerTemplate, Detecting Component Mappings>> for more.
+
+[NOTE]
+The same limitations apply to Lit template class.
