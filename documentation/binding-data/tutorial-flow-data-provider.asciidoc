@@ -1,10 +1,10 @@
 ---
-title: Showing a List of Data with Data Providers
+title: Binding Data Items to Components
 order: 5
 layout: page
 ---
 
-= Showing a List of Data with Data Providers
+= Binding Data Items to Components
 
 Many applications present the user with a list of items from which they can select one or more items to work on. Example lists include inventory records to survey, messages requiring a response, or blog drafts to edit or publish.
 
@@ -14,11 +14,29 @@ A listing component is a component that:
 * Allows the user to inspect the data and mark items as selected, and 
 * Optionally, allows the user to edit items directly in the component.
 
-There are a number of officially-supported listing components, such as `ListBox` and `ComboBox`. Each component has its own API to configure exactly how the data is represented and manipulated. 
+There are a number components that list objects, such as `Grid`, `ComboBox` and `ListBox`. Each component has its own API to configure exactly how the data is bound, represented and manipulated. 
 
-All list components have a `setItems` method to define which items display. They also have the `DataProvider` interface for more fine-grained control of the displayed data.
+All listing components have a set of `setItems` methods to define which items display. Items can be basic objects, like strings or numbers, or POJOs, such as DTOs or JPA entities, from your domain model. The easiest way is just to provide a java.util.List of objects to be shown in the component. If the number items is large and reserves a lot of memory, Grid and ComboBox allow you to do a lazy data binding using callbacks to fetch only the required set of items from the back-end.
 
-== Changing How Items Display
+== Assigning a list or array of objects
+
+The easiest way to pass data to listing components is to use the `setItems` method. It accepts a collection or an array of items that you most often get directly from your service layer.
+
+*Example*: Passing data values to `setItems`. 
+
+[source, java]
+----
+// Sets items as a collection
+comboBox.setItems(EnumSet.allOf(Status.class));
+
+// Sets items using varargs (array)
+grid.setItems(
+        new Person("George Washington", 1732),
+        new Person("John Adams", 1735),
+        new Person("Thomas Jefferson", 1743),
+        new Person("James Madison", 1751)
+);
+----
 
 By default, most components use the `toString()` method to display items. If this is not suitable, you can change the behavior by configuring the component. Components are configured with one or more callbacks that define how to display the items.
 
@@ -35,25 +53,31 @@ grid.addColumn(Person::getYearOfBirth)
         .setHeader("Year of birth");
 ----
 
-== Displaying In-memory Data
+Check the component examples for more details on configuring how the listed data is displayed. 
 
-The easiest way to pass data to listing components is to use the `setItems` method. It accepts a collection, an array, or a stream of items.
+== Making a lazy data binding using callbacks
 
-*Example*: Passing data values to `setItems`. 
+A more advanced way to bind data to components is using callback methods. Using this approach only the required portion of the data is loaded from your backend. This approach is harder to implement and provides less features out of the box, but can save a great deal of resources in the backend and in the UI server. As a parameter to the callbacks, the component gives a query object that provides some hints that what part of the data set is needed.
+
+Currently only `Grid` and `ComboBox` properly support lazy data binding.
+
+*Example*: Doing a lazy data binding to Grid
 
 [source, java]
 ----
-// Sets items as a collection
-comboBox.setItems(EnumSet.allOf(Status.class));
-
-// Sets items using varargs
-grid.setItems(
-        new Person("George Washington", 1732),
-        new Person("John Adams", 1735),
-        new Person("Thomas Jefferson", 1743),
-        new Person("James Madison", 1751)
-);
+grid.setItems(query -> { // <1>
+    return getPersonService() // <2>
+        .fetchPersons(query.getOffset(), query.getLimit()) // <3>
+        .stream(); // <4>
+});
 ----
+
+<1> To create a lazy binding, use an overloaded version of the `setItems` method that uses a callback instead of passing data directly to the component
+<2> Typically you call your service layer from these callback - as in this example
+<3> Use the parameters from the query object to limit the data you pass from the backend to the component
+<4> The requested set of items is returned as a java.util.Stream. In this example the backend returns a List so we need to convert it to a Stream.
+
+= TODO the rest on this page is old, check what to archive or rewrite
 
 === Sorting In-memory Data
 

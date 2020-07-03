@@ -129,6 +129,18 @@ public class DataProviders {
                 .setComparator(Comparator.comparing(person ->
                         person.getName().toLowerCase()));
     }
+    
+    public void lazyDataBindingToGrid() {
+    	
+    	Grid<Person> grid = new Grid<>();
+    	
+		grid.setItems(query -> { // <1>
+			return getPersonService() // <2>
+					.fetchPersons(query.getOffset(), query.getLimit()) // <3>
+					.stream(); // <4>
+		});
+    	
+    }
 
     public void listDataProvider() {
         List<Person> persons = Collections.emptyList();
