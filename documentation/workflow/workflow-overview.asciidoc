@@ -44,7 +44,10 @@ These do not require installing third-party tools, but have the disadvantage tha
 ** <<tutorial-jetty-scaninterval#, Automatic Restart with Jetty Maven Plugin>>
 ** <<tutorial-cdi-reloadonupdate#, Automatic Restart with TomEE Maven Plugin>>
 
-=== Run on server in IDE
-Learn how to configure IntelliJ IDEA to run the `preparent-frontend` target automatically during "Run on server".
+=== IDE Server Integrations and Vaadin
+As an alternative to using Maven plugins for starting a stopping the development server,
+IDE server integration tools (available for most major servers) allow using the IDE UI for the same purpose.
+Below IDE specific information on how to ensure the `prepare-frontend` Maven goal gets executed automatically for the frontend build setup in this case.
 
-** <<run-on-server-intellij#,Run on server in IntellJ IDEA Ultimate Edition>>
+** <<run-on-server-intellij#,IntellJ IDEA Ultimate Edition>>
+** <<run-on-server-eclipse#,Eclipse>>
