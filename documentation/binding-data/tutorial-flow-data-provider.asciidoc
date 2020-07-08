@@ -38,9 +38,9 @@ grid.setItems(
 );
 ----
 
-By default, most components use the `toString()` method to display items. If this is not suitable, you can change the behavior by configuring the component. Components are configured with one or more callbacks that define how to display the items.
+Components have component specific APIs to adjust how items are displayed. Many select components use the `toString()` method to display items by. If this is not suitable, you can change the behavior by configuring the component. Components are configured with one or more callbacks that define how to display the items.
 
-*Example*: A `ComboBox` component that lists status items and uses the `Status.getLabel()` method to represent each status. There is also a `Grid` with two columns, Name and Year of birth.
+*Example*: A `ComboBox` component that lists status items and uses the `Status.getLabel()` method to represent each status. There is also a `Grid` with two columns, Name and Year of birth, and another Grid that shows three properties from the Person Java Bean.
 
 [source, java]
 ----
@@ -51,17 +51,21 @@ Grid<Person> grid = new Grid<>();
 grid.addColumn(Person::getName).setHeader("Name");
 grid.addColumn(Person::getYearOfBirth)
         .setHeader("Year of birth");
+
+Grid<Person> grid = new Grid<>(Person.class);
+grid.setColumns("name", "email", "title");
+
 ----
 
 Check the component examples for more details on configuring how the listed data is displayed. 
 
-== Making a lazy data binding using callbacks
+== Making a Lazy Data Binding Using Callbacks
 
 A more advanced way to bind data to components is using callback methods. Using this approach only the required portion of the data is loaded from your backend. This approach is harder to implement and provides less features out of the box, but can save a great deal of resources in the backend and in the UI server. As a parameter to the callbacks, the component gives a query object that provides some hints that what part of the data set is needed.
 
 Currently only `Grid` and `ComboBox` properly support lazy data binding.
 
-*Example*: Doing a lazy data binding to Grid
+*<Example*: Doing a lazy data binding to Grid
 
 [source, java]
 ----
@@ -73,11 +77,119 @@ grid.setItems(query -> { // <1>
 ----
 
 <1> To create a lazy binding, use an overloaded version of the `setItems` method that uses a callback instead of passing data directly to the component
-<2> Typically you call your service layer from these callback - as in this example
+<2> Typically you call your service layer from the callback - as in this example
 <3> Use the parameters from the query object to limit the data you pass from the backend to the component
 <4> The requested set of items is returned as a java.util.Stream. In this example the backend returns a List so we need to convert it to a Stream.
 
-= TODO the rest on this page is old, check what to archive or rewrite
+// TODO update once flow #8557 is landed
+The example above suits naturally for example JDBC backends where you can request a set of rows from a given index. Vaadin calls your data binding call in paged manner, so it is possible to bind also to "Paging backends", such as Spring Data based solutions.
+
+*<Example*: Doing a lazy data binding from a Spring Data Repository to Grid
+
+[source, java]
+----
+grid.setItems(query -> {
+    return repository.findAll( // <1>
+            PageRequest.of(query.getOffset()/query.getLimit(), // <2>
+                    query.getLimit()) // <3>
+    ).stream(); // <4>
+});
+});
+----
+
+<1> In this example we call Spring Data repository to find the requested result set 
+<2> Calculate the page index using offset and limit.
+<3> Vaadin components use the limit value from the page size, so just pass limit as page size
+<4> Return a stream of items from the Spring Data `Page` object
+
+=== Sorting with lazy data binding
+
+To make a meaningful lazy data binding all sorting has to be delegated to the backend. You'll need to manually declare which columns are sortable and pass the hints Grid provides in the Query object somehow to your backend logic. 
+
+*Example*: Making a sortable data binding to a Spring Data repository
+
+[source, java]
+----
+public void bindWithSorting() {
+    Grid<Person> grid = new Grid<>(Person.class);
+    grid.setSortableColumns("name", "email"); // <1>
+    grid.addColumn(person -> person.getTitle())
+        .setHeader("Title")
+        	.setKey("title").setSortable(true); // <2>
+    grid.setItems(
+        q -> {
+            Sort springSort = toSpringDataSort(q.getSortOrders()); // <3>
+            return repo.findAll(
+                    PageRequest.of(
+                            q.getOffset() / q.getLimit(), 
+                            q.getLimit(), 
+                            springSort // <4>
+            )).stream();
+    });
+}
+
+/**
+    * A method to convert given Vaadin sort hints to Spring Data specific sort 
+    * instructions.
+    * 
+    * @param vaadinSortOrders a list of Vaadin QuerySortOrders to convert to 
+    * @return the Sort object for Spring Data repositories
+    */
+public static Sort toSpringDataSort(List<QuerySortOrder> vaadinSortOrders) {
+    return Sort.by(
+            vaadinSortOrders.stream()
+                    .map(so -> 
+                            so.getDirection() == SortDirection.ASCENDING ? 
+                                    Sort.Order.asc(so.getSorted()) : // <5>
+                                    Sort.Order.desc(so.getSorted())
+                    )
+                    .collect(Collectors.toList())
+    );
+}
+----
+
+<1> If you are using name based binding, Grid columns can be made sortable by their property names 
+<2> Alternatively, provide a key to your columns, which will be passed to the callback, and define the column to be sortable.
+<3> In the callback, you need to convert the Vaadin specific sort information to what your backend understands. In this case we are using Spring Data and using a separate method to convert the values. The method body is shown below. Note, that the conversion becomes simpler if your only want to support sorting based on single property. Vaadin Grid supports sorting based on multiple columns.
+<4> Here we pass the backend compatible sort information to our backend call.
+<5> The `getSorted` method in QuerySortOrder returns the columns property name or a key you have assigned to the column.
+
+=== Filtering with lazy data binding
+
+Also filtering needs to happen in the backend in an efficient lazy loading. If you provide for example a text field to limit your results in a Grid, you need to make your callbacks to take care of the filter.
+
+*Example*: Making a filterable lazy data binding to a Spring Data repository
+
+[source, java]
+----
+public void initFiltering() {
+    filterTextField.setValueChangeMode(ValueChangeMode.LAZY); // <1>
+    filterTextField.addValueChangeListener(e -> listPersonsFilteredByName(e.getValue())); // <2>
+    
+}
+
+private void listPersonsFilteredByName(String filterString) {
+    String likeFilter = "%" + filterString + "%";// <3>
+    grid.setItems(q -> repo
+        .findByNameLikeIgnoreCase(
+            likeFilter, // <4>
+            PageRequest.of(q.getOffset() / q.getLimit(), q.getLimit()))
+        .stream());
+}
+----
+
+<1> The lazy data binding mode is optimal for filtering purposes. Queries to backend are only done when users makes a small pause while typing. 
+<2> When a value change event happens, you should reset the data binding to use the new filter.
+<3> The example backend uses SQL behind the scenes, so `%`` is appended to the beginning and to theend to match anywhere in the text.
+<4> Pass the filter to your backend in the binding.
+
+Naturally you can combine both filtering and sorting in your data binding callbacks.
+
+=== Improving scrolling user experience of lazy data binding
+
+// TODO discuss how to provide size or size estimates
+
+// TODO the rest on this page is old, check what to archive or rewrite
 
 === Sorting In-memory Data
 

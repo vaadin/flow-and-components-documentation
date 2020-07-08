@@ -18,16 +18,21 @@ package com.vaadin.flow.tutorial.databinding;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.dataview.GridLazyDataView;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.*;
 import com.vaadin.flow.data.provider.CallbackDataProvider.CountCallback;
 import com.vaadin.flow.data.provider.CallbackDataProvider.FetchCallback;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.databinding.Person.Department;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 @CodeFor("binding-data/tutorial-flow-data-provider.asciidoc")
 public class DataProviders {
@@ -129,20 +134,106 @@ public class DataProviders {
                 .setComparator(Comparator.comparing(person ->
                         person.getName().toLowerCase()));
     }
+
+   public void beanGrid() {
+        Grid<Person> grid = new Grid<>(Person.class);
+        grid.setColumns("name", "email", "title");
+    }
+
+
     
-    public void lazyDataBindingToGrid() {
+
+    public void lazyDataBindingToGrid(PersonRepository repository) {
     	
     	Grid<Person> grid = new Grid<>();
     	
-		grid.setItems(query -> { // <1>
-			return getPersonService() // <2>
-					.fetchPersons(query.getOffset(), query.getLimit()) // <3>
-					.stream(); // <4>
-		});
+        // TODO, make this simpler and easier once flow #8557 is landed
+        grid.setItems(query -> {
+            return repository.findAll( // <1>
+                    PageRequest.of(query.getOffset()/query.getLimit(), // <2>
+                            query.getLimit()) // <3>
+            ).stream(); // <4>
+        });
     	
+        grid.setItems(query -> { // <1>
+            return getPersonService() // <2>
+                    .fetchPersons(query.getOffset(), query.getLimit()) // <3>
+                    .stream(); // <4>
+        });
+        
+        
+        grid.setSortableColumns("name", "email");
+        grid.addColumn(person -> person.getTitle())
+                .setHeader("title")
+                .setSortable(true);
+        grid.setItems(query -> {
+            
+            return repository.findAll( // <1>
+                    PageRequest.of(query.getOffset()/query.getLimit(), // <2>
+                            query.getLimit()) // <3>
+            ).stream(); // <4>
+        });
+        
+        
     }
+    
+    TextField filterTextField = new TextField("Filter by name");
+    Grid<Person> grid;
+    PersonRepository repo;
+    
+    public void bindWithSorting() {
+        Grid<Person> grid = new Grid<>(Person.class);
+        grid.setSortableColumns("name", "email"); // <1>
+        grid.addColumn(person -> person.getTitle())
+        	.setHeader("Title")
+        	.setKey("title").setSortable(true); // <2>
+        grid.setItems(
+            q -> {
+                Sort springSort = toSpringDataSort(q.getSortOrders()); // <3>
+                return repo.findAll(
+                		PageRequest.of(
+                				q.getOffset() / q.getLimit(), 
+                				q.getLimit(), 
+                				springSort // <4>
+                )).stream();
+        });
+    }
+    
+    /**
+     * A method to convert given Vaadin sort hints to Spring Data specific sort 
+     * instructions.
+     * 
+     * @param vaadinSortOrders a list of Vaadin QuerySortOrders to convert to 
+     * @return the Sort object for Spring Data repositories
+     */
+    public static Sort toSpringDataSort(List<QuerySortOrder> vaadinSortOrders) {
+        return Sort.by(
+                vaadinSortOrders.stream()
+                        .map(so -> 
+                                so.getDirection() == SortDirection.ASCENDING ? 
+                                        Sort.Order.asc(so.getSorted()) : // <4>
+                                        Sort.Order.desc(so.getSorted())
+                        )
+                        .collect(Collectors.toList())
+        );
+    }
+    
+    public void initFiltering() {
+        filterTextField.setValueChangeMode(ValueChangeMode.LAZY); // <1>
+        filterTextField.addValueChangeListener(e -> listPersonsFilteredByName(e.getValue())); // <2>
+        
+    }
+    
+	private void listPersonsFilteredByName(String filterString) {
+		String likeFilter = "%" + filterString + "%";// <3>
+		grid.setItems(q -> repo
+			.findByNameLikeIgnoreCase(
+				likeFilter, // <4>
+				PageRequest.of(q.getOffset() / q.getLimit(), q.getLimit()))
+			.stream());
+	}
 
-    public void listDataProvider() {
+	public void listDataProvider() {
         List<Person> persons = Collections.emptyList();
         Button button = new Button();
 
