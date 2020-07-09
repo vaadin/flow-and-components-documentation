@@ -15,6 +15,7 @@
  */
 package com.vaadin.flow.tutorial.databinding;
 
+import com.vaadin.flow.tutorial.annotations.CodeFor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,6 +25,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * 
  * @author mstahv
  */
+@CodeFor("tutorial-flow-dataprovider.asciidoc")
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
     public Page<Person> findByNameLikeIgnoreCase(String likeFilter, PageRequest of);

@@ -19,10 +19,10 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.dataview.GridLazyDataView;
+import com.vaadin.flow.component.grid.dataview.GridListDataView;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.provider.*;
-import com.vaadin.flow.data.provider.CallbackDataProvider.CountCallback;
-import com.vaadin.flow.data.provider.CallbackDataProvider.FetchCallback;
+import com.vaadin.flow.data.provider.QuerySortOrder;
+import com.vaadin.flow.data.provider.SortDirection;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.databinding.Person.Department;
@@ -30,7 +30,6 @@ import com.vaadin.flow.tutorial.databinding.Person.Department;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
@@ -127,6 +126,11 @@ public class DataProviders {
                 new Person("James Madison", 1751)
         );
         // @formatter:on
+        
+        PersonRepository personRepository = repo;
+        
+        // Pass all Person objects to a grid from a Spring Data repository object
+        grid.setItems(personRepository.findAll());
 
         grid.addColumn(Person::getName)
                 .setHeader("Name")
@@ -175,6 +179,19 @@ public class DataProviders {
         });
         
         
+        GridLazyDataView<Person> dataView = grid.setItems(query -> { // <1>
+            return getPersonService()
+                    .fetchPersons(query.getOffset(), query.getLimit())
+                    .stream();
+        });
+
+        dataView.setItemCountEstimate(1000); // <2>
+        dataView.setItemCountEstimateIncrease(500); // <3>
+        
+        dataView.setItemCountCallback(q -> {
+            return getPersonService().getPersonCount(); 
+        });
+        
     }
     
     TextField filterTextField = new TextField("Filter by name");
@@ -211,7 +228,7 @@ public class DataProviders {
                 vaadinSortOrders.stream()
                         .map(so -> 
                                 so.getDirection() == SortDirection.ASCENDING ? 
-                                        Sort.Order.asc(so.getSorted()) : // <4>
+                                        Sort.Order.asc(so.getSorted()) : // <5>
                                         Sort.Order.desc(so.getSorted())
                         )
                         .collect(Collectors.toList())
@@ -224,331 +241,34 @@ public class DataProviders {
         
     }
     
-	private void listPersonsFilteredByName(String filterString) {
-		String likeFilter = "%" + filterString + "%";// <3>
-		grid.setItems(q -> repo
-			.findByNameLikeIgnoreCase(
-				likeFilter, // <4>
-				PageRequest.of(q.getOffset() / q.getLimit(), q.getLimit()))
-			.stream());
-	}
-
-	public void listDataProvider() {
-        List<Person> persons = Collections.emptyList();
-        Button button = new Button();
-
-        // @formatter:off
-        ListDataProvider<Person> dataProvider =
-                DataProvider.ofCollection(persons);
-
-        dataProvider.setSortOrder(Person::getName,
-                SortDirection.ASCENDING);
-
-        Grid<Person> grid = new Grid<>();
-        // The grid shows the persons sorted by name
-        grid.setDataProvider(dataProvider);
-
-        // Makes the combo box show persons in descending order
-        button.addClickListener(event -> {
-            dataProvider.setSortOrder(Person::getName,
-                    SortDirection.DESCENDING);
-        });
-        // @formatter:on
+    private void listPersonsFilteredByName(String filterString) {
+            String likeFilter = "%" + filterString + "%";// <3>
+            grid.setItems(q -> repo
+                    .findByNameLikeIgnoreCase(
+                            likeFilter, // <4>
+                            PageRequest.of(q.getOffset() / q.getLimit(), q.getLimit()))
+                    .stream());
     }
+    
+    
+    private void refreshItem() {
+        Person person = new Person();
+        person.setName("Jorma");
+        person.setEmail("old@gmail.com");
 
-    public void captionFilter() {
-        List<Person> persons = Collections.emptyList();
-        ComboBox<Department> departmentSelect = new ComboBox<>();
+        GridListDataView<Person> gridDataView = grid.setItems(person);
 
-        // @formatter:off
-        ListDataProvider<Person> dataProvider = DataProvider
-                .ofCollection(persons);
-
-        ComboBox<Person> comboBox = new ComboBox<>();
-        comboBox.setDataProvider(dataProvider);
-
-        departmentSelect.addValueChangeListener(event -> {
-            Department selectedDepartment = event.getValue();
-            if (selectedDepartment != null) {
-                dataProvider.setFilterByValue(
-                        Person::getDepartment,
-                        selectedDepartment);
-            } else {
-                dataProvider.clearFilters();
-            }
-        });
-        //@formatter:on
-    }
-
-    public void providerForFilteringDepartment() {
-        DepartmentServiceImpl service = new DepartmentServiceImpl();
-
-        DataProvider<Department, String> dataProvider =
-                createDepartmentDataProvider(service);
-        ComboBox<Department> departmentComboBox =
-                new ComboBox<>();
-        departmentComboBox.setDataProvider(dataProvider);
-
-    }
-
-    public void providerForFilteringEmployee() {
-        ComboBox<Department> departmentComboBox = new ComboBox<>();
-
-        EmployeeServiceImpl service = new EmployeeServiceImpl();
-        ConfigurableFilterDataProvider<Employee, String,
-                Department> employeeDataProvider =
-                getDataProvider(service);
-        ComboBox<Employee> employeeComboBox = new ComboBox<>();
-        employeeComboBox.setDataProvider(employeeDataProvider);
-        departmentComboBox.addValueChangeListener(event -> {
-            employeeDataProvider.setFilter(event.getValue());
-            employeeDataProvider.refreshAll();
+        Button modify = new Button("Modify data", e -> {
+            person.setEmail("new@gmail.com");
+            // The component shows the old email until notified of changes
+            gridDataView.refreshItem(person);
         });
     }
-
-    public DataProvider<Employee, String> getEmployeeProvider() {
-        return null;
-    }
-
-    public void filterPart() {
-        DataProvider<Employee, String> employeeProvider =
-                getEmployeeProvider();
-
-        TextField searchField = new TextField();
-
-        ConfigurableFilterDataProvider<Employee, Void, String>
-                wrapper = employeeProvider.withConfigurableFilter();
-
-        Grid<Employee> grid = new Grid<>();
-        grid.setDataProvider(wrapper);
-        grid.addColumn(Employee::getName).setHeader("Name");
-
-        searchField.addValueChangeListener(event -> {
-            String filter = event.getValue();
-            if (filter.trim().isEmpty()) {
-                // null disables filtering
-                filter = null;
-            }
-
-            wrapper.setFilter(filter);
-        });
-    }
-
-
-    ConfigurableFilterDataProvider<Employee, String,
-            Department> getDataProvider(EmployeeService service) {
-        DataProvider<Employee, EmployeeFilter> dataProvider =
-                DataProvider.fromFilteringCallbacks(query -> {
-                    // getFilter returns Optional<String>
-                    EmployeeFilter filter = query.getFilter()
-                            .orElse(null);
-                    return service.fetch(query.getOffset(),
-                            query.getLimit(), filter).stream();
-                }, query -> {
-                    EmployeeFilter filter = query.getFilter()
-                            .orElse(null);
-                    return service.getCount(filter);
-                });
-
-        ConfigurableFilterDataProvider<Employee, String,
-                Department> configurableFilterDataProvider =
-                dataProvider.withConfigurableFilter(
-                        (filterText, department) ->
-                                new EmployeeFilter(filterText, department));
-
-        return configurableFilterDataProvider;
-
-    }
-
-
-    DataProvider<Department, String>
-    createDepartmentDataProvider(DepartmentService service)
-    {
-        return DataProvider.fromFilteringCallbacks(query -> {
-            // getFilter returns Optional<String>
-            String filter = query.getFilter().orElse(null);
-            return service.fetch(query.getOffset(),
-                    query.getLimit(), filter).stream();
-        }, query -> {
-            String filter = query.getFilter().orElse(null);
-            return service.getCount(filter);
-        });
-    }
-
-    public void refresh() {
-        List<Person> persons = Collections.emptyList();
-
-        // @formatter:off
-        ListDataProvider<Person> dataProvider =
-                new ListDataProvider<>(persons);
-
-        Button addPersonButton = new Button("Add person",
-                clickEvent -> {
-                    persons.add(new Person("James Monroe",
-                            1758));
-
-                    dataProvider.refreshAll();
-                });
-
-        Button modifyPersonButton = new Button("Modify person",
-                clickEvent -> {
-                    Person personToChange = persons.get(0);
-
-                    personToChange.setName("Changed person");
-
-                    dataProvider.refreshItem(personToChange);
-                });
-        //@formatter:on
-    }
-
-    public void serviceDataProvider() {
-        DataProvider<Person, Void> dataProvider =
-                DataProvider.fromCallbacks(
-                // First callback fetches items based on a query
-                query -> {
-                    // The index of the first item to load
-                    int offset = query.getOffset();
-
-                    // The number of items to load
-                    int limit = query.getLimit();
-
-                    List<Person> persons = getPersonService()
-                            .fetchPersons(offset, limit);
-
-                    return persons.stream();
-                },
-                // Second callback fetches the number of items
-                // for a query
-                query -> getPersonService().getPersonCount());
-
-        Grid<Person> grid = new Grid<>();
-        grid.setDataProvider(dataProvider);
-
-        // Columns are configured in the same way as before
-    }
-
-    public void sorting() {
-        //@formatter:off
-        DataProvider<Person, Void> dataProvider =
-                DataProvider.fromCallbacks(query -> {
-                            List<PersonSort> sortOrders = new ArrayList<>();
-                            for(SortOrder<String> queryOrder :
-                                    query.getSortOrders()) {
-                                PersonSort sort = getPersonService()
-                                        .createSort(
-                                                // The name of the sorted property
-                                                queryOrder.getSorted(),
-                                                // The sort direction for this property
-                                                queryOrder.getDirection() ==
-                                                        SortDirection.DESCENDING);
-                                sortOrders.add(sort);
-                            }
-
-                            return getPersonService().fetchPersons(
-                                    query.getOffset(),
-                                    query.getLimit(),
-                                    sortOrders
-                            ).stream();
-                        },
-
-                        // The number of persons is the same
-                        // regardless of ordering
-                        query -> getPersonService().getPersonCount()
-                );
-
-        //@formatter:on
-    }
-
-    DataProvider<Person, String> getDataProvider(
-            PersonService service) {
-        DataProvider<Person, Predicate<Person>>
-                predicateDataProvider =
-        DataProvider.fromFilteringCallbacks(
-                query -> service.fetch(query.getOffset(),
-                        query.getLimit(),
-                        query.getFilter()).stream(),
-                query -> service.getCount(query.getFilter()));
-
-        DataProvider<Person, String> dataProvider =
-                predicateDataProvider.withConvertedFilter(
-                        text -> (person -> person.getName()
-                                .startsWith(text)));
-
-        return dataProvider;
-    }
-
-    public void gpersonService(PersonService service) {
-        DataProvider<Person, String> dataProvider =
-                getDataProvider(service);
-        ComboBox<Person> comboBox = new ComboBox<>();
-        comboBox.setDataProvider(dataProvider);
-    }
-
-
-    public void refreshItem() {
-        FetchCallback<Person, String> fetchCallback = null;
-        CountCallback<Person, String> sizeCallback = null;
-        PersonService service = null;
-
-        DataProvider<Person, String> allPersonsWithId =
-                new CallbackDataProvider<>(
-                fetchCallback, sizeCallback, Person::getId);
-
-        Grid<Person> persons = new Grid<>();
-        persons.setDataProvider(allPersonsWithId);
-        persons.addColumn(Person::getName).setHeader("Name");
-
-        Button modifyPersonButton = new Button("", event -> {
-            Person personToChange = service.fetchById(128);
-            personToChange.setName("Changed person");
-            Person newInstance = service.save(personToChange);
-            allPersonsWithId.refreshItem(newInstance);
-        });
-
-    }
-
-    public void sortOrderProvider() {
-        Grid<Person> grid = new Grid<>(Person.class);
-
-
-        grid.addColumn(person ->
-                person.getName() + " " + person.getLastName())
-                .setHeader("Name")
-                .setSortOrderProvider(
-                // Sort according to last name, then first name
-                direction -> Stream.of(
-                        new QuerySortOrder("lastName", direction),
-                        new QuerySortOrder("firstName", direction)));
-
-        // Will be sortable by the user
-        // When sorting by this column, the query
-        // will have a SortOrder
-        // where getSorted() returns "name"
-        grid.addColumn(Person::getName)
-                .setHeader("Name")
-                .setSortProperty("name");
-
-        // Will not be sortable since no sorting info is given
-        grid.addColumn(Person::getYearOfBirth)
-                .setHeader("Year of birth");
-    }
-
-    private DataProvider<Person, Set<String>> getPersonsProvider() {
-        return null;
-    }
-
-    private DataProvider<Person, String> getPersonProvider() {
-        return null;
-    }
+    
 
     private PersonService getPersonService() {
         return null;
     }
-
-    private DataProvider<Person, Set<String>> getProvider() {
-        return null;
-    }
-
 
     public class DepartmentServiceImpl implements DepartmentService {
         List<Department> departments = new ArrayList<>();
