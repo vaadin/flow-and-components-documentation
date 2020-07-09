@@ -29,5 +29,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
     public Page<Person> findByNameLikeIgnoreCase(String likeFilter, PageRequest of);
+    public long countByNameLikeIgnoreCase(String likeFilter);
 
 }

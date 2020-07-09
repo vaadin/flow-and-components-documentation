@@ -77,7 +77,7 @@ grid.addColumn(Person::getName)
 This kind of sorting is only supported for in-memory data. See <<Sorting with Lazy Data Binding>> for how to sort lazy-loaded data. 
 
 
-== Making a Lazy Data Binding Using Callbacks
+== Making a Lazy Data Binding to Grid Using Callbacks
 
 A more advanced way to bind data to components is using callback methods. This way, only the required portion of the data is loaded from your backend to the server memory. This approach is harder to implement and provides fewer features out of the box but can save a lot of resources in the backend and the UI server. The component gives a query object as a parameter to your callback methods, where you can check that what part of the data set is needed.
 
@@ -233,6 +233,30 @@ dataView.setItemCountCallback(q -> {
     return getPersonService().getPersonCount(); 
 });
 ----
+
+== Making a lazy data binding to ComboBox
+
+// TODO change this into data view style once the changes are in ComboBox
+
+The lazy loaded binding in ComboBox is always filtered by the string typed in by the end user. If there is not filter yet input, the filter is empty string. ComboBox currently uses the old data provider naming convention. Also the count of total matches is currently required.
+
+*Example*: Making a lazy data binding to a Spring Data repository.
+
+[source, java]
+----
+ComboBox<Person> cb = new ComboBox<>();
+cb.setDataProvider((String filter, int offset, int limit) -> {
+    return repo.findByNameLikeIgnoreCase(
+            "%" + filter + "%", // <1>
+            PageRequest.of(offset / limit, limit)
+    ).stream();
+}, filter -> {
+    return (int) repo.countByNameLikeIgnoreCase("%" + filter + "%"); // <2>
+});
+----
+
+<1> Add % marks to filter for SQL like query
+<2> The total amount of items matching the filter is required
 
 == Refreshing data loaded into components
 

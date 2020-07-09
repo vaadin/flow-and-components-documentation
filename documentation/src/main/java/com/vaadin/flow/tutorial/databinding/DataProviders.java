@@ -265,6 +265,18 @@ public class DataProviders {
         });
     }
     
+    private void lazyBindingToComboBox() {
+        ComboBox<Person> cb = new ComboBox<>();
+        cb.setDataProvider((String filter, int offset, int limit) -> {
+            return repo.findByNameLikeIgnoreCase(
+                    "%" + filter + "%", // <1>
+                    PageRequest.of(offset / limit, limit)
+            ).stream();
+        }, filter -> {
+            return (int) repo.countByNameLikeIgnoreCase("%" + filter + "%");
+        });
+    }
+    
 
     private PersonService getPersonService() {
         return null;
