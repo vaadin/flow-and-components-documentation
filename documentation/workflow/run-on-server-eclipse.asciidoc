@@ -36,6 +36,11 @@ In normal cases when using `m2e` (Eclipse Maven Integration), this happens autom
 ```
 
 == Running `prepare-frontend` manually
-If for some reason `prepare-frontend` is not triggered automatically, the WAR may be created without `flow-build-info.json`.
-In this case you will see an exception during server startup when trying to initialize development mode.
-You can then tell Eclipse to run `prepare-frontend` by creating a Maven Run Configuration (*Run*/*Run Configurations...*) with the target `vaadin:prepare-frontend` and run it manually.
+If for some reason `prepare-frontend` is not triggered automatically, the WAR may be created without `flow-build-info.json` and Vaadin will default to the current working directory for the frontend build.
+For server deployments the cwd may be different from the project directory, so if it cannot be identified as a Maven or Gradle project directory `DevModeInitializer` will raise an exception during server startup. For example:
+
+```
+java.lang.IllegalStateException: Failed to determine project directory for dev mode. Directory '/opt/wildfly-19.1.0.Final/bin' does not look like a Maven or Gradle project. Ensure that you have run the prepare-frontend Maven goal, which generates 'flow-build-info.json', prior to deploying your application
+```
+
+You may then tell Eclipse to run `prepare-frontend` by creating a Maven Run Configuration (*Run*/*Run Configurations...*) with the target `vaadin:prepare-frontend` and running it manually.
