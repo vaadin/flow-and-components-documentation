@@ -44,3 +44,4 @@ java.lang.IllegalStateException: Failed to determine project directory for dev m
 ```
 
 You may then tell Eclipse to run `prepare-frontend` by creating a Maven Run Configuration (*Run*/*Run Configurations...*) with the target `vaadin:prepare-frontend` and running it manually.
+You will also need to rebuild the WAR and publish it again to the server.
