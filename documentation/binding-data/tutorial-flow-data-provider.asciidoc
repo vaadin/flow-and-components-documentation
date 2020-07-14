@@ -83,7 +83,7 @@ A more advanced way to bind data to components is using callback methods. This w
 
 Currently, only `Grid` and `ComboBox` properly support lazy data binding.
 
-*<Example*: Doing a lazy data binding to Grid
+*Example*: Doing a lazy data binding to Grid
 
 [source, java]
 ----
@@ -172,7 +172,7 @@ public static Sort toSpringDataSort(List<QuerySortOrder> vaadinSortOrders) {
 <4> Here we pass the backend compatible sort information to our backend call.
 <5> The `getSorted` method in QuerySortOrder returns the columns property name or a key you have assigned to the column.
 
-=== Filtering with lazy data binding
+=== Filtering a Grid with lazy data binding
 
 Also, filtering needs to happen in the backend in efficient lazy data binding. If you provide, for example, a text field to limit your results in a Grid, you need to make your callbacks to take care of the filter.
 
@@ -278,3 +278,29 @@ Button modify = new Button("Modify data", e -> {
     gridDataView.refreshItem(person);
 });
 ----
+
+If you are mutating the data set bound to a component like grid, the databinding must be reset. Alternatively, if you have bound a mutable List to your component, you can use helper methods in the list data view to add or remove items or hook to item count change event.
+
+*Example*: Using mutation methods and listening to item count change via list data view.
+
+
+[source, java]
+----
+ArrayList<String> items = new ArrayList<>(Arrays.asList("foo", "bar"));
+
+Select<String> select = new Select<>();
+SelectListDataView<String> dataView = select.setItems(items);
+
+TextField newItemField = new TextField("Add new item");
+Button addNewItem = new Button("Add", e-> {
+        dataView.addItem(newItemField.getValue());
+});
+Button remove = new Button("Remove selected", e-> {
+        dataView.removeItem(select.getValue());
+});
+
+dataView.addItemCountChangeListener(e -> {
+        Notification.show(" " + e.getItemCount() + " items available");
+});
+----
+

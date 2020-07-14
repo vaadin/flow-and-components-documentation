@@ -20,6 +20,9 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.dataview.GridLazyDataView;
 import com.vaadin.flow.component.grid.dataview.GridListDataView;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.select.Select;
+import com.vaadin.flow.component.select.data.SelectListDataView;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.QuerySortOrder;
 import com.vaadin.flow.data.provider.SortDirection;
@@ -273,9 +276,32 @@ public class DataProviders {
                     PageRequest.of(offset / limit, limit)
             ).stream();
         }, filter -> {
-            return (int) repo.countByNameLikeIgnoreCase("%" + filter + "%");
+            return (int) repo.countByNameLikeIgnoreCase("%" + filter + "%"); // <2>
         });
     }
+    
+    private void mutationMethodsInListDataView() {
+
+        ArrayList<String> items = new ArrayList<>(Arrays.asList("foo", "bar"));
+        
+        Select<String> select = new Select<>();
+        SelectListDataView<String> dataView = select.setItems(items);
+
+        TextField newItemField = new TextField("Add new item");
+        Button addNewItem = new Button("Add", e-> {
+                dataView.addItem(newItemField.getValue());
+        });
+        Button remove = new Button("Remove selected", e-> {
+                dataView.removeItem(select.getValue());
+        });
+
+        dataView.addItemCountChangeListener(e -> {
+                Notification.show(" " + e.getItemCount() + " items available");
+        });
+
+    	
+    }
+    
     
 
     private PersonService getPersonService() {
