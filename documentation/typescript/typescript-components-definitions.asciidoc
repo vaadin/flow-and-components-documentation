@@ -40,7 +40,7 @@ In some cases you might need to get a reference to the web component, and use it
 or call methods. Below you will find examples of how to improve developer experience in such cases
 by applying proper types.
 
-=== `@query` decorator [[query-decorator]]
+=== Query decorator [[query-decorator]]
 
 The suggested way of storing a reference in LitElement based view is `@query` decorator. When using
 it, you need to provide a correct type for the component you are referring to:
@@ -192,7 +192,7 @@ property. So this is not something we currently support. We consider this an enh
 bug. Please see the https://github.com/vaadin/vaadin-core/issues/255[issue] where it is being
 tracked.
 
-=== `items` property [[items-property]]
+=== Items property [[items-property]]
 
 Certain Vaadin components, namely Grid, ComboBox and CRUD, support setting `items` property as an
 array of objects. Typically, when using a component, we know what type of objects we expect, and
