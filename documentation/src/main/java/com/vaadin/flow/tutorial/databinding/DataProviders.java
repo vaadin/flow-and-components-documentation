@@ -18,6 +18,7 @@ package com.vaadin.flow.tutorial.databinding;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.dataview.GridDataView;
 import com.vaadin.flow.component.grid.dataview.GridLazyDataView;
 import com.vaadin.flow.component.grid.dataview.GridListDataView;
 import com.vaadin.flow.component.notification.Notification;
@@ -29,9 +30,15 @@ import com.vaadin.flow.data.provider.SortDirection;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.databinding.Person.Department;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -278,6 +285,21 @@ public class DataProviders {
         }, filter -> {
             return (int) repo.countByNameLikeIgnoreCase("%" + filter + "%"); // <2>
         });
+    }
+    
+    private void exportToCsvFile(Grid<Person> grid) 
+            throws FileNotFoundException, IOException {
+        GridDataView<Person> dataView = grid.getGenericDataView(); // <1>
+        FileOutputStream fout = new FileOutputStream(new File("/tmp/export.csv"));
+        
+        dataView.getItems().forEach(person -> {
+            try {
+                fout.write((person.getFullName() + ", " + person.getEmail() +"\n").getBytes());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        fout.close();
     }
     
     private void mutationMethodsInListDataView() {

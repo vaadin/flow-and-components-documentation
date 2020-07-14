@@ -304,3 +304,28 @@ dataView.addItemCountChangeListener(e -> {
 });
 ----
 
+== Listing currently set items in the components
+
+In certain cases it is handy get a handle to all items in the component. For example add-ons or generic helpers might want to do something with the data that is currently listed in the component. For such a purposes, the super type of data views can be accessed with `getGenericDataView` method.
+
+CAUTION: Calling certain methods in data views can be an expensive operation. Especially when using a lazy data binding, calling for example `grid.getGenericDataView().getItems()` will cause the whole data set to be loaded from the backend.
+
+*Example*: A generic helper method to export a Grid of persons to a CSV file. 
+
+[source, java]
+----
+private void exportToCsvFile(Grid<Person> grid) 
+        throws FileNotFoundException, IOException {
+    GridDataView<Person> dataView = grid.getGenericDataView();
+    FileOutputStream fout = new FileOutputStream(new File("/tmp/export.csv"));
+    
+    dataView.getItems().forEach(person -> {
+        try {
+            fout.write((person.getFullName() + ", " + person.getEmail() +"\n").getBytes());
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    });
+    fout.close();
+}
+----
