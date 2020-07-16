@@ -25,11 +25,15 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.select.data.SelectListDataView;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.provider.CallbackDataProvider;
+import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.data.provider.QuerySortOrder;
 import com.vaadin.flow.data.provider.SortDirection;
 import com.vaadin.flow.data.value.ValueChangeMode;
+import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.databinding.Person.Department;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -40,6 +44,9 @@ import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
@@ -314,6 +321,30 @@ public class DataProviders {
     	
     }
     
+    public static void listItems(Grid<Person> grid, PersonRepository repository) {
+        grid.setItems(query -> {
+            return repository.findAll(
+                    PageRequest.of(query.getPage(),
+                            query.getPageSize())
+            ).stream();
+        });
+    }
+    
+    public void shareDataBindingCode() {
+    	
+    	PersonDataProvider dataProvider = new PersonDataProvider(); 
+    	
+    	Grid<Person> personGrid = null;
+    	
+    	personGrid.setItems(dataProvider);
+    	
+    	
+    	
+    }
+    
+    
+    
+    
     
 
     private PersonService getPersonService() {
@@ -471,4 +502,35 @@ public class DataProviders {
         }
 
     }
+
+    @SpringComponent
+    public class PersonGrid extends Grid<Person> {
+
+        public PersonGrid(@Autowired PersonRepository repo) {
+            super(Person.class);
+            // Make the lazy binding
+            setItems(q -> repo.findAll(
+                    PageRequest.of(q.getPage(), q.getPageSize())).stream());
+            // Make other common/default configuration
+            setColumns("name", "email");
+        }
+        
+    }
+    
+    @SpringComponent
+    public class PersonDataProvider implements CallbackDataProvider.FetchCallback<Person, Void> {
+        
+        @Autowired
+        PersonRepository repo;
+
+        @Override
+        public Stream<Person> fetch(Query<Person, Void> query) {
+            return repo.findAll(PageRequest.of(query.getPage(), query.getPageSize())).stream();
+        }
+        
+    }
+
+
 }
+
+

@@ -139,8 +139,8 @@ public void bindWithSorting() {
             Sort springSort = toSpringDataSort(q.getSortOrders()); // <3>
             return repo.findAll(
                     PageRequest.of(
-                            q.getOffset() / q.getLimit(), 
-                            q.getLimit(), 
+                            q.getPage(), 
+                            q.getPageSize(), 
                             springSort // <4>
             )).stream();
     });
@@ -191,7 +191,7 @@ private void listPersonsFilteredByName(String filterString) {
     grid.setItems(q -> repo
         .findByNameLikeIgnoreCase(
             likeFilter, // <4>
-            PageRequest.of(q.getOffset() / q.getLimit(), q.getLimit()))
+            PageRequest.of(q.getPage(), q.getPageSize()))
         .stream());
 }
 ----
@@ -316,7 +316,7 @@ CAUTION: Calling certain methods in data views can be an expensive operation. Es
 ----
 private void exportToCsvFile(Grid<Person> grid) 
         throws FileNotFoundException, IOException {
-    GridDataView<Person> dataView = grid.getGenericDataView();
+    GridDataView<Person> dataView = grid.getGenericDataView(); // <1>
     FileOutputStream fout = new FileOutputStream(new File("/tmp/export.csv"));
     
     dataView.getItems().forEach(person -> {
@@ -328,4 +328,63 @@ private void exportToCsvFile(Grid<Person> grid)
     });
     fout.close();
 }
+----
+
+== Recycling data binding logic
+
+In large applications there are typically multiple places where same data type is listed. You can use multiple approaches to share the lazy data binding logic.
+
+*Example*: A domain object specific component implementation. This approach allows sharing also other common configuration.
+
+[source, java]
+----
+@SpringComponent
+public class PersonGrid extends Grid<Person> {
+
+    public PersonGrid(@Autowired PersonRepository repo) {
+        super(Person.class);
+        // Make the lazy binding
+        setItems(q -> repo.findAll(
+                PageRequest.of(q.getPage(), q.getPageSize())).stream());
+        // Make other common/default configuration
+        setColumns("name", "email");
+    }
+    
+}
+----
+
+
+*Example*: A static helper method to bind to do the data binding.
+
+[source, java]
+----
+public static void listItems(Grid<Person> grid, PersonRepository repository) {
+    grid.setItems(query -> {
+        return repository.findAll(
+                PageRequest.of(query.getPage(),
+                        query.getPageSize())
+        ).stream();
+    });
+}
+----
+
+*Example*: Creating a separate data provider class.
+
+[source, java]
+----
+@SpringComponent
+public class PersonDataProvider implements CallbackDataProvider.FetchCallback<Person, Void> {
+    
+    @Autowired
+    PersonRepository repo;
+
+    @Override
+    public Stream<Person> fetch(Query<Person, Void> query) {
+        return repo.findAll(PageRequest.of(query.getPage(), query.getPageSize())).stream();
+    }
+    
+}
+
+personGrid.setItems(dataProvider);
+
 ----
