@@ -368,7 +368,7 @@ public static void listItems(Grid<Person> grid, PersonRepository repository) {
 }
 ----
 
-*Example*: Creating a separate data provider class.
+*Example*: Creating a separate data provider class. This example uses only the FetchCallBack, but you and also implement a full data provider by for example extending from AbstractBackEndDataProvider classs.
 
 [source, java]
 ----
