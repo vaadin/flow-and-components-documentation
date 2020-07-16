@@ -161,11 +161,10 @@ public class DataProviders {
     	
     	Grid<Person> grid = new Grid<>();
     	
-        // TODO, make this simpler and easier once flow #8557 is landed
         grid.setItems(query -> {
             return repository.findAll( // <1>
-                    PageRequest.of(query.getOffset()/query.getLimit(), // <2>
-                            query.getLimit()) // <3>
+                    PageRequest.of(query.getPage(), // <2>
+                            query.getPageSize()) // <3>
             ).stream(); // <4>
         });
     	
@@ -180,14 +179,6 @@ public class DataProviders {
         grid.addColumn(person -> person.getTitle())
                 .setHeader("title")
                 .setSortable(true);
-        grid.setItems(query -> {
-            
-            return repository.findAll( // <1>
-                    PageRequest.of(query.getOffset()/query.getLimit(), // <2>
-                            query.getLimit()) // <3>
-            ).stream(); // <4>
-        });
-        
         
         GridLazyDataView<Person> dataView = grid.setItems(query -> { // <1>
             return getPersonService()
@@ -219,8 +210,8 @@ public class DataProviders {
                 Sort springSort = toSpringDataSort(q.getSortOrders()); // <3>
                 return repo.findAll(
                 		PageRequest.of(
-                				q.getOffset() / q.getLimit(), 
-                				q.getLimit(), 
+                				q.getPage(), 
+                				q.getPageSize(), 
                 				springSort // <4>
                 )).stream();
         });
@@ -256,10 +247,9 @@ public class DataProviders {
             grid.setItems(q -> repo
                     .findByNameLikeIgnoreCase(
                             likeFilter, // <4>
-                            PageRequest.of(q.getOffset() / q.getLimit(), q.getLimit()))
+                            PageRequest.of(q.getPage(), q.getPageSize()))
                     .stream());
     }
-    
     
     private void refreshItem() {
         Person person = new Person();

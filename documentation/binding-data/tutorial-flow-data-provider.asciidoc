@@ -108,16 +108,16 @@ The example above suits naturally for JDBC backends where you can request a set 
 ----
 grid.setItems(query -> {
     return repository.findAll( // <1>
-            PageRequest.of(query.getOffset()/query.getLimit(), // <2>
-                    query.getLimit()) // <3>
+            PageRequest.of(query.getPage(), // <2>
+                    query.getPageSize()) // <3>
     ).stream(); // <4>
 });
 });
 ----
 
 <1> In this example we call Spring Data repository to find the requested result set 
-<2> Calculate the page index using offset and limit.
-<3> Vaadin components use the limit value from the page size, so pass limit as page size
+<2> The query object contains a shorthand for zero based page index.
+<3> The query object also contains page size.
 <4> Return a stream of items from the Spring Data `Page` object
 
 === Sorting with Lazy Data Binding
