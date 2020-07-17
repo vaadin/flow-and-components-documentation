@@ -165,23 +165,22 @@ public class DataProviders {
     
 
     public void lazyDataBindingToGrid(PersonRepository repository) {
-    	
-    	Grid<Person> grid = new Grid<>();
-    	
+        
+        Grid<Person> grid = new Grid<>();
+        
         grid.setItems(query -> {
             return repository.findAll( // <1>
                     PageRequest.of(query.getPage(), // <2>
                             query.getPageSize()) // <3>
             ).stream(); // <4>
         });
-    	
+        
         grid.setItems(query -> { // <1>
             return getPersonService() // <2>
                     .fetchPersons(query.getOffset(), query.getLimit()) // <3>
                     .stream(); // <4>
         });
-        
-        
+               
         grid.setSortableColumns("name", "email");
         grid.addColumn(person -> person.getTitle())
                 .setHeader("title")
@@ -210,16 +209,16 @@ public class DataProviders {
         Grid<Person> grid = new Grid<>(Person.class);
         grid.setSortableColumns("name", "email"); // <1>
         grid.addColumn(person -> person.getTitle())
-        	.setHeader("Title")
-        	.setKey("title").setSortable(true); // <2>
+            .setHeader("Title")
+            .setKey("title").setSortable(true); // <2>
         grid.setItems(
             q -> {
                 Sort springSort = toSpringDataSort(q.getSortOrders()); // <3>
                 return repo.findAll(
-                		PageRequest.of(
-                				q.getPage(), 
-                				q.getPageSize(), 
-                				springSort // <4>
+                        PageRequest.of(
+                                q.getPage(), 
+                                q.getPageSize(), 
+                                springSort // <4>
                 )).stream();
         });
     }
@@ -318,7 +317,7 @@ public class DataProviders {
                 Notification.show(" " + e.getItemCount() + " items available");
         });
 
-    	
+        
     }
     
     public static void listItems(Grid<Person> grid, PersonRepository repository) {
@@ -331,15 +330,10 @@ public class DataProviders {
     }
     
     public void shareDataBindingCode() {
-    	
-    	PersonDataProvider dataProvider = new PersonDataProvider(); 
-    	
-    	Grid<Person> personGrid = null;
-    	
-    	personGrid.setItems(dataProvider);
-    	
-    	
-    	
+        PersonDataProvider dataProvider = new PersonDataProvider(); 
+        Grid<Person> personGrid = null;
+        
+        personGrid.setItems(dataProvider);
     }
     
     
