@@ -275,7 +275,7 @@ public class DataProviders {
         
         List<Person> allPersons = repo.findAll();
         GridListDataView<Person> gridDataView = grid.setItems(allPersons);
-
+        
         Button selectNext = new Button("Next", e -> {
             grid.asSingleSelect().getOptionalValue().ifPresent(p -> {
                 gridDataView.getNextItem(p).ifPresent(
@@ -283,6 +283,17 @@ public class DataProviders {
                 );
             });
         });
+
+        gridDataView.addFilter(p -> p.getAge() < 20);
+
+    }
+    
+    private void selectNext(Grid grid) {
+        Object current = grid.asSingleSelect().getValue();
+        grid.getListDataView().getNextItem(current).ifPresent(next -> {
+            grid.asSingleSelect().setValue(next);
+        });
+        
     }
     
     private void lazyBindingToComboBox() {

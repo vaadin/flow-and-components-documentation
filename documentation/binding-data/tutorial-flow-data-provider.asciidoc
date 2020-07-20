@@ -301,7 +301,7 @@ Button selectNext = new Button("Next", e -> {
 ----
 
 
-== Refreshing data loaded into components
+== Updating the data loaded into components
 
 A typical scenario in Vaadin apps is that data displayed in, for example, a Grid component, is edited elsewhere in the application. Editing the item elsewhere does not automatically update the UI in a listing component. An easy way to refresh the listing component's content is to call `setItems` method again with fresh data. Alternatively, you can use more fine-grained APIs in the DataView to update just a portion of the dataset.
 
@@ -326,7 +326,6 @@ If you are mutating the data set bound to a component like grid, the databinding
 
 *Example*: Using mutation methods and listening to item count change via list data view.
 
-
 [source, java]
 ----
 ArrayList<String> items = new ArrayList<>(Arrays.asList("foo", "bar"));
@@ -347,7 +346,16 @@ dataView.addItemCountChangeListener(e -> {
 });
 ----
 
+If you are using in-memory data set, you can also apply filters vie the data view object. The filtered list is automatically updated to the UI.
 
+*Example*: Using the list data view to filter items based on it's property
+
+[source, java]
+----
+List<Person> allPersons = repo.findAll();
+GridListDataView<Person> gridDataView = grid.setItems(allPersons);
+gridDataView.addFilter(p -> p.getAge() < 20);
+----
 
 
 == Recycling data binding logic
