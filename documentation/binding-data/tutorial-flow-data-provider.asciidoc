@@ -257,6 +257,50 @@ cb.setDataProvider((String filter, int offset, int limit) -> {
 <1> Add % marks to filter for SQL like query
 <2> The total amount of items matching the filter is required
 
+== Accessing currently set items in the components
+
+In certain cases it is handy get a handle to all items in the component. For example add-ons or generic helpers might want to do something with the data that is currently listed in the component. For such a purposes, the super type of data views can be accessed with `getGenericDataView` method.
+
+CAUTION: Calling certain methods in data views can be an expensive operation. Especially when using a lazy data binding, calling for example `grid.getGenericDataView().getItems()` will cause the whole data set to be loaded from the backend.
+
+*Example*: A generic helper method to export persons listed in a Grid to a CSV file. 
+
+[source, java]
+----
+private void exportToCsvFile(Grid<Person> grid) 
+        throws FileNotFoundException, IOException {
+    GridDataView<Person> dataView = grid.getGenericDataView(); // <1>
+    FileOutputStream fout = new FileOutputStream(new File("/tmp/export.csv"));
+    
+    dataView.getItems().forEach(person -> {
+        try {
+            fout.write((person.getFullName() + ", " + person.getEmail() +"\n").getBytes());
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    });
+    fout.close();
+}
+----
+
+If you have assigned your items as in memory data you have more methods available in a list data view object. You can get the reference to that as a return value of `setItems` method or via `getListDataView` method. You can for example get the next or previous item of a certain item. You can do the same naturally by saving the original data structure too, but this way you can implement a generic UI logic without dependencies to the assigned data.
+
+*Example*: An example of programmatically selecting a next item in a Grid, if current value and next item after it exists.
+[source, java]
+----
+List<Person> allPersons = repo.findAll();
+GridListDataView<Person> gridDataView = grid.setItems(allPersons);
+
+Button selectNext = new Button("Next", e -> {
+    grid.asSingleSelect().getOptionalValue().ifPresent(p -> {
+        gridDataView.getNextItem(p).ifPresent(
+                next -> grid.select(next)
+        );
+    });
+});
+----
+
+
 == Refreshing data loaded into components
 
 A typical scenario in Vaadin apps is that data displayed in, for example, a Grid component, is edited elsewhere in the application. Editing the item elsewhere does not automatically update the UI in a listing component. An easy way to refresh the listing component's content is to call `setItems` method again with fresh data. Alternatively, you can use more fine-grained APIs in the DataView to update just a portion of the dataset.
@@ -303,31 +347,8 @@ dataView.addItemCountChangeListener(e -> {
 });
 ----
 
-== Listing currently set items in the components
 
-In certain cases it is handy get a handle to all items in the component. For example add-ons or generic helpers might want to do something with the data that is currently listed in the component. For such a purposes, the super type of data views can be accessed with `getGenericDataView` method.
 
-CAUTION: Calling certain methods in data views can be an expensive operation. Especially when using a lazy data binding, calling for example `grid.getGenericDataView().getItems()` will cause the whole data set to be loaded from the backend.
-
-*Example*: A generic helper method to export a Grid of persons to a CSV file. 
-
-[source, java]
-----
-private void exportToCsvFile(Grid<Person> grid) 
-        throws FileNotFoundException, IOException {
-    GridDataView<Person> dataView = grid.getGenericDataView(); // <1>
-    FileOutputStream fout = new FileOutputStream(new File("/tmp/export.csv"));
-    
-    dataView.getItems().forEach(person -> {
-        try {
-            fout.write((person.getFullName() + ", " + person.getEmail() +"\n").getBytes());
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-    });
-    fout.close();
-}
-----
 
 == Recycling data binding logic
 

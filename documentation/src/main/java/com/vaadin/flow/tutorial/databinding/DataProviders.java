@@ -271,6 +271,20 @@ public class DataProviders {
         });
     }
     
+    private void selectingNextItem() {
+        
+        List<Person> allPersons = repo.findAll();
+        GridListDataView<Person> gridDataView = grid.setItems(allPersons);
+
+        Button selectNext = new Button("Next", e -> {
+            grid.asSingleSelect().getOptionalValue().ifPresent(p -> {
+                gridDataView.getNextItem(p).ifPresent(
+                        next -> grid.select(next)
+                );
+            });
+        });
+    }
+    
     private void lazyBindingToComboBox() {
         ComboBox<Person> cb = new ComboBox<>();
         cb.setDataProvider((String filter, int offset, int limit) -> {
