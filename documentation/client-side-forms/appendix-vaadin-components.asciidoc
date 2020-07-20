@@ -77,7 +77,7 @@ const binder = new Binder(this, MyEntityModel);
 ...
 async firstUpdated(arg: any) {
   super.firstUpdated(arg);
-  this.binder.reset(await endpoint.getMyEntity());
+  this.binder.read(await endpoint.getMyEntity());
 }
 ----
 
