@@ -281,8 +281,10 @@ True if the form was submitted, but the submit promise is not resolved yet.
 
 The [classname]#Binder# instance methods are:
 
-`reset(defaultValue?: T): void`::
-Reset the form to the default value. If the argument is given, sets the default value property to the argument value first.
+`read(value: T): void`::
+Load the given value to the form.
+`reset(): void`::
+Reset the form to the previous value. 
 `clear(): void`::
 Sets the form to empty value, as defined in the Model.
 `getFieldStrategy(element: any): FieldStrategy`::
