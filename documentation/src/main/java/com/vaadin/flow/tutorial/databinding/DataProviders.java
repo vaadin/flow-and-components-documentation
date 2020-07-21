@@ -21,6 +21,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.dataview.GridDataView;
 import com.vaadin.flow.component.grid.dataview.GridLazyDataView;
 import com.vaadin.flow.component.grid.dataview.GridListDataView;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.select.data.SelectListDataView;
@@ -41,8 +42,6 @@ import java.io.IOException;
 
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -143,9 +142,9 @@ public class DataProviders {
                 new Person("James Madison", 1751)
         );
         // @formatter:on
-        
+
         PersonRepository personRepository = repo;
-        
+
         // Pass all Person objects to a grid from a Spring Data repository object
         grid.setItems(personRepository.findAll());
 
@@ -154,38 +153,47 @@ public class DataProviders {
                 // Override default natural sorting
                 .setComparator(Comparator.comparing(person ->
                         person.getName().toLowerCase()));
+
+        GridListDataView<Person> dataView =
+                grid.setItems(personRepository.findAll());
+
+        // Change the sort order of items collection
+        dataView.setSortOrder(Person::getName, SortDirection.ASCENDING);
+
+        // Add a sort order of items collection to an existing sorting
+        dataView.addSortOrder(Person::getTitle, SortDirection.ASCENDING);
+
+        // Remove item collection sorting completely
+        dataView.removeSorting();
     }
 
-   public void beanGrid() {
+    public void beanGrid() {
         Grid<Person> grid = new Grid<>(Person.class);
         grid.setColumns("name", "email", "title");
     }
 
-
-    
-
     public void lazyDataBindingToGrid(PersonRepository repository) {
-        
+
         Grid<Person> grid = new Grid<>();
-        
+
         grid.setItems(query -> {
             return repository.findAll( // <1>
                     PageRequest.of(query.getPage(), // <2>
                             query.getPageSize()) // <3>
             ).stream(); // <4>
         });
-        
+
         grid.setItems(query -> { // <1>
             return getPersonService() // <2>
                     .fetchPersons(query.getOffset(), query.getLimit()) // <3>
                     .stream(); // <4>
         });
-               
+
         grid.setSortableColumns("name", "email");
         grid.addColumn(person -> person.getTitle())
                 .setHeader("title")
                 .setSortable(true);
-        
+
         GridLazyDataView<Person> dataView = grid.setItems(query -> { // <1>
             return getPersonService()
                     .fetchPersons(query.getOffset(), query.getLimit())
@@ -194,69 +202,67 @@ public class DataProviders {
 
         dataView.setItemCountEstimate(1000); // <2>
         dataView.setItemCountEstimateIncrease(500); // <3>
-        
-        dataView.setItemCountCallback(q -> {
-            return getPersonService().getPersonCount(); 
-        });
-        
+
+        dataView.setItemCountCallback(q -> getPersonService().getPersonCount());
+
     }
-    
+
     TextField filterTextField = new TextField("Filter by name");
     Grid<Person> grid;
     PersonRepository repo;
-    
+
     public void bindWithSorting() {
         Grid<Person> grid = new Grid<>(Person.class);
         grid.setSortableColumns("name", "email"); // <1>
         grid.addColumn(person -> person.getTitle())
-            .setHeader("Title")
-            .setKey("title").setSortable(true); // <2>
+                .setHeader("Title")
+                .setKey("title").setSortable(true); // <2>
         grid.setItems(
-            q -> {
-                Sort springSort = toSpringDataSort(q.getSortOrders()); // <3>
-                return repo.findAll(
-                        PageRequest.of(
-                                q.getPage(), 
-                                q.getPageSize(), 
-                                springSort // <4>
-                )).stream();
-        });
+                q -> {
+                    Sort springSort = toSpringDataSort(q.getSortOrders()); // <3>
+                    return repo.findAll(
+                            PageRequest.of(
+                                    q.getPage(),
+                                    q.getPageSize(),
+                                    springSort // <4>
+                            )).stream();
+                });
     }
-    
+
     /**
-     * A method to convert given Vaadin sort hints to Spring Data specific sort 
+     * A method to convert given Vaadin sort hints to Spring Data specific sort
      * instructions.
-     * 
-     * @param vaadinSortOrders a list of Vaadin QuerySortOrders to convert to 
+     *
+     * @param vaadinSortOrders a list of Vaadin QuerySortOrders to convert to
      * @return the Sort object for Spring Data repositories
      */
     public static Sort toSpringDataSort(List<QuerySortOrder> vaadinSortOrders) {
         return Sort.by(
                 vaadinSortOrders.stream()
-                        .map(so -> 
-                                so.getDirection() == SortDirection.ASCENDING ? 
+                        .map(so ->
+                                so.getDirection() == SortDirection.ASCENDING ?
                                         Sort.Order.asc(so.getSorted()) : // <5>
                                         Sort.Order.desc(so.getSorted())
                         )
                         .collect(Collectors.toList())
         );
     }
-    
+
     public void initFiltering() {
         filterTextField.setValueChangeMode(ValueChangeMode.LAZY); // <1>
         filterTextField.addValueChangeListener(e -> listPersonsFilteredByName(e.getValue())); // <2>
-        
+
     }
-    
+
     private void listPersonsFilteredByName(String filterString) {
-            String likeFilter = "%" + filterString + "%";// <3>
-            grid.setItems(q -> repo
-                    .findByNameLikeIgnoreCase(
-                            likeFilter, // <4>
-                            PageRequest.of(q.getPage(), q.getPageSize()))
-                    .stream());
+        String likeFilter = "%" + filterString + "%";// <3>
+        grid.setItems(q -> repo
+                .findByNameLikeIgnoreCase(
+                        likeFilter, // <4>
+                        PageRequest.of(q.getPage(), q.getPageSize()))
+                .stream());
     }
-    
+
     private void refreshItem() {
         Person person = new Person();
         person.setName("Jorma");
@@ -270,12 +276,12 @@ public class DataProviders {
             gridDataView.refreshItem(person);
         });
     }
-    
+
     private void selectingNextItem() {
-        
+
         List<Person> allPersons = repo.findAll();
         GridListDataView<Person> gridDataView = grid.setItems(allPersons);
-        
+
         Button selectNext = new Button("Next", e -> {
             grid.asSingleSelect().getOptionalValue().ifPresent(p -> {
                 gridDataView.getNextItem(p).ifPresent(
@@ -284,18 +290,19 @@ public class DataProviders {
             });
         });
 
-        gridDataView.addFilter(p -> p.getAge() < 20);
+        // Filter Persons younger 20 years
+        gridDataView.setFilter(p -> p.getAge() < 20);
 
     }
-    
+
     private void selectNext(Grid grid) {
         Object current = grid.asSingleSelect().getValue();
         grid.getListDataView().getNextItem(current).ifPresent(next -> {
             grid.asSingleSelect().setValue(next);
         });
-        
+
     }
-    
+
     private void lazyBindingToComboBox() {
         ComboBox<Person> cb = new ComboBox<>();
         cb.setDataProvider((String filter, int offset, int limit) -> {
@@ -307,64 +314,59 @@ public class DataProviders {
             return (int) repo.countByNameLikeIgnoreCase("%" + filter + "%"); // <2>
         });
     }
-    
-    private void exportToCsvFile(Grid<Person> grid) 
+
+    private void exportToCsvFile(Grid<Person> grid)
             throws FileNotFoundException, IOException {
         GridDataView<Person> dataView = grid.getGenericDataView(); // <1>
         FileOutputStream fout = new FileOutputStream(new File("/tmp/export.csv"));
-        
+
         dataView.getItems().forEach(person -> {
             try {
-                fout.write((person.getFullName() + ", " + person.getEmail() +"\n").getBytes());
+                fout.write((person.getFullName() + ", " + person.getEmail() + "\n").getBytes());
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         });
         fout.close();
     }
-    
+
     private void mutationMethodsInListDataView() {
 
         ArrayList<String> items = new ArrayList<>(Arrays.asList("foo", "bar"));
-        
+
         Select<String> select = new Select<>();
         SelectListDataView<String> dataView = select.setItems(items);
 
         TextField newItemField = new TextField("Add new item");
-        Button addNewItem = new Button("Add", e-> {
-                dataView.addItem(newItemField.getValue());
+        Button addNewItem = new Button("Add", e -> {
+            dataView.addItem(newItemField.getValue());
         });
-        Button remove = new Button("Remove selected", e-> {
-                dataView.removeItem(select.getValue());
-        });
-
-        dataView.addItemCountChangeListener(e -> {
-                Notification.show(" " + e.getItemCount() + " items available");
+        Button remove = new Button("Remove selected", e -> {
+            dataView.removeItem(select.getValue());
         });
 
-        
+        // Hook to item count change event
+        dataView.addItemCountChangeListener(e ->
+                Notification.show(" " + e.getItemCount() + " items available"));
+
+        // Request the item count directly
+        Span itemCountSpan = new Span(
+                "Total Item Count: " + dataView.getItemCount());
     }
-    
+
     public static void listItems(Grid<Person> grid, PersonRepository repository) {
-        grid.setItems(query -> {
-            return repository.findAll(
-                    PageRequest.of(query.getPage(),
-                            query.getPageSize())
-            ).stream();
-        });
+        grid.setItems(query -> repository.findAll(
+                PageRequest.of(query.getPage(),
+                        query.getPageSize())
+        ).stream());
     }
-    
+
     public void shareDataBindingCode() {
-        PersonDataProvider dataProvider = new PersonDataProvider(); 
-        Grid<Person> personGrid = null;
-        
+        PersonDataProvider dataProvider = new PersonDataProvider();
+        Grid<Person> personGrid = new Grid<>();
+
         personGrid.setItems(dataProvider);
     }
-    
-    
-    
-    
-    
 
     private PersonService getPersonService() {
         return null;
@@ -426,7 +428,6 @@ public class DataProviders {
         int getCount(EmployeeFilter filter);
     }
 
-
     public class Employee {
         String name;
         int yearOfBirth;
@@ -448,7 +449,6 @@ public class DataProviders {
             this.yearOfBirth = yearOfBirth;
         }
 
-
         public Department getDepartment() {
             return department;
         }
@@ -468,7 +468,6 @@ public class DataProviders {
             this.yearOfBirth = yearOfBirth;
             this.department = department;
         }
-
 
     }
 
@@ -533,12 +532,12 @@ public class DataProviders {
             // Make other common/default configuration
             setColumns("name", "email");
         }
-        
+
     }
-    
+
     @SpringComponent
     public class PersonDataProvider implements CallbackDataProvider.FetchCallback<Person, Void> {
-        
+
         @Autowired
         PersonRepository repo;
 
@@ -546,10 +545,6 @@ public class DataProviders {
         public Stream<Person> fetch(Query<Person, Void> query) {
             return repo.findAll(PageRequest.of(query.getPage(), query.getPageSize())).stream();
         }
-        
+
     }
-
-
 }
-
-

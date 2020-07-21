@@ -61,7 +61,7 @@
             <version>5.2.0.RELEASE</version>
         </dependency>
         
-        <!-- For lazy data binding examples s-->
+        <!-- For lazy data binding examples -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
