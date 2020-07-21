@@ -33,15 +33,17 @@ import com.vaadin.flow.data.provider.SortDirection;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
-import com.vaadin.flow.tutorial.databinding.Person.Department;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import java.util.*;
-import java.util.function.Predicate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -52,10 +54,6 @@ import org.springframework.data.domain.Sort;
 @CodeFor("binding-data/tutorial-flow-data-provider.asciidoc")
 public class DataProviders {
 
-    public static class PersonSort {
-
-    }
-
     public enum Status {
         OK, ERROR;
 
@@ -65,48 +63,12 @@ public class DataProviders {
     }
 
     public interface PersonService {
-        List<Person> fetch(int offset, int limit,
-                           Optional<Predicate<Person>> predicate);
-
-        int getCount(Optional<Predicate<Person>> predicate);
 
         List<Person> fetchPersons(int offset, int limit);
 
-        List<Person> fetchPersons(int offset, int limit,
-                                  List<PersonSort> sortOrders);
-
         int getPersonCount();
 
-        // @formatter:off
-        PersonSort createSort(
-                String propertyName,
-                boolean descending);
-
-        List<Person> fetchPersons(
-                int offset,
-                int limit,
-                String namePrefix);
-        // @formatter:on
-
-        List<Person> fetchPersons(int offset, int limit, String namePrefix,
-                                  Department department);
-
-        // @formatter:off
-        int getPersonCount(
-                String namePrefix,
-                Department department);
-        // @formatter:on
-
         Person save(Person person);
-
-        Person fetchById(int i);
-    }
-
-    public interface DepartmentService {
-        List<Department> fetch(int offset, int limit,
-                               String filterText);
-
-        int getCount(String filterText);
     }
 
     public void combobox() {
@@ -115,16 +77,6 @@ public class DataProviders {
 
         // Sets items as a collection
         comboBox.setItems(EnumSet.allOf(Status.class));
-
-        List<Status> itemsToShow = null;
-
-        // @formatter:off
-        /*
-        comboBox.setItems(
-                (itemCaption, filterText) -> itemCaption.startsWith(filterText),
-                itemsToShow);
-        */
-        // @formatter:on
     }
 
     public void grid() {
@@ -370,155 +322,6 @@ public class DataProviders {
 
     private PersonService getPersonService() {
         return null;
-    }
-
-    public class DepartmentServiceImpl implements DepartmentService {
-        List<Department> departments = new ArrayList<>();
-
-        public DepartmentServiceImpl() {
-        }
-
-        @Override
-        public List<Department> fetch(int offset, int limit, String filterText) {
-            List<Department> result = new ArrayList<>();
-            return result;
-        }
-
-        @Override
-        public int getCount(String filterText) {
-            int counter = 0;
-            return counter;
-        }
-    }
-
-    public class EmployeeFilter {
-
-        private String filterText;
-        private Department department;
-
-        public String getFilterText() {
-            return filterText;
-        }
-
-        public void setFilterText(String filterText) {
-            this.filterText = filterText;
-        }
-
-        public Department getDepartment() {
-            return department;
-        }
-
-        public void setDepartment(Department department) {
-            this.department = department;
-        }
-
-        public EmployeeFilter(String filterText,
-                              Department department) {
-
-            this.filterText = filterText;
-            this.department = department;
-        }
-
-    }
-
-    public interface EmployeeService {
-        List<Employee> fetch(int offset, int limit,
-                             EmployeeFilter filter);
-
-        int getCount(EmployeeFilter filter);
-    }
-
-    public class Employee {
-        String name;
-        int yearOfBirth;
-        Department department;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public int getYearOfBirth() {
-            return yearOfBirth;
-        }
-
-        public void setYearOfBirth(int yearOfBirth) {
-            this.yearOfBirth = yearOfBirth;
-        }
-
-        public Department getDepartment() {
-            return department;
-        }
-
-        public void setDepartment(Department department) {
-            this.department = department;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-
-        public Employee(String name, int yearOfBirth, Department department) {
-
-            this.name = name;
-            this.yearOfBirth = yearOfBirth;
-            this.department = department;
-        }
-
-    }
-
-    public class EmployeeServiceImpl implements EmployeeService {
-
-        List<Employee> employees = new ArrayList<>();
-
-        public EmployeeServiceImpl() {
-        }
-
-        @Override
-        public List<Employee> fetch(int offset, int limit, EmployeeFilter filter) {
-            List<Employee> searchList = new ArrayList<>();
-
-            if (filter != null && (filter.getDepartment() != null || filter.getFilterText() != null)) {
-                for (Employee employee : employees) {
-                    if ((filter.getFilterText() == null || employee.getName().contains(filter.getFilterText()))
-                            && Objects.equals(employee.getDepartment(), filter.getDepartment())) {
-                        searchList.add(employee);
-                    }
-                }
-            } else {
-                searchList = employees;
-            }
-
-            List<Employee> result = new ArrayList<>();
-            int count = 0;
-            for (int i = offset; i < offset + limit && i < searchList.size(); i++) {
-                result.add(searchList.get(i));
-            }
-
-            return result;
-        }
-
-        @Override
-        public int getCount(EmployeeFilter filter) {
-            int counter = 0;
-
-            if (filter == null && (filter.getFilterText() == null || filter.getDepartment() == null)) {
-                return employees.size();
-            }
-
-            for (Employee employee : employees) {
-                if (employee.getName().contains(filter.getFilterText())
-                        && Objects.equals(employee.getDepartment(), filter.getDepartment())) {
-                    counter++;
-                }
-            }
-            return counter;
-        }
-
     }
 
     @SpringComponent

@@ -6,10 +6,11 @@ layout: page
 
 = Binding Data Items to Components
 
-In most applications, there are lists of items shown to end-users. This can be implemented using either basic components with `for` loops, or using
-components, such as `Grid`, `ComboBox`, and `ListBox`, that are designed for that purpose.
+In most applications, there are lists of items shown to end-users. This can be implemented using either basic components with `for` loops, or using components, such as `Grid`, `ComboBox`, and `ListBox`, that are designed for that purpose.
 
-All listing components in Vaadin have a set of `setItems` methods to define which items to display. Items can be basic objects, like strings or numbers, or POJOs, such as DTOs or JPA entities, from your domain model. The easiest way is just to provide a `java.util.List` of objects to be shown in the component. If the number of items is large and reserves a lot of memory, `Grid` and `ComboBox` allow you to do a lazy data binding using callbacks to fetch only the required set of items from the back-end.
+All listing components in Vaadin have a set of `setItems` methods to define which items to display. Items can be basic objects, like strings or numbers, or POJOs, such as DTOs or JPA entities, from your domain model. The easiest way is just to provide a `java.util.List` of objects to be shown in the component.
+
+If the number of items is large and reserves a lot of memory, `Grid` and `ComboBox` allow you to do a lazy data binding using callbacks to fetch only the required set of items from the back-end.
 
 == Configuring how items are displayed
 
@@ -59,8 +60,7 @@ grid.setItems(personRepository.findAll());
 
 === Sorting of In-memory Data in Grid
 
-Grid rows are automatically sortable by columns whose property type implements `Comparable`.
-By defining a custom `Comparator` you can make other columns comparable or override the default behavior.
+Grid rows are automatically sortable by columns whose property type implements `Comparable`. By defining a custom `Comparator` you can make other columns comparable or override the default behavior.
 
 *Example*: Defining a custom comparator.
 
@@ -76,9 +76,7 @@ grid.addColumn(Person::getName)
 [NOTE]
 This kind of sorting is only supported for in-memory data. See <<Sorting with Lazy Data Binding>> for how to sort lazy-loaded data.
 
-You can also sort the items collection with `DataView` API, either by setting a
-`Comparator` or a sort order for a given bean field. Sort orders or
-`Comparator` can be added or removed completely as well.
+You can also sort the items collection with `DataView` API, either by setting a `Comparator` or a sort order for a given bean field. Sort orders or `Comparator` can be added or removed completely as well.
 
 *Example*: Defining a custom sorting via a `DataView` API:
 
@@ -338,11 +336,7 @@ Button modify = new Button("Modify data", e -> {
 });
 ----
 
-If you are mutating the data set bound to a component like grid, the
-databinding must be reset. Alternatively, if you have bound a mutable `List`
-to your component, you can use helper methods in the list data view to add or
-remove items or obtain item count by hooking to item count change event or
-request the item count directly.
+If you are mutating the data set bound to a component like grid, the databinding must be reset. Alternatively, if you have bound a mutable `List` to your component, you can use helper methods in the list data view to add or remove items or obtain item count by hooking to item count change event or request the item count directly.
 
 *Example*: Using mutation methods and listening to item count change via list data view.
 
@@ -369,8 +363,7 @@ dataView.addItemCountChangeListener(e ->
 Span itemCountSpan = new Span("Total Item Count: " + dataView.getItemCount());
 ----
 
-If you are using in-memory data set, you can also apply filters via the data
-view object. The filtered list is automatically updated to the UI.
+If you are using in-memory data set, you can also apply filters via the data view object. The filtered list is automatically updated to the UI.
 
 *Example*: Using the list data view to filter items based on it's property
 
