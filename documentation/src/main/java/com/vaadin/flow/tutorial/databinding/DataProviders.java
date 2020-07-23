@@ -69,6 +69,9 @@ public class DataProviders {
         int getPersonCount();
 
         Person save(Person person);
+
+        public List<Person> findAll();
+
     }
 
     public void combobox() {
@@ -78,6 +81,17 @@ public class DataProviders {
         // Sets items as a collection
         comboBox.setItems(EnumSet.allOf(Status.class));
     }
+    
+    public void comboboxWithPersons() {
+        ComboBox<Person> comboBox = new ComboBox<>();
+        comboBox.setItemLabelGenerator(Person::getFullName);
+
+        // Sets items as a collection
+        List<Person> persons = getPersonService().findAll();
+        comboBox.setItems(persons);
+        
+    }
+
 
     public void grid() {
         Grid<Person> grid = new Grid<>();

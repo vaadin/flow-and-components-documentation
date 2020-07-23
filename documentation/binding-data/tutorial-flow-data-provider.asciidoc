@@ -44,7 +44,8 @@ The easiest way to pass data to the listing component is to use an array or `jav
 [source, java]
 ----
 // Sets items as a collection
-comboBox.setItems(EnumSet.allOf(Status.class));
+List<Person> persons = getPersonService().findAll();
+comboBox.setItems(persons);
 
 // Sets items using varargs
 grid.setItems(
