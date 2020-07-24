@@ -342,5 +342,5 @@ A helper method to add a validator to the `validators`.
 A helper method for array models. If the node’s model is an [classname]#ArrayModel<T>#, appends an item to the array, otherwise throws. If the argument is given, the argument value is used for the new item, otherwise an new empty item is created.
 `prependItem(itemValue?: T): void`::
 A helper method for array modes, similar with [methodname]#appendItem()#, but prepends an item to the array.
-`removeItem(): void`::
+`removeSelf(): void`::
 A helper method for array item models. If the node’s model **parent model** is an [classname]#ArrayModel<T>#, removes the item the array, otherwise throws.
