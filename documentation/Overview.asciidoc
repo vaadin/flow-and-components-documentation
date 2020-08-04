@@ -139,7 +139,7 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<client-side-forms/tutorial-binder#, Binding Data to Client-Side Forms>>
 * <<client-side-forms/tutorial-binder-load#, Loading From and Saving To Business Objects>>
 * <<client-side-forms/tutorial-binder-validation#, Validating User Input>>
-* <<client-side-forms/tutorial-form-status-tracking#, Form Status Tracking>>
+* <<client-side-forms/tutorial-form-status-tracking#, Reacting to Form State Changes>>
 * <<client-side-forms/tutorial-binding-arrays#, Binding Arrays>>
 * <<client-side-forms/appendix-client-side-form-binding-reference#, Appendix: Client-Side Form Binding Reference>>
 * <<client-side-forms/appendix-vaadin-components#, Appendix: Binding Data to Vaadin Components>>
