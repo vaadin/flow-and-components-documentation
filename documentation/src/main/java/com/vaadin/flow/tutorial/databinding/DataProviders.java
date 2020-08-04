@@ -15,6 +15,23 @@
  */
 package com.vaadin.flow.tutorial.databinding;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
@@ -34,23 +51,6 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-
 @CodeFor("binding-data/tutorial-flow-data-provider.asciidoc")
 public class DataProviders {
 
@@ -63,15 +63,11 @@ public class DataProviders {
     }
 
     public interface PersonService {
-
         List<Person> fetchPersons(int offset, int limit);
-
         int getPersonCount();
-
         Person save(Person person);
 
         public List<Person> findAll();
-
     }
 
     public void combobox() {
@@ -134,6 +130,20 @@ public class DataProviders {
     }
 
     public void beanGrid() {
+    	final class Person implements Serializable {
+    	    private String name;
+    	    private String email;
+    	    private String title;
+    	    private int yearOfBirth;
+
+    	    public String getName() {
+    	        return name;
+    	    }
+
+    	    public int getYearOfBirth() {
+    	        return yearOfBirth;
+    	    }
+    	}    	
         Grid<Person> grid = new Grid<>(Person.class);
         grid.setColumns("name", "email", "title");
     }
