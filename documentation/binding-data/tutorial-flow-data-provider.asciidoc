@@ -7,8 +7,9 @@ layout: page
 = Binding Data Items to Components
 
 You often have lists of items that you want to display, and possibly let the user select one or more of them.
-You can use basic components such as HTML elements to display such lists
-Or, you can use components especially designed for the purpose, such as `Grid`, `ComboBox`, and `ListBox`.
+You can use basic components such as HTML elements to display such lists,
+or you can use components especially designed for the purpose, such as
+`Grid`, `ComboBox`, and `ListBox`.
 
 [source, java]
 ----
@@ -37,7 +38,7 @@ Many listing components use the `toString()` method to display items by default.
 If this is not suitable, you can change the behavior by configuring the component.
 Listing components have one or more callbacks that define how to display the items.
 
-For example, consider tha `ComboBox` component that lists status items.
+For example, consider the `ComboBox` component that lists status items.
 You can configure it to use `Status.getLabel()` method to get a label for each status item.
 
 [source, java]
