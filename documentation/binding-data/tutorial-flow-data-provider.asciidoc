@@ -51,7 +51,6 @@ comboBox.setItemLabelGenerator(Status::getLabel);
 In a `Grid`, you can use `addColumn()` to define the columns and configure the getter that returns the content for the column.
 The `setHeader()` method sets the column header.
 
-// This is a bit tough to parse from the sources
 [source, java]
 ----
 // A bean with some fields
@@ -155,7 +154,8 @@ For example, you can define a custom sorting through the `DataView` API as follo
 [source, java]
 ----
 // You get a DataView when setting the items
-GridListDataView<Person> dataView = grid.setItems(personRepository.findAll());
+GridListDataView<Person> dataView = grid
+        .setItems(personRepository.findAll());
 
 // Change the sort order of items collection
 dataView.setSortOrder(Person::getName, SortDirection.ASCENDING);

@@ -90,7 +90,7 @@ public class DataProviders {
 
     }
 
-    public void grid() {
+    public void gridWithConfiguredColumns() {
         // A bean with some fields
         final class Person implements Serializable {
             private String name;
@@ -126,6 +126,10 @@ public class DataProviders {
         grid.addColumn(Person::getYearOfBirth)
                 .setHeader("Year of birth");
         // @formatter:on
+    }
+
+    public void grid() {
+        Grid<Person> grid = new Grid<>();
 
         // @formatter:off
         // Sets items using vararg beans
@@ -361,9 +365,7 @@ public class DataProviders {
 
     public static void listItems(Grid<Person> grid, PersonRepository repository) {
         grid.setItems(query -> repository.findAll(
-                PageRequest.of(query.getPage(),
-                        query.getPageSize())
-        ).stream());
+                PageRequest.of(query.getPage(), query.getPageSize())).stream());
     }
 
     public void shareDataBindingCode() {
