@@ -29,6 +29,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
@@ -77,7 +79,7 @@ public class DataProviders {
         // Sets items as a collection
         comboBox.setItems(EnumSet.allOf(Status.class));
     }
-    
+
     public void comboboxWithPersons() {
         ComboBox<Person> comboBox = new ComboBox<>();
         comboBox.setItemLabelGenerator(Person::getFullName);
@@ -85,18 +87,48 @@ public class DataProviders {
         // Sets items as a collection
         List<Person> persons = getPersonService().findAll();
         comboBox.setItems(persons);
-        
+
     }
 
-
     public void grid() {
+        // A bean with some fields
+        final class Person implements Serializable {
+            private String name;
+            private String email;
+            private String title;
+            private int yearOfBirth;
+
+            public Person(String name, int yearOfBirth) {
+                this.name = name;
+                this.yearOfBirth = yearOfBirth;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public int getYearOfBirth() {
+                return yearOfBirth;
+            }
+
+            public String getTitle() {
+                return title;
+            }
+
+            // other getters and setters
+        }
+
+        // Show such beans in a Grid
         Grid<Person> grid = new Grid<>();
-        grid.addColumn(Person::getName).setHeader("Name");
+        // @formatter:off
+        grid.addColumn(Person::getName)
+                .setHeader("Name");
         grid.addColumn(Person::getYearOfBirth)
                 .setHeader("Year of birth");
+        // @formatter:on
 
-        // Sets items using varargs
         // @formatter:off
+        // Sets items using vararg beans
         grid.setItems(
                 new Person("George Washington", 1732),
                 new Person("John Adams", 1735),
@@ -112,40 +144,31 @@ public class DataProviders {
 
         grid.addColumn(Person::getName)
                 .setHeader("Name")
-                // Override default natural sorting
+                // Override the default sorting
                 .setComparator(Comparator.comparing(person ->
                         person.getName().toLowerCase()));
 
-        GridListDataView<Person> dataView =
-                grid.setItems(personRepository.findAll());
+        // You get a DataView when setting the items
+        GridListDataView<Person> dataView = grid
+                .setItems(personRepository.findAll());
 
         // Change the sort order of items collection
         dataView.setSortOrder(Person::getName, SortDirection.ASCENDING);
 
-        // Add a sort order of items collection to an existing sorting
+        // Add a secondary sort order to the existing sort order
         dataView.addSortOrder(Person::getTitle, SortDirection.ASCENDING);
 
-        // Remove item collection sorting completely
+        // Remove sorting completely (undoes the settings done above)
         dataView.removeSorting();
     }
 
     public void beanGrid() {
-    	final class Person implements Serializable {
-    	    private String name;
-    	    private String email;
-    	    private String title;
-    	    private int yearOfBirth;
-
-    	    public String getName() {
-    	        return name;
-    	    }
-
-    	    public int getYearOfBirth() {
-    	        return yearOfBirth;
-    	    }
-    	}    	
+        // Create a listing component for a bean type
         Grid<Person> grid = new Grid<>(Person.class);
         grid.setColumns("name", "email", "title");
+        grid.getColumnByKey("name").setHeader("Name");
+        grid.getColumnByKey("email").setHeader("Email");
+        grid.getColumnByKey("title").setHeader("Title");
     }
 
     public void lazyDataBindingToGrid(PersonRepository repository) {
@@ -159,11 +182,11 @@ public class DataProviders {
             ).stream(); // <4>
         });
 
-        grid.setItems(query -> { // <1>
-            return getPersonService() // <2>
+        grid.setItems(query -> // <1>
+            getPersonService() // <2>
                     .fetchPersons(query.getOffset(), query.getLimit()) // <3>
-                    .stream(); // <4>
-        });
+                    .stream() // <4>
+        );
 
         grid.setSortableColumns("name", "email");
         grid.addColumn(person -> person.getTitle())
@@ -194,12 +217,12 @@ public class DataProviders {
                 .setHeader("Title")
                 .setKey("title").setSortable(true); // <2>
         grid.setItems(
-                q -> {
-                    Sort springSort = toSpringDataSort(q.getSortOrders()); // <3>
+                query -> {
+                    Sort springSort = toSpringDataSort(query.getSortOrders()); // <3>
                     return repo.findAll(
                             PageRequest.of(
-                                    q.getPage(),
-                                    q.getPageSize(),
+                                    query.getPage(),
+                                    query.getPageSize(),
                                     springSort // <4>
                             )).stream();
                 });
@@ -215,10 +238,10 @@ public class DataProviders {
     public static Sort toSpringDataSort(List<QuerySortOrder> vaadinSortOrders) {
         return Sort.by(
                 vaadinSortOrders.stream()
-                        .map(so ->
-                                so.getDirection() == SortDirection.ASCENDING ?
-                                        Sort.Order.asc(so.getSorted()) : // <5>
-                                        Sort.Order.desc(so.getSorted())
+                        .map(sortOrder ->
+                                sortOrder.getDirection() == SortDirection.ASCENDING ?
+                                        Sort.Order.asc(sortOrder.getSorted()) : // <5>
+                                        Sort.Order.desc(sortOrder.getSorted())
                         )
                         .collect(Collectors.toList())
         );
@@ -248,6 +271,7 @@ public class DataProviders {
 
         Button modify = new Button("Modify data", e -> {
             person.setEmail("new@gmail.com");
+
             // The component shows the old email until notified of changes
             gridDataView.refreshItem(person);
         });
@@ -268,6 +292,9 @@ public class DataProviders {
 
         // Filter Persons younger 20 years
         gridDataView.setFilter(p -> p.getAge() < 20);
+
+        // Remove filters completely (undoes the settings done above)
+        gridDataView.removeFilters();
 
     }
 
@@ -293,7 +320,7 @@ public class DataProviders {
 
     private void exportToCsvFile(Grid<Person> grid)
             throws FileNotFoundException, IOException {
-        GridDataView<Person> dataView = grid.getGenericDataView(); // <1>
+        GridDataView<Person> dataView = grid.getGenericDataView();
         FileOutputStream fout = new FileOutputStream(new File("/tmp/export.csv"));
 
         dataView.getItems().forEach(person -> {
@@ -307,17 +334,20 @@ public class DataProviders {
     }
 
     private void mutationMethodsInListDataView() {
-
+        // The initial data
         ArrayList<String> items = new ArrayList<>(Arrays.asList("foo", "bar"));
 
+        // Get the data view when binding it to a component
         Select<String> select = new Select<>();
         SelectListDataView<String> dataView = select.setItems(items);
 
         TextField newItemField = new TextField("Add new item");
         Button addNewItem = new Button("Add", e -> {
+            // Adding through the data view API mutates the data source
             dataView.addItem(newItemField.getValue());
         });
-        Button remove = new Button("Remove selected", e -> {
+        Button remove = new Button("Remove selected", e-> {
+            // Same for removal
             dataView.removeItem(select.getValue());
         });
 
@@ -326,8 +356,7 @@ public class DataProviders {
                 Notification.show(" " + e.getItemCount() + " items available"));
 
         // Request the item count directly
-        Span itemCountSpan = new Span(
-                "Total Item Count: " + dataView.getItemCount());
+        Span itemCountSpan = new Span("Total Item Count: " + dataView.getItemCount());
     }
 
     public static void listItems(Grid<Person> grid, PersonRepository repository) {
@@ -348,14 +377,17 @@ public class DataProviders {
         return null;
     }
 
-    @SpringComponent
+    @SpringComponent()
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public class PersonGrid extends Grid<Person> {
 
         public PersonGrid(@Autowired PersonRepository repo) {
             super(Person.class);
+
             // Make the lazy binding
             setItems(q -> repo.findAll(
                     PageRequest.of(q.getPage(), q.getPageSize())).stream());
+
             // Make other common/default configuration
             setColumns("name", "email");
         }
@@ -370,7 +402,8 @@ public class DataProviders {
 
         @Override
         public Stream<Person> fetch(Query<Person, Void> query) {
-            return repo.findAll(PageRequest.of(query.getPage(), query.getPageSize())).stream();
+            return repo.findAll(PageRequest.of(query.getPage(),
+                    query.getPageSize())).stream();
         }
 
     }
