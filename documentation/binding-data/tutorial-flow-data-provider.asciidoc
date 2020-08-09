@@ -6,9 +6,10 @@ layout: page
 
 = Binding Data Items to Components
 
-You often have lists of items that you want to display, and possibly let the user select one or more of them.
-You can use basic components such as HTML elements to display such lists,
-or you can use components especially designed for the purpose, such as
+There are often a lists of items that you want to display in application, and
+possibly let the user select one or more of them.
+You can use basic components such as HTML elements to display such
+lists, or components especially designed for the purpose, such as
 `Grid`, `ComboBox`, and `ListBox`.
 
 [source, java]
@@ -88,7 +89,7 @@ grid.addColumn(Person::getYearOfBirth)
     .setHeader("Year of birth");
 ----
 
-You can define the `Grid` columns to display also by the property names.
+It's possible to define the `Grid` columns to display also by the property names.
 In this case, you need to get the column objects to configure the headers.
 
 [source, java]
@@ -125,46 +126,6 @@ grid.setItems(
 
 // Pass all Person objects to a grid from a Spring Data repository object
 grid.setItems(personRepository.findAll());
-----
-
-=== Sorting of In-memory Data in Grid
-
-Grid rows are automatically sortable by columns that have property type that implements `Comparable`.
-By defining a custom `Comparator`, you can make also other columns sortable, or you can override the default behavior for columns with comparable types.
-
-For example, to make sorting string-typed columns case-insensitive:
-
-[source, java]
-----
-grid.addColumn(Person::getName)
-        .setHeader("Name")
-        // Override the default sorting
-        .setComparator(Comparator.comparing(person ->
-                    person.getName().toLowerCase()));
-----
-
-Note that this kind of sorting is only supported for in-memory data.
-See <<data-binding.data-provider.lazy-sorting>> for how to sort lazy-loaded data.
-
-You can also sort a collection with the `DataView` API, either by setting a `Comparator` or a sort order for a given bean field.
-Sort orders or `Comparator` can be added or removed completely as well.
-
-For example, you can define a custom sorting through the `DataView` API as follows:
-
-[source, java]
-----
-// You get a DataView when setting the items
-GridListDataView<Person> dataView = grid
-        .setItems(personRepository.findAll());
-
-// Change the sort order of items collection
-dataView.setSortOrder(Person::getName, SortDirection.ASCENDING);
-
-// Add a secondary sort order to the existing sort order
-dataView.addSortOrder(Person::getTitle, SortDirection.ASCENDING);
-
-// Remove sorting completely (undoes the settings done above)
-dataView.removeSorting();
 ----
 
 == Lazy Data Binding Using Callbacks
@@ -273,12 +234,13 @@ Vaadin Grid supports sorting based on multiple columns.
 <4> Here the backend compatible sort information is passed to our backend call.
 <5> The `getSorted()` method in `QuerySortOrder` returns the columns property name or a key you have assigned to the column.
 
-=== Filtering a Grid with Lazy Data Binding
+=== Filtering with Lazy Data Binding
 
 Note that, for the lazy data to be efficient, filtering needs to be done in the backend.
 For example, if you provide a text field to limit the results shown in a `Grid`, you need to make your callbacks handle the filter.
 
-For example, to handle filterable lazy data binding to a Spring Data repository:
+For example, to handle filterable lazy data binding to a Spring Data
+repository in `Grid`:
 
 [source, java]
 ----
@@ -304,6 +266,34 @@ Queries to the backend are only done when a user makes a small pause while typin
 <4> Pass the filter to your backend in the binding.
 
 You can combine both filtering and sorting in your data binding callbacks.
+
+Let's consider a `ComboBox` as an another example of lazy loaded data filtering.
+The lazy loaded binding in `ComboBox` is always filtered by the string typed
+in by the end user.
+Initially, when there is no filter input yet, the filter is an empty string.
+
+// TODO change this into data view style once the changes are in ComboBox
+
+`ComboBox` currently uses the old data provider naming convention.
+Also, the count of total matches is currently required.
+
+For example, you can handle filterable lazy data binding to a Spring Data
+repository as follows:
+
+[source, java]
+----
+ComboBox<Person> cb = new ComboBox<>();
+cb.setDataProvider((String filter, int offset, int limit) -> {
+    return repo.findByNameLikeIgnoreCase(
+            "%" + filter + "%", // <1>
+            PageRequest.of(offset / limit, limit)
+    ).stream();
+}, filter -> {
+    return (int) repo.countByNameLikeIgnoreCase("%" + filter + "%"); // <2>
+});
+----
+<1> Add `%` marks to filter for an SQL "LIKE" query.
+<2> The total amount of items matching the filter is required.
 
 === Improving Scrolling Behaviour
 
@@ -336,40 +326,14 @@ Users can, for example, scroll directly to the end of the result set.
 <3> You can also configure how `Grid` adjusts its estimate of available rows.
 With this configuration, if the backend returns an item for index 1000, the scrollbar is adjusted as if there were 1500 items in the `Grid`.
 
-You need to provide a count callback to get similar user experience as when assigning data directly.
+A count callback has to be provided to get similar user experience as when
+assigning data directly.
 Note that in many backends, counting the number of results can be a heavy operation.
 
 [source, java]
 ----
 dataView.setItemCountCallback(q -> getPersonService().getPersonCount());
 ----
-
-== Lazy Data Binding to ComboBox
-
-// TODO change this into data view style once the changes are in ComboBox
-
-The lazy loaded binding in `ComboBox` is always filtered by the string typed in by the end user.
-Initially, when there is no filter input yet, the filter is an empty string.
-
-`ComboBox` currently uses the old data provider naming convention.
-Also, the count of total matches is currently required.
-
-For example, you can handle lazy data binding to a Spring Data repository as follows:
-
-[source, java]
-----
-ComboBox<Person> cb = new ComboBox<>();
-cb.setDataProvider((String filter, int offset, int limit) -> {
-    return repo.findByNameLikeIgnoreCase(
-            "%" + filter + "%", // <1>
-            PageRequest.of(offset / limit, limit)
-    ).stream();
-}, filter -> {
-    return (int) repo.countByNameLikeIgnoreCase("%" + filter + "%"); // <2>
-});
-----
-<1> Add `%` marks to filter for an SQL "LIKE" query.
-<2> The total amount of items matching the filter is required.
 
 == Accessing Currently Shown Items
 
@@ -428,7 +392,9 @@ Editing the item elsewhere does not automatically update the UI in a listing com
 An easy way to refresh the component's content is to call `setItems()` again with the fresh data.
 Alternatively, you can use more fine-grained APIs in the `DataView` to update just a portion of the dataset.
 
-For example, you can modify a displayed item and notify `Grid` about the updates to the item through the `DataView` API.
+For example, you can modify the field(s) of a displayed item and notify
+`Grid` about the updates to the item through the `DataView::refreshItem`. This
+would modify only one particular item, not the whole data set.
 
 [source, java]
 ----
@@ -446,12 +412,10 @@ Button modify = new Button("Modify data", e -> {
 });
 ----
 
-If you are mutating the data set bound to a component like grid, you need to
-reset the data binding by using a one of overloaded `setItems()` methods.
-
 If you have bound a mutable `List` to your component, you can alternatively use helper methods in the list data view to add or remove items or obtain item count by hooking to item count change event or request the item count directly.
 
-For example, you can use the mutation methods and listening to item count change through the list data view as follows:
+For example, it's possible to use a mutation methods and listening to item
+count change through the list data view as follows:
 
 [source, java]
 ----
@@ -480,6 +444,50 @@ dataView.addItemCountChangeListener(e ->
 Span itemCountSpan = new Span("Total Item Count: " + dataView.getItemCount());
 ----
 
+=== Sorting of In-memory Data
+
+Let's consider the `Grid` as an example of component with a sorting API.
+`Grid` rows are automatically sortable by columns that have property type that
+implements `Comparable`.
+By defining a custom `Comparator`, you can make also other columns sortable,
+or you can override the default behavior for columns with comparable types.
+
+For example, to make sorting string-typed columns case-insensitive:
+
+[source, java]
+----
+grid.addColumn(Person::getName)
+        .setHeader("Name")
+        // Override the default sorting
+        .setComparator(Comparator.comparing(person ->
+                    person.getName().toLowerCase()));
+----
+
+Note that this kind of sorting is only supported for in-memory data.
+See <<data-binding.data-provider.lazy-sorting>> for how to sort lazy-loaded data.
+
+It's possible to sort a collection of bound items with the `DataView` API,
+either by setting a `Comparator` or a sort order for a given bean field.
+Sort orders or `Comparator` can be added or removed completely as well.
+
+For example, you can define a custom sorting through the `DataView` API as follows:
+
+[source, java]
+----
+// You get a DataView when setting the items
+GridListDataView<Person> dataView = grid
+        .setItems(personRepository.findAll());
+
+// Change the sort order of items collection
+dataView.setSortOrder(Person::getName, SortDirection.ASCENDING);
+
+// Add a secondary sort order to the existing sort order
+dataView.addSortOrder(Person::getTitle, SortDirection.ASCENDING);
+
+// Remove sorting completely (undoes the settings done above)
+dataView.removeSorting();
+----
+
 == Filtering of In-Memory Data
 
 If you are using an in-memory data set, you can also apply filters through the data view object.
@@ -502,7 +510,7 @@ gridDataView.removeFilters();
 == Recycling Data Binding Logic
 
 In large applications, you typically have multiple places where you display the same data type in a listing component.
-You can use multiple approaches to share the lazy data binding logic.
+Multiple approaches can be used to share the lazy data binding logic.
 
 One way is to use a domain-object specific component implementation by extending a listing component to handle the application-specific data binding.
 This approach allows sharing also other common configuration.
