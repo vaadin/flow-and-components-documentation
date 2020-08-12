@@ -60,6 +60,13 @@
             <artifactId>spring-security-ldap</artifactId>
             <version>5.2.0.RELEASE</version>
         </dependency>
+        
+        <!-- For lazy data binding examples -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>2.3.1.RELEASE</version>
+        </dependency>
 
         <dependency>
             <groupId>com.vaadin</groupId>
