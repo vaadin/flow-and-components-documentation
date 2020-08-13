@@ -118,6 +118,7 @@ You can also install it from an installation package:
 
 If you are using https://travis-ci.org/[Travis] as a Continuous Integration server then
 there are two different options to install a proper Node.js version:
+
 * Specify the version via Travis configuration in .travis.yml
 * Install node automatically by Vaadin (14.2+)
 
