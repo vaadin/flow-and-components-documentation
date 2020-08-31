@@ -99,10 +99,10 @@ The `build.gradle` file needs to at least enable the Vaadin Gradle Plugin:
 
 ----
 plugins {
-    id 'com.vaadin' version '0.6.0' <1>
+    id 'com.vaadin' version '0.8.0' <1>
 
     // Optional
-    id 'org.gretty' version '3.0.1' <2>
+    id 'org.gretty' version '3.0.3' <2>
     id 'war' <3>
     id 'groovy' <4>
 }
