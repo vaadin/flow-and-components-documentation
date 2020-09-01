@@ -6,8 +6,8 @@ layout: page
 
 = Binding Items to Components
 
-There are often a lists of items that you want to display in your application,
-and possibly let the user select one or more of them.
+You often have lists of items that you want to display in your application,
+and may want to let the user select one or more of them.
 You can use basic components such as HTML elements to display such
 lists, or components especially designed for the purpose, such as
 `Grid`, `ComboBox`, and `ListBox`.

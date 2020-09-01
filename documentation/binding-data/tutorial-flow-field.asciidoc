@@ -330,7 +330,7 @@ protected void setPresentationValue(Employee employee) {
 
 You can change how the required indicator is displayed for the field.
 
-The implementation given below assumes the component's root element reacts to a property named `required`, which works well for Web Components that mimic the API of `<input>`.
+The implementation given below assumes that the component's root element reacts to a property with name `required`, which works well with Web Components that mimic the API of the `<input>` element.
 In this example, the required indicator is displayed for the employee combo box.
 
 [source, java]
