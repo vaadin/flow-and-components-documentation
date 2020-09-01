@@ -330,7 +330,7 @@ protected void setPresentationValue(Employee employee) {
 
 You can change how the required indicator is displayed for the field.
 
-The default implementation assumes the component's root element reacts to a property named `required`, which works well for Web Components that mimic the API of `<input>`.
+The implementation given below assumes the component's root element reacts to a property named `required`, which works well for Web Components that mimic the API of `<input>`.
 In this example, the required indicator is displayed for the employee combo box.
 
 [source, java]
@@ -347,7 +347,8 @@ public boolean isRequiredIndicatorVisible() {
 }
 ----
 
-The last thing left is to implement `readonly` handling to mark both combo boxes as read only. The default implementation is similar to how required indicators are handled, except that it uses the `readonly` property instead.
+You need to handle the `readonly` property by marking both combo boxes as read-only.
+The implementation given below is similar to how required indicators are handled above, except that it uses the `readonly` property.
 
 [source, java]
 ----
