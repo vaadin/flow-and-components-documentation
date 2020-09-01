@@ -101,7 +101,8 @@ tokens:
   - kindly
   - largely
   - lately
-  - lazily
+# OK: "to bind data lazily"
+#  - lazily
   - likely
   - literally
   - lonely
