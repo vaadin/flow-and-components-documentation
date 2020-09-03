@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2017 Vaadin Ltd.
+ * Copyright 2000-2020 Vaadin Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -15,13 +15,13 @@
  */
 package com.vaadin.flow.tutorial.routing;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouteData;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @CodeFor("routing/tutorial-routing-get-registered-routes.asciidoc")
 public class RountingGettingRoutes {

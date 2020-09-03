@@ -33,11 +33,12 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 
 == Development Workflow
 ** <<workflow/workflow-overview#,Workflow Overview>>
-** <<workflow/setup-live-reload-springboot#, Setup Live Reload using Spring Boot>>
-** <<workflow/setup-live-reload-jrebel#, Setup Live Reload using JRebel>>
-** <<workflow/setup-live-reload-hotswap-agent#, Setup Live Reload using HotswapAgent>>
-** <<workflow/tutorial-plain-servlet-live-reload#, Live Reload in Web Applications>>
-** <<workflow/tutorial-cdi-live-reload#, Live Reload in CDI Applications>>
+** <<workflow/setup-live-reload-springboot#, Setting Up Live Reload Using Spring Boot>>
+** <<workflow/setup-live-reload-jrebel#, Setting Up Live Reload Using JRebel>>
+** <<workflow/setup-live-reload-hotswap-agent#, Setting Up Live Reload Using HotswapAgent>>
+** <<workflow/tutorial-jetty-scaninterval#, Automatic Restart with Jetty Maven Plugin>>
+** <<workflow/tutorial-cdi-reloadonupdate#, Automatic Restart with TomEE Maven Plugin>>
+** <<workflow/run-on-server-intellij#,Run on Server in IntelliJ IDEA Ultimate>>
 
 == Router and Navigation
 * <<routing/tutorial-routing-on-client-side-and-server-side#,Routing on Client Side and Server Side>>
@@ -66,17 +67,8 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<binding-data/tutorial-flow-components-binder-beans#,Binding Beans to Forms>>
 * <<binding-data/tutorial-flow-data-provider#,Showing a list of data with Data Providers>>
 
-== Importing JavaScript and CSS files
-* <<importing-dependencies/tutorial-include-css#,Including Style Sheets>>
-* <<importing-dependencies/tutorial-importing#,Importing javascript>>
-* <<importing-dependencies/tutorial-ways-of-importing#,Ways of importing the dependencies>>
-
-== Theming Applications
-* <<theme/theming-overview#,Theming Overview>>
-* <<theme/using-component-themes#,Using Component Themes>>
-* <<theme/application-theming-basics#,Application Theming Basics>>
-* <<theme/theming-crash-course#,Theming Web Components>>
-* <<theme/integrating-component-theme#,Integrating Your Own Component Theme>>
+== Importing JavaScript
+* <<importing-dependencies/tutorial-importing#,Importing JavaScript>>
 
 == Creating Components
 * <<creating-components/tutorial-component-basic#,Creating A Simple Component Using the Element API>>
@@ -107,17 +99,22 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<web-components/creating-an-in-project-web-component#,Creating an In-project Web Component>>
 * <<web-components/introduction-to-webcomponents#,Introduction to Web Components>>
 
-== Creating Polymer Templates
+== Building Views with Templates
+* <<polymer-templates/tutorial-template-intro#,Using Templates from Server-side Java Code>>
 * <<polymer-templates/tutorial-template-basic#,Creating A Simple Component Using the Template API>>
-* <<polymer-templates/tutorial-template-components#,Binding Components from PolymerTemplate>>
-* <<polymer-templates/tutorial-template-subtemplate#,Using sub-template from PolymerTemplate>>
-* <<polymer-templates/tutorial-template-components-in-slot#,Using <slot> in PolymerTemplates>>
-* <<polymer-templates/tutorial-template-event-handlers#,Handling User Events in a PolymerTemplate>>
-* <<polymer-templates/tutorial-template-bindings#,Binding Model Data in a PolymerTemplate>>
-** <<polymer-templates/tutorial-template-bindings#two-way-binding,Two-way data binding>>
-* <<polymer-templates/tutorial-template-list-bindings#,Using List of Items in a PolymerTemplate with template repeater>>
-* <<polymer-templates/tutorial-template-model-bean#,Using Beans with a PolymerTemplate Model>>
-* <<polymer-templates/tutorial-template-model-encoders#,Using Model Encoders with a PolymerTemplate Model>>
+* <<polymer-templates/tutorial-template-components#,Binding Template Components>>
+* <<polymer-templates/tutorial-template-and-binder#,Combining Templates and Binders>>
+* <<polymer-templates/tutorial-template-subtemplate#,Using sub-templates>>
+* <<polymer-templates/tutorial-template-components-in-slot#,Dynamically Adding Server-side Components to Templates>>
+* <<polymer-templates/styling-polymer-templates#,Styling Templates>>
+* <<polymer-templates/tutorial-template-event-handlers#,PolymerTemplate, Handling User Events>>
+* <<polymer-templates/tutorial-template-bindings#,PolymerTemplate, Binding Model Data>>
+* <<polymer-templates/tutorial-template-model-bean#,PolymerTemplate, Using Model Beans>>
+* <<polymer-templates/tutorial-template-model-encoders#,PolymerTemplate, Using Model Encoders>>
+* <<polymer-templates/tutorial-template-list-bindings#,PolymerTemplate, Creating Contents Dynamically Based on Items List>>
+* <<polymer-templates/tutorial-template-parent-layout#,PolymerTemplate, Using Parent Layout>>
+* <<polymer-templates/tutorial-component-integration#,PolymerTemplate, Detecting Component Mappings>>
+* <<polymer-templates/tutorial-template-mapped-components-limitations#,PolymerTemplate, Mapped Components Limitations>>
 
 == Creating UI in TypeScript
 * <<typescript/quick-start-guide#, Quick Start Guide>>
@@ -138,6 +135,15 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<typescript/endpoint-methods-validation#, Appendix: Endpoint Methods Validation>>
 * <<typescript/typescript-endpoints-urls#, Appendix: Endpoint URLs>>
 
+== Client-Side Form Binding
+* <<client-side-forms/tutorial-binder#, Binding Data to Client-Side Forms>>
+* <<client-side-forms/tutorial-binder-load#, Loading From and Saving To Business Objects>>
+* <<client-side-forms/tutorial-binder-validation#, Validating User Input>>
+* <<client-side-forms/tutorial-form-status-tracking#, Reacting to Form State Changes>>
+* <<client-side-forms/tutorial-binding-arrays#, Binding Arrays>>
+* <<client-side-forms/appendix-client-side-form-binding-reference#, Appendix: Client-Side Form Binding Reference>>
+* <<client-side-forms/appendix-vaadin-components#, Appendix: Binding Data to Vaadin Components>>
+* <<client-side-forms/appendix-web-component-field-strategy#, Appendix: Using a Custom Web Component Field>>
 
 == Using Vaadin with Spring
 * <<spring/tutorial-spring-basic#,Use Vaadin with Spring>>
@@ -165,8 +171,9 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<portlet-support/portlet-07-cdi-support#,Vaadin Portlet CDI Support>>
 * <<portlet-support/portlet-demo-01-address-book#,Demonstration: Address Book>>
 
-== Packaging for Production
+== Deploying Vaadin Applications
 * <<production/tutorial-production-mode-basic#,Taking your Application into Production>>
+* <<production/tutorial-jetty#,Deploying to Jetty>>
 * <<production/tutorial-production-mode-advanced#,Advanced production mode topics>>
 
 == Embedding Flow Applications

@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2017 Vaadin Ltd.
+ * Copyright 2000-2020 Vaadin Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -87,7 +87,7 @@ public class TestTutorialCodeCoverage {
                 new CodeFileChecker(HTML_BLOCK_IDENTIFIER,
                         gatherWebFilesCode("html", HTML_LOCATION, TUTORIAL_BINDER_WITH_TEMPLATES_HTML_LOCATION)),
                 new AsciiDocLinkWithDescriptionChecker("image:",
-                        Pattern.compile("image:(.*?)\\[(.*?)]")),
+                        Pattern.compile("image::?(.*?)\\[(.*?)]")),
                 new AsciiDocLinkWithDescriptionChecker("#,",
                         Pattern.compile("<<(.*?)#,(.*?)>>"),
                         ASCII_DOC_EXTENSION));

@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2017 Vaadin Ltd.
+ * Copyright 2000-2020 Vaadin Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -39,20 +39,6 @@ public class PolymerSlotView {
 
             getElement().appendChild(label, button);
         }
-    }
-
-    @Tag("main-layout")
-    @JsModule("./com/example/main-layout.js")
-    public class MainLayout extends PolymerTemplate<TemplateModel>
-            implements RouterLayout {
-    }
-
-    @Route(value = "editor", layout = MainLayout.class)
-    public class Editor extends Div {
-    }
-
-    @ParentLayout(MainLayout.class)
-    public class MenuBar extends Div {
     }
 
     @Tag("name-element")
