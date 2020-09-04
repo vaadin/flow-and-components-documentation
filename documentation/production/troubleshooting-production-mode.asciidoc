@@ -1,14 +1,14 @@
 ---
-title: Preparing your application for Production
+title: Troubleshooting Production Mode
 order: 6
 layout: page
 ---
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= Verifying the Production Mode Artifact
+= Troubleshooting Production Mode
 
-== Checklist for the production mode app artifact
+== Verifying the production mode artifact
 
 Vaadin Servlet configures itself from the `flow-build-info.json` file, which is located in the `META-INF/VAADIN/config/` resource package.
 The location of resources differs for different artifact types, for example:
