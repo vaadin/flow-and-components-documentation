@@ -20,10 +20,13 @@ Separately defining the layout of a view from defining the logic of said view gi
 
 Vaadin has support for two declarative template languages, Polymer and LitElement. The LitElement library is the successor of the Polymer library. Vaadin will support both for the foreseeable future. We recommend choosing LitElement as the template language when deciding to build new templates for your Vaadin applications. It is a future proof, lightweight, and more focused template language.
 
-Vaadin can refer to and access components in Java defined by a template. Components in the template are given unique ids, and any component with an id can be accessed with Java API to configure logic further. Java-only components like compositions built with Java can be added to a HTML template by giving a layout an id in the template and adding the Java component in Java code.
-
+Vaadin can refer to and access components defined by a template from Java. Components in the template are given unique ids, and any component with an id can be accessed with Java API to configure logic further. Java-only components like compositions built with Java can be added to a template by giving a layout an id in the template and adding the Java component in Java code.
 
 For example `<vaadin-button id="my-button">Press me</vaadin-button>` can be accessed with `@Id("my-button") Button button;` in Java.
+
+HTML templates are parsed by the framework so that the server-side objects for nested components can be created with the corresponding initial property values given in the template.
+For instance, consider a template containing as a component the text field `<vaadin-text-field id="name-field" placeholder="Enter name"></vaadin-text-field>`, which is mapped as `@Id("name-field") TextField nameField` in Java.
+After creation of the server-side component, `nameField.getPlaceholder()` will immediately return `"Enter name"`, without any additional client roundtrip.
 
 As declarative layouts are a robust and maintainable way for defining views, https://vaadin.com/designer[Vaadin Designer], the visual tool for building UI for Vaadin apps, uses them as its format.
 
@@ -31,8 +34,10 @@ As declarative layouts are a robust and maintainable way for defining views, htt
 
 The template API has limitations that you need to be aware of before using it.
 
-* Currently HTML templates are not processed on the server before being sent to the client. Server side is not aware of the content of the template, like the attributes used by a component. This means that many getter methods return the incorrect value because the client never sent them to the server. We plan to remove this limitation in the near future.
-* You can add components and a DOM to a template structure, but you cannot remove anything present in the original template. However, overriding component properties do work. 
+* When pre-processing templates, the framework considers any attribute other than `theme` or one of the https://www.w3.org/TR/html52/dom.html#global-attributes[HTML 5 global attributes] an element property and parses its value for server-side for component initialization. However, if the attribute value is not a constant, i.e., it contains bindings such as `${...}` and `{{...}}`, it is not parsed and the property will not be initialized on the server side.
+* Currently HTML templates are not processed on the server before being sent to the client.
+* You can add components and a DOM to a template structure, but you cannot remove anything present in the original template. However, overriding component properties do work.
+* Modifying properties can have destructive effects on nested elements. For example, if the template is `<div id="myDiv"><vaadin-button id="myButton">My Butotn</vaadin-button>` then calling `myDiv.setText` on the server side will cause the the `myButton` element to be removed.
 
 == Correctly Separating Structure and Logic
 Strive to only define things that do not change in the template and leave all dynamic parts to Java. In the template you can, for example, have attributes that never change, captions for components like `Button` and `TextField` that always stay the same, or styling for the view. If, for example, a `Button` should change the caption depending on user interaction, then leave it empty in the template and define the intial value in Java.
