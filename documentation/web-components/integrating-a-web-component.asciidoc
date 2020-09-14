@@ -29,14 +29,14 @@ While you can start from scratch and do it all manually, the easiest way is to u
 * A stub component Java class for your Web Component integration. 
 * A Maven profile that handles everything necessary to deploy the component to Vaadin Directory.
 
-*Example*: Annotations in the Java component class for a starter project for the https://github.com/PolymerElements/paper-slider[paper-slider] Web Component.
+*Example*: Annotations in the Java component class for a starter project for the https://github.com/material-components/material-components-web-components/tree/master/packages/slider[mwc-slider] Web Component.
 
 [source, java]
 ----
-@Tag("paper-slider")
-@NpmPackage(value = "@polymer/paper-slider",
-            version = "3.0.1")
-@JsModule("@polymer/paper-slider/paper-slider.js")
+@Tag("mwc-slider")
+@NpmPackage(value = "@material/mwc-slider",
+            version = "0.0.1")
+@JsModule("@material/mwc-slider/mwc-slider.js")
 ----
 * The `@Tag` annotation defines the name of the HTML element. 
 * The `@JSModule` and `@NpmPackage` annotations define the import of the JavaScript module. 
