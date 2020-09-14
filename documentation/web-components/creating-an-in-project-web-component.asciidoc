@@ -20,10 +20,10 @@ The first step is to create the JavaScript Polymer 3 template in `frontend/my-te
 
 [source, js]
 ----
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {html, LitElement} from 'lit-element';
 
-class MyTestElement extends PolymerElement {
-  static get template() {
+class MyTestElement extends LitElement {
+  render() {
     return html`
       <h2>Hello</h2>
     `;
