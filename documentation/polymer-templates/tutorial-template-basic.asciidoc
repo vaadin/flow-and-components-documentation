@@ -28,7 +28,7 @@ The first step is to create the LitElement JavaScript template file on the clien
 import {LitElement, html} from 'lit-element';
 import '@vaadin/vaadin-text-field/vaadin-text-field.js';
 import '@vaadin/vaadin-button/vaadin-button.js';
-import '@material/mwc-textfield';
+import '@material/mwc-textfield.js';
 
 class HelloWorld extends LitElement {
 

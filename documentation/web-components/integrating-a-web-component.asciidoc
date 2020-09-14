@@ -35,7 +35,7 @@ While you can start from scratch and do it all manually, the easiest way is to u
 ----
 @Tag("mwc-slider")
 @NpmPackage(value = "@material/mwc-slider",
-            version = "0.0.1")
+            version = "0.18.0")
 @JsModule("@material/mwc-slider/mwc-slider.js")
 ----
 * The `@Tag` annotation defines the name of the HTML element. 

@@ -25,7 +25,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 @CodeFor("polymer-templates/tutorial-template-basic.asciidoc")
 @Tag("hello-world")
-@NpmPackage(value = "@polymer/paper-input", version = "3.0.2")
+@NpmPackage(value = "@material/mwc-textfield", version = "0.18.0")
 @JsModule("./src/hello-world.js")
 public class HelloWorld extends PolymerTemplate<HelloWorld.HelloWorldModel> {
 
