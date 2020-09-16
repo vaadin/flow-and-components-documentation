@@ -12,7 +12,7 @@ In Vaadin, you have a few different options on how to build your views.
 . Define your layouts of your views declaratively and implement the UI logic in Java.
 . Build your views purely client-side with TypeScript and LitElement. Available from Vaadin 15 forward.
 
-These ways to build views can be mixed and matched within an application. All Vaadin components are available through Java API as well as declaratively in HTML. Choosing the correct way depends on your use case and preferences. This chapter goes through the second option, how to build your UIs declaratively while implementing the logic in Java.
+These ways to build views can be mixed and matched within an application. All Vaadin components are available through the Java API and declaratively in HTML. Choosing the correct way depends on your use case and preferences. This chapter goes through the second option, how to build your UIs declaratively while implementing the logic in Java.
 
 == Benefits of Using Templates
 
@@ -20,13 +20,13 @@ Separately defining the layout of a view from defining the logic of said view gi
 
 Vaadin has support for two declarative template languages, Polymer and LitElement. The LitElement library is the successor of the Polymer library. Vaadin will support both for the foreseeable future. We recommend choosing LitElement as the template language when deciding to build new templates for your Vaadin applications. It is a future proof, lightweight, and more focused template language.
 
-Vaadin can refer to and access components defined by a template from Java. Components in the template are given unique ids, and any component with an id can be accessed with Java API to configure logic further. Java-only components like compositions built with Java can be added to a template by giving a layout an id in the template and adding the Java component in Java code.
+Vaadin can refer to and access components defined by a template from Java. By giving components in the template unique ids, any component with an id can be accessed with Java API to configure logic further. Java-only components like compositions built with Java can be added to a template by giving a layout an id in the template and adding the Java component in Java code.
 
 For example `<vaadin-button id="my-button">Press me</vaadin-button>` can be accessed with `@Id("my-button") Button button;` in Java.
 
 The elements inside a template and their attributes are parsed by the framework so that the initial state of each mapped server-side component is consistent with the attributes set in the template.
 For instance, consider a template containing the text field `<vaadin-text-field id="name-field" placeholder="Enter name"></vaadin-text-field>`, which is mapped as the class member `@Id("name-field") TextField nameField` in Java.
-After creation of the server-side component, `nameField.getPlaceholder()` will immediately return the placeholder text (`"Enter name"`), without an additional client roundtrip.
+After creation of the server-side component, `nameField.getPlaceholder()` will return the placeholder text (`"Enter name"`) immediately.
 
 As declarative layouts are a robust and maintainable way for defining views, https://vaadin.com/designer[Vaadin Designer], the visual tool for building UI for Vaadin apps, uses them as its format.
 
