@@ -40,6 +40,9 @@ NOTE: If you are importing a multi-module Maven project, make sure you select th
 . Click [guibutton]#Finish#.
 Eclipse will import the project and start downloading the required resources.
 
+[NOTE]
+Eclipse might complain about the JSON syntax for certain frontend dependencies inside the node_modules folder. You can disable this unnecessary validation by navigating from top menu: "Window/Eclipse" -> "Preferences" -> "Validation". In the table of all validators, for the row "JSON Validation", press the button for "Settings". In the opened dialog use the "Add Exclude Group" button to add the project's node_modules folders as an exclusion.
+
 [[getting-started.eclipse.maven]]
 == Building a Maven Goal
 
