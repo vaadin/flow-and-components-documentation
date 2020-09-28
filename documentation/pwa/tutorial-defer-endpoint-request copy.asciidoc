@@ -1,0 +1,49 @@
+---
+title: Defer Endpoint Requests
+order: 7
+layout: page
+---
+
+= Defer Endpoint Requests
+
+When creating UI with TypeScript, all the logic is done on the client-side, which means that they work offline. But not the Endpoint requests, which requires network access by default.
+
+Vaadin stores the Endpoint requests locally in the browser when the application is offline. The deferred requests will be submitted automatically when the application is back online.
+
+== @Deferrable annotation
+
+You can make an endpoint deferrable by adding a `@Deferrable` annotation. It works either on the Endpoint class or a single method.
+
+*Example*: Using the `@Deferrable` annotation to defer endpoints.
+[source,java]
+----
+@Endpoint
+public class PersonEndpoint {
+    
+    public Person loadPerson() {
+        // ...
+    }
+
+    @Deferrable
+    public void savePerson(Person person) {
+        // ...
+    }
+}
+----
+
+What happens is that the generated endpoint on the client-side will return a `Deferrable`. From there, you can check if the endpoint request is deferred or not. If the endpoint request is not deferred, you can get the actual result. Otherwise, you can get the request meta information.
+
+*Example*: Using the `@Deferrable` annotation to defer endpoints.
+[source,typescript]
+----
+// import the remote endpoint
+import * as personEndpoint from '../../generated/PersonEndpoint';
+
+const deferrableResult = await personEndpoint.update(person);
+if (deferrableResult.isDeferred) {
+    // your offline logic
+} else {
+    const result = deferrableResult.result;
+    // your online logic
+}
+---- 

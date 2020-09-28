@@ -1,0 +1,26 @@
+---
+title: Defer Endpoint Requests
+order: 7
+layout: page
+---
+
+= Offline Form Submission
+
+Our TypeScript <<../client-side-forms/tutorial-binder#,Binder>> works seamlessly with the <<tutorial-defer-endpoint-request#, deferrable endpoints>>, which allows your form submission to work both online and offline. 
+
+When the application is online, the form will be submitted normally. When offline, the form will be cached locally in the browser and be submitted automatically when coming back online.
+
+*Example*: Offline form submission with TypeScript Binder.
+[source,typescript]
+----
+// import the remote endpoint
+import * as personEndpoint from '../../generated/PersonEndpoint';
+
+const deferrableResult = await this.binder.submitTo(personEndpoint.update);
+if (deferrableResult.isDeferred) {
+    // your offline logic
+} else {
+    const result = deferrableResult.result;
+    // your online logic
+}
+---- 
