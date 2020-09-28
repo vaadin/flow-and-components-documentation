@@ -28,7 +28,7 @@ The first step is to create the LitElement JavaScript template file on the clien
 import {LitElement, html} from 'lit-element';
 import '@vaadin/vaadin-text-field/vaadin-text-field.js';
 import '@vaadin/vaadin-button/vaadin-button.js';
-import '@polymer/paper-input/paper-input.js';
+import '@axa-ch/input-text';
 
 class HelloWorld extends LitElement {
 
@@ -36,7 +36,7 @@ class HelloWorld extends LitElement {
         return html`
             <div>
                 <vaadin-text-field id="firstInput"></vaadin-text-field>
-                <paper-input id="secondInput"></paper-input>
+                <axa-input-text id="secondInput"></axa-input-text>
                 <vaadin-button id="helloButton">Click me!</vaadin-button>
             </div>`;
     }
@@ -48,7 +48,7 @@ customElements.define('hello-world', HelloWorld);
 * The tag name should contain at least one dash (`-`). For example, `hello-world` is a valid tag name, but `helloworld` is not.
 * The imported dependencies are:
 ** `LitElement` (from the LitElement library): This is the required superclass of all LitElement templates.
-** `vaadin-text-field`, `vaadin-button` and `paper-input` components.
+** `vaadin-text-field`, `vaadin-button` and `axa-input-text` components.
 ** `html` for inline DOM templating.
 
 === PolymerTemplate
@@ -100,7 +100,7 @@ To use the client-side LitElement template on the server side, you need to creat
 [source,java]
 ----
 @Tag("hello-world")
-@NpmPackage(value = "@polymer/paper-input", version = "3.0.2")
+@NpmPackage(value = "@axa-ch/input-text", version = "4.3.11")
 @JsModule("./src/hello-world.js")
 public class HelloWorld extends LitTemplate {
 
@@ -113,7 +113,7 @@ public class HelloWorld extends LitTemplate {
 ----
 * The `@Tag` annotation name matches from the JavaScript template. This ensures that the tag name is the same on the server and the client.
 * The `@JsModule` annotation binds the Java class to the `hello-world.js` template class by specifying the relative path to the JavaScript module in the `frontend` folder in the project root. You can import multiple JavaScript resources using the `@JsModule` annotation, if needed.
-* The `@NpmPackage` annotation declares a dependency to the `paper-input` npm package: `@polymer/paper-input 3.0.2`. This annotation can be used to declare a dependency to any npm package.
+* The `@NpmPackage` annotation declares a dependency to the `input-text` npm package: `@axa-ch/input-text 4.3.11`. This annotation can be used to declare a dependency to any npm package.
 
 === PolymerTemplate
 
