@@ -1,6 +1,6 @@
 ---
 title: PolymerTemplate, Creating Contents Dynamically Based on Items List
-order: 12
+order: 16
 layout: page
 ---
 

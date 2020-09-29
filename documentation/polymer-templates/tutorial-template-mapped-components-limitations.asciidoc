@@ -1,6 +1,6 @@
 ---
 title: PolymerTemplate, Mapped Components Limitations
-order: 15
+order: 19
 layout: page
 ---
 

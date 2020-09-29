@@ -28,7 +28,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 public class Binder {
 
     @Tag("user-form")
-    @JsModule("./src/user-form.js")
+    @JsModule("./src/user-form.ts")
     public class UserForm extends LitTemplate {
 
         @Id("email")
@@ -48,7 +48,7 @@ public class Binder {
     }
 
     @Tag("main-view")
-    @JsModule("./src/main-view.js")
+    @JsModule("./src/main-view.ts")
     @Route("")
     public class MainView extends LitTemplate {
 

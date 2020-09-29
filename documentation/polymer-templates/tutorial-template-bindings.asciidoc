@@ -1,6 +1,6 @@
 ---
 title: PolymerTemplate, Binding Model Data
-order: 9
+order: 13
 layout: page
 ---
 
