@@ -6,6 +6,8 @@ layout: page
 
 =  PolymerTemplate, Mapped Components Limitations
 
+*Usage of polymer based templates is deprecated since Vaadin 18 and we recommend using Lit based templates instead.*
+
 == Out-of-sync Methods
 
 *Example*: `MainPage` JavaScript Polymer template file.

@@ -53,6 +53,8 @@ customElements.define('hello-world', HelloWorld);
 
 === PolymerTemplate
 
+*Usage of polymer based templates is deprecated since Vaadin 18 and we recommend using Lit based templates instead.*
+
 The first step is to create the Polymer JavaScript template file on the client side in `frontend/src/hello-world.js`. This file contains the view structure.
 
 *Example*: Creating the `hello-world.js` JavaScript Polymer template file.
@@ -116,6 +118,8 @@ public class HelloWorld extends LitTemplate {
 * The `@NpmPackage` annotation declares a dependency to the `input-text` npm package: `@axa-ch/input-text 4.3.11`. This annotation can be used to declare a dependency to any npm package.
 
 === PolymerTemplate
+
+*Usage of polymer based templates is deprecated since Vaadin 18 and we recommend using Lit based templates instead.*
 
 To use the client-side Polymer template on the server side, you need to create an associated Java class that extends the `PolymerTemplate` class.
 

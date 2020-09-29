@@ -55,6 +55,8 @@ public class ComponentContainer extends LitTemplate {
 
 === PolymerTemplate
 
+*Usage of polymer based templates is deprecated since Vaadin 18 and we recommend using Lit based templates instead.*
+
 *Example*: `<slot>` element in a JavaScript Polymer template.
 
 [source,js]
