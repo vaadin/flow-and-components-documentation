@@ -15,6 +15,7 @@
  */
 package com.vaadin.flow.tutorial.pwa;
 
+import com.vaadin.flow.server.connect.Deferrable;
 import com.vaadin.flow.server.connect.Endpoint;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
@@ -31,6 +32,7 @@ public class DeferrableEndpoint {
          * Saves the edited Person from the view.
          * @param person form data to save
          */
+        @Deferrable
         public void savePerson(Person person) {
             // ...
         }
