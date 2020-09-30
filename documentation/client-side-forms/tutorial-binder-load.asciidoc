@@ -57,3 +57,5 @@ private binder = new Binder(this, PersonModel, {
 
 binder.submit();
 ----
+
+It is also possible to submit a form offline. Read the <<../pwa/tutorial-offline-form-submission#,Offline Form Submission>> tutorial for more details.

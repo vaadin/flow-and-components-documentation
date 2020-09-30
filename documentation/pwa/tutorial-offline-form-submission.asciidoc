@@ -1,0 +1,26 @@
+---
+title: Offline Form Submission
+order: 8
+layout: page
+---
+
+= Offline Form Submission
+
+The TypeScript <<../client-side-forms/tutorial-binder#,Binder>> works seamlessly with the <<tutorial-defer-endpoint-request#, deferrable endpoints>>, which allows your form submission to work both online and offline. 
+
+When the application is online, the form is submitted directly. When offline, the form is stored locally in the browser and is submitted automatically when coming back online.
+
+*Example*: offline form submission with TypeScript Binder.
+[source,typescript]
+----
+// import the remote endpoint
+import * as personEndpoint from '../../generated/PersonEndpoint';
+
+const deferrableResult = await this.binder.submitTo(personEndpoint.update);
+if (deferrableResult.isDeferred) {
+    // your offline logic
+} else {
+    const result = deferrableResult.result;
+    // your online logic
+}
+---- 
