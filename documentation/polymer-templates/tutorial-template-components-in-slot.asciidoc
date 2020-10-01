@@ -10,8 +10,6 @@ A client-side template cannot render child templates created using the `Componen
 
 To overcome this, you can add a `<slot>` element to mark the place where the light DOM elements should be rendered.
 
-It is recommended to use LitElement template language for your components, but PolymerTemplate (see <<tutorial-polymer-template-components-in-slot#,PolymerTemplate, Dynamically Adding Server-side Components to Templates>>) is also supported.
-
 == Using the <slot> Element
 
 *Example*: `<slot>` element in a TypeScript LitElement template.
@@ -57,7 +55,7 @@ public class ComponentContainer extends LitTemplate {
 
 The `<slot>` tag can contain default content that is displayed only if nothing else is set from the light DOM.
 
-*Example*: `<slot>` element with default content in a TypeScript client-side template.
+*Example*: `<slot>` element with default content in a client-side template.
 
 [source,js]
 ----
@@ -71,7 +69,7 @@ The `<slot>` tag can contain default content that is displayed only if nothing e
 
 You can name `<slot>` elements using the `name` attribute to ensure that only wanted content is added to a particular slot.
 
-*Example* Using the `name` attribute in the `<slot>` element in a TypeScript client-side template.
+*Example* Using the `name` attribute in the `<slot>` element in a client-side template.
 
 [source,js]
 ----
@@ -87,7 +85,7 @@ You can name `<slot>` elements using the `name` attribute to ensure that only wa
 
 You can also nest named slots inside the main slot.
 
-*Example*: Nested slot elements in a TypeScript client-side template.
+*Example*: Nested slot elements in a client-side template.
 
 [source,js]
 ----

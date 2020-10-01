@@ -10,8 +10,6 @@ layout: page
 
 In this section, we demonstrate how to create a fully-functional template-binder view.
 
-It is recommended to use LitElement template language for your components, but PolymerTemplate (see <<tutorial-polymer-template-and-binder#,PolymerTemplate, Combining Templates and Binders>>) is also supported.
-
 == Creating the Template Component
 
 The first step is to create the TypeScript LitElement template and its mapped Java class.

@@ -10,8 +10,6 @@ Since client-side templates are Web Components, their content is inside shadow D
 
 You can add component-specific scoped styles directly in the static `styles` template property.
 
-It is recommended to use LitElement template language for your components, but PolymerTemplate (see <<tutorial-polymer-template-basic#,PolymerTemplate, Styling Templates>>) is also supported.
-
 .`my-view.ts`
 [source,js]
 ----

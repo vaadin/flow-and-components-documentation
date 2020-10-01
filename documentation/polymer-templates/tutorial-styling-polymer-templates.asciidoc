@@ -6,6 +6,8 @@ layout: page
 
 = PolymerTemplate, Styling Templates
 
+*Usage of polymer based templates is deprecated since Vaadin 18 and we recommend using Lit based templates instead.*
+
 You can add component-specific scoped styles directly in the `<style>` tag in the template getter.
 
 .`my-view.js`

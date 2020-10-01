@@ -6,6 +6,8 @@ layout: page
 
 = PolymerTemplate, Creating a Simple Component Using the Template API
 
+*Usage of polymer based templates is deprecated since Vaadin 18 and we recommend using Lit based templates instead.*
+
 == Creating the Template File on the Client Side
 
 The first step is to create the Polymer JavaScript template file on the client side in `frontend/src/hello-world.js`. This file contains the view structure.

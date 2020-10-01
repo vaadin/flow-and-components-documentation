@@ -6,6 +6,10 @@ layout: page
 
 = PolymerTemplate, Handling User Events
 
+*Usage of polymer based templates is deprecated since Vaadin 18 and we recommend using Lit based templates instead.*
+Event handlers are not supported for Lit templates. You may use component API and
+Dom events via Element API directly to achieve the same functionality.
+
 == Defining Client-side Event Handlers
 
 `PolymerTemplate` defines special syntax to attach client-side event handlers to elements. Use the `on-_eventname_="_methodName_"` syntax to define the handler. Note that the method name should not have any arguments or parenthesis.

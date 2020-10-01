@@ -6,6 +6,8 @@ layout: page
 
 = PolymerTemplate, Using Parent Layout
 
+*Usage of polymer based templates is deprecated since Vaadin 18 and we recommend using Lit based templates instead.*
+
 A `PolymerTemplate` can be used as a parent layout, by using the `<slot>` in the position where the child view should be displayed.
 
 *Example*: JavaScript Polymer template showing the actual view, `MainLayout`, below a heading and menu.

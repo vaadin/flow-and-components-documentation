@@ -6,6 +6,8 @@ layout: page
 
 = PolymerTemplate, Combining Templates and Binders
 
+*Usage of polymer based templates is deprecated since Vaadin 18 and we recommend using Lit based templates instead.*
+
 == Creating the Template Component
 
 The first step is to create the JavaScript Polymer template and its mapped Java class.
