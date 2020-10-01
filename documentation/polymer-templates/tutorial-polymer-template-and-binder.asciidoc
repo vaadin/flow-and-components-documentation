@@ -1,6 +1,6 @@
 ---
 title: PolymerTemplate, Combining Templates and Binders
-order: 9
+order: 10
 layout: page
 ---
 

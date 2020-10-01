@@ -1,6 +1,6 @@
 ---
 title: PolymerTemplate, Dynamically Adding Server-side Components to Templates
-order: 10
+order: 11
 layout: page
 ---
 

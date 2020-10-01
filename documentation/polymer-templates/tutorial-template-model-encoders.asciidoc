@@ -1,6 +1,6 @@
 ---
 title: PolymerTemplate, Using Model Encoders
-order: 15
+order: 16
 layout: page
 ---
 

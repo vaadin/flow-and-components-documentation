@@ -1,6 +1,6 @@
 ---
 title: Detecting Component Mappings
-order: 18
+order: 8
 layout: page
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: PolymerTemplate, Creating a Simple Component Using the Template API
-order: 8
+order: 9
 layout: page
 ---
 

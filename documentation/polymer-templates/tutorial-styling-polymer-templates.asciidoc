@@ -1,6 +1,6 @@
 ---
 title: PolymerTemplate, Styling Templates
-order: 11
+order: 12
 layout: page
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: PolymerTemplate, Using Parent Layout
-order: 17
+order: 18
 layout: page
 ---
 
