@@ -1,14 +1,14 @@
 ---
-title: Defer Endpoint Requests
+title: Defer Endpoint Calls
 order: 7
 layout: page
 ---
 
-= Defer Endpoint Requests
+= Defer Endpoint Calls
 
-When creating UI with TypeScript, all the logic is done on the client side, which means that it works offline. However, saving any data using endpoints would not work offline, since the endpoint requests require network access by default.
+When creating UI with TypeScript, all the logic is done on the client side, which means that it works offline. However, saving any data using endpoints would not work offline, since the endpoint calls require network access by default.
 
-To enable saving the data when the application is offline, the endpoint requests should be deferred. A deferred request is stored locally in the browser when the application is offline, and will be sent when coming back online.
+To enable saving the data when the application is offline, the endpoint calls should be deferred. A deferred call is stored locally in the browser when the application is offline, and will be sent when coming back online.
 
 Vaadin endpoints are optionally deferrable. When deferrable endpoints are called, Vaadin automatically defers the offline requests.
 
@@ -33,9 +33,9 @@ public class PersonEndpoint {
 }
 ----
 
-What happens is that the generated endpoint on the client-side will return a `Deferrable`. From there, you can check if the endpoint request is deferred or not. If the endpoint request is not deferred, you can get the actual result. Otherwise, you can get the request meta information.
+What happens is that the generated endpoint on the client-side will return a `DeferrableResult`. From there, you can check if the endpoint request is deferred or not. If the endpoint request is not deferred, you can get the actual result. Otherwise, you can get the request meta information.
 
-*Example*: Using the `@Deferrable` annotation to defer endpoints.
+*Example*: Using the returned `DeferrableResult` from a deferrable endpoint call.
 [source,typescript]
 ----
 // import the remote endpoint
