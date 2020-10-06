@@ -48,6 +48,12 @@ form.setEnabled(false);
 System.out.println(name.isEnabled()); // prints false
 ----
 
+[NOTE]
+The components mapped via `@Id` inside template don't follow 
+the hierarchical structure defined in the template, as a result disabling `@Id` mapped component `parent` which
+is a parent of another `@Id` mapped component `child` in the template doesn't disable the `child` component
+(since on the server side they don't form a hierarchy). See <<../polymer-templates/tutorial-template-mapped-components-limitations#, Mapped Components Limitations>> for details.
+
 == Implicitly Enabled and Disabled Components
 
 When an implicitly disabled component is detached from a disabled container, it is automatically enabled again. Similarly, if an enabled component is attached to a disabled container, it is automatically implicitly disabled.
