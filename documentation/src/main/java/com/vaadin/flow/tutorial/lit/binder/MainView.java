@@ -1,28 +1,27 @@
-package com.vaadin.flow.tutorial.binder;
+package com.vaadin.flow.tutorial.lit.binder;
 
 import java.util.Optional;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.polymertemplate.Id;
-import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
-import com.vaadin.flow.tutorial.binder.data.User;
-import com.vaadin.flow.tutorial.binder.data.UsersRepository;
-import com.vaadin.flow.tutorial.binder.ui.FormButtonsBar;
-import com.vaadin.flow.tutorial.binder.ui.UserForm;
-import com.vaadin.flow.tutorial.binder.ui.UsersGrid;
+import com.vaadin.flow.tutorial.lit.binder.data.User;
+import com.vaadin.flow.tutorial.lit.binder.data.UsersRepository;
+import com.vaadin.flow.tutorial.lit.binder.ui.FormButtonsBar;
+import com.vaadin.flow.tutorial.lit.binder.ui.UserForm;
+import com.vaadin.flow.tutorial.lit.binder.ui.UsersGrid;
 
-@CodeFor("polymer-templates/tutorial-polymer-template-and-binder.asciidoc")
+@CodeFor("polymer-templates/tutorial-template-and-binder.asciidoc")
 /**
  * The main view of the application.
  */
 @Tag("main-view")
-@JsModule("./src/main-view.js")
+@JsModule("./src/main-view.ts")
 @Route("")
-public class MainView extends PolymerTemplate<TemplateModel> {
+public class MainView extends LitTemplate {
 
 
     @Id("user-form")

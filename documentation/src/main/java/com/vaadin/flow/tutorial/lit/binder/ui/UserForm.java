@@ -1,27 +1,27 @@
-package com.vaadin.flow.tutorial.binder.ui;
+package com.vaadin.flow.tutorial.lit.binder.ui;
 
 import java.util.Optional;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.polymertemplate.Id;
-import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
-import com.vaadin.flow.tutorial.binder.data.User;
+import com.vaadin.flow.tutorial.lit.binder.data.User;
 
-@CodeFor("polymer-templates/tutorial-polymer-template-and-binder.asciidoc")
+@CodeFor("polymer-templates/tutorial-template-and-binder.asciidoc")
 /**
  * Example of how to combine Templates(recommended way of building UIs) with
  * Binder(recommended way of building forms).
  */
 @Tag("user-form")
-@JsModule("./src/user-form.js")
-public class UserForm extends PolymerTemplate<UserForm.FormComponentModel> {
+@JsModule("./src/user-form.ts")
+public class UserForm extends LitTemplate {
 
     @Id("email")
     private TextField email;
