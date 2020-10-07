@@ -61,6 +61,9 @@ public class MappedComponentsLimitations {
 
             System.out.println(textField.isEnabled()); // prints "true"
             System.out.println(button.isEnabled()); // prints "true"
+            // call explicitly setEnabled(false) to disable a component
+            button.setEnabled(false);
+            System.out.println(button.isEnabled()); // prints "false"
         }
     }
 

@@ -1,6 +1,6 @@
 ---
 title: Mapped Components Limitations
-order: 19
+order: 9
 layout: page
 ---
 
@@ -83,6 +83,9 @@ public class MainLayout extends LitTemplate {
 
         System.out.println(textField.isEnabled()); // prints "true"
         System.out.println(button.isEnabled()); // prints "true"
+        // call explicitly setEnabled(false) to disable a component
+        button.setEnabled(false);
+        System.out.println(button.isEnabled()); // prints "false"
     }
 }
 ----
