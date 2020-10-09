@@ -19,7 +19,7 @@ import com.vaadin.flow.server.connect.Deferrable;
 import com.vaadin.flow.server.connect.Endpoint;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("pwa/tutorial-defer-endpoint-request.asciidoc")
+@CodeFor("pwa/tutorial-defer-endpoint-call.asciidoc")
 public class DeferrableEndpoint {
 
     @Endpoint

@@ -197,6 +197,8 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<pwa/tutorial-pwa-web-app-manifest#,Web App Manifest>>
 * <<pwa/tutorial-pwa-service-worker#,Service Worker>>
 * <<pwa/tutorial-pwa-offline#,Offline experience>>
+* <<pwa/tutorial-defer-endpoint-call#,Defer Endpoint Calls>>
+* <<pwa/tutorial-offline-form-submission#,Offline Form Submission>>
 
 == Migrating from Vaadin 8 to Vaadin platform
 * <<migration/1-migrating-v8-v10#,Migrating from Vaadin 8 to Vaadin platform>>
