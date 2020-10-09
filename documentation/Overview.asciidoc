@@ -199,6 +199,7 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<pwa/tutorial-pwa-offline#,Offline experience>>
 * <<pwa/tutorial-defer-endpoint-call#,Defer Endpoint Calls>>
 * <<pwa/tutorial-offline-form-submission#,Offline Form Submission>>
+* <<pwa/tutorial-handle-deferred-call-result#,Handle Deferred Call Result>>
 
 == Migrating from Vaadin 8 to Vaadin platform
 * <<migration/1-migrating-v8-v10#,Migrating from Vaadin 8 to Vaadin platform>>
