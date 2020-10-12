@@ -129,6 +129,7 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<typescript/client-exceptions#, Client Side Exceptions>>
 * <<typescript/configuring-security#, Configuring Security for TypeScript Views>>
 * <<typescript/adding-login-form-with-spring-security#, Adding a Login Form with Spring Security>>
+* <<typescript/adding-custom-login-form-with-spring-security#, Adding a Custom Login Form with Spring Security>>
 * <<typescript/check-user-login#, Checking Authentication>>
 * <<typescript/intro-to-typescript-in-v15#, Appendix: Intro to TypeScript in Vaadin 15>>
 * <<typescript/type-conversion#, Appendix: Type Conversion between Java and TypeScript>>
@@ -136,6 +137,7 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<typescript/typescript-endpoints-generator#, Appendix: TypeScript Endpoints Generator>>
 * <<typescript/typescript-client#, Appendix: TypeScript Client>>
 * <<typescript/client-middleware#, Appendix: Client Middleware>>
+* <<typescript/handle-seesion-expiration#, Appendix: Handle session expiration>>
 * <<typescript/endpoint-methods-validation#, Appendix: Endpoint Methods Validation>>
 * <<typescript/typescript-endpoints-urls#, Appendix: Endpoint URLs>>
 

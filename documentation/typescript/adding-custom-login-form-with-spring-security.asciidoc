@@ -1,0 +1,111 @@
+---
+title: Adding a Custom Login Form with Spring Security
+order: 91
+layout: page
+---
+
+ifdef::env-github[:outfilesuffix: .asciidoc]
+
+= Adding a Custom Login Form with Spring Security
+
+Instea of using the <<adding-login-form-with-spring-security#, default Spring login form>>, you may want to use your own customized form. This article describes how to do that.
+
+Since the downloaded application is a link:https://spring.io/projects/spring-boot[Spring Boot] project, the easiest way to enable authentication is by adding link:https://spring.io/projects/spring-security[Spring Security].
+
+== Dependencies and Server Configuration
+
+The dependencies and Server side configuraiton is the same as described in <<adding-login-form-with-spring-security#, Adding a Login Form with Spring Security>>, with a difference that you need specify the URL for the custom login view.
+
+.SecurityConfig.java
+[source,java]
+----
+@EnableWebSecurity
+@Configuration
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    // specify the URL for the login view, the value of the parameter
+    // is the defined route for the login view component.
+    http.formLogin().loginPage("/login");
+    http.csrf().disable();
+  }  
+}
+----
+
+== Custom login view
+
+The easist way to make a login view is to use the `<vaadin-login-overlay>` component.
+Vaadin provides a `login` helper method for Spring Security based authentication that you can use for the login action.
+
+.frontend/login-view.ts
+[source, typescript]
+----
+@customElement('login-view')
+export class LoginView extends LitElement implements AfterEnterObserver {
+
+  @property({type: Boolean})
+  private error = false;
+
+  @property({type: Boolean})
+  private open = true;
+
+  // the url to redirect to after a successful login
+  private returnUrl = '/';
+
+  private onSuccess: (result:LoginResult) => void;
+
+  constructor(){
+    super();
+    this.onSuccess = () => {
+      Router.go(this.returnUrl);
+    };
+  }
+
+  render() {
+    return html`
+      <vaadin-login-overlay
+        ?opened="${this.open}" 
+        .error=${this.error}
+        @login="${this.login}">    
+      </vaadin-login-overlay>
+    `;
+  }
+
+  async login(event: CustomEvent): Promise<LoginResult> {
+    // use the Vaadin provided login helper method to obtain the LoginResult
+    const result = await login(event.detail.username, event.detail.password);
+    this.error = result.error;
+  
+    if (!result.error) {
+      this.onSuccess(result);
+    }
+
+    return result;
+  }
+
+  onAfterEnter(location: RouterLocation) {
+    this.returnUrl = location.redirectFrom || this.returnUrl;
+  }
+}
+----
+
+== Logout
+There two ways to do logout, you could either
+
+Let Spring Security handle Logging out. How it works it that it handles HTTP GET requests to `/logout` and redirects to `/login?logout` in response.
+For that a "Logout" button should be an regular <a> tag, i.e.
+`<a href="/logout" router-ignore>Log out</a>`. The downside is that it requires a full page load.
+
+In order to avoid a full page reload), it would require a `/logout` route like the one below. In this case a "Logout" button should an in-app link like `<a href="/logout">Log out</a>`
+
+.frontend/index.ts
+[source, typescript]
+----
+path: '/logout',
+action: async (_: Context, commands: Commands) => {
+  // use the logout helper method 
+  await logout();
+  return commands.redirect('/');
+}
+----
