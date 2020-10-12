@@ -6,7 +6,7 @@ layout: page
 
 = Handle Deferred Call Result
 
-When deferring an endpoint call, its result is only available after the actual submission over network.
+When deferring an endpoint call, its result is only available after the actual submission over the network.
 
 By default, Vaadin sends the deferred calls without prompting or notifying the user, and their returned result is not available in the caller view. However, often applications still need to handle deferred call results, for example, to notify the user of sending the data collected during prior offline work.
 
@@ -80,7 +80,7 @@ export const client = new ConnectClient({
 
 When the browser running the offline application comes back online, the client sends the deferred calls automatically.
 
-However, if the closes the application offline and later reopens online, there could be deferred calls in the queue, which are not sent yet.
+However, if a user closes the application offline and later reopens online, there could be deferred calls in the queue, which are not sent yet.
 
 The `client.processDeferredCalls()` method sends all the deferred calls stored in the browser, if there are any. You may call it explicitly upon online application load.
 

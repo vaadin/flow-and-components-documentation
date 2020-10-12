@@ -50,4 +50,4 @@ if (deferrableResult.isDeferred) {
 }
 ----
 
-For a deferred call, the result is not available in the returned `Deferrable` object. See the <<tutorial-handle-deferredcall-result#, Handle Deferred Call Result>> tutorial on how to handle deferred call results using `onDeferredCall` callback.
+For a deferred call, the result is not available in the returned `DeferrableResult` object. See the <<tutorial-handle-deferredcall-result#, Handle Deferred Call Result>> tutorial on how to handle deferred call results using `onDeferredCall` callback.
