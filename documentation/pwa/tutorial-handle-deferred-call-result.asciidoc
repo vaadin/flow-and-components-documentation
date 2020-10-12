@@ -1,0 +1,92 @@
+---
+title: Handle Deferred Call Result
+order: 9
+layout: page
+---
+
+= Handle Deferred Call Result
+
+When deferring an endpoint call, its result is only available after the actual submission over the network.
+
+By default, Vaadin sends the deferred calls without prompting or notifying the user, and their returned result is not available in the caller view. However, often applications still need to handle deferred call results, for example, to notify the user of sending the data collected during prior offline work.
+
+This article describes how to handle deferred call results on the client side.
+
+== The `onDeferredCall` callback
+
+Since the result is not available right away for deferred calls, Vaadin has `onDeferredCall` callback property on the `ConnectClient` TypeScript endpoint client class, which allows handling deferred call results.
+
+To define a custom `onDeferredCall` callback, import the client and set the property in your `index.ts` file:
+
+[source,typescript]
+.index.ts excerpt
+----
+import client from './generated/connect-client.default';
+import {EndpointRequest} from "./Connect";
+
+client.onDeferredCall = async (call: EndpointRequest, resultPromise: Promise<any>) => {
+  try {
+    // Await the result
+    const result = await resultPromise;
+
+    // Notify the user of successful result
+  } catch (error) {
+    // Notify the user of the error
+
+    // The call will be removed from the deferred queue
+    // when sent successfully or if the error is handled here.
+
+    // Re-throw the error to keep the call in the queue:
+    // throw error;
+  }
+};
+
+// Send the deferred calls when application is opened in the browser. When
+// the `onDeferredCall` callback is used, make sure it is defined before this.
+if (navigator.onLine) {
+  client.processDeferredCalls();
+}
+----
+
+[NOTE]
+====
+If your application uses a custom client, the import path is different:
+[source,typescript]
+----
+import client from './connect-client';
+----
+====
+
+You can also give the callback as a `ConnectClient` constructor option, if you use a custom client:
+
+[source,typescript]
+.connect-client.ts
+----
+import {ConnectClient, EndpointRequest} from "@vaadin/flow-frontend/Connect";
+
+export const client = new ConnectClient({
+  onDeferredCall: async(call: EndpointRequest, promiseResult: Promise<any>) => {
+    try {
+      const result = await promiseResult;
+      // Handle the successful result...
+    } catch (error) {
+      // Handle the error...
+    }
+  }
+});
+----
+
+== Handling deferred calls upon application load
+
+When the browser running the offline application comes back online, the client sends the deferred calls automatically.
+
+However, if a user closes the application offline and later reopens online, there could be deferred calls in the queue, which are not sent yet.
+
+The `client.processDeferredCalls()` method sends all the deferred calls stored in the browser, if there are any. You may call it explicitly upon online application load.
+
+In the example above, `client.processDeferredCalls()` is called from `index.ts` to send the deferred calls from the queue if the user opens the application online:
+
+[CAUTION]
+====
+If your application handles deferred calls on the client, call `client.processDeferredCalls()` only after `onDeferredCall` is defined. This is necessary to ensure that the custom callback applies to all the deferred requests.
+====

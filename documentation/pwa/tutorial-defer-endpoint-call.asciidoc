@@ -21,7 +21,7 @@ You can make an endpoint deferrable by adding a `@Deferrable` annotation. It wor
 ----
 @Endpoint
 public class PersonEndpoint {
-    
+
     public Person loadPerson() {
         // ...
     }
@@ -48,4 +48,6 @@ if (deferrableResult.isDeferred) {
     const result = deferrableResult.result;
     // your online logic
 }
----- 
+----
+
+For a deferred call, the result is not available in the returned `DeferrableResult` object. See the <<tutorial-handle-deferredcall-result#, Handle Deferred Call Result>> tutorial on how to handle deferred call results using `onDeferredCall` callback.
