@@ -108,6 +108,47 @@ class MainLayout extends LitElement {
 customElements.define("main-layout", MainLayout);
 ----
 
+== Template `disabled` attribute
+
+LitTemplate doesn't support using the `disabled` attribute for an id-mapped component.
+Id-mapped components should always be disabled from the server side using the `setEnabled(false)` method.
+
+*Faulty sample*
+
+[source,js]
+----
+class MainLayout extends LitElement {
+  render() {
+    return html`
+        <div>
+          <vaadin-button id="button" disabled></vaadin-button>
+        </div>
+      `;
+  }
+}
+
+customElements.define("main-layout", MainLayout);
+----
+
+[source,java]
+----
+@Tag("main-layout")
+@JsModule("./com/example/main-layout.js")
+public class MainLayout extends LitTemplate {
+
+    @Id("button")
+    private Button button;
+}
+----
+
+This will throw a `IllegalArgumentException` with the message
+```
+Lit template 'com.example.MainLayout' injected element(s):
+ * Element 'vaadin-button' with id 'button'
+uses the disabled attribute.
+Mapped components should instead be disabled using the 'setEnabled(false)' method on the server side.
+```
+
 == Removing Mapped Elements
 
 A virtually-mapped `Element` is connected to the `ShadowRoot` of the
