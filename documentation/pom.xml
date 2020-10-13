@@ -49,6 +49,18 @@
             <artifactId>vaadin-spring</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>flow-polymer-template</artifactId>
+            <version>${flow.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>flow-lit-template</artifactId>
+            <version>${flow.version}</version>
+        </dependency>
+
         <!-- needed for spring security docs validation -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
