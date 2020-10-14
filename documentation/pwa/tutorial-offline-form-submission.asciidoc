@@ -6,7 +6,7 @@ layout: page
 
 = Offline Form Submission
 
-The TypeScript <<../client-side-forms/tutorial-binder#,Binder>> works seamlessly with the <<tutorial-defer-endpoint-request#, deferrable endpoints>>, which allows your form submission to work both online and offline. 
+The TypeScript <<../client-side-forms/tutorial-binder#,Binder>> works seamlessly with the <<tutorial-defer-endpoint-call#, deferrable endpoints>>, which allows your form submission to work both online and offline.
 
 When the application is online, the form is submitted directly. When offline, the form is stored locally in the browser and is submitted automatically when coming back online.
 
