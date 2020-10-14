@@ -110,7 +110,8 @@ customElements.define("main-layout", MainLayout);
 
 == Template `disabled` attribute
 
-LitTemplate doesn't support using the `disabled` attribute for an id-mapped component.
+LitTemplate doesn't support using the `disabled` attribute for an id-mapped component and will
+throw an `IllegalAttributeException` with information on where it is used.
 Id-mapped components should always be disabled from the server side using the `setEnabled(false)` method.
 
 *Faulty sample*
@@ -141,7 +142,7 @@ public class MainLayout extends LitTemplate {
 }
 ----
 
-This will throw a `IllegalArgumentException` with the message
+This will throw an `IllegalAttributeException` with the message
 ```
 Lit template 'com.example.MainLayout' injected element(s):
  * Element 'vaadin-button' with id 'button'
