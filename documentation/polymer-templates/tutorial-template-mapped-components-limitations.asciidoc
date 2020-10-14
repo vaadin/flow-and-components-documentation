@@ -144,11 +144,13 @@ public class MainLayout extends LitTemplate {
 
 This will throw an `IllegalAttributeException` with the message
 ```
-Lit template 'com.example.MainLayout' injected element(s):
- * Element 'vaadin-button' with id 'button'
-uses the disabled attribute.
+Lit template 'com.example.MainLayout' injected element 'vaadin-button' with id 'button' uses the disabled attribute.
 Mapped components should instead be disabled using the 'setEnabled(false)' method on the server side.
 ```
+
+[NOTE]
+PolymerTemplate will not throw for using the `disabled` attribute, but only store it as a property for the element
+leaving the element as enabled on the server side.
 
 == Removing Mapped Elements
 
