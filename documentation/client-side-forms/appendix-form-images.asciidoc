@@ -22,7 +22,7 @@ field:
 [source, java]
 ----
 /**
- * Contact card with base64-encoding image
+ * Contact card with base64-encoded image
  */
 public class Contact {
     // ...
@@ -32,14 +32,6 @@ public class Contact {
     }
 
     public void setAvatarBase64(String avatarBase64) {
-        // ...
-    }
-
-    public String getFullName() {
-        // ...
-    }
-
-    public void setFullName(String fullName) {
         // ...
     }
 }
@@ -78,8 +70,9 @@ import Contact from '../../generated/com/example/Contact';
 import ContactModel from '../../generated/com/example/ContactModel';
 import { saveContact } from '../../generated/ServiceEndpoint';
 
-import { Binder, field } from '@vaadin/form';
+import { Binder } from '@vaadin/form';
 
+//@ts-ignore
 import { readAsDataURL } from "promise-file-reader";
 
 @customElement('contact-form')
@@ -93,7 +86,7 @@ export class ContactForm extends LitElement {
   }
   render() {
     return html`
-      <img src="${this.binder.model.avatarBase64}" alt="${this.binder.model.fullName}'s avatar"/>
+      <img src="${this.binder.model.avatarBase64}" alt="contact's avatar"/>
 
       <vaadin-upload capture="camera" accept="image/*" max-files="1"
         @upload-before=${async (e: CustomEvent) => {
@@ -103,8 +96,6 @@ export class ContactForm extends LitElement {
           this.binder.for(this.binder.model.avatarBase64).value = base64Image;
         }}
       ></vaadin-upload>
-
-      <vaadin-text-field label="Full name" ...="${field(this.binder.model.fullName)}"></vaadin-text-field>
 
       <vaadin-button @click=${this.save}">Save</vaadin-button>
     `;
@@ -119,6 +110,10 @@ export class ContactForm extends LitElement {
 In the above code, the custom `upload-before` listener prevents `vaadin-upload`
 from uploading the received file to the server, instead reading it into a
 Base64-encoded string and updating form field `avatarBase64` via the binder.
+The small https://www.npmjs.com/package/promise-file-reader[`promise-file-reader`]
+library wrapping  `FileReader` inside a promise is used here in order to handle
+the result synchronously.
+
 Only when the form changes get submitted to the `saveContact` endpoint
 (the statement `this.binder.submitTo(saveContact)` in the `save` method), will
 the image string be sent to the server. The server-side endpoint implementation
