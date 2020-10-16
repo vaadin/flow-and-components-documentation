@@ -17,7 +17,7 @@ Vaadin bridges Java backend endpoints and a TypeScript frontend. It generates
 TypeScript clients to call the Java backend in a type-checkable way.
 
 [WARNING]
-Vaadin endpoint feature depends on Spring Boot auto-configuration. It will not properly if the auto-configuration is disabled, for example, when you use `@EnableWebMvc`.
+Vaadin endpoint depends on Spring Boot auto-configuration. It will not work properly if the auto-configuration is disabled, for example, when you use `@EnableWebMvc`. A simple workaround is to remove the `@EnableWebMvc`, as stated in this link:https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/reference/html/spring-boot-features.html#boot-features-spring-mvc-auto-configuration[Spring Boot doc].
 If you have an idea how to make it more useful for you, please share it on link:https://github.com/vaadin/flow/issues/new/[GitHub^].
 
 
