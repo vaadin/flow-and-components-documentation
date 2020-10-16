@@ -137,7 +137,7 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<typescript/typescript-endpoints-generator#, Appendix: TypeScript Endpoints Generator>>
 * <<typescript/typescript-client#, Appendix: TypeScript Client>>
 * <<typescript/client-middleware#, Appendix: Client Middleware>>
-* <<typescript/handle-seesion-expiration#, Appendix: Handle session expiration>>
+* <<typescript/ts-handle-session-expiration#, Appendix: Handle session expiration>>
 * <<typescript/endpoint-methods-validation#, Appendix: Endpoint Methods Validation>>
 * <<typescript/typescript-endpoints-urls#, Appendix: Endpoint URLs>>
 
