@@ -148,6 +148,7 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<client-side-forms/appendix-client-side-form-binding-reference#, Appendix: Client-Side Form Binding Reference>>
 * <<client-side-forms/appendix-vaadin-components#, Appendix: Binding Data to Vaadin Components>>
 * <<client-side-forms/appendix-web-component-field-strategy#, Appendix: Using a Custom Web Component Field>>
+* <<client-side-forms/appendix-form-images#, Appendix: Image Fields in Client-Side Forms>>
 
 == Using Vaadin with Spring
 * <<spring/tutorial-spring-basic#,Use Vaadin with Spring>>

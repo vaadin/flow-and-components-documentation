@@ -6,7 +6,7 @@ layout: page
 
 = Offline Form Submission
 
-The TypeScript <<../client-side-forms/tutorial-binder#,Binder>> works seamlessly with the <<tutorial-defer-endpoint-request#, deferrable endpoints>>, which allows your form submission to work both online and offline. 
+The TypeScript <<../client-side-forms/tutorial-binder#,Binder>> works seamlessly with the <<tutorial-defer-endpoint-call#, deferrable endpoints>>, which allows your form submission to work both online and offline.
 
 When the application is online, the form is submitted directly. When offline, the form is stored locally in the browser and is submitted automatically when coming back online.
 
@@ -24,3 +24,8 @@ if (deferrableResult.isDeferred) {
     // your online logic
 }
 ---- 
+
+== Image upload
+
+Offline forms can also be used for image uploads, for instance allowing users to update their avatars or submit scans of receipts while on the go using the phone camera.
+See <<../client-side-forms/appendix-form-images#,Submitting Images in Client-Side Forms>> for an example of using `vaadin-upload` to implement an image form field that also works offline.
