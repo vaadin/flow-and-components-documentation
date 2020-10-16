@@ -6,7 +6,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 @CodeFor("client-side-forms/appendix-form-images.asciidoc")
 public class FormImages {
     /**
-     * Contact card with base64-encoding image
+     * Contact card with base64-encoded image
      */
     public class Contact {
         // ...
@@ -17,15 +17,6 @@ public class FormImages {
         }
 
         public void setAvatarBase64(String avatarBase64) {
-            // ...
-        }
-
-        public String getFullName() {
-            // ...
-            return "";
-        }
-
-        public void setFullName(String fullName) {
             // ...
         }
     }
