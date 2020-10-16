@@ -28,4 +28,4 @@ if (deferrableResult.isDeferred) {
 == Image upload
 
 Offline forms can also be used for image uploads, for instance allowing users to update their avatars or submit scans of receipts while on the go using the phone camera.
-See <<../client-side-forms/appendix-form-images.asciidoc#,Submitting Images in Client-Side Forms>> for an example of using `vaadin-upload` to implement an image form field that also works offline.
+See <<../client-side-forms/appendix-form-images#,Submitting Images in Client-Side Forms>> for an example of using `vaadin-upload` to implement an image form field that also works offline.
