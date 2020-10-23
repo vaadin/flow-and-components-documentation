@@ -72,6 +72,7 @@ export class LoginView extends LitElement implements AfterEnterObserver {
   }
 
   async login(event: CustomEvent): Promise<LoginResult> {
+    this.error = false;
     // use the Vaadin provided login helper method to obtain the LoginResult
     const result = await login(event.detail.username, event.detail.password);
     this.error = result.error;
@@ -102,13 +103,13 @@ const routes = [
 ----
 
 == Logout
-There two ways to do logout. You could either
+There are two ways to implement logout. You could either:
 
 Let Spring Security handle Logging out. How it works is that it handles HTTP GET requests to `/logout` and redirects to `/login?logout` in response.
 For that a "Logout" button should be an regular <a> tag, i.e.
 `<a href="/logout" router-ignore>Log out</a>`. The downside is that it requires a full page load.
 
-In order to avoid a full page reload), it would require a `/logout` route like the one below. In this case a "Logout" button should an in-app link like `<a href="/logout">Log out</a>`
+In order to avoid a full page reload the application needs to have a `/logout` route like the one below. In this case it can be triggered with a link like `<a href="/logout">Log out</a>`.
 
 .frontend/index.ts
 [source, typescript]
