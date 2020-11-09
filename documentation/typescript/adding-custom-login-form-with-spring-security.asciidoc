@@ -101,6 +101,72 @@ const routes = [
   // more routes
 }
 ----
+== Redirect the user to the login view
+To protect a view from unauthenticated users, that is, redirect unauthenticated users to the login view, you can use route action.
+
+.frontend/index.ts
+[source, typescript]
+----
+const routes = [
+  ...
+  {
+    path: '/my-view',
+    action: async (_: Router.Context, commands: Router.Commands) => {
+      if (!await isUserLoggedIn()) {
+        return commands.redirect('/login');
+      }
+      return undefined;
+    },
+    component: 'my-view'
+  }
+  ...
+}
+----
+You can also add the route action to the parent layout, so that all the child views will be protected.
+
+.frontend/index.ts
+[source, typescript]
+----
+const routes = [
+  ...
+  {
+    path: '/main-layout',
+    action: async (_: Router.Context, commands: Router.Commands) => {
+      if (!await isUserLoggedIn()) {
+        return commands.redirect('/login');
+      }
+      return undefined;
+    },
+    component: 'main-layout',
+    children: [
+      ...
+    ]
+  }
+  ...
+}
+----
+The `isUserLoggedIn()` method in the above code examples is an endpoint call.
+
+.SecurityEndpoint.java
+[source,java]
+----
+@Endpoint
+@AnonymousAllowed
+public class SecurityEndpoint {
+    public boolean isUserLoggedIn() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication != null
+            && !(authentication instanceof AnonymousAuthenticationToken)
+            && authentication.isAuthenticated();
+    }
+}
+----
+
+.frontend/index.ts
+[source, typescript]
+----
+import { isUserLoggedIn } from './generated/SecurityEndpoint';
+----
 
 == Logout
 There are two ways to implement logout. You could either:

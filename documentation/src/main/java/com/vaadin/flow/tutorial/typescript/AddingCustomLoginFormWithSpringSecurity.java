@@ -15,12 +15,17 @@
  */
 package com.vaadin.flow.tutorial.typescript;
 
+import com.vaadin.flow.server.connect.Endpoint;
+import com.vaadin.flow.server.connect.auth.AnonymousAllowed;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @CodeFor("typescript/adding-custom-login-form-with-spring-security.asciidoc")
 public class AddingCustomLoginFormWithSpringSecurity {
@@ -38,6 +43,17 @@ public class AddingCustomLoginFormWithSpringSecurity {
         http.formLogin().loginPage("login");
       } 
 
+    }
+
+    @Endpoint
+    @AnonymousAllowed
+    public class SecurityEndpoint {
+        public boolean isUserLoggedIn() {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            return authentication != null
+                && !(authentication instanceof AnonymousAuthenticationToken)
+                && authentication.isAuthenticated();
+        }
     }
 }
 
