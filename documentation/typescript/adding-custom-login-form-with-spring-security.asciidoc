@@ -12,7 +12,7 @@ Instead of using the <<adding-login-form-with-spring-security#, default Spring l
 
 == Dependencies and Server Configuration
 
-The dependencies and server configuratiton is the same as described in <<adding-login-form-with-spring-security#, Adding a Login Form with Spring Security>>, with a difference that you need specify the URL for the custom login view.
+The dependencies and server configuration is the same as described in <<adding-login-form-with-spring-security#, Adding a Login Form with Spring Security>>, with a difference that you need specify the URL of the custom login view.
 
 .SecurityConfig.java
 [source,java]
@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     // Vaadin already handles csrf.
     http.csrf().disable();
-    // specify the URL for the login view, the value of the parameter
+    // specify the URL of the login view, the value of the parameter
     // is the defined route for the login view component.
     http.formLogin().loginPage("login");
   }  
@@ -89,7 +89,7 @@ export class LoginView extends LitElement implements AfterEnterObserver {
   }
 }
 ----
-After the login view is defined, you should also define a route for the login view component, e.g., in the `index.ts` file. Note, the `path` for the login view component should be the same as what you defined in `SecurityConfig` for `http.formLogin().loginPage()`.
+After the login view is defined, you should also define a route for the login view component, for example in the `index.ts` file. Note, the `path` for the login view component should be the same as what you defined in `SecurityConfig` for `http.formLogin().loginPage()`.
 .frontend/index.ts
 [source, typescript]
 ----
@@ -106,7 +106,7 @@ const routes = [
 There are two ways to implement logout. You could either:
 
 Let Spring Security handle Logging out. How it works is that it handles HTTP GET requests to `/logout` and redirects to `/login?logout` in response.
-For that a "Logout" button should be an regular <a> tag, i.e.
+For that a "Logout" button should be an regular <a> tag, that is,
 `<a href="/logout" router-ignore>Log out</a>`. The downside is that it requires a full page load.
 
 In order to avoid a full page reload the application needs to have a `/logout` route like the one below. In this case it can be triggered with a link like `<a href="/logout">Log out</a>`.
