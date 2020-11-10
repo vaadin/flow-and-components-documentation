@@ -66,10 +66,10 @@ public class DataProviders {
 
     public interface PersonService {
         List<Person> fetchPersons(int offset, int limit);
+        List<Person> fetchPersonsByAge(Integer age, int offset, int limit);
         int getPersonCount();
         Person save(Person person);
-
-        public List<Person> findAll();
+        List<Person> findAll();
     }
 
     public void combobox() {
@@ -312,14 +312,34 @@ public class DataProviders {
 
     private void lazyBindingToComboBox() {
         ComboBox<Person> cb = new ComboBox<>();
-        cb.setDataProvider((String filter, int offset, int limit) -> {
-            return repo.findByNameLikeIgnoreCase(
-                    "%" + filter + "%", // <1>
-                    PageRequest.of(offset / limit, limit)
-            ).stream();
-        }, filter -> {
-            return (int) repo.countByNameLikeIgnoreCase("%" + filter + "%"); // <2>
-        });
+        cb.setItems(
+                query -> repo.findByNameLikeIgnoreCase(
+                        "%" + query.getFilter().orElse("") + "%", // <1>
+                        PageRequest.of(query.getPage(), query.getPageSize()))
+                        .stream(),
+                query -> (int) repo.countByNameLikeIgnoreCase(
+                        "%" + query.getFilter().orElse("") + "%") // <2>
+        );
+    }
+
+    private void filterConverterInComboBox() {
+        ComboBox<Person> cb = new ComboBox<>();
+        cb.setItemsWithFilterConverter(
+                query -> getPersonService()
+                        .fetchPersonsByAge(query.getFilter().orElse(null),
+                                query.getOffset(), query.getLimit())
+                        .stream(),
+                textFilter -> {
+                    if (textFilter == null || textFilter.isEmpty()) {
+                        return null;
+                    } else {
+                        try {
+                            return Integer.parseInt(textFilter);
+                        } catch (NumberFormatException e) {
+                            return null;
+                        }
+                    }
+                });
     }
 
     private void exportToCsvFile(Grid<Person> grid)
