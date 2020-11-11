@@ -272,6 +272,8 @@ The lazy loaded binding in `ComboBox` is always filtered by the string typed
 in by the end user.
 Initially, when there is no filter input yet, the filter is an empty string.
 
+*The `ComboBox` examples listed below use an API available only in Vaadin 18+.*
+
 For example, you can handle filterable lazy data binding to a Spring Data
 repository as follows:
 
@@ -279,23 +281,20 @@ repository as follows:
 ----
 ComboBox<Person> cb = new ComboBox<>();
 cb.setItems(
-        query -> repo.findByNameLikeIgnoreCase(
-                "%" + query.getFilter().orElse("") + "%", // <1>
+        query -> repo.findByNameLikeIgnoreCase( // <1>
+                "%" + query.getFilter().orElse("") + "%", // <2>
                 PageRequest.of(query.getPage(), query.getPageSize()))
-                .stream(),
-        query -> (int) repo.countByNameLikeIgnoreCase(
-                "%" + query.getFilter().orElse("") + "%") // <2>
+                .stream()
 );
 ----
-<1> Add `%` marks to filter for an SQL "LIKE" query.
-<2> The item count callback is optional.
+<1> Here we use only the fetch callback for lazy loading with undefined item count. The item count callback is optional.
+<2> Add `%` marks to filter for an SQL "LIKE" query.
 Use it if getting the count is cheap and/or a real scroll bar size is desired.
 
-You may want to filter the items in combo box by some value type other than a string.
+You may want to filter the items in `ComboBox` by some value type other than a string.
 If your backend is able to fetch the items by this value, you can set the filter converter along with fetch callback.
 
-In the example below, the combo box uses a custom filter converter to filter
-the persons by a given age.
+In the example below, the `ComboBox` uses a custom filter converter to filter the persons by a given age:
 
 [source, java]
 ----

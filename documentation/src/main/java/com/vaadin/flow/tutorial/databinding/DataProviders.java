@@ -313,12 +313,10 @@ public class DataProviders {
     private void lazyBindingToComboBox() {
         ComboBox<Person> cb = new ComboBox<>();
         cb.setItems(
-                query -> repo.findByNameLikeIgnoreCase(
-                        "%" + query.getFilter().orElse("") + "%", // <1>
+                query -> repo.findByNameLikeIgnoreCase( // <1>
+                        "%" + query.getFilter().orElse("") + "%", // <2>
                         PageRequest.of(query.getPage(), query.getPageSize()))
-                        .stream(),
-                query -> (int) repo.countByNameLikeIgnoreCase(
-                        "%" + query.getFilter().orElse("") + "%") // <2>
+                        .stream()
         );
     }
 
