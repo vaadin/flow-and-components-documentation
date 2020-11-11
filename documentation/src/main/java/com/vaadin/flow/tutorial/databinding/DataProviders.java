@@ -328,7 +328,7 @@ public class DataProviders {
                                 query.getOffset(), query.getLimit())
                         .stream(),
                 textFilter -> {
-                    if (textFilter == null || textFilter.isEmpty()) {
+                    if (textFilter.trim().isEmpty()) {
                         return null;
                     } else {
                         try {

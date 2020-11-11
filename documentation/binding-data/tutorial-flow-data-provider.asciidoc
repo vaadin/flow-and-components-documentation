@@ -305,7 +305,7 @@ cb.setItemsWithFilterConverter(
                         query.getOffset(), query.getLimit())
                 .stream(),
         textFilter -> {  // <2>
-            if (textFilter == null || textFilter.isEmpty()) {
+            if (textFilter.trim().isEmpty()) {
                 return null;
             } else {
                 try {
