@@ -299,22 +299,15 @@ In the example below, the `ComboBox` uses a custom filter converter to filter th
 [source, java]
 ----
 ComboBox<Person> cb = new ComboBox<>();
+cb.setPattern("\\d+");
+cb.setPreventInvalidInput(true);
 cb.setItemsWithFilterConverter(
         query -> getPersonService()
                 .fetchPersonsByAge(query.getFilter().orElse(null), // <1>
                         query.getOffset(), query.getLimit())
                 .stream(),
-        textFilter -> {  // <2>
-            if (textFilter.trim().isEmpty()) {
-                return null;
-            } else {
-                try {
-                    return Integer.parseInt(textFilter);
-                } catch (NumberFormatException e) {
-                    return null;
-                }
-            }
-        });
+        textFilter -> textFilter.isEmpty() ? null // <2>
+                : Integer.parseInt(textFilter));
 ----
 <1> Query object contains the filter of type returned by given converter.
 <2> The second callback is used to convert the combo box's text client-side filter into the appropriate value, used by backend.

@@ -322,22 +322,15 @@ public class DataProviders {
 
     private void filterConverterInComboBox() {
         ComboBox<Person> cb = new ComboBox<>();
+        cb.setPattern("\\d+");
+        cb.setPreventInvalidInput(true);
         cb.setItemsWithFilterConverter(
                 query -> getPersonService()
                         .fetchPersonsByAge(query.getFilter().orElse(null),
                                 query.getOffset(), query.getLimit())
                         .stream(),
-                textFilter -> {
-                    if (textFilter.trim().isEmpty()) {
-                        return null;
-                    } else {
-                        try {
-                            return Integer.parseInt(textFilter);
-                        } catch (NumberFormatException e) {
-                            return null;
-                        }
-                    }
-                });
+                textFilter -> textFilter.isEmpty() ? null
+                        : Integer.parseInt(textFilter));
     }
 
     private void exportToCsvFile(Grid<Person> grid)
