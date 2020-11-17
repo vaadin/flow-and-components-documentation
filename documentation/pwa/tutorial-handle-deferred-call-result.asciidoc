@@ -10,15 +10,15 @@ When deferring an endpoint call, its result is only available after the actual s
 
 By default, Vaadin sends the deferred calls without prompting or notifying the user, and their returned result is not available in the caller view. However, often applications still need to handle deferred call results, for example, to notify the user of sending the data collected during prior offline work.
 
-This article describes how to customise deferred call handling on the client side.
+This article describes how to customize deferred call handling on the client side.
 
 == The `deferredCallHandler` property
 
-Vaadin has `deferredCallHandler` property on the `ConnectClient` TypeScript endpoint client class, which allows customising the deferred call handling. 
+Vaadin has `deferredCallHandler` property on the `ConnectClient` TypeScript endpoint client class, which allows customizing the deferred call handling. 
 
 The main philosophy for customization is to wrap the deferred call submission in a try-catch block, so that you can handle it correspondingly when a deferred call submission succeeds or fails.
 
-By default, Vaadin will remove the deferred call from the queue when submitted successfully or if the submission error is handled already, for example, in a try-catch. To keep the deferred call in the queue, you can call `deferredCallSubmitter.keepDeferredCallInTheQueue()` in the catch block.
+By default, Vaadin will remove the deferred call from the queue when submitted successfully or if the submission error is handled already, for example, in a try-catch. To keep the deferred call in the queue, you can use the `deferredCallSubmitter` parameter received by the handler and call `deferredCallSubmitter.keepDeferredCallInTheQueue()` in the catch block.
 
 To define a custom `deferredCallHandler` callback, import the client and set the property in your **`index.ts`** file as below. It is recommended to define the `deferredCallHandler` in the `index.ts` because if you put it in a sub view, the view component might not be available when the deferred call handling occurs.
 
@@ -29,22 +29,22 @@ import client from './generated/connect-client.default';
 import { DeferredCallSubmitter } from '@vaadin/flow-frontend';
 
 client.deferredCallHandler = {
-  async handleDeferredCallSubmission(deferredCallSubmitter: DeferredCallSubmitter) {
-    try{
-      // Submit the deferred call and wait for it to finish
-      await deferredCallSubmitter.submit();
-       // Notify the user of successful result
-      console.log('submission succeeded');
-    }catch(error){
-      // Notify the user of the error
-      console.log('submission failed');
-      // The call will be removed from the deferred queue
-      // when sent successfully or if the error is handled here.
-      // To keep the call in the queue, call the 
-      // keepDeferredCallInTheQueue() method.
-      deferredCallSubmitter.keepDeferredCallInTheQueue();
-    }
-  }
+	async handleDeferredCallSubmission(deferredCallSubmitter: DeferredCallSubmitter) {
+		try {
+			// Submit the deferred call and wait for it to finish
+			await deferredCallSubmitter.submit();
+			// Notify the user of successful result
+			console.log('submission succeeded');
+		} catch (error) {
+			// Notify the user of the error
+			console.log('submission failed');
+			// The call will be removed from the deferred queue
+			// when sent successfully or if the error is handled here.
+			// To keep the call in the queue, call the 
+			// keepDeferredCallInTheQueue() method.
+			deferredCallSubmitter.keepDeferredCallInTheQueue();
+		}
+	}
 }
 
 // Send the deferred calls when application is opened in the browser. When
