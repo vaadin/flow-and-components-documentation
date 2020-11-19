@@ -313,11 +313,23 @@ public class DataProviders {
     private void lazyBindingToComboBox() {
         ComboBox<Person> cb = new ComboBox<>();
         cb.setItems(
-                query -> repo.findByNameLikeIgnoreCase( // <1>
-                        "%" + query.getFilter().orElse("") + "%", // <2>
+                query -> repo.findByNameLikeIgnoreCase(
+                        // Add `%` marks to filter for an SQL "LIKE" query
+                        "%" + query.getFilter().orElse("") + "%",
                         PageRequest.of(query.getPage(), query.getPageSize()))
                         .stream()
         );
+    }
+
+    private void lazyBindingToComboBoxWithOptionalCountCallback() {
+        ComboBox<Person> cb = new ComboBox<>();
+        cb.setItems(
+                query -> repo.findByNameLikeIgnoreCase(
+                        "%" + query.getFilter().orElse("") + "%",
+                        PageRequest.of(query.getPage(), query.getPageSize()))
+                        .stream(),
+                query -> (int) repo.countByNameLikeIgnoreCase(
+                        "%" + query.getFilter().orElse("") + "%"));
     }
 
     private void filterConverterInComboBox() {
@@ -326,10 +338,10 @@ public class DataProviders {
         cb.setPreventInvalidInput(true);
         cb.setItemsWithFilterConverter(
                 query -> getPersonService()
-                        .fetchPersonsByAge(query.getFilter().orElse(null),
+                        .fetchPersonsByAge(query.getFilter().orElse(null), // <1>
                                 query.getOffset(), query.getLimit())
                         .stream(),
-                textFilter -> textFilter.isEmpty() ? null
+                textFilter -> textFilter.isEmpty() ? null // <2>
                         : Integer.parseInt(textFilter));
     }
 

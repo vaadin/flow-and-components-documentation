@@ -268,33 +268,41 @@ Queries to the backend are only done when a user makes a small pause while typin
 You can combine both filtering and sorting in your data binding callbacks.
 
 Let's consider a `ComboBox` as an another example of lazy loaded data filtering.
-The lazy loaded binding in `ComboBox` is always filtered by the string typed
-in by the end user.
+The lazy loaded binding in `ComboBox` is always filtered by the string typed in by the end user.
 Initially, when there is no filter input yet, the filter is an empty string.
 
-*The `ComboBox` examples listed below use an API available only in Vaadin 18+.*
+*The `ComboBox` examples below use the new data API available since Vaadin 18 where the item count query is not needed for fetching items.*
 
-For example, you can handle filterable lazy data binding to a Spring Data
-repository as follows:
+For example, you can handle filterable lazy data binding to a Spring Data repository as follows:
 
 [source, java]
 ----
 ComboBox<Person> cb = new ComboBox<>();
 cb.setItems(
-        query -> repo.findByNameLikeIgnoreCase( // <1>
-                "%" + query.getFilter().orElse("") + "%", // <2>
+        query -> repo.findByNameLikeIgnoreCase(
+                // Add `%` marks to filter for an SQL "LIKE" query
+                "%" + query.getFilter().orElse("") + "%",
                 PageRequest.of(query.getPage(), query.getPageSize()))
                 .stream()
 );
 ----
-<1> Here we use only the fetch callback for lazy loading with undefined item count. The item count callback is optional.
-<2> Add `%` marks to filter for an SQL "LIKE" query.
-Use it if getting the count is cheap and/or a real scroll bar size is desired.
 
-You may want to filter the items in `ComboBox` by some value type other than a string.
-If your backend is able to fetch the items by this value, you can set the filter converter along with fetch callback.
+The above example uses a fetch callback for lazy loading items, and the `ComboBox` will fetch more items as the user scrolls the dropdown, until there are no more items returned.
+In case it is desired to have the dropdown's scrollbar reflect the exact number of items matching the filter, an optional item count callback can be used as shown in the example below:
 
-In the example below, the `ComboBox` uses a custom filter converter to filter the persons by a given age:
+[source, java]
+----
+ComboBox<Person> cb = new ComboBox<>();
+cb.setItems(
+        query -> repo.findByNameLikeIgnoreCase(
+                "%" + query.getFilter().orElse("") + "%",
+                PageRequest.of(query.getPage(), query.getPageSize()))
+                .stream(),
+        query -> (int) repo.countByNameLikeIgnoreCase(
+                "%" + query.getFilter().orElse("") + "%"));
+----
+
+In case the filtering of items should be done with another type than a string, you can provide a filter converter with the fetch callback to get the type of the filter right for the fetch query:
 
 [source, java]
 ----
