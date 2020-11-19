@@ -14,7 +14,7 @@ import com.vaadin.flow.tutorial.lit.binder.ui.FormButtonsBar;
 import com.vaadin.flow.tutorial.lit.binder.ui.UserForm;
 import com.vaadin.flow.tutorial.lit.binder.ui.UsersGrid;
 
-@CodeFor("polymer-templates/tutorial-template-and-binder.asciidoc")
+@CodeFor("templates/tutorial-template-and-binder.asciidoc")
 /**
  * The main view of the application.
  */
