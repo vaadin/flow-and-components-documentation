@@ -5,7 +5,7 @@ import java.util.Vector;
 
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-and-binder.asciidoc")
+@CodeFor("templates/tutorial-template-and-binder.asciidoc")
 /**
  * Repository of users. It is use to work with users locally.
  */

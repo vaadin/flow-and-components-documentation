@@ -199,4 +199,4 @@ Vaadin 15 provides a type-safe and secured way to access data from backend in fr
 
 == Limitations
 
-TypeScript support does not apply to <<../polymer-templates/tutorial-template-intro#, Polymer-based declarative HTML templates>>.
+TypeScript support does not apply to <<../templates/tutorial-template-intro#, Polymer-based declarative HTML templates>>.
