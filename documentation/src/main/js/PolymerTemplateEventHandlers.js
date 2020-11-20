@@ -1,4 +1,4 @@
-// tutorial::polymer-templates/tutorial-template-event-handlers.asciidoc
+// tutorial::templates/tutorial-template-event-handlers.asciidoc
 import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
 
 class EventhandlerDemo extends PolymerElement {

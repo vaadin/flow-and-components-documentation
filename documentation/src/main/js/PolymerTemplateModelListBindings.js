@@ -1,4 +1,4 @@
-// tutorial::polymer-templates/tutorial-template-list-bindings.asciidoc
+// tutorial::templates/tutorial-template-list-bindings.asciidoc
 import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
 
 class EmployeesList extends PolymerElement {

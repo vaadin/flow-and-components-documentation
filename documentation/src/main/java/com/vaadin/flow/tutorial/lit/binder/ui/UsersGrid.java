@@ -9,7 +9,7 @@ import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.lit.binder.data.User;
 import com.vaadin.flow.tutorial.lit.binder.data.UsersRepository;
 
-@CodeFor("polymer-templates/tutorial-template-and-binder.asciidoc")
+@CodeFor("templates/tutorial-template-and-binder.asciidoc")
 /**
  * UsersGrid is used to display users in the system.
  */
