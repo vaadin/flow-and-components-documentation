@@ -44,7 +44,7 @@ With the builder, you can:
 ** A card view
 ** etc.
 * Choose how the views are built
-** Pure Java (Vaadin 14 [LTS] or later)
+** Pure Java (Vaadin 14 LTS or later)
 ** Java + HTML templates (Vaadin 14 [LTS] or later)
 ** TypeScript + HTML (Vaadin 15 or later)
 * Configure theme customization
