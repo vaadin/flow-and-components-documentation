@@ -40,7 +40,7 @@ With the builder, you can:
 * Configure views and routing from some example views:
 ** A dashboard view
 ** A master-detail view (requires Pro subscription or trial)
-** A form
+** Various forms (person, address, credit card)
 ** A card view
 ** etc.
 * Choose how the views are built
