@@ -7,13 +7,13 @@ layout: page
 [[getting-started.project-builder]]
 = Creating a Project with the Project Builder
 
-The Get Started page at http://vaadin.com/start[vaadin.com/start] gives you options to start building an application with Vaadin 14 LTS (Long Term Support) or the latest stable release.
+The Get Started page at http://vaadin.com/start[vaadin.com/start] gives you options to start creating an application with Vaadin 14 LTS (Long Term Support) or the latest stable release.
 
-* Build Vaadin 14 LTS or 17 applications with the builder
+* Design and create Vaadin 14 LTS or 17 applications with the builder
 * Download example projects for different tech stacks and use cases
 
 [[getting-started.project-builder.builder]]
-== Building an Application
+== Creating an Application
 
 Click *Start building* a project for Vaadin 14 LTS or the latest release at the http://vaadin.com/start[Get Started] page.
 It launches the builder at http://start.vaadin.com/[start.vaadin.com].
@@ -32,8 +32,8 @@ You can build Fusion (TypeScript) views in Vaadin 15 and later.
 
 The builder shows the tools to build the views on the left and the application UI preview on the right.
 
-.Customizing a project
-image::images/project-customizing-01.png[Customizing a Project]
+.Customizing the application with the builder
+image::images/project-customizing-01.png[Customizing the application with the builder]
 
 With the builder, you can:
 
@@ -44,7 +44,7 @@ With the builder, you can:
 ** A card view
 ** etc.
 * Choose how the views are built
-** Pure Java (Vaadin 14 LTS or later)
+** Pure Java (Vaadin 14 [LTS] or later)
 ** Java + HTML templates (Vaadin 14 [LTS] or later)
 ** TypeScript + HTML (Vaadin 15 or later)
 * Configure theme customization
