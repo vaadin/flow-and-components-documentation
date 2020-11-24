@@ -29,7 +29,7 @@ import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.webcomponent.Div;
 
-@CodeFor("polymer-templates/tutorial-template-mapped-components-limitations.asciidoc")
+@CodeFor("templates/tutorial-template-mapped-components-limitations.asciidoc")
 public class MappedComponentsLimitations {
 
     @Tag("main-page")
