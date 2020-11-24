@@ -30,7 +30,8 @@ All listing components in Vaadin have a number of overloaded `setItems()` method
 Items can be basic objects, such as strings or numbers, or POJOs, such as DTOs or JPA entities, from your domain model.
 The easiest way is to provide a `List` of objects to be shown in such a component.
 
-If the number of items is large and reserves a lot of memory, `Grid` and `ComboBox` allow you to do a lazy data binding using callbacks to fetch only the required set of items from the back-end.
+If the number of items is large and reserves a lot of memory, `Grid` and
+`ComboBox` allow you to do a lazy data binding using callbacks to fetch only the required set of items from the back end.
 
 == Configuring How Items Are Displayed
 
@@ -232,7 +233,7 @@ In this example, we are using Spring Data and using a separate method to convert
 The method body is shown below.
 Note that the conversion becomes simpler if you only want to support sorting based on a single property.
 Vaadin Grid supports sorting based on multiple columns.
-<4> Here the back end compatible sort information is passed to our back end call.
+<4> Here the back-end compatible sort information is passed to our back-end call.
 <5> The `getSorted()` method in `QuerySortOrder` returns the columns property name or a key you have assigned to the column.
 
 === Filtering with Lazy Data Binding
