@@ -219,7 +219,7 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<advanced/tutorial-i18n-localization#,Application Localization (I18N)>>
 * <<advanced/tutorial-modifying-the-bootstrap-page#,Modifying the Bootstrap Page>>
 * <<advanced/tutorial-flow-runtime-configuration#,Flow runtime configuration>>
-* <<advanced/tutorial-loading-indicator#,Customizing the Loading Indicator>>
+* <<advanced/tutorial-connection-indicator.asciidoc#,Customizing the Connection Indicator>>
 * <<advanced/tutorial-push-configuration#,Server Push Configuration>>
 * <<advanced/tutorial-push-access#,Asynchronous Updates>>
 * <<advanced/tutorial-push-broadcaster#,Creating Collaborative Views>>
