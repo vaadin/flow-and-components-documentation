@@ -31,7 +31,7 @@ Vaadin automatically creates `vaadin-connection-indicator` and adds it to
 the body. The theming targets the loading bar with the `.v-loading-indicator`
 selector, and the connection status message with the `.v-status-message`, both
 are regular children inside the `vaadin-connection-indicator`.
-*You need to also need to toggle the default theming off*.
+*You also need to toggle the default theming off*.
 
 [source,html]
 ----
