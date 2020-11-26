@@ -11,14 +11,13 @@ and indicates the loading progress in case if network requests take some time.
 
 It shows connection status messages when the state of the server connection
 state changes, for example, if the user’s device goes offline and back online.
-In addition, stating an application offline triggers the connection status
-message.
+Stating an application offline also triggers the connection status message.
 
 Also, to inform the user that loading is in progress and that the _UI_ is
-currently unresponsive, a _loading bar is displayed. A longer loading
-time might be due to e.g. bad network conditions. Vaadin automatically displays
-a loading indicator after a configurable delay when a server request starts,
-and hides it after the response processing has ended.
+unresponsive, a _loading bar is displayed. A longer loading time might be due
+to e.g. bad network conditions. Vaadin automatically displays a loading
+indicator after a configurable delay when a server request starts, and hides
+it after the response processing has ended.
 
 *With default theme applied*, the connection indicator is at the top of
 the viewport. The connection status message shows briefly after trigger.
@@ -109,12 +108,12 @@ connectionIndicator.reconnectingText = 'Connection lost, trying to reconnect...'
 == Displaying a Modal Curtain
 
 To show an alternative for the default connection indicator theme, this examples demonstrates how to show a
-loading state that simply darkens the UI. The darkening is animated, so that it does not flash
+loading state that darkens the UI. The darkening is animated, so that it does not flash
 the screen. The darkening starts after the server side round-trip takes over 0.5
 seconds (300ms delay configured in java + 200ms animation delay).
 
 [NOTE]
-In addition to the css, the default theme should be explicitly disabled via TypeScript,
+Apart from adding the CSS, the default theme should be explicitly disabled via TypeScript,
 as shown in the previous chapter.
 
 [source,css]
@@ -157,7 +156,7 @@ The following style snippet demonstrates how to create an animation that changes
 color as the user is waiting.
 
 [NOTE]
-In addition to the css, the default theme should be explicitly disabled via TypeScript.
+Apart from adding the CSS, the default theme should be explicitly disabled via TypeScript.
 
 [source,css]
 ----
