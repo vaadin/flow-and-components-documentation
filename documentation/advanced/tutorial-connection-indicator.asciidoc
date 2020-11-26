@@ -14,7 +14,7 @@ state changes, for example, if the user’s device goes offline and back online.
 Starting an application offline also triggers the connection status message.
 
 Also, to inform the user that loading is in progress and that the _UI_ is
-unresponsive, a _loading bar is displayed. A longer loading time might be due
+unresponsive, a _loading bar_ is displayed. A longer loading time might be due
 to, for example, bad network conditions. Vaadin automatically displays a loading
 indicator after a configurable delay when a server request starts, and hides
 it after the response processing has ended.
