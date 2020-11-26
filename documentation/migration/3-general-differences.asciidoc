@@ -72,8 +72,10 @@ Please see the <<../advanced/tutorial-push-configuration#,Server Push Configurat
 
 == Loading Indicator Configuration
 
-The default loading indicator is the same as in Vaadin 8 Valo Theme. If you want to customize it or disable it, you should see
-the <<../advanced/tutorial-loading-indicator#,loading indicator documentation>>.
+In Vaadin 10 to 18, the default loading indicator is the same as in Vaadin 8 Valo Theme.
+
+Starting from Vaadin 19, the connection indicator replaces the loading indicator. The new connection indicator remains compatible with the old loading indicator styles. If you want to customize it or disable it, you should see
+the <<../advanced/tutorial-connection-indicator#,connection indicator documentation>>.
 
 == Similarities and Package Naming
 
