@@ -64,7 +64,7 @@ are regular children inside the `vaadin-connection-indicator`.
 The connection indicator can be configured from TypeScript by accessing the
 component instance from `index.ts`:
 
-.index.tx (excerpt):
+.index.tx (excerpt):.index.ts (excerpt):
 [source,typescript]
 ----
 // ...
