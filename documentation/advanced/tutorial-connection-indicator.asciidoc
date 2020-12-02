@@ -30,8 +30,8 @@ You can change messages text, delays, or customize the looks of the indicator.
 Vaadin automatically creates `vaadin-connection-indicator` and adds it to
 the body. The theming targets the loading bar with the `.v-loading-indicator`
 selector, and the connection status message with the `.v-status-message`, both
-are regular children inside the `vaadin-connection-indicator`.
-*You also need to toggle the default theming off*.
+are regular children inside the `vaadin-connection-indicator`. You can also
+toggle the default theming off.
 
 [source,html]
 ----
@@ -76,7 +76,7 @@ import {getConnectionIndicator} from '@vaadin/flow-frontend/ConnectionIndicator'
 
 const connectionIndicator = getConnectionIndicator();
 
-// Disable default styling
+// Disable default styling to use custom styling of the indicator instead
 // connectionIndicator.applyDefaultTheme = false; // default: `true`
 
 //
@@ -116,6 +116,8 @@ seconds (300 ms configuration delay + 200 ms animation delay).
 [NOTE]
 Apart from adding the CSS, the default theme should be explicitly disabled via TypeScript,
 as shown in the previous chapter.
+
+Apply the CSS below by <<tutorial-modifying-the-bootstrap-page#, customizing the bootstrap page>>, either as an inline style or via `<link>`:
 
 [source,css]
 ----
@@ -158,6 +160,8 @@ color as the user is waiting.
 
 [NOTE]
 Apart from adding the CSS, the default theme should be explicitly disabled via TypeScript.
+
+Apply the following CSS as a <<tutorial-modifying-the-bootstrap-page#, bootstrap page customization>>, either as an inline style or via `<link>`:
 
 [source,css]
 ----
