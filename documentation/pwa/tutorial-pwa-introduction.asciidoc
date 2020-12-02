@@ -6,10 +6,11 @@ layout: page
 
 = Introduction
 
-Progressive Web Applications (PWAs) combine new technologies with established best practices. They allow you to create reliable, accessible, and engaging experiences that give users a native-like experience, with a user friendly opt-in installation flow.
+Progressive Web Applications (PWAs) combine new technologies with established best practices. They allow you to create reliable, accessible, and engaging applications that give users a native-like experience, with a user-friendly opt-in installation flow, and an ability to work offline.
 
 [NOTE]
 This documentation covers how to create PWAs with Vaadin. For detailed generic PWA information, see the Vaadin https://vaadin.com/pwa[PWA Handbook].
+
 
 == Basic PWA Concepts
 
@@ -17,13 +18,13 @@ All PWAs have the following common basic features that enable native-app-like be
 
 * *Web App Manifest*: This provides information about an application, for example its name, theme, icon, and description. These details are needed to make an installable version of web application.
 
-* *Service Worker*: This is a type of web worker. Essentially, it is a a JavaScript file that:
+* *Service Worker*: This is a type of web worker. Essentially, it is a JavaScript file that:
 ** Runs separately from the main browser thread.
 ** Intercepts network requests.
 ** Caches and retrieves resources from the cache.
 ** Delivers Push messages.
 
-The ability to intercept network requests, makes it possible to serve files directly from cache and create a full application experience, even when no network is available.
+The ability to intercept network requests makes it possible to serve files directly from the browser’s cache and create a full application experience, even when no network is available.
 
 
 == Application Installation Requirements
@@ -35,7 +36,7 @@ To enhance the experience, splash screen images are also required.
 
 * *Offline support*: The service worker must be able respond to serve the client if a network is not available.
 
-* *Header information*: The application must include browser and/or device-specific theming and icon data in the header. This is in addition to the manifest file. 
+* *Header information*: The application must include browser and/or device-specific theming and icon data in the header. This is in addition to the manifest file.
 
 
 [NOTE]
