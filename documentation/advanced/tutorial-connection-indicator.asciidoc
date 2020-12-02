@@ -31,7 +31,7 @@ Vaadin automatically creates `vaadin-connection-indicator` and adds it to
 the body. The theming targets the loading bar with the `.v-loading-indicator`
 selector, and the connection status message with the `.v-status-message`, both
 are regular children inside the `vaadin-connection-indicator`. You can also
-toggle the default theming off.
+toggle the default theming off for using custom styling of the indicator.
 
 [source,html]
 ----
@@ -76,7 +76,7 @@ import {getConnectionIndicator} from '@vaadin/flow-frontend/ConnectionIndicator'
 
 const connectionIndicator = getConnectionIndicator();
 
-// Disable default styling to use custom styling of the indicator instead
+// Disable default styling to use custom styles for the indicator instead
 // connectionIndicator.applyDefaultTheme = false; // default: `true`
 
 //
