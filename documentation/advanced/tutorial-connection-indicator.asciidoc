@@ -64,7 +64,7 @@ toggle the default theming off for using custom styling of the indicator.
 The connection indicator can be configured from TypeScript by accessing the
 component instance from `index.ts`:
 
-.index.tx (excerpt):.index.ts (excerpt):
+.index.ts (excerpt):
 [source,typescript]
 ----
 // ...
