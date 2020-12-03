@@ -42,6 +42,6 @@ The template API has limitations that you need to be aware of before using it.
 == Correctly Separating Structure and Logic
 Strive to only define things that do not change in the template and leave all dynamic parts to Java. In the template you can, for example, have attributes that never change, captions for components like `Button` and `TextField` that always stay the same, or styling for the view. If, for example, a `Button` should change the caption depending on user interaction, then leave it empty in the template and define the initial value in Java.
 
-With `Grid`, defining columns can feel like a static part, but columns and data go strongly hand in hand. When using `vaadin-grid` inside a `LitTemplate`, the column configuration and driving of data must to happen from the server side Java code.
+With `Grid`, defining columns can feel like a static part, but columns and data go strongly hand in hand. When using `vaadin-grid` inside a `LitTemplate`, the column configuration and driving of data must happen from the server side Java code.
 
 In the <<tutorial-template-basic#,next chapter>>, you will get a full example with HTML template and Java logic.
