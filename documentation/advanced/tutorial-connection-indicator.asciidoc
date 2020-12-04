@@ -68,7 +68,7 @@ component instance from `index.ts`:
 [source,typescript]
 ----
 // ...
-import {getConnectionIndicator} from '@vaadin/flow-frontend/ConnectionIndicator';
+import {getConnectionIndicator} from '@vaadin/flow-frontend';
 
 //
 // Customize the connection indicator
