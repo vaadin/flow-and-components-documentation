@@ -17,9 +17,9 @@ When building application views that work offline is not needed, for example, if
 
 == Offline TypeScript Views
 
-Adding the <<tutorial-pwa-pwa-with-flow#,`@PWA` annotation>> on your application shell class enables the service worker, which will automatically serve the client-side views offline.
+Adding the <<tutorial-pwa-pwa-with-flow#,`@PWA` annotation>> on your application shell class enables the service worker, which automatically serves the client-side views offline.
 
-The service worker will also cache and serve offline all the imported dependencies (using `import`) in TypeScript views.
+The service worker also caches and serves offline all the imported dependencies (using `import`) in TypeScript views.
 
 [WARNING]
 ====
