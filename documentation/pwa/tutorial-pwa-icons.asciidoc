@@ -16,7 +16,7 @@ Vaadin uses and serves default PWA icons automatically, but you can use a custom
 To use a custom icon image:
 
 . Create an icon image named `icon.png`. The icon must be in PNG format.
-. Add the image to your `src/main/webapp/icons/` folder.
+. Add the image to `icons/` in your static web resources (`src/main/resources/META-INF/resources/icons/` in Spring projects, `src/main/webapp/icons/` for non-Spring projects).
 
 Vaadin automatically scans for an image named `icon.png` in the `*/icons*` folder in the `webapp` resources folder. It uses this image to create appropriately-sized images for different devices. If no icon is found, the default image is used as a fallback.
 
@@ -30,7 +30,7 @@ All generated images are named using the `icon-_[width]x[height]_.png` notation,
 To override any generated image:
 
 . Create an image of the size you want to override and name in using the notation mentioned above. For example, `icon-1125x2436.png` for a custom hi-res splash screen image for iOS devices.
-. Add the image to your `src/main/webapp/icons/` folder.
+. Add the image to `icons/` in your static web resources (`src/main/resources/META-INF/resources/icons/` in Spring projects, `src/main/webapp/icons/` for non-Spring projects).
 
 
 == Renaming Icons

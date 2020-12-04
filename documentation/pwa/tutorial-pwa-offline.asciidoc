@@ -11,9 +11,9 @@ Vaadin supports two alternative ways of building offline experience:
 * Client-side TypeScript views (default)
 * A separate offline page
 
-For PWAs built with Vaadin, the service worker provides offline support for TypeScript routes and views. By default, it stores the application shell HTML, the compiled frontend bundles, and the other necessary resources, and then serves them offline from the browser’s cache.
+For PWAs built with Vaadin, the service worker provides offline support for TypeScript routes and views. This enables building custom view logic in the offline mode. By default, it stores the application shell HTML, the compiled frontend bundles, and the other necessary resources, and then serves them offline from the browser’s cache.
 
-You can optionally use a separate offline page instead of TypeScript views offline (`offlinePath` property in `@PWA` annotation).
+When building application views that work offline is not needed, for example, if it is enough to only display a static content page in the offline mode, you can optionally use a separate offline page instead of TypeScript views (`offlinePath` property in `@PWA` annotation).
 
 == Offline TypeScript Views
 
@@ -53,7 +53,7 @@ async function getViewData() {
 To use a separate offline page:
 
 . Create a file named `offline.html`.
-. Add the file to your `src/main/webapp/` folder.
+. Add the file to your static web resources directory (`src/main/resources/META-INF/resources/` in Spring projects, `src/main/webapp/` for non-Spring projects).
 . Specify `offlinePath="offline.html"` in the <<tutorial-pwa-pwa-with-flow#,`@PWA` annotation>>.
 
 You can change the name of the offline page file specified in the `offlinePath` parameter.

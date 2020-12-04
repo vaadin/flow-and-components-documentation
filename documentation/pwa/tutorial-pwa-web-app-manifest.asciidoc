@@ -45,4 +45,4 @@ To override the generated web app manifest file:
 
 . Create a custom manifest file and name it to match the file name set in the `manifestPath` parameter in the `@PWA` annotation, for example `manifest.webmanifest`.
 
-. Add the file to your `src/main/webapp/` folder.
+. Add the file to your static web resources directory (`src/main/resources/META-INF/resources/` in Spring projects, `src/main/webapp/` for non-Spring projects).
