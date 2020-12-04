@@ -1,0 +1,211 @@
+---
+title: The Connection Indicator
+order: 5
+layout: page
+---
+
+= The Connection Indicator
+
+The _connection indicator_ informs the user about the server connection status,
+and indicates the loading progress in case if network requests take some time.
+
+It shows connection status messages when the state of the server connection
+state changes, for example, if the user’s device goes offline and back online.
+Starting an application offline also triggers the connection status message.
+
+Also, to inform the user that loading is in progress and that the _UI_ is
+unresponsive, a _loading bar_ is displayed. A longer loading time might be due
+to, for example, bad network conditions. Vaadin automatically displays a loading
+indicator after a configurable delay when a server request starts, and hides
+it after the response processing has ended.
+
+*With default theme applied*, the connection indicator is at the top of
+the viewport. The connection status message shows after trigger for a short
+configurable duration. If the connection is available, the indicator containing
+then message then disappears, otherwise the indicator remains collapsed and
+expandable on hover.
+
+You can change messages text, delays, or customize the looks of the indicator.
+
+Vaadin automatically creates `vaadin-connection-indicator` and adds it to
+the body. The theming targets the loading bar with the `.v-loading-indicator`
+selector, and the connection status message with the `.v-status-message`, both
+are regular children inside the `vaadin-connection-indicator`. You can also
+toggle the default theming off for using custom styling of the indicator.
+
+[source,html]
+----
+<body>
+  <!-- application root level element omitted -->
+
+  <!--
+    The indicator element has none or one of the attributes:
+    - loading
+    - reconnecting
+    - offline
+  -->
+  <vaadin-connection-indicator>
+    <!-- "Vaadin removes "display: none" when indicator shown -->
+    <div class="v-loading-indicator first"
+     style="display: none;"></div>
+
+    <div class="v-status-message">
+      <span>
+        <!-- The current connection status message -->
+        Online
+      </span>
+    </div>
+  </vaadin-connection-indicator>
+</body>
+----
+
+== Configuring the component
+
+The connection indicator can be configured from TypeScript by accessing the
+component instance from `index.ts`:
+
+.index.ts (excerpt):
+[source,typescript]
+----
+// ...
+import {getConnectionIndicator} from '@vaadin/flow-frontend';
+
+//
+// Customize the connection indicator
+//
+
+const connectionIndicator = getConnectionIndicator();
+
+// Disable default styling to use custom styles for the indicator instead
+// connectionIndicator.applyDefaultTheme = false; // default: `true`
+
+//
+// Loading bar (`.v-loading-indicator`)
+//
+
+// Delay for showing the indicator and setting the 'first' class name
+connectionIndicator.firstDelay = 300; // 300 ms is the default
+
+// Delay for setting the 'second' class name
+connectionIndicator.secondDelay = 1500; // 1500 ms is the default
+
+// Delay for setting the 'third' class name
+connectionIndicator.thirdDelay = 5000; // 5000 ms is the default
+
+//
+// Connection status message (`.v-status-message`)
+//
+
+// Duration for which the messages are visible
+connectionIndicator.expandedDuration = 2000; // 2000 ms is the default
+// The message for the “connected” connection state
+connectionIndicator.onlineText = 'Online';
+// The message for the “connection lost” state
+connectionIndicator.offlineText = 'Connection lost';
+// The message for the “reconnecting” connection state
+connectionIndicator.reconnectingText = 'Connection lost, trying to reconnect...';
+----
+
+== Displaying a Modal Curtain
+
+To show an alternative for the default connection indicator theme, this examples demonstrates how to show a
+loading state that darkens the UI. The darkening is animated, so that it does not flash
+the screen. The darkening starts after the server side round-trip takes over 0.5
+seconds (300 ms configuration delay + 200 ms animation delay).
+
+[NOTE]
+Apart from adding the CSS, the default theme should be explicitly disabled via TypeScript,
+as shown in the previous chapter.
+
+Apply the CSS below by <<tutorial-modifying-the-bootstrap-page#, customizing the bootstrap page>>, either as an inline style or via `<link>`:
+
+[source,css]
+----
+.v-loading-indicator {
+  position: fixed; /* Occupy whole screen even if scrolled */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Eat mouse events when visible, doesn't prevent scrolling */
+  pointer-events: auto;
+  /* Animated with delay to prevent flashing */
+  animation: fadein 0.3s ease-out 0.2s normal 1 both;
+  z-index: 2147483647;
+}
+@keyframes fadein {
+  0% {
+    background: rgba(0,0,0,0);
+  }
+  100% {
+    background: rgba(0,0,0,.5); /* Darkens the UI */
+  }
+}
+----
+
+The next image illustrates an application with the modal curtain visible during loading
+(above) compared to the normal state (below).
+
+image:images/modal_curtain.png[modal curtain,700,700]
+
+== Displaying a Changing Loading Indicator
+
+Once the loading indicator is displayed, it gets the class name `first`. After
+the second and third configurable delays, it gets the `second` and the `third`
+class names respectively. You can use those class names in your styling to let
+the look reflect how long time the user has been waiting.
+
+The following style snippet demonstrates how to create an animation that changes
+color as the user is waiting.
+
+[NOTE]
+Apart from adding the CSS, the default theme should be explicitly disabled via TypeScript.
+
+Apply the following CSS as a <<tutorial-modifying-the-bootstrap-page#, bootstrap page customization>>, either as an inline style or via `<link>`:
+
+[source,css]
+----
+.v-loading-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: auto;
+  z-index: 2147483647;
+}
+.v-loading-indicator:before {
+  width: 76px;
+  height: 76px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  margin: -38px 0 0 -38px;
+
+  border-radius: 100%;
+  animation: bouncedelay 1.2s infinite 0.4s ease-in-out both;
+  content: "";
+}
+
+.v-loading-indicator.first:before {
+  background-color: skyblue;
+}
+
+.v-loading-indicator.second:before {
+  background-color: salmon;
+}
+
+.v-loading-indicator.third:before {
+  background-color: red;
+}
+
+@keyframes bouncedelay {
+  0%, 80%, 100% {
+    transform: scale(0);
+  } 40% {
+    transform: scale(1.0);
+  }
+}
+----
