@@ -153,7 +153,7 @@ const routes = [
 }
 ----
 The `isUserLoggedIn()` method in the above code examples uses
-a `loggedIn` boolean stored in the https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage[localStorage] to check if the user is logged in. The boolean needs to be reset when logging out. Use localStorage allows navigating to sub views without always having to check authentication from the backend. 
+a `loggedIn` boolean stored in the https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage[localStorage] to check if the user is logged in. The boolean needs to be reset when logging out. Using localStorage allows navigating to sub views without having to check authentication from the backend on every navigation.
 
 
 == Logout
