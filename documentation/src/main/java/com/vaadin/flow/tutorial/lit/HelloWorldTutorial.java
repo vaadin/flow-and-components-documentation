@@ -22,7 +22,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-basic.asciidoc")
+@CodeFor("templates/tutorial-template-basic.asciidoc")
 public class HelloWorldTutorial {
 
     public void useTemplate() {

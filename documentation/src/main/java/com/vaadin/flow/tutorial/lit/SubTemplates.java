@@ -21,7 +21,7 @@ import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-subtemplate.asciidoc")
+@CodeFor("templates/tutorial-template-subtemplate.asciidoc")
 public class SubTemplates {
 
     @Tag("child-template")
