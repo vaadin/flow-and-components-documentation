@@ -37,8 +37,9 @@ public class AddingLoginFormWithSpringSecurity {
 
       @Override
       protected void configure(HttpSecurity http) throws Exception {
-        // Vaadin already handles csrf.
-        http.csrf().disable();
+        // Ignore the login processing url and vaadin endpoint calls
+        http.csrf().ignoringAntMatchers("/login", "/connect/**");
+        
         // Use default spring login form
         http.formLogin();
       } 

@@ -15,7 +15,7 @@ Instead of using the <<adding-login-form-with-spring-security#, default Spring l
 The dependencies and server configuration is the same as described in <<adding-login-form-with-spring-security#, Adding a Login Form with Spring Security>>, with a difference that you need to specify the URL of the custom login view.
 
 .SecurityConfig.java
-[source,java]
+[source, java]
 ----
 @EnableWebSecurity
 @Configuration
@@ -23,8 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    // Vaadin already handles csrf.
-    http.csrf().disable();
+    // Ignore the login processing url and vaadin endpoint calls
+    http.csrf().ignoringAntMatchers("/login", "/connect/**");
+    
     // specify the URL of the login view, the value of the parameter
     // is the defined route for the login view component.
     http.formLogin().loginPage("login");
@@ -40,6 +41,8 @@ Vaadin provides a `login` helper method for Spring Security based authentication
 .frontend/login-view.ts
 [source, typescript]
 ----
+import { LoginResult, login } from '@vaadin/flow-frontend';
+
 @customElement('login-view')
 export class LoginView extends LitElement implements AfterEnterObserver {
 
@@ -52,7 +55,7 @@ export class LoginView extends LitElement implements AfterEnterObserver {
   // the url to redirect to after a successful login
   private returnUrl = '/';
 
-  private onSuccess: (result:LoginResult) => void;
+  private onSuccess: (result: LoginResult) => void;
 
   constructor(){
     super();
@@ -115,8 +118,8 @@ const routes = [
   ...
   {
     path: '/my-view',
-    action: async (_: Router.Context, commands: Router.Commands) => {
-      if (!await isUserLoggedIn()) {
+    action: (_: Router.Context, commands: Router.Commands) => {
+      if (!isUserLoggedIn()) {
         return commands.redirect('/login');
       }
       return undefined;
@@ -134,9 +137,9 @@ You can also add the route action to the parent layout, so that all the child vi
 const routes = [
   ...
   {
-    path: '/main-layout',
-    action: async (_: Router.Context, commands: Router.Commands) => {
-      if (!await isUserLoggedIn()) {
+    path: '/',
+    action: (_: Router.Context, commands: Router.Commands) => {
+      if (!isUserLoggedIn()) {
         return commands.redirect('/login');
       }
       return undefined;
@@ -150,17 +153,12 @@ const routes = [
 }
 ----
 The `isUserLoggedIn()` method in the above code examples uses
-a `loggedIn` boolean stored in the https://vaadin.com/components/browse[localstorage] to check if the user is logged in. The boolean needs to be reset when logging out.
+a `loggedIn` boolean stored in the https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage[localStorage] to check if the user is logged in. The boolean needs to be reset when logging out. Use localStorage allows to navigate to sub views without always having to check authentication from the backend. 
 
 
 == Logout
-There are two ways to implement logout. You could either:
 
-Let Spring Security handle Logging out. How it works is that it handles HTTP GET requests to `/logout` and redirects to `/login?logout` in response.
-For that a "Logout" button should be an regular <a> tag, that is,
-`<a href="/logout" router-ignore>Log out</a>`. The downside is that it requires a full page load.
-
-To avoid a full page reload the application needs to have a `/logout` route like the one below. In this case it can be triggered with a link like `<a href="/logout">Log out</a>`.
+To avoid a full page reload the application needs to have a `/logout` route like the one below. It can be triggered with a link like `<a href="/logout">Log out</a>`.
 
 .frontend/index.ts
 [source, typescript]
