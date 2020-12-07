@@ -23,7 +23,7 @@ import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-polymer-template-basic.asciidoc")
+@CodeFor("templates/tutorial-polymer-template-basic.asciidoc")
 @Tag("hello-world")
 @NpmPackage(value = "@polymer/paper-input", version = "3.0.2")
 @JsModule("./src/hello-world.js")
