@@ -39,10 +39,10 @@ public class SignupForm extends Div
             ContinueNavigationAction action =
                     event.postpone();
             ConfirmDialog confirmDialog = new ConfirmDialog();
-	    confirmDialog.setText("Your form has changes! Are you sure you want to leave?");
-	    confirmDialog.setCancelable(true);
-	    confirmDialog.addConfirmListener( __ -> action.proceed());
-	    confirmDialog.open();
+	        confirmDialog.setText("Your form has changes! Are you sure you want to leave?");
+	        confirmDialog.setCancelable(true);
+	        confirmDialog.addConfirmListener(__ -> action.proceed());
+	        confirmDialog.open();
         }
     }
 
