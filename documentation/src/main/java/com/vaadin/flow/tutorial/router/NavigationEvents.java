@@ -22,6 +22,7 @@ import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
+import com.vaadin.flow.component.confirmdialog.ConfirmDialog;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.BeforeEnterEvent;
@@ -110,10 +111,11 @@ public class NavigationEvents {
             if (this.hasChanges()) {
                 ContinueNavigationAction action =
                         event.postpone();
-                ConfirmDialog.build("Are you sure you want"+
-                        " to leave this page?")
-                        .ifAccept(action::proceed)
-                        .show();
+                ConfirmDialog confirmDialog = new ConfirmDialog();
+                confirmDialog.setText("Your form has changes! Are you sure you want to leave?");
+                confirmDialog.setCancelable(true);
+                confirmDialog.addConfirmListener(__ -> action.proceed());
+                confirmDialog.open();            
             }
         }
 
@@ -137,30 +139,5 @@ public class NavigationEvents {
                     .getClassList()
                     .set("active", active);
         }
-    }
-}
-
-class ConfirmDialog extends Component {
-
-    public static ConfirmDialog build(String message) {
-        ConfirmDialog dialog = new ConfirmDialog();
-        dialog.add(new Label(message));
-        return dialog;
-    }
-
-    public void show() {
-        open();
-    }
-
-    public ConfirmDialog ifAccept(Runnable confirmationHandler) {
-        confirmationHandler.run();
-        return this;
-    }
-
-    public void add(Component label) {
-    }
-
-    public void open() {
-
     }
 }
