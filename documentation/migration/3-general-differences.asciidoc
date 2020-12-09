@@ -55,16 +55,15 @@ In Vaadin 8, the application bootstrap happened in two phases.
 The initial page response only contained code to obtain more data related to the browser,
 data which was not available in the initial request.
 Based on this, the correct UI would be created.
-This was a good option back then since mobile devices capabilities required completely own client engine and UI to deliver the best possible end user experience.
+This was a good option back then, since the capabilities of mobile devices required their completely own client engine and UI to deliver the best possible end user experience.
 
 This is not necessary anymore, and in Vaadin 10+ the UI content is delivered on the first response and the application is bootstrapped without further network activity. This means that `UIProvider` has become obsolete.
 
 == Modifying the Bootstrap Page
 
-If you had previously customized the initial response with `BootstrapListener`,
- <<../advanced/tutorial-bootstrap#,this tutorial>> show the new and simpler way of customizing the initial page response using `PageConfigurator` or specific annotations on the application's main layout.
+If you had previously customized the initial response with `BootstrapListener`, using client-side bootstrapping with `index.html` template is a simpler way of customizing the initial page response by adding the content directly to the file.
 
-`BoostrapListener` is still there and can be registered using a `VaadinServiceInitListener`, as shown by <<../advanced/tutorial-service-init-listener#,this tutorial>>.
+`IndexHtmlRequestListener` is still there and can be registered using a `VaadinServiceInitListener`, as shown by <<../advanced/tutorial-service-init-listener#,this tutorial>>.
 
 == Configuring Server Push
 

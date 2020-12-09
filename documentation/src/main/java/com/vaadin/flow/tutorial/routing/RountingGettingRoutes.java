@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2017 Vaadin Ltd.
+ * Copyright 2000-2020 Vaadin Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -16,11 +16,10 @@
 package com.vaadin.flow.tutorial.routing;
 
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
-import com.vaadin.flow.component.UI;
+import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouteData;
-import com.vaadin.flow.router.Router;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
@@ -29,13 +28,11 @@ public class RountingGettingRoutes {
 
     public void getRoutes() {
         //@formatter:off
-        Router router = UI.getCurrent().getRouter();
-        List<RouteData> routes = router.getRoutes();
+        List<RouteData> routes = RouteConfiguration.forSessionScope().getAvailableRoutes();
 
-        Map<Class<? extends RouterLayout>, List<RouteData>>
-                routesByParent = router.getRoutesByParent();
-        List<RouteData> myRoutes =
-                routesByParent.get(MyParentLayout.class);
+        List<RouteData> myRoutes =routes.stream()
+                .filter(routeData -> MyParentLayout.class.equals((routeData.getParentLayout())))
+                .collect(Collectors.toList());
         //@formatter:on
     }
 

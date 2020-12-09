@@ -6,9 +6,9 @@ layout: page
 
 ifdef::env-github[:outfilesuffix: .asciidoc]
 
-= All Vaadin properties
+= All Vaadin Configuration Properties
 
-There are a number of properties that you can use to configure your Flow application.
+There are a number of properties that you can use to configure your Vaadin application.
 
 This document summarizes the properties that are defined in `com.vaadin.server.DeploymentConfiguration` and `com.vaadin.server.Constants` classes.
 
@@ -69,24 +69,15 @@ Returns whether the sending of URL's as GET and POST parameters in requests with
 When using the long polling transport strategy,  it specifies how long it accepts responses after
 each network request. Number of milliseconds.
 
-|load.es5.adapters |
-Include polyfills for browsers that do not support ES6 to their initial page. In order for
-web components to work, extra libraries (polyfills) are required to be loaded, can be turned off
-if different versions or libraries should be included instead.
-
-|frontend.url.es5 |
-A location Flow searches web components' files in production mode when the request is coming
-from older browsers, not supporting es6, default web components' development language version.
-
-|frontend.url.es6 |
-A location Flow searches web components' files in production mode for requests from modern browsers.
-
-|disable.webjars |
-Configuration name for the parameter that determines if Flow should use webJars or not.
-If set to true, webjars would be ignored during request resolving, allowing Flow to use an external source of web components' files.
-
-|original.frontend.resources |
-Configuration name for the parameter that determines if Flow should use bundled fragments or not.
+|maxMessageSuspendTimeout |
+In certain cases, such as when the server sends adjacent `XmlHttpRequest` responses and push
+messages over a low bandwidth connection, messages may be received out of order by the client.
+This property specifies the maximum time (in milliseconds) that the client will then wait for
+the predecessors of a received out-order message, before considering them missing and requesting
+a full resynchronization of the application state from the server. The default value is 5000 ms.
+You may increase this if your application exhibits an undue amount of resynchronization requests
+(as these degrade the UX due to flickering and loss of client-side-only state such as scroll
+position).
 
 |i18n.provider |
 I18N provider property. To use localization and translation strings the application only needs to implement `I18NProvider` and define the fully qualified class name in the property `i18n.provider`.
@@ -95,14 +86,15 @@ Please consult <<tutorial-i18n-localization#, I18N localization>> documentation.
 |disable.automatic.servlet.registration |
 Configuration name for the parameter that determines if Flow should automatically register servlets needed for the application to work.
 
-|compatibilityMode |
-When set to `true`, enables Vaadin 13 compatibility mode (Vaadin uses Bower and Webjars to handle frontend resources instead of npm and webpack). The purpose of this mode is to ease migration and it will no longer be supported in Vaadin 15.
-See <<../v14-migration/v14-migration-guide#compatibility-mode, Compatibility mode in Vaadin 14 Migration Guide>> for more information.
-
 |devmode.optimizeBundle |
 By default, in development mode all frontend resources found on the class path are included in the generated Webpack bundle.
 When set to `true`, creates an optimized bundle by including only frontend resources that are used from the application entry points (this is the default in production mode).
 Uses bytecode scanning which increases application startup time. *This feature is available only in Vaadin Platform 14.1 and newer.*
 
-|disable.pnpm |
-When set to `true`, disables `pnpm` which means `npm` will be used to handle frontend resources. *This feature is available only in Vaadin Platform 14.2 and newer.*
+|pnpm.enable |
+**Available since Vaadin 14.2 and 15**, this is by default set to `true` in 16, which means that _pnpm_ is used to download and resolve frontend dependencies. Setting it to false disables pnpm, and _npm_ will be used instead to handle the frontend resources. More information in the <<tutorial-switch-npm-pnpm#, switch between pnpm and npm documentation>>.
+
+|devmode.liveReload.enabled |
+This is by default set to `true`, which means that if you are using
+some live reload tool on the server side the browser will be refreshed automatically once code
+is reloaded on the server side. See <<../workflow/workflow-overview#,Workflow Overview>>.

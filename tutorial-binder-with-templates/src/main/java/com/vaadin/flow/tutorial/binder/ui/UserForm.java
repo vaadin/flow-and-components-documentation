@@ -3,7 +3,6 @@ package com.vaadin.flow.tutorial.binder.ui;
 import java.util.Optional;
 
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
@@ -15,7 +14,7 @@ import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 import com.vaadin.flow.tutorial.binder.data.User;
 
-@CodeFor("polymer-templates/tutorial-template-and-binder.asciidoc")
+@CodeFor("templates/tutorial-polymer-template-and-binder.asciidoc")
 /**
  * Example of how to combine Templates(recommended way of building UIs) with
  * Binder(recommended way of building forms).

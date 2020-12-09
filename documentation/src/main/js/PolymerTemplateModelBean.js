@@ -1,4 +1,4 @@
-// tutorial::polymer-templates/tutorial-template-model-bean.asciidoc
+// tutorial::templates/tutorial-template-model-bean.asciidoc
 import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
 
 class MyForm extends PolymerElement {

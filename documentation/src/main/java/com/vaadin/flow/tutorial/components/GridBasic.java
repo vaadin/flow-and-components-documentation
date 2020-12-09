@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2017 Vaadin Ltd.
+ * Copyright 2000-2020 Vaadin Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -30,6 +30,7 @@ import com.vaadin.flow.component.grid.Grid.Column;
 import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.grid.GridMultiSelectionModel;
 import com.vaadin.flow.component.grid.GridSingleSelectionModel;
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
@@ -60,8 +61,7 @@ public class GridBasic {
         Grid<Person> grid = new Grid<>();
         grid.setItems(people);
         grid.addColumn(Person::getName).setHeader("Name");
-        grid.addColumn(person -> Integer.toString(
-                    person.getYearOfBirth()))
+        grid.addColumn(Person::getYearOfBirth)
                 .setHeader("Year of birth");
 
         layout.add(grid);
@@ -327,9 +327,8 @@ public class GridBasic {
             return image;
         })).setHeader("Image");
 
-        grid.addThemeNames("no-border", "no-row-borders",
-                "row-stripes");
-
+        grid.addThemeVariants(GridVariant.LUMO_NO_ROW_BORDERS,
+                GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_ROW_STRIPES);
     }
 
     public void beanGridColumnOrder() {

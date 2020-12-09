@@ -24,7 +24,7 @@
 
         <repository>
             <id>vaadin-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+            <url>https://maven.vaadin.com/vaadin-prereleases</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -42,7 +42,7 @@
 
         <pluginRepository>
             <id>vaadin-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+            <url>https://maven.vaadin.com/vaadin-prereleases</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -55,9 +55,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <flow.version>2.2-SNAPSHOT</flow.version>
-        <vaadin.version>14.1-SNAPSHOT</vaadin.version>
+        <flow.version>5.0-SNAPSHOT</flow.version>
+        <vaadin.version>18.0-SNAPSHOT</vaadin.version>
         <vaadin-portlet.version>1.0-SNAPSHOT</vaadin-portlet.version>
         <portlet-api.version>3.0.0</portlet-api.version>
+        <jackson.version>2.9.7</jackson.version>
     </properties>
 </project>
