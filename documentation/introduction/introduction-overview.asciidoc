@@ -103,7 +103,7 @@ Vaadin includes:
 ** Lets you choose either basic HTTP(S) or WebSocket communication protocol for building real-time applications.
 * Two-way data binding: when the UI changes on either the client or the server, the changes automatically reflect on the other side.
 
-image:images/architecture.svg[Vaadin 10 Architecture,1200,430]
+image:images/architecture.svg[Vaadin 10 Architecture,600,271]
 
 Vaadin allows you to access browser APIs, Web Components, and even simple DOM elements, directly from the server-side Java. It is not necessary to understand how the client-to-server communication or Web Components work. This leaves you free to focus on creating components that work at a higher-abstraction level.
 
