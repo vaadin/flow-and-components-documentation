@@ -9,8 +9,9 @@ Any issues and contributions can be added here, or in vaadin.com/docs via the _r
 Branching scheme for different Vaadin versions:
 
  - `master` branch is for the NEXT major version of Vaadin
-     - It might be in prerelease stage. For example, now it is Vaadin 16
+     - It might be in prerelease stage. For example, now it is Vaadin 17
      - New Vaadin major versions are branched from `master` branch when the stable/beta release is done
+ - `V16` branch for Vaadin 16 (Flow version 3.1)
  - `V15` branch for Vaadin 15 (Flow version 3.0)
  - `V14-next` branch for the next minor release of Vaadin 14 LTS
      - Any newer minor releases for 14 will be branched from `V14-next` branch when the stable/beta release is done

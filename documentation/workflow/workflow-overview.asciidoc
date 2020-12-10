@@ -6,32 +6,52 @@ layout: page
 
 = Application Development Workflow
 
-This guide explains how to set up a development workflow where your Java changes automatically trigger redeployment of the Vaadin application and even automatic refresh of the browser window.
-It also explains how to run your Vaadin application on server in your IDE.
+This guide explains how to streamline your Vaadin application development workflow for productivity.
+It covers setting up third-party Java hotpatching tools to redeploy Java changes without server restarts, and having Vaadin automatically reload the browser for immediate feedback.
+It also explains how to run your Vaadin application on a server, such as Tomcat, directly from your IDE.
 
-The recommended setup depends on which application framework (plain servlet, Spring Boot or CDI) you are using.
-Each of these are treated in their own subtopic below.
+== Live Reload
 
-== Subtopics
-=== Setup Live Reload using supported Java Hotpatching and Server restart tools
-** <<setup-live-reload-springboot#, Spring Boot Hotswapping>>
+Live Reload means automatically reloading the application in the browser, in order to see the effects of the last change to Java or frontend code.
+Vaadin Live Reload combines the power of Webpack and existing hotpatching technologies for Java, making it a perfect tool for boosting productivity during development.
+It is enabled by default for frontend code and with minor additional configuration for Java code (see below).
+
+=== Frontend code
+
+Code in the application's `frontend` folder, such as JS/TS template and CSS files, are monitored out of the box by the Webpack dev-server when running a Vaadin application in development mode.
+Any addition/modification/removal of a file in this folder triggers a recompilation of the application bundle followed by a browser refresh.
+
+=== Java code
+On the Java side, Live Reload requires recompiling the code modifications and patching the resulting bytecode into the running server.
+Vaadin Live Reload integrates with Spring Boot developer tools (available out of the box for Spring Boot-based Vaadin applications), JRebel (commercial tool for any Vaadin application) and HotswapAgent (open-source tool for any Vaadin application).
+See the corresponding sections for setting up the desired technology:
+
+** <<setup-live-reload-springboot#, Spring Boot Developer tools>>
 ** <<setup-live-reload-jrebel#, JRebel>>
-** <<setup-live-reload-hotswap-agent#, HotswapAgent class and resource redefinition>>
+** <<setup-live-reload-hotswap-agent#, HotswapAgent>>
 
-=== Live Reload specifics when using different it in Vaadin technology stacks
-** <<tutorial-plain-servlet-live-reload#, Live Reload in Plain Servlet Applications>>
-** <<tutorial-cdi-live-reload#,Live Reload in CDI Applications>>
+[NOTE]
+Supported hotpatching tools are designed to be run exclusively.
+Simultaneous use of multiple tools might have undesired consequences.
 
-=== Run on Server in IDE
-** <<run-on-server-intellij#,Run on server in IntellJ IDEA>>
+[NOTE]
+Hotpatching works best for small, incremental changes to UI code.
+Changes to class loading or application startup typically require a server restart.
 
-== Live Reload Limitations
+[NOTE]
+With  <<../advanced/tutorial-preserving-state-on-refresh#,`@PreserveOnRefresh`>>, view instances are reused when reloaded in the browser; hence, hotpatched changes to the view constructor will not be reflected until the view is opened in another window or tab.
 
-There are general limitations as well as some tool- or application framework-specific limitations associated with live reload.
-We cover the general limitations here; the specific limitations are covered in the subtopics.
+=== Automatic server restart using Jetty and TomeEE Maven plugins
+Alternatively, the Jetty and TomEE Maven plugins facilitate automatic server restart on Java changes.
+These do not require installing third-party tools, but have the disadvantage that server restarts are slower and the browser will also not refresh automatically.
 
-- Code changes that significantly affect class loaders, such as renaming packages, adding libraries, and large structural changes generally cannot be live-reloaded reliably. Live-reloading should be seen as a productivity booster when making small, incremental changes to the codebase.
+** <<tutorial-jetty-scaninterval#, Automatic Restart with Jetty Maven Plugin>>
+** <<tutorial-cdi-reloadonupdate#, Automatic Restart with TomEE Maven Plugin>>
 
-- Adding frontend resources that are connected to Java classes, such as template-based components, require a server restart as part of the live reloading.
+== IDE Server Integrations and Vaadin
+As an alternative to using Maven plugins for starting a stopping the development server,
+IDE server integration tools (available for most major servers) allow using the IDE UI for the same purpose.
+Below IDE specific information on how to ensure the `prepare-frontend` Maven goal gets executed automatically for the frontend build setup in this case.
 
-- The  <<../advanced/tutorial-preserving-state-on-refresh#,`@PreserveOnRefresh`>> annotation on a view causes the component tree to be reused when the view is refreshed in the browser; hence, any code changes to the component constructors and initializers are not reflected. To see the update, either open the view in another browser window/tab or ensure that a new instance is created in some other way.
+** <<run-on-server-intellij#,IntellJ IDEA Ultimate Edition>>
+** <<run-on-server-eclipse#,Eclipse>>

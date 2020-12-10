@@ -53,8 +53,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
+    // Ignore the login processing url and vaadin endpoint calls
+    http.csrf().ignoringAntMatchers("/login", "/connect/**");
+
+    // Use default spring login form
     http.formLogin();
-    http.csrf().disable();
   }  
 }
 ----
@@ -115,10 +118,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
+    // Ignore the login processing url and vaadin endpoint calls
+    http.csrf().ignoringAntMatchers("/login", "/connect/**");
+
     // Use default spring login form
     http.formLogin();
-    // Vaadin already handles csrf.
-    http.csrf().disable();
   } 
 
   @Override

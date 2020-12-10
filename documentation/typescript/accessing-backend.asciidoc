@@ -17,8 +17,10 @@ Vaadin bridges Java backend endpoints and a TypeScript frontend. It generates
 TypeScript clients to call the Java backend in a type-checkable way.
 
 [WARNING]
-This feature is experimental and it *will change* before the next Long-Term-Supported Vaadin version.
+Vaadin endpoint depends on Spring Boot auto-configuration. It does not work if the auto-configuration is disabled, for example, when you use `@EnableWebMvc`. A simple workaround is to remove the `@EnableWebMvc` annotation, as stated in this link:https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/reference/html/spring-boot-features.html#boot-features-spring-mvc-auto-configuration[Spring Boot doc].
 If you have an idea how to make it more useful for you, please share it on link:https://github.com/vaadin/flow/issues/new/[GitHub^].
+
+
 
 == How to create a Vaadin endpoint? [[how-to-create-vaadin-endpoint]]
 
@@ -52,9 +54,6 @@ corresponding Vaadin endpoint, a permission check is carried on. `@AnonymousAllo
 means that it permits anyone to call the method via the request without the authorization
 . Please refer to the <<configuring-security#, Security page>>
 for configuring endpoint access.
-
-[WARNING]
-You cannot use JavaScript reserved words as Java method's name in an Endpoint, e.g., `delete`, `function`, `var`, etc. Otherwise, you will get a runtime exception.
 
 == TypeScript modules
 
@@ -165,7 +164,7 @@ export async function addOne(number: number) {
 As you see in `CounterEndpoint.ts`, the Javadoc of `@Endpoint` class
 is preserved the generated TypeScript file, and the type definitions are
 maintained. This helps code-completion work pretty well in *Visual Studio Code*
-and *Intellij IDEA Ultimate Edition*.
+and *IntelliJ IDEA Ultimate Edition*.
 
 .Code-completion in Visual Studio Code
 image:codecompletion.gif[Code-completion]

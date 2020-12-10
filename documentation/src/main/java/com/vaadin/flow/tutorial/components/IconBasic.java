@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2017 Vaadin Ltd.
+ * Copyright 2000-2020 Vaadin Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -27,6 +27,9 @@ public class IconBasic {
     public void basics() {
         Icon icon = VaadinIcon.VAADIN_H.create();
         new Button("Vaadin", icon);
+
+        Icon edit = new Icon(VaadinIcon.EDIT);
+        Icon close = VaadinIcon.CLOSE.create();
     }
 
     public void customCollection() {
