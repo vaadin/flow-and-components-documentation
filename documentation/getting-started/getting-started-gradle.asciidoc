@@ -271,10 +271,6 @@ The Vaadin-related tasks handled by the plugin are as follows:
   Checks that node.js and npm are installed, copies frontend resources, and creates or updates `package.json` and `webpack.config.json` files.
   The frontend resources are inside `.jar` dependencies, and copied to `node_modules`.
 
-`vaadinPrepareNode`::
-  Prepares a local node distribution for use by Vaadin.
-  The task requires the optional `com.github.node-gradle.node` plugin, which you need to specify in the `plugins` section.
-
 To get the complete list of tasks handled by the configured plugins, enter:
 
 ----
