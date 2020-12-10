@@ -193,7 +193,7 @@ public class RouteService {
 * `ParentView`, `ChildAView`, and `ChildBView` (paths: `/parent`, `/parent/child-a`, and `/parent/child-b`) use the same `RouteService` instance while you navigate between them. After navigating away from `ParentView`, the `RouteService` is also destroyed.
 * Even though `@RouteScopeOwner` is redundant because it is a CDI qualifier, you need to define it on both the bean and on the injection point.
 
-Route components can also be `@RouteScoped`. In this case, `@RouteScopeOwner` should point to a parent layout. If you omit it, the owner itself becomes the class.
+Route components can also be `@RouteScoped`. In this case, `@RouteScopeOwner` should point to a parent layout. If you omit it, the route itself becomes the owner.
 
 *Example*: Using the `@RouteScoped` annotation on an `@Route` component. 
 

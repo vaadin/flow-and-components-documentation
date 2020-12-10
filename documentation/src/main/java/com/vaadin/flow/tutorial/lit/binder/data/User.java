@@ -2,7 +2,7 @@ package com.vaadin.flow.tutorial.lit.binder.data;
 
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-and-binder.asciidoc")
+@CodeFor("templates/tutorial-template-and-binder.asciidoc")
 /**
  * Class that represents users in the system.
  */

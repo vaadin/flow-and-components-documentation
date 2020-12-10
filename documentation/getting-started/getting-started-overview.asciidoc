@@ -81,8 +81,8 @@ CDI requires a Java EE -enabled web container; the starter projects use Apache T
 The starter project includes an example service that handles business data and logic.
 It is injected in the main view, and can be injected in similar way to other views or elsewhere.
 +
-[source, Java]
 .`MainView.java`
+[source, Java]
 ----
 public class MainView extends VerticalLayout {
     @Inject
