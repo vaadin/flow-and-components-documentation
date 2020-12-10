@@ -58,7 +58,7 @@ All code that is commited at Vaadin goes through an internal code review before 
 Developers are also encouraged to actively think about security issues while developing the framework and its parts. At Vaadin, we take security extremely seriously. Anyone can escalate an issue that they think might be a security issue, and investigating the issue is given priority over other tasks.
 
 == Authentication and Authorization
-Vaadin lets you choose which authentication and authorization framework you want to use, instead of bundling any specific one. Vaadin is fully compatible with the most used security solutions in the Java ecosystem, including but not limited to Spring Security, JAAS and Apache Shiro. The Vaadin-Spring and Vaadin-CDI addons have helpers for developers to integrate into the security mechanisms of those respective frameworks.
+Vaadin lets you choose which authentication and authorization framework you want to use, instead of bundling any specific one. Vaadin is fully compatible with the most used security solutions in the Java ecosystem, including but not limited to Spring Security, JAAS and Apache Shiro. The Vaadin-Spring addon has helpers for developers to integrate into the security mechanisms of those respective frameworks.
 
 Since Vaadin is a server-side framework, credential processing always happens on the server, away from any possible attack surface. Credentials are never transmitted to the client unless explicitly done so by the developer.
 
