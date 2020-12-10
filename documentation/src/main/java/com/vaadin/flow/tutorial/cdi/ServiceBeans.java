@@ -15,8 +15,12 @@
  */
 package com.vaadin.flow.tutorial.cdi;
 
+import javax.inject.Inject;
+
 import com.vaadin.cdi.annotation.VaadinServiceEnabled;
 import com.vaadin.cdi.annotation.VaadinServiceScoped;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.CustomizedSystemMessages;
 import com.vaadin.flow.server.SystemMessages;
 import com.vaadin.flow.server.SystemMessagesInfo;
@@ -43,4 +47,10 @@ public class ServiceBeans {
 
     }
 
+    @Route
+    public class SampleView extends Div {
+        @VaadinServiceEnabled
+        @Inject
+        private TestSystemMessagesProvider messageProvider;
+    }    
 }
