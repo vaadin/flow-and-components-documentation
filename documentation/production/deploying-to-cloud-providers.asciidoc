@@ -22,5 +22,5 @@ Even though the deployment itself varies from provider to provider, the <<tutori
 
 All articles for deploying onto specific cloud providers can be found in our Learning Center:
 
-https://vaadin.com/learn/tutorials/cloud-deployent/[Cloud deployment tutorials]
+https://vaadin.com/learn/tutorials/cloud-deployment/[Cloud deployment tutorials]
 

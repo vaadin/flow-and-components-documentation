@@ -1,4 +1,4 @@
-// tutorial::polymer-templates/tutorial-template-model-encoders.asciidoc
+// tutorial::templates/tutorial-template-model-encoders.asciidoc
 import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
 
 class MyTemplate extends PolymerElement {

@@ -33,11 +33,12 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 
 == Development Workflow
 ** <<workflow/workflow-overview#,Workflow Overview>>
-** <<workflow/setup-live-reload-springboot#, Setup Live Reload using Spring Boot>>
-** <<workflow/setup-live-reload-jrebel#, Setup Live Reload using JRebel>>
-** <<workflow/setup-live-reload-hotswap-agent#, Setup Live Reload using HotswapAgent>>
-** <<workflow/tutorial-plain-servlet-live-reload#, Live Reload in Web Applications>>
-** <<workflow/tutorial-cdi-live-reload#, Live Reload in CDI Applications>>
+** <<workflow/setup-live-reload-springboot#, Setting Up Live Reload Using Spring Boot>>
+** <<workflow/setup-live-reload-jrebel#, Setting Up Live Reload Using JRebel>>
+** <<workflow/setup-live-reload-hotswap-agent#, Setting Up Live Reload Using HotswapAgent>>
+** <<workflow/tutorial-jetty-scaninterval#, Automatic Restart with Jetty Maven Plugin>>
+** <<workflow/tutorial-cdi-reloadonupdate#, Automatic Restart with TomEE Maven Plugin>>
+** <<workflow/run-on-server-intellij#,Run on Server in IntelliJ IDEA Ultimate>>
 
 == Router and Navigation
 * <<routing/tutorial-routing-on-client-side-and-server-side#,Routing on Client Side and Server Side>>
@@ -98,17 +99,26 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<web-components/creating-an-in-project-web-component#,Creating an In-project Web Component>>
 * <<web-components/introduction-to-webcomponents#,Introduction to Web Components>>
 
-== Creating Polymer Templates
-* <<polymer-templates/tutorial-template-basic#,Creating A Simple Component Using the Template API>>
-* <<polymer-templates/tutorial-template-components#,Binding Components from PolymerTemplate>>
-* <<polymer-templates/tutorial-template-subtemplate#,Using sub-template from PolymerTemplate>>
-* <<polymer-templates/tutorial-template-components-in-slot#,Using <slot> in PolymerTemplates>>
-* <<polymer-templates/tutorial-template-event-handlers#,Handling User Events in a PolymerTemplate>>
-* <<polymer-templates/tutorial-template-bindings#,Binding Model Data in a PolymerTemplate>>
-** <<polymer-templates/tutorial-template-bindings#two-way-binding,Two-way data binding>>
-* <<polymer-templates/tutorial-template-list-bindings#,Using List of Items in a PolymerTemplate with template repeater>>
-* <<polymer-templates/tutorial-template-model-bean#,Using Beans with a PolymerTemplate Model>>
-* <<polymer-templates/tutorial-template-model-encoders#,Using Model Encoders with a PolymerTemplate Model>>
+== Building Views with Templates
+* <<templates/tutorial-template-intro#,Using Templates from Server-side Java Code>>
+* <<templates/tutorial-template-basic#,Creating A Simple Component Using the Template API>>
+* <<templates/tutorial-template-components#,Binding Template Components>>
+* <<templates/tutorial-template-and-binder#,Combining Templates and Binders>>
+* <<templates/tutorial-template-subtemplate#,Using sub-templates>>
+* <<templates/tutorial-template-components-in-slot#,Dynamically Adding Server-side Components to Templates>>
+* <<templates/styling-templates#,Styling Templates>>
+* <<templates/tutorial-component-integration#,Detecting Component Mappings>>
+* <<templates/tutorial-template-mapped-components-limitations#,Mapped Components Limitations>>
+* <<templates/tutorial-polymer-template-basic#,PolymerTemplate, Creating a Simple Component Using the Template API>>
+* <<templates/tutorial-polymer-template-and-binder#,PolymerTemplate, Combining Templates and Binders>>
+* <<templates/tutorial-polymer-template-components-in-slot#,PolymerTemplate, Dynamically Adding Server-side Components to Templates>>
+* <<templates/tutorial-styling-polymer-templates#,PolymerTemplate, Styling Templates>>
+* <<templates/tutorial-template-event-handlers#,PolymerTemplate, Handling User Events>>
+* <<templates/tutorial-template-bindings#,PolymerTemplate, Binding Model Data>>
+* <<templates/tutorial-template-model-bean#,PolymerTemplate, Using Model Beans>>
+* <<templates/tutorial-template-model-encoders#,PolymerTemplate, Using Model Encoders>>
+* <<templates/tutorial-template-list-bindings#,PolymerTemplate, Creating Contents Dynamically Based on Items List>>
+* <<templates/tutorial-template-parent-layout#,PolymerTemplate, Using Parent Layout>>
 
 == Creating UI in TypeScript
 * <<typescript/quick-start-guide#, Quick Start Guide>>
@@ -119,6 +129,7 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<typescript/client-exceptions#, Client Side Exceptions>>
 * <<typescript/configuring-security#, Configuring Security for TypeScript Views>>
 * <<typescript/adding-login-form-with-spring-security#, Adding a Login Form with Spring Security>>
+* <<typescript/adding-custom-login-form-with-spring-security#, Adding a Custom Login Form with Spring Security>>
 * <<typescript/check-user-login#, Checking Authentication>>
 * <<typescript/intro-to-typescript-in-v15#, Appendix: Intro to TypeScript in Vaadin 15>>
 * <<typescript/type-conversion#, Appendix: Type Conversion between Java and TypeScript>>
@@ -126,9 +137,19 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<typescript/typescript-endpoints-generator#, Appendix: TypeScript Endpoints Generator>>
 * <<typescript/typescript-client#, Appendix: TypeScript Client>>
 * <<typescript/client-middleware#, Appendix: Client Middleware>>
+* <<typescript/ts-handle-session-expiration#, Appendix: Handle session expiration>>
 * <<typescript/endpoint-methods-validation#, Appendix: Endpoint Methods Validation>>
 * <<typescript/typescript-endpoints-urls#, Appendix: Endpoint URLs>>
 
+== Client-Side Form Binding
+* <<client-side-forms/tutorial-binder#, Binding Data to Client-Side Forms>>
+* <<client-side-forms/tutorial-binder-load#, Loading From and Saving To Business Objects>>
+* <<client-side-forms/tutorial-binder-validation#, Validating User Input>>
+* <<client-side-forms/tutorial-form-status-tracking#, Reacting to Form State Changes>>
+* <<client-side-forms/tutorial-binding-arrays#, Binding Arrays>>
+* <<client-side-forms/appendix-client-side-form-binding-reference#, Appendix: Client-Side Form Binding Reference>>
+* <<client-side-forms/appendix-vaadin-components#, Appendix: Binding Data to Vaadin Components>>
+* <<client-side-forms/appendix-web-component-field-strategy#, Appendix: Using a Custom Web Component Field>>
 
 == Using Vaadin with Spring
 * <<spring/tutorial-spring-basic#,Use Vaadin with Spring>>
