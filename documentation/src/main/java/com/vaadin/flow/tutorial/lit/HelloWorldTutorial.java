@@ -22,7 +22,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-basic.asciidoc")
+@CodeFor("templates/tutorial-template-basic.asciidoc")
 public class HelloWorldTutorial {
 
     public void useTemplate() {
@@ -33,8 +33,8 @@ public class HelloWorldTutorial {
     }
 
     @Tag("hello-world")
-    @NpmPackage(value = "@polymer/paper-input", version = "3.0.2")
-    @JsModule("./src/hello-world.js")
+    @NpmPackage(value = "@axa-ch/input-text", version = "4.3.11")
+    @JsModule("./src/hello-world.ts")
     public class HelloWorld extends LitTemplate {
 
         /**

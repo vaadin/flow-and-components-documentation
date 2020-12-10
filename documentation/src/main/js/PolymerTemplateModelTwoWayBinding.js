@@ -1,4 +1,4 @@
-// tutorial::polymer-templates/tutorial-template-bindings.asciidoc
+// tutorial::templates/tutorial-template-bindings.asciidoc
 import {PolymerElement,html} from '@polymer/polymer/polymer-element.js';
 import '@polymer/paper-input/paper-input.js';
 import '@polymer/paper-radio-button/paper-radio-button.js';

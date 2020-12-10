@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 import com.vaadin.flow.templatemodel.ModelEncoder;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-model-encoders.asciidoc")
+@CodeFor("templates/tutorial-template-model-encoders.asciidoc")
 public class DateToDateBeanEncoder implements ModelEncoder<Date, DateBean> {
 
     @Override

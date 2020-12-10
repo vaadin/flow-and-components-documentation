@@ -25,7 +25,7 @@ import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-components.asciidoc")
+@CodeFor("templates/tutorial-template-components.asciidoc")
 public class PolymerComponents {
     @Tag("main-page")
     @JsModule("./com/example/main-page.js")

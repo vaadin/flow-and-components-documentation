@@ -6,7 +6,7 @@ import com.vaadin.flow.templatemodel.Exclude;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-model-bean.asciidoc")
+@CodeFor("templates/tutorial-template-model-bean.asciidoc")
 public class PolymerTemplateModelWithBean {
     public class Person {
         private String firstName, lastName;

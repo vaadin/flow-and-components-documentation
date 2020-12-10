@@ -25,7 +25,7 @@ import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-parent-layout.asciidoc")
+@CodeFor("templates/tutorial-template-parent-layout.asciidoc")
 public class ParentLayoutTutorial {
 
     @Tag("main-layout")

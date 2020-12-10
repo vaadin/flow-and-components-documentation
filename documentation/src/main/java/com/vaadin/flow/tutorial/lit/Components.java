@@ -25,11 +25,11 @@ import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-components.asciidoc")
+@CodeFor("templates/tutorial-template-components.asciidoc")
 public class Components {
 
     @Tag("main-page")
-    @JsModule("./com/example/main-page.js")
+    @JsModule("./com/example/main-page.ts")
     public class MainPage extends LitTemplate {
 
         @Id("content")

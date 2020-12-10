@@ -22,11 +22,11 @@ import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.dom.ElementFactory;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-components-in-slot.asciidoc")
+@CodeFor("templates/tutorial-template-components-in-slot.asciidoc")
 public class SlotView {
 
     @Tag("component-container")
-    @JsModule("./com/example/component-container.js")
+    @JsModule("./com/example/component-container.ts")
     public class ComponentContainer extends LitTemplate {
 
         public ComponentContainer() {
@@ -38,7 +38,7 @@ public class SlotView {
     }
 
     @Tag("name-element")
-    @JsModule("./com/example/name-element.js")
+    @JsModule("./com/example/name-element.ts")
     public class NameElement extends LitTemplate {
         public NameElement() {
             Element firstName = ElementFactory.createSpan("Jack");

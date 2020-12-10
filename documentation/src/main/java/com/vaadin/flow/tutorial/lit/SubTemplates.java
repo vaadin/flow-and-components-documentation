@@ -21,16 +21,16 @@ import com.vaadin.flow.component.littemplate.LitTemplate;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.tutorial.annotations.CodeFor;
 
-@CodeFor("polymer-templates/tutorial-template-subtemplate.asciidoc")
+@CodeFor("templates/tutorial-template-subtemplate.asciidoc")
 public class SubTemplates {
 
     @Tag("child-template")
-    @JsModule("./com/example/child-template.js")
+    @JsModule("./com/example/child-template.ts")
     public class ChildTemplate extends LitTemplate {
     }
 
     @Tag("parent-template")
-    @JsModule("./com/example/parent-template.js")
+    @JsModule("./com/example/parent-template.ts")
     public class ParentTemplate extends LitTemplate {
 
         @Id("childTemplate")
