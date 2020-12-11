@@ -197,7 +197,7 @@ The Vaadin documentation is arranged in the following sections and we recommend 
 * <<pwa/tutorial-pwa-icons#,Application Icons>>
 * <<pwa/tutorial-pwa-web-app-manifest#,Web App Manifest>>
 * <<pwa/tutorial-pwa-service-worker#,Service Worker>>
-* <<pwa/tutorial-pwa-offline#,Offline experience>>
+* <<pwa/tutorial-pwa-offline#,Offline Experience>>
 * <<pwa/tutorial-defer-endpoint-call#,Defer Endpoint Calls>>
 * <<pwa/tutorial-offline-form-submission#,Offline Form Submission>>
 * <<pwa/tutorial-handle-deferred-call-result#,Handle Deferred Call Result>>
