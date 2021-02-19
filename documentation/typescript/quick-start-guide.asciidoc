@@ -11,10 +11,10 @@ ifdef::env-github[:outfilesuffix: .asciidoc]
 We recommend the following steps to create a new Vaadin application with a UI written in TypeScript.
 
 [NOTE]
-Support for TypeScript was added in Vaadin 15.
-See the link:https://vaadin.com/releases/vaadin-15/[Vaadin 15 release page^] to learn more about this version.
+Support for TypeScript requires Vaadin 15 or later.
+See the link:https://vaadin.com/releases/[Vaadin release page^] to learn more about the latest version.
 
-* use link:https://start.vaadin.com/[start.vaadin.com^] to create a new project (<<quick-start-guide#step-1,step 1>>)
+* use link:https://start.vaadin.com/?preset=fusion[start.vaadin.com^] to create a new project (<<quick-start-guide#step-1,step 1>>)
 * download a project archive and start the app in Dev mode (<<quick-start-guide#step-2,step 2>>)
 * add a new TypeScript view to the app (<<quick-start-guide#step-3,step 3>>)
 * access the backend from the new TypeScript view (<<quick-start-guide#step-4,step 4>>)
@@ -22,7 +22,7 @@ See the link:https://vaadin.com/releases/vaadin-15/[Vaadin 15 release page^] to 
 _If you are migrating an existing Vaadin 14 application, please check the <<../v15-migration/upgrading-from-vaadin14#,Upgrading from Vaadin 14>> page._
 
 
-== Step 1 - Create a new project at link:https://start.vaadin.com/[start.vaadin.com^] [[step-1]]
+== Step 1 - Create a new project at link:https://start.vaadin.com/?preset=fusion[start.vaadin.com^] [[step-1]]
 
 image:starterwizard.gif[New Project Video]
 
@@ -45,7 +45,7 @@ If you'd rather run the spring project from the IDE, first run the maven goal `m
 
 == Step 3 - Add a new client-side view and set a route path for it [[step-3]]
 
-First add a new route for the new view:
+First add a new route for URL link:http://localhost:8080/help[]. View content will be defined later in component 'app-help':
 
 .frontend/index.ts
 [source, typescript]
@@ -62,7 +62,8 @@ router.setRoutes([
 ]);
 ----
 
-Second create a new client-side view:
+Next using TypeScript create 'app-help' view component presenting a link:https://vaadin.com/components/vaadin-button[vaadin-button^]. 
+onClick method is registered as click listener for the button and it just shows a message in browser inspector console:
 
 .frontend/views/help/app-help.ts
 [source, typescript]
